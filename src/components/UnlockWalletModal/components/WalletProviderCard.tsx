@@ -21,10 +21,11 @@ const WalletProviderCard: React.FC<WalletProviderCardProps> = ({
   <Card>
     <CardIcon>{icon}</CardIcon>
     <CardContent>
-      {name}
+      <StyledName>{name}</StyledName>
     </CardContent>
     <CardActions>
       <Button
+        full
         onClick={onSelect}
         text="Select"
         variant="secondary"
@@ -32,5 +33,11 @@ const WalletProviderCard: React.FC<WalletProviderCardProps> = ({
     </CardActions>
   </Card>
 )
+
+const StyledName = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+`
 
 export default WalletProviderCard
