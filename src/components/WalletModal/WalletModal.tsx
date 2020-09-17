@@ -7,16 +7,12 @@ import {
   Modal,
   ModalActions,
   ModalContent,
+  ModalProps,
   ModalTitle,
-  Separator,
   Spacer
 } from 'react-neu'
 
-interface AccountModalProps {
-  isOpen?: boolean
-}
-
-const AccountModal: React.FC<AccountModalProps> = ({ isOpen }) => {
+const WalletModal: React.FC<ModalProps> = ({ isOpen }) => {
 
   const { account, reset } = useWallet()
 
@@ -66,4 +62,4 @@ const StyledBalanceWrapper = styled.div`
   margin-bottom: ${props => props.theme.spacing[4]}px;
 `
 
-export default AccountModal
+export default WalletModal

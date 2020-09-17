@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import Logo from 'components/Logo'
 
-import AccountButton from './components/AccountButton'
+import WalletButton from './components/WalletButton'
 import Nav from './components/Nav'
 
 interface TopBarProps {
@@ -22,7 +22,7 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
           </StyledLogoWrapper>
           <Nav />
           <StyledAccountButtonWrapper>
-            <AccountButton />
+            <WalletButton />
           </StyledAccountButtonWrapper>
         </StyledTopBarInner>
       </Container>
