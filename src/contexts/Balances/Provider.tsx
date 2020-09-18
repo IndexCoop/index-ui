@@ -25,7 +25,6 @@ const Provider: React.FC = ({ children }) => {
       await getBalance(provider, yamV3Address, userAddress),
       await getBalance(provider, yyrcvUniLpAddress, userAddress)
     ])
-    console.log(balances)
     setYamV2Balance(new BigNumber(balances[0]).dividedBy(new BigNumber(10).pow(24)))
     setYamV3Balance(new BigNumber(balances[0]).dividedBy(new BigNumber(10).pow(18)))
     setYycrvUniLpBalance(new BigNumber(balances[1]).dividedBy(new BigNumber(10).pow(18)))
@@ -38,6 +37,18 @@ const Provider: React.FC = ({ children }) => {
   useEffect(() => {
     if (account && ethereum) {
       fetchBalances(account, ethereum)
+    }
+  }, [
+    account,
+    ethereum,
+    fetchBalances,
+  ])
+
+  useEffect(() => {
+    if (account && ethereum) {
+      fetchBalances(account, ethereum)
+      let refreshInterval = setInterval(fetchBalances, 10000)
+      return () => clearInterval(refreshInterval)
     }
   }, [
     account,
