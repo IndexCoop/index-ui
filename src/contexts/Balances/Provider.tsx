@@ -15,9 +15,9 @@ const Provider: React.FC = ({ children }) => {
 
   const fetchBalances = useCallback(async (userAddress: string, provider: provider) => {
     const balances = await Promise.all([
-      async () => await getBalance(provider, yamV2Address, userAddress),
+      await getBalance(provider, yamV2Address, userAddress),
     ])
-    console.log(balances)
+    setYamV2Balance(new BigNumber(balances[0]))
   }, [
     setYamV2Balance,
     setYamV3Balance

@@ -9,7 +9,7 @@
     "bignumber.js": "^9.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-neu": "^1.0.4",
+    "react-neu": "^1.0.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "styled-components": "^5.2.0",

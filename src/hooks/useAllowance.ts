@@ -7,7 +7,7 @@ import { provider } from 'web3-core'
 import { getAllowance } from 'utils'
 
 const useAllowance = (tokenAddress: string, spenderAddress: string) => {
-  const [allowance, setAllowance] = useState(new BigNumber(0))
+  const [allowance, setAllowance] = useState<BigNumber>()
   const { account, ethereum }: { account: string | null, ethereum?: provider} = useWallet()
 
   const fetchAllowance = useCallback(async (userAddress: string, provider: provider) => {

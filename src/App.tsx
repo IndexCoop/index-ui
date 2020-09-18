@@ -53,13 +53,13 @@ const Providers: React.FC = ({ children }) => {
           walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
         }}
       >
-        <FarmingProvider>
-          <MigrationProvider>
-            <BalancesProvider>
+        <BalancesProvider>
+          <FarmingProvider>
+            <MigrationProvider>
               {children}
-            </BalancesProvider>
-          </MigrationProvider>
-        </FarmingProvider>
+            </MigrationProvider>
+          </FarmingProvider>
+        </BalancesProvider>
       </UseWalletProvider>
     </ThemeProvider>
   )
