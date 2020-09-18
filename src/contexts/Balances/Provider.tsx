@@ -26,8 +26,8 @@ const Provider: React.FC = ({ children }) => {
       await getBalance(provider, yyrcvUniLpAddress, userAddress)
     ])
     setYamV2Balance(new BigNumber(balances[0]).dividedBy(new BigNumber(10).pow(24)))
-    setYamV3Balance(new BigNumber(balances[0]).dividedBy(new BigNumber(10).pow(18)))
-    setYycrvUniLpBalance(new BigNumber(balances[1]).dividedBy(new BigNumber(10).pow(18)))
+    setYamV3Balance(new BigNumber(balances[1]).dividedBy(new BigNumber(10).pow(18)))
+    setYycrvUniLpBalance(new BigNumber(balances[2]).dividedBy(new BigNumber(10).pow(18)))
   }, [
     setYamV2Balance,
     setYamV3Balance,
