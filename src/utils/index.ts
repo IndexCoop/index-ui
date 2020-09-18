@@ -9,7 +9,7 @@ const sleep = (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-const waitTransaction = async (provider: provider, txHash: string) => {
+export const waitTransaction = async (provider: provider, txHash: string) => {
   const web3 = new Web3(provider)
   let txReceipt: TransactionReceipt | null = null
   while (txReceipt === null) {

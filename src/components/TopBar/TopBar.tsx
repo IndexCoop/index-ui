@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 
 import { Container } from 'react-neu'
 import styled from 'styled-components'
+import { Connectors, useWallet } from 'use-wallet'
 
 import Logo from 'components/Logo'
+import useLocalStorage from 'hooks/useLocalStorage'
 
 import WalletButton from './components/WalletButton'
 import Nav from './components/Nav'
@@ -13,6 +15,27 @@ interface TopBarProps {
 }
 
 const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
+
+  const [walletProvider, setWalletProvider] = useLocalStorage<keyof Connectors | ''>('provider', '')
+  const { connect, connector, status } = useWallet()
+
+  useEffect(() => {
+    if (walletProvider) {
+      connect(walletProvider)
+    }
+  }, [connect])
+
+  useEffect(() => {
+    switch (status) {
+      case 'connected':
+        setWalletProvider(connector)
+        break
+      case 'error':
+        setWalletProvider('')
+        break
+    }
+  }, [connector, setWalletProvider])
+
   return (
     <StyledTopBar>
       <Container size="lg">

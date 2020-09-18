@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { BigNumberish } from 'ethers/utils';
+
 
 export default function useLocalStorage<T>(key: string, initialValue: T) {
   // State to store our value
@@ -33,5 +35,5 @@ export default function useLocalStorage<T>(key: string, initialValue: T) {
     }
   };
 
-  return [storedValue, setValue];
+  return [storedValue, setValue]
 }
