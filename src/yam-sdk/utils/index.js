@@ -238,6 +238,38 @@ export const currVested = async (yam, account) => {
   return vested;
 }
 
+export const currUnclaimedDelegatorRewards = async (yam, account) => {
+  let BASE = new BigNumber(10).pow(24);
+
+  let start = new BigNumber(1600444800);
+  let duration = new BigNumber(90 * 86400);
+  let now = new BigNumber(new Date().getTime() / 1000);
+  let percDone = now.sub(start).div(duration);
+  if (percDone.gt(1)) {
+    percDone = new BigNumber(1)
+  }
+  let totalVesting = new BigNumber(await yam.contracts.migrator.methods.delegator_vesting(account).call());
+  let claimed = new BigNumber(await yam.contracts.migrator.methods.delegator_claimed(account).call());
+  let unclaimed = ((totalVesting.mul(percDone)).sub(claimed)).div(BASE);
+  return unclaimed;
+}
+
+export const currUnclaimedMigratorVesting = async (yam, account) => {
+  let BASE = new BigNumber(10).pow(24);
+
+  let start = new BigNumber(1600444800);
+  let duration = new BigNumber(30 * 86400);
+  let now = new BigNumber(new Date().getTime() / 1000);
+  let percDone = now.sub(start).div(duration);
+  if (percDone.gt(1)) {
+    percDone = new BigNumber(1)
+  }
+  let totalVesting = new BigNumber(await yam.contracts.migrator.methods.vesting(account).call());
+  let claimed = new BigNumber(await yam.contracts.migrator.methods.claimed(account).call());
+  let unclaimed = ((totalVesting.mul(percDone)).sub(claimed)).div(BASE);
+  return unclaimed;
+}
+
 export const delegatorRewards = async (yam, account) => {
   let BASE = new BigNumber(10).pow(24);
 
