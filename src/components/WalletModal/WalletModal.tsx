@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback } from 'react'
 
 import BigNumber from 'bignumber.js'
 import styled from 'styled-components'
