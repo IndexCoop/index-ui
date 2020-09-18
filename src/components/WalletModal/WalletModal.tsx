@@ -13,24 +13,31 @@ import {
   ModalContent,
   ModalProps,
   ModalTitle,
-  Separator
+  Separator,
+  Spacer
 } from 'react-neu'
 
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 
 import useBalances from 'hooks/useBalances'
+import useVesting from 'hooks/useVesting'
 
 const WalletModal: React.FC<ModalProps> = ({
   isOpen,
   onDismiss,
 }) => {
 
-  const { account, reset } = useWallet()
+  const { reset } = useWallet()
   const {
     yamV2Balance,
     yamV3Balance
   } = useBalances()
+
+  const {
+    vestedDelegatorRewardBalance,
+    vestedMigratedBalance,
+  } = useVesting()
 
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
@@ -49,14 +56,14 @@ const WalletModal: React.FC<ModalProps> = ({
       <ModalTitle text="My Wallet" />
       <ModalContent>
         <Split>
-          <Box row justifyContent="center">
+          <Box row>
             <FancyValue
               icon="🍠"
               label="YAM balance"
               value={getDisplayBalance(yamV2Balance)}
             />
           </Box>
-          <Box row justifyContent="center">
+          <Box row>
             <FancyValue
               icon={<span role="img" style={{ opacity: 0.5 }} >🍠</span>}
               label="YAMV2 balance"
@@ -64,6 +71,26 @@ const WalletModal: React.FC<ModalProps> = ({
             />
           </Box>
         </Split>
+        <Spacer />
+        <Separator />
+        <Spacer />
+        <Split>
+          <Box row>
+            <FancyValue
+              icon="🎁"
+              label="Vested YAM (Delegator)"
+              value={getDisplayBalance(vestedDelegatorRewardBalance)}
+            />
+          </Box>
+          <Box row>
+            <FancyValue
+              icon="🦋"
+              label="Vested YAM (Migrated)"
+              value={getDisplayBalance(vestedMigratedBalance)}
+            />
+          </Box>
+        </Split>
+        <Spacer />
       </ModalContent>
       <Separator />
       <ModalActions>
@@ -80,19 +107,5 @@ const WalletModal: React.FC<ModalProps> = ({
     </Modal>
   )
 }
-
-const StyledBalance = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-`
-
-const StyledBalanceWrapper = styled.div`
-  align-items: center;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  margin-bottom: ${props => props.theme.spacing[4]}px;
-`
 
 export default WalletModal

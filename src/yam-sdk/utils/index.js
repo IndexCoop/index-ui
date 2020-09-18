@@ -127,7 +127,7 @@ export const getCirculatingSupply = async (yam) => {
   let starttimePool2 = yam.toBigN(await yam.contracts.ycrv_pool.methods.starttime().call()).toNumber();
   timePassed = now["timestamp"] - starttime;
   let pool2Yams = yam.toBigN(timePassed * 1500000 / 625000); // yams from second pool. note: just accounts for first week
-  let circulating = pool2Yams.plus(yamsDistributed).times(scalingFactor).div(10**36).toFixed(2)
+  let circulating = pool2Yams.plus(yamsDistributed).times(scalingFactor).dividedBy(10**36).toFixed(2)
   return circulating
 }
 
@@ -196,7 +196,7 @@ export const didDelegate = async (yam, account) => {
 }
 
 export const getVotes = async (yam) => {
-  const votesRaw = new BigNumber(await yam.contracts.yam.methods.getCurrentVotes("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").call()).div(10**24)
+  const votesRaw = new BigNumber(await yam.contracts.yam.methods.getCurrentVotes("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").call()).dividedBy(10**24)
   return votesRaw
 }
 
@@ -205,7 +205,7 @@ export const getScalingFactor = async (yam) => {
 }
 
 export const getDelegatedBalance = async (yam, account) => {
-  return new BigNumber(await yam.contracts.yam.methods.balanceOfUnderlying(account).call()).div(10**24)
+  return new BigNumber(await yam.contracts.yam.methods.balanceOfUnderlying(account).call()).dividedBy(10**24)
 }
 
 export const migrate = async (yam, account) => {
@@ -234,7 +234,7 @@ export const migrationStarted = async (yam) => {
 export const currVested = async (yam, account) => {
   let BASE = new BigNumber(10).pow(24);
 
-  let vested = new BigNumber(await yam.contracts.migrator.methods.vested(account).call()).div(BASE);
+  let vested = new BigNumber(await yam.contracts.migrator.methods.vested(account).call()).dividedBy(BASE);
   return vested;
 }
 
@@ -244,13 +244,13 @@ export const currUnclaimedDelegatorRewards = async (yam, account) => {
   let start = new BigNumber(1600444800);
   let duration = new BigNumber(90 * 86400);
   let now = new BigNumber(new Date().getTime() / 1000);
-  let percDone = now.sub(start).div(duration);
+  let percDone = now.minus(start).dividedBy(duration);
   if (percDone.gt(1)) {
     percDone = new BigNumber(1)
   }
   let totalVesting = new BigNumber(await yam.contracts.migrator.methods.delegator_vesting(account).call());
   let claimed = new BigNumber(await yam.contracts.migrator.methods.delegator_claimed(account).call());
-  let unclaimed = ((totalVesting.mul(percDone)).sub(claimed)).div(BASE);
+  let unclaimed = ((totalVesting.multipliedBy(percDone)).minus(claimed)).dividedBy(BASE);
   return unclaimed;
 }
 
@@ -260,20 +260,20 @@ export const currUnclaimedMigratorVesting = async (yam, account) => {
   let start = new BigNumber(1600444800);
   let duration = new BigNumber(30 * 86400);
   let now = new BigNumber(new Date().getTime() / 1000);
-  let percDone = now.sub(start).div(duration);
+  let percDone = now.minus(start).dividedBy(duration);
   if (percDone.gt(1)) {
     percDone = new BigNumber(1)
   }
   let totalVesting = new BigNumber(await yam.contracts.migrator.methods.vesting(account).call());
   let claimed = new BigNumber(await yam.contracts.migrator.methods.claimed(account).call());
-  let unclaimed = ((totalVesting.mul(percDone)).sub(claimed)).div(BASE);
+  let unclaimed = ((totalVesting.multipliedBy(percDone)).minus(claimed)).dividedBy(BASE);
   return unclaimed;
 }
 
 export const delegatorRewards = async (yam, account) => {
   let BASE = new BigNumber(10).pow(24);
 
-  let rewards = new BigNumber(await yam.contracts.migrator.methods.delegator_vesting(account).call()).div(BASE);
+  let rewards = new BigNumber(await yam.contracts.migrator.methods.delegator_vesting(account).call()).dividedBy(BASE);
   return rewards;
 }
 
