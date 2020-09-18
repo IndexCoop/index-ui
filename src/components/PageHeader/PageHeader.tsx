@@ -27,7 +27,6 @@ const StyledPageHeader = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: ${props => props.theme.spacing[6]}px;
-  padding-top: ${props => props.theme.spacing[6]}px;
   margin: 0 auto;
 `
 

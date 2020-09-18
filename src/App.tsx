@@ -12,6 +12,7 @@ import TopBar from 'components/TopBar'
 import { BalancesProvider } from 'contexts/Balances'
 import { FarmingProvider } from 'contexts/Farming'
 import { MigrationProvider } from 'contexts/Migration'
+import { VestingProvider } from 'contexts/Vesting'
 import YamProvider from 'contexts/YamProvider'
 
 import Farm from 'views/Farm'
@@ -58,7 +59,9 @@ const Providers: React.FC = ({ children }) => {
           <BalancesProvider>
             <FarmingProvider>
               <MigrationProvider>
-                {children}
+                <VestingProvider>
+                  {children}
+                </VestingProvider>
               </MigrationProvider>
             </FarmingProvider>
           </BalancesProvider>

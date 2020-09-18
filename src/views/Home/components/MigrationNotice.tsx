@@ -10,7 +10,7 @@ import {
 const MigrationNotice: React.FC = () => {
   return (
     <Notice>
-      <NoticeIcon>🍠</NoticeIcon>
+      <NoticeIcon>🦋</NoticeIcon>
       <NoticeContent>
         <Box
           alignItems="center"

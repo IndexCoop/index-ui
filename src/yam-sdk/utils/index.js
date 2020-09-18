@@ -264,7 +264,7 @@ export const migrateV3 = async (yam, account, onTxHash) => {
       })
 }
 
-export const claimVested = async (yam, account) => {
+export const claimVested = async (yam, account, onTxHash) => {
   return await yam.contracts.migrator.methods.claimVested().send({from: account, gas: 140000});
 }
 
