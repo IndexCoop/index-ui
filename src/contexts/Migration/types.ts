@@ -1,5 +1,7 @@
 export interface ContextValues {
   isApproved?: boolean,
   isApproving?: boolean,
-  onApprove: () => void
+  isMigrating?: boolean,
+  onApprove: () => void,
+  onMigrate: () => void,
 }

@@ -7,7 +7,7 @@ import { approve } from 'utils'
 
 import useAllowance from './useAllowance'
 
-const useApproval = (tokenAddress: string, spenderAddress: string) => {
+const useApproval = (tokenAddress?: string, spenderAddress?: string) => {
   const allowance = useAllowance(tokenAddress, spenderAddress)
   const [isApproving, setIsApproving] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
@@ -15,7 +15,7 @@ const useApproval = (tokenAddress: string, spenderAddress: string) => {
   const { account, ethereum }: { account: string | null, ethereum?: provider} = useWallet()
 
   const handleApprove = useCallback(async () => {
-    if (!ethereum || !account) {
+    if (!ethereum || !account || !spenderAddress || !tokenAddress) {
       return
     }
     try {

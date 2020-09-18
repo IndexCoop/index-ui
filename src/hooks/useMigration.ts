@@ -3,16 +3,7 @@ import { useContext } from 'react'
 import { MigrationContext } from 'contexts/Migration'
 
 const useMigration = () => {
-  const {
-    isApproved,
-    isApproving,
-    onApprove
-  } = useContext(MigrationContext)
-  return {
-    isApproved,
-    isApproving,
-    onApprove,
-  }
+  return { ...useContext(MigrationContext) }
 }
 
 export default useMigration

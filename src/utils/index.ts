@@ -24,7 +24,8 @@ export const approve = async (
   userAddress: string,
   spenderAddress: string,
   tokenAddress: string,
-  provider: provider
+  provider: provider,
+  onTxHash?: (txHash: string) => void
 ): Promise<boolean> => {
   try {
     const tokenContract = getERC20Contract(provider, tokenAddress)
@@ -34,6 +35,9 @@ export const approve = async (
         if (error) {
             console.log("ERC20 could not be approved", error)
             return false
+        }
+        if (onTxHash) {
+          onTxHash(txHash)
         }
         const status = await waitTransaction(provider, txHash)
         if (!status) {

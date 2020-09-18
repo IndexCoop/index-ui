@@ -1,5 +1,5 @@
 import {ethers} from 'ethers'
-
+import Web3 from 'web3'
 import BigNumber from 'bignumber.js'
 
 BigNumber.config({
@@ -245,10 +245,40 @@ export const delegatorRewards = async (yam, account) => {
   return rewards;
 }
 
-export const migrateV3 = async (yam, account) => {
-    return await yam.contracts.migrator.methods.migrate().send({from: account, gas: 140000});
+export const migrateV3 = async (yam, account, onTxHash) => {
+    return await yam.contracts.migrator.methods.migrate()
+      .send({from: account, gas: 140000}, async (error, txHash) => {
+        if (error) {
+            console.log("Migration error", error)
+            return false
+        }
+        if (onTxHash) {
+          onTxHash(txHash)
+        }
+        const status = await waitTransaction(yam.web3.eth, txHash)
+        if (!status) {
+          console.log("Migration transaction failed.")
+          return false
+        }
+        return true
+      })
 }
 
 export const claimVested = async (yam, account) => {
   return await yam.contracts.migrator.methods.claimVested().send({from: account, gas: 140000});
+}
+
+const sleep = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+export const waitTransaction = async (provider, txHash) => {
+  const web3 = new Web3(provider)
+  let txReceipt = null
+  while (txReceipt === null) {
+    const r = await web3.eth.getTransactionReceipt(txHash)
+    txReceipt = r
+    await sleep(2000)
+  }
+  return (txReceipt.status)
 }
