@@ -16,6 +16,7 @@ import { VestingProvider } from 'contexts/Vesting'
 import YamProvider from 'contexts/YamProvider'
 
 import Farm from 'views/Farm'
+import FAQ from 'views/FAQ'
 import Home from 'views/Home'
 import Migrate from 'views/Migrate'
 
@@ -30,6 +31,9 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/farm">
             <Farm />
+          </Route>
+          <Route exact path="/faq">
+            <FAQ />
           </Route>
           <Route exact path="/migrate">
             <Migrate />

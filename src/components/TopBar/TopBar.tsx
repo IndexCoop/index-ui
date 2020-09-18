@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-import { Container } from 'react-neu'
+import { Button, Container, Spacer } from 'react-neu'
 import styled from 'styled-components'
 import { Connectors, useWallet } from 'use-wallet'
 
@@ -58,8 +58,18 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
           <StyledLogoWrapper>
             <Logo />
           </StyledLogoWrapper>
-          <Nav />
+          <StyledNavWrapper>
+            <Nav />
+          </StyledNavWrapper>
           <StyledAccountButtonWrapper>
+            <Button
+              round
+              size="sm"
+              text="📖"
+              to="/faq"
+              variant="secondary"
+            />
+            <Spacer />
             <WalletButton />
           </StyledAccountButtonWrapper>
         </StyledTopBarInner>

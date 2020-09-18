@@ -13,7 +13,11 @@ const VestingNotice: React.FC = () => (
     <NoticeContent>
       <span>Migrated tokens are subject to a vesting schedule before they are claimable.</span>
       <Spacer />
-      <Button text="Learn more" variant="secondary" />
+      <Button
+        text="Learn more"
+        to="/faq"
+        variant="secondary"
+      />
     </NoticeContent>
   </Notice>
 )
