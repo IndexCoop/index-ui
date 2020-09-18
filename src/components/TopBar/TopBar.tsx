@@ -17,8 +17,10 @@ interface TopBarProps {
 const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
 
   const [walletProvider, setWalletProvider] = useLocalStorage<keyof Connectors | ''>('provider', '')
-  const { connect, connector, status } = useWallet()
+  const { account, connect, connector, status } = useWallet()
   const prevStatusRef = useRef('')
+
+  console.log(account)
 
   useEffect(() => {
     if (walletProvider) {

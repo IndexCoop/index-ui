@@ -2,13 +2,17 @@ import React, { useMemo } from 'react'
 
 import numeral from 'numeral'
 import {
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  CardIcon
 } from 'react-neu'
 
-import FancyValue from 'components/FancyValue'
+import Label from 'components/Label'
+import Value from 'components/Value'
+
 import useVesting from 'hooks/useVesting'
 
 const ClaimCard: React.FC = () => {
@@ -58,12 +62,12 @@ const ClaimCard: React.FC = () => {
 
   return (
     <Card>
+      <CardIcon>🎁</CardIcon>
       <CardContent>
-        <FancyValue
-          icon="🎁"
-          label="Vested YAMs"
-          value={vestingBalanceDisplayValue}
-        />
+        <Box alignItems="center" column>
+          <Value value={vestingBalanceDisplayValue} />
+          <Label text="Vested YAMs" />
+        </Box>
       </CardContent>
       <CardActions>
         {ClaimButton}

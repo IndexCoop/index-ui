@@ -2,13 +2,16 @@ import React, { useMemo } from 'react'
 
 import numeral from 'numeral'
 import {
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  CardIcon,
 } from 'react-neu'
 
-import FancyValue from 'components/FancyValue'
+import Label from 'components/Label'
+import Value from 'components/Value'
 
 import useBalances from 'hooks/useBalances'
 import useMigration from 'hooks/useMigration'
@@ -74,12 +77,12 @@ const MigrateCard: React.FC = () => {
 
   return (
     <Card>
+      <CardIcon>🍠</CardIcon>
       <CardContent>
-        <FancyValue
-          icon="🍠"
-          label="YAMV2 balance"
-          value={yamV2DisplayBalance}
-        />
+        <Box alignItems="center" column>
+          <Value value={yamV2DisplayBalance} />
+          <Label text="YAMV2 balance" />
+        </Box>
       </CardContent>
       <CardActions>
         {ActionButton}
