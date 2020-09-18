@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 
+import numeral from 'numeral'
 import {
+  Box,
   Button,
   Modal,
   ModalActions,
@@ -12,12 +14,24 @@ import {
   Spacer
 } from 'react-neu'
 
+import FancyValue from 'components/FancyValue'
+import useBalances from 'hooks/useBalances'
+
 const WalletModal: React.FC<ModalProps> = ({
   isOpen,
   onDismiss,
 }) => {
 
   const { account, reset } = useWallet()
+  const { yamV3Balance } = useBalances()
+
+  const yamV3DisplayBalance = useMemo(() => {
+    if (yamV3Balance) {
+      return numeral(yamV3Balance).format('0.00a')
+    } else {
+      return '--'
+    }
+  }, [yamV3Balance])
 
   const handleSignOut = useCallback(() => {
     reset()
@@ -25,26 +39,19 @@ const WalletModal: React.FC<ModalProps> = ({
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text="My Account" />
+      <ModalTitle text="My Wallet" />
       <ModalContent>
-        <Spacer />
-
-        <div style={{ display: 'flex' }}>
-          <StyledBalanceWrapper>
-            <StyledBalance>
-            </StyledBalance>
-          </StyledBalanceWrapper>
-        </div>
-
+        <Box alignItems="center" column>
+          <FancyValue
+            icon="🍠"
+            label="YAM balance"
+            value={yamV3DisplayBalance}
+          />
+        </Box>
         <Spacer />
         <Button
           href={`https://etherscan.io/address/${account}`}
           text="View on Etherscan"
-          variant="secondary"
-        />
-        <Spacer />
-        <Button
-          text="Sign out"
           variant="secondary"
         />
       </ModalContent>

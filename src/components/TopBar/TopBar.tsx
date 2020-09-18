@@ -16,12 +16,11 @@ interface TopBarProps {
 
 const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
 
-  const [walletProvider, setWalletProvider] = useLocalStorage<keyof Connectors | ''>('provider', '')
+  // const [walletProvider, setWalletProvider] = useLocalStorage<keyof Connectors | ''>('provider', '')
   const { account, connect, connector, status } = useWallet()
   const prevStatusRef = useRef('')
-
-  console.log(account)
-
+  
+  /*
   useEffect(() => {
     if (walletProvider) {
       connect(walletProvider)
@@ -34,6 +33,7 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
         setWalletProvider(connector)
         break
       case 'error':
+        console.log('here')
         setWalletProvider('')
         break
       case 'disconnected':
@@ -47,11 +47,12 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
     connector,
     setWalletProvider,
     status
-])
+  ])
 
   useEffect(() => {
     prevStatusRef.current = status
   })
+  */
 
   return (
     <StyledTopBar>

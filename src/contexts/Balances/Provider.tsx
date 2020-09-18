@@ -5,6 +5,7 @@ import { provider } from 'web3-core'
 
 import {
   yamv2 as yamV2Address,
+  yamv3 as yamV3Address,
   yycrvUniLp as yyrcvUniLpAddress,
 } from 'constants/tokenAddresses'
 import { getBalance } from 'utils'
@@ -21,9 +22,11 @@ const Provider: React.FC = ({ children }) => {
   const fetchBalances = useCallback(async (userAddress: string, provider: provider) => {
     const balances = await Promise.all([
       await getBalance(provider, yamV2Address, userAddress),
+      await getBalance(provider, yamV3Address, userAddress),
       await getBalance(provider, yyrcvUniLpAddress, userAddress)
     ])
     setYamV2Balance(new BigNumber(balances[0]).dividedBy(new BigNumber(10).pow(24)))
+    setYamV3Balance(new BigNumber(balances[0]).dividedBy(new BigNumber(10).pow(18)))
     setYycrvUniLpBalance(new BigNumber(balances[1]).dividedBy(new BigNumber(10).pow(18)))
   }, [
     setYamV2Balance,
