@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
 import Web3 from 'web3'
 import { provider, TransactionReceipt } from 'web3-core'
@@ -80,4 +81,12 @@ export const getERC20Contract = (provider: provider, address: string) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(ERC20ABI.abi as unknown as AbiItem, address)
   return contract
+}
+
+export const bnToDec = (bn: BigNumber, decimals = 18) => {
+  return bn.dividedBy(new BigNumber(10).pow(decimals)).toNumber()
+}
+
+export const decToBn = (dec: number, decimals = 18) => {
+  return new BigNumber(dec).multipliedBy(new BigNumber(10).pow(decimals))
 }
