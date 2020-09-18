@@ -45,8 +45,8 @@ const WalletButton: React.FC<WalletButtonProps> = (props) => {
           <Button
             onClick={handleWalletClick}
             size="sm"
-            text="My Wallet"
-            variant="secondary"
+            text="View Balances"
+            variant="tertiary"
           />
         )}
       </StyledWalletButton>

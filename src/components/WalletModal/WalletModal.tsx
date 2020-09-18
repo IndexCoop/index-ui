@@ -1,4 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
+
+import BigNumber from 'bignumber.js'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 
@@ -11,10 +13,12 @@ import {
   ModalContent,
   ModalProps,
   ModalTitle,
-  Spacer
+  Separator
 } from 'react-neu'
 
 import FancyValue from 'components/FancyValue'
+import Split from 'components/Split'
+
 import useBalances from 'hooks/useBalances'
 
 const WalletModal: React.FC<ModalProps> = ({
@@ -23,15 +27,18 @@ const WalletModal: React.FC<ModalProps> = ({
 }) => {
 
   const { account, reset } = useWallet()
-  const { yamV3Balance } = useBalances()
+  const {
+    yamV2Balance,
+    yamV3Balance
+  } = useBalances()
 
-  const yamV3DisplayBalance = useMemo(() => {
-    if (yamV3Balance) {
-      return numeral(yamV3Balance).format('0.00a')
+  const getDisplayBalance = useCallback((value?: BigNumber) => {
+    if (value) {
+      return numeral(value).format('0.00a')
     } else {
       return '--'
     }
-  }, [yamV3Balance])
+  }, [])
 
   const handleSignOut = useCallback(() => {
     reset()
@@ -41,20 +48,24 @@ const WalletModal: React.FC<ModalProps> = ({
     <Modal isOpen={isOpen}>
       <ModalTitle text="My Wallet" />
       <ModalContent>
-        <Box alignItems="center" column>
-          <FancyValue
-            icon="🍠"
-            label="YAM balance"
-            value={yamV3DisplayBalance}
-          />
-        </Box>
-        <Spacer />
-        <Button
-          href={`https://etherscan.io/address/${account}`}
-          text="View on Etherscan"
-          variant="secondary"
-        />
+        <Split>
+          <Box row justifyContent="center">
+            <FancyValue
+              icon="🍠"
+              label="YAM balance"
+              value={getDisplayBalance(yamV2Balance)}
+            />
+          </Box>
+          <Box row justifyContent="center">
+            <FancyValue
+              icon={<span role="img" style={{ opacity: 0.5 }} >🍠</span>}
+              label="YAMV2 balance"
+              value={getDisplayBalance(yamV3Balance)}
+            />
+          </Box>
+        </Split>
       </ModalContent>
+      <Separator />
       <ModalActions>
         <Button
           onClick={onDismiss}
