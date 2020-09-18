@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { Connectors, useWallet } from 'use-wallet'
 
 import Logo from 'components/Logo'
+import MenuIcon from 'components/icons/Menu'
 import useLocalStorage from 'hooks/useLocalStorage'
 
 import WalletButton from './components/WalletButton'
@@ -65,16 +66,11 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
             <Nav />
           </StyledNavWrapper>
           <StyledAccountButtonWrapper>
-            <Button
-              round
-              size="sm"
-              text="📖"
-              to="/faq"
-              variant="secondary"
-            />
-            <Spacer />
             <WalletButton />
           </StyledAccountButtonWrapper>
+          <StyledMenuButton onClick={onPresentMobileMenu}>
+            <MenuIcon />
+          </StyledMenuButton>
         </StyledTopBarInner>
       </Container>
     </StyledTopBar>
@@ -102,7 +98,7 @@ const StyledNavWrapper = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `

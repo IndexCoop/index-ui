@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { createTheme, ThemeProvider } from 'react-neu'
 import {
   BrowserRouter as Router,
@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 import { UseWalletProvider } from 'use-wallet'
 
+import MobileMenu from 'components/MobileMenu'
 import TopBar from 'components/TopBar'
 
 import { BalancesProvider } from 'contexts/Balances'
@@ -21,10 +22,20 @@ import Home from 'views/Home'
 import Migrate from 'views/Migrate'
 
 const App: React.FC = () => {
+  const [mobileMenu, setMobileMenu] = useState(false)
+
+  const handleDismissMobileMenu = useCallback(() => {
+    setMobileMenu(false)
+  }, [setMobileMenu])
+  
+  const handlePresentMobileMenu = useCallback(() => {
+    setMobileMenu(true)
+  }, [setMobileMenu])
   return (
     <Router>
       <Providers>
-        <TopBar onPresentMobileMenu={() => {}} />
+        <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
+        <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
         <Switch>
           <Route exact path="/">
             <Home />
