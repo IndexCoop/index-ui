@@ -84,7 +84,7 @@ export class Contracts {
     this.yamV2migration = new this.web3.eth.Contract(YAMv2MigrationJson.abi);
 
     this.yamV3 = new this.web3.eth.Contract(YAMv3Json.abi);
-    this.migrator = new this.web3.eth.Contract(Migrator.abi);
+    this.migrator = new this.web3.eth.Contract(MigratorJson.abi);
 
     this.rebaser = new this.web3.eth.Contract(YAMRebaserJson.abi);
     this.reserves = new this.web3.eth.Contract(YAMReservesJson.abi);
