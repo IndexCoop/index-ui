@@ -8,6 +8,8 @@ import {
 } from 'react-neu'
 import styled from 'styled-components'
 
+import FancyValue from 'components/FancyValue'
+
 import StakeModal from './components/StakeModal'
 import UnstakeModal from './components/UnstakeModal'
 
@@ -35,6 +37,11 @@ const Stake: React.FC = () => {
     <>
       <Card>
         <CardContent>
+          <FancyValue
+            icon="🌱"
+            label="Staked YAM-YUSD LP Tokens"
+            value="--"
+          />
         </CardContent>
         <CardActions>
           <Button

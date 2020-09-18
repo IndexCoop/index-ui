@@ -5,19 +5,11 @@ import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
 import Split from 'components/Split'
 
-import useMigration from 'hooks/useMigration'
-
 import ClaimCard from './components/ClaimCard'
 import MigrateCard from './components/MigrateCard'
 import VestingNotice from './components/VestingNotice'
 
 const Migrate: React.FC = () => {
-  const {
-    isApproved,
-    isApproving,
-    onApprove,
-  } = useMigration()
-
   return (
     <Page>
       <PageHeader

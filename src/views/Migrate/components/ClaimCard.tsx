@@ -6,10 +6,18 @@ import {
   CardContent,
 } from 'react-neu'
 
+import FancyValue from 'components/FancyValue'
+
 const ClaimCard: React.FC = () => {
   return (
     <Card>
-      <CardContent></CardContent>
+      <CardContent>
+        <FancyValue
+          icon="🎁"
+          label="Vested YAMs"
+          value="100"
+        />
+      </CardContent>
       <CardActions>
         <Button full text="Claim" />
       </CardActions>

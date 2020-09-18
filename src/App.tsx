@@ -12,6 +12,7 @@ import TopBar from 'components/TopBar'
 import { BalancesProvider } from 'contexts/Balances'
 import { FarmingProvider } from 'contexts/Farming'
 import { MigrationProvider } from 'contexts/Migration'
+import YamProvider from 'contexts/YamProvider'
 
 import Farm from 'views/Farm'
 import Home from 'views/Home'
@@ -53,13 +54,15 @@ const Providers: React.FC = ({ children }) => {
           walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
         }}
       >
-        <BalancesProvider>
-          <FarmingProvider>
-            <MigrationProvider>
-              {children}
-            </MigrationProvider>
-          </FarmingProvider>
-        </BalancesProvider>
+        <YamProvider>
+          <BalancesProvider>
+            <FarmingProvider>
+              <MigrationProvider>
+                {children}
+              </MigrationProvider>
+            </FarmingProvider>
+          </BalancesProvider>
+        </YamProvider>
       </UseWalletProvider>
     </ThemeProvider>
   )

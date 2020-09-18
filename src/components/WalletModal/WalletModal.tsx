@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 
@@ -12,9 +12,16 @@ import {
   Spacer
 } from 'react-neu'
 
-const WalletModal: React.FC<ModalProps> = ({ isOpen }) => {
+const WalletModal: React.FC<ModalProps> = ({
+  isOpen,
+  onDismiss,
+}) => {
 
   const { account, reset } = useWallet()
+
+  const handleSignOut = useCallback(() => {
+    reset()
+  }, [reset])
 
   return (
     <Modal isOpen={isOpen}>
@@ -42,7 +49,15 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen }) => {
         />
       </ModalContent>
       <ModalActions>
-        <Button text="Cancel" />
+        <Button
+          onClick={onDismiss}
+          text="Cancel"
+          variant="secondary"
+        />
+        <Button
+          onClick={handleSignOut}
+          text="SignOut"
+        />
       </ModalActions>
     </Modal>
   )

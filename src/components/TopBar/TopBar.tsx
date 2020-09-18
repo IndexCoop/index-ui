@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { Container } from 'react-neu'
 import styled from 'styled-components'
@@ -18,12 +18,13 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
 
   const [walletProvider, setWalletProvider] = useLocalStorage<keyof Connectors | ''>('provider', '')
   const { connect, connector, status } = useWallet()
+  const prevStatusRef = useRef('')
 
   useEffect(() => {
     if (walletProvider) {
       connect(walletProvider)
     }
-  }, [connect])
+  }, [walletProvider])
 
   useEffect(() => {
     switch (status) {
@@ -33,8 +34,22 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
       case 'error':
         setWalletProvider('')
         break
+      case 'disconnected':
+        if (prevStatusRef.current === 'connected') {
+          console.log('here')
+          setWalletProvider('')
+        }
+        break
     }
-  }, [connector, setWalletProvider])
+  }, [
+    connector,
+    setWalletProvider,
+    status
+])
+
+  useEffect(() => {
+    prevStatusRef.current = status
+  })
 
   return (
     <StyledTopBar>

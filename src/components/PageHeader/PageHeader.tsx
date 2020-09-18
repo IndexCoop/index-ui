@@ -38,7 +38,7 @@ const StyledIcon = styled.span.attrs({
   height: 96px;
   line-height: 96px;
   text-align: center;
-  width: 96px;
+  min-width: 96px;
 `
 
 const StyledTitle = styled.h1`

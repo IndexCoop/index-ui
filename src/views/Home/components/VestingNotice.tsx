@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   Notice,
+  NoticeContent,
+  NoticeIcon,
 } from 'react-neu'
 
 import VestingModal from 'components/VestingModal'
@@ -21,8 +23,17 @@ const VestingNotice: React.FC = () => {
   return (
     <>
       <Notice>
-        <Box flex={1} />
-        <Button onClick={handleClaimClick} text="Claim" />
+        <NoticeIcon>🎁</NoticeIcon>
+        <NoticeContent>
+          <Box
+            alignItems="center"
+            row
+            flex={1}
+          >
+            <span>You have unclaimed vested YAM tokens.</span>
+          </Box>
+          <Button text="Claim" />
+        </NoticeContent>
       </Notice>
       <VestingModal
         isOpen={modalIsOpen}

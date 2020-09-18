@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import { BigNumberish } from 'ethers/utils';
-
+import { useCallback, useState } from 'react'
 
 export default function useLocalStorage<T>(key: string, initialValue: T) {
   // State to store our value
@@ -20,7 +18,7 @@ export default function useLocalStorage<T>(key: string, initialValue: T) {
 
   // Return a wrapped version of useState's setter function that ...
   // ... persists the new value to localStorage.
-  const setValue = (value: T | ((val: T) => T)) => {
+  const setValue = useCallback((value: T | ((value: T) => T)) => {
     try {
       // Allow value to be a function so we have same API as useState
       const valueToStore =
@@ -33,7 +31,7 @@ export default function useLocalStorage<T>(key: string, initialValue: T) {
       // A more advanced implementation would handle the error case
       console.log(error);
     }
-  };
+  }, [])
 
-  return [storedValue, setValue]
+  return [storedValue, setValue] as [T, (value: T | ((value: T) => T)) => void]
 }

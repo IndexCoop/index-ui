@@ -1,16 +1,16 @@
 import React from 'react'
 
 import {
+  Box,
   Button,
-  Card,
-  CardContent,
-  CardTitle,
+  Container,
   Spacer,
 } from 'react-neu'
 import styled from 'styled-components'
 
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
+import Split from 'components/Split'
 
 import HarvestCard from './components/Harvest'
 import StakeCard from './components/Stake'
@@ -23,19 +23,19 @@ const Farm: React.FC = () => {
         subtitle="Plant LP tokens and grow YAMs"
         title="Farm"
       />
-      <StyledFarm>
-        <StyledCardsWrapper>
-          <StyledCardWrapper>
-            <StakeCard />
-          </StyledCardWrapper>
-          <Spacer />
-          <StyledCardWrapper>
-            <HarvestCard />
-          </StyledCardWrapper>
-        </StyledCardsWrapper>
+      <Container>
+        <Split>
+          <HarvestCard />
+          <StakeCard />
+        </Split>
         <Spacer />
-        <Button text="Harvest &amp; Unstake" variant="secondary" />
-      </StyledFarm>
+        <Box row justifyContent="center">
+          <Button
+            text="Harvest &amp; Unstake"
+            variant="secondary"
+          />
+        </Box>
+      </Container>
     </Page>
   )
 }

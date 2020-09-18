@@ -24,6 +24,7 @@ const useApproval = (tokenAddress: string, spenderAddress: string) => {
       setIsApproved(result)
       setIsApproving(false)
     } catch (e) {
+      setIsApproving(false)
       return false
     }
   }, [

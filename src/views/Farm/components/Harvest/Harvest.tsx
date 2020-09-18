@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react'
-
 import {
   Button,
   Card,
   CardActions,
   CardContent,
 } from 'react-neu'
+
+import FancyValue from 'components/FancyValue'
 
 import HarvestModal from './components/HarvestModal'
 
@@ -24,6 +25,11 @@ const Harvest: React.FC = () => {
     <>
       <Card>
         <CardContent>
+          <FancyValue
+            icon="🍠"
+            label="Unharvested YAMs"
+            value="--"
+          />
         </CardContent>
         <CardActions>
           <Button
