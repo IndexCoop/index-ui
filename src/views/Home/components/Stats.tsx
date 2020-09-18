@@ -14,7 +14,7 @@ const Stats: React.FC = () => {
       <Card>
         <CardContent>
           <FancyValue
-            icon="💵"
+            icon="💲"
             label="Current price"
             value="--"
           />
@@ -24,7 +24,7 @@ const Stats: React.FC = () => {
       <Card>
         <CardContent>
           <FancyValue
-            icon="💸"
+            icon="🎯"
             label="Target price"
             value="--"
           />

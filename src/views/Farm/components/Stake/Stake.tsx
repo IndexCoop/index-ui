@@ -1,14 +1,17 @@
 import React, { useCallback, useState } from 'react'
 
 import {
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  CardIcon,
 } from 'react-neu'
 import styled from 'styled-components'
 
-import FancyValue from 'components/FancyValue'
+import Label from 'components/Label'
+import Value from 'components/Value'
 
 import StakeModal from './components/StakeModal'
 import UnstakeModal from './components/UnstakeModal'
@@ -36,24 +39,27 @@ const Stake: React.FC = () => {
   return (
     <>
       <Card>
+        <CardIcon>🌱</CardIcon>
         <CardContent>
-          <FancyValue
-            icon="🌱"
-            label="Staked YAM-YUSD LP Tokens"
-            value="--"
-          />
+          <Box
+            alignItems="center"
+            column
+          >
+            <Value value="--" />
+            <Label text="Planted YUSD-YAM LP Tokens" />
+          </Box>
         </CardContent>
         <CardActions>
           <Button
             full
             onClick={handleUnstakeClick}
-            text="Unstake"
+            text="Unplant"
             variant="secondary"
           />
           <Button
             full
             onClick={handleStakeClick}
-            text="Stake"
+            text="Plant"
           />
         </CardActions>
       </Card>

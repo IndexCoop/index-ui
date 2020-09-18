@@ -13,7 +13,7 @@ import Context from './Context'
 const Provider: React.FC = ({ children }) => {
   const { account } = useWallet()
   const yam = useYam()
-
+  console.log(yam)
   const [vestedBalance, setVestedBalance] = useState<BigNumber>()
   const [isClaiming, setIsClaiming] = useState(false)
   const [confirmTxModalIsOpen, setConfirmtxModalIsOpen] = useState(false)

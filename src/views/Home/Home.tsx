@@ -1,13 +1,13 @@
 import React from 'react'
 import {
   Box,
-  Button,
   Container,
   Spacer,
 } from 'react-neu'
 
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
+import Split from 'components/Split'
 
 import useBalances from 'hooks/useBalances'
 import useVesting from 'hooks/useVesting'
@@ -40,15 +40,10 @@ const Home: React.FC = () => {
             <Spacer />
           </>
         )}
-        <Box row>
-          <Box flex={1}>
-            <Rebase />
-          </Box>
-          <Spacer />
-          <Box flex={1}>
-            <Stats />
-          </Box>
-        </Box>
+        <Split>
+          <Rebase />
+          <Stats />
+        </Split>
       </Container>
     </Page>
   )

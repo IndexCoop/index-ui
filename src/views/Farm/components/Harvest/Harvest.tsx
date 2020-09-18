@@ -1,49 +1,38 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import {
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  CardIcon,
 } from 'react-neu'
 
-import FancyValue from 'components/FancyValue'
-
-import HarvestModal from './components/HarvestModal'
+import Label from 'components/Label'
+import Value from 'components/Value'
 
 const Harvest: React.FC = () => {
-  const [harvestModalIsOpen, setHarvestModalIsOpen] = useState(false)
-
-  const handleDismissHarvestModal = useCallback(() => {
-    setHarvestModalIsOpen(false)
-  }, [setHarvestModalIsOpen])
-
-  const handleHarvestClick = useCallback(() => {
-    setHarvestModalIsOpen(true)
-  }, [setHarvestModalIsOpen])
-
   return (
-    <>
-      <Card>
-        <CardContent>
-          <FancyValue
-            icon="🍠"
-            label="Unharvested YAMs"
-            value="--"
-          />
-        </CardContent>
-        <CardActions>
-          <Button
-            full
-            onClick={handleHarvestClick}
-            text="Harvest"
-          />
-        </CardActions>
-      </Card>
-      <HarvestModal
-        isOpen={harvestModalIsOpen}
-        onDismiss={handleDismissHarvestModal}
-      />
-    </>
+    <Card>
+      <CardIcon>🍠</CardIcon>
+      <CardContent>
+        <Box
+          alignItems="center"
+          column
+        >
+          <Value value="--" />
+          <Label text="Unharvested YAMs" />
+        </Box>
+      </CardContent>
+      <CardActions>
+        <Button
+          disabled
+          full
+          text="Harvest"
+          variant="secondary"
+        />
+      </CardActions>
+    </Card>
   )
 }
 

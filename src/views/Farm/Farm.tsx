@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
 import Split from 'components/Split'
+import Value from 'components/Value'
 
 import HarvestCard from './components/Harvest'
 import StakeCard from './components/Stake'
@@ -24,6 +25,15 @@ const Farm: React.FC = () => {
         title="Farm"
       />
       <Container>
+        <Box row justifyContent="center">
+          <Value value="Farming coming soon." />
+        </Box>
+      </Container>
+    </Page>
+  )
+}
+
+/*
         <Split>
           <HarvestCard />
           <StakeCard />
@@ -35,10 +45,7 @@ const Farm: React.FC = () => {
             variant="secondary"
           />
         </Box>
-      </Container>
-    </Page>
-  )
-}
+*/
 
 const StyledFarm = styled.div`
   align-items: center;
