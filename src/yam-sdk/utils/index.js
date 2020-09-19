@@ -138,7 +138,7 @@ export const getPoolContracts = async (yam) => {
 }
 
 export const getEarned = async (yam, pool, account) => {
-  const scalingFactor = new BigNumber(await yam.contracts.yam.methods.yamsScalingFactor().call())
+  const scalingFactor = new BigNumber(await yam.contracts.yamV3.methods.yamsScalingFactor().call())
   const earned = new BigNumber(await pool.methods.earned(account).call())
   return earned.multipliedBy(scalingFactor.dividedBy(new BigNumber(10).pow(18)))
 }
@@ -158,7 +158,7 @@ export const getTargetPrice = async (yam) => {
 
 export const getCirculatingSupply = async (yam) => {
   let now = await yam.web3.eth.getBlock('latest');
-  let scalingFactor = yam.toBigN(await yam.contracts.yam.methods.yamsScalingFactor().call());
+  let scalingFactor = yam.toBigN(await yam.contracts.yamV3.methods.yamsScalingFactor().call());
   let starttime = yam.toBigN(await yam.contracts.eth_pool.methods.starttime().call()).toNumber();
   let timePassed = now["timestamp"] - starttime;
   if (timePassed < 0) {
@@ -242,7 +242,7 @@ export const getVotes = async (yam) => {
 }
 
 export const getScalingFactor = async (yam) => {
-  return new BigNumber(await yam.contracts.yam.methods.yamsScalingFactor().call())
+  return new BigNumber(await yam.contracts.yamV3.methods.yamsScalingFactor().call())
 }
 
 export const getDelegatedBalance = async (yam, account) => {
