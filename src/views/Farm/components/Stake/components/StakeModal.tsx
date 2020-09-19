@@ -45,7 +45,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text="Plant" />
+      <ModalTitle text="Stake" />
       <ModalContent>
         <TokenInput
           value={val}

@@ -1,3 +1,6 @@
+import BigNumber from 'bignumber.js'
+
+
 export interface ContextValues {
   isApproved?: boolean,
   isApproving?: boolean,
@@ -5,5 +8,6 @@ export interface ContextValues {
   isUnstaking?: boolean,
   onApprove: () => void,
   onStake: (amount: string) => void,
-  onUnstake: (amount: string) => void
+  onUnstake: (amount: string) => void,
+  stakedBalance?: BigNumber
 }
