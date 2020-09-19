@@ -35,6 +35,7 @@ export const approve = async (
       .send({ from: userAddress, gas: 80000 }, async (error: any, txHash: string) => {
         if (error) {
             console.log("ERC20 could not be approved", error)
+            onTxHash && onTxHash('')
             return false
         }
         if (onTxHash) {
@@ -48,6 +49,7 @@ export const approve = async (
         return true
       })
   } catch (e) {
+    console.log('here')
     return false
   }
 }

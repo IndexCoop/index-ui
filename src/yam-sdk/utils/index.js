@@ -281,12 +281,11 @@ export const migrateV3 = async (yam, account, onTxHash) => {
     return await yam.contracts.migrator.methods.migrate()
       .send({from: account, gas: 200000}, async (error, txHash) => {
         if (error) {
+            onTxHash && onTxHash('')
             console.log("Migration error", error)
             return false
         }
-        if (onTxHash) {
-          onTxHash(txHash)
-        }
+        onTxHash && onTxHash(txHash)
         const status = await waitTransaction(yam.web3.eth, txHash)
         if (!status) {
           console.log("Migration transaction failed.")
