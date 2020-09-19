@@ -47,7 +47,7 @@ const Provider: React.FC = ({ children }) => {
   useEffect(() => {
     if (account && ethereum) {
       fetchBalances(account, ethereum)
-      let refreshInterval = setInterval(fetchBalances, 10000)
+      let refreshInterval = setInterval(() => fetchBalances(account, ethereum), 10000)
       return () => clearInterval(refreshInterval)
     }
   }, [
