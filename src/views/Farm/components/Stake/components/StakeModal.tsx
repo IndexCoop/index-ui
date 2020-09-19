@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 
+import BigNumber from 'bignumber.js'
 import {
   Button,
   Modal,
@@ -12,9 +13,16 @@ import {
 import TokenInput from 'components/TokenInput'
 import useBalances from 'hooks/useBalances'
 import { getFullDisplayBalance } from 'utils'
-import BigNumber from 'bignumber.js'
 
-const StakeModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
+interface StakeModalProps extends ModalProps {
+  onStake: (amount: string) => void,
+}
+
+const StakeModal: React.FC<StakeModalProps> = ({
+  isOpen,
+  onDismiss,
+  onStake,
+}) => {
 
   const [val, setVal] = useState('')
   const { yycrvUniLpBalance } = useBalances()
@@ -31,9 +39,13 @@ const StakeModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     setVal(fullBalance)
   }, [fullBalance, setVal])
 
+  const handleStakeClick = useCallback(() => {
+    onStake(val)
+  }, [onStake, val])
+
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text="Plant" />
+      <ModalTitle text="Stake" />
       <ModalContent>
         <TokenInput
           value={val}
@@ -50,9 +62,10 @@ const StakeModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           variant="secondary"
         />
         <Button
-          disabled={!val}
+          disabled={!val || !Number(val)}
+          onClick={handleStakeClick}
           text="Stake"
-          variant={!val ? 'secondary' : 'default'}
+          variant={!val || !Number(val) ? 'secondary' : 'default'}
         />
       </ModalActions>
     </Modal>
