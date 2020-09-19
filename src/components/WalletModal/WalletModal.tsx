@@ -60,14 +60,14 @@ const WalletModal: React.FC<ModalProps> = ({
             <FancyValue
               icon="🍠"
               label="YAM balance"
-              value={getDisplayBalance(yamV2Balance)}
+              value={getDisplayBalance(yamV3Balance)}
             />
           </Box>
           <Box row>
             <FancyValue
               icon={<span role="img" style={{ opacity: 0.5 }} >🍠</span>}
               label="YAMV2 balance"
-              value={getDisplayBalance(yamV3Balance)}
+              value={getDisplayBalance(yamV2Balance)}
             />
           </Box>
         </Split>
