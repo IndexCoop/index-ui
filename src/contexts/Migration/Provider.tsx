@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useWallet } from 'use-wallet'
 
 import { yamv2 as yamV2Address } from 'constants/tokenAddresses'
@@ -13,29 +13,39 @@ import Context from './Context'
 const Provider: React.FC = ({ children }) => {
   const { account } = useWallet()
   const yam = useYam()
+  const [isMigrating, setIsMigrating] = useState(false)
+  const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
+
   const { isApproved, isApproving, onApprove } = useApproval(
     yamV2Address,
-    yam ? yam.contracts.migrator.options.address : undefined
+    yam ? yam.contracts.migrator.options.address : undefined,
+    () => setConfirmTxModalIsOpen(false)
   )
-  const [isMigrating, setIsMigrating] = useState(false)
-  const [confirmTxModalIsOpen, setConfirmtxModalIsOpen] = useState(false)
+
+  const handleApprove = useCallback(() => {
+    setConfirmTxModalIsOpen(true)
+    onApprove()
+  }, [
+    onApprove,
+    setConfirmTxModalIsOpen,
+  ])
 
   const handleMigrationTxSent = useCallback(() => {
     setIsMigrating(true)
-    setConfirmtxModalIsOpen(false)
+    setConfirmTxModalIsOpen(false)
   }, [
     setIsMigrating,
-    setConfirmtxModalIsOpen
+    setConfirmTxModalIsOpen
   ])
 
   const handleMigrate = useCallback(async () => {
-    setConfirmtxModalIsOpen(true)
+    setConfirmTxModalIsOpen(true)
     await migrateV3(yam, account, handleMigrationTxSent)
     setIsMigrating(false)
   }, [
     account,
     handleMigrationTxSent,
-    setConfirmtxModalIsOpen,
+    setConfirmTxModalIsOpen,
     setIsMigrating,
     yam
   ])
@@ -44,7 +54,7 @@ const Provider: React.FC = ({ children }) => {
     <Context.Provider value={{
       isApproved,
       isApproving,
-      onApprove,
+      onApprove: handleApprove,
       onMigrate: handleMigrate,
       isMigrating,
     }}>

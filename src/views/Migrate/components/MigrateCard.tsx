@@ -9,6 +9,7 @@ import {
   CardContent,
   CardIcon,
 } from 'react-neu'
+import { useWallet } from 'use-wallet'
 
 import Label from 'components/Label'
 import Value from 'components/Value'
@@ -17,6 +18,7 @@ import useBalances from 'hooks/useBalances'
 import useMigration from 'hooks/useMigration'
 
 const MigrateCard: React.FC = () => {
+  const { status } = useWallet()
   const { yamV2Balance } = useBalances()
   const {
     isApproved,
@@ -59,14 +61,15 @@ const MigrateCard: React.FC = () => {
     }
     return (
       <Button
-        disabled={isApproving}
+        disabled={isApproving || status !== 'connected'}
         full
         onClick={onApprove}
         text={!isApproving ? "Approve Migrator" : "Approving migrator..."}
-        variant={isApproving ? 'secondary' : 'default'}
+        variant={isApproving || status !== 'connected' ? 'secondary' : 'default'}
       />
     )
   }, [
+    status,
     isApproved,
     isApproving,
     isMigrating,
