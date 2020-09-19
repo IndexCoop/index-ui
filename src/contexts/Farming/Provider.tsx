@@ -19,6 +19,8 @@ import {
 
 import Context from './Context'
 
+const farmingStartTime = 1600545500*1000
+
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
   const [countdown, setCountdown] = useState<number>()
@@ -143,12 +145,13 @@ const Provider: React.FC = ({ children }) => {
   }, [fetchBalances])
 
   useEffect(() => {
-    let refreshInterval = setInterval(() => setCountdown(1600545500*1000 - Date.now()), 1000)
+    let refreshInterval = setInterval(() => setCountdown(farmingStartTime - Date.now()), 1000)
     return () => clearInterval(refreshInterval)
   }, [setCountdown])
 
   return (
     <Context.Provider value={{
+      farmingStartTime,
       countdown,
       earnedBalance,
       isApproved,

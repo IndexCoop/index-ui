@@ -13,7 +13,7 @@ import {
 import useFarming from 'hooks/useFarming'
 
 const FarmingNotice: React.FC = () => {
-  const { countdown } = useFarming()
+  const { farmingStartTime, countdown } = useFarming()
   const renderer = (countdownProps: CountdownRenderProps) => {
     const { days, hours, minutes, seconds } = countdownProps
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
@@ -35,7 +35,7 @@ const FarmingNotice: React.FC = () => {
       <>
         Farming begins in
         <Spacer size="sm" />
-        <Countdown date={1600545500 * 1000} renderer={renderer} />
+        <Countdown date={farmingStartTime} renderer={renderer} />
       </>
     )
   }

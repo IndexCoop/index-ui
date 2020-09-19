@@ -29,6 +29,7 @@ const Stake: React.FC = () => {
   const { status } = useWallet()
   const {
     countdown,
+    farmingStartTime,
     isApproved,
     isApproving,
     isStaking,
@@ -100,7 +101,8 @@ const Stake: React.FC = () => {
         />
       )
     }
-    if (countdown && countdown > 0) {
+
+    if (typeof countdown !== 'undefined' && countdown >= 0) {
       return (
         <Button
           disabled
@@ -200,9 +202,9 @@ const Stake: React.FC = () => {
           {UnstakeButton}
           {StakeButton}
         </CardActions>
-        {countdown && countdown > 0 && (
+        {typeof countdown !== 'undefined' && countdown > 0 && (
           <CardActions>
-            <Countdown date={1600545500 * 1000} renderer={renderer} />
+            <Countdown date={farmingStartTime} renderer={renderer} />
           </CardActions>
         )}
       </Card>
