@@ -21,6 +21,7 @@ import Context from './Context'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
+  const [countdown, setCountdown] = useState<number>()
   const [isHarvesting, setIsHarvesting] = useState(false)
   const [isRedeeming, setIsRedeeming] = useState(false)
   const [isStaking, setIsStaking] = useState(false)
@@ -141,8 +142,14 @@ const Provider: React.FC = ({ children }) => {
     return () => clearInterval(refreshInterval)
   }, [fetchBalances])
 
+  useEffect(() => {
+    let refreshInterval = setInterval(() => setCountdown(1600545600*1000 - Date.now()), 1000)
+    return () => clearInterval(refreshInterval)
+  }, [setCountdown])
+
   return (
     <Context.Provider value={{
+      countdown,
       earnedBalance,
       isApproved,
       isApproving,

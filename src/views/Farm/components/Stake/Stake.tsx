@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 
+import Countdown, { CountdownRenderProps} from 'react-countdown'
 import numeral from 'numeral'
 import {
   Box,
@@ -9,7 +10,6 @@ import {
   CardContent,
   CardIcon,
 } from 'react-neu'
-
 import { useWallet } from 'use-wallet'
 
 import Label from 'components/Label'
@@ -28,6 +28,7 @@ const Stake: React.FC = () => {
 
   const { status } = useWallet()
   const {
+    countdown,
     isApproved,
     isApproving,
     isStaking,
@@ -159,6 +160,20 @@ const Stake: React.FC = () => {
     }
   }, [stakedBalance])
 
+  const renderer = (countdownProps: CountdownRenderProps) => {
+    const { hours, minutes, seconds } = countdownProps
+    const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
+    const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
+    const paddedHours = hours < 10 ? `0${hours}` : hours
+    return (
+      <Button
+        full
+        text={`Farming starts in ${paddedHours}:${paddedMinutes}:${paddedSeconds}`}
+        variant="tertiary"
+      />
+    )
+  }
+
   return (
     <>
       <Card>
@@ -172,10 +187,16 @@ const Stake: React.FC = () => {
             <Label text="Planted YUSD-YAM LP Tokens" />
           </Box>
         </CardContent>
-        <CardActions>
-          {UnstakeButton}
-          {StakeButton}
-        </CardActions>
+        {!!countdown ? (
+          <CardActions>
+            <Countdown date={1600545600 * 1000} renderer={renderer} />
+          </CardActions>
+        ) : (
+          <CardActions>
+            {UnstakeButton}
+            {StakeButton}
+          </CardActions>
+        )}
       </Card>
       <StakeModal
         isOpen={stakeModalIsOpen}

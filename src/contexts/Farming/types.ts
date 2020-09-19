@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 
 export interface ContextValues {
+  countdown?: number,
   earnedBalance?: BigNumber,
   isApproved?: boolean,
   isApproving?: boolean,
@@ -13,5 +14,5 @@ export interface ContextValues {
   onRedeem: () => void,
   onStake: (amount: string) => void,
   onUnstake: (amount: string) => void,
-  stakedBalance?: BigNumber
+  stakedBalance?: BigNumber,
 }
