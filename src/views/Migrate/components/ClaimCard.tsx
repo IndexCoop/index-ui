@@ -62,7 +62,7 @@ const ClaimCard: React.FC = () => {
 
   return (
     <Card>
-      <CardIcon>🎁</CardIcon>
+      <CardIcon>🦋 + 🎁</CardIcon>
       <CardContent>
         <Box alignItems="center" column>
           <Value value={vestingBalanceDisplayValue} />
