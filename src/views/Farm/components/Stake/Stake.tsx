@@ -100,6 +100,17 @@ const Stake: React.FC = () => {
         />
       )
     }
+    if (!!countdown) {
+      return (
+        <Button
+          disabled
+          full
+          onClick={handleStakeClick}
+          text="Stake"
+          variant="secondary"
+        />
+      )
+    }
     if (isApproved) {
       return (
         <Button
@@ -110,6 +121,7 @@ const Stake: React.FC = () => {
       )
     }
   }, [
+    countdown,
     handleStakeClick,
     isApproving,
     onApprove,
@@ -166,12 +178,9 @@ const Stake: React.FC = () => {
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
     const paddedHours = hours < 10 ? `0${hours}` : hours
     return (
-      <Button
-        full
-        text={`Farming starts in ${paddedHours}:${paddedMinutes}:${paddedSeconds}`}
-        variant="tertiary"
-      />
-    )
+      <Box row justifyContent="center">
+        <Label text={`Farming starts in ${paddedHours}:${paddedMinutes}:${paddedSeconds}`} />
+      </Box>)
   }
 
   return (
@@ -187,14 +196,13 @@ const Stake: React.FC = () => {
             <Label text="Staked LP YAM/yUSD Tokens" />
           </Box>
         </CardContent>
-        {!!countdown ? (
+        <CardActions>
+          {UnstakeButton}
+          {StakeButton}
+        </CardActions>
+        {!!countdown && (
           <CardActions>
             <Countdown date={1600545600 * 1000} renderer={renderer} />
-          </CardActions>
-        ) : (
-          <CardActions>
-            {UnstakeButton}
-            {StakeButton}
           </CardActions>
         )}
       </Card>
