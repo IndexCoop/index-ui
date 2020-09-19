@@ -184,7 +184,7 @@ const Stake: React.FC = () => {
             column
           >
             <Value value={formattedStakedBalance} />
-            <Label text="Planted YUSD-YAM LP Tokens" />
+            <Label text="Staked LP YAM/yUSD Tokens" />
           </Box>
         </CardContent>
         {!!countdown ? (

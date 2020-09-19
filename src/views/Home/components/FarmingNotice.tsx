@@ -51,7 +51,7 @@ const FarmingNotice: React.FC = () => {
           {NoticeText}
         </Box>
         <Button
-          text="Farm"
+          text="Go to farm"
           to="/farm"
           variant={canFarm ? 'default' : 'secondary'}
         />
