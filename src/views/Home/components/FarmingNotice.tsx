@@ -35,7 +35,7 @@ const FarmingNotice: React.FC = () => {
       <>
         Farming begins in
         <Spacer size="sm" />
-        <Countdown date={1600545300 * 1000} renderer={renderer} />
+        <Countdown date={1600545500 * 1000} renderer={renderer} />
       </>
     )
   }

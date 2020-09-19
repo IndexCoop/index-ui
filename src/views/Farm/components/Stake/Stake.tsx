@@ -200,9 +200,9 @@ const Stake: React.FC = () => {
           {UnstakeButton}
           {StakeButton}
         </CardActions>
-        {!!countdown && (
+        {countdown && countdown > 0 && (
           <CardActions>
-            <Countdown date={1600545300 * 1000} renderer={renderer} />
+            <Countdown date={1600545500 * 1000} renderer={renderer} />
           </CardActions>
         )}
       </Card>
