@@ -7,7 +7,7 @@ import ConfirmTransactionModal from 'components/ConfirmTransactionModal'
 import useApproval from 'hooks/useApproval'
 import useYam from 'hooks/useYam'
 
-import { stake } from 'yam-sdk/utils'
+import { stake, unstake } from 'yam-sdk/utils'
 
 import Context from './Context'
 
@@ -23,10 +23,11 @@ const Provider: React.FC = ({ children }) => {
   const handleStake = useCallback(async (amount: string) => {
     if (!yam) return
     setConfirmTxModalIsOpen(true)
-    stake(yam, amount, account, () => {
+    await stake(yam, amount, account, () => {
       setConfirmTxModalIsOpen(false)
       setIsStaking(true)
     })
+    setIsStaking(false)
   }, [
     account,
     setConfirmTxModalIsOpen,
@@ -34,9 +35,20 @@ const Provider: React.FC = ({ children }) => {
     yam
   ])
 
-  const handleUnstake = useCallback((amount: string) => {
-
-  }, [])
+  const handleUnstake = useCallback(async (amount: string) => {
+    if (!yam) return
+    setConfirmTxModalIsOpen(true)
+    await unstake(yam, amount, account, () => {
+      setConfirmTxModalIsOpen(false)
+      setIsUnstaking(true)
+    })
+    setIsUnstaking(false)
+  }, [
+    account,
+    setConfirmTxModalIsOpen,
+    setIsUnstaking,
+    yam
+  ])
 
   return (
     <Context.Provider value={{
