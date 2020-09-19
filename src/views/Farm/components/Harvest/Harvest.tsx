@@ -26,17 +26,6 @@ const Harvest: React.FC = () => {
   } = useFarming()
 
   const HarvestAction = useMemo(() => {
-    const hasEarned = earnedBalance && earnedBalance.toNumber() > 0
-    if (isRedeeming || !hasEarned) {
-      return (
-        <Button
-          disabled
-          full
-          text="Harvest"
-          variant="secondary"
-        />
-      )
-    }
     if (!isHarvesting) {
       return (
         <Button
