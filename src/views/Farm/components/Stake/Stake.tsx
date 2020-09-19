@@ -102,17 +102,6 @@ const Stake: React.FC = () => {
       )
     }
 
-    if (typeof countdown !== 'undefined' && countdown >= 0) {
-      return (
-        <Button
-          disabled
-          full
-          onClick={handleStakeClick}
-          text="Stake"
-          variant="secondary"
-        />
-      )
-    }
     if (isApproved) {
       return (
         <Button
