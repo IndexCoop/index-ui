@@ -62,10 +62,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
           variant="secondary"
         />
         <Button
-          disabled={!val}
+          disabled={!val || !Number(val)}
           onClick={handleStakeClick}
           text="Stake"
-          variant={!val ? 'secondary' : 'default'}
+          variant={!val || !Number(val) ? 'secondary' : 'default'}
         />
       </ModalActions>
     </Modal>
