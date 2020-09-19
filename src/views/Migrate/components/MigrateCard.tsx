@@ -77,7 +77,8 @@ const MigrateCard: React.FC = () => {
 
   return (
     <Card>
-      <CardIcon>🍠</CardIcon>
+      <CardIcon>
+        <span style={{opacity:0.5}}>🍠</span></CardIcon>
       <CardContent>
         <Box alignItems="center" column>
           <Value value={yamV2DisplayBalance} />
