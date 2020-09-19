@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useWallet } from 'use-wallet'
 
 import { yamv2 as yamV2Address } from 'constants/tokenAddresses'

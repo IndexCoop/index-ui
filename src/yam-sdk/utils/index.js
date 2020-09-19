@@ -18,16 +18,27 @@ export const getPoolStartTime = async (poolContract) => {
   return await poolContract.methods.starttime().call()
 }
 
-export const stake = async (poolContract, amount, account, tokenName) => {
+export const stake = async (yam, amount, account, onTxHash) => {
+  const poolContract = yam.contracts.yycrv_pool
   let now = new Date().getTime() / 1000;
-  const gas = GAS_LIMIT.STAKING[tokenName.toUpperCase()] || GAS_LIMIT.STAKING.DEFAULT;
+  // const gas = GAS_LIMIT.STAKING[tokenName.toUpperCase()] || GAS_LIMIT.STAKING.DEFAULT;
+  const gas = GAS_LIMIT.STAKING.DEFAULT
   if (now >= 1597172400) {
     return poolContract.methods
       .stake((new BigNumber(amount).times(new BigNumber(10).pow(18))).toString())
-      .send({ from: account, gas })
-      .on('transactionHash', tx => {
-        console.log(tx)
-        return tx.transactionHash
+      .send({ from: account, gas }, async (error, txHash) => {
+        if (error) {
+            onTxHash && onTxHash('')
+            console.log("Staking error", error)
+            return false
+        }
+        onTxHash && onTxHash(txHash)
+        const status = await waitTransaction(yam.web3.eth, txHash)
+        if (!status) {
+          console.log("Staking transaction failed.")
+          return false
+        }
+        return true
       })
   } else {
     alert("pool not active");

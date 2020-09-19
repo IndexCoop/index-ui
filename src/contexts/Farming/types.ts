@@ -1,5 +1,9 @@
 export interface ContextValues {
   isApproved?: boolean,
   isApproving?: boolean,
-  onApprove: () => void
+  isStaking?: boolean,
+  isUnstaking?: boolean,
+  onApprove: () => void,
+  onStake: (amount: string) => void,
+  onUnstake: (amount: string) => void
 }

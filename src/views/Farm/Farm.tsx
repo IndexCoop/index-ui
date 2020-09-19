@@ -25,9 +25,10 @@ const Farm: React.FC = () => {
         title="Farm"
       />
       <Container>
-        <Box row justifyContent="center">
-          <Value value="Farming coming soon." />
-        </Box>
+        <Split>
+          <HarvestCard />
+          <StakeCard />
+        </Split>
       </Container>
     </Page>
   )

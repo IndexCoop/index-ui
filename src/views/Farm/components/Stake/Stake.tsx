@@ -10,15 +10,23 @@ import {
 } from 'react-neu'
 import styled from 'styled-components'
 
+import ConfirmTxModal from 'components/ConfirmTransactionModal'
 import Label from 'components/Label'
 import Value from 'components/Value'
+
+import useFarming from 'hooks/useFarming'
+import useYam from 'hooks/useYam'
 
 import StakeModal from './components/StakeModal'
 import UnstakeModal from './components/UnstakeModal'
 
 const Stake: React.FC = () => {
+  const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
   const [unstakeModalIsOpen, setUnstakeModalIsOpen] = useState(false)
+
+  const { onStake } = useFarming()
+  const yam = useYam()
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
@@ -35,6 +43,10 @@ const Stake: React.FC = () => {
   const handleUnstakeClick = useCallback(() => {
     setUnstakeModalIsOpen(true)
   }, [setUnstakeModalIsOpen])
+
+  const handleStake = useCallback((amount: string) => {
+    onStake(amount)
+  }, [onStake])
 
   return (
     <>
@@ -66,11 +78,13 @@ const Stake: React.FC = () => {
       <StakeModal
         isOpen={stakeModalIsOpen}
         onDismiss={handleDismissStakeModal}
+        onStake={handleStake}
       />
       <UnstakeModal
         isOpen={unstakeModalIsOpen}
         onDismiss={handleDismissUnstakeModal}
       />
+      <ConfirmTxModal isOpen={confirmTxModalIsOpen} />
     </>
   )
 }
