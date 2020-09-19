@@ -9,6 +9,7 @@ import {
   CardContent,
   CardIcon,
 } from 'react-neu'
+import { useWallet } from 'use-wallet'
 
 import Label from 'components/Label'
 import Value from 'components/Value'
@@ -25,7 +26,19 @@ const Harvest: React.FC = () => {
     onHarvest,
   } = useFarming()
 
+  const { status } = useWallet()
+
   const HarvestAction = useMemo(() => {
+    if (status !== 'connected') {
+      return (
+        <Button
+          disabled
+          full
+          text="Harvest"
+          variant="secondary"
+        />
+      )
+    }
     if (!isHarvesting) {
       return (
         <Button

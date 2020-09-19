@@ -146,6 +146,7 @@ const Stake: React.FC = () => {
         full
         onClick={handleUnstakeClick}
         text="Unstake"
+        variant="secondary"
       />
     )
   }, [
