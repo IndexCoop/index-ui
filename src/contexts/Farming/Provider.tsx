@@ -9,7 +9,10 @@ import useApproval from 'hooks/useApproval'
 import useYam from 'hooks/useYam'
 
 import {
+  getEarned,
   getStaked,
+  harvest,
+  redeem,
   stake,
   unstake,
 } from 'yam-sdk/utils'
@@ -18,8 +21,12 @@ import Context from './Context'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
+  const [isHarvesting, setIsHarvesting] = useState(false)
+  const [isRedeeming, setIsRedeeming] = useState(false)
   const [isStaking, setIsStaking] = useState(false)
   const [isUnstaking, setIsUnstaking] = useState(false)
+
+  const [earnedBalance, setEarnedBalance] = useState<BigNumber>()
   const [stakedBalance, setStakedBalance] = useState<BigNumber>()
 
   const yam = useYam()
@@ -32,6 +39,16 @@ const Provider: React.FC = ({ children }) => {
     () => setConfirmTxModalIsOpen(false)
   )
 
+  const fetchEarnedBalance = useCallback(async () => {
+    if (!account || !yam) return
+    const balance = await getEarned(yam, yam.contracts.yycrv_pool, account)
+    setEarnedBalance(balance)
+  }, [
+    account,
+    setEarnedBalance,
+    yam
+  ])
+
   const fetchStakedBalance = useCallback(async () => {
     if (!account || !yam) return
     const balance = await getStaked(yam, yam.contracts.yycrv_pool, account)
@@ -42,12 +59,50 @@ const Provider: React.FC = ({ children }) => {
     yam
   ])
 
+  const fetchBalances = useCallback(async () => {
+    fetchEarnedBalance()
+    fetchStakedBalance()
+  }, [
+    fetchEarnedBalance,
+    fetchStakedBalance,
+  ])
+
   const handleApprove = useCallback(() => {
     setConfirmTxModalIsOpen(true)
     onApprove()
   }, [
     onApprove,
     setConfirmTxModalIsOpen,
+  ])
+
+  const handleHarvest = useCallback(async () => {
+    if (!yam) return
+    setConfirmTxModalIsOpen(true)
+    await harvest(yam, account, () => {
+      setConfirmTxModalIsOpen(false)
+      setIsHarvesting(true)
+    })
+    setIsHarvesting(false)
+  }, [
+    account,
+    setConfirmTxModalIsOpen,
+    setIsHarvesting,
+    yam
+  ])
+
+  const handleRedeem = useCallback(async () => {
+    if (!yam) return
+    setConfirmTxModalIsOpen(true)
+    await redeem(yam, account, () => {
+      setConfirmTxModalIsOpen(false)
+      setIsRedeeming(true)
+    })
+    setIsRedeeming(false)
+  }, [
+    account,
+    setConfirmTxModalIsOpen,
+    setIsRedeeming,
+    yam
   ])
 
   const handleStake = useCallback(async (amount: string) => {
@@ -81,20 +136,23 @@ const Provider: React.FC = ({ children }) => {
   ])
 
   useEffect(() => {
-    fetchStakedBalance()
-    let refreshInterval = setInterval(() => fetchStakedBalance(), 10000)
+    fetchBalances()
+    let refreshInterval = setInterval(() => fetchBalances(), 10000)
     return () => clearInterval(refreshInterval)
-  }, [
-    fetchStakedBalance,
-  ])
+  }, [fetchBalances])
 
   return (
     <Context.Provider value={{
+      earnedBalance,
       isApproved,
       isApproving,
+      isHarvesting,
+      isRedeeming,
       isStaking,
       isUnstaking,
       onApprove: handleApprove,
+      onHarvest: handleHarvest,
+      onRedeem: handleRedeem,
       onStake: handleStake,
       onUnstake: handleUnstake,
       stakedBalance,

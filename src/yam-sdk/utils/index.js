@@ -54,13 +54,13 @@ export const unstake = async (yam, amount, account, onTxHash) => {
       .send({ from: account, gas: 200000 }, async (error, txHash) => {
         if (error) {
             onTxHash && onTxHash('')
-            console.log("Staking error", error)
+            console.log("Unstaking error", error)
             return false
         }
         onTxHash && onTxHash(txHash)
         const status = await waitTransaction(yam.web3.eth, txHash)
         if (!status) {
-          console.log("Staking transaction failed.")
+          console.log("Unstaking transaction failed.")
           return false
         }
         return true
@@ -70,30 +70,50 @@ export const unstake = async (yam, amount, account, onTxHash) => {
   }
 }
 
-export const harvest = async (poolContract, account) => {
+export const harvest = async (yam, account, onTxHash) => {
+  const poolContract = yam.contracts.yycrv_pool
   let now = new Date().getTime() / 1000;
   if (now >= 1597172400) {
     return poolContract.methods
       .getReward()
-      .send({ from: account, gas: 200000 })
-      .on('transactionHash', tx => {
-        console.log(tx)
-        return tx.transactionHash
+      .send({ from: account, gas: 200000 }, async (error, txHash) => {
+        if (error) {
+            onTxHash && onTxHash('')
+            console.log("Harvest error", error)
+            return false
+        }
+        onTxHash && onTxHash(txHash)
+        const status = await waitTransaction(yam.web3.eth, txHash)
+        if (!status) {
+          console.log("Harvest transaction failed.")
+          return false
+        }
+        return true
       })
   } else {
     alert("pool not active");
   }
 }
 
-export const redeem = async (poolContract, account) => {
+export const redeem = async (yam, account, onTxHash) => {
+  const poolContract = yam.contracts.yycrv_pool
   let now = new Date().getTime() / 1000;
   if (now >= 1597172400) {
     return poolContract.methods
       .exit()
-      .send({ from: account, gas: 400000 })
-      .on('transactionHash', tx => {
-        console.log(tx)
-        return tx.transactionHash
+      .send({ from: account, gas: 400000 }, async (error, txHash) => {
+        if (error) {
+            onTxHash && onTxHash('')
+            console.log("Redeem error", error)
+            return false
+        }
+        onTxHash && onTxHash(txHash)
+        const status = await waitTransaction(yam.web3.eth, txHash)
+        if (!status) {
+          console.log("Redeem transaction failed.")
+          return false
+        }
+        return true
       })
   } else {
     alert("pool not active");

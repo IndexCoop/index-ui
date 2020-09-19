@@ -4,6 +4,8 @@ import { ContextValues } from './types'
 
 const Context = createContext<ContextValues>({
   onApprove: () => {},
+  onHarvest: () => {},
+  onRedeem: () => {},
   onStake: () => {},
   onUnstake: () => {}
 })
