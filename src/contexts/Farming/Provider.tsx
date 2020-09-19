@@ -143,7 +143,7 @@ const Provider: React.FC = ({ children }) => {
   }, [fetchBalances])
 
   useEffect(() => {
-    let refreshInterval = setInterval(() => setCountdown(1600545600*1000 - Date.now()), 1000)
+    let refreshInterval = setInterval(() => setCountdown(1600545300*1000 - Date.now()), 1000)
     return () => clearInterval(refreshInterval)
   }, [setCountdown])
 

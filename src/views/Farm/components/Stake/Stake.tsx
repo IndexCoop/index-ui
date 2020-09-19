@@ -100,7 +100,7 @@ const Stake: React.FC = () => {
         />
       )
     }
-    if (!!countdown) {
+    if (countdown && countdown > 0) {
       return (
         <Button
           disabled
@@ -202,7 +202,7 @@ const Stake: React.FC = () => {
         </CardActions>
         {!!countdown && (
           <CardActions>
-            <Countdown date={1600545600 * 1000} renderer={renderer} />
+            <Countdown date={1600545300 * 1000} renderer={renderer} />
           </CardActions>
         )}
       </Card>
