@@ -28,7 +28,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const { yycrvUniLpBalance } = useBalances()
 
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(yycrvUniLpBalance || new BigNumber(0))
+    return getFullDisplayBalance(yycrvUniLpBalance || new BigNumber(0), 0)
   }, [yycrvUniLpBalance])
 
   const handleChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
