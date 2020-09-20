@@ -11,7 +11,6 @@ import Split from 'components/Split'
 import useBalances from 'hooks/useBalances'
 import useVesting from 'hooks/useVesting'
 
-import FarmingNotice from './components/FarmingNotice'
 import MigrationNotice from './components/MigrationNotice'
 import Rebase from './components/Rebase'
 import Stats from './components/Stats'
@@ -28,7 +27,6 @@ const Home: React.FC = () => {
         title="Welcome to YAM Finance."
       />
       <Container>
-        <FarmingNotice />
         <Spacer />
         {(yamV2Balance && yamV2Balance.toNumber() > 0) && (
           <>
