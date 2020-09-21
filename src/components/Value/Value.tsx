@@ -13,7 +13,7 @@ const Value: React.FC<ValueProps> = ({ value }) => {
 }
 
 const StyledValue = styled.div`
-  color: ${props => props.theme.colors.grey[600]};
+  color: ${props => props.theme.textColor};
   font-size: 36px;
   font-weight: 700;
 `
