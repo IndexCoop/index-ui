@@ -12,7 +12,6 @@ import Split from 'components/Split'
 import useBalances from 'hooks/useBalances'
 import useVesting from 'hooks/useVesting'
 
-import FarmingNotice from './components/FarmingNotice'
 import MigrationNotice from './components/MigrationNotice'
 import Rebase from './components/Rebase'
 import Stats from './components/Stats'
