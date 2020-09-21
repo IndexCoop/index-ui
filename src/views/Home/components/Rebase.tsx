@@ -46,7 +46,7 @@ const Rebase: React.FC = () => {
     )
   }
 
-  const dialValue = nextRebase ? nextRebase / (1000 * 60 * 60 * 12) * 100 : 0
+  const dialValue = nextRebase ? (nextRebase * 1000 - Date.now()) / (1000 * 60 * 60 * 12) * 100 : 0
 
   return (
     <Card>
