@@ -61,6 +61,7 @@ const Providers: React.FC = ({ children }) => {
     return createTheme({
       baseColor: { h: 338, s: 100, l: 41 },
       baseColorDark: { h: 339, s: 89, l: 49 },
+      baseGreyColorDark: { h: 221, s: 21, l: 26 },
       borderRadius: 28,
     })
   }, [])
