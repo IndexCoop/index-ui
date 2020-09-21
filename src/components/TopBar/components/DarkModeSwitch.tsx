@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {
   Emoji,
@@ -7,11 +7,18 @@ import {
   useTheme,
 } from 'react-neu'
 
+import useLocalStorage from 'hooks/useLocalStorage'
+
 const DarkModeSwitch: React.FC = () => {
-  const {
+  const { darkMode, onToggleDarkMode } = useTheme()
+  const [_, setDarkModeSetting] = useLocalStorage('darkMode', darkMode)
+
+  useEffect(() => {
+    setDarkModeSetting(darkMode)
+  }, [
     darkMode,
-    onToggleDarkMode,
-  } = useTheme()
+    setDarkModeSetting
+  ])
 
   return (
     <Switch>

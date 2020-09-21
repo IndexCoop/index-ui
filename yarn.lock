@@ -11582,10 +11582,10 @@ react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-i
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-neu@^1.0.19:
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/react-neu/-/react-neu-1.0.19.tgz#3c1b4bbf08e1d08c4047c90d9c189d26d8607c3e"
-  integrity sha512-qv63pH2kf9xKBojNjDI14FSSWRQEQ9grSTpKHLHP4cE8sZneOPMBW+SpbJEVwvp8pI2BcszfU5YHvuQRN52KhQ==
+react-neu@^1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/react-neu/-/react-neu-1.0.20.tgz#5595a1cb79fbb67c9fd98ab1f179067688894250"
+  integrity sha512-KAQwjSMp5h2/ySs+YmQHz4WjqF8AHo7geuMUN1tUt2HmIu0bvgB/AM7nqRiXCIXiirRNlKFnS82tM9fyUy1obw==
 
 react-router-dom@^5.2.0:
   version "5.2.0"

@@ -16,6 +16,8 @@ import { MigrationProvider } from 'contexts/Migration'
 import { VestingProvider } from 'contexts/Vesting'
 import YamProvider from 'contexts/YamProvider'
 
+import useLocalStorage from 'hooks/useLocalStorage'
+
 import Farm from 'views/Farm'
 import FAQ from 'views/FAQ'
 import Home from 'views/Home'
@@ -57,6 +59,8 @@ const App: React.FC = () => {
 }
 
 const Providers: React.FC = ({ children }) => {
+  const [darkModeSetting] = useLocalStorage('darkMode', false)
+  console.log(darkModeSetting)
   const { dark: darkTheme, light: lightTheme } = useMemo(() => {
     return createTheme({
       baseColor: { h: 338, s: 100, l: 41 },
@@ -65,7 +69,11 @@ const Providers: React.FC = ({ children }) => {
     })
   }, [])
   return (
-    <ThemeProvider darkTheme={darkTheme} lightTheme={lightTheme}>
+    <ThemeProvider
+      darkModeEnabled={darkModeSetting}
+      darkTheme={darkTheme}
+      lightTheme={lightTheme}
+    >
       <UseWalletProvider
         chainId={1}
         connectors={{
