@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Container,
   Spacer,
+  useTheme,
 } from 'react-neu'
 
 import Page from 'components/Page'
@@ -17,17 +18,17 @@ import Stats from './components/Stats'
 import VestingNotice from './components/VestingNotice'
 
 const Home: React.FC = () => {
+  const { darkMode } = useTheme()
   const { yamV2Balance } = useBalances()
   const { vestedBalance } = useVesting()
   return (
     <Page>
       <PageHeader
-        icon="🌞"
-        subtitle="It's a great day to farm YAMs!"
+        icon={darkMode ? "🌚" : "🌞"}
+        subtitle={darkMode ? "🤫 shhh... the YAMs are sleeping." : "It's a great day to farm YAMs!"}
         title="Welcome to YAM Finance."
       />
       <Container>
-        <Spacer />
         {(yamV2Balance && yamV2Balance.toNumber() > 0) && (
           <>
             <MigrationNotice />

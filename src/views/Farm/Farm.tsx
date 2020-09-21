@@ -41,6 +41,7 @@ const Farm: React.FC = () => {
         <Button
           onClick={onRedeem}
           text="Harvest &amp; Unstake"
+          variant="secondary"
         />
       )
     }

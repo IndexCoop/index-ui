@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Container } from 'react-neu'
+import { Container, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 interface PageHeaderProps {
@@ -14,6 +14,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
     <Container size="sm">
     <StyledPageHeader>
       <StyledIcon>{icon}</StyledIcon>
+      <Spacer size="sm" />
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>{subtitle}</StyledSubtitle>
     </StyledPageHeader>
@@ -46,13 +47,15 @@ const StyledTitle = styled.h1`
   font-weight: 700;
   margin: 0;
   padding: 0;
+  text-align: center;
 `
 
 const StyledSubtitle = styled.h3`
-  color: ${props => props.theme.colors.grey[600]};
+  color: ${props => props.theme.textColor};
   font-size: 18px;
   font-weight: 400;
   margin: 0;
+  opacity: 0.66;
   padding: 0;
   text-align: center;
 `
