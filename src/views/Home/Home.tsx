@@ -30,8 +30,6 @@ const Home: React.FC = () => {
         title="Welcome to YAM Finance."
       />
       <Container>
-        <FarmingNotice />
-        <Spacer />
         {(yamV2Balance && yamV2Balance.toNumber() > 0) && (
           <>
             <MigrationNotice />
