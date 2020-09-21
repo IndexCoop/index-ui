@@ -78,10 +78,10 @@ const Rebase: React.FC = () => {
         </Box>
         <Spacer />
         <Button
-          disabled={!account}
+          disabled={true}
           onClick={handleRebaseClick}
           text="Rebase"
-          variant={!account ? 'secondary' : 'default'}
+          variant="secondary"
         />
       </CardContent>
     </Card>
