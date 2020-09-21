@@ -46,7 +46,7 @@ const Stats: React.FC = () => {
           <FancyValue
             icon="💲"
             label="Current price (TWAP)"
-            value={currentPrice ? currentPrice : '--'}
+            value={currentPrice ? `${currentPrice} yUSD` : '--'}
           />
         </CardContent>
       </Card>
