@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 
-import { Button, Container, Spacer } from 'react-neu'
+import { Container, Spacer, useTheme } from 'react-neu'
 import styled from 'styled-components'
-import { Connectors, useWallet } from 'use-wallet'
 
 import Logo from 'components/Logo'
 import MenuIcon from 'components/icons/Menu'
-import useLocalStorage from 'hooks/useLocalStorage'
 
 import DarkModeSwitch from './components/DarkModeSwitch'
 import Nav from './components/Nav'
@@ -17,45 +15,6 @@ interface TopBarProps {
 }
 
 const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
-
-  // const [walletProvider, setWalletProvider] = useLocalStorage<keyof Connectors | ''>('provider', '')
-  const { account, connect, connector, status } = useWallet()
-  const prevStatusRef = useRef('')
-  
-  /*
-  useEffect(() => {
-    if (walletProvider) {
-      connect(walletProvider)
-    }
-  }, [walletProvider])
-
-  useEffect(() => {
-    switch (status) {
-      case 'connected':
-        setWalletProvider(connector)
-        break
-      case 'error':
-        console.log('here')
-        setWalletProvider('')
-        break
-      case 'disconnected':
-        if (prevStatusRef.current === 'connected') {
-          console.log('here')
-          setWalletProvider('')
-        }
-        break
-    }
-  }, [
-    connector,
-    setWalletProvider,
-    status
-  ])
-
-  useEffect(() => {
-    prevStatusRef.current = status
-  })
-  */
-
   return (
     <StyledTopBar>
       <Container size="lg">
