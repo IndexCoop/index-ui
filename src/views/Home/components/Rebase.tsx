@@ -42,7 +42,7 @@ const Rebase: React.FC = () => {
 
   const handleRebaseClick = useCallback(async () => {
     if (!yam) return
-    await yam.contracts.rebaser.methods.rebase().send({ from: account, gas: 200000 })
+    await yam.contracts.rebaser.methods.rebase().send({ from: account, gas: 500000 })
   }, [account, yam])
 
   const renderer = (countdownProps: CountdownRenderProps) => {
@@ -77,7 +77,12 @@ const Rebase: React.FC = () => {
           </Dial>
         </Box>
         <Spacer />
-        <Button disabled={!account} onClick={handleRebaseClick} text="Rebase" variant="secondary" />
+        <Button
+          disabled={!account}
+          onClick={handleRebaseClick}
+          text="Rebase"
+          variant={!account ? 'secondary' : 'default'}
+        />
       </CardContent>
     </Card>
   )
