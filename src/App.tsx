@@ -31,6 +31,7 @@ const App: React.FC = () => {
   const handlePresentMobileMenu = useCallback(() => {
     setMobileMenu(true)
   }, [setMobileMenu])
+
   return (
     <Router>
       <Providers>
@@ -56,14 +57,15 @@ const App: React.FC = () => {
 }
 
 const Providers: React.FC = ({ children }) => {
-  const theme = useMemo(() => {
+  const { dark: darkTheme, light: lightTheme } = useMemo(() => {
     return createTheme({
       baseColor: { h: 338, s: 100, l: 41 },
+      baseColorDark: { h: 339, s: 89, l: 49 },
       borderRadius: 28,
     })
   }, [])
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider darkTheme={darkTheme} lightTheme={lightTheme}>
       <UseWalletProvider
         chainId={1}
         connectors={{

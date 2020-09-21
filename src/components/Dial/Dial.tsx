@@ -51,7 +51,7 @@ const StyledDial = styled.div<StyledInnerProps>`
 
 const StyledInner = styled.div<StyledInnerProps>`
   align-items: center;
-  background-color: ${props => props.theme.colors.grey[200]};
+  background: ${props => props.theme.surfaces[0].background};
   border-radius: ${props => props.size}px;
   display: flex;
   justify-content: center;
@@ -61,7 +61,7 @@ const StyledInner = styled.div<StyledInnerProps>`
 `
 
 const StyledOuter = styled.div`
-  background-color: ${props => props.theme.colors.grey[300]};
+  background-color: ${props => props.theme.shadowColor};
   border-radius: 10000px;
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
