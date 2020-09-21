@@ -193,20 +193,6 @@ export const getNextRebaseTimestamp = async (yam) => {
        } else {
           secondsToRebase = offset - (now % interval);
       }
-    } else {
-      let twap_init = yam.toBigN(await yam.contracts.rebaser.methods.timeOfTWAPInit().call()).toNumber();
-      if (twap_init > 0) {
-        let delay = yam.toBigN(await yam.contracts.rebaser.methods.rebaseDelay().call()).toNumber();
-        let endTime = twap_init + delay;
-        if (endTime % interval > offset) {
-            secondsToRebase = (interval - (endTime % interval)) + offset;
-         } else {
-            secondsToRebase = offset - (endTime % interval);
-        }
-        return endTime + secondsToRebase;
-      } else {
-        return now + 13*60*60; // just know that its greater than 12 hours away
-      }
     }
     return secondsToRebase
   } catch (e) {
@@ -281,15 +267,24 @@ export const migrationStarted = async (yam) => {
   return false;
 }
 
-export const currVested = async (yam, account) => {
-  let BASE = new BigNumber(10).pow(24);
+const yamToFragment = async (yam, amount) => {
+  let BASE24 = new BigNumber(10).pow(24);
+  let scalingFactor = new BigNumber(await yam.contracts.yamV3.methods.yamsScalingFactor().call());
 
-  let vested = new BigNumber(await yam.contracts.migrator.methods.vested(account).call()).dividedBy(BASE);
-  return vested;
+  return amount.multipliedBy(scalingFactor).dividedBy(BASE24);
+}
+
+export const currVested = async (yam, account) => {
+  let BASE = new BigNumber(10).pow(18);
+
+  let vested = new BigNumber(await yam.contracts.migrator.methods.vested(account).call());
+  let amt = await yamToFragment(yam, vested);
+  return amt.dividedBy(BASE);
 }
 
 export const currUnclaimedDelegatorRewards = async (yam, account) => {
-  let BASE = new BigNumber(10).pow(24);
+  let BASE = new BigNumber(10).pow(18);
+  let BASE24 = new BigNumber(10).pow(24);
 
   let start = new BigNumber(1600444800);
   let duration = new BigNumber(90 * 86400);
@@ -300,12 +295,14 @@ export const currUnclaimedDelegatorRewards = async (yam, account) => {
   }
   let totalVesting = new BigNumber(await yam.contracts.migrator.methods.delegator_vesting(account).call());
   let claimed = new BigNumber(await yam.contracts.migrator.methods.delegator_claimed(account).call());
-  let unclaimed = ((totalVesting.multipliedBy(percDone)).minus(claimed)).dividedBy(BASE);
-  return unclaimed;
+  let unclaimed = ((totalVesting.multipliedBy(percDone)).minus(claimed));
+  let amt = await yamToFragment(yam, unclaimed);
+  return amt.dividedBy(BASE);
 }
 
 export const currUnclaimedMigratorVesting = async (yam, account) => {
-  let BASE = new BigNumber(10).pow(24);
+  let BASE = new BigNumber(10).pow(18);
+  let BASE24 = new BigNumber(10).pow(24);
 
   let start = new BigNumber(1600444800);
   let duration = new BigNumber(30 * 86400);
@@ -316,15 +313,18 @@ export const currUnclaimedMigratorVesting = async (yam, account) => {
   }
   let totalVesting = new BigNumber(await yam.contracts.migrator.methods.vesting(account).call());
   let claimed = new BigNumber(await yam.contracts.migrator.methods.claimed(account).call());
-  let unclaimed = ((totalVesting.multipliedBy(percDone)).minus(claimed)).dividedBy(BASE);
-  return unclaimed;
+  let unclaimed = ((totalVesting.multipliedBy(percDone)).minus(claimed));
+  let amt = await yamToFragment(yam, unclaimed);
+  return amt.dividedBy(BASE);
 }
 
 export const delegatorRewards = async (yam, account) => {
-  let BASE = new BigNumber(10).pow(24);
+  let BASE = new BigNumber(10).pow(18);
+  let BASE24 = new BigNumber(10).pow(24);
 
-  let rewards = new BigNumber(await yam.contracts.migrator.methods.delegator_vesting(account).call()).dividedBy(BASE);
-  return rewards;
+  let rewards = new BigNumber(await yam.contracts.migrator.methods.delegator_vesting(account).call());
+  let amt = await yamToFragment(yam, rewards);
+  return amt.dividedBy(BASE);
 }
 
 export const migrateV3 = async (yam, account, onTxHash) => {
