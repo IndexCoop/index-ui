@@ -38,7 +38,7 @@ const YamProvider: React.FC = ({ children }) => {
           ethereumNodeTimeout: 10000
         }
       )
-      console.log(ethereum)
+
       setYam(yamLib)
       window.yamsauce = yamLib
     }
