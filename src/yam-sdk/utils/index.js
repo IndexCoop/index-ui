@@ -172,6 +172,15 @@ export const getCirculatingSupply = async (yam) => {
   return circulating
 }
 
+export const getLastRebaseTimestamp = async (yam) => {
+  try {
+    const lastTimestamp = yam.toBigN(await yam.contracts.rebaser.methods.lastRebaseTimestampSec().call()).toNumber()
+    return lastTimestamp
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export const getNextRebaseTimestamp = async (yam) => {
   try {
     let now = await yam.web3.eth.getBlock('latest').then(res => res.timestamp);

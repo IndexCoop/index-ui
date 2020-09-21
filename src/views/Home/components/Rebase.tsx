@@ -9,18 +9,22 @@ import {
   Spacer,
 } from 'react-neu'
 import styled from 'styled-components'
+import { useWallet } from 'use-wallet'
 
 import Dial from 'components/Dial'
 import Label from 'components/Label'
 
 import useYam from 'hooks/useYam'
 
-import { getNextRebaseTimestamp } from 'yam-sdk/utils'
+import {
+  getLastRebaseTimestamp,
+  getNextRebaseTimestamp,
+} from 'yam-sdk/utils'
 
 const Rebase: React.FC = () => {
   const yam = useYam()
   const [nextRebase, setNextRebase] = useState<number>()
-
+  const { account } = useWallet()
   const fetchNextRebase = useCallback( async() => {
     if (!yam) return
     const nextRebaseTimestamp = await getNextRebaseTimestamp(yam)
@@ -35,6 +39,11 @@ const Rebase: React.FC = () => {
       fetchNextRebase()
     }
   }, [fetchNextRebase, yam])
+
+  const handleRebaseClick = useCallback(async () => {
+    if (!yam) return
+    await yam.contracts.rebaser.methods.rebase().send({ from: account, gas: 200000 })
+  }, [account, yam])
 
   const renderer = (countdownProps: CountdownRenderProps) => {
     const { hours, minutes, seconds } = countdownProps
@@ -68,7 +77,7 @@ const Rebase: React.FC = () => {
           </Dial>
         </Box>
         <Spacer />
-        <Button disabled text="Rebase" variant="secondary" />
+        <Button disabled={!account} onClick={handleRebaseClick} text="Rebase" variant="secondary" />
       </CardContent>
     </Card>
   )
