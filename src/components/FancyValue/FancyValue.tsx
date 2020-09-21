@@ -21,7 +21,7 @@ const FancyValue: React.FC<FancyValueProps> = ({
       alignItems="center"
       row
     >
-      <Box>
+      <Box row justifyContent="center" minWidth={48}>
         <StyledIcon>{icon}</StyledIcon>
       </Box>
       <Spacer />
