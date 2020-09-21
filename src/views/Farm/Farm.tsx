@@ -60,21 +60,21 @@ const Farm: React.FC = () => {
     <Page>
       <PageHeader
         icon="🧑‍🌾"
-        subtitle="Plant LP tokens and grow YAMs"
+        subtitle="Stake YAM/yUSD LP tokens and grow YAMs"
         title="Farm"
       />
       <Container>
         <Split>
-          <HarvestCard />
           <StakeCard />
+          <HarvestCard />
         </Split>
         <Spacer />
         <Box row justifyContent="center">
           {RedeemButton}
         </Box>
-        <Spacer />
+        <Spacer size="lg" />
         <Separator />
-        <Spacer />
+        <Spacer size="lg" />
         <Split>
           <Button
             full
@@ -90,7 +90,7 @@ const Farm: React.FC = () => {
           />
           <Button
             full
-            text="Get LP YAM/yUSD tokens"
+            text="Get YAM/yUSD LP tokens"
             href="https://app.uniswap.org/#/add/0x0aacfbec6a24756c20d41914f2caba817c0d8521/0x5dbcf33d8c2e976c6b560249878e6f1491bca25c"
             variant="tertiary"
           />
