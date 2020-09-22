@@ -6,6 +6,11 @@ import {
   Button,
   Card,
   CardContent,
+  CardIcon,
+  Modal,
+  ModalTitle,
+  ModalContent,
+  ModalActions,
   Spacer,
 } from 'react-neu'
 import styled from 'styled-components'
@@ -16,14 +21,14 @@ import Label from 'components/Label'
 
 import useYam from 'hooks/useYam'
 
-import {
-  getLastRebaseTimestamp,
-  getNextRebaseTimestamp,
-} from 'yam-sdk/utils'
+import { getNextRebaseTimestamp } from 'yam-sdk/utils'
 
 const Rebase: React.FC = () => {
   const yam = useYam()
+
   const [nextRebase, setNextRebase] = useState<number>()
+  const [rebaseWarningModal, setRebaseWarningModal] = useState(false)
+  
   const { account } = useWallet()
   const fetchNextRebase = useCallback( async() => {
     if (!yam) return
@@ -55,36 +60,55 @@ const Rebase: React.FC = () => {
     )
   }
 
-  const dialValue = nextRebase ? (nextRebase * 1000 - Date.now()) / (1000 * 60 * 60 * 12) * 100 : 0
+  const dialValue = nextRebase ? (nextRebase * 1000) / (1000 * 60 * 60 * 12) * 100 : 0
 
   return (
-    <Card>
-      <CardContent>
-        <Box
-          alignItems="center"
-          justifyContent="center"
-          row
-        >
-          <Dial size={240} value={dialValue}>
-            <StyledCountdown>
-              <StyledCountdownText>
-                {!nextRebase ? '--' : (
-                  <Countdown date={new Date(Date.now() + nextRebase * 1000)} renderer={renderer} />
-                )}
-              </StyledCountdownText>
-              <Label text="Next rebase" />
-            </StyledCountdown>
-          </Dial>
-        </Box>
-        <Spacer />
-        <Button
-          disabled={true}
-          onClick={handleRebaseClick}
-          text="Rebase"
-          variant="secondary"
-        />
-      </CardContent>
-    </Card>
+    <>
+      <Card>
+        <CardContent>
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            row
+          >
+            <Dial size={240} value={dialValue}>
+              <StyledCountdown>
+                <StyledCountdownText>
+                  {!nextRebase ? '--' : (
+                    <Countdown date={new Date(Date.now() + nextRebase * 1000)} renderer={renderer} />
+                  )}
+                </StyledCountdownText>
+                <Label text="Next rebase" />
+              </StyledCountdown>
+            </Dial>
+          </Box>
+          <Spacer />
+          <Button
+            disabled={!account}
+            onClick={() => setRebaseWarningModal(true)}
+            text="Rebase"
+            variant="secondary"
+          />
+        </CardContent>
+      </Card>
+      <Modal isOpen={rebaseWarningModal}>
+        <CardIcon>⚠️</CardIcon>
+        <ModalContent>
+          WARNING: Only 1 rebase transaction succeeds every 12 hours. This transaction will likely fail.
+        </ModalContent>
+        <ModalActions>
+          <Button
+            onClick={() => setRebaseWarningModal(false)}
+            text="Cancel"
+            variant="secondary"
+          />
+          <Button
+            onClick={handleRebaseClick}
+            text="Confirm rebase"
+          />
+        </ModalActions>
+      </Modal>
+    </>
   )
 }
 
