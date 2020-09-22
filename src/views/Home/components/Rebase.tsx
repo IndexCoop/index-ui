@@ -26,14 +26,18 @@ import { getNextRebaseTimestamp } from 'yam-sdk/utils'
 const Rebase: React.FC = () => {
   const yam = useYam()
 
-  const [nextRebase, setNextRebase] = useState<number>()
+  const [nextRebase, setNextRebase] = useState(0)
   const [rebaseWarningModal, setRebaseWarningModal] = useState(false)
   
   const { account } = useWallet()
   const fetchNextRebase = useCallback( async() => {
     if (!yam) return
     const nextRebaseTimestamp = await getNextRebaseTimestamp(yam)
-    setNextRebase(nextRebaseTimestamp)
+    if (nextRebaseTimestamp) {
+      setNextRebase(Date.now() + nextRebaseTimestamp * 1000)
+    } else {
+      setNextRebase(0)
+    }
   }, [
     setNextRebase,
     yam
@@ -60,7 +64,7 @@ const Rebase: React.FC = () => {
     )
   }
 
-  const dialValue = nextRebase ? (nextRebase * 1000) / (1000 * 60 * 60 * 12) * 100 : 0
+  const dialValue = (nextRebase - Date.now()) / (1000 * 60 * 60 * 12) * 100
 
   return (
     <>
@@ -75,7 +79,7 @@ const Rebase: React.FC = () => {
               <StyledCountdown>
                 <StyledCountdownText>
                   {!nextRebase ? '--' : (
-                    <Countdown date={new Date(Date.now() + nextRebase * 1000)} renderer={renderer} />
+                    <Countdown date={new Date(nextRebase)} renderer={renderer} />
                   )}
                 </StyledCountdownText>
                 <Label text="Next rebase" />
