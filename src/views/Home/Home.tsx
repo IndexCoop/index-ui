@@ -15,6 +15,7 @@ import useVesting from 'hooks/useVesting'
 import MigrationNotice from './components/MigrationNotice'
 import Rebase from './components/Rebase'
 import Stats from './components/Stats'
+import Treasury from './components/Treasury'
 import VestingNotice from './components/VestingNotice'
 
 const Home: React.FC = () => {
@@ -41,6 +42,8 @@ const Home: React.FC = () => {
             <Spacer />
           </>
         )}
+        <Treasury />
+        <Spacer />
         <Split>
           <Rebase />
           <Stats />
