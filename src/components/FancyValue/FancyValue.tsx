@@ -24,7 +24,7 @@ const FancyValue: React.FC<FancyValueProps> = ({
       <Box row justifyContent="center" minWidth={48}>
         <StyledIcon>{icon}</StyledIcon>
       </Box>
-      <Spacer />
+      <Spacer size="sm" />
       <Box flex={1}>
         <Value value={value} />
         <Label text={label} />

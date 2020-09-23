@@ -75,7 +75,7 @@ const Rebase: React.FC = () => {
             justifyContent="center"
             row
           >
-            <Dial size={240} value={dialValue}>
+            <Dial size={196} value={dialValue}>
               <StyledCountdown>
                 <StyledCountdownText>
                   {!nextRebase ? '--' : (
