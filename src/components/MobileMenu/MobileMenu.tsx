@@ -17,6 +17,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink exact activeClassName="active" to="/" onClick={onDismiss}>Home</StyledLink>
           <StyledLink exact activeClassName="active" to="/farm" onClick={onDismiss}>Farm</StyledLink>
           <StyledLink exact activeClassName="active" to="/migrate" onClick={onDismiss}>Migrate</StyledLink>
+          <StyledLink activeClassName="active" to="/faq" onClick={onDismiss}>FAQ</StyledLink>
         </StyledMobileMenu>
       </StyledMobileMenuWrapper>
     )
@@ -25,7 +26,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
 }
 
 const StyledBackdrop = styled.div`
-  background-color: ${props => props.theme.colors.grey[600]};
+  background-color: ${props => props.theme.colors.black};
   opacity: 0.75;
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
@@ -50,7 +51,7 @@ const slideIn = keyframes`
 
 const StyledMobileMenu = styled.div`
   animation: ${slideIn} 0.3s forwards ease-out;
-  background-color: ${props => props.theme.colors.grey[200]};
+  background: ${props => props.theme.baseBg};
   display: flex;
   flex: 1;
   flex-direction: column;

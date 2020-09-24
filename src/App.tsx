@@ -47,7 +47,7 @@ const App: React.FC = () => {
           <Route exact path="/farm">
             <Farm />
           </Route>
-          <Route exact path="/faq">
+          <Route path="/faq">
             <FAQ />
           </Route>
           <Route exact path="/migrate">
@@ -61,7 +61,6 @@ const App: React.FC = () => {
 
 const Providers: React.FC = ({ children }) => {
   const [darkModeSetting] = useLocalStorage('darkMode', false)
-  console.log(darkModeSetting)
   const { dark: darkTheme, light: lightTheme } = useMemo(() => {
     return createTheme({
       baseColor: { h: 338, s: 100, l: 41 },
