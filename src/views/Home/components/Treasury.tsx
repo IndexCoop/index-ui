@@ -19,15 +19,15 @@ import useTreasury from 'hooks/useTreasury'
 const Treasury: React.FC = () => {
   const { totalYUsdValue, yamBalance, yUsdBalance } = useTreasury()
   
-  const treasuryValue = totalYUsdValue
+  const treasuryValue = typeof totalYUsdValue !== 'undefined'
     ? '$'+numeral(totalYUsdValue * 1.15).format('0.00a')
     : '--'
 
-  const yamValue = yamBalance
+  const yamValue = typeof yamBalance !== 'undefined'
     ? numeral(yamBalance).format('0.00a')
     : '--'
 
-  const yUsdValue = yUsdBalance
+  const yUsdValue = typeof yUsdBalance !== 'undefined'
     ? numeral(yUsdBalance).format('0.00a')
     : '--'
 
