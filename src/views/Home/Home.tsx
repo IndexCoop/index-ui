@@ -1,29 +1,29 @@
-import React from "react";
-import { Container, Spacer } from "react-neu";
-import styled from "styled-components";
+import React from 'react'
+import { Container, Spacer } from 'react-neu'
+import styled from 'styled-components'
 
-import Page from "components/Page";
-import PageHeader from "components/PageHeader";
-import Manifesto from "components/Manifesto";
+import Page from 'components/Page'
+import PageHeader from 'components/PageHeader'
+import Manifesto from 'components/Manifesto'
 
-import useBalances from "hooks/useBalances";
+import useBalances from 'hooks/useBalances'
 
-import MigrationNotice from "./components/MigrationNotice";
-import Treasury from "./components/Treasury";
+import MigrationNotice from './components/MigrationNotice'
+import Treasury from './components/Treasury'
 
 const Home: React.FC = () => {
-  const { yamV2Balance } = useBalances();
+  const { yamV2Balance } = useBalances()
   return (
     <Page>
       <PageHeader
-        icon="🦉"
-        title="The Index DAO"
-        subtitle="The community curated crypto index"
+        icon='🦉'
+        title='The Index DAO'
+        subtitle='The community curated crypto index'
       />
       <StyledViewFarmButton>View Farms</StyledViewFarmButton>
       <Spacer />
       <Container>
-        <StyledIndexImage src="https://index-dao.s3.amazonaws.com/index_allocations_1.png" />
+        <StyledIndexImage src='https://index-dao.s3.amazonaws.com/index_allocations_1.png' />
       </Container>
       <Spacer />
       <Treasury />
@@ -38,12 +38,12 @@ const Home: React.FC = () => {
         )}
       </Container>
     </Page>
-  );
-};
+  )
+}
 
 const StyledIndexImage = styled.img`
-  width: 100%;
-`;
+  width: 100%
+`
 
 const StyledViewFarmButton = styled.button`
   color: ${(props) => props.theme.colors.primary.light};
@@ -54,6 +54,6 @@ const StyledViewFarmButton = styled.button`
   &:visited {
     color: ${(props) => props.theme.colors.primary.light};
   }
-`;
+`
 
-export default Home;
+export default Home
