@@ -2,6 +2,7 @@ import React from "react";
 
 import numeral from "numeral";
 import { Spacer, Container } from "react-neu";
+import styled from "styled-components";
 
 import FancyValue from "components/FancyValue";
 import Split from "components/Split";
@@ -24,12 +25,28 @@ const Treasury: React.FC = () => {
   return (
     <Container>
       <Split>
-        <FancyValue icon="💰" label="Capital in Farms" value={treasuryValue} />
-        <FancyValue icon="🍠" label="$INDEX Price" value={yamValue} />
+        <StyledIndexData>
+          <FancyValue
+            icon="💰"
+            label="Capital in Farms"
+            value={treasuryValue}
+          />
+        </StyledIndexData>
+        <StyledIndexData>
+          <FancyValue icon="🦉" label="$INDEX Price" value={yamValue} />
+        </StyledIndexData>
       </Split>
       <Spacer />
     </Container>
   );
 };
+
+const StyledIndexData = styled.div`
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  background-color: white;
+  color: dark-blue;
+`;
 
 export default Treasury;

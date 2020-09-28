@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   return (
     <Page>
       <PageHeader
-        icon={"🦉"}
+        icon="🦉"
         title="The Index DAO"
         subtitle="The community curated crypto index"
       />
