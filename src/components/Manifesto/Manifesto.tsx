@@ -1,9 +1,9 @@
-import React from "react";
-import { Container } from "react-neu";
-import styled from "styled-components";
+import React from 'react'
+import { Container } from 'react-neu'
+import styled from 'styled-components'
 
 interface ExternalLinkProps {
-  href?: string;
+  href?: string
 }
 
 const ExternalLink: React.FC<ExternalLinkProps> = ({ children, href }) => (
@@ -33,10 +33,10 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({ children, href }) => (
       </div>
     </StyledManifesto>
   </Container>
-);
+)
 
 const StyledManifesto = styled.a`
   color: ${(props) => props.theme.colors.white};
-`;
+`
 
-export default ExternalLink;
+export default ExternalLink
