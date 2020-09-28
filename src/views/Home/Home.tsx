@@ -1,25 +1,18 @@
-import React from 'react'
-import {
-  Container,
-  Spacer,
-} from 'react-neu'
+import React from "react";
+import { Container, Spacer } from "react-neu";
+import styled from "styled-components";
 
-import Page from 'components/Page'
-import PageHeader from 'components/PageHeader'
-import Split from 'components/Split'
+import Page from "components/Page";
+import PageHeader from "components/PageHeader";
+import Manifesto from "components/Manifesto";
 
-import useBalances from 'hooks/useBalances'
-import useVesting from 'hooks/useVesting'
+import useBalances from "hooks/useBalances";
 
-import MigrationNotice from './components/MigrationNotice'
-import Rebase from './components/Rebase'
-import Stats from './components/Stats'
-import Treasury from './components/Treasury'
-import VestingNotice from './components/VestingNotice'
+import MigrationNotice from "./components/MigrationNotice";
+import Treasury from "./components/Treasury";
 
 const Home: React.FC = () => {
-  const { yamV2Balance } = useBalances()
-  const { vestedBalance } = useVesting()
+  const { yamV2Balance } = useBalances();
   return (
     <Page>
       <PageHeader
@@ -27,28 +20,41 @@ const Home: React.FC = () => {
         title="The Index DAO"
         subtitle="The community curated crypto index"
       />
+      <StyledViewFarmButton>View Farms</StyledViewFarmButton>
+      <Spacer />
+      <StyledIndexImage />
+      <Spacer />
+      <Treasury />
+      <Spacer />
+      <Manifesto />
       <Container>
-        {(yamV2Balance && yamV2Balance.toNumber() > 0) && (
+        {yamV2Balance && yamV2Balance.toNumber() >= 0 && (
           <>
             <MigrationNotice />
             <Spacer />
           </>
         )}
-        {(vestedBalance && vestedBalance.toNumber() > 0) && (
-          <>
-            <VestingNotice />
-            <Spacer />
-          </>
-        )}
-        <Treasury />
-        <Spacer />
-        <Split>
-          <Rebase />
-          <Stats />
-        </Split>
       </Container>
     </Page>
-  )
-}
+  );
+};
 
-export default Home
+const StyledIndexImage = styled.div`
+  width: 600px;
+  height: 200px;
+  background-color: white;
+  border-radius: 10px;
+`;
+
+const StyledViewFarmButton = styled.button`
+  color: ${(props) => props.theme.colors.primary.light};
+  font-size: 16px;
+  padding: 15px 60px;
+  border-radius: 40px;
+  background-color: ${(props) => props.theme.colors.primary.dark};
+  &:visited {
+    color: ${(props) => props.theme.colors.primary.light};
+  }
+`;
+
+export default Home;
