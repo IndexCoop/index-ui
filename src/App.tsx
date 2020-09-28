@@ -64,7 +64,7 @@ const Providers: React.FC = ({ children }) => {
   const { dark: darkTheme, light: lightTheme } = useMemo(() => {
     return createTheme({
       baseColor: { h: 338, s: 100, l: 41 },
-      baseColorDark: { h: 339, s: 89, l: 49 },
+      baseColorDark: { h: 248, s: 45, l: 10 },
       borderRadius: 28,
     })
   }, [])
