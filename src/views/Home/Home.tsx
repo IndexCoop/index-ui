@@ -22,7 +22,9 @@ const Home: React.FC = () => {
       />
       <StyledViewFarmButton>View Farms</StyledViewFarmButton>
       <Spacer />
-      <StyledIndexImage />
+      <Container>
+        <StyledIndexImage src="https://index-dao.s3.amazonaws.com/index_allocations_1.png" />
+      </Container>
       <Spacer />
       <Treasury />
       <Spacer />
@@ -39,11 +41,8 @@ const Home: React.FC = () => {
   );
 };
 
-const StyledIndexImage = styled.div`
-  width: 600px;
-  height: 200px;
-  background-color: white;
-  border-radius: 10px;
+const StyledIndexImage = styled.img`
+  width: 100%;
 `;
 
 const StyledViewFarmButton = styled.button`

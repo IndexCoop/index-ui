@@ -36,10 +36,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({ children, href }) => (
 );
 
 const StyledManifesto = styled.a`
-  color: ${(props) => props.theme.colors.primary.light};
-  &:visited {
-    color: ${(props) => props.theme.colors.primary.light};
-  }
+  color: ${(props) => props.theme.colors.white};
 `;
 
 export default ExternalLink;

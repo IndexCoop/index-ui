@@ -42,8 +42,10 @@ const Treasury: React.FC = () => {
 };
 
 const StyledIndexData = styled.div`
-  width: 100%;
-  height: 150px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  height: 100px;
   border-radius: 10px;
   background-color: white;
   color: dark-blue;
