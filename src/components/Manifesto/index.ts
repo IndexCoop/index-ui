@@ -1,1 +1,1 @@
-export { default } from "./Manifesto";
+export { default } from './Manifesto';

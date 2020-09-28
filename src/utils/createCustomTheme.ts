@@ -1,4 +1,4 @@
-import { HSLA, Theme } from "react-neu/dist/theme/types";
+import { HSLA, Theme } from 'react-neu/dist/theme/types';
 
 const createTheme = (): {
   dark: Theme;
