@@ -1,39 +1,37 @@
-import React, { useCallback, useMemo, useState } from 'react'
-import { createTheme, ThemeProvider } from 'react-neu'
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom'
-import { UseWalletProvider } from 'use-wallet'
+import React, { useCallback, useMemo, useState } from "react";
+import { ThemeProvider } from "react-neu";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { UseWalletProvider } from "use-wallet";
 
-import MobileMenu from 'components/MobileMenu'
-import TopBar from 'components/TopBar'
+import MobileMenu from "components/MobileMenu";
+import TopBar from "components/TopBar";
 
-import { BalancesProvider } from 'contexts/Balances'
-import { FarmingProvider } from 'contexts/Farming'
-import { MigrationProvider } from 'contexts/Migration'
-import { PricesProvider } from 'contexts/Prices'
-import { VestingProvider } from 'contexts/Vesting'
-import YamProvider from 'contexts/YamProvider'
+import { BalancesProvider } from "contexts/Balances";
+import { FarmingProvider } from "contexts/Farming";
+import { MigrationProvider } from "contexts/Migration";
+import { PricesProvider } from "contexts/Prices";
+import { VestingProvider } from "contexts/Vesting";
+import YamProvider from "contexts/YamProvider";
 
-import useLocalStorage from 'hooks/useLocalStorage'
+import useLocalStorage from "hooks/useLocalStorage";
 
-import Farm from 'views/Farm'
-import FAQ from 'views/FAQ'
-import Home from 'views/Home'
-import Migrate from 'views/Migrate'
+import Farm from "views/Farm";
+import FAQ from "views/FAQ";
+import Home from "views/Home";
+import Migrate from "views/Migrate";
+
+import createTheme from "utils/createCustomTheme";
 
 const App: React.FC = () => {
-  const [mobileMenu, setMobileMenu] = useState(false)
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   const handleDismissMobileMenu = useCallback(() => {
-    setMobileMenu(false)
-  }, [setMobileMenu])
-  
+    setMobileMenu(false);
+  }, [setMobileMenu]);
+
   const handlePresentMobileMenu = useCallback(() => {
-    setMobileMenu(true)
-  }, [setMobileMenu])
+    setMobileMenu(true);
+  }, [setMobileMenu]);
 
   return (
     <Router>
@@ -56,18 +54,14 @@ const App: React.FC = () => {
         </Switch>
       </Providers>
     </Router>
-  )
-}
+  );
+};
 
 const Providers: React.FC = ({ children }) => {
-  const [darkModeSetting] = useLocalStorage('darkMode', false)
+  const [darkModeSetting] = useLocalStorage("darkMode", false);
   const { dark: darkTheme, light: lightTheme } = useMemo(() => {
-    return createTheme({
-      baseColor: { h: 338, s: 100, l: 41 },
-      baseColorDark: { h: 248, s: 45, l: 10 },
-      borderRadius: 28,
-    })
-  }, [])
+    return createTheme();
+  }, []);
   return (
     <ThemeProvider
       darkModeEnabled={darkModeSetting}
@@ -77,7 +71,7 @@ const Providers: React.FC = ({ children }) => {
       <UseWalletProvider
         chainId={1}
         connectors={{
-          walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
+          walletconnect: { rpcUrl: "https://mainnet.eth.aragon.network/" },
         }}
       >
         <YamProvider>
@@ -85,9 +79,7 @@ const Providers: React.FC = ({ children }) => {
             <BalancesProvider>
               <FarmingProvider>
                 <MigrationProvider>
-                  <VestingProvider>
-                    {children}
-                  </VestingProvider>
+                  <VestingProvider>{children}</VestingProvider>
                 </MigrationProvider>
               </FarmingProvider>
             </BalancesProvider>
@@ -95,7 +87,7 @@ const Providers: React.FC = ({ children }) => {
         </YamProvider>
       </UseWalletProvider>
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;
