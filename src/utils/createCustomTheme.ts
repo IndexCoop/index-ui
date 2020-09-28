@@ -1,21 +1,19 @@
-import { HSLA, Theme, ThemeConfig } from "react-neu/dist/theme/types";
+import { HSLA, Theme } from "react-neu/dist/theme/types";
 
-const DEFAULT_COLOR: HSLA = { h: 200, s: 100, l: 50 };
-
-const createTheme = (
-  config?: ThemeConfig
-): {
+const createTheme = (): {
   dark: Theme;
   light: Theme;
 } => {
-  const {
-    baseColor = DEFAULT_COLOR,
-    baseColorDark,
-    baseGreyColor,
-    baseGreyColorDark,
-    borderRadius = 24,
-    siteWidth = 1200,
-  } = config || {};
+  /* Light styles */
+  const baseColor = { h: 338, s: 100, l: 41 };
+  const baseGreyColor = { h: 338, s: 100, l: 41 };
+
+  /* Dark Styles */
+  const baseColorDark = { h: 248, s: 45, l: 10 };
+  const baseGreyColorDark = { h: 248, s: 45, l: 10 };
+
+  const borderRadius = 28;
+  const siteWidth = 1200;
 
   const { h, s } = baseColor;
   const { h: hDark, s: sDark } = baseColorDark || baseColor;
