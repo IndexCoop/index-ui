@@ -2,7 +2,6 @@ import React from 'react'
 import {
   Container,
   Spacer,
-  useTheme,
 } from 'react-neu'
 
 import Page from 'components/Page'
@@ -19,15 +18,14 @@ import Treasury from './components/Treasury'
 import VestingNotice from './components/VestingNotice'
 
 const Home: React.FC = () => {
-  const { darkMode } = useTheme()
   const { yamV2Balance } = useBalances()
   const { vestedBalance } = useVesting()
   return (
     <Page>
       <PageHeader
-        icon={darkMode ? "🌚" : "🌞"}
-        subtitle={darkMode ? "🤫 shhh... the YAMs are sleeping." : "It's a great day to farm YAMs!"}
-        title="Welcome to YAM Finance."
+        icon={"🦉"}
+        title="The Index DAO"
+        subtitle="The community curated crypto index"
       />
       <Container>
         {(yamV2Balance && yamV2Balance.toNumber() > 0) && (
