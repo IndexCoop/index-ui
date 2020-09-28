@@ -1,15 +1,8 @@
 import React from 'react'
 
 import numeral from 'numeral'
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardTitle,
-  Spacer,
-} from 'react-neu'
+import { Spacer, Container } from 'react-neu'
+import styled from 'styled-components'
 
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
@@ -17,55 +10,45 @@ import Split from 'components/Split'
 import useTreasury from 'hooks/useTreasury'
 
 const Treasury: React.FC = () => {
-  const { totalYUsdValue, yamBalance, yUsdBalance } = useTreasury()
-  
-  const treasuryValue = typeof totalYUsdValue !== 'undefined'
-    ? '$'+numeral(totalYUsdValue * 1.15).format('0.00a')
-    : '--'
+  const { totalYUsdValue, yamBalance } = useTreasury()
 
-  const yamValue = typeof yamBalance !== 'undefined'
-    ? numeral(yamBalance).format('0.00a')
-    : '--'
+  const treasuryValue =
+    typeof totalYUsdValue !== 'undefined'
+      ? '$' + numeral(totalYUsdValue * 1.15).format('0.00a')
+      : '--'
 
-  const yUsdValue = typeof yUsdBalance !== 'undefined'
-    ? numeral(yUsdBalance).format('0.00a')
-    : '--'
+  const yamValue =
+    typeof yamBalance !== 'undefined'
+      ? numeral(yamBalance).format('0.00a')
+      : '--'
 
   return (
-    <Card>
-      <CardTitle text="Treasury Overview" />
-      <Spacer size="sm" />
-      <CardContent>
-        <Split>
+    <Container>
+      <Split>
+        <StyledIndexData>
           <FancyValue
-            icon="💰"
-            label="Treasury value"
+            icon='💰'
+            label='Capital in Farms'
             value={treasuryValue}
           />
-          <FancyValue
-            icon="💸"
-            label="yUSD in reserves"
-            value={yUsdValue}
-          />
-          <FancyValue
-            icon="🍠"
-            label="YAM in reserves"
-            value={yamValue}
-          />
-        </Split>
-        <Spacer />
-      </CardContent>
-      <CardActions>
-        <Box row justifyContent="center">
-          <Button
-            href="https://etherscan.io/address/0xcf27ca116dd5c7b4201c75b46489d1c075362087"
-            text="View on Etherscan"
-            variant="secondary"
-          />
-        </Box>
-      </CardActions>
-    </Card>
+        </StyledIndexData>
+        <StyledIndexData>
+          <FancyValue icon='🦉' label='$INDEX Price' value={yamValue} />
+        </StyledIndexData>
+      </Split>
+      <Spacer />
+    </Container>
   )
 }
+
+const StyledIndexData = styled.div`
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  height: 100px;
+  border-radius: 10px;
+  background-color: white;
+  color: dark-blue;
+`
 
 export default Treasury

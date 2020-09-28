@@ -11,20 +11,13 @@ interface FancyValueProps {
   value: string,
 }
 
-const FancyValue: React.FC<FancyValueProps> = ({
-  icon,
-  label,
-  value,
-}) => {
+const FancyValue: React.FC<FancyValueProps> = ({ icon, label, value }) => {
   return (
-    <Box
-      alignItems="center"
-      row
-    >
-      <Box row justifyContent="center" minWidth={48}>
+    <Box alignItems='center' row>
+      <Box row justifyContent='center' minWidth={48}>
         <StyledIcon>{icon}</StyledIcon>
       </Box>
-      <Spacer size="sm" />
+      <Spacer size='sm' />
       <Box flex={1}>
         <Value value={value} />
         <Label text={label} />

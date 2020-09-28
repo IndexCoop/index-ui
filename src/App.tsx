@@ -1,10 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
-import { createTheme, ThemeProvider } from 'react-neu'
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom'
+import { ThemeProvider } from 'react-neu'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { UseWalletProvider } from 'use-wallet'
 
 import MobileMenu from 'components/MobileMenu'
@@ -24,13 +20,15 @@ import FAQ from 'views/FAQ'
 import Home from 'views/Home'
 import Migrate from 'views/Migrate'
 
+import createTheme from 'utils/createCustomTheme'
+
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
 
   const handleDismissMobileMenu = useCallback(() => {
     setMobileMenu(false)
   }, [setMobileMenu])
-  
+
   const handlePresentMobileMenu = useCallback(() => {
     setMobileMenu(true)
   }, [setMobileMenu])
@@ -41,16 +39,16 @@ const App: React.FC = () => {
         <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
         <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
         <Switch>
-          <Route exact path="/">
+          <Route exact path='/'>
             <Home />
           </Route>
-          <Route exact path="/farm">
+          <Route exact path='/farm'>
             <Farm />
           </Route>
-          <Route path="/faq">
+          <Route path='/faq'>
             <FAQ />
           </Route>
-          <Route exact path="/migrate">
+          <Route exact path='/migrate'>
             <Migrate />
           </Route>
         </Switch>
@@ -62,11 +60,7 @@ const App: React.FC = () => {
 const Providers: React.FC = ({ children }) => {
   const [darkModeSetting] = useLocalStorage('darkMode', false)
   const { dark: darkTheme, light: lightTheme } = useMemo(() => {
-    return createTheme({
-      baseColor: { h: 338, s: 100, l: 41 },
-      baseColorDark: { h: 339, s: 89, l: 49 },
-      borderRadius: 28,
-    })
+    return createTheme()
   }, [])
   return (
     <ThemeProvider
@@ -85,9 +79,7 @@ const Providers: React.FC = ({ children }) => {
             <BalancesProvider>
               <FarmingProvider>
                 <MigrationProvider>
-                  <VestingProvider>
-                    {children}
-                  </VestingProvider>
+                  <VestingProvider>{children}</VestingProvider>
                 </MigrationProvider>
               </FarmingProvider>
             </BalancesProvider>

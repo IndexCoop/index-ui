@@ -7,13 +7,11 @@ interface ValueProps {
 }
 
 const Value: React.FC<ValueProps> = ({ value }) => {
-  return (
-    <StyledValue>{value}</StyledValue>
-  )
+  return <StyledValue>{value}</StyledValue>
 }
 
 const StyledValue = styled.div`
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.colors.black};
   font-size: 24px;
   font-weight: 700;
 `

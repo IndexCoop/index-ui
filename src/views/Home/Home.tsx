@@ -1,56 +1,59 @@
 import React from 'react'
-import {
-  Container,
-  Spacer,
-  useTheme,
-} from 'react-neu'
+import { Container, Spacer } from 'react-neu'
+import styled from 'styled-components'
 
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
-import Split from 'components/Split'
+import Manifesto from 'components/Manifesto'
 
 import useBalances from 'hooks/useBalances'
-import useVesting from 'hooks/useVesting'
 
 import MigrationNotice from './components/MigrationNotice'
-import Rebase from './components/Rebase'
-import Stats from './components/Stats'
 import Treasury from './components/Treasury'
-import VestingNotice from './components/VestingNotice'
 
 const Home: React.FC = () => {
-  const { darkMode } = useTheme()
   const { yamV2Balance } = useBalances()
-  const { vestedBalance } = useVesting()
   return (
     <Page>
       <PageHeader
-        icon={darkMode ? "🌚" : "🌞"}
-        subtitle={darkMode ? "🤫 shhh... the YAMs are sleeping." : "It's a great day to farm YAMs!"}
-        title="Welcome to YAM Finance."
+        icon='🦉'
+        title='The Index DAO'
+        subtitle='The community curated crypto index'
       />
+      <StyledViewFarmButton>View Farms</StyledViewFarmButton>
+      <Spacer />
       <Container>
-        {(yamV2Balance && yamV2Balance.toNumber() > 0) && (
+        <StyledIndexImage src='https://index-dao.s3.amazonaws.com/index_allocations_1.png' />
+      </Container>
+      <Spacer />
+      <Treasury />
+      <Spacer />
+      <Manifesto />
+      <Container>
+        {yamV2Balance && yamV2Balance.toNumber() >= 0 && (
           <>
             <MigrationNotice />
             <Spacer />
           </>
         )}
-        {(vestedBalance && vestedBalance.toNumber() > 0) && (
-          <>
-            <VestingNotice />
-            <Spacer />
-          </>
-        )}
-        <Treasury />
-        <Spacer />
-        <Split>
-          <Rebase />
-          <Stats />
-        </Split>
       </Container>
     </Page>
   )
 }
+
+const StyledIndexImage = styled.img`
+  width: 100%
+`
+
+const StyledViewFarmButton = styled.button`
+  color: ${(props) => props.theme.colors.primary.light};
+  font-size: 16px;
+  padding: 15px 60px;
+  border-radius: 40px;
+  background-color: ${(props) => props.theme.colors.primary.dark};
+  &:visited {
+    color: ${(props) => props.theme.colors.primary.light};
+  }
+`
 
 export default Home
