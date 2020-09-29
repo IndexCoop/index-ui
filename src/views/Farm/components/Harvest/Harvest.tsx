@@ -34,7 +34,7 @@ const Harvest: React.FC = () => {
         <Button
           disabled
           full
-          text="Harvest"
+          text="Claim"
           variant="secondary"
         />
       )
@@ -44,7 +44,7 @@ const Harvest: React.FC = () => {
         <Button
           full
           onClick={onHarvest}
-          text="Harvest"
+          text="Claim"
         />
       )
     }
@@ -53,7 +53,7 @@ const Harvest: React.FC = () => {
         <Button
           disabled
           full
-          text="Harvesting..."
+          text="Claiming..."
           variant="secondary"
         />
       )
@@ -74,14 +74,14 @@ const Harvest: React.FC = () => {
 
   return (
     <Card>
-      <CardIcon>🍠</CardIcon>
+      <CardIcon>🦉</CardIcon>
       <CardContent>
         <Box
           alignItems="center"
           column
         >
           <Value value={formattedEarnedBalance} />
-          <Label text="Unharvested YAMs" />
+          <Label text="Unclaimed INDEX" />
         </Box>
       </CardContent>
       <CardActions>
