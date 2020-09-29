@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Container, Spacer, useTheme } from 'react-neu'
+import { Container, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import Logo from 'components/Logo'
@@ -40,7 +40,7 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
 }
 
 const StyledLogoWrapper = styled.div`
-  width: 156px;
+  width: 200px;
   @media (max-width: 400px) {
     width: auto;
   }

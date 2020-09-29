@@ -7,7 +7,6 @@ const Nav: React.FC = () => {
     <StyledNav>
       <StyledLink exact activeClassName="active" to="/">Home</StyledLink>
       <StyledLink exact activeClassName="active" to="/farm">Farm</StyledLink>
-      <StyledLink exact activeClassName="active" to="/migrate">Migrate</StyledLink>
       <StyledLink activeClassName="active" to="/faq">FAQ</StyledLink>
     </StyledNav>
   )
@@ -28,7 +27,7 @@ const StyledLink = styled(NavLink)`
     color: ${props => props.theme.colors.grey[600]};
   }
   &.active {
-    color: ${props => props.theme.colors.primary.main};
+    color: ${props => props.theme.colors.primary.light};
   }
 `
 
