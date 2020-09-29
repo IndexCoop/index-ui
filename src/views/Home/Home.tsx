@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Spacer } from 'react-neu'
+import { Button, Container, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import Page from 'components/Page'
@@ -20,7 +20,10 @@ const Home: React.FC = () => {
         title='The Index DAO'
         subtitle='The community curated crypto index'
       />
-      <StyledViewFarmButton>View Farms</StyledViewFarmButton>
+      <Button
+        text="View Farms"
+        to="/farm"
+      />
       <Spacer />
       <Container>
         <StyledIndexImage src='https://index-dao.s3.amazonaws.com/index_allocations_1.png' />
@@ -43,17 +46,6 @@ const Home: React.FC = () => {
 
 const StyledIndexImage = styled.img`
   width: 100%
-`
-
-const StyledViewFarmButton = styled.button`
-  color: ${(props) => props.theme.colors.primary.light};
-  font-size: 16px;
-  padding: 15px 60px;
-  border-radius: 40px;
-  background-color: ${(props) => props.theme.colors.primary.dark};
-  &:visited {
-    color: ${(props) => props.theme.colors.primary.light};
-  }
 `
 
 export default Home
