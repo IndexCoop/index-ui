@@ -28,7 +28,7 @@ const StyledEmoji = styled.span.attrs({
   font-size: 24px;
 `
 
-const StyledText = styled.p`
+const StyledText = styled.span`
   color: ${props => props.theme.textColor};
   font-size: 18px;
   font-weight: 700;
