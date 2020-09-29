@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 const Logo: React.FC = () => {
   return (
     <StyledLogo to="/">
-      <StyledEmoji>🍠</StyledEmoji>
-      <StyledText>YAM Finance</StyledText>
+      <StyledEmoji>🦉</StyledEmoji>
+      <StyledText>The Index DAO</StyledText>
     </StyledLogo>
   )
 }
@@ -28,7 +28,7 @@ const StyledEmoji = styled.span.attrs({
   font-size: 24px;
 `
 
-const StyledText = styled.span`
+const StyledText = styled.p`
   color: ${props => props.theme.textColor};
   font-size: 18px;
   font-weight: 700;
