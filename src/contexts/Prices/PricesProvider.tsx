@@ -1,30 +1,34 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
-import useYam from 'hooks/useYam'
-import { bnToDec } from 'utils'
-import { getCurrentPrice } from 'yam-sdk/utils'
+import { useQuery } from '@apollo/react-hooks'
+import { DPI_ETH_UNISWAP_QUERY } from '../../utils/graphql';
 
 import PricesContext from './PricesContext'
+import BigNumber from 'bignumber.js';
 
 const PricesProvider: React.FC = ({ children }) => {
-  const [yamTwap, setYamTwap] = useState<number>()
-  const yam = useYam()
+  const [dpiPrice, setDpiPrice] = useState<string>()
+  const [totalUSDInFarms, setTotalUSDInFarms] = useState<number>()
 
-  const fetchCurrentPrice = useCallback(async () => {
-    if (!yam) return
-    const price = await getCurrentPrice(yam)
-    setYamTwap(bnToDec(price))
-  }, [setYamTwap, yam])
+  const { loading, error, data: uniswapData }= useQuery(
+    DPI_ETH_UNISWAP_QUERY
+  );
 
-  useEffect(() => {
-    fetchCurrentPrice()
-    let refreshInterval = setInterval(fetchCurrentPrice, 10000)
-    return () => clearInterval(refreshInterval)
-  }, [fetchCurrentPrice])
+  if (!totalUSDInFarms && !loading && !error) {
+    setTotalUSDInFarms(uniswapData?.pairs[0]?.reserveUSD)
+  }
+
+  if (!dpiPrice && !loading && !error) {
+    const EthPriceInUsd = new BigNumber(uniswapData?.bundle.ethPrice)
+    const DpiPriceInEth = new BigNumber(uniswapData?.tokens[0]?.derivedETH)
+    const DpiPriceInUsd = EthPriceInUsd.multipliedBy(DpiPriceInEth);
+    setDpiPrice(DpiPriceInUsd.toString());
+  }
   
   return (
     <PricesContext.Provider value={{
-      yamTwap,
+      dpiPrice,
+      totalUSDInFarms
     }}>
       {children}
     </PricesContext.Provider>

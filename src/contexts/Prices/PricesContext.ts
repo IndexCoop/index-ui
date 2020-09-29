@@ -1,7 +1,8 @@
 import { createContext } from 'react'
 
 interface PricesContextValues {
-  yamTwap?: number
+  dpiPrice?: string
+  totalUSDInFarms?: number
 }
 
 const PricesContext = createContext<PricesContextValues>({})
