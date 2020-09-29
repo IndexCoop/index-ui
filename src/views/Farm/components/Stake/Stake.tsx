@@ -86,7 +86,6 @@ const Stake: React.FC = () => {
           disabled
           full
           text="Staking..."
-          variant="secondary"
         />
       )
     }

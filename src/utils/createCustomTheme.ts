@@ -5,12 +5,12 @@ const createTheme = (): {
   light: Theme;
 } => {
   /* Light styles */
-  const baseColor = { h: 338, s: 100, l: 41 };
-  const baseGreyColor = { h: 338, s: 100, l: 41 };
+  const baseColor = { h: 236, s: 95, l: 59 };
+  const baseGreyColor = { h: 326, s: 50, l: 41 };
 
   /* Dark Styles */
-  const baseColorDark = { h: 248, s: 45, l: 10 };
-  const baseGreyColorDark = { h: 248, s: 45, l: 10 };
+  const baseColorDark = { h: 236, s: 95, l: 59 };
+  const baseGreyColorDark = { h: 250, s: 49, l: 10 };
 
   const borderRadius = 28;
   const siteWidth = 1200;
@@ -43,7 +43,7 @@ const createTheme = (): {
     black,
     grey,
     primary: {
-      dark: hslToCssString({ h, s, l: 15 }),
+      dark: hslToCssString({ h, s, l: 5 }),
       light: hslToCssString({ h, s, l: 75 }),
       main: hslToCssString(baseColor),
     },
@@ -97,7 +97,7 @@ const createTheme = (): {
 
   const darkTheme: Theme = {
     ...lightTheme,
-    baseBg: `radial-gradient(circle at top, ${greyDark[700]}, ${greyDark[800]})`,
+    baseBg: `radial-gradient(circle at top, ${greyDark[700]}, ${greyDark[900]})`,
     baseColor: greyDark[800],
     colors: colorsDark,
     highlightColor: greyDark[700],
@@ -108,7 +108,7 @@ const createTheme = (): {
         light: greyDark[700],
         main: greyDark[800],
       },
-      hslToCssString({ ...whiteDarkHSLA, a: 7.5 }),
+      hslToCssString({ ...whiteDarkHSLA, a: 8.5 }),
       greyDark[900]
     ),
     textColor: whiteDark,
