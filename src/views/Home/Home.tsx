@@ -48,15 +48,4 @@ const StyledIndexImage = styled.img`
   width: 100%
 `
 
-const StyledViewFarmButton = styled.button`
-  color: ${(props) => props.theme.colors.primary.light};
-  font-size: 16px;
-  padding: 15px 60px;
-  border-radius: 40px;
-  background-color: ${(props) => props.theme.colors.primary.dark};
-  &:visited {
-    color: ${(props) => props.theme.colors.primary.light};
-  }
-`
-
 export default Home
