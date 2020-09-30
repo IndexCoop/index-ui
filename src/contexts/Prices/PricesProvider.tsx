@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-
+import BigNumber from 'bignumber.js';
 import { useQuery } from '@apollo/react-hooks'
-import { DPI_ETH_UNISWAP_QUERY } from '../../utils/graphql';
 
 import PricesContext from './PricesContext'
-import BigNumber from 'bignumber.js';
+
+import { DPI_ETH_UNISWAP_QUERY } from 'utils/graphql';
 
 const PricesProvider: React.FC = ({ children }) => {
   const [dpiPrice, setDpiPrice] = useState<string>()
