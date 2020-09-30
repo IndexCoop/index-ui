@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import {
   Box,
@@ -20,7 +20,7 @@ const Rewards: React.FC = () => {
   const [claimModalIsOpen, setClaimModalIsOpen] = useState(false)
   const [externalClaimModalIsOpen, setExternalClaimModalIsOpen] = useState(false)
 
-  const { account, status } = useWallet()
+  const { status } = useWallet()
 
   const handleClaimClick = useCallback(() => {
     setClaimModalIsOpen(true)

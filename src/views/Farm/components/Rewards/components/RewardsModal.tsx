@@ -2,7 +2,6 @@ import React, { useCallback } from 'react'
 
 import BigNumber from 'bignumber.js'
 import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
 
 import numeral from 'numeral'
 import {
@@ -17,27 +16,18 @@ import {
   Spacer
 } from 'react-neu'
 
-import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 
 import useBalances from 'hooks/useBalances'
-import useVesting from 'hooks/useVesting'
 
 const RewardsModal: React.FC<ModalProps> = ({
   isOpen,
   onDismiss,
 }) => {
 
-  const { reset } = useWallet()
   const {
-    yamV2Balance,
     yamV3Balance
   } = useBalances()
-
-  const {
-    vestedDelegatorRewardBalance,
-    vestedMigratedBalance,
-  } = useVesting()
 
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
@@ -46,10 +36,6 @@ const RewardsModal: React.FC<ModalProps> = ({
       return '--'
     }
   }, [])
-
-  const handleSignOut = useCallback(() => {
-    reset()
-  }, [reset])
 
   return (
     <Modal isOpen={isOpen}>
