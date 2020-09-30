@@ -10,7 +10,6 @@ import {
 
 import { useWallet } from 'use-wallet'
 
-import ClaimButton from 'components/ClaimButton'
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
 import Split from 'components/Split'
@@ -19,6 +18,7 @@ import useFarming from 'hooks/useFarming'
 
 import HarvestCard from './components/Harvest'
 import StakeCard from './components/Stake'
+import RewardsCard from './components/Rewards'
 
 const Farm: React.FC = () => {
   const { status } = useWallet()
@@ -73,8 +73,12 @@ const Farm: React.FC = () => {
         <Spacer />
         <Box row justifyContent="center">
           {RedeemButton}
-          <Spacer />
-          <ClaimButton />
+        </Box>
+        <Spacer size="lg" />
+        <Separator />
+        <Spacer size="lg" />
+        <Box row justifyContent="center">
+          <RewardsCard />
         </Box>
         <Spacer size="lg" />
         <Separator />
