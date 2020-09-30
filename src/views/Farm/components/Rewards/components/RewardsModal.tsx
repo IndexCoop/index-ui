@@ -65,9 +65,14 @@ const RewardsModal: React.FC<ModalProps> = ({
         <Spacer />
         <Separator />
         <Spacer />
-        <StyledDescription>
-          INDEX is here! Thank you for being an early supporter of crypto indices!
-        </StyledDescription>
+        <StyledDescriptionContainer>
+          <StyledDescriptionHeader>
+            INDEX has arrived!
+          </StyledDescriptionHeader>
+          <StyledDescription>
+            Thank you for being an early supporter of crypto indices!
+          </StyledDescription>
+        </StyledDescriptionContainer>
       </ModalContent>
       <Separator />
       <ModalActions>
@@ -97,11 +102,24 @@ const StyledTokenValue = styled.p`
   }
 `
 
-const StyledDescription = styled.p`
-  color: ${props => props.theme.colors.white};
-  margin-bottom: 35px;
+const StyledDescriptionContainer = styled.div`
+  margin-bottom: 15px;
+  text-align: center;
+`
+
+const StyledDescriptionHeader = styled.p`
+  color: ${props => props.theme.colors.gray};
+  font-size: 24px;
+  font-weight: 600;
   &:visited {
-    color: ${props => props.theme.colors.white};
+    color: ${props => props.theme.colors.gray};
+  }
+`
+
+const StyledDescription = styled.p`
+  color: ${props => props.theme.colors.gray};
+  &:visited {
+    color: ${props => props.theme.colors.gray};
   }
 `
 

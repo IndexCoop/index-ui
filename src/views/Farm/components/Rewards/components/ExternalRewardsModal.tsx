@@ -102,10 +102,10 @@ const StyledTokenValue = styled.p`
 `
 
 const StyledDescription = styled.p`
-  color: ${props => props.theme.colors.white};
+  color: ${props => props.theme.colors.gray};
   margin-bottom: 35px;
   &:visited {
-    color: ${props => props.theme.colors.white};
+    color: ${props => props.theme.colors.gray};
   }
 `
 
