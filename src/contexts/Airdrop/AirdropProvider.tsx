@@ -9,10 +9,11 @@ import { useCallback } from "react";
 import BigNumber from 'bignumber.js';
 
 const AirdropProvider: React.FC = ({ children }) => {
-  const [claimableQuantity, setClaimableQuantity] = useState<string>();
+  const [airdropQuantity, setAirdropQuantity] = useState<string>();
   const [rewardIndex, setRewardIndex] = useState<number>();
   const [rewardProof, setRewardProof] = useState<string[]>();
-  const [isClaimed, setIsClaimed] = useState<boolean>();
+  const [isClaimable, setIsClaimable] = useState<boolean>(false);
+  const [claimableQuantity, setClaimableQuantity] = useState<string>();
   const {
     account,
     ethereum,
@@ -22,23 +23,21 @@ const AirdropProvider: React.FC = ({ children }) => {
     const initialAirdropReward = getAirdropDataForAddress(account || "");
 
     if (initialAirdropReward) {
-      setClaimableQuantity(new BigNumber(initialAirdropReward.amount).toString());
+      setAirdropQuantity(new BigNumber(initialAirdropReward.amount).toString());
       setRewardIndex(initialAirdropReward.index);
       setRewardProof(initialAirdropReward.proof);
     }
-  }, [account, setClaimableQuantity]);
+  }, [account]);
 
   const checkAirdropClaimStatus = useCallback(async () => {
     const isAlreadyClaimed = await checkIsAirdropClaimed(ethereum, rewardIndex as number);
 
-    setIsClaimed(isAlreadyClaimed);
-  }, [ethereum, rewardIndex]);
+    setIsClaimable(!isAlreadyClaimed);
+    setClaimableQuantity(isAlreadyClaimed ? '0' : airdropQuantity)
+  }, [ethereum, rewardIndex, airdropQuantity]);
 
   useEffect(() => {
-    console.log('using claim effect');
     if (!ethereum || !rewardIndex) return;
-
-    console.log('checking airdrop claim status');
 
     checkAirdropClaimStatus();
   }, [ethereum, rewardIndex, checkAirdropClaimStatus]);
@@ -46,10 +45,11 @@ const AirdropProvider: React.FC = ({ children }) => {
   return (
     <AirdropContext.Provider
       value={{
+        airdropQuantity,
         claimableQuantity,
         rewardIndex,
         rewardProof,
-        isClaimed,
+        isClaimable,
       }}
     >
       {children}

@@ -1,10 +1,11 @@
 import { createContext } from 'react'
 
 interface AirdropContextValues {
-  claimableQuantity?: string
+  airdropQuantity?: string
   rewardIndex?: number
   rewardProof?: string[]
-  isClaimed?: boolean
+  isClaimable?: boolean
+  claimableQuantity?: string
 }
 
 const AirdropContext = createContext<AirdropContextValues>({})

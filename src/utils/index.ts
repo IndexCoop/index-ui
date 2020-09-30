@@ -106,12 +106,12 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
 }
 
 export const checkIsAirdropClaimed = async (provider: provider, rewardIndex: number): Promise<boolean> => {
-  const airdropContract = getAirdropContract(provider, airdropAddress);
+  const airdropContract = getAirdropContract(provider, airdropAddress)
 
   try {
     const isAlreadyClaimed: boolean = await airdropContract.methods.isClaimed(rewardIndex).call()
-    return isAlreadyClaimed;
+    return isAlreadyClaimed
   } catch (e) {
-    return false;
+    return true
   }
 }
