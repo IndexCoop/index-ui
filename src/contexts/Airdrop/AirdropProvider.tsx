@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useWallet } from 'use-wallet';
 
 import AirdropContext from './AirdropContext'
@@ -10,13 +10,15 @@ const AirdropProvider: React.FC = ({ children }) => {
   const [rewardProof, setRewardProof] = useState<string[]>()
   const wallet = useWallet();
 
-  const initialAirdropReward = getAirdropDataForAddress (wallet?.account || '');
+  useEffect(() => {
+    const initialAirdropReward = getAirdropDataForAddress (wallet?.account || '');
 
-  if (initialAirdropReward) {
-    setClaimableQuantity(initialAirdropReward.amount)
-    setRewardIndex(initialAirdropReward.index)
-    setRewardProof(initialAirdropReward.proof)
-  }
+    if (initialAirdropReward) {
+      setClaimableQuantity(initialAirdropReward.amount)
+      setRewardIndex(initialAirdropReward.index)
+      setRewardProof(initialAirdropReward.proof)
+    }
+  }, [wallet, claimableQuantity])
 
   // const fetchBalances = useCallback(async (userAddress: string, provider: provider) => {
   //   const balances = await Promise.all([

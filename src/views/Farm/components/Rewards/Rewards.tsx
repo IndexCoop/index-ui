@@ -16,9 +16,14 @@ import Value from 'components/Value'
 import RewardsModal from './components/RewardsModal'
 import ExternalRewardsModal from './components/ExternalRewardsModal'
 
+import useAirdrop from 'hooks/useAirdrop'
+
 const Rewards: React.FC = () => {
   const [claimModalIsOpen, setClaimModalIsOpen] = useState(false)
   const [externalClaimModalIsOpen, setExternalClaimModalIsOpen] = useState(false)
+  const airdropData = useAirdrop();
+
+  console.log('airdrop is?', airdropData)
 
   const { status } = useWallet()
 
