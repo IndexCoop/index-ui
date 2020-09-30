@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 
 import BigNumber from 'bignumber.js'
-import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
+import { toast } from 'react-toastify';
 
 import numeral from 'numeral'
 import {
@@ -48,8 +48,10 @@ const WalletModal: React.FC<ModalProps> = ({
   }, [])
 
   const handleSignOut = useCallback(() => {
-    reset()
-  }, [reset])
+    reset();
+    toast.success('Successfully signed out');
+    onDismiss && onDismiss();
+  }, [reset, onDismiss])
 
   return (
     <Modal isOpen={isOpen}>
@@ -101,7 +103,7 @@ const WalletModal: React.FC<ModalProps> = ({
         />
         <Button
           onClick={handleSignOut}
-          text="SignOut"
+          text="Sign Out"
         />
       </ModalActions>
     </Modal>

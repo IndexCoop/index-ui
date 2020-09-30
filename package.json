@@ -15,6 +15,7 @@
     "react-neu": "^1.0.20",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-toastify": "^6.0.8",
     "styled-components": "^5.2.0",
     "use-wallet": "^0.8.0",
     "web3": "1.2.11"
@@ -46,5 +47,8 @@
     "@types/web3": "^1.2.2",
     "react-circular-progressbar": "^2.0.3",
     "typescript": "^3.9.7"
+  },
+  "engines": {
+    "node": "11.10.1"
   }
 }

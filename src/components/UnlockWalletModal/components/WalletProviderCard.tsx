@@ -18,26 +18,31 @@ const WalletProviderCard: React.FC<WalletProviderCardProps> = ({
   name,
   onSelect,
 }) => (
-  <Card>
-    <CardIcon>{icon}</CardIcon>
-    <CardContent>
-      <StyledName>{name}</StyledName>
-    </CardContent>
-    <CardActions>
-      <Button
-        full
-        onClick={onSelect}
-        text="Select"
-        variant="secondary"
-      />
-    </CardActions>
-  </Card>
+  <ProviderContainer onClick={onSelect}>
+    <Card>
+      <CardIcon>{icon}</CardIcon>
+      <CardContent>
+        <StyledName>{name}</StyledName>
+      </CardContent>
+      <CardActions>
+        <Button
+          full
+          text="Select"
+          variant="secondary"
+        />
+      </CardActions>
+    </Card>
+  </ProviderContainer>
 )
 
 const StyledName = styled.div`
   font-size: 18px;
   font-weight: 700;
   text-align: center;
+`
+
+const ProviderContainer = styled.div`
+  cursor: pointer;
 `
 
 export default WalletProviderCard

@@ -2,6 +2,8 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { ThemeProvider } from 'react-neu'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { UseWalletProvider } from 'use-wallet'
+import { ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import MobileMenu from 'components/MobileMenu'
 import TopBar from 'components/TopBar'
@@ -86,6 +88,10 @@ const Providers: React.FC = ({ children }) => {
           </PricesProvider>
         </YamProvider>
       </UseWalletProvider>
+      <ToastContainer
+        transition={Slide}
+        position="bottom-left"
+      />
     </ThemeProvider>
   )
 }

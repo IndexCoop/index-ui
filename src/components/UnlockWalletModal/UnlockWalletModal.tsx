@@ -11,6 +11,7 @@ import {
 } from 'react-neu'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
+import { toast } from 'react-toastify';
 
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
@@ -24,16 +25,17 @@ const UnlockWalletModal: React.FC<ModalProps> = ({
   const { account, connect } = useWallet()
 
   const handleConnectMetamask = useCallback(() => {
-    connect('injected')
+    connect('injected');
   }, [connect])
 
   const handleConnectWalletConnect = useCallback(() => {
-    connect('walletconnect')
+    connect('walletconnect');
   }, [connect])
 
   useEffect(() => {
     if (account) {
-      onDismiss && onDismiss()
+      onDismiss && onDismiss();
+      toast.success('Successfully logged in');
     }
   }, [account, onDismiss])
 
