@@ -25,6 +25,7 @@ const RewardsModal: React.FC<ModalProps> = ({
   onDismiss,
 }) => {
 
+  /* TODO: Replace these with INDEX claim balances */
   const {
     yamV3Balance
   } = useBalances()
