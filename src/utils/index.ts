@@ -85,9 +85,9 @@ export const getERC20Contract = (provider: provider, address: string) => {
   return contract
 }
 
-export const getAirdropContract = (provider: provider, address: string) => {
+export const getAirdropContract = (provider: provider) => {
   const web3 = new Web3(provider)
-  const contract = new web3.eth.Contract(ERC20ABI.abi as unknown as AbiItem, address)
+  const contract = new web3.eth.Contract(ERC20ABI.abi as unknown as AbiItem)
   return contract
 }
 
@@ -103,11 +103,11 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
   return balance.dividedBy(new BigNumber(10).pow(decimals)).toFixed()
 }
 
-export const checkIsAirdropClaimed = async (provider: provider, address: string): Promise<boolean> => {
-  const airdropContract = getAirdropContract(provider, address);
+export const checkIsAirdropClaimed = async (provider: provider, rewardIndex: string): Promise<boolean> => {
+  const airdropContract = getAirdropContract(provider);
 
   try {
-    const isAlreadyClaimed: boolean = await airdropContract.methods.isClaimed(address).call()
+    const isAlreadyClaimed: boolean = await airdropContract.methods.isClaimed(rewardIndex).call()
     return isAlreadyClaimed;
   } catch (e) {
     return false;
