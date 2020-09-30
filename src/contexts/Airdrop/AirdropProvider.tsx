@@ -5,9 +5,15 @@ import { useCallback } from "react";
 import BigNumber from "bignumber.js";
 
 import AirdropContext from "./AirdropContext";
-import { checkIsAirdropClaimed, getAirdropDataForAddress } from "../../index-sdk/index";
+import {
+  checkIsAirdropClaimed,
+  getAirdropDataForAddress,
+} from "../../index-sdk/index";
+import ConfirmTransactionModal from "components/ConfirmTransactionModal";
+import { claimAirdrop } from "../../index-sdk/airdrop";
 
 const AirdropProvider: React.FC = ({ children }) => {
+  const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false);
   const [airdropQuantity, setAirdropQuantity] = useState<string>();
   const [rewardIndex, setRewardIndex] = useState<number>();
   const [rewardProof, setRewardProof] = useState<string[]>();
@@ -47,6 +53,24 @@ const AirdropProvider: React.FC = ({ children }) => {
     checkAirdropClaimStatus();
   }, [ethereum, rewardIndex, checkAirdropClaimStatus]);
 
+  const onClaimAirdrop = useCallback(
+    async () => {
+      if (!rewardIndex || !account || !airdropQuantity || !rewardProof) return;
+
+      setConfirmTxModalIsOpen(true);
+      const success = await claimAirdrop(
+        ethereum,
+        rewardIndex,
+        account,
+        airdropQuantity,
+        rewardProof
+      );
+      console.log('success is?', success);
+      setConfirmTxModalIsOpen(false);
+    },
+    [ethereum, account, rewardIndex, airdropQuantity, rewardProof, setConfirmTxModalIsOpen]
+  );
+
   return (
     <AirdropContext.Provider
       value={{
@@ -55,9 +79,11 @@ const AirdropProvider: React.FC = ({ children }) => {
         rewardIndex,
         rewardProof,
         isClaimable,
+        onClaimAirdrop,
       }}
     >
       {children}
+      <ConfirmTransactionModal isOpen={confirmTxModalIsOpen} />
     </AirdropContext.Provider>
   );
 };

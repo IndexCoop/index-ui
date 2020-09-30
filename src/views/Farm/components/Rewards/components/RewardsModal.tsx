@@ -25,7 +25,7 @@ const RewardsModal: React.FC<ModalProps> = ({
   onDismiss,
 }) => {
 
-  const { claimableQuantity } = useAirdrop();
+  const { claimableQuantity, onClaimAirdrop } = useAirdrop();
 
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
@@ -34,6 +34,10 @@ const RewardsModal: React.FC<ModalProps> = ({
       return '--'
     }
   }, [])
+
+  const handleClaimClick = useCallback(() => {
+    onClaimAirdrop();
+  }, [onClaimAirdrop])
 
   return (
     <Modal isOpen={isOpen}>
@@ -66,7 +70,7 @@ const RewardsModal: React.FC<ModalProps> = ({
           variant="secondary"
         />
         <Button
-          onClick={onDismiss}
+          onClick={handleClaimClick}
           text="Claim"
         />
       </ModalActions>

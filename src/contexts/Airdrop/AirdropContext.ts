@@ -7,8 +7,11 @@ interface AirdropContextValues {
   rewardProof?: string[]
   isClaimable?: boolean
   claimableQuantity?: BigNumber
+  onClaimAirdrop: () => void
 }
 
-const AirdropContext = createContext<AirdropContextValues>({})
+const AirdropContext = createContext<AirdropContextValues>({
+  onClaimAirdrop: () => {},
+})
 
 export default AirdropContext

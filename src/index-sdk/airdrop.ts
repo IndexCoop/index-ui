@@ -33,3 +33,15 @@ export const checkIsAirdropClaimed = async (provider: provider, rewardIndex: num
   }
 }
 
+export const claimAirdrop = async (provider: provider, rewardIndex: number, claimerAddress: string, amount: string, proof: string[]): Promise<boolean> => {
+  const airdropContract = getAirdropContract(provider, airdropAddress)
+
+  try {
+    const claimArgs = [rewardIndex, claimerAddress, amount, proof]
+    const claimSuccessful: boolean = await airdropContract.methods.claim(...claimArgs).send()
+    console.log('result is?', claimSuccessful);
+    return claimSuccessful
+  } catch (e) {
+    return true
+  }
+}
