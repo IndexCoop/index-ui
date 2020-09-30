@@ -24,7 +24,7 @@ import Split from 'components/Split'
 import useBalances from 'hooks/useBalances'
 import useVesting from 'hooks/useVesting'
 
-const ClaimModal: React.FC<ModalProps> = ({
+const RewardsModal: React.FC<ModalProps> = ({
   isOpen,
   onDismiss,
 }) => {
@@ -109,4 +109,4 @@ const StyledDescription = styled.p`
   }
 `
 
-export default ClaimModal
+export default RewardsModal

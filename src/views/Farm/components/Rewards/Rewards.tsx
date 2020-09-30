@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 
 import {
   Box,
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -10,7 +11,6 @@ import {
 } from 'react-neu'
 import { useWallet } from 'use-wallet'
 
-import ClaimButton from 'components/ClaimButton'
 import Label from 'components/Label'
 
 import RewardsModal from './components/RewardsModal'
@@ -19,6 +19,10 @@ const Rewards: React.FC = () => {
   const [claimModalIsOpen, setClaimModalIsOpen] = useState(false)
 
   const { account, status } = useWallet()
+
+  const handleClaimClick = useCallback(() => {
+    setClaimModalIsOpen(true)
+  }, [setClaimModalIsOpen])
 
   const handleDismissClaimModal = useCallback(() => {
     setClaimModalIsOpen(false)
@@ -37,9 +41,18 @@ const Rewards: React.FC = () => {
           </Box>
         </CardContent>
         <CardActions>
-          <ClaimButton />
-          <Spacer />
-          <ClaimButton />
+          <Button
+            disabled={status !== 'connected'}
+            onClick={status !== 'connected' ? () => {} : handleClaimClick}
+            text="Claim INDEX"
+            variant="secondary"
+          />
+          <Button
+            disabled={status !== 'connected'}
+            onClick={status !== 'connected' ? () => {} : handleClaimClick}
+            text="Claim INDEX"
+            variant="secondary"
+          />
         </CardActions>
       </Card>
       <RewardsModal
