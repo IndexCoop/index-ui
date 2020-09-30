@@ -17,12 +17,18 @@ button {
 
 /* React Toastify */
 .Toastify__toast {
-  color: #1d144f;
-  background-color: #ffffff;
+  background: #1d144f;
+  color: #ffffff;
+}
+
+.Toastify__toast-body {
+  padding-bottom: 10px;
 }
 
 .Toastify__toast--success {
   border-top: 5px solid #2bb160;
+  background: #1d144f;
+  color: #ffffff;
 }
 
 .Toastify__toast--info {
