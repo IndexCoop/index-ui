@@ -1,3 +1,8 @@
 import rewardsMerkleRoot from './rewardsMerkleRoot.json'
 
-console.log('rewards are', rewardsMerkleRoot);
+
+export const isAddressInRewardsMerkleRoot = (address: string): boolean => {
+  console.log('rewards are', rewardsMerkleRoot);
+  return !!(rewardsMerkleRoot as any)[address]
+}
+
