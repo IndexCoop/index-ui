@@ -5,8 +5,7 @@ import { useCallback } from "react";
 import BigNumber from "bignumber.js";
 
 import AirdropContext from "./AirdropContext";
-import { getAirdropDataForAddress } from "../../index-sdk/index";
-import { checkIsAirdropClaimed } from "utils/index";
+import { checkIsAirdropClaimed, getAirdropDataForAddress } from "../../index-sdk/index";
 
 const AirdropProvider: React.FC = ({ children }) => {
   const [airdropQuantity, setAirdropQuantity] = useState<string>();
