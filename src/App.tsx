@@ -10,6 +10,7 @@ import MobileMenu from 'components/MobileMenu'
 import TopBar from 'components/TopBar'
 
 import { BalancesProvider } from 'contexts/Balances'
+import { AirdropProvider } from 'contexts/Airdrop'
 import { FarmingProvider } from 'contexts/Farming'
 import { MigrationProvider } from 'contexts/Migration'
 import { PricesProvider } from 'contexts/Prices'
@@ -80,17 +81,19 @@ const Providers: React.FC = ({ children }) => {
         }}
       >
         <ApolloProvider client={graphqlClient}>
-          <YamProvider>
-            <PricesProvider>
-              <BalancesProvider>
-                <FarmingProvider>
-                  <MigrationProvider>
-                    <VestingProvider>{children}</VestingProvider>
-                  </MigrationProvider>
-                </FarmingProvider>
-              </BalancesProvider>
-            </PricesProvider>
-          </YamProvider>
+          <AirdropProvider>
+            <YamProvider>
+              <PricesProvider>
+                <BalancesProvider>
+                  <FarmingProvider>
+                    <MigrationProvider>
+                      <VestingProvider>{children}</VestingProvider>
+                    </MigrationProvider>
+                  </FarmingProvider>
+                </BalancesProvider>
+              </PricesProvider>
+            </YamProvider>
+          </AirdropProvider>
         </ApolloProvider>
       </UseWalletProvider>
       <ToastContainer
