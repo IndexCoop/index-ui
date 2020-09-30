@@ -7,19 +7,19 @@ import styled from 'styled-components'
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 
-import useTreasury from 'hooks/useTreasury'
+import usePrices from 'hooks/usePrices';
 
 const Treasury: React.FC = () => {
-  const { totalYUsdValue, yamBalance } = useTreasury()
+  const { totalUSDInFarms, dpiPrice } = usePrices()
 
-  const treasuryValue =
-    typeof totalYUsdValue !== 'undefined'
-      ? '$' + numeral(totalYUsdValue * 1.15).format('0.00a')
+  const totalUSDInFarmsValue =
+    typeof totalUSDInFarms !== 'undefined'
+      ? '$' + numeral(totalUSDInFarms).format('0.00a')
       : '--'
 
-  const yamValue =
-    typeof yamBalance !== 'undefined'
-      ? numeral(yamBalance).format('0.00a')
+  const dpiPriceValue =
+    typeof dpiPrice !== 'undefined'
+      ? '$' + numeral(dpiPrice).format('0.00a')
       : '--'
 
   return (
@@ -29,11 +29,11 @@ const Treasury: React.FC = () => {
           <FancyValue
             icon='💰'
             label='Capital in Farms'
-            value={treasuryValue}
+            value={totalUSDInFarmsValue}
           />
         </StyledIndexData>
         <StyledIndexData>
-          <FancyValue icon='🦉' label='$INDEX Price' value={yamValue} />
+          <FancyValue icon='🦉' label='$INDEX Price' value={dpiPriceValue} />
         </StyledIndexData>
       </Split>
       <Spacer />

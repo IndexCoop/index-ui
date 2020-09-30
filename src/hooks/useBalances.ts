@@ -4,7 +4,7 @@ import { BalancesContext } from 'contexts/Balances'
 
 const useBalances = () => {
   return {
-    ...useContext(BalancesContext)
+    ...useContext(BalancesContext),
   }
 }
 

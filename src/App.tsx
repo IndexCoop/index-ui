@@ -2,7 +2,8 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { ThemeProvider } from 'react-neu'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { UseWalletProvider } from 'use-wallet'
-import { ToastContainer, Slide } from 'react-toastify';
+import { ToastContainer, Slide } from 'react-toastify'
+import { ApolloProvider } from '@apollo/client'
 import 'react-toastify/dist/ReactToastify.css';
 
 import MobileMenu from 'components/MobileMenu'
@@ -23,6 +24,7 @@ import Home from 'views/Home'
 import Migrate from 'views/Migrate'
 
 import createTheme from 'utils/createCustomTheme'
+import graphqlClient from 'utils/graphql'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -76,17 +78,19 @@ const Providers: React.FC = ({ children }) => {
           walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
         }}
       >
-        <YamProvider>
-          <PricesProvider>
-            <BalancesProvider>
-              <FarmingProvider>
-                <MigrationProvider>
-                  <VestingProvider>{children}</VestingProvider>
-                </MigrationProvider>
-              </FarmingProvider>
-            </BalancesProvider>
-          </PricesProvider>
-        </YamProvider>
+        <ApolloProvider client={graphqlClient}>
+          <YamProvider>
+            <PricesProvider>
+              <BalancesProvider>
+                <FarmingProvider>
+                  <MigrationProvider>
+                    <VestingProvider>{children}</VestingProvider>
+                  </MigrationProvider>
+                </FarmingProvider>
+              </BalancesProvider>
+            </PricesProvider>
+          </YamProvider>
+        </ApolloProvider>
       </UseWalletProvider>
       <ToastContainer
         transition={Slide}
