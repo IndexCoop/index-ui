@@ -10,6 +10,7 @@ import {
 
 import { useWallet } from 'use-wallet'
 
+import ClaimButton from 'components/ClaimButton'
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
 import Split from 'components/Split'
@@ -72,6 +73,8 @@ const Farm: React.FC = () => {
         <Spacer />
         <Box row justifyContent="center">
           {RedeemButton}
+          <Spacer />
+          <ClaimButton />
         </Box>
         <Spacer size="lg" />
         <Separator />
