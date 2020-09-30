@@ -1,8 +1,7 @@
 import { createContext } from 'react'
 
 interface AirdropContextValues {
-  dpiPrice?: string
-  totalUSDInFarms?: number
+  claimableQuantity?: string
 }
 
 const AirdropContext = createContext<AirdropContextValues>({})
