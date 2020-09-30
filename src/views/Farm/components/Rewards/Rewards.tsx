@@ -24,7 +24,7 @@ const Rewards: React.FC = () => {
     false
   );
 
-  const { claimableQuantity } = useAirdrop();
+  const { claimableQuantity, isClaimable } = useAirdrop();
 
   const { status } = useWallet();
 
@@ -44,6 +44,8 @@ const Rewards: React.FC = () => {
     setExternalClaimModalIsOpen(false);
   }, [setExternalClaimModalIsOpen]);
 
+  const isWalletConnected = status === 'connected';
+
   return (
     <>
       <Card>
@@ -56,15 +58,15 @@ const Rewards: React.FC = () => {
         </CardContent>
         <CardActions>
           <Button
-            disabled={status !== "connected"}
-            onClick={status !== "connected" ? () => {} : handleClaimClick}
+            disabled={!isWalletConnected || !isClaimable}
+            onClick={isWalletConnected ? handleClaimClick : () => {}}
             text="Claim INDEX"
             variant="secondary"
           />
           <Button
-            disabled={status !== "connected"}
+            disabled={!isWalletConnected}
             onClick={
-              status !== "connected" ? () => {} : handleExternalClaimClick
+              isWalletConnected ? handleExternalClaimClick : () => {}
             }
             text="Claim Externally"
             variant="secondary"
