@@ -110,10 +110,8 @@ export const checkIsAirdropClaimed = async (provider: provider, rewardIndex: num
 
   try {
     const isAlreadyClaimed: boolean = await airdropContract.methods.isClaimed(rewardIndex).call()
-    console.log('is already claimed?', isAlreadyClaimed);
     return isAlreadyClaimed;
   } catch (e) {
-    console.log('error is', e);
     return false;
   }
 }
