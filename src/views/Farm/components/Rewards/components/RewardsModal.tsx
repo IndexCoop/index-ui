@@ -54,7 +54,7 @@ const RewardsModal: React.FC<ModalProps> = ({
         <Spacer />
         <StyledDescriptionContainer>
           <StyledDescriptionHeader>
-            INDEX has arrived!
+            🦉 INDEX has arrived!
           </StyledDescriptionHeader>
           <StyledDescription>
             Thank you for being an early supporter of crypto indices!
