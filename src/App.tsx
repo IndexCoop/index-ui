@@ -66,6 +66,7 @@ const Providers: React.FC = ({ children }) => {
   const { dark: darkTheme, light: lightTheme } = useMemo(() => {
     return createTheme()
   }, [])
+
   return (
     <ThemeProvider
       darkModeEnabled={darkModeSetting}
@@ -73,9 +74,9 @@ const Providers: React.FC = ({ children }) => {
       lightTheme={lightTheme}
     >
       <UseWalletProvider
-        chainId={1}
+        chainId={Number(process.env.REACT_APP_ETHEREUM_NETWORK_ID)}
         connectors={{
-          walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
+          walletconnect: { rpcUrl: process.env.REACT_APP_ETHEREUM_RPC_URL as any},
         }}
       >
         <ApolloProvider client={graphqlClient}>
