@@ -8,7 +8,6 @@ import numeral from 'numeral'
 import {
   Box,
   Button,
-  Input,
   Modal,
   ModalActions,
   ModalContent,
@@ -54,7 +53,7 @@ const RewardsModal: React.FC<ModalProps> = ({
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text="Claim INDEX" />
+      <ModalTitle text="Claim INDEX 🎁" />
       <ModalContent>
         <Split>
           <Box alignItems="center" justifyContent="center" row>
@@ -67,11 +66,8 @@ const RewardsModal: React.FC<ModalProps> = ({
         <Separator />
         <Spacer />
         <StyledDescription>
-          Enter an address you'd like to claim INDEX for. All claimed INDEX goes to the address inputted below.
+          INDEX is here! Thank you for being an early supporter of crypto indices!
         </StyledDescription>
-        <Input
-          placeholder="Enter Wallet Address"
-        />
       </ModalContent>
       <Separator />
       <ModalActions>

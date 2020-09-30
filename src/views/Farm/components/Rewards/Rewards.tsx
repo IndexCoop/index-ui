@@ -7,16 +7,18 @@ import {
   CardActions,
   CardContent,
   CardIcon,
-  Spacer,
 } from 'react-neu'
 import { useWallet } from 'use-wallet'
 
 import Label from 'components/Label'
+import Value from 'components/Value'
 
 import RewardsModal from './components/RewardsModal'
+import ExternalRewardsModal from './components/ExternalRewardsModal'
 
 const Rewards: React.FC = () => {
   const [claimModalIsOpen, setClaimModalIsOpen] = useState(false)
+  const [externalClaimModalIsOpen, setExternalClaimModalIsOpen] = useState(false)
 
   const { account, status } = useWallet()
 
@@ -28,6 +30,14 @@ const Rewards: React.FC = () => {
     setClaimModalIsOpen(false)
   }, [setClaimModalIsOpen])
 
+  const handleExternalClaimClick = useCallback(() => {
+    setExternalClaimModalIsOpen(true)
+  }, [setExternalClaimModalIsOpen])
+
+  const handleDismissExternalClaimModal = useCallback(() => {
+    setExternalClaimModalIsOpen(false)
+  }, [setExternalClaimModalIsOpen])
+
   return (
     <>
       <Card>
@@ -37,6 +47,7 @@ const Rewards: React.FC = () => {
             alignItems="center"
             column
           >
+            <Value value={'100'} />
             <Label text="Claim Your INDEX Rewards" />
           </Box>
         </CardContent>
@@ -49,8 +60,8 @@ const Rewards: React.FC = () => {
           />
           <Button
             disabled={status !== 'connected'}
-            onClick={status !== 'connected' ? () => {} : handleClaimClick}
-            text="Claim INDEX"
+            onClick={status !== 'connected' ? () => {} : handleExternalClaimClick}
+            text="Claim Externally"
             variant="secondary"
           />
         </CardActions>
@@ -58,6 +69,10 @@ const Rewards: React.FC = () => {
       <RewardsModal
         isOpen={claimModalIsOpen}
         onDismiss={handleDismissClaimModal}
+      />
+      <ExternalRewardsModal
+        isOpen={externalClaimModalIsOpen}
+        onDismiss={handleDismissExternalClaimModal}
       />
     </>
   )
