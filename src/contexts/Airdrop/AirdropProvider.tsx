@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useWallet } from "use-wallet";
+import { provider } from "web3-core";
+import { useCallback } from "react";
+import BigNumber from "bignumber.js";
 
 import AirdropContext from "./AirdropContext";
 import { getAirdropDataForAddress } from "../../index-sdk/index";
-import { checkIsAirdropClaimed } from "../../utils/index";
-import { provider } from "web3-core";
-import { useCallback } from "react";
-import BigNumber from 'bignumber.js';
+import { checkIsAirdropClaimed } from "utils/index";
 
 const AirdropProvider: React.FC = ({ children }) => {
   const [airdropQuantity, setAirdropQuantity] = useState<string>();
   const [rewardIndex, setRewardIndex] = useState<number>();
   const [rewardProof, setRewardProof] = useState<string[]>();
   const [isClaimable, setIsClaimable] = useState<boolean>(false);
-  const [claimableQuantity, setClaimableQuantity] = useState<string>();
+  const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>();
   const {
     account,
     ethereum,
@@ -23,17 +23,23 @@ const AirdropProvider: React.FC = ({ children }) => {
     const initialAirdropReward = getAirdropDataForAddress(account || "");
 
     if (initialAirdropReward) {
-      setAirdropQuantity(new BigNumber(initialAirdropReward.amount).toString());
+      setAirdropQuantity(initialAirdropReward.amount);
       setRewardIndex(initialAirdropReward.index);
       setRewardProof(initialAirdropReward.proof);
     }
   }, [account]);
 
   const checkAirdropClaimStatus = useCallback(async () => {
-    const isAlreadyClaimed = await checkIsAirdropClaimed(ethereum, rewardIndex as number);
+    const isAlreadyClaimed = await checkIsAirdropClaimed(
+      ethereum,
+      rewardIndex as number
+    );
+    const claimQuantity = isAlreadyClaimed
+      ? new BigNumber("0")
+      : new BigNumber(airdropQuantity || "0");
 
     setIsClaimable(!isAlreadyClaimed);
-    setClaimableQuantity(isAlreadyClaimed ? '0' : airdropQuantity)
+    setClaimableQuantity(claimQuantity);
   }, [ethereum, rewardIndex, airdropQuantity]);
 
   useEffect(() => {

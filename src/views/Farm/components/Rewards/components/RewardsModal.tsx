@@ -18,17 +18,14 @@ import {
 
 import Split from 'components/Split'
 
-import useBalances from 'hooks/useBalances'
+import useAirdrop from "hooks/useAirdrop";
 
 const RewardsModal: React.FC<ModalProps> = ({
   isOpen,
   onDismiss,
 }) => {
 
-  /* TODO: Replace these with INDEX claim balances */
-  const {
-    yamV3Balance
-  } = useBalances()
+  const { claimableQuantity } = useAirdrop();
 
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
@@ -45,7 +42,7 @@ const RewardsModal: React.FC<ModalProps> = ({
         <Split>
           <Box alignItems="center" justifyContent="center" row>
             <StyledTokenValue>
-              {getDisplayBalance(yamV3Balance)} INDEX
+              {getDisplayBalance(claimableQuantity)} INDEX
             </StyledTokenValue>
           </Box>
         </Split>
@@ -57,7 +54,7 @@ const RewardsModal: React.FC<ModalProps> = ({
             🦉 INDEX has arrived!
           </StyledDescriptionHeader>
           <StyledDescription>
-            Thank you for being an early supporter of crypto indices!
+            Thank you for being an early supporter of our crypto indices!
           </StyledDescription>
         </StyledDescriptionContainer>
       </ModalContent>
@@ -81,9 +78,10 @@ const StyledTokenValue = styled.p`
   color: ${props => props.theme.colors.primary.light};
   font-weight: 600;
   font-size: 54px;
-  line-height: 32px;
+  line-height: 54px;
   margin-bottom: 15px;
   margin-top: 15px;
+  text-align: center;
   &:visited {
     color: ${props => props.theme.colors.primary.light};
   }
