@@ -35,7 +35,10 @@ const AirdropProvider: React.FC = ({ children }) => {
   }, [ethereum, rewardIndex]);
 
   useEffect(() => {
+    console.log('using claim effect');
     if (!ethereum || !rewardIndex) return;
+
+    console.log('checking airdrop claim status');
 
     checkAirdropClaimStatus();
   }, [ethereum, rewardIndex, checkAirdropClaimStatus]);

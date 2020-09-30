@@ -5,6 +5,8 @@ import { provider, TransactionReceipt } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
 import ERC20ABI from 'constants/abi/ERC20.json'
+import AirdropABI from 'constants/abi/Airdrop.json'
+import { airdropAddress } from 'constants/tokenAddresses';
 
 const sleep = (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -85,9 +87,9 @@ export const getERC20Contract = (provider: provider, address: string) => {
   return contract
 }
 
-export const getAirdropContract = (provider: provider) => {
+export const getAirdropContract = (provider: provider, address: string) => {
   const web3 = new Web3(provider)
-  const contract = new web3.eth.Contract(ERC20ABI.abi as unknown as AbiItem)
+  const contract = new web3.eth.Contract(AirdropABI as unknown as AbiItem, address)
   return contract
 }
 
@@ -104,13 +106,14 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
 }
 
 export const checkIsAirdropClaimed = async (provider: provider, rewardIndex: number): Promise<boolean> => {
-  const airdropContract = getAirdropContract(provider);
+  const airdropContract = getAirdropContract(provider, airdropAddress);
 
   try {
     const isAlreadyClaimed: boolean = await airdropContract.methods.isClaimed(rewardIndex).call()
     console.log('is already claimed?', isAlreadyClaimed);
     return isAlreadyClaimed;
   } catch (e) {
+    console.log('error is', e);
     return false;
   }
 }
