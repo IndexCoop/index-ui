@@ -48,7 +48,7 @@ const AirdropProvider: React.FC = ({ children }) => {
     );
     const claimQuantity = isAlreadyClaimed
       ? new BigNumber("0")
-      : new BigNumber(airdropQuantity || "0");
+      : new BigNumber(airdropQuantity || "0").dividedBy(new BigNumber(10).pow(18))
 
     setIsClaimable(!isAlreadyClaimed);
     setClaimableQuantity(claimQuantity);

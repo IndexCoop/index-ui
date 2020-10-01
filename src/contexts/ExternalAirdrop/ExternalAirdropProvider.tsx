@@ -62,7 +62,9 @@ const AirdropProvider: React.FC = ({ children }) => {
       return
     }
 
-    const claimQuantity = new BigNumber(initialAirdropReward.amount || '0')
+    const claimQuantity = new BigNumber(
+      initialAirdropReward.amount || '0'
+    ).dividedBy(new BigNumber(10).pow(18));
 
     setAirdropQuantity(initialAirdropReward.amount)
     setRewardIndex(initialAirdropReward.index)
