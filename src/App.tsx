@@ -13,7 +13,6 @@ import { BalancesProvider } from 'contexts/Balances'
 import { AirdropProvider } from 'contexts/Airdrop'
 import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
 import { FarmingProvider } from 'contexts/Farming'
-import { MigrationProvider } from 'contexts/Migration'
 import { PricesProvider } from 'contexts/Prices'
 import { VestingProvider } from 'contexts/Vesting'
 import YamProvider from 'contexts/YamProvider'
@@ -23,7 +22,6 @@ import useLocalStorage from 'hooks/useLocalStorage'
 import Farm from 'views/Farm'
 import FAQ from 'views/FAQ'
 import Home from 'views/Home'
-import Migrate from 'views/Migrate'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
@@ -53,9 +51,6 @@ const App: React.FC = () => {
           </Route>
           <Route path='/faq'>
             <FAQ />
-          </Route>
-          <Route exact path='/migrate'>
-            <Migrate />
           </Route>
         </Switch>
       </Providers>
@@ -88,9 +83,7 @@ const Providers: React.FC = ({ children }) => {
                 <PricesProvider>
                   <BalancesProvider>
                     <FarmingProvider>
-                      <MigrationProvider>
-                        <VestingProvider>{children}</VestingProvider>
-                      </MigrationProvider>
+                      <VestingProvider>{children}</VestingProvider>
                     </FarmingProvider>
                   </BalancesProvider>
                 </PricesProvider>
