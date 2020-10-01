@@ -2,20 +2,20 @@ import Web3 from 'web3'
 import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
-import AirdropABI from 'index-sdk/abi/Airdrop.json'
+import StakeABI from 'index-sdk/abi/Stake.json'
 import { airdropAddress } from 'constants/tokenAddresses'
 import rewardsMerkleRoot from './rewardsMerkleRoot.json'
 
-export const getAirdropContract = (provider: provider, address: string) => {
+export const getStakingRewardsContract = (provider: provider, address: string) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
-    (AirdropABI as unknown) as AbiItem,
+    (StakeABI as unknown) as AbiItem,
     address
   )
   return contract
 }
 
-export const getAirdropDataForAddress = (
+export const getStakingDataForAddress = (
   address: string
 ): { index: number, amount: string, proof: string[] } | undefined => {
   const rewardBranch = (rewardsMerkleRoot as any)[address]

@@ -6,6 +6,7 @@ export const yUsd = '0x5dbcf33d8c2e976c6b560249878e6f1491bca25c'
 export const yycrvUniLp = '0xb93Cc05334093c6B3b8Bfd29933bb8d5C031caBC'
 export const migrator = '0x72cfed9293cbfb2bfc7515c413048c697c6c811c'
 export const airdropAddress = process.env.REACT_APP_INDEX_AIRDROP_ADDRESS
+export const stakingRewardsAddress = process.env.REACT_APP_INDEX_STAKING_REWARDS_ADDRESS
 export const indexTokenAddress = process.env.REACT_APP_INDEX_TOKEN_ADDRESS
 export const dpiTokenAddress = process.env.REACT_APP_DPI_TOKEN_ADDRESS
 export const uniswapEthDpiLpTokenAddress = process.env.REACT_APP_UNISWAP_ETH_DPI_LP_TOKEN_ADDRESS
