@@ -19,18 +19,16 @@ import {
 
 import Split from 'components/Split'
 
-import useBalances from 'hooks/useBalances'
+import useExternalAirdrop from 'hooks/useExternalAirdrop'
 
 const RewardsModal: React.FC<ModalProps> = ({
   isOpen,
   onDismiss,
 }) => {
 
-  /* TODO: Replace these with INDEX claim balances */
-  const {
-    yamV3Balance
-  } = useBalances()
+  const { externalAddress, claimableQuantity, onClaimAirdrop, onUpdateAddress } = useExternalAirdrop()
 
+  console.log('external address is', externalAddress);
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
       return numeral(value).format('0.00a')
@@ -39,6 +37,14 @@ const RewardsModal: React.FC<ModalProps> = ({
     }
   }, [])
 
+  const handleClaimClick = useCallback(() => {
+    onClaimAirdrop();
+  }, [onClaimAirdrop])
+
+  const handleAddressChange = useCallback((e: any) => {
+    if (e?.target?.value) onUpdateAddress(e.target.value)
+  }, [onUpdateAddress])
+
   return (
     <Modal isOpen={isOpen}>
       <ModalTitle text="Claim INDEX" />
@@ -46,7 +52,7 @@ const RewardsModal: React.FC<ModalProps> = ({
         <Split>
           <Box alignItems="center" justifyContent="center" row>
             <StyledTokenValue>
-              {getDisplayBalance(yamV3Balance)} INDEX
+              {getDisplayBalance(claimableQuantity)} INDEX
             </StyledTokenValue>
           </Box>
         </Split>
@@ -58,6 +64,13 @@ const RewardsModal: React.FC<ModalProps> = ({
         </StyledDescription>
         <Input
           placeholder="Enter Wallet Address"
+          onChange={handleAddressChange}
+        />
+        <Spacer size="sm" />
+        <Button
+          onClick={onDismiss}
+          text="Check Airdrop Quantity"
+          variant="secondary"
         />
       </ModalContent>
       <Separator />
@@ -68,7 +81,7 @@ const RewardsModal: React.FC<ModalProps> = ({
           variant="secondary"
         />
         <Button
-          onClick={onDismiss}
+          onClick={handleClaimClick}
           text="Claim"
         />
       </ModalActions>
