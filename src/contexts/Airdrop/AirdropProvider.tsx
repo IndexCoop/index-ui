@@ -78,7 +78,6 @@ const AirdropProvider: React.FC = ({ children }) => {
     } else {
       setTransactionStatusType(TransactionStatusType.IS_FAILED);
     }
-    setConfirmTxModalIsOpen(false);
   }, [
     ethereum,
     account,
@@ -103,6 +102,7 @@ const AirdropProvider: React.FC = ({ children }) => {
       <ConfirmTransactionModal
         isOpen={confirmTxModalIsOpen}
         transactionMiningStatus={transactionStatusType}
+        onDismiss={() => setConfirmTxModalIsOpen(false)}
       />
     </AirdropContext.Provider>
   );

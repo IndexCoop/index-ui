@@ -21,6 +21,7 @@ interface ConfirmationModalProps extends ModalProps {
 const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
   isOpen,
   transactionMiningStatus,
+  onDismiss,
 }) => {
   const { connector } = useWallet();
 
@@ -36,36 +37,71 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
   switch (transactionMiningStatus) {
     case TransactionStatusType.IS_UNSTARTED:
     case TransactionStatusType.IS_APPROVING:
-      text = <StyledText>Confirm transaction in your wallet.</StyledText>;
-      break;
+      return (
+        <Modal isOpen={isOpen}>
+          <ModalContent>
+            {WalletLogo}
+            <Spacer />
+            <StyledText>Confirm transaction in your wallet.</StyledText>
+          </ModalContent>
+        </Modal>
+      );
     case TransactionStatusType.IS_PENDING:
-      text = <StyledText>Your transaction is processing.</StyledText>;
-      break;
+      return (
+        <Modal isOpen={isOpen}>
+          <ModalContent>
+            {WalletLogo}
+            <Spacer />
+            <StyledText>Your transaction is processing.</StyledText>
+          </ModalContent>
+        </Modal>
+      );
     case TransactionStatusType.IS_COMPLETED:
-      text = <StyledText>Your transaction succeeded.</StyledText>;
-      break;
+      return (
+        <Modal isOpen={isOpen}>
+          <ModalContent>
+            {WalletLogo}
+            <Spacer />
+            <StyledText>Your transaction succeeded.</StyledText>
+            <StyledButton onClick={onDismiss}>Close</StyledButton>
+          </ModalContent>
+        </Modal>
+      );
     case TransactionStatusType.IS_FAILED:
-      text = <StyledText>Your transaction could not be processed.</StyledText>;
-      break;
+      return (
+        <Modal isOpen={isOpen}>
+          <ModalContent>
+            {WalletLogo}
+            <Spacer />
+            <StyledText>Your transaction could not be processed.</StyledText>
+            <StyledButton onClick={onDismiss}>Close</StyledButton>
+          </ModalContent>
+        </Modal>
+      );
     default:
-      text = <StyledText>Confirm transaction in wallet.</StyledText>;
-      break;
+      return (
+        <Modal isOpen={isOpen}>
+          <ModalContent>
+            {WalletLogo}
+            <Spacer />
+            <StyledText>Confirm transaction in wallet.</StyledText>
+            <StyledButton onClick={onDismiss}>Close</StyledButton>
+          </ModalContent>
+        </Modal>
+      );
   }
-
-  return (
-    <Modal isOpen={isOpen}>
-      <ModalContent>
-        {WalletLogo}
-        <Spacer />
-        {text}
-      </ModalContent>
-    </Modal>
-  );
 };
 
 const StyledText = styled.div`
   font-size: 24px;
   text-align: center;
 `;
+
+const StyledButton = styled.button`
+  padding: 20px;
+  :hover {
+    cursor: pointer;
+  }
+`
 
 export default ConfirmTransactionModal;
