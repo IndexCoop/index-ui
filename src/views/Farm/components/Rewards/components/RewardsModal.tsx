@@ -18,7 +18,7 @@ import {
 
 import Split from 'components/Split'
 
-import useAirdrop from "hooks/useAirdrop";
+import useAirdrop from 'hooks/useAirdrop'
 
 const RewardsModal: React.FC<ModalProps> = ({
   isOpen,

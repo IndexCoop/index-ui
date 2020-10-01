@@ -1,1 +1,1 @@
-export * from './airdrop';
+export * from './airdrop'

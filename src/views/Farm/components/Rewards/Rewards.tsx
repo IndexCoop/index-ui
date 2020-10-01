@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState } from 'react'
 
 import {
   Box,
@@ -7,69 +7,69 @@ import {
   CardActions,
   CardContent,
   CardIcon,
-} from "react-neu";
-import { useWallet } from "use-wallet";
+} from 'react-neu'
+import { useWallet } from 'use-wallet'
 
-import Label from "components/Label";
-import Value from "components/Value";
+import Label from 'components/Label'
+import Value from 'components/Value'
 
-import RewardsModal from "./components/RewardsModal";
-import ExternalRewardsModal from "./components/ExternalRewardsModal";
+import RewardsModal from './components/RewardsModal'
+import ExternalRewardsModal from './components/ExternalRewardsModal'
 
-import useAirdrop from "hooks/useAirdrop";
+import useAirdrop from 'hooks/useAirdrop'
 
 const Rewards: React.FC = () => {
-  const [claimModalIsOpen, setClaimModalIsOpen] = useState(false);
+  const [claimModalIsOpen, setClaimModalIsOpen] = useState(false)
   const [externalClaimModalIsOpen, setExternalClaimModalIsOpen] = useState(
     false
-  );
+  )
 
-  const { claimableQuantity, isClaimable } = useAirdrop();
+  const { claimableQuantity, isClaimable } = useAirdrop()
 
-  const { status } = useWallet();
+  const { status } = useWallet()
 
   const handleClaimClick = useCallback(() => {
-    setClaimModalIsOpen(true);
-  }, [setClaimModalIsOpen]);
+    setClaimModalIsOpen(true)
+  }, [setClaimModalIsOpen])
 
   const handleDismissClaimModal = useCallback(() => {
-    setClaimModalIsOpen(false);
-  }, [setClaimModalIsOpen]);
+    setClaimModalIsOpen(false)
+  }, [setClaimModalIsOpen])
 
   const handleExternalClaimClick = useCallback(() => {
-    setExternalClaimModalIsOpen(true);
-  }, [setExternalClaimModalIsOpen]);
+    setExternalClaimModalIsOpen(true)
+  }, [setExternalClaimModalIsOpen])
 
   const handleDismissExternalClaimModal = useCallback(() => {
-    setExternalClaimModalIsOpen(false);
-  }, [setExternalClaimModalIsOpen]);
+    setExternalClaimModalIsOpen(false)
+  }, [setExternalClaimModalIsOpen])
 
-  const isWalletConnected = status === 'connected';
+  const isWalletConnected = status === 'connected'
 
   return (
     <>
       <Card>
         <CardIcon>🎁</CardIcon>
         <CardContent>
-          <Box alignItems="center" column>
+          <Box alignItems='center' column>
             <Value value={claimableQuantity?.toString() || '0'} />
-            <Label text="Claim Your INDEX Rewards" />
+            <Label text='Claim Your INDEX Rewards' />
           </Box>
         </CardContent>
         <CardActions>
           <Button
             disabled={!isWalletConnected || !isClaimable}
             onClick={isWalletConnected ? handleClaimClick : () => {}}
-            text="Claim INDEX"
-            variant="secondary"
+            text='Claim INDEX'
+            variant='secondary'
           />
           <Button
             disabled={!isWalletConnected}
             onClick={
               isWalletConnected ? handleExternalClaimClick : () => {}
             }
-            text="Claim Externally"
-            variant="secondary"
+            text='Claim Externally'
+            variant='secondary'
           />
         </CardActions>
       </Card>
@@ -82,7 +82,7 @@ const Rewards: React.FC = () => {
         onDismiss={handleDismissExternalClaimModal}
       />
     </>
-  );
-};
+  )
+}
 
-export default Rewards;
+export default Rewards
