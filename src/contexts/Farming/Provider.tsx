@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 
 import ConfirmTransactionModal from 'components/ConfirmTransactionModal'
-import { yycrvUniLp as yycrvUniLpAddress } from 'constants/tokenAddresses'
+import { stakingRewardsAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses'
 import useApproval from 'hooks/useApproval'
 import useYam from 'hooks/useYam'
 
@@ -35,13 +35,13 @@ const Provider: React.FC = ({ children }) => {
   const yam = useYam()
   const { account } = useWallet()
   
-  const yycrvPoolAddress = yam ? yam.contracts.yycrv_pool.options.address : ''
   const { isApproved, isApproving, onApprove } = useApproval(
-    yycrvUniLpAddress,
-    yycrvPoolAddress,
+    uniswapEthDpiLpTokenAddress,
+    stakingRewardsAddress,
     () => setConfirmTxModalIsOpen(false)
   )
 
+  // TODO: fetch earned balance for harvesting
   const fetchEarnedBalance = useCallback(async () => {
     if (!account || !yam) return
     const balance = await getEarned(yam, yam.contracts.yycrv_pool, account)
@@ -52,6 +52,7 @@ const Provider: React.FC = ({ children }) => {
     yam
   ])
 
+  // TODO: fetch staked balance to display to user
   const fetchStakedBalance = useCallback(async () => {
     if (!account || !yam) return
     const balance = await getStaked(yam, yam.contracts.yycrv_pool, account)
