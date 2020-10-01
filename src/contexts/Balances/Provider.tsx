@@ -5,7 +5,7 @@ import { provider } from 'web3-core'
 
 import Context from './Context'
 import { getBalance } from 'utils/index'
-import { dpiTokenAddress, indexTokenAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses';
+import { dpiTokenAddress, indexTokenAddress, uniswapEthDpiLpTokenAddress, stakingRewardsAddress  } from 'constants/tokenAddresses';
 
 const Provider: React.FC = ({ children }) => {
   const [indexBalance, setIndexBalance] = useState<BigNumber>()
@@ -13,6 +13,7 @@ const Provider: React.FC = ({ children }) => {
   const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] = useState<
     BigNumber
   >()
+  const [stakedUniswapEthDpiLpBalance, setStakedUniswapEthDpiLpBalance] = useState<BigNumber>()
 
   const {
     account,
@@ -25,6 +26,7 @@ const Provider: React.FC = ({ children }) => {
         getBalance(provider, indexTokenAddress as string, userAddress),
         getBalance(provider, dpiTokenAddress as string, userAddress),
         getBalance(provider, uniswapEthDpiLpTokenAddress as string, userAddress),
+        getBalance(provider, stakingRewardsAddress as string, userAddress),
       ])
 
       setIndexBalance(
@@ -36,8 +38,11 @@ const Provider: React.FC = ({ children }) => {
       setUniswapEthDpiLpBalance(
         new BigNumber(balances[2]).dividedBy(new BigNumber(10).pow(18))
       )
+      setStakedUniswapEthDpiLpBalance(
+        new BigNumber(balances[3]).dividedBy(new BigNumber(10).pow(18))
+      )
     },
-    [setIndexBalance, setDpiBalance, setUniswapEthDpiLpBalance,]
+    [setIndexBalance, setDpiBalance, setUniswapEthDpiLpBalance, setStakedUniswapEthDpiLpBalance]
   )
 
   useEffect(() => {
@@ -63,6 +68,7 @@ const Provider: React.FC = ({ children }) => {
         indexBalance,
         dpiBalance,
         uniswapEthDpiLpBalance,
+        stakedUniswapEthDpiLpBalance
       }}
     >
       {children}
