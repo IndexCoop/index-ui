@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
 import numeral from 'numeral'
 import {
@@ -14,30 +14,17 @@ import {
   ModalProps,
   ModalTitle,
   Separator,
-  Spacer
+  Spacer,
 } from 'react-neu'
 
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 
 import useBalances from 'hooks/useBalances'
-import useVesting from 'hooks/useVesting'
 
-const WalletModal: React.FC<ModalProps> = ({
-  isOpen,
-  onDismiss,
-}) => {
-
+const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const { reset } = useWallet()
-  const {
-    yamV2Balance,
-    yamV3Balance
-  } = useBalances()
-
-  const {
-    vestedDelegatorRewardBalance,
-    vestedMigratedBalance,
-  } = useVesting()
+  const { indexBalance, dpiBalance, uniswapEthDpiLpBalance } = useBalances()
 
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
@@ -48,28 +35,33 @@ const WalletModal: React.FC<ModalProps> = ({
   }, [])
 
   const handleSignOut = useCallback(() => {
-    reset();
-    toast.success('Successfully signed out');
-    onDismiss && onDismiss();
+    reset()
+    toast.success('Successfully signed out')
+    onDismiss && onDismiss()
   }, [reset, onDismiss])
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text="My Wallet" />
+      <ModalTitle text='My Wallet' />
       <ModalContent>
         <Split>
           <Box row>
             <FancyValue
-              icon="🍠"
-              label="YAM balance"
-              value={getDisplayBalance(yamV3Balance)}
+              icon='🦉'
+              label='INDEX balance'
+              value={getDisplayBalance(indexBalance)}
             />
           </Box>
           <Box row>
             <FancyValue
-              icon={<span role="img" style={{ opacity: 0.5 }} >🍠</span>}
-              label="YAMV2 balance"
-              value={getDisplayBalance(yamV2Balance)}
+              icon={
+                <img
+                  alt='defi pulse icon'
+                  src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
+                />
+              }
+              label='DPI balance'
+              value={getDisplayBalance(dpiBalance)}
             />
           </Box>
         </Split>
@@ -79,32 +71,23 @@ const WalletModal: React.FC<ModalProps> = ({
         <Split>
           <Box row>
             <FancyValue
-              icon="🎁"
-              label="Vested YAM (Delegator)"
-              value={getDisplayBalance(vestedDelegatorRewardBalance)}
-            />
-          </Box>
-          <Box row>
-            <FancyValue
-              icon="🦋"
-              label="Vested YAM (Migrated)"
-              value={getDisplayBalance(vestedMigratedBalance)}
+              icon={
+                <img
+                  alt='uniswap lp icon'
+                  src='https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg'
+                  style={{ width: '40px', height: '40px' }}
+                />
+              }
+              label='Uniswap ETH DPI LP balance'
+              value={getDisplayBalance(uniswapEthDpiLpBalance)}
             />
           </Box>
         </Split>
-        <Spacer />
       </ModalContent>
       <Separator />
       <ModalActions>
-        <Button
-          onClick={onDismiss}
-          text="Cancel"
-          variant="secondary"
-        />
-        <Button
-          onClick={handleSignOut}
-          text="Sign Out"
-        />
+        <Button onClick={onDismiss} text='Cancel' variant='secondary' />
+        <Button onClick={handleSignOut} text='Sign Out' />
       </ModalActions>
     </Modal>
   )
