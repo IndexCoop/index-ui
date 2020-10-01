@@ -47,7 +47,7 @@ const RewardsModal: React.FC<ModalProps> = ({
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text="Claim INDEX" />
+      <ModalTitle text="External Claim INDEX" />
       <ModalContent>
         <Split>
           <Box alignItems="center" justifyContent="center" row>
