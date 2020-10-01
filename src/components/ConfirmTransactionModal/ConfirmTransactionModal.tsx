@@ -75,7 +75,6 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             {WalletLogo}
             <Spacer />
             <StyledText>Your transaction could not be processed.</StyledText>
-            <Button size="sm" text="Close" variant="secondary" onClick={onDismiss} />
           </ModalContent>
           <ModalActions>
             <Button text="Close" variant="secondary" onClick={onDismiss} />
@@ -89,7 +88,6 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             {WalletLogo}
             <Spacer />
             <StyledText>Confirm transaction in wallet.</StyledText>
-            <Button size="sm" text="Close" variant="secondary" onClick={onDismiss} />
           </ModalContent>
           <ModalActions>
             <Button text="Close" variant="secondary" onClick={onDismiss} />

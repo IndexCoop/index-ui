@@ -48,19 +48,22 @@ export const claimAirdrop = async (
   claimRecipientAddress: string,
   amount: string,
   proof: string[]
-): Promise<boolean> => {
+): Promise<string | null> => {
   const airdropContract = getAirdropContract(provider, airdropAddress);
+  const claimArgs = [rewardIndex, claimRecipientAddress, amount, proof];
 
-  try {
-    console.log("start claim");
-    const claimArgs = [rewardIndex, claimRecipientAddress, amount, ['0x3bf73b5bc71dff43827b145d2511f852cc48206d516faa73e457f93d2b3fe7c9']];
-    const claimSuccessful: boolean = await airdropContract.methods
+  return new Promise((resolve) => {
+    airdropContract.methods
       .claim(...claimArgs)
-      .send({ from: accountAddress, gas: 120000 });
-    console.log("result is?", claimSuccessful);
-    return claimSuccessful;
-  } catch (e) {
-    console.log("claim error is", e);
-    return false;
-  }
+      .send({ from: accountAddress, gas: 120000 })
+      .on("transactionHash", (txId: string) => {
+        if (!txId) resolve(null);
+
+        resolve(txId);
+      })
+      .on("error", (error: any) => {
+        console.log(error);
+        resolve(null);
+      });
+  });
 };

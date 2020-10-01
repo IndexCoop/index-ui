@@ -13,6 +13,7 @@ import ConfirmTransactionModal, {
   TransactionStatusType,
 } from "components/ConfirmTransactionModal";
 import { claimAirdrop } from "../../index-sdk/airdrop";
+import { waitTransaction } from "../../utils/index";
 
 const AirdropProvider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false);
@@ -63,7 +64,7 @@ const AirdropProvider: React.FC = ({ children }) => {
 
     setConfirmTxModalIsOpen(true);
     setTransactionStatusType(TransactionStatusType.IS_APPROVING);
-    const success = await claimAirdrop(
+    const transactionId = await claimAirdrop(
       ethereum,
       account,
       rewardIndex,
@@ -71,9 +72,16 @@ const AirdropProvider: React.FC = ({ children }) => {
       airdropQuantity,
       rewardProof
     );
-    console.log("success is?", success);
 
-    if (!success) {
+    if (!transactionId) {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED);
+      return;
+    }
+
+    setTransactionStatusType(TransactionStatusType.IS_PENDING);
+    const success = await waitTransaction(ethereum, transactionId);
+
+    if (success) {
       setTransactionStatusType(TransactionStatusType.IS_COMPLETED);
     } else {
       setTransactionStatusType(TransactionStatusType.IS_FAILED);
