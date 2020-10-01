@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Modal, ModalContent, ModalProps, Spacer } from "react-neu";
+import { Modal, ModalContent, ModalProps, Spacer, Button, ModalActions } from "react-neu";
 import styled from "styled-components";
 import { useWallet } from "use-wallet";
 
@@ -33,7 +33,6 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
     }
   }, [connector]);
 
-  let text;
   switch (transactionMiningStatus) {
     case TransactionStatusType.IS_UNSTARTED:
     case TransactionStatusType.IS_APPROVING:
@@ -63,8 +62,10 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             {WalletLogo}
             <Spacer />
             <StyledText>Your transaction succeeded.</StyledText>
-            <StyledButton onClick={onDismiss}>Close</StyledButton>
           </ModalContent>
+          <ModalActions>
+            <Button text="Close" variant="secondary" onClick={onDismiss} />
+          </ModalActions>
         </Modal>
       );
     case TransactionStatusType.IS_FAILED:
@@ -74,8 +75,11 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             {WalletLogo}
             <Spacer />
             <StyledText>Your transaction could not be processed.</StyledText>
-            <StyledButton onClick={onDismiss}>Close</StyledButton>
+            <Button size="sm" text="Close" variant="secondary" onClick={onDismiss} />
           </ModalContent>
+          <ModalActions>
+            <Button text="Close" variant="secondary" onClick={onDismiss} />
+          </ModalActions>
         </Modal>
       );
     default:
@@ -85,8 +89,11 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             {WalletLogo}
             <Spacer />
             <StyledText>Confirm transaction in wallet.</StyledText>
-            <StyledButton onClick={onDismiss}>Close</StyledButton>
+            <Button size="sm" text="Close" variant="secondary" onClick={onDismiss} />
           </ModalContent>
+          <ModalActions>
+            <Button text="Close" variant="secondary" onClick={onDismiss} />
+          </ModalActions>
         </Modal>
       );
   }
@@ -96,12 +103,5 @@ const StyledText = styled.div`
   font-size: 24px;
   text-align: center;
 `;
-
-const StyledButton = styled.button`
-  padding: 20px;
-  :hover {
-    cursor: pointer;
-  }
-`
 
 export default ConfirmTransactionModal;
