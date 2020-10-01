@@ -29,7 +29,7 @@ export const checkIsAirdropClaimed = async (
   provider: provider,
   rewardIndex: number
 ): Promise<boolean> => {
-  const airdropContract = getAirdropContract(provider, airdropAddress as string)
+  const airdropContract = getStakingRewardsContract(provider, airdropAddress as string)
 
   try {
     const isAlreadyClaimed: boolean = await airdropContract.methods
@@ -50,7 +50,7 @@ export const claimAirdrop = async (
   amount: string,
   proof: string[]
 ): Promise<string | null> => {
-  const airdropContract = getAirdropContract(provider, airdropAddress as string)
+  const airdropContract = getStakingRewardsContract(provider, airdropAddress as string)
   const claimArgs = [rewardIndex, claimRecipientAddress, amount, proof]
 
   return new Promise((resolve) => {

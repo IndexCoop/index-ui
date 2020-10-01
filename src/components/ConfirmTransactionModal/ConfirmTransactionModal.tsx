@@ -89,9 +89,6 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             <Spacer />
             <StyledText>Confirm transaction in wallet.</StyledText>
           </ModalContent>
-          <ModalActions>
-            <Button text='Close' variant='secondary' onClick={onDismiss} />
-          </ModalActions>
         </Modal>
       )
   }
