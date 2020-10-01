@@ -1,10 +1,10 @@
-import React, { useMemo } from "react";
-import { Modal, ModalContent, ModalProps, Spacer, Button, ModalActions } from "react-neu";
-import styled from "styled-components";
-import { useWallet } from "use-wallet";
+import React, { useMemo } from 'react'
+import { Modal, ModalContent, ModalProps, Spacer, Button, ModalActions } from 'react-neu'
+import styled from 'styled-components'
+import { useWallet } from 'use-wallet'
 
-import metamaskLogo from "assets/metamask-fox.svg";
-import walletConnectLogo from "assets/wallet-connect.svg";
+import metamaskLogo from 'assets/metamask-fox.svg'
+import walletConnectLogo from 'assets/wallet-connect.svg'
 
 export enum TransactionStatusType {
   IS_UNSTARTED,
@@ -15,7 +15,7 @@ export enum TransactionStatusType {
 }
 
 interface ConfirmationModalProps extends ModalProps {
-  transactionMiningStatus?: TransactionStatusType;
+  transactionMiningStatus?: TransactionStatusType
 }
 
 const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
@@ -23,15 +23,15 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
   transactionMiningStatus,
   onDismiss,
 }) => {
-  const { connector } = useWallet();
+  const { connector } = useWallet()
 
   const WalletLogo = useMemo(() => {
-    if (connector === "injected") {
-      return <img src={metamaskLogo} height={96} />;
-    } else if (connector === "walletconnect") {
-      return <img src={walletConnectLogo} height={72} />;
+    if (connector === 'injected') {
+      return <img src={metamaskLogo} height={96} />
+    } else if (connector === 'walletconnect') {
+      return <img src={walletConnectLogo} height={72} />
     }
-  }, [connector]);
+  }, [connector])
 
   switch (transactionMiningStatus) {
     case TransactionStatusType.IS_UNSTARTED:
@@ -44,7 +44,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             <StyledText>Confirm transaction in your wallet.</StyledText>
           </ModalContent>
         </Modal>
-      );
+      )
     case TransactionStatusType.IS_PENDING:
       return (
         <Modal isOpen={isOpen}>
@@ -54,7 +54,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             <StyledText>Your transaction is processing.</StyledText>
           </ModalContent>
         </Modal>
-      );
+      )
     case TransactionStatusType.IS_COMPLETED:
       return (
         <Modal isOpen={isOpen}>
@@ -64,10 +64,10 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             <StyledText>Your transaction succeeded.</StyledText>
           </ModalContent>
           <ModalActions>
-            <Button text="Close" variant="secondary" onClick={onDismiss} />
+            <Button text='Close' variant='secondary' onClick={onDismiss} />
           </ModalActions>
         </Modal>
-      );
+      )
     case TransactionStatusType.IS_FAILED:
       return (
         <Modal isOpen={isOpen}>
@@ -77,10 +77,10 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             <StyledText>Your transaction could not be processed.</StyledText>
           </ModalContent>
           <ModalActions>
-            <Button text="Close" variant="secondary" onClick={onDismiss} />
+            <Button text='Close' variant='secondary' onClick={onDismiss} />
           </ModalActions>
         </Modal>
-      );
+      )
     default:
       return (
         <Modal isOpen={isOpen}>
@@ -90,16 +90,16 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             <StyledText>Confirm transaction in wallet.</StyledText>
           </ModalContent>
           <ModalActions>
-            <Button text="Close" variant="secondary" onClick={onDismiss} />
+            <Button text='Close' variant='secondary' onClick={onDismiss} />
           </ModalActions>
         </Modal>
-      );
+      )
   }
-};
+}
 
 const StyledText = styled.div`
   font-size: 24px;
   text-align: center;
-`;
+`
 
-export default ConfirmTransactionModal;
+export default ConfirmTransactionModal

@@ -5,15 +5,16 @@ import { useCallback } from "react";
 import BigNumber from "bignumber.js";
 
 import AirdropContext from "./AirdropContext";
-import {
-  checkIsAirdropClaimed,
-  getAirdropDataForAddress,
-} from "../../index-sdk/index";
 import ConfirmTransactionModal, {
   TransactionStatusType,
 } from "components/ConfirmTransactionModal";
-import { claimAirdrop } from "../../index-sdk/airdrop";
-import { waitTransaction } from "../../utils/index";
+
+import {
+  claimAirdrop,
+  checkIsAirdropClaimed,
+  getAirdropDataForAddress,
+} from "index-sdk/index";
+import { waitTransaction } from "utils/index";
 
 const AirdropProvider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false);

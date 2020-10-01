@@ -3,13 +3,6 @@ import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
-// import {
-//   yamv2 as yamV2Address,
-//   yamv3 as yamV3Address,
-//   yycrvUniLp as yyrcvUniLpAddress,
-// } from 'constants/tokenAddresses'
-// import { getBalance } from 'utils'
-
 import Context from './Context'
 
 const Provider: React.FC = ({ children }) => {
@@ -20,11 +13,6 @@ const Provider: React.FC = ({ children }) => {
   const { account, ethereum }: { account: string | null, ethereum: provider } = useWallet()
 
   const fetchBalances = useCallback(async (userAddress: string, provider: provider) => {
-    // const balances = await Promise.all([
-    //   await getBalance(provider, yamV2Address, userAddress),
-    //   await getBalance(provider, yamV3Address, userAddress),
-    //   await getBalance(provider, yyrcvUniLpAddress, userAddress)
-    // ])
     setYamV2Balance(new BigNumber(0).dividedBy(new BigNumber(10).pow(24)))
     setYamV3Balance(new BigNumber(0).dividedBy(new BigNumber(10).pow(18)))
     setYycrvUniLpBalance(new BigNumber(0).dividedBy(new BigNumber(10).pow(18)))
