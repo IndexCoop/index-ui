@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useWallet } from "use-wallet";
 import { provider } from "web3-core";
 import { useCallback } from "react";
@@ -47,7 +47,6 @@ const AirdropProvider: React.FC = ({ children }) => {
       externalAddress || ""
     );
 
-    console.log('initial reward', initialAirdropReward);
     if (!initialAirdropReward) {
       return;
     }
@@ -57,7 +56,6 @@ const AirdropProvider: React.FC = ({ children }) => {
       initialAirdropReward.index as number
     );
 
-    console.log('already claimed?', isAlreadyClaimed);
     if (isAlreadyClaimed) {
       setIsAlreadyClaimed(true);
       return;
@@ -74,16 +72,17 @@ const AirdropProvider: React.FC = ({ children }) => {
 
   const onClaimAirdrop = useCallback(async () => {
     if (
-      !rewardIndex ||
       !account ||
       !externalAddress ||
       !airdropQuantity ||
+      typeof rewardIndex !== 'number' ||
       !rewardProof
     )
       return;
 
     setConfirmTxModalIsOpen(true);
     setTransactionStatusType(TransactionStatusType.IS_APPROVING);
+
     const transactionId = await claimAirdrop(
       ethereum,
       account,

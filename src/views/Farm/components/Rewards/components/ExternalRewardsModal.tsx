@@ -26,14 +26,13 @@ const RewardsModal: React.FC<ModalProps> = ({
   onDismiss,
 }) => {
 
-  const { externalAddress, claimableQuantity, onClaimAirdrop, onCheckAirdropClaim, onUpdateAddress } = useExternalAirdrop()
+  const { claimableQuantity, isAlreadyClaimed, onClaimAirdrop, onCheckAirdropClaim, onUpdateAddress } = useExternalAirdrop()
 
-  console.log('external address is', externalAddress);
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
       return numeral(value).format('0.00a')
     } else {
-      return '--'
+      return '0'
     }
   }, [])
 
@@ -72,6 +71,13 @@ const RewardsModal: React.FC<ModalProps> = ({
           text="Check Airdrop Quantity"
           variant="secondary"
         />
+        {
+          isAlreadyClaimed && (
+            <StyledAlreadyClaimedError>
+              This address has already claimed its airdrop rewards.
+            </StyledAlreadyClaimedError>
+          )
+        }
       </ModalContent>
       <Separator />
       <ModalActions>
@@ -108,6 +114,11 @@ const StyledDescription = styled.p`
   &:visited {
     color: ${props => props.theme.colors.gray};
   }
+`
+
+const StyledAlreadyClaimedError = styled.p`
+  color: ${props => props.theme.colors.primary.main};
+  text-align: center;
 `
 
 export default RewardsModal
