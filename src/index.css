@@ -16,29 +16,29 @@ button {
 }
 
 /* React Toastify */
-.Toastify__toast {
+div > .Toastify__toast {
   background: #1d144f;
   color: #ffffff;
 }
 
-.Toastify__toast-body {
-  padding-bottom: 10px;
+div > .Toastify__toast--success {
+  background: #ffffff;
+  color: #1d144f;
+  border-radius: 8px;
 }
 
-.Toastify__toast--success {
-  border-top: 5px solid #2bb160;
-  background: #1d144f;
-  color: #ffffff;
+div > .Toastify__progress-bar--success {
+  background: #2bb160;
 }
 
-.Toastify__toast--info {
+div > .Toastify__toast--info {
   border-top: 5px solid #2d2ce5;
 }
 
-.Toastify__toast--warning {
+div > .Toastify__toast--warning {
   border-top: 5px solid #f3b731;
 }
 
-.Toastify__toast--error {
+div > .Toastify__toast--error {
   border-top: 5px solid #df4857;
 }

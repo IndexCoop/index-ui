@@ -4,12 +4,12 @@ import styled from 'styled-components'
 
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
-import Manifesto from 'components/Manifesto'
+import Explanation from 'components/Explanation'
 
 import useBalances from 'hooks/useBalances'
 
-import MigrationNotice from './components/MigrationNotice'
 import Treasury from './components/Treasury'
+import DeFiPulseIndex from './components/DeFiPulseIndex'
 
 const Home: React.FC = () => {
   const { yamV2Balance } = useBalances()
@@ -18,26 +18,17 @@ const Home: React.FC = () => {
     <Page>
       <PageHeader
         icon='🦉'
-        title='The Index DAO'
-        subtitle='The community curated crypto index'
+        title='Index DAO'
+        subtitle='A global community launching and maintaining the world’s best crypto index vehicles'
       />
       <Button text='View Farms' to='/farm' />
       <Spacer />
-      <Container>
-        <StyledIndexImage src='https://index-dao.s3.amazonaws.com/index_allocations_1.png' />
-      </Container>
-      <Spacer />
       <Treasury />
       <Spacer />
-      <Manifesto />
-      <Container>
-        {yamV2Balance && yamV2Balance.toNumber() >= 0 && (
-          <>
-            <MigrationNotice />
-            <Spacer />
-          </>
-        )}
-      </Container>
+      <Explanation />
+      <Spacer />
+      <DeFiPulseIndex />
+      <Spacer />
     </Page>
   )
 }
