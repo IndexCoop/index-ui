@@ -31,7 +31,7 @@ const RewardsModal: React.FC<ModalProps> = ({
     if (value) {
       return numeral(value).format('0.00a')
     } else {
-      return '--'
+      return '0'
     }
   }, [])
 

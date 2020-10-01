@@ -37,6 +37,7 @@ export const checkIsAirdropClaimed = async (
       .call()
     return isAlreadyClaimed
   } catch (e) {
+    console.log(e)
     return true
   }
 }
