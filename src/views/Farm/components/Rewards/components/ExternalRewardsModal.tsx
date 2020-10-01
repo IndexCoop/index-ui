@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react'
-
 import BigNumber from 'bignumber.js'
 import styled from 'styled-components'
-
 import numeral from 'numeral'
 import {
   Box,
@@ -14,19 +12,20 @@ import {
   ModalProps,
   ModalTitle,
   Separator,
-  Spacer
+  Spacer,
 } from 'react-neu'
 
 import Split from 'components/Split'
-
 import useExternalAirdrop from 'hooks/useExternalAirdrop'
 
-const RewardsModal: React.FC<ModalProps> = ({
-  isOpen,
-  onDismiss,
-}) => {
-
-  const { claimableQuantity, isAlreadyClaimed, onClaimAirdrop, onCheckAirdropClaim, onUpdateAddress } = useExternalAirdrop()
+const RewardsModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
+  const {
+    claimableQuantity,
+    isAlreadyClaimed,
+    onClaimAirdrop,
+    onCheckAirdropClaim,
+    onUpdateAddress,
+  } = useExternalAirdrop()
 
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
@@ -37,19 +36,22 @@ const RewardsModal: React.FC<ModalProps> = ({
   }, [])
 
   const handleClaimClick = useCallback(() => {
-    onClaimAirdrop();
+    onClaimAirdrop()
   }, [onClaimAirdrop])
 
-  const handleAddressChange = useCallback((e: any) => {
-    if (e?.target?.value) onUpdateAddress(e.target.value)
-  }, [onUpdateAddress])
+  const handleAddressChange = useCallback(
+    (e: any) => {
+      if (e?.target?.value) onUpdateAddress(e.target.value)
+    },
+    [onUpdateAddress]
+  )
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text="External Claim INDEX" />
+      <ModalTitle text='External Claim INDEX' />
       <ModalContent>
         <Split>
-          <Box alignItems="center" justifyContent="center" row>
+          <Box alignItems='center' justifyContent='center' row>
             <StyledTokenValue>
               {getDisplayBalance(claimableQuantity)} INDEX
             </StyledTokenValue>
@@ -59,44 +61,36 @@ const RewardsModal: React.FC<ModalProps> = ({
         <Separator />
         <Spacer />
         <StyledDescription>
-          Enter an address you'd like to claim INDEX for. All claimed INDEX goes to the address inputted below.
+          Enter an address you'd like to claim INDEX for. All claimed INDEX goes
+          to the address inputted below.
         </StyledDescription>
         <Input
-          placeholder="Enter Wallet Address"
+          placeholder='Enter Wallet Address'
           onChange={handleAddressChange}
         />
-        <Spacer size="sm" />
+        <Spacer size='sm' />
         <Button
           onClick={onCheckAirdropClaim}
-          text="Check Airdrop Quantity"
-          variant="secondary"
+          text='Check Airdrop Quantity'
+          variant='secondary'
         />
-        {
-          isAlreadyClaimed && (
-            <StyledAlreadyClaimedError>
-              This address has already claimed its airdrop rewards.
-            </StyledAlreadyClaimedError>
-          )
-        }
+        {isAlreadyClaimed && (
+          <StyledAlreadyClaimedError>
+            This address has already claimed its airdrop rewards.
+          </StyledAlreadyClaimedError>
+        )}
       </ModalContent>
       <Separator />
       <ModalActions>
-        <Button
-          onClick={onDismiss}
-          text="Close"
-          variant="secondary"
-        />
-        <Button
-          onClick={handleClaimClick}
-          text="Claim"
-        />
+        <Button onClick={onDismiss} text='Close' variant='secondary' />
+        <Button onClick={handleClaimClick} text='Claim' />
       </ModalActions>
     </Modal>
   )
 }
 
 const StyledTokenValue = styled.p`
-  color: ${props => props.theme.colors.primary.light};
+  color: ${(props) => props.theme.colors.primary.light};
   font-weight: 600;
   font-size: 54px;
   line-height: 54px;
@@ -104,20 +98,20 @@ const StyledTokenValue = styled.p`
   margin-bottom: 15px;
   margin-top: 15px;
   &:visited {
-    color: ${props => props.theme.colors.primary.light};
+    color: ${(props) => props.theme.colors.primary.light};
   }
 `
 
 const StyledDescription = styled.p`
-  color: ${props => props.theme.colors.gray};
+  color: ${(props) => props.theme.colors.gray};
   margin-bottom: 35px;
   &:visited {
-    color: ${props => props.theme.colors.gray};
+    color: ${(props) => props.theme.colors.gray};
   }
 `
 
 const StyledAlreadyClaimedError = styled.p`
-  color: ${props => props.theme.colors.primary.main};
+  color: ${(props) => props.theme.colors.primary.main};
   text-align: center;
 `
 
