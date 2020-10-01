@@ -3,60 +3,29 @@ import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
 import StakeABI from 'index-sdk/abi/Stake.json'
-import { airdropAddress } from 'constants/tokenAddresses'
-import rewardsMerkleRoot from './rewardsMerkleRoot.json'
+import { stakingRewardsAddress } from 'constants/tokenAddresses'
+import BigNumber from 'bignumber.js'
 
-export const getStakingRewardsContract = (provider: provider, address: string) => {
+export const getStakingRewardsContract = (provider: provider) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
     (StakeABI as unknown) as AbiItem,
-    address
+    stakingRewardsAddress
   )
   return contract
 }
 
-export const getStakingDataForAddress = (
-  address: string
-): { index: number, amount: string, proof: string[] } | undefined => {
-  const rewardBranch = (rewardsMerkleRoot as any)[address]
-
-  if (!rewardBranch) return
-
-  return rewardBranch
-}
-
-export const checkIsAirdropClaimed = async (
+export const stakeUniswapEthDpiLpTokens = async (
   provider: provider,
-  rewardIndex: number
-): Promise<boolean> => {
-  const airdropContract = getStakingRewardsContract(provider, airdropAddress as string)
-
-  try {
-    const isAlreadyClaimed: boolean = await airdropContract.methods
-      .isClaimed(rewardIndex)
-      .call()
-    return isAlreadyClaimed
-  } catch (e) {
-    console.log(e)
-    return true
-  }
-}
-
-export const claimAirdrop = async (
-  provider: provider,
-  accountAddress: string,
-  rewardIndex: number,
-  claimRecipientAddress: string,
-  amount: string,
-  proof: string[]
+  account: string,
+  stakeQuantity: BigNumber,
 ): Promise<string | null> => {
-  const airdropContract = getStakingRewardsContract(provider, airdropAddress as string)
-  const claimArgs = [rewardIndex, claimRecipientAddress, amount, proof]
+  const stakingContract = getStakingRewardsContract(provider)
 
   return new Promise((resolve) => {
-    airdropContract.methods
-      .claim(...claimArgs)
-      .send({ from: accountAddress, gas: 120000 })
+    stakingContract.methods
+      .stake(stakeQuantity)
+      .send({ from: account, gas: 200000 })
       .on('transactionHash', (txId: string) => {
         if (!txId) resolve(null)
 
