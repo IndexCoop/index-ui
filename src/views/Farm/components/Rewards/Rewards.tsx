@@ -16,9 +16,15 @@ import Value from 'components/Value'
 import RewardsModal from './components/RewardsModal'
 import ExternalRewardsModal from './components/ExternalRewardsModal'
 
+import useAirdrop from 'hooks/useAirdrop'
+
 const Rewards: React.FC = () => {
   const [claimModalIsOpen, setClaimModalIsOpen] = useState(false)
-  const [externalClaimModalIsOpen, setExternalClaimModalIsOpen] = useState(false)
+  const [externalClaimModalIsOpen, setExternalClaimModalIsOpen] = useState(
+    false
+  )
+
+  const { claimableQuantity, isClaimable } = useAirdrop()
 
   const { status } = useWallet()
 
@@ -38,31 +44,32 @@ const Rewards: React.FC = () => {
     setExternalClaimModalIsOpen(false)
   }, [setExternalClaimModalIsOpen])
 
+  const isWalletConnected = status === 'connected'
+
   return (
     <>
       <Card>
         <CardIcon>🎁</CardIcon>
         <CardContent>
-          <Box
-            alignItems="center"
-            column
-          >
-            <Value value={'100'} />
-            <Label text="Claim Your INDEX Rewards" />
+          <Box alignItems='center' column>
+            <Value value={claimableQuantity?.toString() || '0'} />
+            <Label text='Claim Your INDEX Rewards' />
           </Box>
         </CardContent>
         <CardActions>
           <Button
-            disabled={status !== 'connected'}
-            onClick={status !== 'connected' ? () => {} : handleClaimClick}
-            text="Claim INDEX"
-            variant="secondary"
+            disabled={!isWalletConnected || !isClaimable}
+            onClick={isWalletConnected ? handleClaimClick : () => {}}
+            text='Claim INDEX'
+            variant='secondary'
           />
           <Button
-            disabled={status !== 'connected'}
-            onClick={status !== 'connected' ? () => {} : handleExternalClaimClick}
-            text="Claim Externally"
-            variant="secondary"
+            disabled={!isWalletConnected}
+            onClick={
+              isWalletConnected ? handleExternalClaimClick : () => {}
+            }
+            text='Claim Externally'
+            variant='secondary'
           />
         </CardActions>
       </Card>

@@ -1,1 +1,1 @@
-export { default } from './ConfirmTransactionModal'
+export { default, TransactionStatusType } from './ConfirmTransactionModal'
