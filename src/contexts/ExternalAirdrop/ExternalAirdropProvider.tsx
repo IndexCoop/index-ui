@@ -34,58 +34,51 @@ const AirdropProvider: React.FC = ({ children }) => {
   }: { account: string | null; ethereum: provider } = useWallet();
 
   const onCheckAirdropClaim = useCallback(async () => {
-    if (!ethereum || !rewardIndex || !externalAddress) return;
+    setAirdropQuantity(undefined);
+    setRewardIndex(undefined);
+    setRewardProof(undefined);
+    setIsClaimable(false);
+    setIsAlreadyClaimed(false);
+    setClaimableQuantity(undefined);
+
+    if (!ethereum || !externalAddress) return;
 
     const initialAirdropReward = getAirdropDataForAddress(
       externalAddress || ""
     );
 
     if (!initialAirdropReward) {
-      setAirdropQuantity(undefined);
-      setRewardIndex(undefined);
-      setRewardProof(undefined);
-      setIsClaimable(false);
-      setIsAlreadyClaimed(false)
-      setClaimableQuantity(undefined);
       return;
     }
+
+    const isAlreadyClaimed = await checkIsAirdropClaimed(
+      ethereum,
+      initialAirdropReward.index as number
+    );
+
+    if (isAlreadyClaimed) {
+      setIsAlreadyClaimed(true);
+      return;
+    }
+
+    const claimQuantity = new BigNumber(initialAirdropReward.amount || "0");
 
     setAirdropQuantity(initialAirdropReward.amount);
     setRewardIndex(initialAirdropReward.index);
     setRewardProof(initialAirdropReward.proof);
-
-    const isAlreadyClaimed = await checkIsAirdropClaimed(
-      ethereum,
-      rewardIndex as number
-    );
-
-    if (isAlreadyClaimed) {
-      setAirdropQuantity(undefined);
-      setRewardIndex(undefined);
-      setRewardProof(undefined);
-      setIsClaimable(false);
-      setIsAlreadyClaimed(true)
-      setClaimableQuantity(undefined);
-      return;
-    }
-
-    const claimQuantity = isAlreadyClaimed
-      ? new BigNumber("0")
-      : new BigNumber(airdropQuantity || "0");
-
-    setIsClaimable(!isAlreadyClaimed);
+    setIsClaimable(true);
     setClaimableQuantity(claimQuantity);
-  }, [
-    ethereum,
-    rewardIndex,
-    externalAddress,
-    airdropQuantity,
-    setIsClaimable,
-    setClaimableQuantity,
-  ]);
+  }, [ethereum, externalAddress]);
 
   const onClaimAirdrop = useCallback(async () => {
-    if (!rewardIndex || !account || !airdropQuantity || !rewardProof) return;
+    if (
+      !rewardIndex ||
+      !account ||
+      !externalAddress ||
+      !airdropQuantity ||
+      !rewardProof
+    )
+      return;
 
     setConfirmTxModalIsOpen(true);
     setTransactionStatusType(TransactionStatusType.IS_APPROVING);
@@ -93,7 +86,7 @@ const AirdropProvider: React.FC = ({ children }) => {
       ethereum,
       account,
       rewardIndex,
-      account,
+      externalAddress,
       airdropQuantity,
       rewardProof
     );
@@ -114,6 +107,7 @@ const AirdropProvider: React.FC = ({ children }) => {
   }, [
     ethereum,
     account,
+    externalAddress,
     rewardIndex,
     airdropQuantity,
     rewardProof,
@@ -131,7 +125,7 @@ const AirdropProvider: React.FC = ({ children }) => {
         isClaimable,
         isAlreadyClaimed,
         onUpdateAddress: (val: string) => setExternalAddress(val),
-        onCheckAirdropClaim: () => {},
+        onCheckAirdropClaim,
         onClaimAirdrop,
       }}
     >
