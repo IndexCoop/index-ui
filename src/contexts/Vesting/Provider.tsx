@@ -27,18 +27,16 @@ const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmtxModalIsOpen] = useState(false)
 
   const fetchVestedBalances = useCallback(async () => {
-    const vBal = await currVested(yam, account)
-    const dRVBal = await currUnclaimedDelegatorRewards(yam, account)
-    const mVBal = await currUnclaimedMigratorVesting(yam, account)
-    setVestedBalance(vBal)
-    setVestedDelegatorRewardBalance(dRVBal)
-    setVestedMigratedBalance(mVBal)
+    // const vBal = await currVested(yam, account)
+    // const dRVBal = await currUnclaimedDelegatorRewards(yam, account)
+    // const mVBal = await currUnclaimedMigratorVesting(yam, account)
+    setVestedBalance(new BigNumber(0))
+    setVestedDelegatorRewardBalance(new BigNumber(0))
+    setVestedMigratedBalance(new BigNumber(0))
   }, [
-    account,
     setVestedBalance,
     setVestedDelegatorRewardBalance,
     setVestedMigratedBalance,
-    yam,
   ])
 
   const handleClaimTxSent = useCallback(() => {
