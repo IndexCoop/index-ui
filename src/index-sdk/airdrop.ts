@@ -61,6 +61,6 @@ export const claimAirdrop = async (
     return claimSuccessful;
   } catch (e) {
     console.log("claim error is", e);
-    return true;
+    return false;
   }
 };

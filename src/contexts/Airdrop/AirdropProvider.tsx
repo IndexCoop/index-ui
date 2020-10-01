@@ -9,11 +9,16 @@ import {
   checkIsAirdropClaimed,
   getAirdropDataForAddress,
 } from "../../index-sdk/index";
-import ConfirmTransactionModal from "components/ConfirmTransactionModal";
+import ConfirmTransactionModal, {
+  TransactionStatusType,
+} from "components/ConfirmTransactionModal";
 import { claimAirdrop } from "../../index-sdk/airdrop";
 
 const AirdropProvider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false);
+  const [transactionStatusType, setTransactionStatusType] = useState<
+    TransactionStatusType | undefined
+  >();
   const [airdropQuantity, setAirdropQuantity] = useState<string>();
   const [rewardIndex, setRewardIndex] = useState<number>();
   const [rewardProof, setRewardProof] = useState<string[]>();
@@ -54,11 +59,10 @@ const AirdropProvider: React.FC = ({ children }) => {
   }, [ethereum, rewardIndex, checkAirdropClaimStatus]);
 
   const onClaimAirdrop = useCallback(async () => {
-    console.log("claiming?");
     if (!rewardIndex || !account || !airdropQuantity || !rewardProof) return;
-    console.log("setting tx modal open");
 
     setConfirmTxModalIsOpen(true);
+    setTransactionStatusType(TransactionStatusType.IS_APPROVING);
     const success = await claimAirdrop(
       ethereum,
       account,
@@ -68,6 +72,12 @@ const AirdropProvider: React.FC = ({ children }) => {
       rewardProof
     );
     console.log("success is?", success);
+
+    if (!success) {
+      setTransactionStatusType(TransactionStatusType.IS_COMPLETED);
+    } else {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED);
+    }
     setConfirmTxModalIsOpen(false);
   }, [
     ethereum,
@@ -90,7 +100,10 @@ const AirdropProvider: React.FC = ({ children }) => {
       }}
     >
       {children}
-      <ConfirmTransactionModal isOpen={confirmTxModalIsOpen} />
+      <ConfirmTransactionModal
+        isOpen={confirmTxModalIsOpen}
+        transactionMiningStatus={transactionStatusType}
+      />
     </AirdropContext.Provider>
   );
 };
