@@ -47,6 +47,7 @@ const AirdropProvider: React.FC = ({ children }) => {
       externalAddress || ""
     );
 
+    console.log('initial reward', initialAirdropReward);
     if (!initialAirdropReward) {
       return;
     }
@@ -56,6 +57,7 @@ const AirdropProvider: React.FC = ({ children }) => {
       initialAirdropReward.index as number
     );
 
+    console.log('already claimed?', isAlreadyClaimed);
     if (isAlreadyClaimed) {
       setIsAlreadyClaimed(true);
       return;

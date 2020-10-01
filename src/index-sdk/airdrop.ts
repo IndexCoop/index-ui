@@ -29,6 +29,7 @@ export const checkIsAirdropClaimed = async (
   provider: provider,
   rewardIndex: number
 ): Promise<boolean> => {
+  console.log('airdrop address is?', airdropAddress);
   const airdropContract = getAirdropContract(provider, airdropAddress as string)
 
   try {
@@ -37,6 +38,7 @@ export const checkIsAirdropClaimed = async (
       .call()
     return isAlreadyClaimed
   } catch (e) {
+    console.log(e)
     return true
   }
 }

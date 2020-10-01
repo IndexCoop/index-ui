@@ -26,7 +26,7 @@ const RewardsModal: React.FC<ModalProps> = ({
   onDismiss,
 }) => {
 
-  const { externalAddress, claimableQuantity, onClaimAirdrop, onUpdateAddress } = useExternalAirdrop()
+  const { externalAddress, claimableQuantity, onClaimAirdrop, onCheckAirdropClaim, onUpdateAddress } = useExternalAirdrop()
 
   console.log('external address is', externalAddress);
   const getDisplayBalance = useCallback((value?: BigNumber) => {
@@ -68,7 +68,7 @@ const RewardsModal: React.FC<ModalProps> = ({
         />
         <Spacer size="sm" />
         <Button
-          onClick={onDismiss}
+          onClick={onCheckAirdropClaim}
           text="Check Airdrop Quantity"
           variant="secondary"
         />
@@ -93,7 +93,8 @@ const StyledTokenValue = styled.p`
   color: ${props => props.theme.colors.primary.light};
   font-weight: 600;
   font-size: 54px;
-  line-height: 32px;
+  line-height: 54px;
+  text-align: center;
   margin-bottom: 15px;
   margin-top: 15px;
   &:visited {
