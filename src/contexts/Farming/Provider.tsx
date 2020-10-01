@@ -18,6 +18,8 @@ import {
 } from 'yam-sdk/utils'
 
 import Context from './Context'
+import { stakeUniswapEthDpiLpTokens } from '../../index-sdk/stake';
+import { provider } from 'web3-core';
 
 const farmingStartTime = 1600545500*1000
 
@@ -33,7 +35,7 @@ const Provider: React.FC = ({ children }) => {
   const [stakedBalance, setStakedBalance] = useState<BigNumber>()
 
   const yam = useYam()
-  const { account } = useWallet()
+  const { account, ethereum } = useWallet()
   
   const { isApproved, isApproving, onApprove } = useApproval(
     uniswapEthDpiLpTokenAddress,
@@ -110,18 +112,15 @@ const Provider: React.FC = ({ children }) => {
   ])
 
   const handleStake = useCallback(async (amount: string) => {
-    if (!yam) return
+    if (!ethereum || !account || !amount || new BigNumber(amount).lte(0)) return
     setConfirmTxModalIsOpen(true)
-    await stake(yam, amount, account, () => {
-      setConfirmTxModalIsOpen(false)
-      setIsStaking(true)
-    })
-    setIsStaking(false)
+    const bigStakeQuantity = new BigNumber(amount).multipliedBy(new BigNumber(10).pow(18))
+    await stakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
+    setConfirmTxModalIsOpen(false)
   }, [
+    ethereum,
     account,
     setConfirmTxModalIsOpen,
-    setIsStaking,
-    yam
   ])
 
   const handleUnstake = useCallback(async (amount: string) => {
