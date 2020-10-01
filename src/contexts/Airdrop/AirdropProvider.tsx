@@ -53,23 +53,30 @@ const AirdropProvider: React.FC = ({ children }) => {
     checkAirdropClaimStatus();
   }, [ethereum, rewardIndex, checkAirdropClaimStatus]);
 
-  const onClaimAirdrop = useCallback(
-    async () => {
-      if (!rewardIndex || !account || !airdropQuantity || !rewardProof) return;
+  const onClaimAirdrop = useCallback(async () => {
+    console.log("claiming?");
+    if (!rewardIndex || !account || !airdropQuantity || !rewardProof) return;
+    console.log("setting tx modal open");
 
-      setConfirmTxModalIsOpen(true);
-      const success = await claimAirdrop(
-        ethereum,
-        rewardIndex,
-        account,
-        airdropQuantity,
-        rewardProof
-      );
-      console.log('success is?', success);
-      setConfirmTxModalIsOpen(false);
-    },
-    [ethereum, account, rewardIndex, airdropQuantity, rewardProof, setConfirmTxModalIsOpen]
-  );
+    setConfirmTxModalIsOpen(true);
+    const success = await claimAirdrop(
+      ethereum,
+      account,
+      rewardIndex,
+      account,
+      airdropQuantity,
+      rewardProof
+    );
+    console.log("success is?", success);
+    setConfirmTxModalIsOpen(false);
+  }, [
+    ethereum,
+    account,
+    rewardIndex,
+    airdropQuantity,
+    rewardProof,
+    setConfirmTxModalIsOpen,
+  ]);
 
   return (
     <AirdropContext.Provider
