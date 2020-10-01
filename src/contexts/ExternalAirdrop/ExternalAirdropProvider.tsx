@@ -26,7 +26,7 @@ const AirdropProvider: React.FC = ({ children }) => {
   const [rewardIndex, setRewardIndex] = useState<number>()
   const [rewardProof, setRewardProof] = useState<string[]>()
   const [isClaimable, setIsClaimable] = useState<boolean>(false)
-  const [isAlreadyClaimed, setIsAlreadyClaimed] = useState<boolean>(false)
+  const [claimErrorMessage, setClaimErrorMessage] = useState<string>()
   const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
   const {
     account,
@@ -38,7 +38,7 @@ const AirdropProvider: React.FC = ({ children }) => {
     setRewardIndex(undefined)
     setRewardProof(undefined)
     setIsClaimable(false)
-    setIsAlreadyClaimed(false)
+    setClaimErrorMessage('')
     setClaimableQuantity(undefined)
 
     if (!ethereum || !externalAddress) return
@@ -48,6 +48,7 @@ const AirdropProvider: React.FC = ({ children }) => {
     )
 
     if (!initialAirdropReward) {
+      setClaimErrorMessage('This address has not been allocated any airdrop rewards.')
       return
     }
 
@@ -57,7 +58,7 @@ const AirdropProvider: React.FC = ({ children }) => {
     )
 
     if (isAlreadyClaimed) {
-      setIsAlreadyClaimed(true)
+      setClaimErrorMessage('This address has already claimed its airdrop reward.')
       return
     }
 
@@ -124,7 +125,7 @@ const AirdropProvider: React.FC = ({ children }) => {
         rewardIndex,
         rewardProof,
         isClaimable,
-        isAlreadyClaimed,
+        claimErrorMessage,
         onUpdateAddress: (val: string) => setExternalAddress(val),
         onCheckAirdropClaim,
         onClaimAirdrop,

@@ -21,7 +21,7 @@ import useExternalAirdrop from 'hooks/useExternalAirdrop'
 const RewardsModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const {
     claimableQuantity,
-    isAlreadyClaimed,
+    claimErrorMessage,
     onClaimAirdrop,
     onCheckAirdropClaim,
     onUpdateAddress,
@@ -74,9 +74,9 @@ const RewardsModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           text='Check Airdrop Quantity'
           variant='secondary'
         />
-        {isAlreadyClaimed && (
+        {claimErrorMessage && (
           <StyledAlreadyClaimedError>
-            This address has already claimed its airdrop rewards.
+            {claimErrorMessage}
           </StyledAlreadyClaimedError>
         )}
       </ModalContent>

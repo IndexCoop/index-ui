@@ -7,7 +7,7 @@ interface AirdropContextValues {
   rewardIndex?: number
   rewardProof?: string[]
   isClaimable?: boolean
-  isAlreadyClaimed?: boolean
+  claimErrorMessage?: string
   claimableQuantity?: BigNumber
   onUpdateAddress: (address: string) => void
   onCheckAirdropClaim: () => void
