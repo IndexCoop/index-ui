@@ -5,7 +5,6 @@ import {
   Box,
   Card,
   CardContent,
-  Spacer,
 } from 'react-neu'
 import styled from 'styled-components'
 
@@ -27,7 +26,6 @@ const FarmingTimer: React.FC = () => {
 
   const releaseTime = 1602010800000; // Oct 6th, 12pm PDT
   const releaseDate = new Date(releaseTime);
-  const now = Date.now();
   const milliseconds = 1000;
   const seconds = 60;
   const minutes = 60;

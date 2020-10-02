@@ -99,11 +99,11 @@ const Stake: React.FC = () => {
       )
     }
   }, [
-    countdown,
-    handleStakeClick,
+    isApproved,
     isApproving,
-    onApprove,
     status,
+    handleStakeClick,
+    onApprove,
   ])
 
   const UnstakeButton = useMemo(() => {
@@ -127,15 +127,14 @@ const Stake: React.FC = () => {
       />
     )
   }, [
-    handleUnstakeClick,
-    isApproving,
-    onApprove,
+    stakedBalance,
     status,
+    handleUnstakeClick,
   ])
 
   const formattedStakedBalance = useMemo(() => {
     if (stakedBalance) {
-      return numeral(stakedBalance.toString()).format('0.00a')
+      return numeral(stakedBalance.toString()).format('0.00000a')
     } else {
       return '--'
     }

@@ -51,7 +51,7 @@ const Harvest: React.FC = () => {
 
   const formattedEarnedBalance = useMemo(() => {
     if (unharvestedIndexBalance) {
-      return numeral(unharvestedIndexBalance.toString()).format('0.00a')
+      return numeral(unharvestedIndexBalance.toString()).format('0.00000a')
     } else {
       return '--'
     }
