@@ -14,7 +14,6 @@ import { AirdropProvider } from 'contexts/Airdrop'
 import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
 import { FarmingProvider } from 'contexts/Farming'
 import { PricesProvider } from 'contexts/Prices'
-import YamProvider from 'contexts/YamProvider'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -87,15 +86,13 @@ const Providers: React.FC = ({ children }) => {
         <ApolloProvider client={graphqlClient}>
           <AirdropProvider>
             <ExternalAirdropProvider>
-              <YamProvider>
-                <PricesProvider>
-                  <BalancesProvider>
-                    <FarmingProvider>
-                      {children}
-                    </FarmingProvider>
-                  </BalancesProvider>
-                </PricesProvider>
-              </YamProvider>
+              <PricesProvider>
+                <BalancesProvider>
+                  <FarmingProvider>
+                    {children}
+                  </FarmingProvider>
+                </BalancesProvider>
+              </PricesProvider>
             </ExternalAirdropProvider>
           </AirdropProvider>
         </ApolloProvider>
