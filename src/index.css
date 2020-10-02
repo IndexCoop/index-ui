@@ -1,7 +1,7 @@
 body {
   background: #F0E7EA;
   margin: 0;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -12,7 +12,7 @@ code {
     monospace;
 }
 button {
-  font-family: 'Nunito';
+  font-family: 'Source Sans Pro';
 }
 
 /* React Toastify */
