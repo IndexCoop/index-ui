@@ -24,7 +24,7 @@ export const stakeUniswapEthDpiLpTokens = (
 
   return new Promise((resolve) => {
     stakingContract.methods
-      .stake(stakeQuantity)
+      .stake(stakeQuantity.toString())
       .send({ from: account, gas: 200000 })
       .on('transactionHash', (txId: string) => {
         if (!txId) resolve(null)
@@ -47,7 +47,7 @@ export const unstakeUniswapEthDpiLpTokens = (
 
   return new Promise((resolve) => {
     stakingContract.methods
-      .withdraw(unstakeQuantity)
+      .withdraw(unstakeQuantity.toString())
       .send({ from: account, gas: 200000 })
       .on('transactionHash', (txId: string) => {
         if (!txId) resolve(null)
