@@ -3,7 +3,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 
-import ConfirmTransactionModal from 'components/ConfirmTransactionModal'
+import ConfirmTransactionModal, {
+  TransactionStatusType,
+} from 'components/ConfirmTransactionModal'
 import { stakingRewardsAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses'
 import useApproval from 'hooks/useApproval'
 import useYam from 'hooks/useYam'
@@ -13,18 +15,20 @@ import {
   getStaked,
   harvest,
   redeem,
-  stake,
-  unstake,
 } from 'yam-sdk/utils'
 
 import Context from './Context'
 import { stakeUniswapEthDpiLpTokens, unstakeUniswapEthDpiLpTokens } from '../../index-sdk/stake';
 import { provider } from 'web3-core';
+import { waitTransaction } from '../../utils/index';
 
 const farmingStartTime = 1600545500*1000
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
+  const [transactionStatusType, setTransactionStatusType] = useState<
+    TransactionStatusType | undefined
+  >()
   const [countdown, setCountdown] = useState<number>()
   const [isHarvesting, setIsHarvesting] = useState(false)
   const [isRedeeming, setIsRedeeming] = useState(false)
@@ -113,11 +117,26 @@ const Provider: React.FC = ({ children }) => {
 
   const handleStake = useCallback(async (amount: string) => {
     if (!ethereum || !account || !amount || new BigNumber(amount).lte(0)) return
+
     setConfirmTxModalIsOpen(true)
+    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+
     const bigStakeQuantity = new BigNumber(amount).multipliedBy(new BigNumber(10).pow(18))
-    await stakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
-    // TODO: add isStakingTrue
-    setConfirmTxModalIsOpen(false)
+    const transactionId = await stakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
+
+    if (!transactionId) {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      return;
+    }
+
+    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    const success = await waitTransaction(ethereum as provider, transactionId)
+
+    if (success) {
+      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+    } else {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+    }
   }, [
     ethereum,
     account,
@@ -167,7 +186,11 @@ const Provider: React.FC = ({ children }) => {
       stakedBalance,
     }}>
       {children}
-      <ConfirmTransactionModal isOpen={confirmTxModalIsOpen} />
+      <ConfirmTransactionModal
+        isOpen={confirmTxModalIsOpen}
+        transactionMiningStatus={transactionStatusType}
+        onDismiss={() => setConfirmTxModalIsOpen(false)}
+      />
     </Context.Provider>
   )
 }
