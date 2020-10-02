@@ -31,34 +31,43 @@ const AirdropProvider: React.FC = ({ children }) => {
     ethereum,
   }: { account: string | null; ethereum: provider } = useWallet();
 
-  useEffect(() => {
+  const checkAirdropClaimStatus = useCallback(async () => {
+    setAirdropQuantity(undefined)
+    setRewardIndex(undefined)
+    setRewardProof(undefined)
+    setIsClaimable(false)
+    setClaimableQuantity(new BigNumber(0))
+
     const initialAirdropReward = getAirdropDataForAddress(account || "");
 
-    if (initialAirdropReward) {
-      setAirdropQuantity(initialAirdropReward.amount);
-      setRewardIndex(initialAirdropReward.index);
-      setRewardProof(initialAirdropReward.proof);
+    if (!initialAirdropReward) {
+      return
     }
-  }, [account]);
 
-  const checkAirdropClaimStatus = useCallback(async () => {
     const isAlreadyClaimed = await checkIsAirdropClaimed(
       ethereum,
-      rewardIndex as number
+      initialAirdropReward.index as number
     );
-    const claimQuantity = isAlreadyClaimed
-      ? new BigNumber("0")
-      : new BigNumber(airdropQuantity || "0").dividedBy(new BigNumber(10).pow(18))
 
-    setIsClaimable(!isAlreadyClaimed);
+    if (isAlreadyClaimed) {
+      return;
+    }
+
+    const claimQuantity = new BigNumber(initialAirdropReward.amount || "0")
+      .dividedBy(new BigNumber(10).pow(18))
+
+    setAirdropQuantity(initialAirdropReward.amount);
+    setRewardIndex(initialAirdropReward.index);
+    setRewardProof(initialAirdropReward.proof);
+    setIsClaimable(true);
     setClaimableQuantity(claimQuantity);
-  }, [ethereum, rewardIndex, airdropQuantity]);
+  }, [ethereum, account]);
 
   useEffect(() => {
-    if (!ethereum || !rewardIndex) return;
+    if (!ethereum || !account) return;
 
     checkAirdropClaimStatus();
-  }, [ethereum, rewardIndex, checkAirdropClaimStatus]);
+  }, [ethereum, account, checkAirdropClaimStatus]);
 
   const onClaimAirdrop = useCallback(async () => {
     if (!rewardIndex || !account || !airdropQuantity || !rewardProof) return;
