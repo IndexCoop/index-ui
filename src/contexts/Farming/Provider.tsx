@@ -11,8 +11,6 @@ import useApproval from 'hooks/useApproval'
 import useYam from 'hooks/useYam'
 
 import {
-  getEarned,
-  getStaked,
   harvest,
   redeem,
 } from 'yam-sdk/utils'
@@ -32,11 +30,9 @@ const Provider: React.FC = ({ children }) => {
   const [countdown, setCountdown] = useState<number>()
   const [isHarvesting, setIsHarvesting] = useState(false)
   const [isRedeeming, setIsRedeeming] = useState(false)
-  const [isStaking, setIsStaking] = useState(false)
-  const [isUnstaking, setIsUnstaking] = useState(false)
 
-  const [earnedBalance, setEarnedBalance] = useState<BigNumber>()
-  const [stakedBalance, setStakedBalance] = useState<BigNumber>()
+  const [earnedBalance] = useState<BigNumber>()
+  const [stakedBalance] = useState<BigNumber>()
 
   const yam = useYam()
   const { account, ethereum } = useWallet()
@@ -46,36 +42,6 @@ const Provider: React.FC = ({ children }) => {
     stakingRewardsAddress,
     () => setConfirmTxModalIsOpen(false)
   )
-
-  // TODO: fetch earned balance for harvesting
-  const fetchEarnedBalance = useCallback(async () => {
-    if (!account || !yam) return
-    const balance = await getEarned(yam, yam.contracts.yycrv_pool, account)
-    setEarnedBalance(balance)
-  }, [
-    account,
-    setEarnedBalance,
-    yam
-  ])
-
-  // TODO: fetch staked balance to display to user
-  const fetchStakedBalance = useCallback(async () => {
-    if (!account || !yam) return
-    const balance = await getStaked(yam, yam.contracts.yycrv_pool, account)
-    setStakedBalance(balance)
-  }, [
-    account,
-    setStakedBalance,
-    yam
-  ])
-
-  const fetchBalances = useCallback(async () => {
-    fetchEarnedBalance()
-    fetchStakedBalance()
-  }, [
-    fetchEarnedBalance,
-    fetchStakedBalance,
-  ])
 
   const handleApprove = useCallback(() => {
     setConfirmTxModalIsOpen(true)
@@ -172,12 +138,6 @@ const Provider: React.FC = ({ children }) => {
   ])
 
   useEffect(() => {
-    fetchBalances()
-    let refreshInterval = setInterval(() => fetchBalances(), 10000)
-    return () => clearInterval(refreshInterval)
-  }, [fetchBalances])
-
-  useEffect(() => {
     let refreshInterval = setInterval(() => setCountdown(farmingStartTime - Date.now()), 1000)
     return () => clearInterval(refreshInterval)
   }, [setCountdown])
@@ -191,8 +151,6 @@ const Provider: React.FC = ({ children }) => {
       isApproving,
       isHarvesting,
       isRedeeming,
-      isStaking,
-      isUnstaking,
       onApprove: handleApprove,
       onHarvest: handleHarvest,
       onRedeem: handleRedeem,

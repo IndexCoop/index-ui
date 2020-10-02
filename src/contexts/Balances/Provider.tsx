@@ -5,7 +5,12 @@ import { provider } from 'web3-core'
 
 import Context from './Context'
 import { getBalance } from 'utils/index'
-import { dpiTokenAddress, indexTokenAddress, uniswapEthDpiLpTokenAddress, stakingRewardsAddress  } from 'constants/tokenAddresses';
+import {
+  dpiTokenAddress,
+  indexTokenAddress,
+  uniswapEthDpiLpTokenAddress,
+  stakingRewardsAddress,
+} from 'constants/tokenAddresses'
 
 const Provider: React.FC = ({ children }) => {
   const [indexBalance, setIndexBalance] = useState<BigNumber>()
@@ -13,7 +18,10 @@ const Provider: React.FC = ({ children }) => {
   const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] = useState<
     BigNumber
   >()
-  const [stakedUniswapEthDpiLpBalance, setStakedUniswapEthDpiLpBalance] = useState<BigNumber>()
+  const [
+    stakedUniswapEthDpiLpBalance,
+    setStakedUniswapEthDpiLpBalance,
+  ] = useState<BigNumber>()
 
   const {
     account,
@@ -25,7 +33,11 @@ const Provider: React.FC = ({ children }) => {
       const balances = await Promise.all([
         getBalance(provider, indexTokenAddress as string, userAddress),
         getBalance(provider, dpiTokenAddress as string, userAddress),
-        getBalance(provider, uniswapEthDpiLpTokenAddress as string, userAddress),
+        getBalance(
+          provider,
+          uniswapEthDpiLpTokenAddress as string,
+          userAddress
+        ),
         getBalance(provider, stakingRewardsAddress as string, userAddress),
       ])
 
@@ -42,7 +54,12 @@ const Provider: React.FC = ({ children }) => {
         new BigNumber(balances[3]).dividedBy(new BigNumber(10).pow(18))
       )
     },
-    [setIndexBalance, setDpiBalance, setUniswapEthDpiLpBalance, setStakedUniswapEthDpiLpBalance]
+    [
+      setIndexBalance,
+      setDpiBalance,
+      setUniswapEthDpiLpBalance,
+      setStakedUniswapEthDpiLpBalance,
+    ]
   )
 
   useEffect(() => {
@@ -68,7 +85,7 @@ const Provider: React.FC = ({ children }) => {
         indexBalance,
         dpiBalance,
         uniswapEthDpiLpBalance,
-        stakedUniswapEthDpiLpBalance
+        stakedUniswapEthDpiLpBalance,
       }}
     >
       {children}

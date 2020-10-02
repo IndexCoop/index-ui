@@ -32,8 +32,6 @@ const Stake: React.FC = () => {
     farmingStartTime,
     isApproved,
     isApproving,
-    isStaking,
-    isUnstaking,
     onApprove,
     onStake,
     onUnstake,
@@ -79,15 +77,6 @@ const Stake: React.FC = () => {
         />
       )
     }
-    if (isStaking) {
-      return (
-        <Button
-          disabled
-          full
-          text="Staking..."
-        />
-      )
-    }
     if (!isApproved) {
       return (
         <Button
@@ -125,16 +114,6 @@ const Stake: React.FC = () => {
           disabled
           full
           text="Unstake"
-          variant="secondary"
-        />
-      )
-    }
-    if (isUnstaking) {
-      return (
-        <Button
-          disabled
-          full
-          text="Unstaking..."
           variant="secondary"
         />
       )
