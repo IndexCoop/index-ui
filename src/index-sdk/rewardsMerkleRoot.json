@@ -1,5 +1,5 @@
 {
-  "0x3329e5C37Ab27676df1e7077E5D75a82a6bFD0FC": {
+  "0x3329e5c37ab27676df1e7077e5d75a82a6bfd0fc": {
     "index": 0,
     "amount": "0x8ac7230489e80000",
     "proof": [
@@ -8,14 +8,14 @@
       "0xef063de62343a29f542471c5d497557ad2e5eeca2a84a6be75d194d6d348d7cc"
     ]
   },
-  "0x44FFf6Ad56A66e718977e08A51510A143CB4cbF9": {
+  "0x44fff6ad56a66e718977e08a51510a143cb4cbf9": {
     "index": 1,
     "amount": "0x6c6b935b8bbd400000",
     "proof": [
       "0xe1d72b6791bbcf7a03a65d5423d7937e93fd02bde0ecaa1215cbf324880b3b2f"
     ]
   },
-  "0x5Dd5FC8761fe933bC58e5aB5Be062dd836DFA801": {
+  "0x5dd5fc8761fe933bc58e5ab5be062dd836dfa801": {
     "index": 2,
     "amount": "0x3635c9adc5dea00000",
     "proof": [
@@ -24,7 +24,7 @@
       "0xef063de62343a29f542471c5d497557ad2e5eeca2a84a6be75d194d6d348d7cc"
     ]
   },
-  "0xEC0815AA9B462ed4fC84B5dFc43Fd2a10a54B569": {
+  "0xec0815aa9b462ed4fc84b5dfc43fd2a10a54b569": {
     "index": 3,
     "amount": "0x01158e460913d00000",
     "proof": [
@@ -33,7 +33,7 @@
       "0xef063de62343a29f542471c5d497557ad2e5eeca2a84a6be75d194d6d348d7cc"
     ]
   },
-  "0xe3a1340Be2B4c8dE9E20ab185CfF37480521D9Af": {
+  "0xe3a1340be2b4c8de9e20ab185cff37480521d9af": {
     "index": 4,
     "amount": "0x056bc75e2d63100000",
     "proof": [
