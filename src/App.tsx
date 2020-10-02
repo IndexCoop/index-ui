@@ -18,6 +18,7 @@ import YamProvider from 'contexts/YamProvider'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
+import ComingSoon from 'views/ComingSoon'
 import Farm from 'views/Farm'
 import FAQ from 'views/FAQ'
 import Home from 'views/Home'
@@ -35,6 +36,14 @@ const App: React.FC = () => {
   const handlePresentMobileMenu = useCallback(() => {
     setMobileMenu(true)
   }, [setMobileMenu])
+
+  if (process.env.REACT_APP_LAUNCHED === 'false') {
+    return (
+      <Providers>
+        <ComingSoon />
+      </Providers>
+    );
+  }
 
   return (
     <Router>
