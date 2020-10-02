@@ -7,16 +7,13 @@ import ConfirmTransactionModal, {
   TransactionStatusType,
 } from 'components/ConfirmTransactionModal'
 import useApproval from 'hooks/useApproval'
-import useYam from 'hooks/useYam'
 import Context from './Context'
 import {
   stakeUniswapEthDpiLpTokens,
   unstakeUniswapEthDpiLpTokens,
   claimEarnedIndexLpReward,
+  unstakeAndClaimEarnedIndexLpReward,
 } from 'index-sdk/stake'
-import {
-  redeem,
-} from 'yam-sdk/utils'
 import { waitTransaction } from 'utils/index'
 import { stakingRewardsAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses'
 
@@ -28,13 +25,9 @@ const Provider: React.FC = ({ children }) => {
     TransactionStatusType | undefined
   >()
   const [countdown, setCountdown] = useState<number>()
-  const [isRedeeming, setIsRedeeming] = useState(false)
 
-  const [earnedBalance] = useState<BigNumber>()
-
-  const yam = useYam()
   const { account, ethereum } = useWallet()
-  
+
   const { isApproved, isApproving, onApprove } = useApproval(
     uniswapEthDpiLpTokenAddress,
     stakingRewardsAddress,
@@ -47,21 +40,6 @@ const Provider: React.FC = ({ children }) => {
   }, [
     onApprove,
     setConfirmTxModalIsOpen,
-  ])
-
-  const handleRedeem = useCallback(async () => {
-    if (!yam) return
-    setConfirmTxModalIsOpen(true)
-    await redeem(yam, account, () => {
-      setConfirmTxModalIsOpen(false)
-      setIsRedeeming(true)
-    })
-    setIsRedeeming(false)
-  }, [
-    account,
-    setConfirmTxModalIsOpen,
-    setIsRedeeming,
-    yam
   ])
 
   const handleStake = useCallback(async (amount: string) => {
@@ -147,6 +125,32 @@ const Provider: React.FC = ({ children }) => {
     setConfirmTxModalIsOpen,
   ])
 
+  const handleUnstakeAndHarvest = useCallback(async () => {
+    if (!ethereum || !account) return
+
+    setConfirmTxModalIsOpen(true)
+    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+
+    const transactionId = await unstakeAndClaimEarnedIndexLpReward(ethereum as provider, account)
+
+    if (!transactionId) {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      return;
+    }
+
+    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    const success = await waitTransaction(ethereum as provider, transactionId)
+
+    if (success) {
+      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+    } else {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+    }
+  }, [
+    ethereum,
+    account,
+    setConfirmTxModalIsOpen,
+  ])
 
   useEffect(() => {
     let refreshInterval = setInterval(() => setCountdown(farmingStartTime - Date.now()), 1000)
@@ -157,13 +161,11 @@ const Provider: React.FC = ({ children }) => {
     <Context.Provider value={{
       farmingStartTime,
       countdown,
-      earnedBalance,
       isApproved,
       isApproving,
-      isRedeeming,
       onApprove: handleApprove,
       onHarvest: handleHarvest,
-      onRedeem: handleRedeem,
+      onUnstakeAndHarvest: handleUnstakeAndHarvest,
       onStake: handleStake,
       onUnstake: handleUnstake,
     }}>

@@ -16,12 +16,10 @@ import Value from 'components/Value'
 
 import useFarming from 'hooks/useFarming'
 
-import { bnToDec } from 'utils'
 import useBalances from 'hooks/useBalances';
 
 const Harvest: React.FC = () => {
   const {
-    isHarvesting,
     onHarvest,
   } = useFarming()
 
@@ -39,28 +37,15 @@ const Harvest: React.FC = () => {
         />
       )
     }
-    if (!isHarvesting) {
-      return (
-        <Button
-          full
-          onClick={onHarvest}
-          text="Claim"
-        />
-      )
-    }
-    if (isHarvesting) {
-      return (
-        <Button
-          disabled
-          full
-          text="Claiming..."
-          variant="secondary"
-        />
-      )
-    }
+    return (
+      <Button
+        full
+        onClick={onHarvest}
+        text="Claim"
+      />
+    )
   }, [
     status,
-    isHarvesting,
     onHarvest,
   ])
 
