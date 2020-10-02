@@ -41,7 +41,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
 
   const handleSignOut = useCallback(() => {
     reset()
-    toast.success('Successfully signed out')
+    toast.success('You\'ve successfully signed out.')
     onDismiss && onDismiss()
   }, [reset, onDismiss])
 
