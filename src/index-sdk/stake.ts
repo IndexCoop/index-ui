@@ -37,3 +37,26 @@ export const stakeUniswapEthDpiLpTokens = async (
       })
   })
 }
+
+export const unstakeUniswapEthDpiLpTokens = async (
+  provider: provider,
+  account: string,
+  unstakeQuantity: BigNumber,
+): Promise<string | null> => {
+  const stakingContract = getStakingRewardsContract(provider)
+
+  return new Promise((resolve) => {
+    stakingContract.methods
+      .withdraw(unstakeQuantity)
+      .send({ from: account, gas: 200000 })
+      .on('transactionHash', (txId: string) => {
+        if (!txId) resolve(null)
+
+        resolve(txId)
+      })
+      .on('error', (error: any) => {
+        console.log(error)
+        resolve(null)
+      })
+  })
+}

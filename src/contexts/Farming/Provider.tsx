@@ -18,7 +18,7 @@ import {
 } from 'yam-sdk/utils'
 
 import Context from './Context'
-import { stakeUniswapEthDpiLpTokens } from '../../index-sdk/stake';
+import { stakeUniswapEthDpiLpTokens, unstakeUniswapEthDpiLpTokens } from '../../index-sdk/stake';
 import { provider } from 'web3-core';
 
 const farmingStartTime = 1600545500*1000
@@ -116,6 +116,7 @@ const Provider: React.FC = ({ children }) => {
     setConfirmTxModalIsOpen(true)
     const bigStakeQuantity = new BigNumber(amount).multipliedBy(new BigNumber(10).pow(18))
     await stakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
+    // TODO: add isStakingTrue
     setConfirmTxModalIsOpen(false)
   }, [
     ethereum,
@@ -124,18 +125,16 @@ const Provider: React.FC = ({ children }) => {
   ])
 
   const handleUnstake = useCallback(async (amount: string) => {
-    if (!yam) return
+    if (!ethereum || !account || !amount || new BigNumber(amount).lte(0)) return
     setConfirmTxModalIsOpen(true)
-    await unstake(yam, amount, account, () => {
-      setConfirmTxModalIsOpen(false)
-      setIsUnstaking(true)
-    })
-    setIsUnstaking(false)
+    const bigStakeQuantity = new BigNumber(amount).multipliedBy(new BigNumber(10).pow(18))
+    await unstakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
+    // TODO: add isStakingTrue
+    setConfirmTxModalIsOpen(false)
   }, [
+    ethereum,
     account,
     setConfirmTxModalIsOpen,
-    setIsUnstaking,
-    yam
   ])
 
   useEffect(() => {
