@@ -21,6 +21,10 @@ div > .Toastify__toast {
   color: #ffffff;
 }
 
+div > .Toastify__toast-body {
+  margin-left: 20px;
+}
+
 div > .Toastify__toast--success {
   background: #ffffff;
   color: #1d144f;
