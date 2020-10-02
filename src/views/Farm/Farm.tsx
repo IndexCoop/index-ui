@@ -68,8 +68,6 @@ const Farm: React.FC = () => {
           <RewardsCard />
         </Box>
         <Spacer size="lg" />
-        <Separator />
-        <Spacer size="lg" />
       </Container>
     </Page>
   )

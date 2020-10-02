@@ -5,7 +5,7 @@ import { provider } from 'web3-core'
 
 import Context from './Context'
 import { getBalance } from 'utils/index'
-import { getEarnedIndexTokenQuantity } from '../../index-sdk/stake';
+import { getEarnedIndexTokenQuantity } from 'index-sdk/stake';
 import {
   dpiTokenAddress,
   indexTokenAddress,
