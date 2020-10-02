@@ -145,11 +145,26 @@ const Provider: React.FC = ({ children }) => {
 
   const handleUnstake = useCallback(async (amount: string) => {
     if (!ethereum || !account || !amount || new BigNumber(amount).lte(0)) return
+
     setConfirmTxModalIsOpen(true)
+    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+
     const bigStakeQuantity = new BigNumber(amount).multipliedBy(new BigNumber(10).pow(18))
-    await unstakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
-    // TODO: add isStakingTrue
-    setConfirmTxModalIsOpen(false)
+    const transactionId = await unstakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
+
+    if (!transactionId) {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      return;
+    }
+
+    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    const success = await waitTransaction(ethereum as provider, transactionId)
+
+    if (success) {
+      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+    } else {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+    }
   }, [
     ethereum,
     account,
@@ -189,7 +204,10 @@ const Provider: React.FC = ({ children }) => {
       <ConfirmTransactionModal
         isOpen={confirmTxModalIsOpen}
         transactionMiningStatus={transactionStatusType}
-        onDismiss={() => setConfirmTxModalIsOpen(false)}
+        onDismiss={() => {
+          setConfirmTxModalIsOpen(false)
+          setTransactionStatusType(undefined)
+        }}
       />
     </Context.Provider>
   )
