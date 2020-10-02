@@ -52,7 +52,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
           onSelectMax={handleSelectMax}
           onChange={handleChange}
           max={fullBalance}
-          symbol="Uniswap ETH DPI LP"
+          symbol="Uniswap ETH/DPI LP Tokens"
         />
       </ModalContent>
       <ModalActions>
