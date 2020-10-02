@@ -3,11 +3,11 @@ import { provider } from 'web3-core';
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 
+import Context from './Context'
 import ConfirmTransactionModal, {
   TransactionStatusType,
 } from 'components/ConfirmTransactionModal'
 import useApproval from 'hooks/useApproval'
-import Context from './Context'
 import {
   stakeUniswapEthDpiLpTokens,
   unstakeUniswapEthDpiLpTokens,
