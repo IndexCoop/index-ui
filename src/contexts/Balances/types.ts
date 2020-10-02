@@ -8,4 +8,5 @@ export interface ContextValues {
   dpiBalance?: BigNumber,
   uniswapEthDpiLpBalance?: BigNumber,
   stakedUniswapEthDpiLpBalance?: BigNumber,
+  unharvestedIndexBalance?: BigNumber
 }

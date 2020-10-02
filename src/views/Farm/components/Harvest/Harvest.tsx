@@ -17,16 +17,16 @@ import Value from 'components/Value'
 import useFarming from 'hooks/useFarming'
 
 import { bnToDec } from 'utils'
+import useBalances from 'hooks/useBalances';
 
 const Harvest: React.FC = () => {
   const {
-    earnedBalance,
     isHarvesting,
-    isRedeeming,
     onHarvest,
   } = useFarming()
 
   const { status } = useWallet()
+  const { unharvestedIndexBalance } = useBalances()
 
   const HarvestAction = useMemo(() => {
     if (status !== 'connected') {
@@ -59,18 +59,18 @@ const Harvest: React.FC = () => {
       )
     }
   }, [
+    status,
     isHarvesting,
-    isRedeeming,
     onHarvest,
   ])
 
   const formattedEarnedBalance = useMemo(() => {
-    if (earnedBalance) {
-      return numeral(bnToDec(earnedBalance)).format('0.00a')
+    if (unharvestedIndexBalance) {
+      return numeral(unharvestedIndexBalance.toString()).format('0.00a')
     } else {
       return '--'
     }
-  }, [earnedBalance])
+  }, [unharvestedIndexBalance])
 
   return (
     <Card>

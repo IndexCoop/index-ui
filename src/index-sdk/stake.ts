@@ -60,3 +60,24 @@ export const unstakeUniswapEthDpiLpTokens = async (
       })
   })
 }
+
+export const getEarnedIndexTokenQuantity = async (
+  provider: provider,
+  account: string
+): Promise<string> => {
+  const stakingContract = getStakingRewardsContract(provider)
+
+  try {
+    const earnedTokenQuantity: string = stakingContract.methods
+      .earned(account)
+      .call()
+
+    console.log('earned token quantity');
+
+    return earnedTokenQuantity;
+  } catch (e) {
+    console.log(e)
+
+    return '0'
+  }
+}

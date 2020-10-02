@@ -13,5 +13,4 @@ export interface ContextValues {
   onStake: (amount: string) => void,
   onUnstake: (amount: string) => void,
   onHarvest: () => void,
-  stakedBalance?: BigNumber,
 }

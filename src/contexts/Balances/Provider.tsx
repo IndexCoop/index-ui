@@ -5,6 +5,7 @@ import { provider } from 'web3-core'
 
 import Context from './Context'
 import { getBalance } from 'utils/index'
+import { getEarnedIndexTokenQuantity } from '../../index-sdk/stake';
 import {
   dpiTokenAddress,
   indexTokenAddress,
@@ -15,13 +16,9 @@ import {
 const Provider: React.FC = ({ children }) => {
   const [indexBalance, setIndexBalance] = useState<BigNumber>()
   const [dpiBalance, setDpiBalance] = useState<BigNumber>()
-  const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] = useState<
-    BigNumber
-  >()
-  const [
-    stakedUniswapEthDpiLpBalance,
-    setStakedUniswapEthDpiLpBalance,
-  ] = useState<BigNumber>()
+  const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] = useState<BigNumber>()
+  const [stakedUniswapEthDpiLpBalance, setStakedUniswapEthDpiLpBalance] = useState<BigNumber>()
+  const [unharvestedIndexBalance, setUnharvestedIndexBalance] = useState<BigNumber>()
 
   const {
     account,
@@ -39,6 +36,7 @@ const Provider: React.FC = ({ children }) => {
           userAddress
         ),
         getBalance(provider, stakingRewardsAddress as string, userAddress),
+        getEarnedIndexTokenQuantity(provider, userAddress),
       ])
 
       setIndexBalance(
@@ -53,12 +51,16 @@ const Provider: React.FC = ({ children }) => {
       setStakedUniswapEthDpiLpBalance(
         new BigNumber(balances[3]).dividedBy(new BigNumber(10).pow(18))
       )
+      setUnharvestedIndexBalance(
+        new BigNumber(balances[4]).dividedBy(new BigNumber(10).pow(18))
+      )
     },
     [
       setIndexBalance,
       setDpiBalance,
       setUniswapEthDpiLpBalance,
       setStakedUniswapEthDpiLpBalance,
+      setUnharvestedIndexBalance,
     ]
   )
 
@@ -86,6 +88,7 @@ const Provider: React.FC = ({ children }) => {
         dpiBalance,
         uniswapEthDpiLpBalance,
         stakedUniswapEthDpiLpBalance,
+        unharvestedIndexBalance
       }}
     >
       {children}

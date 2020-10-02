@@ -29,7 +29,6 @@ const Provider: React.FC = ({ children }) => {
   const [isRedeeming, setIsRedeeming] = useState(false)
 
   const [earnedBalance] = useState<BigNumber>()
-  const [stakedBalance] = useState<BigNumber>()
 
   const yam = useYam()
   const { account, ethereum } = useWallet()
@@ -153,7 +152,6 @@ const Provider: React.FC = ({ children }) => {
       onRedeem: handleRedeem,
       onStake: handleStake,
       onUnstake: handleUnstake,
-      stakedBalance,
     }}>
       {children}
       <ConfirmTransactionModal
