@@ -1,24 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react'
-
+import { provider } from 'web3-core';
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 
 import ConfirmTransactionModal, {
   TransactionStatusType,
 } from 'components/ConfirmTransactionModal'
-import { stakingRewardsAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses'
 import useApproval from 'hooks/useApproval'
 import useYam from 'hooks/useYam'
-
+import Context from './Context'
+import { stakeUniswapEthDpiLpTokens, unstakeUniswapEthDpiLpTokens } from 'index-sdk/stake';
 import {
   harvest,
   redeem,
 } from 'yam-sdk/utils'
-
-import Context from './Context'
-import { stakeUniswapEthDpiLpTokens, unstakeUniswapEthDpiLpTokens } from '../../index-sdk/stake';
-import { provider } from 'web3-core';
-import { waitTransaction } from '../../utils/index';
+import { waitTransaction } from 'utils/index';
+import { stakingRewardsAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses'
 
 const farmingStartTime = 1600545500*1000
 

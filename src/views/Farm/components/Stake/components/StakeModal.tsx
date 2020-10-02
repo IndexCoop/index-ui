@@ -27,8 +27,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const [val, setVal] = useState('')
   const { uniswapEthDpiLpBalance } = useBalances()
 
-  console.log(uniswapEthDpiLpBalance)
-
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(uniswapEthDpiLpBalance || new BigNumber(0), 0)
   }, [uniswapEthDpiLpBalance])
