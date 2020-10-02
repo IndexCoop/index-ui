@@ -83,7 +83,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                   style={{ width: '40px', height: '40px' }}
                 />
               }
-              label='Uniswap ETH DPI LP balance'
+              label='Uniswap ETH/DPI LP balance'
               value={getDisplayBalance(uniswapEthDpiLpBalance)}
             />
           </Box>
@@ -96,7 +96,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                   style={{ width: '40px', height: '40px', opacity: 0.5 }}
                 />
               }
-              label='Staked Uniswap ETH DPI LP balance'
+              label='Staked Uniswap ETH/DPI LP balance'
               value={getDisplayBalance(stakedUniswapEthDpiLpBalance)}
             />
           </Box>

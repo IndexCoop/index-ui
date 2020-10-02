@@ -162,7 +162,7 @@ const Stake: React.FC = () => {
             column
           >
             <Value value={formattedStakedBalance} />
-            <Label text="Staked UNI-V2 ETH/DPI LP Tokens" />
+            <Label text="Staked Uniswap ETH/DPI LP Tokens" />
           </Box>
         </CardContent>
         <CardActions>
