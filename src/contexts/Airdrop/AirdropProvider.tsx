@@ -36,7 +36,7 @@ const AirdropProvider: React.FC = ({ children }) => {
     setRewardIndex(undefined)
     setRewardProof(undefined)
     setIsClaimable(false)
-    setClaimableQuantity(undefined)
+    setClaimableQuantity(new BigNumber(0))
 
     const initialAirdropReward = getAirdropDataForAddress(account || "");
 

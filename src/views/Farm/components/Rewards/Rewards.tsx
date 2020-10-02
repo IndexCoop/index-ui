@@ -52,7 +52,7 @@ const Rewards: React.FC = () => {
         <CardIcon>🎁</CardIcon>
         <CardContent>
           <Box alignItems='center' column>
-            <Value value={claimableQuantity?.toString() || '0'} />
+            <Value value={claimableQuantity?.toString() || '--'} />
             <Label text='Claim Your INDEX Rewards' />
           </Box>
         </CardContent>
