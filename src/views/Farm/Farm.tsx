@@ -9,12 +9,11 @@ import {
 } from 'react-neu'
 
 import { useWallet } from 'use-wallet'
+import useFarming from 'hooks/useFarming'
 
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
 import Split from 'components/Split'
-
-import useFarming from 'hooks/useFarming'
 
 import HarvestCard from './components/Harvest'
 import StakeCard from './components/Stake'
@@ -22,12 +21,9 @@ import RewardsCard from './components/Rewards'
 
 const Farm: React.FC = () => {
   const { status } = useWallet()
-  const {
-    isRedeeming,
-    onRedeem,
-  } = useFarming()
+  const { onUnstakeAndHarvest } = useFarming()
 
-  const RedeemButton = useMemo(() => {
+  const UnstakeAndHarvestButton = useMemo(() => {
     if (status !== 'connected') {
       return (
         <Button
@@ -37,25 +33,16 @@ const Farm: React.FC = () => {
         />
       )
     }
-    if (!isRedeeming) {
-      return (
-        <Button
-          onClick={onRedeem}
-          text="Claim &amp; Unstake"
-          variant="secondary"
-        />
-      )
-    }
     return (
       <Button
-        disabled
-        text="Redeeming..."
+        onClick={onUnstakeAndHarvest}
+        text="Claim &amp; Unstake"
         variant="secondary"
       />
     )
   }, [
-    isRedeeming,
-    onRedeem,
+    status,
+    onUnstakeAndHarvest,
   ])
 
   return (
@@ -72,7 +59,7 @@ const Farm: React.FC = () => {
         </Split>
         <Spacer />
         <Box row justifyContent="center">
-          {RedeemButton}
+          {UnstakeAndHarvestButton}
         </Box>
         <Spacer size="lg" />
         <Separator />
@@ -83,26 +70,6 @@ const Farm: React.FC = () => {
         <Spacer size="lg" />
         <Separator />
         <Spacer size="lg" />
-        <Split>
-          <Button
-            full
-            text="Buy yUSD"
-            href="https://app.uniswap.org/#/swap?inputCurrency=0x5dbcf33d8c2e976c6b560249878e6f1491bca25c&outputCurrency=ETH"
-            variant="tertiary"
-          />
-          <Button
-            full
-            text="Mint yUSD"
-            href="https://zapper.fi/invest"
-            variant="tertiary"
-          />
-          <Button
-            full
-            text="Get YAM/yUSD LP tokens"
-            href="https://app.uniswap.org/#/add/0x0aacfbec6a24756c20d41914f2caba817c0d8521/0x5dbcf33d8c2e976c6b560249878e6f1491bca25c"
-            variant="tertiary"
-          />
-        </Split>
       </Container>
     </Page>
   )

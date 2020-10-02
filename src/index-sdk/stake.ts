@@ -15,7 +15,7 @@ export const getStakingRewardsContract = (provider: provider) => {
   return contract
 }
 
-export const stakeUniswapEthDpiLpTokens = async (
+export const stakeUniswapEthDpiLpTokens = (
   provider: provider,
   account: string,
   stakeQuantity: BigNumber,
@@ -38,7 +38,7 @@ export const stakeUniswapEthDpiLpTokens = async (
   })
 }
 
-export const unstakeUniswapEthDpiLpTokens = async (
+export const unstakeUniswapEthDpiLpTokens = (
   provider: provider,
   account: string,
   unstakeQuantity: BigNumber,
@@ -48,6 +48,69 @@ export const unstakeUniswapEthDpiLpTokens = async (
   return new Promise((resolve) => {
     stakingContract.methods
       .withdraw(unstakeQuantity)
+      .send({ from: account, gas: 200000 })
+      .on('transactionHash', (txId: string) => {
+        if (!txId) resolve(null)
+
+        resolve(txId)
+      })
+      .on('error', (error: any) => {
+        console.log(error)
+        resolve(null)
+      })
+  })
+}
+
+export const getEarnedIndexTokenQuantity = async (
+  provider: provider,
+  account: string
+): Promise<string> => {
+  const stakingContract = getStakingRewardsContract(provider)
+
+  try {
+    const earnedTokenQuantity: string = stakingContract.methods
+      .earned(account)
+      .call()
+
+    return earnedTokenQuantity;
+  } catch (e) {
+    console.log(e)
+
+    return '0'
+  }
+}
+
+export const claimEarnedIndexLpReward = (
+  provider: provider,
+  account: string
+): Promise<string | null> => {
+  const stakingContract = getStakingRewardsContract(provider)
+
+  return new Promise((resolve) => {
+    stakingContract.methods
+      .getReward()
+      .send({ from: account, gas: 200000 })
+      .on('transactionHash', (txId: string) => {
+        if (!txId) resolve(null)
+
+        resolve(txId)
+      })
+      .on('error', (error: any) => {
+        console.log(error)
+        resolve(null)
+      })
+  })
+}
+
+export const unstakeAndClaimEarnedIndexLpReward = (
+  provider: provider,
+  account: string
+): Promise<string | null> => {
+  const stakingContract = getStakingRewardsContract(provider)
+
+  return new Promise((resolve) => {
+    stakingContract.methods
+      .exit()
       .send({ from: account, gas: 200000 })
       .on('transactionHash', (txId: string) => {
         if (!txId) resolve(null)
