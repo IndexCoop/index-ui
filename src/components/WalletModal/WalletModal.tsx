@@ -24,7 +24,12 @@ import useBalances from 'hooks/useBalances'
 
 const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const { reset } = useWallet()
-  const { indexBalance, dpiBalance, uniswapEthDpiLpBalance } = useBalances()
+  const {
+    indexBalance,
+    dpiBalance,
+    uniswapEthDpiLpBalance,
+    stakedUniswapEthDpiLpBalance,
+  } = useBalances();
 
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
@@ -80,6 +85,19 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               }
               label='Uniswap ETH DPI LP balance'
               value={getDisplayBalance(uniswapEthDpiLpBalance)}
+            />
+          </Box>
+          <Box row>
+            <FancyValue
+              icon={
+                <img
+                  alt='staked uniswap lp icon'
+                  src='https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg'
+                  style={{ width: '40px', height: '40px', opacity: 0.5 }}
+                />
+              }
+              label='Staked Uniswap ETH DPI LP balance'
+              value={getDisplayBalance(stakedUniswapEthDpiLpBalance)}
             />
           </Box>
         </Split>

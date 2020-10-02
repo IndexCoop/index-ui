@@ -8,12 +8,10 @@ export interface ContextValues {
   isApproving?: boolean,
   isHarvesting?: boolean,
   isRedeeming?: boolean,
-  isStaking?: boolean,
-  isUnstaking?: boolean,
   onApprove: () => void,
-  onHarvest: () => void,
   onRedeem: () => void,
   onStake: (amount: string) => void,
   onUnstake: (amount: string) => void,
+  onHarvest: () => void,
   stakedBalance?: BigNumber,
 }

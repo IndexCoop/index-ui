@@ -12,8 +12,8 @@ import {
 
 import TokenInput from 'components/TokenInput'
 
-import useFarming from 'hooks/useFarming'
 import { getFullDisplayBalance } from 'utils'
+import useBalances from 'hooks/useBalances';
 
 interface UnstakeModalProps extends ModalProps {
   onUnstake: (amount: string) => void
@@ -26,10 +26,10 @@ const UnstakeModal: React.FC<UnstakeModalProps> = ({
 }) => {
 
   const [val, setVal] = useState('')
-  const { stakedBalance } = useFarming()
+  const { stakedUniswapEthDpiLpBalance: stakedBalance } = useBalances()
 
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(stakedBalance || new BigNumber(0))
+    return getFullDisplayBalance(stakedBalance || new BigNumber(0), 0)
   }, [stakedBalance])
 
   const handleChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
@@ -53,7 +53,7 @@ const UnstakeModal: React.FC<UnstakeModalProps> = ({
           onSelectMax={handleSelectMax}
           onChange={handleChange}
           max={fullBalance}
-          symbol="YYCRV_UNI_LP"
+          symbol="Uniswap ETH DPI LP"
         />
       </ModalContent>
       <ModalActions>

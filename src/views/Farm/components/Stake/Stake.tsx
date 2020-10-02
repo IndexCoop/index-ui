@@ -17,27 +17,24 @@ import Value from 'components/Value'
 
 import useFarming from 'hooks/useFarming'
 
-import { bnToDec } from 'utils'
-
 import StakeModal from './components/StakeModal'
 import UnstakeModal from './components/UnstakeModal'
+import useBalances from 'hooks/useBalances';
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
   const [unstakeModalIsOpen, setUnstakeModalIsOpen] = useState(false)
 
+  const { stakedUniswapEthDpiLpBalance: stakedBalance } = useBalances();
   const { status } = useWallet()
   const {
     countdown,
     farmingStartTime,
     isApproved,
     isApproving,
-    isStaking,
-    isUnstaking,
     onApprove,
     onStake,
     onUnstake,
-    stakedBalance,
   } = useFarming()
 
   const handleDismissStakeModal = useCallback(() => {
@@ -77,15 +74,6 @@ const Stake: React.FC = () => {
           full
           text="Stake"
           variant="secondary"
-        />
-      )
-    }
-    if (isStaking) {
-      return (
-        <Button
-          disabled
-          full
-          text="Staking..."
         />
       )
     }
@@ -130,16 +118,6 @@ const Stake: React.FC = () => {
         />
       )
     }
-    if (isUnstaking) {
-      return (
-        <Button
-          disabled
-          full
-          text="Unstaking..."
-          variant="secondary"
-        />
-      )
-    }
     return (
       <Button
         full
@@ -157,7 +135,7 @@ const Stake: React.FC = () => {
 
   const formattedStakedBalance = useMemo(() => {
     if (stakedBalance) {
-      return numeral(bnToDec(stakedBalance)).format('0.00a')
+      return numeral(stakedBalance.toString()).format('0.00a')
     } else {
       return '--'
     }

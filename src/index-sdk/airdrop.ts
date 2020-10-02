@@ -2,7 +2,7 @@ import Web3 from 'web3'
 import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
-import AirdropABI from 'constants/abi/Airdrop.json'
+import AirdropABI from 'index-sdk/abi/Airdrop.json'
 import { airdropAddress } from 'constants/tokenAddresses'
 import rewardsMerkleRoot from './rewardsMerkleRoot.json'
 

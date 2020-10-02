@@ -137,7 +137,10 @@ const AirdropProvider: React.FC = ({ children }) => {
       <ConfirmTransactionModal
         isOpen={confirmTxModalIsOpen}
         transactionMiningStatus={transactionStatusType}
-        onDismiss={() => setConfirmTxModalIsOpen(false)}
+        onDismiss={() => {
+          setConfirmTxModalIsOpen(false)
+          setTransactionStatusType(undefined)
+        }}
       />
     </AirdropContext.Provider>
   )

@@ -4,7 +4,7 @@ import Web3 from 'web3'
 import { provider, TransactionReceipt } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
-import ERC20ABI from 'constants/abi/ERC20.json'
+import ERC20ABI from 'index-sdk/abi/ERC20.json'
 
 const sleep = (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms))

@@ -25,11 +25,11 @@ const StakeModal: React.FC<StakeModalProps> = ({
 }) => {
 
   const [val, setVal] = useState('')
-  const { yycrvUniLpBalance } = useBalances()
+  const { uniswapEthDpiLpBalance } = useBalances()
 
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(yycrvUniLpBalance || new BigNumber(0), 0)
-  }, [yycrvUniLpBalance])
+    return getFullDisplayBalance(uniswapEthDpiLpBalance || new BigNumber(0), 0)
+  }, [uniswapEthDpiLpBalance])
 
   const handleChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
     setVal(e.currentTarget.value)
@@ -52,7 +52,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
           onSelectMax={handleSelectMax}
           onChange={handleChange}
           max={fullBalance}
-          symbol="YYCRV_UNI_LP"
+          symbol="Uniswap ETH DPI LP"
         />
       </ModalContent>
       <ModalActions>

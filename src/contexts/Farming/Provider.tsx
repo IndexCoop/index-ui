@@ -1,74 +1,44 @@
 import React, { useCallback, useEffect, useState } from 'react'
-
+import { provider } from 'web3-core';
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 
-import ConfirmTransactionModal from 'components/ConfirmTransactionModal'
-import { yycrvUniLp as yycrvUniLpAddress } from 'constants/tokenAddresses'
+import ConfirmTransactionModal, {
+  TransactionStatusType,
+} from 'components/ConfirmTransactionModal'
 import useApproval from 'hooks/useApproval'
 import useYam from 'hooks/useYam'
-
+import Context from './Context'
+import { stakeUniswapEthDpiLpTokens, unstakeUniswapEthDpiLpTokens } from 'index-sdk/stake';
 import {
-  getEarned,
-  getStaked,
   harvest,
   redeem,
-  stake,
-  unstake,
 } from 'yam-sdk/utils'
-
-import Context from './Context'
+import { waitTransaction } from 'utils/index';
+import { stakingRewardsAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses'
 
 const farmingStartTime = 1600545500*1000
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
+  const [transactionStatusType, setTransactionStatusType] = useState<
+    TransactionStatusType | undefined
+  >()
   const [countdown, setCountdown] = useState<number>()
   const [isHarvesting, setIsHarvesting] = useState(false)
   const [isRedeeming, setIsRedeeming] = useState(false)
-  const [isStaking, setIsStaking] = useState(false)
-  const [isUnstaking, setIsUnstaking] = useState(false)
 
-  const [earnedBalance, setEarnedBalance] = useState<BigNumber>()
-  const [stakedBalance, setStakedBalance] = useState<BigNumber>()
+  const [earnedBalance] = useState<BigNumber>()
+  const [stakedBalance] = useState<BigNumber>()
 
   const yam = useYam()
-  const { account } = useWallet()
+  const { account, ethereum } = useWallet()
   
-  const yycrvPoolAddress = yam ? yam.contracts.yycrv_pool.options.address : ''
   const { isApproved, isApproving, onApprove } = useApproval(
-    yycrvUniLpAddress,
-    yycrvPoolAddress,
+    uniswapEthDpiLpTokenAddress,
+    stakingRewardsAddress,
     () => setConfirmTxModalIsOpen(false)
   )
-
-  const fetchEarnedBalance = useCallback(async () => {
-    if (!account || !yam) return
-    const balance = await getEarned(yam, yam.contracts.yycrv_pool, account)
-    setEarnedBalance(balance)
-  }, [
-    account,
-    setEarnedBalance,
-    yam
-  ])
-
-  const fetchStakedBalance = useCallback(async () => {
-    if (!account || !yam) return
-    const balance = await getStaked(yam, yam.contracts.yycrv_pool, account)
-    setStakedBalance(balance)
-  }, [
-    account,
-    setStakedBalance,
-    yam
-  ])
-
-  const fetchBalances = useCallback(async () => {
-    fetchEarnedBalance()
-    fetchStakedBalance()
-  }, [
-    fetchEarnedBalance,
-    fetchStakedBalance,
-  ])
 
   const handleApprove = useCallback(() => {
     setConfirmTxModalIsOpen(true)
@@ -109,40 +79,60 @@ const Provider: React.FC = ({ children }) => {
   ])
 
   const handleStake = useCallback(async (amount: string) => {
-    if (!yam) return
+    if (!ethereum || !account || !amount || new BigNumber(amount).lte(0)) return
+
     setConfirmTxModalIsOpen(true)
-    await stake(yam, amount, account, () => {
-      setConfirmTxModalIsOpen(false)
-      setIsStaking(true)
-    })
-    setIsStaking(false)
+    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+
+    const bigStakeQuantity = new BigNumber(amount).multipliedBy(new BigNumber(10).pow(18))
+    const transactionId = await stakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
+
+    if (!transactionId) {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      return;
+    }
+
+    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    const success = await waitTransaction(ethereum as provider, transactionId)
+
+    if (success) {
+      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+    } else {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+    }
   }, [
+    ethereum,
     account,
     setConfirmTxModalIsOpen,
-    setIsStaking,
-    yam
   ])
 
   const handleUnstake = useCallback(async (amount: string) => {
-    if (!yam) return
+    if (!ethereum || !account || !amount || new BigNumber(amount).lte(0)) return
+
     setConfirmTxModalIsOpen(true)
-    await unstake(yam, amount, account, () => {
-      setConfirmTxModalIsOpen(false)
-      setIsUnstaking(true)
-    })
-    setIsUnstaking(false)
+    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+
+    const bigStakeQuantity = new BigNumber(amount).multipliedBy(new BigNumber(10).pow(18))
+    const transactionId = await unstakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
+
+    if (!transactionId) {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      return;
+    }
+
+    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    const success = await waitTransaction(ethereum as provider, transactionId)
+
+    if (success) {
+      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+    } else {
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+    }
   }, [
+    ethereum,
     account,
     setConfirmTxModalIsOpen,
-    setIsUnstaking,
-    yam
   ])
-
-  useEffect(() => {
-    fetchBalances()
-    let refreshInterval = setInterval(() => fetchBalances(), 10000)
-    return () => clearInterval(refreshInterval)
-  }, [fetchBalances])
 
   useEffect(() => {
     let refreshInterval = setInterval(() => setCountdown(farmingStartTime - Date.now()), 1000)
@@ -158,8 +148,6 @@ const Provider: React.FC = ({ children }) => {
       isApproving,
       isHarvesting,
       isRedeeming,
-      isStaking,
-      isUnstaking,
       onApprove: handleApprove,
       onHarvest: handleHarvest,
       onRedeem: handleRedeem,
@@ -168,7 +156,14 @@ const Provider: React.FC = ({ children }) => {
       stakedBalance,
     }}>
       {children}
-      <ConfirmTransactionModal isOpen={confirmTxModalIsOpen} />
+      <ConfirmTransactionModal
+        isOpen={confirmTxModalIsOpen}
+        transactionMiningStatus={transactionStatusType}
+        onDismiss={() => {
+          setConfirmTxModalIsOpen(false)
+          setTransactionStatusType(undefined)
+        }}
+      />
     </Context.Provider>
   )
 }
