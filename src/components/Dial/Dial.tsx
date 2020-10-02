@@ -14,7 +14,7 @@ interface DialProps {
 
 const Dial: React.FC<DialProps> = ({ children, color, disabled, size = 256, value }) => {
   const { colors } = useTheme()
-  let pathColor = colors.primary.main
+  let pathColor = colors.primary.light
   if (color === 'primary') {
     pathColor = colors.primary.main
   }
