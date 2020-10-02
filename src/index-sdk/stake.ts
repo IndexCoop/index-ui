@@ -15,7 +15,7 @@ export const getStakingRewardsContract = (provider: provider) => {
   return contract
 }
 
-export const stakeUniswapEthDpiLpTokens = async (
+export const stakeUniswapEthDpiLpTokens = (
   provider: provider,
   account: string,
   stakeQuantity: BigNumber,
@@ -38,7 +38,7 @@ export const stakeUniswapEthDpiLpTokens = async (
   })
 }
 
-export const unstakeUniswapEthDpiLpTokens = async (
+export const unstakeUniswapEthDpiLpTokens = (
   provider: provider,
   account: string,
   unstakeQuantity: BigNumber,
@@ -72,12 +72,32 @@ export const getEarnedIndexTokenQuantity = async (
       .earned(account)
       .call()
 
-    console.log('earned token quantity');
-
     return earnedTokenQuantity;
   } catch (e) {
     console.log(e)
 
     return '0'
   }
+}
+
+export const claimEarnedIndexLpReward = (
+  provider: provider,
+  account: string
+): Promise<string | null> => {
+  const stakingContract = getStakingRewardsContract(provider)
+
+  return new Promise((resolve) => {
+    stakingContract.methods
+      .getReward()
+      .send({ from: account, gas: 200000 })
+      .on('transactionHash', (txId: string) => {
+        if (!txId) resolve(null)
+
+        resolve(txId)
+      })
+      .on('error', (error: any) => {
+        console.log(error)
+        resolve(null)
+      })
+  })
 }
