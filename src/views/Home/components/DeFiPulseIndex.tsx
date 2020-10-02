@@ -46,13 +46,6 @@ const Home: React.FC = () => {
           <CardActions>
             <Box row justifyContent="center">
               <Button
-                href="https://docs.google.com/document/d/1DPRJSWG2uwpQ9Usrd0tjVgItC7p6HHKC4EfqWH6qA0w/mobilebasic"
-                size="md"
-                text="View The Methodology"
-                variant="secondary"
-              />
-              <Spacer />
-              <Button
                 href="https://www.tokensets.com/portfolio/dpi"
                 size="md"
                 text="View The Index"
