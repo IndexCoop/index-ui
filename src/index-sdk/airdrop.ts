@@ -18,7 +18,7 @@ export const getAirdropContract = (provider: provider, address: string) => {
 export const getAirdropDataForAddress = (
   address: string
 ): { index: number, amount: string, proof: string[] } | undefined => {
-  const rewardBranch = (rewardsMerkleRoot as any)[address]
+  const rewardBranch = (rewardsMerkleRoot as any)[address?.toLowerCase()]
 
   if (!rewardBranch) return
 
