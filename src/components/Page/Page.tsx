@@ -24,6 +24,6 @@ const StyledMain = styled.div`
   background: url(https://index-dao.s3.amazonaws.com/gradient_bg.png);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
 `
 export default Page
