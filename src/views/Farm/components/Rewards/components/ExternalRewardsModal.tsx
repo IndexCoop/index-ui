@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   Input,
-  Modal,
   ModalActions,
   ModalContent,
   ModalProps,
@@ -15,6 +14,7 @@ import {
   Spacer,
 } from 'react-neu'
 
+import Modal from 'components/CustomModal'
 import Split from 'components/Split'
 import useExternalAirdrop from 'hooks/useExternalAirdrop'
 

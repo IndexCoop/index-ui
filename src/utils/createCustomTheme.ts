@@ -90,7 +90,7 @@ const createTheme = (): {
         main: grey[200],
       },
       hslToCssString({ ...whiteHSLA, a: 40 }),
-      hslToCssString({ ...blackHSLA, a: 40 })
+      hslToCssString({ ...whiteHSLA, a: 40 }),
     ),
     textColor: black,
   };
@@ -109,7 +109,7 @@ const createTheme = (): {
         main: greyDark[800],
       },
       hslToCssString({ ...blackHSLA, a: 40 }),
-      greyDark[900]
+      hslToCssString({ ...blackHSLA, a: 40 }),
     ),
     textColor: whiteDark,
   };

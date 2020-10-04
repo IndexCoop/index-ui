@@ -7,7 +7,6 @@ import numeral from 'numeral'
 import {
   Box,
   Button,
-  Modal,
   ModalActions,
   ModalContent,
   ModalProps,
@@ -16,6 +15,7 @@ import {
   Spacer
 } from 'react-neu'
 
+import Modal from 'components/CustomModal'
 import Split from 'components/Split'
 
 import useAirdrop from 'hooks/useAirdrop'

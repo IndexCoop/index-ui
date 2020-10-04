@@ -8,7 +8,6 @@ import numeral from 'numeral'
 import {
   Box,
   Button,
-  Modal,
   ModalActions,
   ModalContent,
   ModalProps,
@@ -17,6 +16,7 @@ import {
   Spacer,
 } from 'react-neu'
 
+import Modal from 'components/CustomModal'
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react'
 import {
   Box,
   Button,
-  Modal,
   ModalActions,
   ModalContent,
   ModalProps,
@@ -16,6 +15,7 @@ import { toast } from 'react-toastify';
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
 
+import Modal from 'components/CustomModal'
 import WalletProviderCard from './components/WalletProviderCard'
 
 const UnlockWalletModal: React.FC<ModalProps> = ({
