@@ -12,7 +12,7 @@ const createTheme = (): {
   const baseColorDark = { h: 236, s: 95, l: 59 };
   const baseGreyColorDark = { h: 250, s: 49, l: 10 };
 
-  const borderRadius = 28;
+  const borderRadius = 14;
   const siteWidth = 1200;
 
   const { h, s } = baseColor;
