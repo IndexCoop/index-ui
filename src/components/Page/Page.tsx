@@ -21,6 +21,9 @@ const StyledMain = styled.div`
   flex-direction: column;
   min-height: calc(100vh - 144px);
   padding: ${props => props.theme.spacing[6]}px 0;
+  background: url(https://index-dao.s3.amazonaws.com/gradient_bg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `
-
 export default Page
