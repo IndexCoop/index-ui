@@ -47,6 +47,7 @@ const StyledDial = styled.div<StyledInnerProps>`
   position: relative;
   height: ${props => props.size}px;
   width: ${props => props.size}px;
+  margin: auto;
 `
 
 const StyledInner = styled.div<StyledInnerProps>`

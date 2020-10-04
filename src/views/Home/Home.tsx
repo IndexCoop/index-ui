@@ -1,9 +1,10 @@
 import React from 'react'
-import { Box, Button, Container, Spacer } from 'react-neu'
+import { Button, Container, Spacer } from 'react-neu'
 
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
 import Explanation from 'components/Explanation'
+import Split from 'components/Split'
 
 import DeFiPulseIndex from './components/DeFiPulseIndex'
 import FarmingTimer from './components/FarmingTimer'
@@ -23,11 +24,10 @@ const Home: React.FC = () => {
         <Treasury />
         <Spacer />
         <Container>
-          <Box row justifyContent="center">
+          <Split>
             <FarmingTimer />
-            <Spacer />
             <Explanation />
-          </Box>
+          </Split>
         </Container>
         <Spacer />
         <DeFiPulseIndex />
