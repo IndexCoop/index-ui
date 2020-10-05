@@ -55,7 +55,8 @@ const RewardsModal: React.FC<ModalProps> = ({
         <Spacer />
         <StyledDescriptionContainer>
           <StyledDescriptionHeader>
-            🦉 INDEX has arrived!
+            <StyledEmoji src='https://index-dao.s3.amazonaws.com/owl.png' alt="Owl" />
+            INDEX has arrived!
           </StyledDescriptionHeader>
           <StyledDescription>
             Thank you for being an early supporter of our crypto indices!
@@ -97,6 +98,9 @@ const StyledDescriptionContainer = styled.div`
 `
 
 const StyledDescriptionHeader = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: ${props => props.theme.colors.gray};
   font-size: 24px;
   font-weight: 600;
@@ -105,6 +109,12 @@ const StyledDescriptionHeader = styled.p`
   }
 `
 
+const StyledEmoji = styled.img`
+  height: 24px;
+  text-align: center;
+  min-width: 24px;
+  margin-right: 12px;
+`
 const StyledDescription = styled.p`
   color: ${props => props.theme.colors.gray};
   &:visited {
