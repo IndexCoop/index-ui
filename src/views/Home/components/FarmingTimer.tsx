@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Countdown, { CountdownRenderProps} from 'react-countdown'
 
 import {
@@ -8,12 +8,11 @@ import {
 } from 'react-neu'
 import styled from 'styled-components'
 
+import useFarming from 'hooks/useFarming'
 import Dial from 'components/Dial'
 import Label from 'components/Label'
 
 const FarmingTimer: React.FC = () => {
-  const isLaunched = false;
-
   const renderer = (countdownProps: CountdownRenderProps) => {
     const { hours, minutes, seconds } = countdownProps
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
@@ -24,31 +23,48 @@ const FarmingTimer: React.FC = () => {
     )
   }
 
-  const releaseTime = 1602010800000; // Oct 6th, 12pm PDT
-  const releaseDate = new Date(releaseTime);
+  const {
+    countdown,
+    farmingStartTime,
+  } = useFarming()
+
+  const releaseDate = new Date(farmingStartTime);
   const milliseconds = 1000;
   const seconds = 60;
   const minutes = 60;
   const hours = 24;
   const percentageMultiplier = 100;
+  const isLaunched = countdown && countdown < 0;
+  const labelText = isLaunched ? 'INDEX Farming Is Live!' : 'INDEX Farming Launch'
 
   // This will start counting down 24 hours before the release time
-  const dialValue = (releaseTime - Date.now()) / (milliseconds * seconds * minutes * hours) * percentageMultiplier;
+  const dialValue = (farmingStartTime - Date.now()) / (milliseconds * seconds * minutes * hours) * percentageMultiplier;
 
   return (
     <Card>
       <CardContent>
-        <Box>
-          <Dial size={196} value={dialValue}>
-            <StyledCountdown>
-              <StyledCountdownText>
-                {isLaunched ? '--' : (
-                  <Countdown date={releaseDate} renderer={renderer} />
-                )}
-              </StyledCountdownText>
-              <Label text="INDEX Farming Launch" />
-            </StyledCountdown>
-          </Dial>
+        <Box alignItems="center" column justifyContent="center">
+          {isLaunched ? (
+              <>
+                <StyledIcon
+                  alt="Owl icon"
+                  src="https://index-dao.s3.amazonaws.com/farmer_owl.png"
+                />
+                <h3>🎉🌾 INDEX Farming Is Live! 🌾🎉</h3>
+              </>
+            ) : (
+              <Dial size={196} value={dialValue}>
+                <StyledCountdown>
+                  <StyledCountdownText>
+                    {isLaunched ? '🎉' : (
+                      <Countdown date={releaseDate} renderer={renderer} />
+                    )}
+                  </StyledCountdownText>
+                  <Label text={labelText} />
+                </StyledCountdown>
+              </Dial>
+            )
+          }
         </Box>
       </CardContent>
     </Card>
@@ -64,6 +80,12 @@ const StyledCountdownText = styled.span`
   color: ${props => props.theme.colors.primary.light};
   font-size: 36px;
   font-weight: 700;
+`
+
+const StyledIcon = styled.img`
+  height: 58px;
+  text-align: center;
+  min-width: 58px;
 `
 
 export default FarmingTimer

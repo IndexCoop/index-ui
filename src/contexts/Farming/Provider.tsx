@@ -2,12 +2,14 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { provider } from 'web3-core';
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
+import confetti from 'canvas-confetti'
 
 import Context from './Context'
 import ConfirmTransactionModal, {
   TransactionStatusType,
 } from 'components/ConfirmTransactionModal'
 import useApproval from 'hooks/useApproval'
+import useLocalStorage from 'hooks/useLocalStorage'
 import {
   stakeUniswapEthDpiLpTokens,
   unstakeUniswapEthDpiLpTokens,
@@ -17,7 +19,33 @@ import {
 import { waitTransaction } from 'utils/index'
 import { stakingRewardsAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses'
 
-const farmingStartTime = 1600545500*1000
+// Oct 6th, 12pm PDT
+const farmingStartTime = 1602010800000;
+const fireConfetti = () => {
+  confetti({
+    particleCount: 100,
+    startVelocity: 30,
+    spread: 360,
+    origin: {
+      x: Math.random(),
+      // since they fall down, start a bit higher than random
+      y: Math.random() - 0.2
+    }
+  });
+}
+
+const launchFireworks = () => {
+  fireConfetti()
+  setTimeout(fireConfetti, 1000)
+  setTimeout(fireConfetti, 2200)
+  setTimeout(fireConfetti, 3000)
+  setTimeout(fireConfetti, 4200)
+  setTimeout(fireConfetti, 5000)
+  setTimeout(fireConfetti, 6100)
+  setTimeout(fireConfetti, 7300)
+  setTimeout(fireConfetti, 7900)
+  setTimeout(fireConfetti, 8800)
+};
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -25,6 +53,7 @@ const Provider: React.FC = ({ children }) => {
     TransactionStatusType | undefined
   >()
   const [countdown, setCountdown] = useState<number>()
+  const [hasHooted, hoot] = useLocalStorage('hasHooted', false)
 
   const { account, ethereum } = useWallet()
 
@@ -156,6 +185,24 @@ const Provider: React.FC = ({ children }) => {
     let refreshInterval = setInterval(() => setCountdown(farmingStartTime - Date.now()), 1000)
     return () => clearInterval(refreshInterval)
   }, [setCountdown])
+
+  useEffect(() => {
+    if (
+      countdown &&
+      countdown < 0 && // If the countdown finishes
+      countdown > -3600000 && // If 3600 seconds (1 hour) haven't passed
+      !hasHooted
+    ) {
+      const audio = new Audio('https://index-dao.s3.amazonaws.com/hoot.mp3')
+      audio.play()
+      launchFireworks()
+      hoot(true)
+    }
+  }, [
+    hasHooted,
+    countdown,
+    hoot
+  ])
 
   return (
     <Context.Provider value={{
