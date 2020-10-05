@@ -9,7 +9,7 @@ const createTheme = (): {
   const baseGreyColor = { h: 326, s: 50, l: 41 };
 
   /* Dark Styles */
-  const baseColorDark = { h: 140, s: 85, l: 36 };
+  const baseColorDark = { h: 236, s: 95, l: 67 };
   const baseGreyColorDark = { h: 250, s: 49, l: 10 };
 
   const borderRadius = 14;
