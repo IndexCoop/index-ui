@@ -9,6 +9,7 @@ import {
   CardIcon,
 } from 'react-neu'
 import { useWallet } from 'use-wallet'
+import styled from 'styled-components'
 
 import Label from 'components/Label'
 import Value from 'components/Value'
@@ -49,7 +50,12 @@ const Rewards: React.FC = () => {
   return (
     <>
       <Card>
-        <CardIcon>🎁</CardIcon>
+        <CardIcon>
+          <StyledIcon
+            alt="Present icon"
+            src="https://index-dao.s3.amazonaws.com/present.png"
+          />
+        </CardIcon>
         <CardContent>
           <Box alignItems='center' column>
             <Value value={claimableQuantity?.toString() || '--'} />
@@ -84,5 +90,11 @@ const Rewards: React.FC = () => {
     </>
   )
 }
+
+const StyledIcon = styled.img`
+  height: 58px;
+  text-align: center;
+  min-width: 58px;
+`
 
 export default Rewards

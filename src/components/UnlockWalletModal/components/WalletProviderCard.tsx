@@ -28,7 +28,6 @@ const WalletProviderCard: React.FC<WalletProviderCardProps> = ({
         <Button
           full
           text="Select"
-          variant="secondary"
         />
       </CardActions>
     </Card>

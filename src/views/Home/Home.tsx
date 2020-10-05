@@ -11,11 +11,15 @@ import FarmingTimer from './components/FarmingTimer'
 import Treasury from './components/Treasury'
 
 const Home: React.FC = () => {
+  const icon = {
+    src: 'https://index-dao.s3.amazonaws.com/owl.png',
+    alt: 'Owl',
+  };
 
   return (
     <Page>
       <PageHeader
-        icon='🦉'
+        icon={icon}
         title='Index DAO'
         subtitle='A global community creating and maintaining the best crypto index products'
       />

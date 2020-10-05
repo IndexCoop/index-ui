@@ -27,7 +27,10 @@ const Treasury: React.FC = () => {
         <Card>
           <CardContent>
             <FancyValue
-              icon='💰'
+              icon={{
+                src: 'https://index-dao.s3.amazonaws.com/money.png',
+                alt: 'Money',
+              }}
               label='Capital in Farms'
               value={totalUSDInFarmsValue}
             />
@@ -36,7 +39,14 @@ const Treasury: React.FC = () => {
 
         <Card>
           <CardContent>
-            <FancyValue icon='🦉' label='$INDEX Price' value={dpiPriceValue} />
+            <FancyValue
+              icon={{
+                src: 'https://index-dao.s3.amazonaws.com/owl.png',
+                alt: 'Owl',
+              }}
+              label='$INDEX Price'
+              value={dpiPriceValue}
+            />
           </CardContent>
         </Card>
       </Split>

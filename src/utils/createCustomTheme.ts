@@ -97,7 +97,7 @@ const createTheme = (): {
 
   const darkTheme: Theme = {
     ...lightTheme,
-    baseBg: `radial-gradient(circle at top, ${greyDark[700]}, ${greyDark[900]})`,
+    baseBg: `radial-gradient(circle at top, ${greyDark[800]}, ${greyDark[800]})`,
     baseColor: greyDark[800],
     colors: colorsDark,
     highlightColor: greyDark[700],

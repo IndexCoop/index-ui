@@ -4,7 +4,10 @@ import { Container, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 interface PageHeaderProps {
-  icon: React.ReactNode,
+  icon: {
+    src: string;
+    alt: string;
+  },
   subtitle?: string,
   title?: string,
 }
@@ -13,7 +16,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
   return (
     <Container>
     <StyledPageHeader>
-      <StyledIcon>{icon}</StyledIcon>
+      <StyledIcon src={icon.src} alt={icon.alt} />
       <Spacer size="sm" />
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>{subtitle}</StyledSubtitle>
@@ -31,14 +34,10 @@ const StyledPageHeader = styled.div`
   margin: 0 auto;
 `
 
-const StyledIcon = styled.span.attrs({
-  role: 'img'
-})`
-  font-size: 112px;
-  height: 96px;
-  line-height: 96px;
+const StyledIcon = styled.img`
+  height: 124px;
   text-align: center;
-  min-width: 96px;
+  min-width: 124px;
 `
 
 const StyledTitle = styled.h1`

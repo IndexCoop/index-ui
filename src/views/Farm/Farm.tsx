@@ -44,14 +44,19 @@ const Farm: React.FC = () => {
     status,
     onUnstakeAndHarvest,
   ])
+  const icon = {
+    src: 'https://index-dao.s3.amazonaws.com/moon.png',
+    alt: 'Moon',
+  };
 
   return (
     <Page>
       <PageHeader
-        icon="🌝"
+        icon={icon}
         subtitle="Stake ETH/DPI LP tokens and farm INDEX"
         title="Farm"
       />
+      <Spacer size="md" />
       <Container>
         <Split>
           <StakeCard />
