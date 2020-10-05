@@ -48,11 +48,10 @@ const StyledModalWrapper = styled.div`
   right: 0;
   top: 0;
   z-index: 1000;
-  opacity: 0.8;
 `
 
 const StyledModalBackdrop = styled.div`
-  background: white;
+  background: ${props => props.theme.baseColor};
   opacity: 0.65;
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
@@ -66,6 +65,9 @@ const StyledResponsiveWrapper = styled.div`
   max-width: 600px;
   position: relative;
   width: 100%;
+  border-radius: ${props => props.theme.borderRadius}px;
+  background-color: ${props => props.theme.baseColor};
+  opacity: 0.8;
   @media (max-width: 600px) {
     flex: 1;
     position: absolute;
