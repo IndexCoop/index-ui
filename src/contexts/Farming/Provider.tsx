@@ -19,7 +19,7 @@ import {
 import { waitTransaction } from 'utils/index'
 import { stakingRewardsAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses'
 
-// Oct 6th, 12pm PDT
+// Oct 6th 2020, 12pm PDT
 const farmingStartTime = 1602010800000;
 const fireConfetti = () => {
   confetti({
@@ -28,8 +28,7 @@ const fireConfetti = () => {
     spread: 360,
     origin: {
       x: Math.random(),
-      // since they fall down, start a bit higher than random
-      y: Math.random() - 0.2
+      y: Math.random() - 0.2,
     }
   });
 }
