@@ -52,7 +52,7 @@ const StyledDial = styled.div<StyledInnerProps>`
 
 const StyledInner = styled.div<StyledInnerProps>`
   align-items: center;
-  background: ${props => props.theme.baseBg};
+  background: transparent;
   border-radius: ${props => props.size}px;
   display: flex;
   justify-content: center;

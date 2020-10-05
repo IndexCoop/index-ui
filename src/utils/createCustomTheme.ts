@@ -9,7 +9,7 @@ const createTheme = (): {
   const baseGreyColor = { h: 326, s: 50, l: 41 };
 
   /* Dark Styles */
-  const baseColorDark = { h: 236, s: 95, l: 59 };
+  const baseColorDark = { h: 140, s: 85, l: 36 };
   const baseGreyColorDark = { h: 250, s: 49, l: 10 };
 
   const borderRadius = 14;
@@ -21,7 +21,7 @@ const createTheme = (): {
   const { h: baseGreyDarkH } =
     baseGreyColorDark || baseColorDark || baseGreyColor || baseColor;
 
-  const blackHSLA: HSLA = { h: baseGreyH, s: 95, l: 4 };
+  const blackHSLA: HSLA = { h: baseGreyH, s: 95, l: 0 };
   const whiteHSLA: HSLA = { h: baseGreyH, s: 100, l: 100 };
   const black = hslToCssString(blackHSLA);
   const white = hslToCssString(whiteHSLA);
