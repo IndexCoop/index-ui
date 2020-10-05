@@ -1,7 +1,7 @@
 import React from 'react'
 
 import numeral from 'numeral'
-import { Spacer, Container, Card, CardContent } from 'react-neu'
+import { Container, Card, CardContent } from 'react-neu'
 
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'

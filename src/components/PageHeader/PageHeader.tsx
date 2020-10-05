@@ -11,7 +11,7 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
   return (
-    <Container size="sm">
+    <Container>
     <StyledPageHeader>
       <StyledIcon>{icon}</StyledIcon>
       <Spacer size="sm" />
@@ -27,14 +27,14 @@ const StyledPageHeader = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding-bottom: ${props => props.theme.spacing[6]}px;
+  padding-bottom: ${props => props.theme.spacing[4]}px;
   margin: 0 auto;
 `
 
 const StyledIcon = styled.span.attrs({
   role: 'img'
 })`
-  font-size: 96px;
+  font-size: 112px;
   height: 96px;
   line-height: 96px;
   text-align: center;
@@ -43,7 +43,8 @@ const StyledIcon = styled.span.attrs({
 
 const StyledTitle = styled.h1`
   color: ${props => props.theme.textColor};
-  font-size: 36px;
+  font-size: 120px;
+  line-height: 108px;
   font-weight: 700;
   margin: 0;
   padding: 0;
@@ -55,6 +56,7 @@ const StyledSubtitle = styled.h3`
   font-size: 18px;
   font-weight: 400;
   margin: 0;
+  margin-top: 24px;
   opacity: 0.66;
   padding: 0;
   text-align: center;

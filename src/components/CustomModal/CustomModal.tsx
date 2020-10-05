@@ -65,9 +65,10 @@ const StyledResponsiveWrapper = styled.div`
   max-width: 600px;
   position: relative;
   width: 100%;
+  box-shadow: 0 0 24px 0 black;
   border-radius: ${props => props.theme.borderRadius}px;
   background-color: ${props => props.theme.baseColor};
-  opacity: 0.8;
+  opacity: 0.975;
   @media (max-width: 600px) {
     flex: 1;
     position: absolute;

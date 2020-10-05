@@ -17,10 +17,10 @@ const Home: React.FC = () => {
       <PageHeader
         icon='🦉'
         title='Index DAO'
-        subtitle='A global community launching and maintaining the world’s best crypto index vehicles'
+        subtitle='A global community creating and maintaining the best crypto index products'
       />
         <Button text='View Farms' to='/farm' />
-        <Spacer />
+        <Spacer size="lg" />
         <Treasury />
         <Spacer />
         <Container>
