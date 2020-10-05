@@ -19,3 +19,6 @@ Ejects the app from `create-react-app` rails.
 
 The main purpose of this repository is to continually serve the needs of the Index DAO, making it faster, simpler, and easier to use. As new proposals are submitted and the scope of Index DAOs governance evolves we anticipate this tool will change as well.
 We greatly encourage any community contribution that may help the Index DAO reach more users and greater adoption.
+
+## License
+Index DAO UI is MIT licensed.
