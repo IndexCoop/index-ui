@@ -9,7 +9,10 @@ const ComingSoon: React.FC = () => {
   return (
     <Page>
       <PageHeader
-        icon='🦉'
+        icon={{
+          alt: 'Owl',
+          src: 'https://index-dao.s3.amazonaws.com/owl.png'
+        }}
         title='Index DAO'
         subtitle='A global community launching and maintaining the world’s best crypto index vehicles'
       />

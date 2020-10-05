@@ -52,19 +52,20 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
         <Split>
           <Box row>
             <FancyValue
-              icon='🦉'
+              icon={{
+                alt: 'Owl',
+                src: 'https://index-dao.s3.amazonaws.com/owl.png'
+              }}
               label='INDEX balance'
               value={getDisplayBalance(indexBalance)}
             />
           </Box>
           <Box row>
             <FancyValue
-              icon={
-                <img
-                  alt='defi pulse icon'
-                  src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
-                />
-              }
+              icon={{
+                alt: 'Defi Pulse Icon',
+                src: 'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
+              }}
               label='DPI balance'
               value={getDisplayBalance(dpiBalance)}
             />
@@ -76,27 +77,22 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
         <Split>
           <Box row>
             <FancyValue
-              icon={
-                <img
-                  alt='uniswap lp icon'
-                  src='https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg'
-                  style={{ width: '40px', height: '40px' }}
-                />
-              }
+              icon={{
+                alt:'Uniswap LP Icon',
+                src:'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg'
+              }}
               label='Uniswap ETH/DPI LP balance'
               value={getDisplayBalance(uniswapEthDpiLpBalance)}
             />
           </Box>
           <Box row>
             <FancyValue
-              icon={
-                <img
-                  alt='staked uniswap lp icon'
-                  src='https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg'
-                  style={{ width: '40px', height: '40px', opacity: 0.5 }}
-                />
-              }
-              label='Staked Uniswap ETH/DPI LP balance'
+              icon={{
+                alt: 'Staked Uniswap LP Icon',
+                src: 'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg'
+              }}
+              iconStyles={{ opacity: 0.5 }}
+              label='Staked Uniswap ETH/DPI LP'
               value={getDisplayBalance(stakedUniswapEthDpiLpBalance)}
             />
           </Box>
