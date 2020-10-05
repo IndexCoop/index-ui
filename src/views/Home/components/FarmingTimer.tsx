@@ -83,7 +83,7 @@ const StyledCountdownText = styled.span`
 `
 
 const StyledIcon = styled.img`
-  height: 58px;
+  height: 78px;
   text-align: center;
   min-width: 58px;
 `
