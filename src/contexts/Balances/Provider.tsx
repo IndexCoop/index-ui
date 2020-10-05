@@ -23,7 +23,8 @@ const Provider: React.FC = ({ children }) => {
   const {
     account,
     ethereum,
-  }: { account: string | null; ethereum: provider } = useWallet()
+    status
+  }: { account: string | null; ethereum: provider; status: string } = useWallet()
 
   const fetchBalances = useCallback(
     async (userAddress: string, provider: provider) => {
@@ -68,7 +69,16 @@ const Provider: React.FC = ({ children }) => {
     if (account && ethereum) {
       fetchBalances(account, ethereum)
     }
-  }, [account, ethereum, fetchBalances])
+
+    if (status !== 'connected') {
+      setIndexBalance(new BigNumber(0))
+      setDpiBalance(new BigNumber(0))
+      setUniswapEthDpiLpBalance(new BigNumber(0))
+      setStakedUniswapEthDpiLpBalance(new BigNumber(0))
+      setUnharvestedIndexBalance(new BigNumber(0))
+
+    }
+  }, [account, ethereum, status, fetchBalances])
 
   useEffect(() => {
     if (account && ethereum) {
