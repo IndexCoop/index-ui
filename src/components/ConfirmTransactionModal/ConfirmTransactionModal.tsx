@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react'
-import { Modal, ModalContent, ModalProps, Spacer, Button, ModalActions } from 'react-neu'
+import { ModalContent, ModalProps, Spacer, Button, ModalActions } from 'react-neu'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
+
+import Modal from 'components/CustomModal'
 
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'

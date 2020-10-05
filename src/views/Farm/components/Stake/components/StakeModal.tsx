@@ -3,13 +3,13 @@ import React, { useCallback, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import {
   Button,
-  Modal,
   ModalActions,
   ModalContent,
   ModalProps,
   ModalTitle,
 } from 'react-neu'
 
+import Modal from 'components/CustomModal'
 import TokenInput from 'components/TokenInput'
 import useBalances from 'hooks/useBalances'
 import { getFullDisplayBalance } from 'utils'

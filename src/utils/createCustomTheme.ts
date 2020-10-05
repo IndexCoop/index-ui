@@ -12,7 +12,7 @@ const createTheme = (): {
   const baseColorDark = { h: 236, s: 95, l: 59 };
   const baseGreyColorDark = { h: 250, s: 49, l: 10 };
 
-  const borderRadius = 28;
+  const borderRadius = 14;
   const siteWidth = 1200;
 
   const { h, s } = baseColor;
@@ -89,8 +89,8 @@ const createTheme = (): {
         light: grey[100],
         main: grey[200],
       },
-      hslToCssString({ ...whiteHSLA, a: 100 }),
-      hslToCssString({ ...blackHSLA, a: 15 })
+      hslToCssString({ ...whiteHSLA, a: 40 }),
+      hslToCssString({ ...whiteHSLA, a: 40 }),
     ),
     textColor: black,
   };
@@ -108,8 +108,8 @@ const createTheme = (): {
         light: greyDark[700],
         main: greyDark[800],
       },
-      hslToCssString({ ...whiteDarkHSLA, a: 8.5 }),
-      greyDark[900]
+      hslToCssString({ ...blackHSLA, a: 40 }),
+      hslToCssString({ ...blackHSLA, a: 40 }),
     ),
     textColor: whiteDark,
   };
@@ -148,37 +148,36 @@ const generateSurfaces = (
   highlight: string,
   shadow: string
 ) => {
-  const baseBg = `radial-gradient(circle at top, ${base.light}, ${base.main})`;
   return {
     N2: {
-      background: `radial-gradient(circle at top, ${base.main}, ${base.dark})`,
+      background: `${highlight}`,
       border: "0",
-      highlight: `inset 4px -4px 8px -4px ${highlight}`,
-      shadow: `inset -4px 4px 8px -4px ${shadow}`,
+      highlight: `none`,
+      shadow: `none`,
     },
     N1: {
-      background: baseBg,
+      background: `${highlight}`,
       border: "0",
-      highlight: `inset 2px -2px 4px ${highlight}`,
-      shadow: `inset -2px 2px 4px ${shadow}`,
+      highlight: `none`,
+      shadow: `none`,
     },
     0: {
-      background: baseBg,
-      border: `0`,
-      highlight: `inset -1px 1px 0px ${highlight}`,
-      shadow: `0px 0px 1px 1px ${shadow}`,
+      background: `${highlight}`,
+      border: "0",
+      highlight: `none`,
+      shadow: `none`,
     },
     1: {
-      background: baseBg,
+      background: `${highlight}`,
       border: "0",
-      highlight: `4px -4px 8px 0px ${highlight}`,
-      shadow: `-4px 4px 8px 0 ${shadow}`,
+      highlight: `none`,
+      shadow: `none`,
     },
     2: {
-      background: baseBg,
+      background: `${highlight}`,
       border: "0",
-      highlight: `8px -8px 16px 0px ${highlight}`,
-      shadow: `-8px 8px 16px 0 ${shadow}`,
+      highlight: `none`,
+      shadow: `none`,
     },
   };
 };
