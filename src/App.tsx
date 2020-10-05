@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { UseWalletProvider } from 'use-wallet'
 import { ToastContainer, Slide } from 'react-toastify'
 import { ApolloProvider } from '@apollo/client'
+import styled from 'styled-components'
 import 'react-toastify/dist/ReactToastify.css';
 
 import MobileMenu from 'components/MobileMenu'
@@ -47,19 +48,21 @@ const App: React.FC = () => {
   return (
     <Router>
       <Providers>
-        <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
-        <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
-        <Switch>
-          <Route exact path='/'>
-            <Home />
-          </Route>
-          <Route exact path='/farm'>
-            <Farm />
-          </Route>
-          <Route path='/faq'>
-            <FAQ />
-          </Route>
-        </Switch>
+        <StyledBackgroundDiv>
+          <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
+          <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
+          <Switch>
+            <Route exact path='/'>
+              <Home />
+            </Route>
+            <Route exact path='/farm'>
+              <Farm />
+            </Route>
+            <Route path='/faq'>
+              <FAQ />
+            </Route>
+          </Switch>
+        </StyledBackgroundDiv>
       </Providers>
     </Router>
   )
@@ -104,5 +107,13 @@ const Providers: React.FC = ({ children }) => {
     </ThemeProvider>
   )
 }
+
+const StyledBackgroundDiv = styled.div`
+  background: url(https://index-dao.s3.amazonaws.com/gradient_bg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+`
+
 
 export default App
