@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Logo: React.FC = () => {
   return (
     <StyledLogo to="/">
-      <StyledEmoji>🦉</StyledEmoji>
+      <StyledEmoji src='https://index-dao.s3.amazonaws.com/owl.png' alt="Owl" />
     </StyledLogo>
   )
 }
@@ -21,20 +21,10 @@ const StyledLogo = styled(Link)`
   text-decoration: none;
 `
 
-const StyledEmoji = styled.span.attrs({
-  role: 'img',
-})`
-  font-size: 24px;
-`
-
-const StyledText = styled.span`
-  color: ${props => props.theme.textColor};
-  font-size: 18px;
-  font-weight: 700;
-  margin-left: ${props => props.theme.spacing[2]}px;
-  @media (max-width: 400px) {
-    display: none;
-  }
+const StyledEmoji = styled.img`
+  height: 24px;
+  text-align: center;
+  min-width: 24px;
 `
 
 export default Logo
