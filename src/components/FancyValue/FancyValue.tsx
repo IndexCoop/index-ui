@@ -10,15 +10,16 @@ interface FancyValueProps {
     src: string;
     alt: string;
   },
+  iconStyles?: any;
   label: string,
   value: string,
 }
 
-const FancyValue: React.FC<FancyValueProps> = ({ icon, label, value }) => {
+const FancyValue: React.FC<FancyValueProps> = ({ icon, iconStyles, label, value }) => {
   return (
     <Box alignItems='center' row>
       <Box row justifyContent='center' minWidth={48}>
-        <StyledIcon src={icon.src} alt={icon.alt} />
+        <StyledIcon src={icon.src} alt={icon.alt} style={iconStyles} />
       </Box>
       <Spacer size='sm' />
       <Box flex={1}>
