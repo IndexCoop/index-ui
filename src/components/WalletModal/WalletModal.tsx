@@ -21,6 +21,7 @@ import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 
 import useBalances from 'hooks/useBalances'
+import useLocalStorage from 'hooks/useLocalStorage'
 
 const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const { reset } = useWallet()
@@ -40,6 +41,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   }, [])
 
   const handleSignOut = useCallback(() => {
+    localStorage.removeItem('walletconnect');
     reset()
     toast.success('You\'ve successfully signed out.')
     onDismiss && onDismiss()
