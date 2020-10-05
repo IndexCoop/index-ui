@@ -6,6 +6,7 @@ const Nav: React.FC = () => {
     <StyledNav>
       <StyledLink href="https://twitter.com/indexdao">Twitter</StyledLink>
       <StyledLink href="https://gov.theindexdao.com">Forum</StyledLink>
+      <StyledLink href="https://discord.gg/RKZ4S3b">Discord</StyledLink>
     </StyledNav>
   )
 }

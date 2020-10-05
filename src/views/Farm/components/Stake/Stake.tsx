@@ -11,6 +11,7 @@ import {
   CardIcon,
 } from 'react-neu'
 import { useWallet } from 'use-wallet'
+import styled from 'styled-components'
 
 import Label from 'components/Label'
 import Value from 'components/Value'
@@ -154,7 +155,12 @@ const Stake: React.FC = () => {
   return (
     <>
       <Card>
-        <CardIcon>🐣</CardIcon>
+        <CardIcon>
+          <StyledIcon
+            alt="Chick icon"
+            src="https://index-dao.s3.amazonaws.com/chick.png"
+          />
+        </CardIcon>
         <CardContent>
           <Box
             alignItems="center"
@@ -187,5 +193,11 @@ const Stake: React.FC = () => {
     </>
   )
 }
+
+const StyledIcon = styled.img`
+  height: 58px;
+  text-align: center;
+  min-width: 58px;
+`
 
 export default Stake

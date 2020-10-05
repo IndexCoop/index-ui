@@ -10,6 +10,7 @@ import {
   CardIcon,
 } from 'react-neu'
 import { useWallet } from 'use-wallet'
+import styled from 'styled-components'
 
 import Label from 'components/Label'
 import Value from 'components/Value'
@@ -59,7 +60,12 @@ const Harvest: React.FC = () => {
 
   return (
     <Card>
-      <CardIcon>🦉</CardIcon>
+      <CardIcon>
+        <StyledIcon
+          alt="Owl icon"
+          src="https://index-dao.s3.amazonaws.com/owl.png"
+        />
+      </CardIcon>
       <CardContent>
         <Box
           alignItems="center"
@@ -75,5 +81,11 @@ const Harvest: React.FC = () => {
     </Card>
   )
 }
+
+const StyledIcon = styled.img`
+  height: 58px;
+  text-align: center;
+  min-width: 58px;
+`
 
 export default Harvest

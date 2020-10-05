@@ -4,11 +4,9 @@ import {
   Card,
   CardContent,
   Container,
-  Spacer,
 } from 'react-neu'
 import { useLocation } from 'react-router-dom'
 
-import ExternalLink from 'components/ExternalLink'
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
 
@@ -23,11 +21,15 @@ const FAQ: React.FC = () => {
       return pathArr[2]
     }
   }, [pathArr])
+  const icon = {
+    src: 'https://index-dao.s3.amazonaws.com/book.png',
+    alt: 'Book',
+  };
 
   return (
     <Page>
       <PageHeader
-        icon="📖"
+        icon={icon}
         subtitle="Learn about Index"
         title="FAQ"
       />
@@ -115,6 +117,5 @@ const FAQ: React.FC = () => {
     </Page>
   )
 }
-
 
 export default FAQ
