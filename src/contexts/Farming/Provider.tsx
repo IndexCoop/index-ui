@@ -19,8 +19,8 @@ import {
 import { waitTransaction } from 'utils/index'
 import { stakingRewardsAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses'
 
-// Oct 6th 2020, 12pm PDT
-const farmingStartTime = 1602010800000;
+// Oct 7th 2020, 12pm PDT
+const farmingStartTime = 1602097200000;
 const fireConfetti = () => {
   confetti({
     particleCount: 100,
