@@ -86,7 +86,8 @@ const FAQ: React.FC = () => {
               question="Am I eligible for the initial INDEX token distribution?"
               slug="airdrop"
             >
-              <span>Users who purchased at least $10 of the DeFi Pulse Index Set before block #10980212 (October 3rd, 2020, 7pm PST) have been granted a portion of INDEX tokens at launch. Visit the `Farm` tab to check if you qualify.</span>
+              <span>Users who purchased at least $10 of the DeFi Pulse Index Set before block #10980212 (October 3rd, 2020, 7pm PST) have been granted a portion of INDEX tokens at launch.</span>
+              <span>To see if you qualify, connect your wallet and check the 'Claim Your INDEX Rewards' Card at the bottom of the page.</span>
             </Question>
             <Question
               active={activeSlug === "liquidity-mining"}
@@ -94,6 +95,7 @@ const FAQ: React.FC = () => {
               slug="liquidity-mining"
             >
               <span>The initial INDEX Liquidity Mining program will distribute 9% of all Index tokens and run for 60 days, starting from October 7th, 12pm PDT. INDEX tokens released under this program are not subject to vesting.</span>
+              <span>Instructions on how to get started mining INDEX can be found <StyledLink target="_blank" href="#">here.</StyledLink></span>
             </Question>
             <Question
               active={activeSlug === "third-parties"}
@@ -110,8 +112,7 @@ const FAQ: React.FC = () => {
         <Card>
           <CardContent>
             <span>
-              For more detailed information about the Index Coop, see our launch article&nbsp;
-              <StyledLink target="_blank" href="#">here.</StyledLink>
+              For more detailed information about the Index Coop, see our launch article <StyledLink target="_blank" href="#">here.</StyledLink>
             </span>
           </CardContent>
         </Card>
