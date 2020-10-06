@@ -36,7 +36,7 @@ const Question: React.FC<QuestionProps> = ({
               <Spacer size="sm" />
             </>
           )}
-          <StyledQuestionLink href={`https://www.theindexdao.com/faq/${slug}`}>{question}</StyledQuestionLink>
+          <StyledQuestionLink href={`https://www.indexcoop.com/faq/${slug}`}>{question}</StyledQuestionLink>
         </Box>
         <Spacer />
         {React.Children.map(children, (child, i) => (

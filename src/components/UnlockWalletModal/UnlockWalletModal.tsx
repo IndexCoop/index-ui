@@ -54,9 +54,11 @@ const UnlockWalletModal: React.FC<ModalProps> = ({
           <Spacer />
           <Box flex={1}>
             <WalletProviderCard
+              isDisabled
               icon={<img src={walletConnectLogo} style={{ height: 24, marginTop: '8px' }} />}
               name="WalletConnect"
-              onSelect={handleConnectWalletConnect}
+              buttonText="Coming Soon"
+              onSelect={() => {}}
             />
           </Box>
         </StyledWalletsWrapper>
