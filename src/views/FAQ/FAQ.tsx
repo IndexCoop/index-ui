@@ -112,7 +112,7 @@ const FAQ: React.FC = () => {
         <Card>
           <CardContent>
             <span>
-              For more detailed information about the Index Coop, see our launch article <StyledLink target="_blank" href="#">here.</StyledLink>
+              For more detailed information about the Index Coop, see the launch article <StyledLink target="_blank" href="#">here.</StyledLink>
             </span>
           </CardContent>
         </Card>
