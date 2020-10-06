@@ -20,7 +20,7 @@ const Home: React.FC = () => {
     <Page>
       <PageHeader
         icon={icon}
-        title='Index DAO'
+        title='Index'
         subtitle='A global community creating and maintaining the best crypto index products'
       />
         <Button text='View Farms' to='/farm' />

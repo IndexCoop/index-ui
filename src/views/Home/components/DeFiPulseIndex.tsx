@@ -31,14 +31,14 @@ const Home: React.FC = () => {
               column
             >
               <StyledHeader>DeFi Pulse Index</StyledHeader>
-              <Label text="Index DAO's First Index" />
+              <Label text="Index's First Product" />
             </Box>
             <Spacer />
             <span>
               <ExternalLink href="https://www.tokensets.com/portfolio/dpi">The DeFi Pulse Index</ExternalLink> is a blockchain
-              financial product that lowers the entry barrier for new users who lack the expertise to gain exposure to DeFi and
-              provides experienced users with exposure to DeFi through one single asset. It is the first index of decentralized
-              finance that isn't synthetic or a derivative. Instead, users own the tokens that comprise the capitalization-weighted index.
+              financial product that lowers the entry barrier for new users who want to gain exposure to DeFi and provides experienced users
+              easy to use exposure to DeFi through one single asset. It is the first index of decentralized finance that isn't synthetic or
+              a derivative. Instead, users own the tokens that comprise the capitalization-weighted index.
             </span>
             <Spacer />
             <StyledIndexImage src='https://index-dao.s3.amazonaws.com/index_allocations_1.png' />

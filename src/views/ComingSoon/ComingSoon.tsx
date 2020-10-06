@@ -13,7 +13,7 @@ const ComingSoon: React.FC = () => {
           alt: 'Owl',
           src: 'https://index-dao.s3.amazonaws.com/owl.png'
         }}
-        title='Index DAO'
+        title='Index'
         subtitle='A global community launching and maintaining the world’s best crypto index vehicles'
       />
       <Container>
