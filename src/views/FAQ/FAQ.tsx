@@ -94,7 +94,7 @@ const FAQ: React.FC = () => {
               question="Am I eligible for the initial INDEX token distribution?"
               slug="airdrop"
             >
-              <span>Users who purchased at least $10 of the DeFi Pulse Index Set before block #10980212 (October 3rd, 2020, 7pm PST) have been granted a portion of INDEX tokens at launch.</span>
+              <span>Users have a balance of at least $10 of the DeFi Pulse Index Set on block #10980212 (October 3rd, 2020, 7pm PST) have been granted a portion of INDEX tokens at launch.</span>
               <span>To see if you qualify, connect your wallet and check the 'Claim Your INDEX Rewards' Card at the bottom of the page.</span>
             </Question>
             <Question
