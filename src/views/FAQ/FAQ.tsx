@@ -1,9 +1,11 @@
 import React, { useMemo } from 'react'
+import styled from 'styled-components'
 
 import {
   Card,
   CardContent,
   Container,
+  Spacer,
 } from 'react-neu'
 import { useLocation } from 'react-router-dom'
 
@@ -102,9 +104,24 @@ const FAQ: React.FC = () => {
             </Question>
           </CardContent>
         </Card>
+
+        <Spacer />
+
+        <Card>
+          <CardContent>
+            <span>
+              For more detailed information about the Index Coop, see our launch article&nbsp;
+              <StyledLink target="_blank" href="#">here.</StyledLink>
+            </span>
+          </CardContent>
+        </Card>
       </Container>
     </Page>
   )
 }
+
+const StyledLink = styled.a`
+  display: inline-block;
+`
 
 export default FAQ
