@@ -37,6 +37,14 @@ const FAQ: React.FC = () => {
       <Container>
         <Card>
           <CardContent>
+            <span>
+              For more detailed information about the Index Coop, see the launch article <ExternalLink href="https://medium.com/indexdao/introducing-the-index-cooperative-a4eaaf0bcfe2">here.</ExternalLink>
+            </span>
+          </CardContent>
+        </Card>
+        <Spacer />
+        <Card>
+          <CardContent>
             <Question
               active={activeSlug === "the-index"}
               question="What is the vision of Index?"
@@ -95,18 +103,8 @@ const FAQ: React.FC = () => {
               slug="liquidity-mining"
             >
               <span>The initial INDEX Liquidity Mining program will distribute 9% of all Index tokens and run for 60 days, starting from October 7th, 12pm PDT. INDEX tokens released under this program are not subject to vesting.</span>
-              <span>Instructions on how to get started mining INDEX can be found <ExternalLink href="#">here.</ExternalLink></span>
+              <span>Instructions on how to get started mining INDEX can be found <ExternalLink href="https://medium.com/indexdao/introducing-the-index-cooperative-a4eaaf0bcfe2">here</ExternalLink> under the liquidity mining section.</span>
             </Question>
-          </CardContent>
-        </Card>
-
-        <Spacer />
-
-        <Card>
-          <CardContent>
-            <span>
-              For more detailed information about the Index Coop, see the launch article <ExternalLink href="#">here.</ExternalLink>
-            </span>
           </CardContent>
         </Card>
       </Container>
