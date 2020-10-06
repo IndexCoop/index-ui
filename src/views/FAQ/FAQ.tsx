@@ -97,13 +97,6 @@ const FAQ: React.FC = () => {
               <span>The initial INDEX Liquidity Mining program will distribute 9% of all Index tokens and run for 60 days, starting from October 7th, 12pm PDT. INDEX tokens released under this program are not subject to vesting.</span>
               <span>Instructions on how to get started mining INDEX can be found <ExternalLink href="#">here.</ExternalLink></span>
             </Question>
-            <Question
-              active={activeSlug === "third-parties"}
-              question="What is the relationship between Set Labs, DeFi Pulse and Index?"
-              slug="third-parties"
-            >
-              <span>Set Labs and DeFi Pulse are early contributors to Index. Set Labs and DeFi Pulse have a minority stake in INDEX tokens but do not represent Index.</span>
-            </Question>
           </CardContent>
         </Card>
 
