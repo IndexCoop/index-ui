@@ -17,7 +17,7 @@ const Treasury: React.FC = () => {
       : '--'
 
   const dpiPriceValue =
-    typeof dpiPrice !== 'undefined'
+    typeof dpiPrice !== 'undefined' && Number(dpiPrice) > 0
       ? '$' + numeral(dpiPrice).format('0.00a')
       : '--'
 
