@@ -7,6 +7,7 @@ const Nav: React.FC = () => {
       <StyledLink href="https://twitter.com/indexdao">Twitter</StyledLink>
       <StyledLink href="https://gov.theindexdao.com">Forum</StyledLink>
       <StyledLink href="https://discord.gg/RKZ4S3b">Discord</StyledLink>
+      <StyledLink href="#">Medium</StyledLink>
       <StyledLink href="https://index-dao.s3.amazonaws.com/index-logo-pack.zip" download>Logos</StyledLink>
     </StyledNav>
   )

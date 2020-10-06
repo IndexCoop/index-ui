@@ -30,7 +30,6 @@ const FAQ: React.FC = () => {
     <Page>
       <PageHeader
         icon={icon}
-        subtitle="Learn about Index"
         title="FAQ"
       />
       <Container>
@@ -41,75 +40,66 @@ const FAQ: React.FC = () => {
               question="What is the vision of the Index DAO?"
               slug="the-index-dao"
             >
-              <span>By bringing the collective minds of the world’s experts in finance and indexes, we can create and maintain the world’s best and most widely adopted crypto indices.</span>
-              <span>These minds will collaborate to add/remove index vehicles, improve rebalance execution criteria, model out and discuss index composition, etc.</span>
-              <span>This DAO has the potential to be one of the world’s largest capital allocators and the decisions made in this DAO can be potentially influence the movement of billions of dollars</span>
+              <span>Index DAO is the first community-led decentralized organization focused on enabling the creation and adoption of crypto index products.</span>
+              <span>To achieve this, Index DAO aims to collaborate with the world's best index experts and brands to launch/maintain desirable indices, govern critical system parameters with growth in mind and embed its products into as many distribution channels as possible.</span>
+              <span>It also aims to collaborate with the growing DeFi community of enthusiasts to generate widespread awareness of its mission and products.</span>
             </Question>
             <Question
-              active={activeSlug === "stakeholders"}
-              question="Who are the stakeholders of INDEX DAO?"
-              slug="stakeholders"
+              active={activeSlug === "governance-token"}
+              question="What is the INDEX Governance Token?"
+              slug="governance-token"
+            >
+              <span>The INDEX Governance Token is an ERC20 token used for maintaining and upgrading the Index DAO. Maintenance and upgrades to the DAO will initially be done via a multisig, but will eventually be moved to a complete on-chain voting scheme.</span>
+            </Question>
+            <Question
+              active={activeSlug === "governance-duties"}
+              question="What are the responsibilities of the Index DAO?"
+              slug="governance-duties"
             >
               <ul>
                 <li>
-                  <b>Governors</b>
+                  <b>Adding Supported Indices:</b>
                   <span> - </span>
-                  <span>Governors want to see the success of INDEX DAO and make long-term oriented decisions</span>
+                  <span>Index DAO will source, develop and support new index strategies that have broad market appeal.</span>
                 </li>
                 <li>
-                  <b>Investors</b>
+                  <b>Distributing Community Treasury</b>
                   <span> - </span>
-                  <span>Whether an individual or a fund, they want to be investing in the best product possible and know that the brightest minds are generating the best methodology and rebalance execution.</span>
+                  <span>Index DAO will devise incentive programs for index methodologists, liquidity providers, marketers, community developers, and other experts to increase adoption of Index DAO indices.</span>
                 </li>
                 <li>
-                  <b>Component Projects</b>
+                  <b>Updating Fee Configurations</b>
                   <span> - </span>
-                  <span>Component projects care as indices are a large capital allocators and inclusion/exclusion can result in large buy/sell pressure on their token.</span>
+                  <span>The Index DAO is permitted to institute and alter management fees for any of it’s index products.</span>
                 </li>
-                <li>
-                  <b>Index Experts</b>
-                  <span> - </span>
-                  <span>Whether a company such as DeFi Pulse or an individual, index experts can create indices and can get compensated by contributing analysis, their brand, insights, and methodologies.</span>
-                </li>
-              </ul>
-            </Question>
-            <Question
-              active={activeSlug === "index-token"}
-              question="What abilities does the INDEX DAO have?"
-              slug="index-token"
-            >
-              <ul>
                 <li>
                   <b>Ratify Rebalances</b>
                   <span> - </span>
-                  <span>Voters can approve/disapprove rebalances.</span>
-                </li>
-                <li>
-                  <b>Rebalance Composition</b>
-                  <span> - </span>
-                  <span>Periodically submit components, weights, and max trade sizes that are used to rebalance the SetToken.</span>
-                </li>
-                <li>
-                  <b>Rebalance Execution</b>
-                  <span> - </span>
-                  <span>Voting on the best methods / ways to perform rebalances of potentially illiquid and large quantities of assets.</span>
-                </li>
-                <li>
-                  <b>Add and Remove Indices</b>
-                  <span> - </span>
-                  <span>The DAO can vote in new indices for inclusion under the INDEX DAO.</span>
-                </li>
-                <li>
-                  <b>Component Migrations</b>
-                  <span> - </span>
-                  <span>Upgrading constituent tokens (e.g. LEND {'->'} Aave).</span>
-                </li>
-                <li>
-                  <b>Fee Splits</b>
-                  <span> - </span>
-                  <span>Changing and updating fees on SetTokens and receiving portions of fees from those SetTokens.</span>
+                  <span>Voters will approve or reject proposed index product rebalances on a per product basis.</span>
                 </li>
               </ul>
+            </Question>
+            <Question
+              active={activeSlug === "airdrop"}
+              question="Am I eligible for the INDEX token airdrop?"
+              slug="airdrop"
+            >
+              <span>Users who purchased at least $10 of the DeFi Pulse Index Set before block #10980212 (October 3rd, 2020, 7pm PST) are eligible for airdrop rewards. Visit the `Farm` tab to check if you qualify.</span>
+              <span>Air drop rewards are weighted on tiers based on capital contributed. View the tiering list here.</span>
+            </Question>
+            <Question
+              active={activeSlug === "liquidity-mining"}
+              question="How will the INDEX liquidity mining program work?"
+              slug="liquidity-mining"
+            >
+              <span>The initial INDEX Liquidity Mining program will distribute 9% of all Index tokens and run for 60 days, starting from October 7th, 12pm PDT. Users can earn INDEX tokens by buying the DeFi Pulse Set and providing liquidity to the ETH/DPI Pool on Uniswap.</span>
+            </Question>
+            <Question
+              active={activeSlug === "third-parties"}
+              question="What is the relationship between Set Labs, DeFi Pulse and the Index DAO?"
+              slug="third-parties"
+            >
+              <span>Set Labs and DeFi Pulse are early contributors to the Index DAO. Set Labs and DeFi Pulse have a minority stake in INDEX tokens but do not represent the Index DAO.</span>
             </Question>
           </CardContent>
         </Card>

@@ -93,6 +93,7 @@ const AirdropProvider: React.FC = ({ children }) => {
 
     if (success) {
       setTransactionStatusType(TransactionStatusType.IS_COMPLETED);
+      setClaimableQuantity(new BigNumber(0));
     } else {
       setTransactionStatusType(TransactionStatusType.IS_FAILED);
     }
