@@ -71,7 +71,7 @@ const RewardsModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
         <Spacer size='sm' />
         <Button
           onClick={onCheckAirdropClaim}
-          text='Check Airdrop Quantity'
+          text='Check Claimable Quantity'
           variant='secondary'
         />
         {claimErrorMessage && (
