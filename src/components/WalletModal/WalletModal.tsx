@@ -21,7 +21,6 @@ import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 
 import useBalances from 'hooks/useBalances'
-import useLocalStorage from 'hooks/useLocalStorage'
 
 const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const { reset } = useWallet()
@@ -97,6 +96,17 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               label='Staked Uniswap ETH/DPI LP'
               value={getDisplayBalance(stakedUniswapEthDpiLpBalance)}
             />
+          </Box>
+        </Split>
+        <Spacer />
+        <Separator />
+        <Spacer />
+        <Split>
+          <Box row>
+            <Button href="https://www.tokensets.com/portfolio/dpi" text='Buy DPI Tokens' variant='secondary' />
+          </Box>
+          <Box row>
+            <Button href="https://app.uniswap.org/#/add/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/ETH" text='Add Liquidity' variant='secondary' />
           </Box>
         </Split>
       </ModalContent>
