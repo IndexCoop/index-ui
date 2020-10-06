@@ -11,11 +11,15 @@ import styled from 'styled-components'
 interface WalletProviderCardProps {
   icon: React.ReactNode,
   name: string,
+  isDisabled?: boolean,
+  buttonText?: string,
   onSelect: () => void
 }
 const WalletProviderCard: React.FC<WalletProviderCardProps> = ({
   icon,
   name,
+  isDisabled,
+  buttonText,
   onSelect,
 }) => (
   <ProviderContainer onClick={onSelect}>
@@ -27,7 +31,8 @@ const WalletProviderCard: React.FC<WalletProviderCardProps> = ({
       <CardActions>
         <Button
           full
-          text="Select"
+          disabled={isDisabled}
+          text={buttonText || 'Select'}
         />
       </CardActions>
     </Card>
