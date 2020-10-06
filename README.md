@@ -4,6 +4,10 @@ Index UI is a simple front-end used to interact with Index. This front-end descr
 
 ## Installation
 
+Make a copy of the prod env file
+
+`cp env.prod .env`
+
 This project was created with `create-react-app`.
 
 `yarn start`
