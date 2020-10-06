@@ -5,7 +5,7 @@ import styled from 'styled-components'
 const Explanation: React.FC = () => (
   <Card>
     <CardContent>
-      <StyledHeader>What is Index DAO?</StyledHeader>
+      <StyledHeader>What is Index?</StyledHeader>
       <ul>
         <li>
           <b>A Universe of Indices</b>
