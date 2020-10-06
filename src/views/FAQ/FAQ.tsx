@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react'
-import styled from 'styled-components'
 
 import {
   Card,
@@ -11,6 +10,7 @@ import { useLocation } from 'react-router-dom'
 
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
+import ExternalLink from 'components/ExternalLink'
 
 import Question from './components/Question'
 
@@ -95,7 +95,7 @@ const FAQ: React.FC = () => {
               slug="liquidity-mining"
             >
               <span>The initial INDEX Liquidity Mining program will distribute 9% of all Index tokens and run for 60 days, starting from October 7th, 12pm PDT. INDEX tokens released under this program are not subject to vesting.</span>
-              <span>Instructions on how to get started mining INDEX can be found <StyledLink target="_blank" href="#">here.</StyledLink></span>
+              <span>Instructions on how to get started mining INDEX can be found <ExternalLink href="#">here.</ExternalLink></span>
             </Question>
             <Question
               active={activeSlug === "third-parties"}
@@ -112,7 +112,7 @@ const FAQ: React.FC = () => {
         <Card>
           <CardContent>
             <span>
-              For more detailed information about the Index Coop, see the launch article <StyledLink target="_blank" href="#">here.</StyledLink>
+              For more detailed information about the Index Coop, see the launch article <ExternalLink href="#">here.</ExternalLink>
             </span>
           </CardContent>
         </Card>
@@ -120,9 +120,5 @@ const FAQ: React.FC = () => {
     </Page>
   )
 }
-
-const StyledLink = styled.a`
-  display: inline-block;
-`
 
 export default FAQ
