@@ -81,18 +81,17 @@ const FAQ: React.FC = () => {
             </Question>
             <Question
               active={activeSlug === "airdrop"}
-              question="Am I eligible for the INDEX token airdrop?"
+              question="Am I eligible for the initial INDEX token distribution?"
               slug="airdrop"
             >
-              <span>Users who purchased at least $10 of the DeFi Pulse Index Set before block #10980212 (October 3rd, 2020, 7pm PST) are eligible for airdrop rewards. Visit the `Farm` tab to check if you qualify.</span>
-              <span>Air drop rewards are weighted on tiers based on capital contributed. View the tiering list here.</span>
+              <span>Users who purchased at least $10 of the DeFi Pulse Index Set before block #10980212 (October 3rd, 2020, 7pm PST) have been granted a portion of INDEX tokens at launch. Visit the `Farm` tab to check if you qualify.</span>
             </Question>
             <Question
               active={activeSlug === "liquidity-mining"}
               question="How will the INDEX liquidity mining program work?"
               slug="liquidity-mining"
             >
-              <span>The initial INDEX Liquidity Mining program will distribute 9% of all Index tokens and run for 60 days, starting from October 7th, 12pm PDT. Users can earn INDEX tokens by buying the DeFi Pulse Set and providing liquidity to the ETH/DPI Pool on Uniswap.</span>
+              <span>The initial INDEX Liquidity Mining program will distribute 9% of all Index tokens and run for 60 days, starting from October 7th, 12pm PDT. INDEX tokens released under this program are not subject to vesting.</span>
             </Question>
             <Question
               active={activeSlug === "third-parties"}
