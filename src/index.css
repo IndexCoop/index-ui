@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'Aeonik';
+  src: url('./fonts/Aeonik-Regular.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('./fonts/Aeonik-Bold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+body {
+  background: #F0E7EA;
+  margin: 0;
+  font-family: 'Aeonik', sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+button {
+  font-family: 'Aeonik', sans-serif;
+}
+
+/* React Toastify */
+div > .Toastify__toast {
+  background: #1d144f;
+  color: #ffffff;
+}
+
+div > .Toastify__toast-body {
+  margin-left: 20px;
+}
+
+div > .Toastify__toast--success {
+  background: #ffffff;
+  color: #1d144f;
+  border-radius: 8px;
+}
+
+div > .Toastify__progress-bar--success {
+  background: #2bb160;
+}
+
+div > .Toastify__toast--info {
+  border-top: 5px solid #2d2ce5;
+}
+
+div > .Toastify__toast--warning {
+  border-top: 5px solid #f3b731;
+}
+
+div > .Toastify__toast--error {
+  border-top: 5px solid #df4857;
+}
