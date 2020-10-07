@@ -178,6 +178,7 @@ const Stake: React.FC = () => {
             column
           >
             <StyledAPYQuantity>{apy}% APY</StyledAPYQuantity>
+            <StyledAPYLabel>(Unstable)</StyledAPYLabel>
           </Box>
         </CardContent>
         <CardActions>
@@ -214,6 +215,10 @@ const StyledAPYQuantity = styled.span`
   color: white;
   font-weight: 600;
   font-size: 28px;
+`
+const StyledAPYLabel = styled.span`
+  color: white;
+  font-size: 20px;
 `
 
 export default Stake
