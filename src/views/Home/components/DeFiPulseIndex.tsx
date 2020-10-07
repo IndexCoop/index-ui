@@ -45,6 +45,7 @@ const Home: React.FC = () => {
               <Button
                 href="https://www.pulse.inc/"
                 size="md"
+                variant="secondary"
                 text="View The Methodology"
               />
               <Spacer />
