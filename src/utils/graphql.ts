@@ -14,12 +14,6 @@ export const DPI_ETH_UNISWAP_QUERY= gql`
       id
       reserveUSD
     }
-    bundle(id: "1") {
-      ethPrice
-    }
-    tokens(where: { id: "0x0954906da0Bf32d5479e25f46056d22f08464cab" }) {
-      derivedETH
-    }
   }
 `
 
