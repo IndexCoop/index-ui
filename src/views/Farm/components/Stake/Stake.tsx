@@ -9,6 +9,7 @@ import {
   CardActions,
   CardContent,
   CardIcon,
+  Spacer,
 } from 'react-neu'
 import { useWallet } from 'use-wallet'
 import styled from 'styled-components'
@@ -21,6 +22,7 @@ import useFarming from 'hooks/useFarming'
 import StakeModal from './components/StakeModal'
 import UnstakeModal from './components/UnstakeModal'
 import useBalances from 'hooks/useBalances';
+import usePrices from 'hooks/usePrices';
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
@@ -37,6 +39,7 @@ const Stake: React.FC = () => {
     onStake,
     onUnstake,
   } = useFarming()
+  const { apy } = usePrices()
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
@@ -169,6 +172,13 @@ const Stake: React.FC = () => {
             <Value value={formattedStakedBalance} />
             <Label text="Staked Uniswap ETH/DPI LP Tokens" />
           </Box>
+          <Spacer />
+          <Box
+            alignItems="center"
+            column
+          >
+            <StyledAPYQuantity>{apy}% APY</StyledAPYQuantity>
+          </Box>
         </CardContent>
         <CardActions>
           {UnstakeButton}
@@ -198,6 +208,12 @@ const StyledIcon = styled.img`
   height: 58px;
   text-align: center;
   min-width: 58px;
+`
+
+const StyledAPYQuantity = styled.span`
+  color: white;
+  font-weight: 600;
+  font-size: 28px;
 `
 
 export default Stake

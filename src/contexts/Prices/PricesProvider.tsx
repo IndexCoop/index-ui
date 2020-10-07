@@ -10,6 +10,7 @@ import { indexTokenAddress } from 'constants/tokenAddresses';
 const PricesProvider: React.FC = ({ children }) => {
   const [dpiPrice, setDpiPrice] = useState<string>()
   const [totalUSDInFarms, setTotalUSDInFarms] = useState<number>()
+  const [apy, setAPY] = useState<string>()
 
   const { loading, error, data: uniswapData } = useQuery(
     DPI_ETH_UNISWAP_QUERY
@@ -36,11 +37,23 @@ const PricesProvider: React.FC = ({ children }) => {
       .catch(error => console.log(error));
   }, [])
 
+  useEffect(() => {
+    if (!dpiPrice || !totalUSDInFarms) return;
+
+    const totalTokenEmissionsPerDay = 15000;
+    const totalUSDEmissionPerDay = totalTokenEmissionsPerDay * Number(dpiPrice)
+    const dailyYield = new BigNumber(totalUSDEmissionPerDay).dividedBy(new BigNumber(totalUSDInFarms)).multipliedBy(100)
+    const calculatedApy = dailyYield.multipliedBy(365)
+
+    setAPY(calculatedApy.toFixed(2))
+  }, [totalUSDInFarms, dpiPrice])
+
   
   return (
     <PricesContext.Provider value={{
       dpiPrice,
-      totalUSDInFarms
+      totalUSDInFarms,
+      apy
     }}>
       {children}
     </PricesContext.Provider>
