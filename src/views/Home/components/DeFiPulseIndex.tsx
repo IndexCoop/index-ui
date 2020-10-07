@@ -35,16 +35,19 @@ const Home: React.FC = () => {
             </Box>
             <Spacer />
             <span>
-              <ExternalLink href="https://www.tokensets.com/portfolio/dpi">The DeFi Pulse Index</ExternalLink> is a blockchain
-              financial product that lowers the entry barrier for new users who want to gain exposure to DeFi and provides experienced users
-              easy to use exposure to DeFi through one single asset. It is the first index of decentralized finance that isn't synthetic or
-              a derivative. Instead, users own the tokens that comprise the capitalization-weighted index.
+              <ExternalLink href="https://www.tokensets.com/portfolio/dpi">The DeFi Pulse Index</ExternalLink> is a digital asset index designed to track tokens’ performance within the Decentralized Finance industry. The index is weighted based on the value of each token’s circulating supply. The DeFi Pulse Index aims to track projects in Decentralized Finance that have significant usage and show a commitment to ongoing maintenance and development.
             </span>
             <Spacer />
             <StyledIndexImage src='https://index-dao.s3.amazonaws.com/index_allocations_1.png' />
           </CardContent>
           <CardActions>
             <Box row justifyContent="center">
+              <Button
+                href="https://www.pulse.inc/"
+                size="md"
+                text="View The Methodology"
+              />
+              <Spacer />
               <Button
                 href="https://www.tokensets.com/portfolio/dpi"
                 size="md"
