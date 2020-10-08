@@ -111,7 +111,7 @@ export const unstakeAndClaimEarnedIndexLpReward = (
   return new Promise((resolve) => {
     stakingContract.methods
       .exit()
-      .send({ from: account, gas: 200000 })
+      .send({ from: account, gas: 250000 })
       .on('transactionHash', (txId: string) => {
         if (!txId) resolve(null)
 
