@@ -19,7 +19,7 @@ const WalletProvider: React.FC = ({ children}) => {
     setConnector('');
     setStatus('disconnected');
     localStorage.removeItem('walletconnect');
-  }, [account, connector, status]);
+  }, [account, active, connector, status]);
 
   const connect = useCallback(async (walletType: string) => {
     try {
