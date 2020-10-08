@@ -9,14 +9,13 @@ import {
   CardContent,
   CardIcon,
 } from 'react-neu'
-import { useWallet } from 'use-wallet'
 import styled from 'styled-components'
 
 import Label from 'components/Label'
 import Value from 'components/Value'
 
 import useFarming from 'hooks/useFarming'
-
+import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances';
 
 const Harvest: React.FC = () => {

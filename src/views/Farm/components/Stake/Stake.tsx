@@ -11,18 +11,18 @@ import {
   CardIcon,
   Spacer,
 } from 'react-neu'
-import { useWallet } from 'use-wallet'
 import styled from 'styled-components'
 
 import Label from 'components/Label'
 import Value from 'components/Value'
 
+import useBalances from 'hooks/useBalances'
 import useFarming from 'hooks/useFarming'
+import usePrices from 'hooks/usePrices'
+import useWallet from 'hooks/useWallet'
 
 import StakeModal from './components/StakeModal'
 import UnstakeModal from './components/UnstakeModal'
-import useBalances from 'hooks/useBalances';
-import usePrices from 'hooks/usePrices';
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)

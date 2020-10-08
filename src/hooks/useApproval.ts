@@ -1,8 +1,8 @@
 import { useCallback, useState, useEffect } from 'react'
 
-import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
+import useWallet from 'hooks/useWallet'
 import { approve } from 'utils'
 
 import useAllowance from './useAllowance'
@@ -16,7 +16,7 @@ const useApproval = (
   const [isApproving, setIsApproving] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
 
-  const { account, ethereum }: { account: string | null, ethereum?: provider} = useWallet()
+  const { account, ethereum }: { account: string | null | undefined, ethereum?: provider} = useWallet()
 
   const handleApprove = useCallback(async () => {
     if (!ethereum || !account || !spenderAddress || !tokenAddress) {

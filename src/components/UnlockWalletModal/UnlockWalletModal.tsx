@@ -9,7 +9,7 @@ import {
   Spacer,
 } from 'react-neu'
 import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
+import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify';
 
 import metamaskLogo from 'assets/metamask-fox.svg'
@@ -54,11 +54,9 @@ const UnlockWalletModal: React.FC<ModalProps> = ({
           <Spacer />
           <Box flex={1}>
             <WalletProviderCard
-              isDisabled
               icon={<img src={walletConnectLogo} style={{ height: 24, marginTop: '8px' }} />}
               name="WalletConnect"
-              buttonText="Coming Soon"
-              onSelect={() => {}}
+              onSelect={handleConnectWalletConnect}
             />
           </Box>
         </StyledWalletsWrapper>

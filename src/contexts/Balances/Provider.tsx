@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
-import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
 import Context from './Context'
+import useWallet from 'hooks/useWallet'
 import { getBalance } from 'utils/index'
 import { getEarnedIndexTokenQuantity } from 'index-sdk/stake';
 import {
@@ -24,7 +24,7 @@ const Provider: React.FC = ({ children }) => {
     account,
     ethereum,
     status
-  }: { account: string | null; ethereum: provider; status: string } = useWallet()
+  }: { account: string | null | undefined; ethereum: provider; status: string } = useWallet()
 
   const fetchBalances = useCallback(
     async (userAddress: string, provider: provider) => {

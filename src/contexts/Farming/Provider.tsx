@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { provider } from 'web3-core';
 import BigNumber from 'bignumber.js'
-import { useWallet } from 'use-wallet'
 import confetti from 'canvas-confetti'
 
 import Context from './Context'
@@ -10,6 +9,7 @@ import ConfirmTransactionModal, {
 } from 'components/ConfirmTransactionModal'
 import useApproval from 'hooks/useApproval'
 import useLocalStorage from 'hooks/useLocalStorage'
+import useWallet from 'hooks/useWallet'
 import {
   stakeUniswapEthDpiLpTokens,
   unstakeUniswapEthDpiLpTokens,

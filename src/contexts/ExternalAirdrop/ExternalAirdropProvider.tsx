@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 import { useCallback } from 'react'
 import BigNumber from 'bignumber.js'
@@ -14,6 +13,7 @@ import {
   checkIsAirdropClaimed,
   getAirdropDataForAddress,
 } from 'index-sdk/index'
+import useWallet from 'hooks/useWallet'
 import { waitTransaction } from 'utils/index'
 
 const AirdropProvider: React.FC = ({ children }) => {
@@ -31,7 +31,7 @@ const AirdropProvider: React.FC = ({ children }) => {
   const {
     account,
     ethereum,
-  }: { account: string | null, ethereum: provider } = useWallet()
+  }: { account: string | null | undefined, ethereum: provider } = useWallet()
 
   const onCheckAirdropClaim = useCallback(async () => {
     setAirdropQuantity(undefined)
