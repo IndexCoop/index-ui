@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="35px" viewBox="0 0 35 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>coinbase-wallet</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#1763FF" offset="0%"></stop>
+            <stop stop-color="#0047E5" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="coinbase-wallet" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" fill="url(#linearGradient-1)" cx="17.5" cy="17.5" r="17.5"></circle>
+        <circle id="Oval" fill="#FFFFFF" cx="17.5" cy="17.5" r="10.181615"></circle>
+        <rect id="Rectangle" fill="#0856F3" x="14.1905374" y="14.1905374" width="6.61892512" height="6.61892512" rx="0.5"></rect>
+    </g>
+</svg>

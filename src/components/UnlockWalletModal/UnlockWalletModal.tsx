@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
+import coinbaseWalletLogo from 'assets/coinbase-wallet.svg'
 
 import Modal from 'components/CustomModal'
 import WalletProviderCard from './components/WalletProviderCard'
@@ -30,6 +31,10 @@ const UnlockWalletModal: React.FC<ModalProps> = ({
 
   const handleConnectWalletConnect = useCallback(() => {
     connect('walletconnect');
+  }, [connect])
+
+  const handleConnectWalletLink = useCallback(() => {
+    connect('walletlink');
   }, [connect])
 
   useEffect(() => {
@@ -58,6 +63,19 @@ const UnlockWalletModal: React.FC<ModalProps> = ({
               name="WalletConnect"
               onSelect={handleConnectWalletConnect}
             />
+          </Box>
+        </StyledWalletsWrapper>
+        <Spacer />
+        <StyledWalletsWrapper>
+          <Box flex={1}>
+            <WalletProviderCard
+              icon={<img src={coinbaseWalletLogo} style={{ height: 32 }} />}
+              name="Coinbase Wallet"
+              onSelect={handleConnectWalletLink}
+            />
+          </Box>
+          <Spacer />
+          <Box flex={1}>
           </Box>
         </StyledWalletsWrapper>
       </ModalContent>
