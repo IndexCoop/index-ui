@@ -13,7 +13,6 @@ const WalletProvider: React.FC = ({ children}) => {
   const [status, setStatus] = useState('disconnected')
   const { account, activate, active, deactivate } = useWeb3React()
 
-  // Resets the user's web3 session
   const reset = useCallback(() => {
     if (active) deactivate()
 
@@ -22,11 +21,9 @@ const WalletProvider: React.FC = ({ children}) => {
     localStorage.removeItem('walletconnect');
   }, [account, connector, status]);
 
-  // Connects user to Web3
   const connect = useCallback(async (walletType: string) => {
-    reset()
-
     try {
+      reset()
       setConnector(walletType);
       setStatus('connecting')
 

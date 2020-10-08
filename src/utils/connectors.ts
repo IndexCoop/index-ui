@@ -14,7 +14,6 @@ export const injected = new InjectedConnector({
   supportedChainIds: [1, 3, 4, 5, 42]
 })
 
-// Mainnet only
 export const walletconnect = new WalletConnectConnector({
   rpc: { 1: NETWORK_URL },
   bridge: 'https://bridge.walletconnect.org',
@@ -22,7 +21,6 @@ export const walletconnect = new WalletConnectConnector({
   pollingInterval: 15000
 })
 
-// Mainnet only
 export const walletlink = new WalletLinkConnector({
   url: NETWORK_URL,
   appName: 'Index',
