@@ -51,10 +51,9 @@ const WalletProvider: React.FC = ({ children}) => {
       return
     }
 
-    setStatus('connecting')
-
     try {
       setConnector(walletType);
+      setStatus('connecting')
       if (walletType === 'injected') {
         await activate(injected, undefined, true)
         setStatus('connected')
