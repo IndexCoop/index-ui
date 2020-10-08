@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { ModalContent, ModalProps, Spacer, Button, ModalActions } from 'react-neu'
 import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
+import useWallet from 'hooks/useWallet'
 
 import Modal from 'components/CustomModal'
 

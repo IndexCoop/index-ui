@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import BigNumber from 'bignumber.js'
-import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
+import useWallet from 'hooks/useWallet'
 import { getAllowance } from 'utils'
 
 const useAllowance = (tokenAddress?: string, spenderAddress?: string) => {

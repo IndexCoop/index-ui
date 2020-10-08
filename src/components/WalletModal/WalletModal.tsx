@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 
 import BigNumber from 'bignumber.js'
-import { useWallet } from 'use-wallet'
+import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify'
 
 import numeral from 'numeral'

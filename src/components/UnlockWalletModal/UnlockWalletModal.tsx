@@ -9,7 +9,7 @@ import {
   Spacer,
 } from 'react-neu'
 import styled from 'styled-components'
-import { useWallet } from 'use-wallet'
+import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify';
 
 import metamaskLogo from 'assets/metamask-fox.svg'

@@ -6,6 +6,7 @@ interface WalletContextValues {
   status: string
   connect: any
   connector: any
+  reset: any
 }
 
 const WalletContext = createContext<WalletContextValues>({
@@ -14,6 +15,7 @@ const WalletContext = createContext<WalletContextValues>({
   status: '',
   connect: () => {},
   connector: () => {},
+  reset: () => {},
 })
 
 export default WalletContext

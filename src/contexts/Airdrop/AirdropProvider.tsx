@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useWallet } from "use-wallet";
 import { provider } from "web3-core";
 import { useCallback } from "react";
 import BigNumber from "bignumber.js";
@@ -14,6 +13,7 @@ import {
   checkIsAirdropClaimed,
   getAirdropDataForAddress,
 } from "index-sdk/index";
+import useWallet from 'hooks/useWallet'
 import { waitTransaction } from "utils/index";
 
 const AirdropProvider: React.FC = ({ children }) => {

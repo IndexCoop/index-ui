@@ -8,7 +8,6 @@ import {
   CardContent,
   CardIcon,
 } from 'react-neu'
-import { useWallet } from 'use-wallet'
 import styled from 'styled-components'
 
 import Label from 'components/Label'
@@ -18,6 +17,7 @@ import RewardsModal from './components/RewardsModal'
 import ExternalRewardsModal from './components/ExternalRewardsModal'
 
 import useAirdrop from 'hooks/useAirdrop'
+import useWallet from 'hooks/useWallet'
 
 const Rewards: React.FC = () => {
   const [claimModalIsOpen, setClaimModalIsOpen] = useState(false)

@@ -1,5 +1,3 @@
-// import { Web3Provider } from '@ethersproject/providers'
-import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
@@ -30,18 +28,3 @@ export const walletlink = new WalletLinkConnector({
   appName: 'Index',
   appLogoUrl: 'https://index-dao.s3.amazonaws.com/index_owl.png'
 })
-
-export const activateInjected = () => {
-  const { activate } = useWeb3React()
-  activate(injected)
-};
-
-export const activateWalletConnect = () => {
-  const { activate } = useWeb3React()
-  activate(walletconnect)
-};
-
-export const activateWalletLink = () => {
-  const { activate } = useWeb3React()
-  activate(walletlink)
-};

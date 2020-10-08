@@ -8,8 +8,8 @@ import {
   Spacer,
 } from 'react-neu'
 
-import { useWallet } from 'use-wallet'
 import useFarming from 'hooks/useFarming'
+import useWallet from 'hooks/useWallet'
 
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'

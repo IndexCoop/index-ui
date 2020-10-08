@@ -1,8 +1,8 @@
 import { useCallback, useState, useEffect } from 'react'
 
-import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
+import useWallet from 'hooks/useWallet'
 import { approve } from 'utils'
 
 import useAllowance from './useAllowance'

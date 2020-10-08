@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { ThemeProvider } from 'react-neu'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { UseWalletProvider } from 'use-wallet'
 import { ToastContainer, Slide } from 'react-toastify'
 import { ApolloProvider } from '@apollo/client'
 import styled from 'styled-components'
@@ -15,6 +14,7 @@ import { AirdropProvider } from 'contexts/Airdrop'
 import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
 import { FarmingProvider } from 'contexts/Farming'
 import { PricesProvider } from 'contexts/Prices'
+import { WalletProvider } from 'contexts/Wallet'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -80,12 +80,7 @@ const Providers: React.FC = ({ children }) => {
       darkTheme={darkTheme}
       lightTheme={lightTheme}
     >
-      <UseWalletProvider
-        chainId={Number(process.env.REACT_APP_ETHEREUM_NETWORK_ID)}
-        connectors={{
-          walletconnect: { rpcUrl: process.env.REACT_APP_ETHEREUM_RPC_URL as any},
-        }}
-      >
+      <WalletProvider>
         <ApolloProvider client={graphqlClient}>
           <AirdropProvider>
             <ExternalAirdropProvider>
@@ -99,7 +94,7 @@ const Providers: React.FC = ({ children }) => {
             </ExternalAirdropProvider>
           </AirdropProvider>
         </ApolloProvider>
-      </UseWalletProvider>
+      </WalletProvider>
       <ToastContainer
         transition={Slide}
         position="bottom-left"
