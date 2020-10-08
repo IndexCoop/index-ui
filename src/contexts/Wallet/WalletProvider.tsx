@@ -37,6 +37,7 @@ const WalletProvider: React.FC = ({ children}) => {
       deactivate()
     }
     setConnector('');
+    localStorage.removeItem('walletconnect');
     setStatus('disconnected');
   }, [account, connector, status]);
 
