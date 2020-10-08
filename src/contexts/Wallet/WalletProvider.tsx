@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useMemo, useRef, useState } from 'react'
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
 import {
   injected,
@@ -26,32 +26,52 @@ export function useWallet() {
 }
 
 const WalletProvider: React.FC = ({ children}) => {
-  const [account, setAccount] = useState<string>('')
-  const [connector, setConnector] = useState<any>()
+  const [connector, setConnector] = useState<string>()
   const [status, setStatus] = useState('disconnected')
-  const { activate } = useWeb3React()
+  const { account, activate, active, deactivate } = useWeb3React()
+  const activationId = useRef(0)
 
-  const connect = useCallback((walletType: string) => {
-    setAccount('');
-    setConnector(undefined);
-
-    if (walletType === 'injected') {
-      activate(injected)
-      setStatus('connected')
-    } else if (walletType === 'walletconnect') {
-      activate(walletconnect)
-      setStatus('connected')
-    } else if (walletType === 'walletlink') {
-      activate(walletlink)
-      setStatus('connected')
-    }
-  }, [account, connector]);
-
+  // Resets the user's web3 session
   const reset = useCallback(() => {
-    setAccount('');
-    setConnector(undefined);
+    if (active) {
+      deactivate()
+    }
+    setConnector('');
     setStatus('disconnected');
   }, [account, connector, status]);
+
+  // Connects user to Web3
+  const connect = useCallback(async (walletType: string) => {
+    // Prevent race conditions between connections by using an external ID.
+    const id = ++activationId.current
+    reset()
+    // Check if another connection has happened right after deactivate().
+    if (id !== activationId.current) {
+      return
+    }
+
+    setStatus('connecting')
+
+    try {
+      setConnector(walletType);
+      if (walletType === 'injected') {
+        await activate(injected, undefined, true)
+        setStatus('connected')
+      } else if (walletType === 'walletconnect') {
+        await activate(walletconnect, undefined, true)
+        setStatus('connected')
+      } else if (walletType === 'walletlink') {
+        await activate(walletlink, undefined, true)
+        setStatus('connected')
+      }
+    } catch (err) {
+      // Don’t throw if another connection has happened in the meantime.
+      if (id !== activationId.current) {
+        return
+      }
+      console.log(err);
+    }
+  }, [account, connector]);
 
   const { library: ethereum } = useWeb3React();
 

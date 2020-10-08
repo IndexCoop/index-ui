@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
 interface WalletContextValues {
-  account: string
+  account: string | null | undefined
   ethereum: any
   status: string
   connect: any

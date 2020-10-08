@@ -24,7 +24,7 @@ const Provider: React.FC = ({ children }) => {
     account,
     ethereum,
     status
-  }: { account: string | null; ethereum: provider; status: string } = useWallet()
+  }: { account: string | null | undefined; ethereum: provider; status: string } = useWallet()
 
   const fetchBalances = useCallback(
     async (userAddress: string, provider: provider) => {

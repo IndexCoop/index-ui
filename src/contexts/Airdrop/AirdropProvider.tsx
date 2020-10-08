@@ -29,7 +29,7 @@ const AirdropProvider: React.FC = ({ children }) => {
   const {
     account,
     ethereum,
-  }: { account: string | null; ethereum: provider } = useWallet();
+  }: { account: string | null | undefined; ethereum: provider } = useWallet();
 
   const checkAirdropClaimStatus = useCallback(async () => {
     setAirdropQuantity(undefined)
