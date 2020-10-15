@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import Countdown, { CountdownRenderProps} from 'react-countdown'
 
 import {
-  Box,
+	Box,
+	Button,
   Card,
   CardContent,
 } from 'react-neu'
@@ -66,6 +67,8 @@ const FarmingTimer: React.FC = () => {
             )
           }
         </Box>
+				<Button text='Start Farming' to='/farm' />
+
       </CardContent>
     </Card>
   )

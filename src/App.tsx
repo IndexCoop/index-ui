@@ -14,6 +14,7 @@ import { AirdropProvider } from 'contexts/Airdrop'
 import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
 import { FarmingProvider } from 'contexts/Farming'
 import { PricesProvider } from 'contexts/Prices'
+import { MarketDataProvider } from 'contexts/MarketData'
 import { WalletProvider } from 'contexts/Wallet'
 
 import useLocalStorage from 'hooks/useLocalStorage'
@@ -87,7 +88,9 @@ const Providers: React.FC = ({ children }) => {
               <PricesProvider>
                 <BalancesProvider>
                   <FarmingProvider>
-                    {children}
+										<MarketDataProvider>
+											{children}
+										</MarketDataProvider>
                   </FarmingProvider>
                 </BalancesProvider>
               </PricesProvider>

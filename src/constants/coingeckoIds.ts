@@ -1,0 +1,1 @@
+export const coingeckoDpiId = 'defipulse-index'
