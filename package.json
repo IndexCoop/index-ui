@@ -31,8 +31,7 @@
     "start": "react-scripts start",
     "build": "CI= GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "precommit": "lint-staged"
+    "eject": "react-scripts eject"
   },
   "husky": {
     "hooks": {
