@@ -87,7 +87,7 @@ const Providers: React.FC = ({ children }) => {
               <PricesProvider>
                 <BalancesProvider>
                   <FarmingProvider>
-										{children}
+                    {children}
                   </FarmingProvider>
                 </BalancesProvider>
               </PricesProvider>

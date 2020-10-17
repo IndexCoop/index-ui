@@ -7,89 +7,80 @@ import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 import SimplePriceChart from 'components/SimplePriceChart'
 
-import useDpiMarketData from 'hooks/useDpiMarketData';
+import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData';
 
 const MarketData: React.FC = () => {
-	const {
-		latestVolume,
-		latestMarketCap,
-		latestPrice,
-		prices
-	} = useDpiMarketData()
-	const monthlyPriceChange = (latestPrice || 0) - (prices || [[0, 0]])[0][1]
+  const {
+    latestVolume,
+    latestMarketCap,
+    latestPrice,
+    prices
+  } = useDpiTokenMarketData()
+  const priceAtEpochStart = (prices || [[0, 1]])[0][1]
+  const epochPriceChange = ((latestPrice || 0) - priceAtEpochStart)
+  const dpiTokenIcon = {
+    src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
+    alt: 'DefiPulse Index Logo',
+  }
   return (
-		<>
-			<Container>
-				<Split>
-					<Card>
-						<CardContent>
-							<FancyValue
-								icon={{
-									src: 'https://index-dao.s3.amazonaws.com/money.png',
-									alt: 'Money',
-								}}
-								label='Current $DPI Price'
-								value={'$' + numeral(latestPrice).format('0.00a')}
-							/>
-						</CardContent>
-					</Card>
+    <>
+      <Container>
+        <Split>
+          <Card>
+            <CardContent>
+              <FancyValue
+                icon={dpiTokenIcon}
+                label='Current $DPI Price'
+                value={'$' + numeral(latestPrice).format('0.00a')}
+              />
+            </CardContent>
+          </Card>
 
-					<Card>
-						<CardContent>
-							<FancyValue
-								icon={{
-									src: 'https://index-dao.s3.amazonaws.com/money.png',
-									alt: 'Money',
-								}}
-								label='1 Month Price Change'
-								value={numeral(monthlyPriceChange).format('0.00a') + '%' }
-							/>
-						</CardContent>
-					</Card>
-				</Split>
+          <Card>
+            <CardContent>
+              <FancyValue
+                icon={dpiTokenIcon}
+                label='1 Month Price Change'
+                value={numeral((epochPriceChange / priceAtEpochStart) * 100)
+                  .format('0.00a') + '%'}
+              />
+            </CardContent>
+          </Card>
+        </Split>
 
-				<Spacer />
+        <Spacer />
 
-				<Split>
-					<Card>
-						<CardContent>
-							<FancyValue
-								icon={{
-									src: 'https://index-dao.s3.amazonaws.com/money.png',
-									alt: 'Money',
-								}}
-								label='$DPI 24hr Volume'
-								value={'$' + numeral(latestVolume).format('0.00a')}
-							/>
-						</CardContent>
-					</Card>
+        <Split>
+          <Card>
+            <CardContent>
+              <FancyValue
+                icon={dpiTokenIcon}
+                label='$DPI 24hr Volume'
+                value={'$' + numeral(latestVolume).format('0.00a')}
+              />
+            </CardContent>
+          </Card>
 
-					<Card>
-						<CardContent>
-							<FancyValue
-								icon={{
-									src: 'https://index-dao.s3.amazonaws.com/money.png',
-									alt: 'Money',
-								}}
-								label='$DPI Marketcap'
-								value={'$' + numeral(latestMarketCap).format('0.00a')}
-							/>
-						</CardContent>
-					</Card>
-				</Split>
-			</Container>
-			<Spacer size="lg" />
-			<SimplePriceChart
-				symbol='$DPI'
-				title='DefiPulse Index Monthly Price'
-				icon={{
-					src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
-					alt: 'DefiPulse Index Logo',
-				}}
-				data={prices?.map(([x, y]) => ({ x, y }))}
-			/>
-			<Spacer size="lg" />
-		</>
+          <Card>
+            <CardContent>
+              <FancyValue
+                icon={dpiTokenIcon}
+                label='$DPI Marketcap'
+                value={'$' + numeral(latestMarketCap).format('0.00a')}
+              />
+            </CardContent>
+          </Card>
+        </Split>
+      </Container>
+      <Spacer />
+      <SimplePriceChart
+        symbol='$DPI'
+        title='Price of DefiPulse Index'
+        icon={dpiTokenIcon}
+        data={prices?.map(([x, y]) => ({ x, y }))}
+      />
+      <Spacer size="lg" />
+    </>
   )
 }
 
