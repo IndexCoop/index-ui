@@ -5,16 +5,51 @@ import { Container, Card, CardContent, Spacer } from 'react-neu'
 
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
-import MarketDataChart from 'components/MarketDataChart'
+import SimplePriceChart from 'components/SimplePriceChart'
 
-import useMarketData from 'hooks/useMarketData';
-
+import useDpiMarketData from 'hooks/useDpiMarketData';
 
 const MarketData: React.FC = () => {
-	const { latestVolume, latestMarketCap, ...data } = useMarketData()
+	const {
+		latestVolume,
+		latestMarketCap,
+		latestPrice,
+		prices
+	} = useDpiMarketData()
+	const monthlyPriceChange = (latestPrice || 0) - (prices || [[0, 0]])[0][1]
   return (
 		<>
 			<Container>
+				<Split>
+					<Card>
+						<CardContent>
+							<FancyValue
+								icon={{
+									src: 'https://index-dao.s3.amazonaws.com/money.png',
+									alt: 'Money',
+								}}
+								label='Current $DPI Price'
+								value={'$' + numeral(latestPrice).format('0.00a')}
+							/>
+						</CardContent>
+					</Card>
+
+					<Card>
+						<CardContent>
+							<FancyValue
+								icon={{
+									src: 'https://index-dao.s3.amazonaws.com/money.png',
+									alt: 'Money',
+								}}
+								label='1 Month Price Change'
+								value={numeral(monthlyPriceChange).format('0.00a') + '%' }
+							/>
+						</CardContent>
+					</Card>
+				</Split>
+
+				<Spacer />
+
 				<Split>
 					<Card>
 						<CardContent>
@@ -44,10 +79,14 @@ const MarketData: React.FC = () => {
 				</Split>
 			</Container>
 			<Spacer size="lg" />
-			<MarketDataChart
+			<SimplePriceChart
 				symbol='$DPI'
-				chartType='Monthly Price'
-				data={data.prices?.map(([x, y]) => ({ x, y }))}
+				title='DefiPulse Index Monthly Price'
+				icon={{
+					src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
+					alt: 'DefiPulse Index Logo',
+				}}
+				data={prices?.map(([x, y]) => ({ x, y }))}
 			/>
 			<Spacer size="lg" />
 		</>

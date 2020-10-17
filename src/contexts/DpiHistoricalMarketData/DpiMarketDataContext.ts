@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-interface MarketContextValues {
+interface DpiMarketDataValues {
 	prices?: number[][]
 	marketcaps?: number[][]
 	volumes?: number[][]
@@ -9,6 +9,6 @@ interface MarketContextValues {
 	latestVolume?: number
 }
 
-const MarketContext = createContext<MarketContextValues>({})
+const DpiMarketData = createContext<DpiMarketDataValues>({})
 
-export default MarketContext
+export default DpiMarketData

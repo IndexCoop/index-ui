@@ -1,7 +1,6 @@
 import React from 'react'
-import { Button, Container, Spacer } from 'react-neu'
-
-import { dpiTokenAddress } from 'constants/tokenAddresses'
+import { Container, Spacer } from 'react-neu'
+import { DpiMarketDataProvider } from 'contexts/DpiHistoricalMarketData'
 
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
@@ -19,26 +18,28 @@ const Home: React.FC = () => {
   };
 
   return (
-    <Page>
-      <PageHeader
-        icon={icon}
-        title='Index'
-        subtitle='A global community creating and maintaining the best crypto index products'
-      />
-        <Spacer size="lg" />
-        <Container>
-					<Explanation />
+		<DpiMarketDataProvider daysOfHistory={30}>
+			<Page>
+				<PageHeader
+					icon={icon}
+					title='Index'
+					subtitle='A global community creating and maintaining the best crypto index products'
+				/>
+					<Spacer size="lg" />
+					<Container>
+						<Explanation />
+						<Spacer />
+						<Split>
+							<FarmingTimer />
+						</Split>	
+					</Container>
 					<Spacer />
-					<Split>
-						<FarmingTimer />
-					</Split>	
-        </Container>
-        <Spacer />
-        <DeFiPulseIndex />
-				<Spacer size="lg" />
-				<MarketData />
-        <Spacer />
-    </Page>
+					<DeFiPulseIndex />
+					<Spacer size="lg" />
+					<MarketData />
+					<Spacer />
+			</Page>
+		</DpiMarketDataProvider>
   )
 }
 
