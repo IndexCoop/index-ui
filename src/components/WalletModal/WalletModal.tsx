@@ -22,6 +22,8 @@ import Split from 'components/Split'
 
 import useBalances from 'hooks/useBalances'
 
+import * as tokenAddresses from 'constants/tokenAddresses'
+
 const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const { reset } = useWallet()
   const {
@@ -29,7 +31,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     dpiBalance,
     uniswapEthDpiLpBalance,
     stakedUniswapEthDpiLpBalance,
-  } = useBalances();
+  } = useBalances()
 
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
@@ -41,7 +43,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
 
   const handleSignOut = useCallback(() => {
     reset()
-    toast.success('You\'ve successfully signed out.')
+    toast.success("You've successfully signed out.")
     onDismiss && onDismiss()
   }, [reset, onDismiss])
 
@@ -54,8 +56,9 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             <FancyValue
               icon={{
                 alt: 'Owl',
-                src: 'https://index-dao.s3.amazonaws.com/owl.png'
+                src: 'https://index-dao.s3.amazonaws.com/owl.png',
               }}
+              link={`https://etherscan.io/address/${tokenAddresses.indexTokenAddress}`}
               label='INDEX balance'
               value={getDisplayBalance(indexBalance)}
             />
@@ -64,9 +67,11 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             <FancyValue
               icon={{
                 alt: 'Defi Pulse Icon',
-                src: 'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
+                src:
+                  'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
               }}
               label='DPI balance'
+              link={`https://etherscan.io/address/${tokenAddresses.dpiTokenAddress}`}
               value={getDisplayBalance(dpiBalance)}
             />
           </Box>
@@ -78,10 +83,12 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           <Box row>
             <FancyValue
               icon={{
-                alt:'Uniswap LP Icon',
-                src:'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg'
+                alt: 'Uniswap LP Icon',
+                src:
+                  'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
               }}
               label='Uniswap ETH/DPI LP balance'
+              link={`https://etherscan.io/address/${tokenAddresses.uniswapEthDpiLpTokenAddress}`}
               value={getDisplayBalance(uniswapEthDpiLpBalance)}
             />
           </Box>
@@ -89,10 +96,12 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             <FancyValue
               icon={{
                 alt: 'Staked Uniswap LP Icon',
-                src: 'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg'
+                src:
+                  'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
               }}
               iconStyles={{ opacity: 0.5 }}
               label='Staked Uniswap ETH/DPI LP'
+              link={`https://etherscan.io/address/${tokenAddresses.stakingRewardsAddress}`}
               value={getDisplayBalance(stakedUniswapEthDpiLpBalance)}
             />
           </Box>
@@ -102,16 +111,24 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
         <Spacer />
         <Split>
           <Box row>
-            <Button href="https://www.tokensets.com/portfolio/dpi" text='Buy DPI Tokens' variant='secondary' />
+            <Button
+              href='https://www.tokensets.com/portfolio/dpi'
+              text='Buy DPI Tokens'
+              variant='secondary'
+            />
           </Box>
           <Box row>
-            <Button href="https://app.uniswap.org/#/add/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/ETH" text='Add Liquidity' variant='secondary' />
+            <Button
+              href='https://app.uniswap.org/#/add/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/ETH'
+              text='Add Liquidity'
+              variant='secondary'
+            />
           </Box>
         </Split>
       </ModalContent>
       <Separator />
       <ModalActions>
-        <Button onClick={onDismiss} text='Cancel' variant='secondary' />
+        <Button onClick={onDismiss} text='Close' variant='secondary' />
         <Button onClick={handleSignOut} text='Sign Out' />
       </ModalActions>
     </Modal>
