@@ -7,15 +7,21 @@ import Value from 'components/Value'
 
 interface FancyValueProps {
   icon: {
-    src: string;
-    alt: string;
-  },
-  iconStyles?: any;
-  label: string,
-  value: string,
+    src: string
+    alt: string
+  }
+  iconStyles?: any
+  link?: string
+  label: string
+  value: string
 }
 
-const FancyValue: React.FC<FancyValueProps> = ({ icon, iconStyles, label, value }) => {
+const FancyValue: React.FC<FancyValueProps> = ({
+  icon,
+  iconStyles,
+  label,
+  value,
+}) => {
   return (
     <Box alignItems='center' row>
       <Box row justifyContent='center' minWidth={48}>
