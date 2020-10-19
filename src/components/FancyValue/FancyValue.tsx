@@ -19,13 +19,22 @@ interface FancyValueProps {
 const FancyValue: React.FC<FancyValueProps> = ({
   icon,
   iconStyles,
+  link,
   label,
   value,
 }) => {
+  const tokenIcon = link ? (
+    <a href={link} target='_blank'>
+      <StyledIcon src={icon.src} alt={icon.alt} style={iconStyles} />
+    </a>
+  ) : (
+    <StyledIcon src={icon.src} alt={icon.alt} style={iconStyles} />
+  )
+
   return (
     <Box alignItems='center' row>
       <Box row justifyContent='center' minWidth={48}>
-        <StyledIcon src={icon.src} alt={icon.alt} style={iconStyles} />
+        {tokenIcon}
       </Box>
       <Spacer size='sm' />
       <Box flex={1}>
