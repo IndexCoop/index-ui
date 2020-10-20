@@ -15,7 +15,6 @@ import {
 // docs - http://recharts.org/en-US/guide/
 
 interface SimplePriceChartProps {
-  symbol?: string
   title?: string
   icon: {
     src: string
@@ -37,7 +36,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({ title, icon, data })
   }
 
   const renderTooltip = (props: any) => {
-    const [label, value] = formatToolTip(props.payload[0])
+    const [label, value] = formatToolTip(props.payload?.[0])
     return (
       <FancyValue
         icon={icon}
@@ -51,26 +50,23 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({ title, icon, data })
   const maxY = Math.max(...(data || []).map<number>(({ y }) => y))
   return (
     <Container>
-      <ChartTitle>
-        {/* <TitleIcon src={icon.src} alt={icon.alt} /> */}
-        {title}
-      </ChartTitle>
+      <ChartTitle> {title} </ChartTitle>
       <ChartContainer>
         <LineChart data={data}>
           <Line
             type="monotone"
             dataKey={'y'}
             dot={false}
-            stroke={theme.colors.white}
+            stroke={theme.colors.primary.light}
           />
           <XAxis
             dataKey="x"
-            stroke={theme.colors.white}
+            stroke={theme.colors.primary.light}
             tickFormatter={x => new Date(x).toLocaleDateString()}
             minTickGap={20}
           />
           <YAxis
-            stroke={theme.colors.white}
+            stroke={theme.colors.primary.light}
             tickFormatter={n => '$' + formatFloats(n)}
             domain={[
               // crop chart by ±20% of min/max values
@@ -81,7 +77,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({ title, icon, data })
           <Tooltip
             content={renderTooltip}
             wrapperStyle={{ backgroundColor: theme.baseColor }}
-            cursor={{ stroke: theme.colors.white, strokeWidth: 2 }}
+            cursor={{ stroke: theme.colors.primary.light, strokeWidth: 2 }}
           />
         </LineChart>
       </ChartContainer>
@@ -95,13 +91,6 @@ const ChartContainer = styled(ResponsiveContainer)`
 
 const ChartTitle = styled.h2`
   font-size: 64px;
-`
-
-const TitleIcon = styled.img`
-  display: inline-block;
-  height: 150%;
-  width: auto;
-  margin-right: 1rem;
 `
 
 export default MarketDataChart

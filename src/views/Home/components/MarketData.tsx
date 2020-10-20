@@ -16,7 +16,7 @@ const MarketData: React.FC = () => {
     latestPrice,
     prices
   } = useDpiTokenMarketData()
-  const priceAtEpochStart = (prices || [[0, 1]])[0][1]
+  const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = ((latestPrice || 0) - priceAtEpochStart)
   const dpiTokenIcon = {
     src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
@@ -74,7 +74,6 @@ const MarketData: React.FC = () => {
       </Container>
       <Spacer />
       <SimplePriceChart
-        symbol='$DPI'
         title='Price of DefiPulse Index'
         icon={dpiTokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
