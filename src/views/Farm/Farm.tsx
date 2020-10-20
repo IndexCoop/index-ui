@@ -58,8 +58,8 @@ const Farm: React.FC = () => {
         title="Farm"
       />
       <Spacer size="md" />
-			<Treasury />
-			<Spacer />
+      <Treasury />
+      <Spacer />
       <Container>
         <Split>
           <StakeCard />

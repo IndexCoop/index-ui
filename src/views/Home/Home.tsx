@@ -1,7 +1,5 @@
 import React from 'react'
 import { Container, Spacer } from 'react-neu'
-import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
-
 import Page from 'components/Page'
 import PageHeader from 'components/PageHeader'
 import Explanation from 'components/Explanation'
@@ -18,28 +16,26 @@ const Home: React.FC = () => {
   };
 
   return (
-    <DpiTokenMarketDataProvider daysOfHistory={30}>
-      <Page>
-        <PageHeader
-          icon={icon}
-          title='Index'
-          subtitle='A global community creating and maintaining the best crypto index products'
-        />
-        <Spacer size="lg" />
-        <Container>
-          <Explanation />
-          <Spacer />
-          <Split>
-            <FarmingTimer />
-          </Split>
-        </Container>
+    <Page>
+      <PageHeader
+        icon={icon}
+        title='Index'
+        subtitle='A global community creating and maintaining the best crypto index products'
+      />
+      <Spacer size="lg" />
+      <Container>
+        <Explanation />
         <Spacer />
-        <DeFiPulseIndex />
-        <Spacer size="lg" />
-        <MarketData />
-        <Spacer />
-      </Page>
-    </DpiTokenMarketDataProvider>
+        <Split>
+          <FarmingTimer />
+        </Split>
+      </Container>
+      <Spacer />
+      <DeFiPulseIndex />
+      <Spacer size="lg" />
+      <MarketData />
+      <Spacer />
+    </Page>
   )
 }
 

@@ -3,19 +3,11 @@ import MarketDataContext from './DpiTokenMarketDataContext'
 import { coingeckoDpiId } from 'constants/coingeckoIds'
 import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
 
-interface HistoricalMarketDataProvider {
-  // coingeckoId: string
-	daysOfHistory: number
-}
-
-const DpiMarketDataProvider: React.FC<HistoricalMarketDataProvider> = ({
-  children,
-  daysOfHistory,
-}) => {
+const DpiMarketDataProvider: React.FC = ({ children }) => {
   const [dpiMarketData, setDpiMarketData] = useState<any>({})
   useEffect(() => {
     const endTime = Date.now() / 1000;
-    const startTime = endTime - (86400 * daysOfHistory);
+    const startTime = endTime - (86400 * 30); // 30 days
     fetchHistoricalTokenMarketData(coingeckoDpiId, startTime, endTime)
       .then((response: any) => {
         setDpiMarketData(response)
@@ -23,14 +15,15 @@ const DpiMarketDataProvider: React.FC<HistoricalMarketDataProvider> = ({
       .catch((error: any) => console.log(error));
   }, [])
 
-  const getLatest = (arr?: number[][]) =>
-    arr && arr.length ? arr[arr.length - 1][1] : 0
+  const selectLatestMarketData = (marketData?: number[][]) =>
+    marketData?.[marketData.length -1]?.[1] || 0
+
   return (
     <MarketDataContext.Provider value={{
       ...dpiMarketData,
-      latestMarketCap: getLatest(dpiMarketData.marketcaps),
-      latestPrice: getLatest(dpiMarketData.prices),
-      latestVolume: getLatest(dpiMarketData.volumes),
+      latestMarketCap: selectLatestMarketData(dpiMarketData.marketcaps),
+      latestPrice: selectLatestMarketData(dpiMarketData.prices),
+      latestVolume: selectLatestMarketData(dpiMarketData.volumes),
     }}>
       {children}
     </MarketDataContext.Provider>
