@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 
-import Countdown, { CountdownRenderProps} from 'react-countdown'
+import Countdown, { CountdownRenderProps } from 'react-countdown'
 import numeral from 'numeral'
 import {
   Box,
@@ -28,7 +28,7 @@ const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
   const [unstakeModalIsOpen, setUnstakeModalIsOpen] = useState(false)
 
-  const { stakedUniswapEthDpiLpBalance: stakedBalance } = useBalances();
+  const { stakedUniswapEthDpiLpBalance: stakedBalance } = useBalances()
   const { status } = useWallet()
   const {
     countdown,
@@ -49,18 +49,21 @@ const Stake: React.FC = () => {
     setUnstakeModalIsOpen(false)
   }, [setUnstakeModalIsOpen])
 
-  const handleOnStake = useCallback((amount: string) => {
-    onStake(amount)
-    handleDismissStakeModal()
-  }, [handleDismissStakeModal, onStake])
+  const handleOnStake = useCallback(
+    (amount: string) => {
+      onStake(amount)
+      handleDismissStakeModal()
+    },
+    [handleDismissStakeModal, onStake]
+  )
 
-  const handleOnUnstake = useCallback((amount: string) => {
-    onUnstake(amount)
-    handleDismissUnstakeModal()
-  }, [
-    handleDismissUnstakeModal,
-    onUnstake,
-  ])
+  const handleOnUnstake = useCallback(
+    (amount: string) => {
+      onUnstake(amount)
+      handleDismissUnstakeModal()
+    },
+    [handleDismissUnstakeModal, onUnstake]
+  )
 
   const handleStakeClick = useCallback(() => {
     setStakeModalIsOpen(true)
@@ -72,14 +75,7 @@ const Stake: React.FC = () => {
 
   const StakeButton = useMemo(() => {
     if (status !== 'connected') {
-      return (
-        <Button
-          disabled
-          full
-          text="Stake"
-          variant="secondary"
-        />
-      )
+      return <Button disabled full text='Stake' variant='secondary' />
     }
     if (!isApproved) {
       return (
@@ -87,54 +83,33 @@ const Stake: React.FC = () => {
           disabled={isApproving}
           full
           onClick={onApprove}
-          text={!isApproving ? "Approve staking" : "Approving staking..."}
-          variant={isApproving || status !== 'connected' ? 'secondary' : 'default'}
+          text={!isApproving ? 'Approve staking' : 'Approving staking...'}
+          variant={
+            isApproving || status !== 'connected' ? 'secondary' : 'default'
+          }
         />
       )
     }
 
     if (isApproved) {
-      return (
-        <Button
-          full
-          onClick={handleStakeClick}
-          text="Stake"
-        />
-      )
+      return <Button full onClick={handleStakeClick} text='Stake' />
     }
-  }, [
-    isApproved,
-    isApproving,
-    status,
-    handleStakeClick,
-    onApprove,
-  ])
+  }, [isApproved, isApproving, status, handleStakeClick, onApprove])
 
   const UnstakeButton = useMemo(() => {
     const hasStaked = stakedBalance && stakedBalance.toNumber() > 0
     if (status !== 'connected' || !hasStaked) {
-      return (
-        <Button
-          disabled
-          full
-          text="Unstake"
-          variant="secondary"
-        />
-      )
+      return <Button disabled full text='Unstake' variant='secondary' />
     }
     return (
       <Button
         full
         onClick={handleUnstakeClick}
-        text="Unstake"
-        variant="secondary"
+        text='Unstake'
+        variant='secondary'
       />
     )
-  }, [
-    stakedBalance,
-    status,
-    handleUnstakeClick,
-  ])
+  }, [stakedBalance, status, handleUnstakeClick])
 
   const formattedStakedBalance = useMemo(() => {
     if (stakedBalance) {
@@ -150,9 +125,12 @@ const Stake: React.FC = () => {
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
     const paddedHours = hours < 10 ? `0${hours}` : hours
     return (
-      <Box row justifyContent="center">
-        <Label text={`Farming starts in ${paddedHours}:${paddedMinutes}:${paddedSeconds}`} />
-      </Box>)
+      <Box row justifyContent='center'>
+        <Label
+          text={`Farming starts in ${paddedHours}:${paddedMinutes}:${paddedSeconds}`}
+        />
+      </Box>
+    )
   }
 
   return (
@@ -160,23 +138,17 @@ const Stake: React.FC = () => {
       <Card>
         <CardIcon>
           <StyledIcon
-            alt="Chick icon"
-            src="https://index-dao.s3.amazonaws.com/chick.png"
+            alt='Chick icon'
+            src='https://index-dao.s3.amazonaws.com/chick.png'
           />
         </CardIcon>
         <CardContent>
-          <Box
-            alignItems="center"
-            column
-          >
+          <Box alignItems='center' column>
             <Value value={formattedStakedBalance} />
-            <Label text="Staked Uniswap ETH/DPI LP Tokens" />
+            <Label text='Staked Uniswap ETH/DPI LP Tokens' />
           </Box>
           <Spacer />
-          <Box
-            alignItems="center"
-            column
-          >
+          <Box alignItems='center' column>
             <StyledAPYQuantity>{apy}% APY</StyledAPYQuantity>
             <StyledAPYLabel>(Unstable)</StyledAPYLabel>
           </Box>
@@ -212,12 +184,12 @@ const StyledIcon = styled.img`
 `
 
 const StyledAPYQuantity = styled.span`
-  color: white;
+  color: ${(props) => props.theme.colors.grey};
   font-weight: 600;
   font-size: 28px;
 `
 const StyledAPYLabel = styled.span`
-  color: white;
+  color: ${(props) => props.theme.colors.grey};
   font-size: 20px;
 `
 
