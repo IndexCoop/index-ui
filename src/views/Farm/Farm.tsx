@@ -18,6 +18,7 @@ import Split from 'components/Split'
 import HarvestCard from './components/Harvest'
 import StakeCard from './components/Stake'
 import RewardsCard from './components/Rewards'
+import Treasury from './components/Treasury'
 
 const Farm: React.FC = () => {
   const { status } = useWallet()
@@ -57,6 +58,8 @@ const Farm: React.FC = () => {
         title="Farm"
       />
       <Spacer size="md" />
+      <Treasury />
+      <Spacer />
       <Container>
         <Split>
           <StakeCard />

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
-import Countdown, { CountdownRenderProps} from 'react-countdown'
+import React from 'react'
+import Countdown, { CountdownRenderProps } from 'react-countdown'
 
 import {
   Box,
+  Button,
   Card,
   CardContent,
 } from 'react-neu'
@@ -45,14 +46,14 @@ const FarmingTimer: React.FC = () => {
       <CardContent>
         <Box alignItems="center" column justifyContent="center">
           {isLaunched ? (
-              <>
-                <StyledIcon
-                  alt="Owl icon"
-                  src="https://index-dao.s3.amazonaws.com/farmer_owl.png"
-                />
-                <h3>🎉🌾 INDEX Farming Is Live! 🌾🎉</h3>
-              </>
-            ) : (
+            <>
+              <StyledIcon
+                alt="Owl icon"
+                src="https://index-dao.s3.amazonaws.com/farmer_owl.png"
+              />
+              <h3>🎉🌾 INDEX Farming Is Live! 🌾🎉</h3>
+            </>
+          ) : (
               <Dial size={196} value={dialValue}>
                 <StyledCountdown>
                   <StyledCountdownText>
@@ -66,6 +67,8 @@ const FarmingTimer: React.FC = () => {
             )
           }
         </Box>
+        <Button text='Start Farming' to='/farm' />
+
       </CardContent>
     </Card>
   )
