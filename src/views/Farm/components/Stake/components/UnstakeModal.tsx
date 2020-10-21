@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 
-import BigNumber from 'bignumber.js'
+import BigNumber from 'utils/bignumber'
 import {
   Button,
   ModalActions,
@@ -13,7 +13,7 @@ import Modal from 'components/CustomModal'
 import TokenInput from 'components/TokenInput'
 
 import { getFullDisplayBalance } from 'utils'
-import useBalances from 'hooks/useBalances';
+import useBalances from 'hooks/useBalances'
 
 interface UnstakeModalProps extends ModalProps {
   onUnstake: (amount: string) => void
@@ -24,7 +24,6 @@ const UnstakeModal: React.FC<UnstakeModalProps> = ({
   onDismiss,
   onUnstake,
 }) => {
-
   const [val, setVal] = useState('')
   const { stakedUniswapEthDpiLpBalance: stakedBalance } = useBalances()
 
@@ -32,9 +31,12 @@ const UnstakeModal: React.FC<UnstakeModalProps> = ({
     return getFullDisplayBalance(stakedBalance || new BigNumber(0), 0)
   }, [stakedBalance])
 
-  const handleChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
-    setVal(e.currentTarget.value)
-  }, [setVal])
+  const handleChange = useCallback(
+    (e: React.FormEvent<HTMLInputElement>) => {
+      setVal(e.currentTarget.value)
+    },
+    [setVal]
+  )
 
   const handleSelectMax = useCallback(() => {
     setVal(fullBalance)
@@ -46,26 +48,22 @@ const UnstakeModal: React.FC<UnstakeModalProps> = ({
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text="Unstake" />
+      <ModalTitle text='Unstake' />
       <ModalContent>
         <TokenInput
           value={val}
           onSelectMax={handleSelectMax}
           onChange={handleChange}
           max={fullBalance}
-          symbol="Uniswap ETH/DPI LP Tokens"
+          symbol='Uniswap ETH/DPI LP Tokens'
         />
       </ModalContent>
       <ModalActions>
-        <Button
-          onClick={onDismiss}
-          text="Cancel"
-          variant="secondary"
-        />
+        <Button onClick={onDismiss} text='Cancel' variant='secondary' />
         <Button
           disabled={!val || !Number(val)}
           onClick={handleUnstakeClick}
-          text="Unstake"
+          text='Unstake'
           variant={!val || !Number(val) ? 'secondary' : 'default'}
         />
       </ModalActions>

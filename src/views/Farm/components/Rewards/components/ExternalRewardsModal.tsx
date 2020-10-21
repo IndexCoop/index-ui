@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import BigNumber from 'bignumber.js'
+import BigNumber from 'utils/bignumber'
 import styled from 'styled-components'
 import numeral from 'numeral'
 import {

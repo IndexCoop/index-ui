@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import BigNumber from 'bignumber.js'
+import BigNumber from 'utils/bignumber'
 
 interface AirdropContextValues {
   externalAddress?: string

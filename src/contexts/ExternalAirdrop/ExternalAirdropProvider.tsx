@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { provider } from 'web3-core'
 import { useCallback } from 'react'
-import BigNumber from 'bignumber.js'
+import BigNumber from 'utils/bignumber'
 
 import AirdropContext from './ExternalAirdropContext'
 import ConfirmTransactionModal, {
@@ -31,7 +31,7 @@ const AirdropProvider: React.FC = ({ children }) => {
   const {
     account,
     ethereum,
-  }: { account: string | null | undefined, ethereum: provider } = useWallet()
+  }: { account: string | null | undefined; ethereum: provider } = useWallet()
 
   const onCheckAirdropClaim = useCallback(async () => {
     setAirdropQuantity(undefined)
@@ -43,12 +43,12 @@ const AirdropProvider: React.FC = ({ children }) => {
 
     if (!ethereum || !externalAddress) return
 
-    const initialAirdropReward = getAirdropDataForAddress(
-      externalAddress || ''
-    )
+    const initialAirdropReward = getAirdropDataForAddress(externalAddress || '')
 
     if (!initialAirdropReward) {
-      setClaimErrorMessage('This address has not been allocated any airdrop rewards.')
+      setClaimErrorMessage(
+        'This address has not been allocated any airdrop rewards.'
+      )
       return
     }
 
@@ -58,13 +58,15 @@ const AirdropProvider: React.FC = ({ children }) => {
     )
 
     if (isAlreadyClaimed) {
-      setClaimErrorMessage('This address has already claimed its airdrop reward.')
+      setClaimErrorMessage(
+        'This address has already claimed its airdrop reward.'
+      )
       return
     }
 
     const claimQuantity = new BigNumber(
       initialAirdropReward.amount || '0'
-    ).dividedBy(new BigNumber(10).pow(18));
+    ).dividedBy(new BigNumber(10).pow(18))
 
     setAirdropQuantity(initialAirdropReward.amount)
     setRewardIndex(initialAirdropReward.index)

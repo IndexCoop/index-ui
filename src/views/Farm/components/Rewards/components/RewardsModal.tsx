@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import BigNumber from 'bignumber.js'
+import BigNumber from 'utils/bignumber'
 import styled from 'styled-components'
 
 import numeral from 'numeral'
@@ -12,7 +12,7 @@ import {
   ModalProps,
   ModalTitle,
   Separator,
-  Spacer
+  Spacer,
 } from 'react-neu'
 
 import Modal from 'components/CustomModal'
@@ -20,12 +20,8 @@ import Split from 'components/Split'
 
 import useAirdrop from 'hooks/useAirdrop'
 
-const RewardsModal: React.FC<ModalProps> = ({
-  isOpen,
-  onDismiss,
-}) => {
-
-  const { claimableQuantity, onClaimAirdrop } = useAirdrop();
+const RewardsModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
+  const { claimableQuantity, onClaimAirdrop } = useAirdrop()
 
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
@@ -36,15 +32,15 @@ const RewardsModal: React.FC<ModalProps> = ({
   }, [])
 
   const handleClaimClick = useCallback(() => {
-    onClaimAirdrop();
+    onClaimAirdrop()
   }, [onClaimAirdrop])
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text="Claim INDEX 🎁" />
+      <ModalTitle text='Claim INDEX 🎁' />
       <ModalContent>
         <Split>
-          <Box alignItems="center" justifyContent="center" row>
+          <Box alignItems='center' justifyContent='center' row>
             <StyledTokenValue>
               {getDisplayBalance(claimableQuantity)} INDEX
             </StyledTokenValue>
@@ -55,7 +51,10 @@ const RewardsModal: React.FC<ModalProps> = ({
         <Spacer />
         <StyledDescriptionContainer>
           <StyledDescriptionHeader>
-            <StyledEmoji src='https://index-dao.s3.amazonaws.com/owl.png' alt="Owl" />
+            <StyledEmoji
+              src='https://index-dao.s3.amazonaws.com/owl.png'
+              alt='Owl'
+            />
             INDEX has arrived!
           </StyledDescriptionHeader>
           <StyledDescription>
@@ -65,22 +64,15 @@ const RewardsModal: React.FC<ModalProps> = ({
       </ModalContent>
       <Separator />
       <ModalActions>
-        <Button
-          onClick={onDismiss}
-          text="Close"
-          variant="secondary"
-        />
-        <Button
-          onClick={handleClaimClick}
-          text="Claim"
-        />
+        <Button onClick={onDismiss} text='Close' variant='secondary' />
+        <Button onClick={handleClaimClick} text='Claim' />
       </ModalActions>
     </Modal>
   )
 }
 
 const StyledTokenValue = styled.p`
-  color: ${props => props.theme.colors.primary.light};
+  color: ${(props) => props.theme.colors.primary.light};
   font-weight: 600;
   font-size: 54px;
   line-height: 54px;
@@ -88,7 +80,7 @@ const StyledTokenValue = styled.p`
   margin-top: 15px;
   text-align: center;
   &:visited {
-    color: ${props => props.theme.colors.primary.light};
+    color: ${(props) => props.theme.colors.primary.light};
   }
 `
 
@@ -101,11 +93,11 @@ const StyledDescriptionHeader = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${props => props.theme.colors.gray};
+  color: ${(props) => props.theme.colors.gray};
   font-size: 24px;
   font-weight: 600;
   &:visited {
-    color: ${props => props.theme.colors.gray};
+    color: ${(props) => props.theme.colors.gray};
   }
 `
 
@@ -116,9 +108,9 @@ const StyledEmoji = styled.img`
   margin-right: 12px;
 `
 const StyledDescription = styled.p`
-  color: ${props => props.theme.colors.gray};
+  color: ${(props) => props.theme.colors.gray};
   &:visited {
-    color: ${props => props.theme.colors.gray};
+    color: ${(props) => props.theme.colors.gray};
   }
 `
 

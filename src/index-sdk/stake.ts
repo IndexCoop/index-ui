@@ -4,7 +4,7 @@ import { AbiItem } from 'web3-utils'
 
 import StakeABI from 'index-sdk/abi/Stake.json'
 import { stakingRewardsAddress } from 'constants/tokenAddresses'
-import BigNumber from 'bignumber.js'
+import BigNumber from 'utils/bignumber'
 
 export const getStakingRewardsContract = (provider: provider) => {
   const web3 = new Web3(provider)
@@ -18,7 +18,7 @@ export const getStakingRewardsContract = (provider: provider) => {
 export const stakeUniswapEthDpiLpTokens = (
   provider: provider,
   account: string,
-  stakeQuantity: BigNumber,
+  stakeQuantity: BigNumber
 ): Promise<string | null> => {
   const stakingContract = getStakingRewardsContract(provider)
 
@@ -41,7 +41,7 @@ export const stakeUniswapEthDpiLpTokens = (
 export const unstakeUniswapEthDpiLpTokens = (
   provider: provider,
   account: string,
-  unstakeQuantity: BigNumber,
+  unstakeQuantity: BigNumber
 ): Promise<string | null> => {
   const stakingContract = getStakingRewardsContract(provider)
 
@@ -72,7 +72,7 @@ export const getEarnedIndexTokenQuantity = async (
       .earned(account)
       .call()
 
-    return earnedTokenQuantity;
+    return earnedTokenQuantity
   } catch (e) {
     console.log(e)
 
