@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { provider } from 'web3-core';
-import BigNumber from 'bignumber.js'
+import { provider } from 'web3-core'
+import BigNumber from 'utils/bignumber'
 import confetti from 'canvas-confetti'
 
 import Context from './Context'
@@ -17,10 +17,13 @@ import {
   unstakeAndClaimEarnedIndexLpReward,
 } from 'index-sdk/stake'
 import { waitTransaction } from 'utils/index'
-import { stakingRewardsAddress, uniswapEthDpiLpTokenAddress } from 'constants/tokenAddresses'
+import {
+  stakingRewardsAddress,
+  uniswapEthDpiLpTokenAddress,
+} from 'constants/tokenAddresses'
 
 // Oct 7th 2020, 12pm PDT
-const farmingStartTime = 1602097200000;
+const farmingStartTime = 1602097200000
 const fireConfetti = () => {
   confetti({
     particleCount: 100,
@@ -29,8 +32,8 @@ const fireConfetti = () => {
     origin: {
       x: Math.random(),
       y: Math.random() - 0.2,
-    }
-  });
+    },
+  })
 }
 
 const launchFireworks = () => {
@@ -44,7 +47,7 @@ const launchFireworks = () => {
   setTimeout(fireConfetti, 7300)
   setTimeout(fireConfetti, 7900)
   setTimeout(fireConfetti, 8800)
-};
+}
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -56,75 +59,86 @@ const Provider: React.FC = ({ children }) => {
 
   const { account, ethereum } = useWallet()
 
-  const { isApproved, isApproving, onApprove } = useApproval(
-    uniswapEthDpiLpTokenAddress,
-    stakingRewardsAddress,
-    () => setConfirmTxModalIsOpen(false)
+  const {
+    isApproved,
+    isApproving,
+    onApprove,
+  } = useApproval(uniswapEthDpiLpTokenAddress, stakingRewardsAddress, () =>
+    setConfirmTxModalIsOpen(false)
   )
 
   const handleApprove = useCallback(() => {
     setConfirmTxModalIsOpen(true)
     onApprove()
-  }, [
-    onApprove,
-    setConfirmTxModalIsOpen,
-  ])
+  }, [onApprove, setConfirmTxModalIsOpen])
 
-  const handleStake = useCallback(async (amount: string) => {
-    if (!ethereum || !account || !amount || new BigNumber(amount).lte(0)) return
+  const handleStake = useCallback(
+    async (amount: string) => {
+      if (!ethereum || !account || !amount || new BigNumber(amount).lte(0))
+        return
 
-    setConfirmTxModalIsOpen(true)
-    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+      setConfirmTxModalIsOpen(true)
+      setTransactionStatusType(TransactionStatusType.IS_APPROVING)
 
-    const bigStakeQuantity = new BigNumber(amount).multipliedBy(new BigNumber(10).pow(18))
-    const transactionId = await stakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
+      const bigStakeQuantity = new BigNumber(amount).multipliedBy(
+        new BigNumber(10).pow(18)
+      )
+      const transactionId = await stakeUniswapEthDpiLpTokens(
+        ethereum as provider,
+        account,
+        bigStakeQuantity
+      )
 
-    if (!transactionId) {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
-      return;
-    }
+      if (!transactionId) {
+        setTransactionStatusType(TransactionStatusType.IS_FAILED)
+        return
+      }
 
-    setTransactionStatusType(TransactionStatusType.IS_PENDING)
-    const success = await waitTransaction(ethereum as provider, transactionId)
+      setTransactionStatusType(TransactionStatusType.IS_PENDING)
+      const success = await waitTransaction(ethereum as provider, transactionId)
 
-    if (success) {
-      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
-    } else {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
-    }
-  }, [
-    ethereum,
-    account,
-    setConfirmTxModalIsOpen,
-  ])
+      if (success) {
+        setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+      } else {
+        setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      }
+    },
+    [ethereum, account, setConfirmTxModalIsOpen]
+  )
 
-  const handleUnstake = useCallback(async (amount: string) => {
-    if (!ethereum || !account || !amount || new BigNumber(amount).lte(0)) return
+  const handleUnstake = useCallback(
+    async (amount: string) => {
+      if (!ethereum || !account || !amount || new BigNumber(amount).lte(0))
+        return
 
-    setConfirmTxModalIsOpen(true)
-    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+      setConfirmTxModalIsOpen(true)
+      setTransactionStatusType(TransactionStatusType.IS_APPROVING)
 
-    const bigStakeQuantity = new BigNumber(amount).multipliedBy(new BigNumber(10).pow(18))
-    const transactionId = await unstakeUniswapEthDpiLpTokens(ethereum as provider, account, bigStakeQuantity)
+      const bigStakeQuantity = new BigNumber(amount).multipliedBy(
+        new BigNumber(10).pow(18)
+      )
+      const transactionId = await unstakeUniswapEthDpiLpTokens(
+        ethereum as provider,
+        account,
+        bigStakeQuantity
+      )
 
-    if (!transactionId) {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
-      return;
-    }
+      if (!transactionId) {
+        setTransactionStatusType(TransactionStatusType.IS_FAILED)
+        return
+      }
 
-    setTransactionStatusType(TransactionStatusType.IS_PENDING)
-    const success = await waitTransaction(ethereum as provider, transactionId)
+      setTransactionStatusType(TransactionStatusType.IS_PENDING)
+      const success = await waitTransaction(ethereum as provider, transactionId)
 
-    if (success) {
-      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
-    } else {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
-    }
-  }, [
-    ethereum,
-    account,
-    setConfirmTxModalIsOpen,
-  ])
+      if (success) {
+        setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+      } else {
+        setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      }
+    },
+    [ethereum, account, setConfirmTxModalIsOpen]
+  )
 
   const handleHarvest = useCallback(async () => {
     if (!ethereum || !account) return
@@ -132,11 +146,14 @@ const Provider: React.FC = ({ children }) => {
     setConfirmTxModalIsOpen(true)
     setTransactionStatusType(TransactionStatusType.IS_APPROVING)
 
-    const transactionId = await claimEarnedIndexLpReward(ethereum as provider, account)
+    const transactionId = await claimEarnedIndexLpReward(
+      ethereum as provider,
+      account
+    )
 
     if (!transactionId) {
       setTransactionStatusType(TransactionStatusType.IS_FAILED)
-      return;
+      return
     }
 
     setTransactionStatusType(TransactionStatusType.IS_PENDING)
@@ -147,11 +164,7 @@ const Provider: React.FC = ({ children }) => {
     } else {
       setTransactionStatusType(TransactionStatusType.IS_FAILED)
     }
-  }, [
-    ethereum,
-    account,
-    setConfirmTxModalIsOpen,
-  ])
+  }, [ethereum, account, setConfirmTxModalIsOpen])
 
   const handleUnstakeAndHarvest = useCallback(async () => {
     if (!ethereum || !account) return
@@ -159,11 +172,14 @@ const Provider: React.FC = ({ children }) => {
     setConfirmTxModalIsOpen(true)
     setTransactionStatusType(TransactionStatusType.IS_APPROVING)
 
-    const transactionId = await unstakeAndClaimEarnedIndexLpReward(ethereum as provider, account)
+    const transactionId = await unstakeAndClaimEarnedIndexLpReward(
+      ethereum as provider,
+      account
+    )
 
     if (!transactionId) {
       setTransactionStatusType(TransactionStatusType.IS_FAILED)
-      return;
+      return
     }
 
     setTransactionStatusType(TransactionStatusType.IS_PENDING)
@@ -174,14 +190,13 @@ const Provider: React.FC = ({ children }) => {
     } else {
       setTransactionStatusType(TransactionStatusType.IS_FAILED)
     }
-  }, [
-    ethereum,
-    account,
-    setConfirmTxModalIsOpen,
-  ])
+  }, [ethereum, account, setConfirmTxModalIsOpen])
 
   useEffect(() => {
-    let refreshInterval = setInterval(() => setCountdown(farmingStartTime - Date.now()), 1000)
+    let refreshInterval = setInterval(
+      () => setCountdown(farmingStartTime - Date.now()),
+      1000
+    )
     return () => clearInterval(refreshInterval)
   }, [setCountdown])
 
@@ -197,24 +212,22 @@ const Provider: React.FC = ({ children }) => {
       launchFireworks()
       hoot(true)
     }
-  }, [
-    hasHooted,
-    countdown,
-    hoot
-  ])
+  }, [hasHooted, countdown, hoot])
 
   return (
-    <Context.Provider value={{
-      farmingStartTime,
-      countdown,
-      isApproved,
-      isApproving,
-      onApprove: handleApprove,
-      onHarvest: handleHarvest,
-      onUnstakeAndHarvest: handleUnstakeAndHarvest,
-      onStake: handleStake,
-      onUnstake: handleUnstake,
-    }}>
+    <Context.Provider
+      value={{
+        farmingStartTime,
+        countdown,
+        isApproved,
+        isApproving,
+        onApprove: handleApprove,
+        onHarvest: handleHarvest,
+        onUnstakeAndHarvest: handleUnstakeAndHarvest,
+        onStake: handleStake,
+        onUnstake: handleUnstake,
+      }}
+    >
       {children}
       <ConfirmTransactionModal
         isOpen={confirmTxModalIsOpen}
