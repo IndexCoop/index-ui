@@ -59,19 +59,18 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             dot={false}
             stroke={theme.colors.primary.light}
           />
-          <XAxis
-            dataKey='x'
-            stroke={theme.colors.primary.light}
-            tickFormatter={(x) => new Date(x).toLocaleDateString()}
-            minTickGap={20}
-          />
           <YAxis
             stroke={theme.colors.primary.light}
             tickFormatter={(n) => '$' + formatFloats(n)}
+            axisLine={false}
+            tickLine={false}
+            mirror={true}
+            minTickGap={100000}
+            interval='preserveStartEnd'
             domain={[
-              // crop chart by ±20% of min/max values
-              formatFloats(minY - minY / 5),
-              formatFloats(maxY + maxY / 5),
+              // crop chart by ±5% of min/max values
+              'dataMin - 10',
+              'auto',
             ]}
           />
           <Tooltip
