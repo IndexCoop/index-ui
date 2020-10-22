@@ -79,7 +79,6 @@ const MarketData: React.FC = () => {
 
         <Card>
           <SimplePriceChart
-            title='Price of DefiPulse Index'
             icon={dpiTokenIcon}
             data={prices?.map(([x, y]) => ({ x, y }))}
           />

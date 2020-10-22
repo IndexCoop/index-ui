@@ -4,14 +4,7 @@ import numeral from 'numeral'
 import styled from 'styled-components'
 
 import FancyValue from 'components/FancyValue'
-import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-} from 'recharts'
+import { ResponsiveContainer, LineChart, Line, YAxis, Tooltip } from 'recharts'
 // docs - http://recharts.org/en-US/guide/
 
 interface SimplePriceChartProps {
@@ -50,7 +43,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   const maxY = Math.max(...(data || []).map<number>(({ y }) => y))
   return (
     <Container>
-      <ChartTitle>{title}</ChartTitle>
+      {title && <ChartTitle>{title}</ChartTitle>}
       <ChartContainer>
         <LineChart data={data}>
           <Line
