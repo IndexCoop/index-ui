@@ -13,7 +13,7 @@ const Home: React.FC = () => {
   const icon = {
     src: 'https://index-dao.s3.amazonaws.com/owl.png',
     alt: 'Owl',
-  };
+  }
 
   return (
     <Page>
@@ -22,7 +22,7 @@ const Home: React.FC = () => {
         title='Index'
         subtitle='A global community creating and maintaining the best crypto index products'
       />
-      <Spacer size="lg" />
+      <Spacer size='lg' />
       <Container>
         <Explanation />
         <Spacer />
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
       </Container>
       <Spacer />
       <DeFiPulseIndex />
-      <Spacer size="lg" />
+      <Spacer />
       <MarketData />
       <Spacer />
     </Page>
