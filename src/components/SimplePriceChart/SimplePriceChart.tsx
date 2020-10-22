@@ -57,7 +57,8 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             type='monotone'
             dataKey='y'
             dot={false}
-            stroke={theme.colors.primary.light}
+            stroke={'url(#gradient)'}
+            strokeWidth={2}
           />
           <YAxis
             stroke={theme.colors.primary.light}
@@ -73,6 +74,12 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             wrapperStyle={{ backgroundColor: theme.baseColor }}
             cursor={{ stroke: theme.colors.primary.light, strokeWidth: 2 }}
           />
+          <defs>
+            <linearGradient id='gradient' gradientTransform='rotate(90)'>
+              <stop offset='5%' stop-color='#8150E6' />
+              <stop offset='95%' stop-color='#E825A3' />
+            </linearGradient>
+          </defs>
         </LineChart>
       </ChartContainer>
     </Container>
