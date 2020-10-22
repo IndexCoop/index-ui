@@ -10,8 +10,8 @@ import {
   Line,
   XAxis,
   YAxis,
-  Tooltip
-} from 'recharts';
+  Tooltip,
+} from 'recharts'
 // docs - http://recharts.org/en-US/guide/
 
 interface SimplePriceChartProps {
@@ -26,52 +26,52 @@ interface SimplePriceChartProps {
   }[]
 }
 
-const MarketDataChart: React.FC<SimplePriceChartProps> = ({ title, icon, data }) => {
+const MarketDataChart: React.FC<SimplePriceChartProps> = ({
+  title,
+  icon,
+  data,
+}) => {
   const theme = useTheme()
   const formatFloats = (n: number) => parseFloat(numeral(n).format('0.00a'))
   const formatToolTip = (chartData: any) => {
     if (!chartData) return ['--', 'No Data Available']
-    const { payload: { x, y } } = chartData
+    const {
+      payload: { x, y },
+    } = chartData
     return [new Date(x).toLocaleDateString(), '$' + formatFloats(y)]
   }
 
   const renderTooltip = (props: any) => {
     const [label, value] = formatToolTip(props.payload?.[0])
-    return (
-      <FancyValue
-        icon={icon}
-        label={label}
-        value={value}
-      />
-    )
+    return <FancyValue icon={icon} label={label} value={value} />
   }
 
   const minY = Math.min(...(data || []).map<number>(({ y }) => y))
   const maxY = Math.max(...(data || []).map<number>(({ y }) => y))
   return (
     <Container>
-      <ChartTitle> {title} </ChartTitle>
+      <ChartTitle>{title}</ChartTitle>
       <ChartContainer>
         <LineChart data={data}>
           <Line
-            type="monotone"
-            dataKey={'y'}
+            type='monotone'
+            dataKey='y'
             dot={false}
             stroke={theme.colors.primary.light}
           />
           <XAxis
-            dataKey="x"
+            dataKey='x'
             stroke={theme.colors.primary.light}
-            tickFormatter={x => new Date(x).toLocaleDateString()}
+            tickFormatter={(x) => new Date(x).toLocaleDateString()}
             minTickGap={20}
           />
           <YAxis
             stroke={theme.colors.primary.light}
-            tickFormatter={n => '$' + formatFloats(n)}
+            tickFormatter={(n) => '$' + formatFloats(n)}
             domain={[
               // crop chart by ±20% of min/max values
-              formatFloats(minY - (minY / 5)),
-              formatFloats(maxY + (maxY / 5))
+              formatFloats(minY - minY / 5),
+              formatFloats(maxY + maxY / 5),
             ]}
           />
           <Tooltip
@@ -82,7 +82,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({ title, icon, data })
         </LineChart>
       </ChartContainer>
     </Container>
-  );
+  )
 }
 
 const ChartContainer = styled(ResponsiveContainer)`
@@ -90,7 +90,7 @@ const ChartContainer = styled(ResponsiveContainer)`
 `
 
 const ChartTitle = styled.h2`
-  font-size: 64px;
+  font-size: 42px;
 `
 
 export default MarketDataChart

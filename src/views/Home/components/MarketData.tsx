@@ -1,5 +1,5 @@
 import React from 'react'
-
+import styled from 'styled-components'
 import numeral from 'numeral'
 import { Container, Card, CardContent, Spacer } from 'react-neu'
 
@@ -7,17 +7,17 @@ import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 import SimplePriceChart from 'components/SimplePriceChart'
 
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData';
+import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 
 const MarketData: React.FC = () => {
   const {
     latestVolume,
     latestMarketCap,
     latestPrice,
-    prices
+    prices,
   } = useDpiTokenMarketData()
   const priceAtEpochStart = prices?.[0]?.[1] || 1
-  const epochPriceChange = ((latestPrice || 0) - priceAtEpochStart)
+  const epochPriceChange = (latestPrice || 0) - priceAtEpochStart
   const dpiTokenIcon = {
     src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
     alt: 'DefiPulse Index Logo',
@@ -41,8 +41,11 @@ const MarketData: React.FC = () => {
               <FancyValue
                 icon={dpiTokenIcon}
                 label='1 Month Price Change'
-                value={numeral((epochPriceChange / priceAtEpochStart) * 100)
-                  .format('0.00a') + '%'}
+                value={
+                  numeral((epochPriceChange / priceAtEpochStart) * 100).format(
+                    '0.00a'
+                  ) + '%'
+                }
               />
             </CardContent>
           </Card>
@@ -71,14 +74,17 @@ const MarketData: React.FC = () => {
             </CardContent>
           </Card>
         </Split>
+
+        <Spacer />
+
+        <Card>
+          <SimplePriceChart
+            title='Price of DefiPulse Index'
+            icon={dpiTokenIcon}
+            data={prices?.map(([x, y]) => ({ x, y }))}
+          />
+        </Card>
       </Container>
-      <Spacer />
-      <SimplePriceChart
-        title='Price of DefiPulse Index'
-        icon={dpiTokenIcon}
-        data={prices?.map(([x, y]) => ({ x, y }))}
-      />
-      <Spacer size="lg" />
     </>
   )
 }
