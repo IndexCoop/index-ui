@@ -25,6 +25,32 @@ const MarketData: React.FC = () => {
   return (
     <>
       <Container>
+        <Card>
+          <CardContent>
+            <StyledDpiSplitHeader>
+              <div>
+                <StyledDpiIconLabel>
+                  <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
+                  <span>DPI</span>
+                </StyledDpiIconLabel>
+                <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
+              </div>
+              <StyledViewMoreButton
+                href='https://www.tokensets.com/portfolio/dpi'
+                target='_blank'
+              >
+                View the DeFi Pulse Index ➔
+              </StyledViewMoreButton>
+            </StyledDpiSplitHeader>
+          </CardContent>
+          <SimplePriceChart
+            icon={dpiTokenIcon}
+            data={prices?.map(([x, y]) => ({ x, y }))}
+          />
+        </Card>
+
+        <Spacer />
+
         <Split>
           <Card>
             <CardContent>
@@ -74,32 +100,6 @@ const MarketData: React.FC = () => {
             </CardContent>
           </Card>
         </Split>
-
-        <Spacer />
-
-        <Card>
-          <CardContent>
-            <StyledDpiSplitHeader>
-              <div>
-                <StyledDpiIconLabel>
-                  <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
-                  <span>DPI</span>
-                </StyledDpiIconLabel>
-                <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
-              </div>
-              <StyledViewMoreButton
-                href='https://www.tokensets.com/portfolio/dpi'
-                target='_blank'
-              >
-                View the DeFi Pulse Index ➔
-              </StyledViewMoreButton>
-            </StyledDpiSplitHeader>
-          </CardContent>
-          <SimplePriceChart
-            icon={dpiTokenIcon}
-            data={prices?.map(([x, y]) => ({ x, y }))}
-          />
-        </Card>
       </Container>
     </>
   )

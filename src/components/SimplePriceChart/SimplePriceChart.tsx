@@ -54,7 +54,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             strokeWidth={2}
           />
           <YAxis
-            stroke={theme.colors.primary.light}
+            stroke={theme.colors.grey[500]}
             tickFormatter={(n) => '$' + formatFloats(n)}
             axisLine={false}
             tickLine={false}
