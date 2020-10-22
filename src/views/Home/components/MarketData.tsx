@@ -108,6 +108,10 @@ const MarketData: React.FC = () => {
 const StyledDpiSplitHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 `
 
 const StyledDpiTitle = styled.div`
