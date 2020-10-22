@@ -78,6 +78,20 @@ const MarketData: React.FC = () => {
         <Spacer />
 
         <Card>
+          <CardContent>
+            <StyledDpiSplitHeader>
+              <div>
+                <StyledDpiIconLabel>
+                  <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
+                  <span>DPI</span>
+                </StyledDpiIconLabel>
+                <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
+              </div>
+              <StyledViewMoreButton>
+                View the DeFi Pulse Index →
+              </StyledViewMoreButton>
+            </StyledDpiSplitHeader>
+          </CardContent>
           <SimplePriceChart
             icon={dpiTokenIcon}
             data={prices?.map(([x, y]) => ({ x, y }))}
@@ -87,5 +101,32 @@ const MarketData: React.FC = () => {
     </>
   )
 }
+
+const StyledDpiSplitHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const StyledDpiTitle = styled.div`
+  font-size: 32px;
+  font-weight: 600;
+`
+
+const StyledDpiIconLabel = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+`
+
+const StyledViewMoreButton = styled.span`
+  color: ${(props) => props.theme.colors.grey[500]};
+`
+
+const StyledIcon = styled.img`
+  height: 34px;
+  text-align: center;
+  min-width: 34px;
+  margin-right: 5px;
+`
 
 export default MarketData
