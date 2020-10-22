@@ -87,8 +87,11 @@ const MarketData: React.FC = () => {
                 </StyledDpiIconLabel>
                 <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
               </div>
-              <StyledViewMoreButton>
-                View the DeFi Pulse Index →
+              <StyledViewMoreButton
+                href='https://www.tokensets.com/portfolio/dpi'
+                target='_blank'
+              >
+                View the DeFi Pulse Index ➔
               </StyledViewMoreButton>
             </StyledDpiSplitHeader>
           </CardContent>
@@ -118,8 +121,14 @@ const StyledDpiIconLabel = styled.div`
   margin-bottom: 10px;
 `
 
-const StyledViewMoreButton = styled.span`
+const StyledViewMoreButton = styled.a`
+  height: 24px;
   color: ${(props) => props.theme.colors.grey[500]};
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    color: ${(props) => props.theme.colors.grey[600]};
+  }
 `
 
 const StyledIcon = styled.img`
