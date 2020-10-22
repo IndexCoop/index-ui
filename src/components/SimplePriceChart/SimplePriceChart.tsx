@@ -65,13 +65,8 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             axisLine={false}
             tickLine={false}
             mirror={true}
-            minTickGap={100000}
-            interval='preserveStartEnd'
-            domain={[
-              // crop chart by ±5% of min/max values
-              'dataMin - 10',
-              'auto',
-            ]}
+            ticks={[minY - 5, maxY + 5]}
+            domain={[minY - 10, maxY + 10]}
           />
           <Tooltip
             content={renderTooltip}
