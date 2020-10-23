@@ -32,6 +32,9 @@ const Home: React.FC = () => {
 const HomeTitle = styled.p`
   font-size: 72px;
   line-height: 1.2;
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
 `
 
 const AuvText = styled.span`
@@ -39,6 +42,9 @@ const AuvText = styled.span`
   line-height: 1;
   color: #03c75e;
   font-weight: 600;
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
 `
 
 const HomeHeaderCTA = styled.a`
@@ -53,6 +59,9 @@ const HomeHeaderCTA = styled.a`
   :hover {
     cursor: pointer;
     background-color: #02bf5a;
+  }
+  @media (max-width: 768px) {
+    font-size: 18px;
   }
 `
 

@@ -16,7 +16,7 @@ const Explanation: React.FC = () => (
               products.
             </StyledCardDescription>
             <StyledCardDescription>
-              All index products are fully collateralized by underlying tokens.
+              All index products are always fully collateralized.
             </StyledCardDescription>
           </StyledCardContent>
         </Surface>
@@ -49,8 +49,8 @@ const Explanation: React.FC = () => (
               infrastructure.
             </StyledCardDescription>
             <StyledCardDescription>
-              Product methodologies are sourced from industry experts including
-              DeFi Pulse.
+              Product methodologies are sourced from industry experts like DeFi
+              Pulse.
             </StyledCardDescription>
           </StyledCardContent>
         </Surface>
