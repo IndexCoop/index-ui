@@ -68,7 +68,6 @@ const StyledExplanationContainer = styled.div`
 
 const StyledExplanationTitle = styled.h2`
   font-size: 32px;
-  font-weight: 500;
   border-bottom: 1px solid ${(props) => props.theme.colors.primary.grey};
   padding-bottom: 30px;
   margin-bottom: 30px;

@@ -50,7 +50,7 @@ const AuvText = styled.span`
 const HomeHeaderCTA = styled.a`
   color: white;
   background-color: #03c75e;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 600;
   text-decoration: none;
   padding: 10px 20px;
