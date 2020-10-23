@@ -42,7 +42,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   const minY = Math.min(...(data || []).map<number>(({ y }) => y))
   const maxY = Math.max(...(data || []).map<number>(({ y }) => y))
   return (
-    <Container>
+    <Container size='lg'>
       {title && <ChartTitle>{title}</ChartTitle>}
       <ChartContainer>
         <LineChart data={data}>
