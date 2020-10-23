@@ -17,7 +17,7 @@ const Home: React.FC = () => {
 
   return (
     <Page>
-      <Container>
+      <Container size='lg'>
         <HomeTitle>
           The Index Coop currently has{' '}
           <AuvText>
@@ -30,13 +30,7 @@ const Home: React.FC = () => {
         </HomeTitle>
         <Explanation />
         <Spacer />
-        <Split>
-          <FarmingTimer />
-        </Split>
       </Container>
-      <Spacer />
-      <DeFiPulseIndex />
-      <Spacer />
       <MarketData />
       <Spacer />
     </Page>
@@ -44,8 +38,8 @@ const Home: React.FC = () => {
 }
 
 const HomeTitle = styled.p`
-  font-size: 54px;
-  line-height: 1;
+  font-size: 60px;
+  line-height: 1.2;
 `
 
 const AuvText = styled.span`
