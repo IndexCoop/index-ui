@@ -27,24 +27,21 @@ const MarketData: React.FC = () => {
     <>
       <Card>
         <CardContent>
-          <StyledDpiSplitHeader>
-            <div>
-              <StyledDpiIconLabel>
-                <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
-                <span>DPI</span>
-              </StyledDpiIconLabel>
-              <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
-              <StyledDpiPrice>
-                {'$' + numeral(latestPrice).format('0.00a')}
-              </StyledDpiPrice>
-            </div>
-            <StyledViewMoreButton
-              href='https://www.tokensets.com/portfolio/dpi'
-              target='_blank'
-            >
-              View the DeFi Pulse Index ➔
-            </StyledViewMoreButton>
-          </StyledDpiSplitHeader>
+          <StyledDpiIconLabel>
+            <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
+            <span>DPI</span>
+          </StyledDpiIconLabel>
+          <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
+          <StyledDpiPriceWrapper>
+            <StyledDpiPrice>
+              {'$' + numeral(latestPrice).format('0.00a')}
+            </StyledDpiPrice>
+            <StyledDpiPriceChange>
+              {numeral((epochPriceChange / priceAtEpochStart) * 100).format(
+                '0.00a'
+              ) + '%'}
+            </StyledDpiPriceChange>
+          </StyledDpiPriceWrapper>
         </CardContent>
         <SimplePriceChart
           icon={dpiTokenIcon}
@@ -54,15 +51,6 @@ const MarketData: React.FC = () => {
     </>
   )
 }
-
-const StyledDpiSplitHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-`
 
 const StyledDpiTitle = styled.div`
   font-size: 32px;
@@ -75,18 +63,21 @@ const StyledDpiIconLabel = styled.div`
   margin-bottom: 10px;
 `
 
-const StyledDpiPrice = styled.span`
-  font-size: 36px;
+const StyledDpiPriceWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  margin-top: 10px;
 `
 
-const StyledViewMoreButton = styled.a`
-  height: 24px;
-  color: ${(props) => props.theme.colors.grey[500]};
-  cursor: pointer;
-  text-decoration: none;
-  &:hover {
-    color: ${(props) => props.theme.colors.grey[600]};
-  }
+const StyledDpiPrice = styled.span`
+  font-size: 36px;
+  margin-right: 10px;
+  line-height: 1;
+`
+
+const StyledDpiPriceChange = styled.span`
+  font-size: 24px;
+  color: #03c75e;
 `
 
 const StyledIcon = styled.img`
