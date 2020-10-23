@@ -24,83 +24,81 @@ const MarketData: React.FC = () => {
   }
   return (
     <>
-      <Container>
+      <Card>
+        <CardContent>
+          <StyledDpiSplitHeader>
+            <div>
+              <StyledDpiIconLabel>
+                <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
+                <span>DPI</span>
+              </StyledDpiIconLabel>
+              <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
+            </div>
+            <StyledViewMoreButton
+              href='https://www.tokensets.com/portfolio/dpi'
+              target='_blank'
+            >
+              View the DeFi Pulse Index ➔
+            </StyledViewMoreButton>
+          </StyledDpiSplitHeader>
+        </CardContent>
+        <SimplePriceChart
+          icon={dpiTokenIcon}
+          data={prices?.map(([x, y]) => ({ x, y }))}
+        />
+      </Card>
+
+      <Spacer />
+
+      <Split>
         <Card>
           <CardContent>
-            <StyledDpiSplitHeader>
-              <div>
-                <StyledDpiIconLabel>
-                  <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
-                  <span>DPI</span>
-                </StyledDpiIconLabel>
-                <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
-              </div>
-              <StyledViewMoreButton
-                href='https://www.tokensets.com/portfolio/dpi'
-                target='_blank'
-              >
-                View the DeFi Pulse Index ➔
-              </StyledViewMoreButton>
-            </StyledDpiSplitHeader>
+            <FancyValue
+              icon={dpiTokenIcon}
+              label='Current $DPI Price'
+              value={'$' + numeral(latestPrice).format('0.00a')}
+            />
           </CardContent>
-          <SimplePriceChart
-            icon={dpiTokenIcon}
-            data={prices?.map(([x, y]) => ({ x, y }))}
-          />
         </Card>
 
-        <Spacer />
+        <Card>
+          <CardContent>
+            <FancyValue
+              icon={dpiTokenIcon}
+              label='1 Month Price Change'
+              value={
+                numeral((epochPriceChange / priceAtEpochStart) * 100).format(
+                  '0.00a'
+                ) + '%'
+              }
+            />
+          </CardContent>
+        </Card>
+      </Split>
 
-        <Split>
-          <Card>
-            <CardContent>
-              <FancyValue
-                icon={dpiTokenIcon}
-                label='Current $DPI Price'
-                value={'$' + numeral(latestPrice).format('0.00a')}
-              />
-            </CardContent>
-          </Card>
+      <Spacer />
 
-          <Card>
-            <CardContent>
-              <FancyValue
-                icon={dpiTokenIcon}
-                label='1 Month Price Change'
-                value={
-                  numeral((epochPriceChange / priceAtEpochStart) * 100).format(
-                    '0.00a'
-                  ) + '%'
-                }
-              />
-            </CardContent>
-          </Card>
-        </Split>
+      <Split>
+        <Card>
+          <CardContent>
+            <FancyValue
+              icon={dpiTokenIcon}
+              label='$DPI 24hr Volume'
+              value={'$' + numeral(latestVolume).format('0.00a')}
+            />
+          </CardContent>
+        </Card>
 
-        <Spacer />
-
-        <Split>
-          <Card>
-            <CardContent>
-              <FancyValue
-                icon={dpiTokenIcon}
-                label='$DPI 24hr Volume'
-                value={'$' + numeral(latestVolume).format('0.00a')}
-              />
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent>
-              <FancyValue
-                icon={dpiTokenIcon}
-                label='$DPI Marketcap'
-                value={'$' + numeral(latestMarketCap).format('0.00a')}
-              />
-            </CardContent>
-          </Card>
-        </Split>
-      </Container>
+        <Card>
+          <CardContent>
+            <FancyValue
+              icon={dpiTokenIcon}
+              label='$DPI Marketcap'
+              value={'$' + numeral(latestMarketCap).format('0.00a')}
+            />
+          </CardContent>
+        </Card>
+      </Split>
     </>
   )
 }
