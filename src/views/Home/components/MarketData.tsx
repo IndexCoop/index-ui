@@ -24,6 +24,7 @@ const MarketData: React.FC = () => {
   }
   return (
     <>
+      <StyledMarketDataTitle>Products</StyledMarketDataTitle>
       <Card>
         <CardContent>
           <StyledDpiSplitHeader>
@@ -102,6 +103,14 @@ const MarketData: React.FC = () => {
     </>
   )
 }
+
+const StyledMarketDataTitle = styled.h2`
+  font-size: 32px;
+  font-weight: 500;
+  border-bottom: 1px solid ${(props) => props.theme.colors.primary.grey};
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+`
 
 const StyledDpiSplitHeader = styled.div`
   display: flex;

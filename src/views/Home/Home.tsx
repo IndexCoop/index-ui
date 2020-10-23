@@ -12,11 +12,11 @@ const Home: React.FC = () => {
     <Page>
       <Container size='lg'>
         <HomeHeader />
-        <Explanation />
         <Spacer />
+        <Explanation />
+        <Spacer size='lg' />
         <MarketData />
       </Container>
-      <Spacer />
     </Page>
   )
 }
