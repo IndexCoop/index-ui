@@ -1,40 +1,22 @@
 import React from 'react'
 import { Container, Spacer } from 'react-neu'
-import Page from 'components/Page'
-import PageHeader from 'components/PageHeader'
-import Explanation from 'components/Explanation'
-import Split from 'components/Split'
 
-import DeFiPulseIndex from './components/DeFiPulseIndex'
-import FarmingTimer from './components/FarmingTimer'
+import Page from 'components/Page'
+import Explanation from 'components/Explanation'
+
+import HomeHeader from './components/HomeHeader'
 import MarketData from './components/MarketData'
 
 const Home: React.FC = () => {
-  const icon = {
-    src: 'https://index-dao.s3.amazonaws.com/owl.png',
-    alt: 'Owl',
-  }
-
   return (
     <Page>
-      <PageHeader
-        icon={icon}
-        title='Index'
-        subtitle='A global community creating and maintaining the best crypto index products'
-      />
-      <Spacer size='lg' />
-      <Container>
+      <Container size='lg'>
+        <HomeHeader />
+        <Spacer size='lg' />
         <Explanation />
-        <Spacer />
-        <Split>
-          <FarmingTimer />
-        </Split>
+        <Spacer size='lg' />
+        <MarketData />
       </Container>
-      <Spacer />
-      <DeFiPulseIndex />
-      <Spacer />
-      <MarketData />
-      <Spacer />
     </Page>
   )
 }
