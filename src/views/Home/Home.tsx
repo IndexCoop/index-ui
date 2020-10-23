@@ -1,7 +1,8 @@
 import React from 'react'
 import { Container, Spacer } from 'react-neu'
+import styled from 'styled-components'
+
 import Page from 'components/Page'
-import PageHeader from 'components/PageHeader'
 import Explanation from 'components/Explanation'
 import Split from 'components/Split'
 
@@ -9,19 +10,25 @@ import DeFiPulseIndex from './components/DeFiPulseIndex'
 import FarmingTimer from './components/FarmingTimer'
 import MarketData from './components/MarketData'
 
+import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+
 const Home: React.FC = () => {
-  const icon = {
-    src: 'https://index-dao.s3.amazonaws.com/owl.png',
-    alt: 'Owl',
-  }
+  const { latestMarketCap } = useDpiTokenMarketData()
 
   return (
     <Page>
-      <PageHeader
-        icon={icon}
-        title='Index'
-        subtitle='A global community creating and maintaining the best crypto index products'
-      />
+      <Container>
+        <HomeTitle>
+          The Index Coop currently manages{' '}
+          <AuvText>
+            {latestMarketCap?.toLocaleString(undefined, {
+              style: 'currency',
+              currency: 'USD',
+            })}{' '}
+          </AuvText>
+          in index products.
+        </HomeTitle>
+      </Container>
       <Spacer size='lg' />
       <Container>
         <Explanation />
@@ -38,5 +45,17 @@ const Home: React.FC = () => {
     </Page>
   )
 }
+
+const HomeTitle = styled.p`
+  font-size: 54px;
+  line-height: 1;
+`
+
+const AuvText = styled.span`
+  font-size: 54px;
+  line-height: 1;
+  color: #03c75e;
+  font-weight: 600;
+`
 
 export default Home
