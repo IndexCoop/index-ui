@@ -44,6 +44,7 @@ const MarketData: React.FC = () => {
           </StyledDpiSplitHeader>
         </CardContent>
         <SimplePriceChart
+          showTooltip
           icon={dpiTokenIcon}
           data={prices?.map(([x, y]) => ({ x, y }))}
         />
