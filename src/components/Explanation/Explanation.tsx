@@ -9,10 +9,14 @@ const Explanation: React.FC = () => (
       <StyledCardContainer>
         <Surface fill>
           <StyledCardContent>
+            <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_1.svg' />
             <StyledCardTitle>Diversified Risk Products</StyledCardTitle>
             <StyledCardDescription>
               Index Coop creates and maintains the world's best crypto index
               products.
+            </StyledCardDescription>
+            <StyledCardDescription>
+              All index products are fully collateralized by underlying tokens.
             </StyledCardDescription>
           </StyledCardContent>
         </Surface>
@@ -23,6 +27,7 @@ const Explanation: React.FC = () => (
       <StyledCardContainer>
         <Surface fill>
           <StyledCardContent>
+            <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_2.svg' />
             <StyledCardTitle>Decentralized & Autonomous</StyledCardTitle>
             <StyledCardDescription>
               Index Coop is a Decentralized and Autonomous Asset Manager
@@ -37,9 +42,15 @@ const Explanation: React.FC = () => (
       <StyledCardContainer>
         <Surface fill>
           <StyledCardContent>
-            <StyledCardTitle>Backed by DeFi Leaders</StyledCardTitle>
+            <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_3.svg' />
+            <StyledCardTitle>Built with DeFi Leaders</StyledCardTitle>
             <StyledCardDescription>
-              Backed by the teams at Set Protocol and DeFi Pulse.
+              Our products are built on Set Protocol's battle-tested V2
+              infrastructure.
+            </StyledCardDescription>
+            <StyledCardDescription>
+              Product methodologies are sourced from industry experts including
+              DeFi Pulse.
             </StyledCardDescription>
           </StyledCardContent>
         </Surface>
@@ -50,6 +61,9 @@ const Explanation: React.FC = () => (
 
 const StyledExplanationContainer = styled.div`
   display: flex;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 const StyledExplanationTitle = styled.h2`
@@ -65,7 +79,7 @@ const StyledCardContainer = styled.div`
 `
 
 const StyledCardContent = styled.div`
-  padding: 20px;
+  padding: 30px;
 `
 
 const StyledCardTitle = styled.p`
@@ -73,6 +87,11 @@ const StyledCardTitle = styled.p`
   font-weight: 600;
   margin: 0;
 `
+const StyledCardIcon = styled.img`
+  margin-bottom: 20px;
+  width: 50px;
+`
+
 const StyledCardDescription = styled.p`
   font-size: 24px;
 `
