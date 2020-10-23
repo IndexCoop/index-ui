@@ -19,7 +19,7 @@ const Home: React.FC = () => {
     <Page>
       <Container>
         <HomeTitle>
-          The Index Coop currently manages{' '}
+          The Index Coop currently has{' '}
           <AuvText>
             {latestMarketCap?.toLocaleString(undefined, {
               style: 'currency',
@@ -28,9 +28,6 @@ const Home: React.FC = () => {
           </AuvText>
           in index products.
         </HomeTitle>
-      </Container>
-      <Spacer size='lg' />
-      <Container>
         <Explanation />
         <Spacer />
         <Split>
