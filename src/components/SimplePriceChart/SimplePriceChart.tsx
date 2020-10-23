@@ -37,6 +37,8 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   }
 
   const renderTooltip = (props: any) => {
+    if (!showTooltip) return null
+
     const [label, value] = formatToolTip(props.payload?.[0])
     return <FancyValue icon={icon} label={label} value={value} />
   }
@@ -64,13 +66,11 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             ticks={[minY - 5, maxY + 5]}
             domain={[minY - 10, maxY + 10]}
           />
-          {showTooltip && (
-            <Tooltip
-              content={renderTooltip}
-              wrapperStyle={{ backgroundColor: theme.baseColor }}
-              cursor={{ stroke: theme.colors.primary.light, strokeWidth: 2 }}
-            />
-          )}
+          <Tooltip
+            content={renderTooltip}
+            wrapperStyle={{ backgroundColor: theme.baseColor }}
+            cursor={{ stroke: theme.colors.primary.light, strokeWidth: 2 }}
+          />
           <defs>
             <linearGradient id='gradient' gradientTransform='rotate(90)'>
               <stop offset='5%' stop-color='#8150E6' />
