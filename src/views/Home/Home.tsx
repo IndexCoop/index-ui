@@ -12,7 +12,7 @@ const Home: React.FC = () => {
     <Page>
       <Container size='lg'>
         <HomeHeader />
-        <Spacer />
+        <Spacer size='lg' />
         <Explanation />
         <Spacer size='lg' />
         <MarketData />
