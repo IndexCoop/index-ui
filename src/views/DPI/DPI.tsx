@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Spacer } from 'react-neu'
 
 import Page from 'components/Page'
+import { BuyTokenPlaceholder } from 'components/BuyToken'
 import MarketData from './components/MarketData'
 import DpiHoldings from './components/DpiHoldings'
 import DpiPriceChanges from './components/DpiPriceChanges'
@@ -12,6 +13,7 @@ const Home: React.FC = () => {
     <Page>
       <Container>
         <MarketData />
+        <BuyTokenPlaceholder />
         <DpiHoldings />
         <DpiPriceChanges />
         <DpiTokenStats />
