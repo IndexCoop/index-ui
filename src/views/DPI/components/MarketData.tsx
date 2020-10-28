@@ -34,30 +34,26 @@ const MarketData: React.FC = () => {
   }
   return (
     <>
-      <Card>
-        <CardContent>
-          <StyledDpiIconLabel>
-            <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
-            <span>DPI</span>
-          </StyledDpiIconLabel>
-          <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
-          <StyledDpiPriceWrapper>
-            <StyledDpiPrice>
-              {'$' + numeral(chartPrice).format('0.00a')}
-            </StyledDpiPrice>
-            <StyledDpiPriceChange>
-              {numeral((epochPriceChange / priceAtEpochStart) * 100).format(
-                '0.00a'
-              ) + '%'}
-            </StyledDpiPriceChange>
-          </StyledDpiPriceWrapper>
-        </CardContent>
-        <SimplePriceChart
-          icon={dpiTokenIcon}
-          data={prices?.map(([x, y]) => ({ x, y }))}
-          readTooltipData={updateChartPrice}
-        />
-      </Card>
+      <StyledDpiIconLabel>
+        <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
+        <span>DPI</span>
+      </StyledDpiIconLabel>
+      <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
+      <StyledDpiPriceWrapper>
+        <StyledDpiPrice>
+          {'$' + numeral(chartPrice).format('0.00a')}
+        </StyledDpiPrice>
+        <StyledDpiPriceChange>
+          {numeral((epochPriceChange / priceAtEpochStart) * 100).format(
+            '0.00a'
+          ) + '%'}
+        </StyledDpiPriceChange>
+      </StyledDpiPriceWrapper>
+      <SimplePriceChart
+        icon={dpiTokenIcon}
+        data={prices?.map(([x, y]) => ({ x, y }))}
+        readTooltipData={updateChartPrice}
+      />
     </>
   )
 }
