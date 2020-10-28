@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 import { Container, Card, CardContent, Spacer } from 'react-neu'
@@ -8,6 +8,7 @@ import Split from 'components/Split'
 import SimplePriceChart from 'components/SimplePriceChart'
 
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import useBalances from 'hooks/useBalances'
 
 const MarketData: React.FC = () => {
   const {
@@ -16,13 +17,21 @@ const MarketData: React.FC = () => {
     latestPrice,
     prices,
   } = useDpiTokenMarketData()
+  const [chartPrice, setChartPrice] = useState<number>(0)
+  useEffect(() => {
+    if (!chartPrice && latestPrice) setChartPrice(latestPrice)
+  })
+
+  if (!chartPrice && latestPrice) setChartPrice(latestPrice)
   const priceAtEpochStart = prices?.[0]?.[1] || 1
-  const epochPriceChange = (latestPrice || 0) - priceAtEpochStart
+  const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
   const dpiTokenIcon = {
     src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
     alt: 'DefiPulse Index Logo',
   }
-
+  const updateChartPrice = (tooltipData: any) => {
+    if (tooltipData) return setChartPrice(tooltipData.payload.y)
+  }
   return (
     <>
       <Card>
@@ -34,7 +43,7 @@ const MarketData: React.FC = () => {
           <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
           <StyledDpiPriceWrapper>
             <StyledDpiPrice>
-              {'$' + numeral(latestPrice).format('0.00a')}
+              {'$' + numeral(chartPrice).format('0.00a')}
             </StyledDpiPrice>
             <StyledDpiPriceChange>
               {numeral((epochPriceChange / priceAtEpochStart) * 100).format(
@@ -46,6 +55,7 @@ const MarketData: React.FC = () => {
         <SimplePriceChart
           icon={dpiTokenIcon}
           data={prices?.map(([x, y]) => ({ x, y }))}
+          readTooltipData={updateChartPrice}
         />
       </Card>
     </>
