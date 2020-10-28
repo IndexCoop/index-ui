@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 

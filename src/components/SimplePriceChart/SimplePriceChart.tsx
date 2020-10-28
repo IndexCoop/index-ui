@@ -40,15 +40,13 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
 
   const renderTooltip = (props: any) => {
     const tooltipData = props.payload?.[0]
-    readTooltipData && readTooltipData(tooltipData)
+
+    if (readTooltipData && tooltipData) readTooltipData(tooltipData)
+
     if (!showTooltip) return null
 
     const [label, value] = formatToolTip(tooltipData)
     return <FancyValue icon={icon} label={label} value={value} />
-  }
-
-  const onMouseMove = (props: any) => {
-    console.log('chart price hover', props)
   }
 
   const minY = Math.min(...(data || []).map<number>(({ y }) => y))
@@ -64,7 +62,6 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             dot={false}
             stroke={'url(#gradient)'}
             strokeWidth={2}
-            onMouseMove={onMouseMove}
           />
           <YAxis
             stroke={theme.colors.grey[500]}

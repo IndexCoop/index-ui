@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 
@@ -10,14 +10,12 @@ import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 const DpiHoldings: React.FC = () => {
   const { dpiBalance } = useBalances()
   const { latestPrice } = useDpiTokenMarketData()
-  console.log('DPI assets', Number(dpiBalance), latestPrice)
   return (
     <InfoSection title='My Assets'>
       <BaseCurrencyDpiValuation>
         ${numeral((latestPrice || 0) * Number(dpiBalance)).format('0.00a')}
       </BaseCurrencyDpiValuation>
       <DpiTokenHoldings>
-        {' '}
         {numeral(dpiBalance).format('0.000a')} DPI
       </DpiTokenHoldings>
     </InfoSection>
