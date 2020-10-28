@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 
@@ -17,7 +17,6 @@ const DpiHoldings: React.FC = () => {
         ${numeral((latestPrice || 0) * Number(dpiBalance)).format('0.00a')}
       </BaseCurrencyDpiValuation>
       <DpiTokenHoldings>
-        {' '}
         {numeral(dpiBalance).format('0.000a')} DPI
       </DpiTokenHoldings>
     </InfoSection>

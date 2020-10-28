@@ -1,37 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
-import { Container, Card, CardContent, Spacer } from 'react-neu'
 
-import FancyValue from 'components/FancyValue'
-import Split from 'components/Split'
 import SimplePriceChart from 'components/SimplePriceChart'
 
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
-import useBalances from 'hooks/useBalances'
 
 const MarketData: React.FC = () => {
-  const {
-    latestVolume,
-    latestMarketCap,
-    latestPrice,
-    prices,
-  } = useDpiTokenMarketData()
+  const { latestPrice, prices } = useDpiTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   useEffect(() => {
-    if (!chartPrice && latestPrice) setChartPrice(latestPrice)
+    if (!chartPrice && latestPrice) return setChartPrice(latestPrice)
   })
 
-  if (!chartPrice && latestPrice) setChartPrice(latestPrice)
   const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
   const dpiTokenIcon = {
     src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
     alt: 'DefiPulse Index Logo',
   }
-  const updateChartPrice = (tooltipData: any) => {
-    if (tooltipData) return setChartPrice(tooltipData.payload.y)
-  }
+
+  const updateChartPrice = (tooltipData: any) =>
+    setChartPrice(tooltipData.payload.y)
+
   return (
     <>
       <StyledDpiIconLabel>

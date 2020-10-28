@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 
@@ -38,7 +38,7 @@ const DpiPriceChanges: React.FC = () => {
   const renderPriceChanges = (config: any) => {
     const [dateString, daysOfComparison] = config // how to destructure in params without tsx bitching?
     return (
-      <StyledPriceChange>
+      <StyledPriceChange key={daysOfComparison}>
         <StyledDateString>{dateString}</StyledDateString>
         {calculatePriceDiffs(daysOfComparison)}
       </StyledPriceChange>
