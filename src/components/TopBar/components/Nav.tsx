@@ -11,6 +11,9 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName='active' to='/dpi'>
         DeFi Pulse Index
       </StyledLink>
+      <StyledLink exact activeClassName='active' to='/index'>
+        INDEX
+      </StyledLink>
       <StyledLink exact activeClassName='active' to='/farm'>
         Farm
       </StyledLink>
