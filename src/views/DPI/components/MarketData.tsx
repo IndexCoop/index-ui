@@ -24,7 +24,7 @@ const MarketData: React.FC = () => {
     setChartPrice(tooltipData.payload.y)
 
   return (
-    <>
+    <div>
       <StyledDpiIconLabel>
         <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
         <span>DPI</span>
@@ -45,7 +45,7 @@ const MarketData: React.FC = () => {
         data={prices?.map(([x, y]) => ({ x, y }))}
         readTooltipData={updateChartPrice}
       />
-    </>
+    </div>
   )
 }
 

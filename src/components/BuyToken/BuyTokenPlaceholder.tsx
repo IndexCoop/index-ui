@@ -1,23 +1,32 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Card, CardContent } from 'react-neu'
+import { Card } from 'react-neu'
 
 const BuyTokenPlaceholder: React.FC = () => {
   return (
-    <Card>
-      <CenteredContent>
-        <BuyIcon
-          src={'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'}
-        />
-        <div>
-          <LargeText> Buy & Sell </LargeText>
-          <SmallText> Coming Soon </SmallText>
-        </div>
-      </CenteredContent>
-    </Card>
+    <StyledBuyCard>
+      <Card>
+        <CenteredContent>
+          <BuyIcon
+            src={'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'}
+          />
+          <div>
+            <LargeText> Buy & Sell </LargeText>
+            <SmallText> Coming Soon </SmallText>
+          </div>
+        </CenteredContent>
+      </Card>
+    </StyledBuyCard>
   )
 }
+
+const StyledBuyCard = styled.div`
+  max-height: 200px;
+  @media (min-width: 768px) {
+    max-height: 500px;
+  }
+`
 
 const CenteredContent = styled.div`
   display: flex;
