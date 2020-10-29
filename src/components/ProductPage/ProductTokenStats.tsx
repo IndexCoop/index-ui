@@ -2,26 +2,34 @@ import React from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 
-import InfoSection from './InfoSection'
+import { ProductPageSection } from './ProductPageLayouts'
 
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+interface ProductTokenStatsProps {
+  latestPrice?: number
+  latestMarketCap?: number
+  latestVolume?: number
+}
 
-const DpiPriceChanges: React.FC = () => {
-  const { latestPrice, latestVolume, latestMarketCap } = useDpiTokenMarketData()
-
+const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
+  latestPrice,
+  latestMarketCap,
+  latestVolume,
+}) => {
+  const formatMetric = (metricValue: number) =>
+    numeral(metricValue).format('0.00a').toString().toUpperCase()
   return (
-    <InfoSection title='Stats'>
+    <ProductPageSection title='Stats'>
       <PriceStatsContainer>
         <StyledStat>
           <StyledStatTitle>Market Cap</StyledStatTitle>
           <StyledStatMetric>
-            ${numeral(latestMarketCap).format('0.00a')}
+            ${formatMetric(latestMarketCap || 0)}
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>
           <StyledStatTitle>Volume</StyledStatTitle>
           <StyledStatMetric>
-            ${numeral(latestVolume).format('0.00a')}
+            ${formatMetric(latestVolume || 0)}
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>
@@ -31,7 +39,7 @@ const DpiPriceChanges: React.FC = () => {
           </StyledStatMetric>
         </StyledStat>
       </PriceStatsContainer>
-    </InfoSection>
+    </ProductPageSection>
   )
 }
 
@@ -50,4 +58,4 @@ const StyledStatMetric = styled.div`
   font-size: 24px;
 `
 
-export default DpiPriceChanges
+export default ProductTokenStats

@@ -1,15 +1,28 @@
 import React from 'react'
 import { Container, Spacer } from 'react-neu'
-import styled from 'styled-components'
 
 import Page from 'components/Page'
+import {
+  ProductPageHeader,
+  ProductPageContent,
+  TokenStats,
+  PriceChanges,
+  WalletBalance,
+} from 'components/ProductPage'
 import { BuyTokenPlaceholder } from 'components/BuyToken'
 import MarketData from './components/MarketData'
-import DpiHoldings from './components/DpiHoldings'
-import DpiPriceChanges from './components/DpiPriceChanges'
-import DpiTokenStats from './components/DpiTokenStats'
 
-const Home: React.FC = () => {
+import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import useBalances from 'hooks/useBalances'
+
+const DpiProductPage: React.FC = () => {
+  const {
+    prices,
+    latestPrice,
+    latestMarketCap,
+    latestVolume,
+  } = useDpiTokenMarketData()
+  const { dpiBalance } = useBalances()
   return (
     <Page>
       <Container size='lg'>
@@ -18,26 +31,21 @@ const Home: React.FC = () => {
           <BuyTokenPlaceholder />
         </ProductPageHeader>
         <ProductPageContent>
-          <DpiHoldings />
-          <DpiPriceChanges />
-          <DpiTokenStats />
+          <WalletBalance
+            symbol='DPI'
+            latestPrice={latestPrice}
+            currentBalance={dpiBalance}
+          />
+          <PriceChanges prices={prices} />
+          <TokenStats
+            latestPrice={latestPrice}
+            latestVolume={latestVolume}
+            latestMarketCap={latestMarketCap}
+          />
         </ProductPageContent>
       </Container>
     </Page>
   )
 }
 
-const ProductPageHeader = styled.div`
-  @media (min-width: 768px) {
-    display: grid;
-    grid-template-columns: [chart] 60% [buybox] 30%;
-  }
-`
-
-const ProductPageContent = styled.div`
-  @media (min-width: 768px) {
-    width: 60%;
-  }
-`
-
-export default Home
+export default DpiProductPage

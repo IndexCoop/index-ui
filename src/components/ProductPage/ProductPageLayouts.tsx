@@ -1,11 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
 
-interface InfoSectionProps {
+export const ProductPageHeader = styled.div`
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: [chart] 60% [buybox] 30%;
+  }
+`
+
+export const ProductPageContent = styled.div`
+  @media (min-width: 768px) {
+    width: 60%;
+  }
+`
+
+interface ProductPageSectionProps {
   title: string
 }
 
-const InfoSection: React.FC<InfoSectionProps> = ({ title, children }) => {
+export const ProductPageSection: React.FC<ProductPageSectionProps> = ({
+  title,
+  children,
+}) => {
   return (
     <SectionContainer>
       <SectionTitle>{title}</SectionTitle>
@@ -27,4 +43,3 @@ const SectionTitle = styled.h3`
   margin-top: 0;
   color: ${({ theme }) => theme.textColor};
 `
-export default InfoSection

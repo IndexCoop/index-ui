@@ -2,12 +2,13 @@ import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 
-import InfoSection from './InfoSection'
+import { ProductPageSection } from './ProductPageLayouts'
 
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+interface ProductPriceChangesProps {
+  prices?: number[][]
+}
 
-const DpiPriceChanges: React.FC = () => {
-  const { prices } = useDpiTokenMarketData()
+const DpiPriceChanges: React.FC<ProductPriceChangesProps> = ({ prices }) => {
   const [startTime] = prices?.[0] || [0]
   const [latestTime, latestPrice] = prices?.[prices.length - 1] || [0, 0]
   // Coingecko API returns each item as hourly data if < 90 days and daily data > 90 days
@@ -46,11 +47,11 @@ const DpiPriceChanges: React.FC = () => {
   }
 
   return (
-    <InfoSection title='Changes'>
+    <ProductPageSection title='Changes'>
       <PriceChangesContainer>
         {priceChangeIntervals.map<ReactNode>(renderPriceChanges)}
       </PriceChangesContainer>
-    </InfoSection>
+    </ProductPageSection>
   )
 }
 
