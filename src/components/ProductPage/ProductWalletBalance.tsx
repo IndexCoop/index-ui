@@ -18,23 +18,23 @@ const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
 }) => {
   return (
     <ProductPageSection title='My Assets'>
-      <BaseCurrencyDpiValuation>
+      <StyledTokenValuation>
         ${numeral(latestPrice * Number(currentBalance)).format('0.00a')}
-      </BaseCurrencyDpiValuation>
-      <DpiTokenHoldings>
+      </StyledTokenValuation>
+      <StyledTokenBalance>
         {numeral(currentBalance).format('0.000a')} {symbol}
-      </DpiTokenHoldings>
+      </StyledTokenBalance>
     </ProductPageSection>
   )
 }
 
-const BaseCurrencyDpiValuation = styled.h3`
+const StyledTokenValuation = styled.h3`
   display: inline-block;
   margin: 0 ${({ theme }) => theme.spacing[4]}px 0 0;
   font-size: 28px;
 `
 
-const DpiTokenHoldings = styled.div`
+const StyledTokenBalance = styled.div`
   display: inline-block;
   font-size: 16px;
   color: ${({ theme }) => theme.colors.grey[500]};

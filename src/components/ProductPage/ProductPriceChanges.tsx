@@ -8,12 +8,15 @@ interface ProductPriceChangesProps {
   prices?: number[][]
 }
 
-const DpiPriceChanges: React.FC<ProductPriceChangesProps> = ({ prices }) => {
+const ProductPriceChanges: React.FC<ProductPriceChangesProps> = ({
+  prices,
+}) => {
   const [startTime] = prices?.[0] || [0]
   const [latestTime, latestPrice] = prices?.[prices.length - 1] || [0, 0]
   // Coingecko API returns each item as hourly data if < 90 days and daily data > 90 days
   // So if time between start and end time < 90 days, 1 day of data is 24 array items.
-  const dataCadenceFor24Hours = latestTime - startTime < 7776000000 ? 24 : 1
+  const ninetyDays = 7776000000
+  const dataCadenceFor24Hours = latestTime - startTime < ninetyDays ? 24 : 1
   const priceChangeIntervals = [
     ['1 Day', 1],
     ['1 Month', 30],
@@ -21,10 +24,11 @@ const DpiPriceChanges: React.FC<ProductPriceChangesProps> = ({ prices }) => {
     ['1 Year', 365],
   ]
 
-  const calculatePriceDiffs = (daysOfComparison: number) => {
+  const renderAssetPriceChange = (daysOfComparison: number) => {
     // placeholder if no data available for timerange
-    if (!prices || prices.length < daysOfComparison * dataCadenceFor24Hours)
+    if (!prices || prices.length < daysOfComparison * dataCadenceFor24Hours) {
       return <div>---</div>
+    }
     const startPriceIndex =
       prices.length - daysOfComparison * dataCadenceFor24Hours
     const startPrice = prices[startPriceIndex][1]
@@ -37,11 +41,11 @@ const DpiPriceChanges: React.FC<ProductPriceChangesProps> = ({ prices }) => {
   }
 
   const renderPriceChanges = (config: any) => {
-    const [dateString, daysOfComparison] = config // how to destructure in params without tsx bitching?
+    const [dateString, daysOfComparison] = config
     return (
       <StyledPriceChange key={daysOfComparison}>
         <StyledDateString>{dateString}</StyledDateString>
-        {calculatePriceDiffs(daysOfComparison)}
+        {renderAssetPriceChange(daysOfComparison)}
       </StyledPriceChange>
     )
   }
@@ -69,11 +73,14 @@ const StyledDateString = styled.div`
 `
 
 const StyledNegativePrice = styled.div`
-  color: red;
+  color: ${({ theme }) => {
+    console.log('theme', theme.colors.red, theme.colors)
+    return theme.colors.red
+  }};
 `
 
 const StyledPositivePrice = styled.div`
-  color: green;
+  color: ${({ theme }) => theme.colors.green};
 `
 
-export default DpiPriceChanges
+export default ProductPriceChanges

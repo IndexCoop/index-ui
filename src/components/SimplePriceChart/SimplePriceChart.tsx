@@ -41,7 +41,9 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   const renderTooltip = (props: any) => {
     const tooltipData = props.payload?.[0]
 
-    if (readTooltipData && tooltipData) readTooltipData(tooltipData)
+    if (readTooltipData && tooltipData) {
+      setTimeout(readTooltipData, 0, tooltipData)
+    }
 
     if (!showTooltip) return null
 
