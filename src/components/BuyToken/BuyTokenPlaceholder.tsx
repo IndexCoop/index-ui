@@ -9,7 +9,8 @@ const BuyTokenPlaceholder: React.FC = () => {
       <Card>
         <CenteredContent>
           <BuyIcon
-            src={'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'}
+            src='https://index-dao.s3.amazonaws.com/buy-sell.svg'
+            alt='Buy Index Coop Product'
           />
           <div>
             <LargeText> Buy & Sell </LargeText>
