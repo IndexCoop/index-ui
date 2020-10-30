@@ -4,10 +4,10 @@ import numeral from 'numeral'
 
 import SimplePriceChart from 'components/SimplePriceChart'
 
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
 
 const MarketData: React.FC = () => {
-  const { latestPrice, prices } = useDpiTokenMarketData()
+  const { latestPrice, prices } = useIndexTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   useEffect(() => {
     if (!chartPrice && latestPrice) return setChartPrice(latestPrice)
@@ -15,9 +15,9 @@ const MarketData: React.FC = () => {
 
   const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
-  const dpiTokenIcon = {
-    src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
-    alt: 'DefiPulse Index Logo',
+  const IndexToken = {
+    src: 'https://index-dao.s3.amazonaws.com/owl.png',
+    alt: 'Index Coop Logo',
   }
 
   const updateChartPrice = (tooltipData: any) =>
@@ -26,10 +26,10 @@ const MarketData: React.FC = () => {
   return (
     <div>
       <StyledDpiIconLabel>
-        <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
-        <span>DPI</span>
+        <StyledIcon src={IndexToken.src} alt={IndexToken.alt} />
+        <span>INDEX</span>
       </StyledDpiIconLabel>
-      <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
+      <StyledDpiTitle>Index Coop Token</StyledDpiTitle>
       <StyledDpiPriceWrapper>
         <StyledDpiPrice>
           {'$' + numeral(chartPrice).format('0.00a')}
@@ -41,7 +41,7 @@ const MarketData: React.FC = () => {
         </StyledDpiPriceChange>
       </StyledDpiPriceWrapper>
       <SimplePriceChart
-        icon={dpiTokenIcon}
+        icon={IndexToken}
         data={prices?.map(([x, y]) => ({ x, y }))}
         readTooltipData={updateChartPrice}
       />
