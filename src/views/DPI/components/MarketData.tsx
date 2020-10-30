@@ -51,7 +51,6 @@ const MarketData: React.FC = () => {
       <SimplePriceChart
         icon={dpiTokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
-        // readTooltipData={updateChartPrice}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}
       />

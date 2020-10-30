@@ -18,7 +18,6 @@ interface SimplePriceChartProps {
     x: string | number
     y: number
   }[]
-  readTooltipData?: Function
   onMouseMove?: (...args: any[]) => any
   onMouseLeave?: (...args: any[]) => any
 }
@@ -28,7 +27,6 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   showTooltip,
   icon,
   data,
-  readTooltipData,
   onMouseMove = () => {},
   onMouseLeave = () => {},
 }) => {
@@ -43,15 +41,11 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   }
 
   const renderTooltip = (props: any) => {
-    const tooltipData = props.payload?.[0]
-
-    if (readTooltipData && tooltipData) {
-      setTimeout(readTooltipData, 0, tooltipData)
-    }
-
     if (!showTooltip) return null
 
+    const tooltipData = props.payload?.[0]
     const [label, value] = formatToolTip(tooltipData)
+
     return <FancyValue icon={icon} label={label} value={value} />
   }
 

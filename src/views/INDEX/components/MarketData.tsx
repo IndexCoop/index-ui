@@ -20,8 +20,16 @@ const MarketData: React.FC = () => {
     alt: 'Index Coop Logo',
   }
 
-  const updateChartPrice = (tooltipData: any) =>
-    setChartPrice(tooltipData.payload.y)
+  const updateChartPrice = (chartData: any) => {
+    setTimeout(
+      () => setChartPrice(chartData?.activePayload?.[0]?.value || 0),
+      0
+    )
+  }
+
+  const resetChartPrice = () => {
+    setTimeout(() => setChartPrice(latestPrice || 0), 0)
+  }
 
   return (
     <div>
@@ -43,7 +51,8 @@ const MarketData: React.FC = () => {
       <SimplePriceChart
         icon={IndexToken}
         data={prices?.map(([x, y]) => ({ x, y }))}
-        readTooltipData={updateChartPrice}
+        onMouseMove={updateChartPrice}
+        onMouseLeave={resetChartPrice}
       />
     </div>
   )
