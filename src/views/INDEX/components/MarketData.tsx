@@ -9,6 +9,7 @@ import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
 const MarketData: React.FC = () => {
   const { latestPrice, prices } = useIndexTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
+  const [chartDate, setChartDate] = useState<number>(Date.now())
   useEffect(() => {
     if (!chartPrice && latestPrice) return setChartPrice(latestPrice)
   })
@@ -21,15 +22,21 @@ const MarketData: React.FC = () => {
   }
 
   const updateChartPrice = (chartData: any) => {
-    setTimeout(
-      () => setChartPrice(chartData?.activePayload?.[0]?.value || 0),
-      0
-    )
+    const payload = chartData?.activePayload?.[0]?.payload || {}
+    setTimeout(() => {
+      setChartPrice(payload.y || 0)
+      setChartDate(payload.x || Date.now())
+    }, 0)
   }
 
   const resetChartPrice = () => {
-    setTimeout(() => setChartPrice(latestPrice || 0), 0)
+    setTimeout(() => {
+      setChartPrice(latestPrice || 0)
+      setChartDate(Date.now())
+    }, 0)
   }
+
+  const priceData = new Date(chartDate)
 
   return (
     <div>
@@ -38,6 +45,7 @@ const MarketData: React.FC = () => {
         <span>INDEX</span>
       </StyledDpiIconLabel>
       <StyledDpiTitle>Index Coop Token</StyledDpiTitle>
+      <p>{priceData.toDateString()}</p>
       <StyledDpiPriceWrapper>
         <StyledDpiPrice>
           {'$' + numeral(chartPrice).format('0.00a')}
