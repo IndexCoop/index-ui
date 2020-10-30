@@ -10,9 +10,10 @@ const MarketData: React.FC = () => {
   const { latestPrice, prices } = useIndexTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
+
   useEffect(() => {
-    if (!chartPrice && latestPrice) return setChartPrice(latestPrice)
-  })
+    if (latestPrice) return setChartPrice(latestPrice)
+  }, [latestPrice])
 
   const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
@@ -23,6 +24,7 @@ const MarketData: React.FC = () => {
 
   const updateChartPrice = (chartData: any) => {
     const payload = chartData?.activePayload?.[0]?.payload || {}
+
     setTimeout(() => {
       setChartPrice(payload.y || 0)
       setChartDate(payload.x || Date.now())
