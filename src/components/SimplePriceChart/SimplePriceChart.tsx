@@ -84,8 +84,8 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
           />
           <defs>
             <linearGradient id='gradient' gradientTransform='rotate(90)'>
-              <stop offset='5%' stop-color='#8150E6' />
-              <stop offset='95%' stop-color='#E825A3' />
+              <stop offset='5%' stopColor='#8150E6' />
+              <stop offset='95%' stopColor='#E825A3' />
             </linearGradient>
           </defs>
         </LineChart>
