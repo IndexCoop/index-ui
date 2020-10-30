@@ -53,6 +53,8 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
 
   const minY = Math.min(...(data || []).map<number>(({ y }) => y))
   const maxY = Math.max(...(data || []).map<number>(({ y }) => y))
+  const minimumYAxisLabel = minY - 5 > 0 ? minY - 5 : 0
+
   return (
     <Container size='lg'>
       {title && <ChartTitle>{title}</ChartTitle>}
@@ -72,7 +74,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             tickLine={false}
             mirror={true}
             tick={{ fontFamily: 'Roboto Mono' }}
-            ticks={[minY - 5, maxY + 5]}
+            ticks={[minimumYAxisLabel, maxY + 5]}
             domain={[minY - 10, maxY + 10]}
           />
           <Tooltip
