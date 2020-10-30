@@ -19,6 +19,8 @@ interface SimplePriceChartProps {
     y: number
   }[]
   readTooltipData?: Function
+  onMouseMove?: (...args: any[]) => any
+  onMouseLeave?: (...args: any[]) => any
 }
 
 const MarketDataChart: React.FC<SimplePriceChartProps> = ({
@@ -27,6 +29,8 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   icon,
   data,
   readTooltipData,
+  onMouseMove = () => {},
+  onMouseLeave = () => {},
 }) => {
   const theme = useTheme()
   const formatFloats = (n: number) => parseFloat(numeral(n).format('0.00a'))
@@ -59,7 +63,11 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
     <Container size='lg'>
       {title && <ChartTitle>{title}</ChartTitle>}
       <ChartContainer>
-        <LineChart data={data}>
+        <LineChart
+          data={data}
+          onMouseMove={onMouseMove}
+          onMouseLeave={onMouseLeave}
+        >
           <Line
             type='monotone'
             dataKey='y'

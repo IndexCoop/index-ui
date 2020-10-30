@@ -20,8 +20,16 @@ const MarketData: React.FC = () => {
     alt: 'DefiPulse Index Logo',
   }
 
-  const updateChartPrice = (tooltipData: any) =>
-    setChartPrice(tooltipData.payload.y)
+  const updateChartPrice = (chartData: any) => {
+    setTimeout(
+      () => setChartPrice(chartData?.activePayload?.[0]?.value || 0),
+      0
+    )
+  }
+
+  const resetChartPrice = () => {
+    setTimeout(() => setChartPrice(latestPrice || 0), 0)
+  }
 
   return (
     <div>
@@ -43,7 +51,9 @@ const MarketData: React.FC = () => {
       <SimplePriceChart
         icon={dpiTokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
-        readTooltipData={updateChartPrice}
+        // readTooltipData={updateChartPrice}
+        onMouseMove={updateChartPrice}
+        onMouseLeave={resetChartPrice}
       />
     </div>
   )
