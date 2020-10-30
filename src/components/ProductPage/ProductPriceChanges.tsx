@@ -24,28 +24,36 @@ const ProductPriceChanges: React.FC<ProductPriceChangesProps> = ({
     ['1 Year', 365],
   ]
 
-  const renderAssetPriceChange = (daysOfComparison: number) => {
-    // placeholder if no data available for timerange
+  const calculatePriceChange = (daysOfComparison: number) => {
     if (!prices || prices.length < daysOfComparison * dataCadenceFor24Hours) {
-      return <div>---</div>
+      return 0
     }
     const startPriceIndex =
       prices.length - daysOfComparison * dataCadenceFor24Hours
     const startPrice = prices[startPriceIndex][1]
-    const priceDiff = ((latestPrice - startPrice) / startPrice) * 100
-    const StyledPrice =
-      priceDiff < 0 ? StyledNegativePrice : StyledPositivePrice
-    return (
-      <StyledPrice>{numeral(priceDiff).format('+0.00a') + '%'}</StyledPrice>
-    )
+    const priceChange = ((latestPrice - startPrice) / startPrice) * 100
+    return priceChange
+  }
+
+  const renderAssetPriceChange = (priceChange: number) => {
+    // placeholder if no data available for timerange
+    if (!priceChange) {
+      return <div>---</div>
+    }
+    const formattedChange = numeral(priceChange).format('+0.00a') + '%'
+    if (priceChange > 0) {
+      return <StyledPositiveChange>{formattedChange}</StyledPositiveChange>
+    }
+    return <StyledNegativeChange>{formattedChange}</StyledNegativeChange>
   }
 
   const renderPriceChanges = (config: any) => {
     const [dateString, daysOfComparison] = config
+    const priceChange = calculatePriceChange(daysOfComparison)
     return (
       <StyledPriceChange key={daysOfComparison}>
         <StyledDateString>{dateString}</StyledDateString>
-        {renderAssetPriceChange(daysOfComparison)}
+        {renderAssetPriceChange(priceChange)}
       </StyledPriceChange>
     )
   }
@@ -72,14 +80,11 @@ const StyledDateString = styled.div`
   margin-bottom: 16px;
 `
 
-const StyledNegativePrice = styled.div`
-  color: ${({ theme }) => {
-    console.log('theme', theme.colors.red, theme.colors)
-    return theme.colors.red
-  }};
+const StyledNegativeChange = styled.div`
+  color: ${({ theme }) => theme.colors.red};
 `
 
-const StyledPositivePrice = styled.div`
+const StyledPositiveChange = styled.div`
   color: ${({ theme }) => theme.colors.green};
 `
 

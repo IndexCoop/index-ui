@@ -41,5 +41,4 @@ const SectionContainer = styled.div`
 const SectionTitle = styled.h3`
   font-size: 28px;
   margin-top: 0;
-  color: ${({ theme }) => theme.textColor};
 `
