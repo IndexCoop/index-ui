@@ -3,18 +3,23 @@ import styled from 'styled-components'
 
 interface ExternalLinkProps {
   href?: string
+  target?: string
 }
 
-const ExternalLink: React.FC<ExternalLinkProps> = ({ children, href }) => (
-  <StyledLink href={href}>
+const ExternalLink: React.FC<ExternalLinkProps> = ({
+  children,
+  href,
+  target,
+}) => (
+  <StyledLink href={href} target={target}>
     {children}
   </StyledLink>
 )
 
 const StyledLink = styled.a`
-  color: ${props => props.theme.colors.primary.light};
+  color: ${(props) => props.theme.colors.primary.light};
   &:visited {
-    color: ${props => props.theme.colors.primary.light};
+    color: ${(props) => props.theme.colors.primary.light};
   }
 `
 

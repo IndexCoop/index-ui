@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ToastContainer, Slide } from 'react-toastify'
 import { ApolloProvider } from '@apollo/client'
 import styled from 'styled-components'
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
 
 import MobileMenu from 'components/MobileMenu'
 import TopBar from 'components/TopBar'
@@ -16,6 +16,7 @@ import { FarmingProvider } from 'contexts/Farming'
 import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
+import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -23,6 +24,8 @@ import ComingSoon from 'views/ComingSoon'
 import Farm from 'views/Farm'
 import FAQ from 'views/FAQ'
 import Home from 'views/Home'
+import DPI from 'views/DPI'
+import INDEX from 'views/INDEX'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
@@ -43,7 +46,7 @@ const App: React.FC = () => {
       <Providers>
         <ComingSoon />
       </Providers>
-    );
+    )
   }
 
   return (
@@ -51,10 +54,19 @@ const App: React.FC = () => {
       <Providers>
         <StyledBackgroundDiv>
           <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
-          <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
+          <MobileMenu
+            onDismiss={handleDismissMobileMenu}
+            visible={mobileMenu}
+          />
           <Switch>
             <Route exact path='/'>
               <Home />
+            </Route>
+            <Route exact path='/dpi'>
+              <DPI />
+            </Route>
+            <Route exact path='/index'>
+              <INDEX />
             </Route>
             <Route exact path='/farm'>
               <Farm />
@@ -89,7 +101,9 @@ const Providers: React.FC = ({ children }) => {
                 <BalancesProvider>
                   <FarmingProvider>
                     <DpiTokenMarketDataProvider>
-                      {children}
+                      <IndexTokenMarketDataProvider>
+                        {children}
+                      </IndexTokenMarketDataProvider>
                     </DpiTokenMarketDataProvider>
                   </FarmingProvider>
                 </BalancesProvider>
@@ -98,10 +112,7 @@ const Providers: React.FC = ({ children }) => {
           </AirdropProvider>
         </ApolloProvider>
       </WalletProvider>
-      <ToastContainer
-        transition={Slide}
-        position="bottom-left"
-      />
+      <ToastContainer transition={Slide} position='bottom-left' />
     </ThemeProvider>
   )
 }
@@ -112,6 +123,5 @@ const StyledBackgroundDiv = styled.div`
   background-size: cover;
   background-position: center top;
 `
-
 
 export default App

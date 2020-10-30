@@ -9,6 +9,7 @@ import { ResponsiveContainer, LineChart, Line, YAxis, Tooltip } from 'recharts'
 
 interface SimplePriceChartProps {
   title?: string
+  showTooltip?: boolean
   icon: {
     src: string
     alt: string
@@ -17,12 +18,15 @@ interface SimplePriceChartProps {
     x: string | number
     y: number
   }[]
+  readTooltipData?: Function
 }
 
 const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   title,
+  showTooltip,
   icon,
   data,
+  readTooltipData,
 }) => {
   const theme = useTheme()
   const formatFloats = (n: number) => parseFloat(numeral(n).format('0.00a'))
@@ -35,12 +39,22 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   }
 
   const renderTooltip = (props: any) => {
-    const [label, value] = formatToolTip(props.payload?.[0])
+    const tooltipData = props.payload?.[0]
+
+    if (readTooltipData && tooltipData) {
+      setTimeout(readTooltipData, 0, tooltipData)
+    }
+
+    if (!showTooltip) return null
+
+    const [label, value] = formatToolTip(tooltipData)
     return <FancyValue icon={icon} label={label} value={value} />
   }
 
   const minY = Math.min(...(data || []).map<number>(({ y }) => y))
   const maxY = Math.max(...(data || []).map<number>(({ y }) => y))
+  const minimumYAxisLabel = minY - 5 > 0 ? minY - 5 : 0
+
   return (
     <Container size='lg'>
       {title && <ChartTitle>{title}</ChartTitle>}
@@ -59,7 +73,8 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             axisLine={false}
             tickLine={false}
             mirror={true}
-            ticks={[minY - 5, maxY + 5]}
+            tick={{ fontFamily: 'Roboto Mono' }}
+            ticks={[minimumYAxisLabel, maxY + 5]}
             domain={[minY - 10, maxY + 10]}
           />
           <Tooltip
@@ -69,8 +84,8 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
           />
           <defs>
             <linearGradient id='gradient' gradientTransform='rotate(90)'>
-              <stop offset='5%' stop-color='#8150E6' />
-              <stop offset='95%' stop-color='#E825A3' />
+              <stop offset='5%' stopColor='#8150E6' />
+              <stop offset='95%' stopColor='#E825A3' />
             </linearGradient>
           </defs>
         </LineChart>
