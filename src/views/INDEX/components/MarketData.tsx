@@ -9,9 +9,11 @@ import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
 const MarketData: React.FC = () => {
   const { latestPrice, prices } = useIndexTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
+  const [chartDate, setChartDate] = useState<number>(Date.now())
+
   useEffect(() => {
-    if (!chartPrice && latestPrice) return setChartPrice(latestPrice)
-  })
+    if (latestPrice) setChartPrice(latestPrice)
+  }, [latestPrice])
 
   const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
@@ -20,8 +22,23 @@ const MarketData: React.FC = () => {
     alt: 'Index Coop Logo',
   }
 
-  const updateChartPrice = (tooltipData: any) =>
-    setChartPrice(tooltipData.payload.y)
+  const updateChartPrice = (chartData: any) => {
+    const payload = chartData?.activePayload?.[0]?.payload || {}
+
+    setTimeout(() => {
+      setChartPrice(payload.y || 0)
+      setChartDate(payload.x || Date.now())
+    }, 0)
+  }
+
+  const resetChartPrice = () => {
+    setTimeout(() => {
+      setChartPrice(latestPrice || 0)
+      setChartDate(Date.now())
+    }, 0)
+  }
+
+  const priceData = new Date(chartDate)
 
   return (
     <div>
@@ -30,6 +47,7 @@ const MarketData: React.FC = () => {
         <span>INDEX</span>
       </StyledDpiIconLabel>
       <StyledDpiTitle>Index Coop Token</StyledDpiTitle>
+      <p>{priceData.toDateString()}</p>
       <StyledDpiPriceWrapper>
         <StyledDpiPrice>
           {'$' + numeral(chartPrice).format('0.00a')}
@@ -43,7 +61,8 @@ const MarketData: React.FC = () => {
       <SimplePriceChart
         icon={IndexToken}
         data={prices?.map(([x, y]) => ({ x, y }))}
-        readTooltipData={updateChartPrice}
+        onMouseMove={updateChartPrice}
+        onMouseLeave={resetChartPrice}
       />
     </div>
   )
