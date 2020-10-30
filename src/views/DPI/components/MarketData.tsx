@@ -12,7 +12,7 @@ const MarketData: React.FC = () => {
   const [chartDate, setChartDate] = useState<number>(Date.now())
 
   useEffect(() => {
-    if (latestPrice) return setChartPrice(latestPrice)
+    if (latestPrice) setChartPrice(latestPrice)
   }, [latestPrice])
 
   const priceAtEpochStart = prices?.[0]?.[1] || 1
