@@ -1,5 +1,6 @@
 import React from 'react'
-import { Container, Spacer } from 'react-neu'
+import { Container } from 'react-neu'
+import styled from 'styled-components'
 
 import Page from 'components/Page'
 import {
@@ -16,6 +17,8 @@ import MarketData from './components/MarketData'
 
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 import useBalances from 'hooks/useBalances'
+
+import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
 const DpiProductPage: React.FC = () => {
   const {
@@ -49,7 +52,7 @@ const DpiProductPage: React.FC = () => {
               <strong>The DeFi Pulse Index</strong> is a capitalization-weighted
               index that tracks the performance of decentralized financial
               assets across the market.
-              <h4>Objective</h4>
+              <h2>Objective</h2>
               The DeFi Pulse Index is a digital asset index designed to track
               tokens’ performance within the Decentralized Finance industry. The
               index is weighted based on the value of each token’s circulating
@@ -57,9 +60,9 @@ const DpiProductPage: React.FC = () => {
               Decentralized Finance that have significant usage and show a
               commitment to ongoing maintenance and development.
               <ExternalLink href='https://pulse.inc' target='_blank'>
-                <h4>View the methodology</h4>
+                <h4>View the official methodology here.</h4>
               </ExternalLink>
-              <h4>Token Inclusion Criteria</h4>
+              <h2>Token Inclusion Criteria</h2>
               The DeFi Pulse Index has a collection of criteria composed of four
               dimensions. Two dimensions are used to evaluate the token’s
               characteristics, one dimension is used to assess the project’s
@@ -127,7 +130,29 @@ const DpiProductPage: React.FC = () => {
                   variety of trading platforms.
                 </li>
               </ul>
-              <h4>Index Maintenance</h4>
+              <h2>Index Calculations</h2>
+              <StyledDpiIndexCalculationImage src={DpiIndexCalculationImage} />
+              The Index value is the spot value of the index.
+              <ul>
+                <li>
+                  <strong>Circulating Supply</strong> is the number of tokens
+                  circulating the last time circulating supply was determined.
+                  The first circulating supply was determined on September 8,
+                  2020, using CoinGecko as a reference source.
+                </li>
+
+                <li>
+                  <strong>Price</strong> is the market price of the token in
+                  USD.
+                </li>
+
+                <li>
+                  <strong>Index Divisor</strong> is a constant that is adjusted
+                  on each rebalance. As of September 31, 2020, the Divisor was
+                  <strong>44679560.64</strong>.
+                </li>
+              </ul>
+              <h2>Index Maintenance</h2>
               The index is maintained monthly in two phases:
               <h4>Determination Phase</h4>
               The determination phase takes place during the third week of the
@@ -163,5 +188,9 @@ const DpiProductPage: React.FC = () => {
     </Page>
   )
 }
+
+const StyledDpiIndexCalculationImage = styled.img`
+  margin: 40px 20px;
+`
 
 export default DpiProductPage
