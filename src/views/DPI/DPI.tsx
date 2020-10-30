@@ -190,7 +190,8 @@ const DpiProductPage: React.FC = () => {
 }
 
 const StyledDpiIndexCalculationImage = styled.img`
-  margin: 40px 20px;
+  margin-bottom: 20px;
+  width: 100%;
 `
 
 export default DpiProductPage

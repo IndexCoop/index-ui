@@ -58,8 +58,9 @@ const DpiProductPage: React.FC = () => {
               flagship product, Index has created the DeFi Pulse Index that
               provides broad DeFi exposure for its users by holding one token.
               <h2>Token Characteristics</h2>
-              INDEX is used to vote in changes to the Index Coop including but
-              not limited to:
+              INDEX is an ERC-20 token deployed on the Ethereum blockchain. It
+              has a capped maximum supply of 10,000,000 tokens. INDEX is used to
+              vote in changes to the Index Coop including but not limited to:
               <ul>
                 <li>Smart contract upgrades to the Index Coop</li>
                 <li>How to allocate the Index Coop treasury</li>
@@ -68,6 +69,33 @@ const DpiProductPage: React.FC = () => {
               </ul>
               <h2>Token Release Schedule</h2>
               <StyledDpiIndexCalculationImage src={IndexReleaseScheduleImage} />
+              <h4>Token Distribution Breakdown</h4>
+              <ul>
+                <li>
+                  <li>
+                    <b>1%</b> allocated to historical DPI holders{' '}
+                  </li>
+                  <li>
+                    <b>7.5%</b> allocated to the Index Methodologist program
+                    over a period of 18 months, beginning 60 days after Index
+                    Coop launch
+                  </li>
+                  <li>
+                    <b> 9%</b> allocated to a 60 day liquidity mining program
+                    for the DeFi Pulse Index Set
+                  </li>
+                  <li>
+                    <b>52.5%</b> community treasury (with 5% available
+                    immediately and 47.5% vested over 3 years)
+                  </li>
+                  <li>
+                    <b>28%</b> allocated to Set Labs Inc
+                  </li>
+                  <li>
+                    <b>2%</b> allocated to DeFi Pulse
+                  </li>
+                </li>
+              </ul>
             </p>
           </Description>
         </ProductPageContent>
@@ -77,7 +105,8 @@ const DpiProductPage: React.FC = () => {
 }
 
 const StyledDpiIndexCalculationImage = styled.img`
-  margin: 40px 20px;
+  margin-bottom: 20px;
+  width: 100%;
 `
 
 export default DpiProductPage
