@@ -10,12 +10,14 @@ import {
   PriceChanges,
   WalletBalance,
   Description,
+  IndexComponentsTable,
 } from 'components/ProductPage'
 import { BuyTokenPlaceholder } from 'components/BuyToken'
 import ExternalLink from 'components/ExternalLink'
 import MarketData from './components/MarketData'
 
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import useDpiIndexComponents from 'hooks/useDpiIndexComponents'
 import useBalances from 'hooks/useBalances'
 
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
@@ -27,6 +29,7 @@ const DpiProductPage: React.FC = () => {
     latestMarketCap,
     latestVolume,
   } = useDpiTokenMarketData()
+  const { components } = useDpiIndexComponents()
   const { dpiBalance } = useBalances()
   return (
     <Page>
@@ -42,6 +45,7 @@ const DpiProductPage: React.FC = () => {
             currentBalance={dpiBalance}
           />
           <PriceChanges prices={prices} />
+          <IndexComponentsTable components={components} />
           <TokenStats
             latestPrice={latestPrice}
             latestVolume={latestVolume}
