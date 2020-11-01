@@ -16,6 +16,7 @@ import { FarmingProvider } from 'contexts/Farming'
 import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
+import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 
 import useLocalStorage from 'hooks/useLocalStorage'
@@ -101,9 +102,11 @@ const Providers: React.FC = ({ children }) => {
                 <BalancesProvider>
                   <FarmingProvider>
                     <DpiTokenMarketDataProvider>
-                      <IndexTokenMarketDataProvider>
-                        {children}
-                      </IndexTokenMarketDataProvider>
+                      <DpiIndexComponentsProvider>
+                        <IndexTokenMarketDataProvider>
+                          {children}
+                        </IndexTokenMarketDataProvider>
+                      </DpiIndexComponentsProvider>
                     </DpiTokenMarketDataProvider>
                   </FarmingProvider>
                 </BalancesProvider>

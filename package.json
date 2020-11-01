@@ -8,6 +8,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@types/canvas-confetti": "^1.0.0",
+    "@types/lodash": "^4.14.164",
     "@types/numeral": "^0.0.28",
     "@types/recharts": "^1.8.16",
     "apollo-client": "^2.6.10",
