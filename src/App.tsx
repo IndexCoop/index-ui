@@ -15,6 +15,7 @@ import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
 import { FarmingProvider } from 'contexts/Farming'
 import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
+import { BuySellProvider } from 'contexts/BuySell'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
@@ -106,15 +107,17 @@ const Providers: React.FC = ({ children }) => {
               <PricesProvider>
                 <BalancesProvider>
                   <FarmingProvider>
-                    <DpiTokenMarketDataProvider>
-                      <DpiIndexComponentsProvider>
-                        <IndexTokenMarketDataProvider>
-                          <SnapshotProposalsProvider>
-                            {children}
-                          </SnapshotProposalsProvider>
-                        </IndexTokenMarketDataProvider>
-                      </DpiIndexComponentsProvider>
-                    </DpiTokenMarketDataProvider>
+                    <BuySellProvider>
+                      <DpiTokenMarketDataProvider>
+                        <DpiIndexComponentsProvider>
+                          <IndexTokenMarketDataProvider>
+                            <SnapshotProposalsProvider>
+                              {children}
+                            </SnapshotProposalsProvider>
+                          </IndexTokenMarketDataProvider>
+                        </DpiIndexComponentsProvider>
+                      </DpiTokenMarketDataProvider>
+                    </BuySellProvider>
                   </FarmingProvider>
                 </BalancesProvider>
               </PricesProvider>
