@@ -5,6 +5,7 @@ import BuySellContext from './BuySellContext'
 const BuySellProvider: React.FC = ({ children }) => {
   const [isViewingOrderSummary] = useState<boolean>(false)
   const [isFetchingOrderData] = useState<boolean>(false)
+  const [isUserBuying] = useState<boolean>(true)
   const [activeField] = useState<'currency' | 'token'>('currency')
   const [selectedCurrency] = useState<any>()
   const [currencyQuantity] = useState<number>(0)
@@ -17,6 +18,7 @@ const BuySellProvider: React.FC = ({ children }) => {
       value={{
         isViewingOrderSummary,
         isFetchingOrderData,
+        isUserBuying,
         activeField,
         selectedCurrency,
         currencyQuantity,

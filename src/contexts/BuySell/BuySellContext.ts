@@ -3,6 +3,7 @@ import { createContext } from 'react'
 interface BuySellContextValues {
   isViewingOrderSummary: boolean
   isFetchingOrderData: boolean
+  isUserBuying: boolean
   activeField: 'currency' | 'token'
   selectedCurrency: undefined
   currencyQuantity: number
@@ -15,6 +16,7 @@ interface BuySellContextValues {
 const BuySellContext = createContext<BuySellContextValues>({
   isViewingOrderSummary: false,
   isFetchingOrderData: false,
+  isUserBuying: true,
   activeField: 'currency',
   selectedCurrency: undefined,
   currencyQuantity: 0,
