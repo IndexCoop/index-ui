@@ -1,50 +1,72 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Card, Surface } from 'react-neu'
+import { Surface } from 'react-neu'
 
 const BuyTokenPlaceholder: React.FC = () => {
   return (
-    <StyledBuyCard>
+    <StyledBuySellCard>
       <Surface>
-        <button>Buy</button>
-        <button>Sell</button>
-        <input type='number' />
-        <input type='number' />
+        <StyledBuySellCardContent>
+          <StyledCardHeader>
+            <StyledActiveButton>Buy</StyledActiveButton>
+            <StyledActiveButton>Sell</StyledActiveButton>
+          </StyledCardHeader>
+          <StyledInputField type='number' />
+          <StyledInputField type='number' />
+          <StyledSubmitButton>Review</StyledSubmitButton>
+        </StyledBuySellCardContent>
       </Surface>
-    </StyledBuyCard>
+    </StyledBuySellCard>
   )
 }
 
-const StyledBuyCard = styled.div`
+const StyledBuySellCard = styled.div`
   max-height: 200px;
   @media (min-width: 768px) {
     max-height: 500px;
   }
 `
 
-const CenteredContent = styled.div`
+const StyledBuySellCardContent = styled.div`
   display: flex;
-  flex-direction: row;
-  margin: auto;
-  padding: 32px 48px;
-
-  @media (min-width: 400px) {
-    flex-direction: column;
-    text-align: center;
-  }
+  flex-direction: column;
+  padding: 20px;
+  min-height: 500px;
 `
 
-const BuyIcon = styled.img`
-  margin-right: 16px;
+const StyledCardHeader = styled.div`
+  display: flex;
+  justify-content: center;
 `
 
-const LargeText = styled.div`
-  font-size: 24px;
-  font-weight: 600;
-`
-const SmallText = styled.div`
+const StyledActiveButton = styled.button`
+  background: none;
+  border: none;
+  color: white;
   font-size: 20px;
+  border-bottom: 1px solid white;
+  width: 50%;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
 `
 
+const StyledInputField = styled.input`
+  color: white;
+  font-size: 16px;
+  width: 90%;
+  cursor: pointer;
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 4px;
+`
+
+const StyledSubmitButton = styled.button`
+  color: white;
+  border-radius: 20px;
+  width: 90%;
+`
+
+// color: ${(props) => props.theme.colors.primary.grey};
 export default BuyTokenPlaceholder
