@@ -11,7 +11,7 @@ import {
   WalletBalance,
   Description,
 } from 'components/ProductPage'
-import { BuyTokenPlaceholder } from 'components/BuyToken'
+import { BuySellWidget } from 'components/BuySell'
 import MarketData from './components/MarketData'
 
 import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
@@ -32,7 +32,7 @@ const DpiProductPage: React.FC = () => {
       <Container size='lg'>
         <ProductPageHeader>
           <MarketData />
-          <BuyTokenPlaceholder />
+          <BuySellWidget />
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance

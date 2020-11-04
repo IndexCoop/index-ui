@@ -1,23 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Card } from 'react-neu'
+import { Card, Surface } from 'react-neu'
 
 const BuyTokenPlaceholder: React.FC = () => {
   return (
     <StyledBuyCard>
-      <Card>
-        <CenteredContent>
-          <BuyIcon
-            src='https://index-dao.s3.amazonaws.com/buy-sell.svg'
-            alt='Buy Index Coop Product'
-          />
-          <div>
-            <LargeText> Buy & Sell </LargeText>
-            <SmallText> Coming Soon </SmallText>
-          </div>
-        </CenteredContent>
-      </Card>
+      <Surface>
+        <button>Buy</button>
+        <button>Sell</button>
+        <input type='number' />
+        <input type='number' />
+      </Surface>
     </StyledBuyCard>
   )
 }
