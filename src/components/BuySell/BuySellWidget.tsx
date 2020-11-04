@@ -31,13 +31,14 @@ const StyledBuySellCard = styled.div`
 const StyledBuySellCardContent = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 20px;
-  min-height: 500px;
 `
 
 const StyledCardHeader = styled.div`
   display: flex;
   justify-content: center;
+  width: 100%;
 `
 
 const StyledActiveButton = styled.button`
@@ -63,9 +64,10 @@ const StyledInputField = styled.input`
 `
 
 const StyledSubmitButton = styled.button`
-  color: white;
+  font-size: 20px;
   border-radius: 20px;
   width: 90%;
+  padding: 5px;
 `
 
 // color: ${(props) => props.theme.colors.primary.grey};
