@@ -13,9 +13,9 @@ interface BuySellContextValues {
   onToggleIsViewingOrderSummary: () => void
   onToggleIsUserBuying: () => void
   onSetActiveField: (field: 'currency' | 'token') => void
-  onSetSelectedCurrency: () => void
-  onSetCurrencyQuantity: () => void
-  onSetTokenQuantity: () => void
+  onSetSelectedCurrency: (selectedCurrency: any) => void
+  onSetCurrencyQuantity: (event: any) => void
+  onSetTokenQuantity: (event: any) => void
   onExecuteBuySell: () => void
 }
 

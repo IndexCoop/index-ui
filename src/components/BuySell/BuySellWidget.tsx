@@ -31,6 +31,8 @@ const BuyTokenPlaceholder: React.FC = () => {
     onToggleIsViewingOrderSummary,
     onToggleIsUserBuying,
     onSetActiveField,
+    onSetCurrencyQuantity,
+    onSetTokenQuantity,
   } = useBuySell()
 
   const selectStyles = {
@@ -85,7 +87,11 @@ const BuyTokenPlaceholder: React.FC = () => {
         <StyledCurrencyContainer>
           <StyledCurrencyContainerLabel>Pay with</StyledCurrencyContainerLabel>
           <StyledCurrencySelectWrapper>
-            <StyledInputField value='0' type='number' />
+            <StyledInputField
+              value={currencyQuantity}
+              type='number'
+              onChange={onSetCurrencyQuantity}
+            />
             <Select
               value={options[0]}
               options={options}
@@ -99,7 +105,11 @@ const BuyTokenPlaceholder: React.FC = () => {
             Buy (estimated)
           </StyledCurrencyContainerLabel>
           <StyledCurrencySelectWrapper>
-            <StyledInputField value='0' type='number' />
+            <StyledInputField
+              value={tokenQuantity}
+              type='number'
+              onChange={onSetTokenQuantity}
+            />
             <StyledTargetTokenSymbol>DPI</StyledTargetTokenSymbol>
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>

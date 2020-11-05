@@ -22,6 +22,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   const onToggleIsUserBuying = () => setIsUserBuying(!isUserBuying)
   const onSetActiveField = (field: 'currency' | 'token') =>
     setActiveField(field)
+  const onSetCurrencyQuantity = (e: any) => setCurrencyQuantity(e.target.value)
+  const onSetTokenQuantity = (e: any) => setTokenQuantity(e.target.value)
 
   return (
     <BuySellContext.Provider
@@ -39,8 +41,8 @@ const BuySellProvider: React.FC = ({ children }) => {
         onToggleIsUserBuying,
         onSetActiveField,
         onSetSelectedCurrency: () => {},
-        onSetCurrencyQuantity: () => {},
-        onSetTokenQuantity: () => {},
+        onSetCurrencyQuantity: onSetCurrencyQuantity,
+        onSetTokenQuantity: onSetTokenQuantity,
         onExecuteBuySell: () => {},
       }}
     >
