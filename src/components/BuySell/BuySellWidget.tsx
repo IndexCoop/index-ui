@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Select from 'react-select'
+import useBuySell from 'hooks/useBuySell'
 
 const BuyTokenPlaceholder: React.FC = () => {
   const options = [
@@ -17,6 +18,20 @@ const BuyTokenPlaceholder: React.FC = () => {
       label: 'USDC',
     },
   ]
+
+  const {
+    isViewingOrderSummary,
+    isFetchingOrderData,
+    isUserBuying,
+    activeField,
+    selectedCurrency,
+    currencyQuantity,
+    tokenQuantity,
+    currencyOptions,
+    onToggleIsViewingOrderSummary,
+    onToggleIsUserBuying,
+    onSetActiveField,
+  } = useBuySell()
 
   const selectStyles = {
     control: (styles: any) => ({
@@ -46,13 +61,26 @@ const BuyTokenPlaceholder: React.FC = () => {
     }),
   }
 
+  const buySellButtons = isUserBuying ? (
+    <>
+      <StyledActiveButton>Buy</StyledActiveButton>
+      <StyledBuySellButton onClick={onToggleIsUserBuying}>
+        Sell
+      </StyledBuySellButton>
+    </>
+  ) : (
+    <>
+      <StyledBuySellButton onClick={onToggleIsUserBuying}>
+        Buy
+      </StyledBuySellButton>
+      <StyledActiveButton>Sell</StyledActiveButton>
+    </>
+  )
+
   return (
     <StyledBuySellCard>
       <StyledBuySellCardContent>
-        <StyledCardHeader>
-          <StyledBuySellButton>Buy</StyledBuySellButton>
-          <StyledActiveButton>Sell</StyledActiveButton>
-        </StyledCardHeader>
+        <StyledCardHeader>{buySellButtons}</StyledCardHeader>
 
         <StyledCurrencyContainer>
           <StyledCurrencyContainerLabel>Pay with</StyledCurrencyContainerLabel>
@@ -112,13 +140,13 @@ const StyledBuySellButton = styled.button`
   font-size: 20px;
   font-weight: 600;
   border: none;
-  border-bottom: 1px solid white;
+  border-bottom: 2px solid white;
   padding-bottom: 20px;
   margin-bottom: 20px;
   cursor: pointer;
   &:hover {
-    color: ${(props) => props.theme.colors.primary.light};
-    border-bottom: 1px solid ${(props) => props.theme.colors.primary.light};
+    color: ${(props) => props.theme.colors.grey[400]};
+    border-bottom: 2px solid ${(props) => props.theme.colors.grey[400]};
   }
 `
 

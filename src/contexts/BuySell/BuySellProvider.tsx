@@ -3,15 +3,25 @@ import React, { useState, useEffect } from 'react'
 import BuySellContext from './BuySellContext'
 
 const BuySellProvider: React.FC = ({ children }) => {
-  const [isViewingOrderSummary] = useState<boolean>(false)
-  const [isFetchingOrderData] = useState<boolean>(false)
-  const [isUserBuying] = useState<boolean>(true)
-  const [activeField] = useState<'currency' | 'token'>('currency')
-  const [selectedCurrency] = useState<any>()
-  const [currencyQuantity] = useState<number>(0)
-  const [tokenQuantity] = useState<number>(0)
-  const [currencyOptions] = useState<any[]>([])
-  const [uniswapData] = useState<any>({})
+  const [isViewingOrderSummary, setIsViewingOrderSummary] = useState<boolean>(
+    false
+  )
+  const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
+  const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
+  const [activeField, setActiveField] = useState<'currency' | 'token'>(
+    'currency'
+  )
+  const [selectedCurrency, setSelectedCurrency] = useState<any>()
+  const [currencyQuantity, setCurrencyQuantity] = useState<number>(0)
+  const [tokenQuantity, setTokenQuantity] = useState<number>(0)
+  const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
+  const [uniswapData, setUniswapData] = useState<any>({})
+
+  const onToggleIsViewingOrderSummary = () =>
+    setIsViewingOrderSummary(!isViewingOrderSummary)
+  const onToggleIsUserBuying = () => setIsUserBuying(!isUserBuying)
+  const onSetActiveField = (field: 'currency' | 'token') =>
+    setActiveField(field)
 
   return (
     <BuySellContext.Provider
@@ -25,6 +35,12 @@ const BuySellProvider: React.FC = ({ children }) => {
         tokenQuantity,
         currencyOptions,
         uniswapData,
+        onToggleIsViewingOrderSummary,
+        onToggleIsUserBuying,
+        onSetActiveField,
+        onSetSelectedCurrency: () => {},
+        onSetCurrencyQuantity: () => {},
+        onSetTokenQuantity: () => {},
         onExecuteBuySell: () => {},
       }}
     >

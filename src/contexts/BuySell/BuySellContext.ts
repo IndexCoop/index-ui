@@ -10,6 +10,12 @@ interface BuySellContextValues {
   tokenQuantity: number
   currencyOptions: any[]
   uniswapData: any
+  onToggleIsViewingOrderSummary: () => void
+  onToggleIsUserBuying: () => void
+  onSetActiveField: (field: 'currency' | 'token') => void
+  onSetSelectedCurrency: () => void
+  onSetCurrencyQuantity: () => void
+  onSetTokenQuantity: () => void
   onExecuteBuySell: () => void
 }
 
@@ -23,6 +29,12 @@ const BuySellContext = createContext<BuySellContextValues>({
   tokenQuantity: 0,
   currencyOptions: [],
   uniswapData: {},
+  onToggleIsViewingOrderSummary: () => {},
+  onToggleIsUserBuying: () => {},
+  onSetActiveField: () => {},
+  onSetSelectedCurrency: () => {},
+  onSetCurrencyQuantity: () => {},
+  onSetTokenQuantity: () => {},
   onExecuteBuySell: () => {},
 })
 
