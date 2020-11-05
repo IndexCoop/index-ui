@@ -24,7 +24,7 @@ const BuyTokenPlaceholder: React.FC = () => {
     <StyledBuySellCard>
       <StyledBuySellCardContent>
         <StyledCardHeader>
-          <StyledActiveButton>Buy</StyledActiveButton>
+          <StyledBuySellButton>Buy</StyledBuySellButton>
           <StyledActiveButton>Sell</StyledActiveButton>
         </StyledCardHeader>
 
@@ -65,16 +65,34 @@ const StyledCardHeader = styled.div`
   width: 100%;
 `
 
-const StyledActiveButton = styled.button`
+const StyledBuySellButton = styled.button`
   background: none;
   border: none;
   color: white;
   font-size: 20px;
+  font-weight: 600;
   border-bottom: 1px solid white;
   width: 50%;
   padding-bottom: 20px;
   margin-bottom: 20px;
   cursor: pointer;
+  &:hover {
+    color: ${(props) => props.theme.colors.primary.light};
+    border-bottom: 1px solid ${(props) => props.theme.colors.primary.light};
+  }
+`
+
+const StyledActiveButton = styled.button`
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 20px;
+  width: 50%;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  color: ${(props) => props.theme.colors.primary.light};
+  border-bottom: 1px solid ${(props) => props.theme.colors.primary.light};
 `
 
 const StyledCurrencyContainer = styled.div`
