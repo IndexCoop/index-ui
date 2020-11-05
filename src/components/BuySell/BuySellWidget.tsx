@@ -2,8 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import Select from 'react-select'
 
-import { Surface } from 'react-neu'
-
 const BuyTokenPlaceholder: React.FC = () => {
   const options = [
     {
@@ -20,6 +18,10 @@ const BuyTokenPlaceholder: React.FC = () => {
     },
   ]
 
+  const selectStyles = {
+    control: (styles: any) => ({ ...styles, width: 100 }),
+  }
+
   return (
     <StyledBuySellCard>
       <StyledBuySellCardContent>
@@ -31,8 +33,12 @@ const BuyTokenPlaceholder: React.FC = () => {
         <StyledCurrencyContainer>
           <span>Pay with</span>
           <StyledCurrencySelectWrapper>
-            <StyledInputField placeholder='0' type='number' />
-            <StyledSelectField options={options} />
+            <StyledInputField value='0' type='number' />
+            <Select
+              value={options[0]}
+              options={options}
+              styles={selectStyles}
+            />
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
 
@@ -112,21 +118,12 @@ const StyledCurrencySelectWrapper = styled.div`
 
 const StyledInputField = styled.input`
   font-size: 16px;
-  flex: 1;
+  width: 100px;
   cursor: pointer;
   color: ${(props) => props.theme.textColor};
   padding: 10px;
   border-radius: 4px;
   background: none;
-  border: none;
-`
-
-const StyledSelectField = styled(Select)`
-  font-size: 16px;
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 4px;
-  background-color: none;
   border: none;
 `
 
