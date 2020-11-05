@@ -17,6 +17,25 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
   const [uniswapData, setUniswapData] = useState<any>({})
 
+  useEffect(() => {
+    const options = [
+      {
+        value: 'eth',
+        label: 'ETH',
+      },
+      {
+        value: 'dai',
+        label: 'DAI',
+      },
+      {
+        value: 'usdc',
+        label: 'USDC',
+      },
+    ]
+    setCurrencyOptions(options)
+    setSelectedCurrency(options[0])
+  }, [])
+
   const onToggleIsViewingOrderSummary = () =>
     setIsViewingOrderSummary(!isViewingOrderSummary)
   const onToggleIsUserBuying = () => setIsUserBuying(!isUserBuying)
@@ -24,6 +43,12 @@ const BuySellProvider: React.FC = ({ children }) => {
     setActiveField(field)
   const onSetCurrencyQuantity = (e: any) => setCurrencyQuantity(e.target.value)
   const onSetTokenQuantity = (e: any) => setTokenQuantity(e.target.value)
+  const onSetSelectedCurrency = (currency: any) => {
+    console.log('curency is?', currency)
+    setSelectedCurrency(currency)
+  }
+
+  console.log('selected currency', selectedCurrency)
 
   return (
     <BuySellContext.Provider
@@ -40,7 +65,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         onToggleIsViewingOrderSummary,
         onToggleIsUserBuying,
         onSetActiveField,
-        onSetSelectedCurrency: () => {},
+        onSetSelectedCurrency,
         onSetCurrencyQuantity: onSetCurrencyQuantity,
         onSetTokenQuantity: onSetTokenQuantity,
         onExecuteBuySell: () => {},

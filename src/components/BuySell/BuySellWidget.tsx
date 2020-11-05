@@ -4,21 +4,6 @@ import Select from 'react-select'
 import useBuySell from 'hooks/useBuySell'
 
 const BuyTokenPlaceholder: React.FC = () => {
-  const options = [
-    {
-      value: 'eth',
-      label: 'ETH',
-    },
-    {
-      value: 'dai',
-      label: 'DAI',
-    },
-    {
-      value: 'usdc',
-      label: 'USDC',
-    },
-  ]
-
   const {
     isViewingOrderSummary,
     isFetchingOrderData,
@@ -33,6 +18,7 @@ const BuyTokenPlaceholder: React.FC = () => {
     onSetActiveField,
     onSetCurrencyQuantity,
     onSetTokenQuantity,
+    onSetSelectedCurrency,
   } = useBuySell()
 
   const selectStyles = {
@@ -93,9 +79,10 @@ const BuyTokenPlaceholder: React.FC = () => {
               onChange={onSetCurrencyQuantity}
             />
             <Select
-              value={options[0]}
-              options={options}
+              value={selectedCurrency}
+              options={currencyOptions}
               styles={selectStyles}
+              onChange={onSetSelectedCurrency}
             />
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
