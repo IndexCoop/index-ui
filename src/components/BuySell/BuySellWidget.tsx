@@ -12,7 +12,19 @@ const BuyTokenPlaceholder: React.FC = () => {
             <StyledActiveButton>Buy</StyledActiveButton>
             <StyledActiveButton>Sell</StyledActiveButton>
           </StyledCardHeader>
-          <StyledInputField type='number' />
+
+          <StyledCurrencyContainer>
+            <span>Pay with</span>
+            <StyledCurrencySelectWrapper>
+              <StyledInputField type='number' />
+              <StyledSelectField>
+                <option value='eth'>ETH</option>
+                <option value='dai'>DAI</option>
+                <option value='usdc'>USDC</option>
+              </StyledSelectField>
+            </StyledCurrencySelectWrapper>
+          </StyledCurrencyContainer>
+
           <StyledInputField type='number' />
           <StyledSubmitButton>Review</StyledSubmitButton>
         </StyledBuySellCardContent>
@@ -53,14 +65,45 @@ const StyledActiveButton = styled.button`
   cursor: pointer;
 `
 
+const StyledCurrencyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: lightblue;
+  padding: 10px;
+  border-radius: 4px;
+`
+
+const StyledTokenContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const StyledCurrencySelectWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 const StyledInputField = styled.input`
-  color: white;
   font-size: 16px;
   width: 90%;
   cursor: pointer;
   margin: 20px 0;
   padding: 10px;
   border-radius: 4px;
+  background-color: none;
+  border: none;
+`
+
+const StyledSelectField = styled.select`
+  font-size: 16px;
+  cursor: pointer;
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: none;
+  border: none;
 `
 
 const StyledSubmitButton = styled.button`
