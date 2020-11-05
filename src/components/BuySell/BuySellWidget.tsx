@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import Select from 'react-select'
+
 import useBuySell from 'hooks/useBuySell'
+import { BasicButton } from 'components/BasicButton'
 
 const BuyTokenPlaceholder: React.FC = () => {
   const {
@@ -103,7 +105,11 @@ const BuyTokenPlaceholder: React.FC = () => {
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
 
-        <StyledSubmitButton>Review</StyledSubmitButton>
+        <BasicButton
+          isDisabled={currencyQuantity <= 0 && tokenQuantity <= 0}
+          isPending={isFetchingOrderData}
+          text={'Review'}
+        />
       </StyledBuySellCardContent>
     </StyledBuySellCard>
   )
@@ -196,18 +202,6 @@ const StyledInputField = styled.input`
 const StyledTargetTokenSymbol = styled.span`
   font-size: 20px;
   font-weight: 600;
-`
-
-const StyledSubmitButton = styled.button`
-  font-size: 20px;
-  border-radius: 20px;
-  width: 90%;
-  padding: 10px;
-  font-weight: 600;
-  background-color: ${(props) => props.theme.colors.primary.main};
-  color: ${(props) => props.theme.colors.white};
-  border: none;
-  cursor: pointer;
 `
 
 export default BuyTokenPlaceholder
