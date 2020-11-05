@@ -63,6 +63,14 @@ const BuyTokenPlaceholder: React.FC = () => {
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
 
+        <StyledCurrencyContainer>
+          <span>Buy (estimated)</span>
+          <StyledCurrencySelectWrapper>
+            <StyledInputField value='0' type='number' />
+            <StyledTargetTokenSymbol>DPI</StyledTargetTokenSymbol>
+          </StyledCurrencySelectWrapper>
+        </StyledCurrencyContainer>
+
         <StyledInputField type='number' />
         <StyledSubmitButton>Review</StyledSubmitButton>
       </StyledBuySellCardContent>
@@ -148,11 +156,20 @@ const StyledInputField = styled.input`
   border: none;
 `
 
+const StyledTargetTokenSymbol = styled.span`
+  font-size: 20px;
+  font-weight: 600;
+`
+
 const StyledSubmitButton = styled.button`
   font-size: 20px;
   border-radius: 20px;
   width: 90%;
-  padding: 5px;
+  padding: 10px;
+  font-weight: 600;
+  background-color: ${(props) => props.theme.colors.primary.main};
+  color: ${(props) => props.theme.colors.white};
+  border: none;
 `
 
 // color: ${(props) => props.theme.colors.primary.grey};
