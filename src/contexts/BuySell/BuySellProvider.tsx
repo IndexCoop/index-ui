@@ -44,11 +44,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   const onSetCurrencyQuantity = (e: any) => setCurrencyQuantity(e.target.value)
   const onSetTokenQuantity = (e: any) => setTokenQuantity(e.target.value)
   const onSetSelectedCurrency = (currency: any) => {
-    console.log('curency is?', currency)
     setSelectedCurrency(currency)
   }
-
-  console.log('selected currency', selectedCurrency)
 
   return (
     <BuySellContext.Provider
