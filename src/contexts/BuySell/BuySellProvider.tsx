@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 
 import BuySellContext from './BuySellContext'
 import { fetchTokenBuySellData } from 'utils/tokensetsApi'
-import { useDebounce } from '../../hooks/useDebounce'
+import { useDebounce } from 'hooks/useDebounce'
+import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [isViewingOrderSummary, setIsViewingOrderSummary] = useState<boolean>(
@@ -15,7 +16,9 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [currencyQuantity, setCurrencyQuantity] = useState<number>(0)
   const [tokenQuantity, setTokenQuantity] = useState<number>(0)
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
-  const [uniswapData, setUniswapData] = useState<any>({})
+  const [uniswapData, setUniswapData] = useState<UniswapPriceData>(
+    {} as UniswapPriceData
+  )
 
   useEffect(() => {
     const options = [
@@ -55,7 +58,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     ).then((uniswapData: any) => {
       setIsFetchingOrderData(false)
 
-      if (!uniswapData) return setUniswapData({})
+      if (!uniswapData) return setUniswapData({} as any)
 
       setUniswapData(uniswapData)
 

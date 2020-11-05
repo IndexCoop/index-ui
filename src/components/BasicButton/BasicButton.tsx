@@ -5,57 +5,57 @@ interface BasicButtonProps {
   text: string
   isDisabled?: boolean
   isPending?: boolean
+  onClick?: (...args: any[]) => any
 }
 
 const BuyTokenPlaceholder: React.FC<BasicButtonProps> = ({
   text,
   isDisabled,
   isPending,
+  onClick,
 }: BasicButtonProps) => {
   if (isDisabled) {
-    return <StyledDisabledButton>{text}</StyledDisabledButton>
+    return <StyledDisabledButton disabled>{text}</StyledDisabledButton>
   }
 
   if (isPending) {
-    return <StyledPendingButton>Please wait</StyledPendingButton>
+    return <StyledPendingButton disabled>Please wait</StyledPendingButton>
   }
 
-  return <StyledSubmitButton>{text}</StyledSubmitButton>
+  return <StyledSubmitButton onClick={onClick}>{text}</StyledSubmitButton>
 }
 
 const StyledDisabledButton = styled.button`
-  font-size: 20px;
-  border-radius: 20px;
-  width: 90%;
+  width: 100%;
   padding: 10px;
+  font-size: 20px;
   font-weight: 600;
-  background-color: ${(props) => props.theme.colors.grey[600]};
-  color: ${(props) => props.theme.colors.white};
+  border-radius: 20px;
   border: none;
-  cursor: pointer;
+  color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.grey[500]};
 `
 
 const StyledPendingButton = styled.button`
-  font-size: 20px;
-  border-radius: 20px;
-  width: 90%;
+  width: 100%;
   padding: 10px;
+  font-size: 20px;
   font-weight: 600;
-  background-color: ${(props) => props.theme.colors.primary.main};
-  color: ${(props) => props.theme.colors.white};
+  border-radius: 20px;
   border: none;
-  cursor: pointer;
+  color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.primary.main};
 `
 
 const StyledSubmitButton = styled.button`
-  font-size: 20px;
-  border-radius: 20px;
-  width: 90%;
+  width: 100%;
   padding: 10px;
+  font-size: 20px;
   font-weight: 600;
-  background-color: ${(props) => props.theme.colors.primary.main};
-  color: ${(props) => props.theme.colors.white};
+  border-radius: 20px;
   border: none;
+  color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.primary.main};
   cursor: pointer;
 `
 

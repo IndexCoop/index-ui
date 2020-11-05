@@ -15,6 +15,7 @@ const BuyTokenPlaceholder: React.FC = () => {
     currencyQuantity,
     tokenQuantity,
     currencyOptions,
+    uniswapData,
     onToggleIsViewingOrderSummary,
     onToggleIsUserBuying,
     onSetActiveField,
@@ -67,6 +68,28 @@ const BuyTokenPlaceholder: React.FC = () => {
     </>
   )
 
+  const orderSummary = isViewingOrderSummary && (
+    <StyledOrderSummaryContainer>
+      <StyledOrderSummaryLabel>Minimum Receive</StyledOrderSummaryLabel>
+      <StyledOrderSummaryValue>
+        {uniswapData?.display?.to_quantity}
+      </StyledOrderSummaryValue>
+
+      <StyledOrderSummaryLabel>Price Impact</StyledOrderSummaryLabel>
+      <StyledOrderSummaryValue>
+        {uniswapData?.display?.slippage}
+      </StyledOrderSummaryValue>
+
+      <StyledOrderSummaryLabel>Network Fee</StyledOrderSummaryLabel>
+      <StyledOrderSummaryValue>
+        {uniswapData?.display?.gas_price_eth}
+      </StyledOrderSummaryValue>
+
+      <StyledOrderSummaryLabel>Offered From</StyledOrderSummaryLabel>
+      <StyledOrderSummaryValue>Uniswap</StyledOrderSummaryValue>
+    </StyledOrderSummaryContainer>
+  )
+
   return (
     <StyledBuySellCard>
       <StyledBuySellCardContent>
@@ -109,10 +132,13 @@ const BuyTokenPlaceholder: React.FC = () => {
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
 
+        {orderSummary}
+
         <BasicButton
           isDisabled={currencyQuantity <= 0 && tokenQuantity <= 0}
           isPending={isFetchingOrderData}
-          text={'Review'}
+          text={'Review Order'}
+          onClick={onToggleIsViewingOrderSummary}
         />
       </StyledBuySellCardContent>
     </StyledBuySellCard>
@@ -206,6 +232,22 @@ const StyledInputField = styled.input`
 const StyledTargetTokenSymbol = styled.span`
   font-size: 20px;
   font-weight: 600;
+`
+
+const StyledOrderSummaryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`
+
+const StyledOrderSummaryLabel = styled.span`
+  font-size: 14px;
+  margin-bottom: 5px;
+`
+
+const StyledOrderSummaryValue = styled.span`
+  font-size: 20px;
+  margin-bottom: 20px;
 `
 
 export default BuyTokenPlaceholder
