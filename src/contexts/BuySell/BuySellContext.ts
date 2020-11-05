@@ -4,7 +4,7 @@ interface BuySellContextValues {
   isViewingOrderSummary: boolean
   isFetchingOrderData: boolean
   isUserBuying: boolean
-  activeField: 'currency' | 'token'
+  activeField: 'currency' | 'set'
   selectedCurrency: undefined
   currencyQuantity: number
   tokenQuantity: number
@@ -12,7 +12,7 @@ interface BuySellContextValues {
   uniswapData: any
   onToggleIsViewingOrderSummary: () => void
   onToggleIsUserBuying: () => void
-  onSetActiveField: (field: 'currency' | 'token') => void
+  onSetActiveField: (field: 'currency' | 'set') => void
   onSetSelectedCurrency: (selectedCurrency: any) => void
   onSetCurrencyQuantity: (event: any) => void
   onSetTokenQuantity: (event: any) => void

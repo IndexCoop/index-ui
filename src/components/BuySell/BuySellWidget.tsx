@@ -77,6 +77,7 @@ const BuyTokenPlaceholder: React.FC = () => {
               value={currencyQuantity}
               type='number'
               onChange={onSetCurrencyQuantity}
+              onFocus={() => onSetActiveField('currency')}
             />
             <Select
               value={selectedCurrency}
@@ -96,6 +97,7 @@ const BuyTokenPlaceholder: React.FC = () => {
               value={tokenQuantity}
               type='number'
               onChange={onSetTokenQuantity}
+              onFocus={() => onSetActiveField('set')}
             />
             <StyledTargetTokenSymbol>DPI</StyledTargetTokenSymbol>
           </StyledCurrencySelectWrapper>

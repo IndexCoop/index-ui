@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
 import BuySellContext from './BuySellContext'
+import { fetchTokenBuySellData } from 'utils/tokensetsApi'
+import { useDebounce } from '../../hooks/useDebounce'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [isViewingOrderSummary, setIsViewingOrderSummary] = useState<boolean>(
@@ -8,9 +10,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   )
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
-  const [activeField, setActiveField] = useState<'currency' | 'token'>(
-    'currency'
-  )
+  const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
   const [currencyQuantity, setCurrencyQuantity] = useState<number>(0)
   const [tokenQuantity, setTokenQuantity] = useState<number>(0)
@@ -20,7 +20,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const options = [
       {
-        value: 'eth',
+        value: 'wrapped_eth',
         label: 'ETH',
       },
       {
@@ -36,11 +36,29 @@ const BuySellProvider: React.FC = ({ children }) => {
     setSelectedCurrency(options[0])
   }, [])
 
+  const debouncedCurrencyQuantity = useDebounce(currencyQuantity)
+  const debouncedTokenQuantity = useDebounce(tokenQuantity)
+  const targetTradeQuantity =
+    activeField === 'currency'
+      ? debouncedCurrencyQuantity
+      : debouncedTokenQuantity
+
+  useEffect(() => {
+    if (!targetTradeQuantity) return
+
+    fetchTokenBuySellData(
+      'dpi',
+      isUserBuying,
+      targetTradeQuantity,
+      selectedCurrency?.value,
+      activeField
+    ).then((uniswapData: any) => setUniswapData(uniswapData))
+  }, [isUserBuying, selectedCurrency, activeField, targetTradeQuantity])
+
   const onToggleIsViewingOrderSummary = () =>
     setIsViewingOrderSummary(!isViewingOrderSummary)
   const onToggleIsUserBuying = () => setIsUserBuying(!isUserBuying)
-  const onSetActiveField = (field: 'currency' | 'token') =>
-    setActiveField(field)
+  const onSetActiveField = (field: 'currency' | 'set') => setActiveField(field)
   const onSetCurrencyQuantity = (e: any) => setCurrencyQuantity(e.target.value)
   const onSetTokenQuantity = (e: any) => setTokenQuantity(e.target.value)
   const onSetSelectedCurrency = (currency: any) => {

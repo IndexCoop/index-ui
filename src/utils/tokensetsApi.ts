@@ -5,7 +5,7 @@ export const fetchTokenBuySellData = (
   isBuyOrder: boolean,
   requestQuantity: number | string,
   currencyId: string,
-  activeField: 'token' | 'currency'
+  activeField: 'set' | 'currency'
 ) => {
   const buyOrSellRoute = isBuyOrder ? 'buy_price' : 'sell_price'
   const requestUrl = `${baseURL}/v2/portfolios/${id}/${buyOrSellRoute}?quantity=${requestQuantity}&currency=${currencyId}&input_type=${activeField}`
