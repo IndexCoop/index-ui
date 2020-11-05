@@ -52,7 +52,7 @@ const BuyTokenPlaceholder: React.FC = () => {
         </StyledCardHeader>
 
         <StyledCurrencyContainer>
-          <span>Pay with</span>
+          <StyledCurrencyContainerLabel>Pay with</StyledCurrencyContainerLabel>
           <StyledCurrencySelectWrapper>
             <StyledInputField value='0' type='number' />
             <Select
@@ -64,7 +64,9 @@ const BuyTokenPlaceholder: React.FC = () => {
         </StyledCurrencyContainer>
 
         <StyledCurrencyContainer>
-          <span>Buy (estimated)</span>
+          <StyledCurrencyContainerLabel>
+            Buy (estimated)
+          </StyledCurrencyContainerLabel>
           <StyledCurrencySelectWrapper>
             <StyledInputField value='0' type='number' />
             <StyledTargetTokenSymbol>DPI</StyledTargetTokenSymbol>
@@ -101,13 +103,13 @@ const StyledCardHeader = styled.div`
 `
 
 const StyledBuySellButton = styled.button`
-  background: none;
-  border: none;
+  width: 50%;
   color: white;
+  background: none;
   font-size: 20px;
   font-weight: 600;
+  border: none;
   border-bottom: 1px solid white;
-  width: 50%;
   padding-bottom: 20px;
   margin-bottom: 20px;
   cursor: pointer;
@@ -118,39 +120,45 @@ const StyledBuySellButton = styled.button`
 `
 
 const StyledActiveButton = styled.button`
-  background: none;
-  border: none;
-  font-weight: 600;
-  font-size: 20px;
   width: 50%;
+  color: ${(props) => props.theme.colors.primary.light};
+  background: none;
+  font-size: 20px;
+  font-weight: 600;
+  border: none;
+  border-bottom: 1px solid ${(props) => props.theme.colors.primary.light};
   padding-bottom: 20px;
   margin-bottom: 20px;
   cursor: pointer;
-  color: ${(props) => props.theme.colors.primary.light};
-  border-bottom: 1px solid ${(props) => props.theme.colors.primary.light};
 `
 
 const StyledCurrencyContainer = styled.div`
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
   background-color: ${(props) => props.theme.colors.grey[500]};
-  padding: 10px;
   border-radius: ${(props) => props.theme.borderRadius}px;
+  padding: 10px 20px;
   margin-bottom: 20px;
+`
+
+const StyledCurrencyContainerLabel = styled.div`
+  font-size: 14px;
 `
 
 const StyledCurrencySelectWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `
 
 const StyledInputField = styled.input`
-  font-size: 16px;
-  flex: 1;
+  font-size: 20px;
+  width: 50%;
   cursor: pointer;
   color: ${(props) => props.theme.textColor};
-  padding: 10px;
+  padding: 0px;
   border-radius: 4px;
   background: none;
   border: none;
