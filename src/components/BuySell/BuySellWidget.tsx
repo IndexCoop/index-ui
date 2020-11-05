@@ -19,7 +19,18 @@ const BuyTokenPlaceholder: React.FC = () => {
   ]
 
   const selectStyles = {
-    control: (styles: any) => ({ ...styles, width: 100 }),
+    control: (styles: any) => ({
+      ...styles,
+      width: 100,
+      background: 'none',
+      border: 'none',
+      color: 'white',
+    }),
+    menu: (styles: any) => ({
+      ...styles,
+      color: 'black',
+    }),
+    indicatorSeparator: () => ({}),
   }
 
   return (
@@ -118,7 +129,7 @@ const StyledCurrencySelectWrapper = styled.div`
 
 const StyledInputField = styled.input`
   font-size: 16px;
-  width: 100px;
+  flex: 1;
   cursor: pointer;
   color: ${(props) => props.theme.textColor};
   padding: 10px;
