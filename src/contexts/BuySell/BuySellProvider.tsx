@@ -53,6 +53,8 @@ const BuySellProvider: React.FC = ({ children }) => {
       selectedCurrency?.value,
       activeField
     ).then((uniswapData: any) => {
+      setIsFetchingOrderData(false)
+
       if (!uniswapData) return setUniswapData({})
 
       setUniswapData(uniswapData)
@@ -69,8 +71,14 @@ const BuySellProvider: React.FC = ({ children }) => {
     setIsViewingOrderSummary(!isViewingOrderSummary)
   const onToggleIsUserBuying = () => setIsUserBuying(!isUserBuying)
   const onSetActiveField = (field: 'currency' | 'set') => setActiveField(field)
-  const onSetCurrencyQuantity = (e: any) => setCurrencyQuantity(e.target.value)
-  const onSetTokenQuantity = (e: any) => setTokenQuantity(e.target.value)
+  const onSetCurrencyQuantity = (e: any) => {
+    setIsFetchingOrderData(true)
+    setCurrencyQuantity(e.target.value)
+  }
+  const onSetTokenQuantity = (e: any) => {
+    setIsFetchingOrderData(true)
+    setTokenQuantity(e.target.value)
+  }
   const onSetSelectedCurrency = (currency: any) => {
     setSelectedCurrency(currency)
   }
