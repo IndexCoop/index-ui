@@ -78,6 +78,8 @@ const BuyTokenPlaceholder: React.FC = () => {
             <StyledInputField
               value={currencyQuantity}
               type='number'
+              min='0'
+              step='0.01'
               onChange={onSetCurrencyQuantity}
               onFocus={() => onSetActiveField('currency')}
             />
@@ -98,6 +100,8 @@ const BuyTokenPlaceholder: React.FC = () => {
             <StyledInputField
               value={tokenQuantity}
               type='number'
+              min='0'
+              step='0.01'
               onChange={onSetTokenQuantity}
               onFocus={() => onSetActiveField('set')}
             />
