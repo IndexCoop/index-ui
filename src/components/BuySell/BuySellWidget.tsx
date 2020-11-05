@@ -1,40 +1,52 @@
 import React from 'react'
 import styled from 'styled-components'
+import Select from 'react-select'
 
 import { Surface } from 'react-neu'
 
 const BuyTokenPlaceholder: React.FC = () => {
+  const options = [
+    {
+      value: 'eth',
+      label: 'ETH',
+    },
+    {
+      value: 'dai',
+      label: 'DAI',
+    },
+    {
+      value: 'usdc',
+      label: 'USDC',
+    },
+  ]
+
   return (
     <StyledBuySellCard>
-      <Surface>
-        <StyledBuySellCardContent>
-          <StyledCardHeader>
-            <StyledActiveButton>Buy</StyledActiveButton>
-            <StyledActiveButton>Sell</StyledActiveButton>
-          </StyledCardHeader>
+      <StyledBuySellCardContent>
+        <StyledCardHeader>
+          <StyledActiveButton>Buy</StyledActiveButton>
+          <StyledActiveButton>Sell</StyledActiveButton>
+        </StyledCardHeader>
 
-          <StyledCurrencyContainer>
-            <span>Pay with</span>
-            <StyledCurrencySelectWrapper>
-              <StyledInputField type='number' />
-              <StyledSelectField>
-                <option value='eth'>ETH</option>
-                <option value='dai'>DAI</option>
-                <option value='usdc'>USDC</option>
-              </StyledSelectField>
-            </StyledCurrencySelectWrapper>
-          </StyledCurrencyContainer>
+        <StyledCurrencyContainer>
+          <span>Pay with</span>
+          <StyledCurrencySelectWrapper>
+            <StyledInputField type='number' />
+            <StyledSelectField options={options} />
+          </StyledCurrencySelectWrapper>
+        </StyledCurrencyContainer>
 
-          <StyledInputField type='number' />
-          <StyledSubmitButton>Review</StyledSubmitButton>
-        </StyledBuySellCardContent>
-      </Surface>
+        <StyledInputField type='number' />
+        <StyledSubmitButton>Review</StyledSubmitButton>
+      </StyledBuySellCardContent>
     </StyledBuySellCard>
   )
 }
 
 const StyledBuySellCard = styled.div`
   max-height: 200px;
+  background-color: ${(props) => props.theme.colors.grey[600]};
+  border-radius: ${(props) => props.theme.borderRadius}px;
   @media (min-width: 768px) {
     max-height: 500px;
   }
@@ -68,15 +80,9 @@ const StyledActiveButton = styled.button`
 const StyledCurrencyContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: lightblue;
+  background-color: ${(props) => props.theme.colors.grey[500]};
   padding: 10px;
   border-radius: 4px;
-`
-
-const StyledTokenContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `
 
 const StyledCurrencySelectWrapper = styled.div`
@@ -87,7 +93,7 @@ const StyledCurrencySelectWrapper = styled.div`
 
 const StyledInputField = styled.input`
   font-size: 16px;
-  width: 90%;
+  width: 50%;
   cursor: pointer;
   margin: 20px 0;
   padding: 10px;
@@ -96,7 +102,7 @@ const StyledInputField = styled.input`
   border: none;
 `
 
-const StyledSelectField = styled.select`
+const StyledSelectField = styled(Select)`
   font-size: 16px;
   cursor: pointer;
   margin: 20px 0;
