@@ -25,21 +25,24 @@ const BuyTokenPlaceholder: React.FC = () => {
       background: 'none',
       border: 'none',
       color: 'white',
+      marginRight: -10,
     }),
     singleValue: (styles: any) => ({
       ...styles,
       color: 'white',
       fontWeight: 600,
       fontSize: 20,
+      marginLeft: 20,
     }),
     menu: (styles: any) => ({
       ...styles,
       color: 'black',
     }),
     indicatorSeparator: () => ({}),
-    indicatorsContainer: (styles: any) => ({
+    indicatorContainer: (styles: any) => ({
       ...styles,
       marginLeft: 0,
+      padding: 0,
     }),
   }
 
