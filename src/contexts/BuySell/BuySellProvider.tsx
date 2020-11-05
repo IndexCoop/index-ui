@@ -52,7 +52,17 @@ const BuySellProvider: React.FC = ({ children }) => {
       targetTradeQuantity,
       selectedCurrency?.value,
       activeField
-    ).then((uniswapData: any) => setUniswapData(uniswapData))
+    ).then((uniswapData: any) => {
+      if (!uniswapData) return setUniswapData({})
+
+      setUniswapData(uniswapData)
+
+      if (activeField === 'currency') {
+        setTokenQuantity(uniswapData.display?.to_quantity)
+      } else {
+        setCurrencyQuantity(uniswapData.display?.from_quantity)
+      }
+    })
   }, [isUserBuying, selectedCurrency, activeField, targetTradeQuantity])
 
   const onToggleIsViewingOrderSummary = () =>

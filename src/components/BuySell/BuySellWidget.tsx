@@ -103,7 +103,6 @@ const BuyTokenPlaceholder: React.FC = () => {
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
 
-        <StyledInputField type='number' />
         <StyledSubmitButton>Review</StyledSubmitButton>
       </StyledBuySellCardContent>
     </StyledBuySellCard>
@@ -208,7 +207,7 @@ const StyledSubmitButton = styled.button`
   background-color: ${(props) => props.theme.colors.primary.main};
   color: ${(props) => props.theme.colors.white};
   border: none;
+  cursor: pointer;
 `
 
-// color: ${(props) => props.theme.colors.primary.grey};
 export default BuyTokenPlaceholder

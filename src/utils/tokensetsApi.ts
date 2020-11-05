@@ -11,9 +11,7 @@ export const fetchTokenBuySellData = (
   const requestUrl = `${baseURL}/v2/portfolios/${id}/${buyOrSellRoute}?quantity=${requestQuantity}&currency=${currencyId}&input_type=${activeField}`
 
   return fetch(requestUrl)
-    .then((response) => {
-      console.log('response is', response)
-      return response
-    })
+    .then((response) => response.json())
+    .then((json) => json.buy_price || json.sell_price || {})
     .catch((error) => console.log(error))
 }
