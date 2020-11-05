@@ -31,7 +31,7 @@ const BuyTokenPlaceholder: React.FC = () => {
         <StyledCurrencyContainer>
           <span>Pay with</span>
           <StyledCurrencySelectWrapper>
-            <StyledInputField type='number' />
+            <StyledInputField placeholder='0' type='number' />
             <StyledSelectField options={options} />
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
@@ -100,7 +100,8 @@ const StyledCurrencyContainer = styled.div`
   flex-direction: column;
   background-color: ${(props) => props.theme.colors.grey[500]};
   padding: 10px;
-  border-radius: 4px;
+  border-radius: ${(props) => props.theme.borderRadius}px;
+  margin-bottom: 20px;
 `
 
 const StyledCurrencySelectWrapper = styled.div`
@@ -111,19 +112,18 @@ const StyledCurrencySelectWrapper = styled.div`
 
 const StyledInputField = styled.input`
   font-size: 16px;
-  width: 50%;
+  flex: 1;
   cursor: pointer;
-  margin: 20px 0;
+  color: ${(props) => props.theme.textColor};
   padding: 10px;
   border-radius: 4px;
-  background-color: none;
+  background: none;
   border: none;
 `
 
 const StyledSelectField = styled(Select)`
   font-size: 16px;
   cursor: pointer;
-  margin: 20px 0;
   padding: 10px;
   border-radius: 4px;
   background-color: none;
