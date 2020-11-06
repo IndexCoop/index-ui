@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
 import Select from 'react-select'
 
@@ -47,13 +47,30 @@ const TokenInputs: React.FC = () => {
     }),
   }
 
+  const currencyInputRef = useRef<any>()
+  const setTokenInputRef = useRef<any>()
+
+  useEffect(() => {
+    if (activeField === 'currency' && currencyInputRef) {
+      currencyInputRef?.current?.focus()
+    }
+
+    if (activeField === 'set' && setTokenInputRef) {
+      setTokenInputRef?.current?.focus()
+    }
+  }, [activeField])
+
   if (isUserBuying) {
     return (
       <>
-        <StyledCurrencyContainer isActive={activeField === 'currency'}>
+        <StyledCurrencyContainer
+          isActive={activeField === 'currency'}
+          onClick={() => onSetActiveField('currency')}
+        >
           <StyledCurrencyContainerLabel>Pay with</StyledCurrencyContainerLabel>
           <StyledCurrencySelectWrapper>
             <StyledInputField
+              ref={currencyInputRef}
               value={currencyQuantity}
               type='number'
               min='0'
@@ -70,12 +87,16 @@ const TokenInputs: React.FC = () => {
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
 
-        <StyledCurrencyContainer isActive={activeField === 'set'}>
+        <StyledCurrencyContainer
+          isActive={activeField === 'set'}
+          onClick={() => onSetActiveField('set')}
+        >
           <StyledCurrencyContainerLabel>
             Buy (estimated)
           </StyledCurrencyContainerLabel>
           <StyledCurrencySelectWrapper>
             <StyledInputField
+              ref={setTokenInputRef}
               value={tokenQuantity}
               type='number'
               min='0'
@@ -92,10 +113,14 @@ const TokenInputs: React.FC = () => {
 
   return (
     <>
-      <StyledCurrencyContainer isActive={activeField === 'currency'}>
+      <StyledCurrencyContainer
+        isActive={activeField === 'set'}
+        onClick={() => onSetActiveField('set')}
+      >
         <StyledCurrencyContainerLabel>Sell</StyledCurrencyContainerLabel>
         <StyledCurrencySelectWrapper>
           <StyledInputField
+            ref={setTokenInputRef}
             value={tokenQuantity}
             type='number'
             min='0'
@@ -107,13 +132,17 @@ const TokenInputs: React.FC = () => {
         </StyledCurrencySelectWrapper>
       </StyledCurrencyContainer>
 
-      <StyledCurrencyContainer isActive={activeField === 'set'}>
+      <StyledCurrencyContainer
+        isActive={activeField === 'currency'}
+        onClick={() => onSetActiveField('currency')}
+      >
         <StyledCurrencyContainerLabel>
           Receive (estimated)
         </StyledCurrencyContainerLabel>
 
         <StyledCurrencySelectWrapper>
           <StyledInputField
+            ref={currencyInputRef}
             value={currencyQuantity}
             type='number'
             min='0'
@@ -146,6 +175,7 @@ const StyledCurrencyContainer = styled.div<CurrencyContainerProps>`
   margin-bottom: 20px;
   background-color: ${(props) => props.theme.colors.transparentColors.grey};
   border-radius: ${(props) => props.theme.borderRadius}px;
+  cursor: pointer;
 
   ${(props) =>
     props.isActive &&

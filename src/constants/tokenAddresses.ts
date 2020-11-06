@@ -18,7 +18,7 @@ export const currencyTokens = [
   {
     name: 'Ether',
     label: 'ETH',
-    id: 'wrapped_ether',
+    id: 'wrapped_eth',
     address: undefined,
   },
   {

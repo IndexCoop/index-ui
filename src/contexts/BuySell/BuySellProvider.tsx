@@ -58,7 +58,7 @@ const BuySellProvider: React.FC = ({ children }) => {
       'dpi',
       isUserBuying,
       targetTradeQuantity,
-      selectedCurrency?.value,
+      selectedCurrency?.id,
       activeField
     ).then((uniswapData: any) => {
       setIsFetchingOrderData(false)
