@@ -33,6 +33,7 @@ const BuyTokenPlaceholder: React.FC = () => {
 }
 
 const StyledBuySellCard = styled.div`
+  height: fit-content;
   background-color: ${(props) => props.theme.colors.transparentColors.grey};
   border-radius: ${(props) => props.theme.borderRadius}px;
 `
@@ -42,6 +43,7 @@ const StyledBuySellCardContent = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  padding-bottom: 30px;
 `
 
 export default BuyTokenPlaceholder

@@ -205,7 +205,6 @@ const StyledCurrencyContainer = styled.div<CurrencyContainerProps>`
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
-  height: fit-content;
   padding: 10px 20px;
   margin-bottom: 20px;
   background-color: ${(props) => props.theme.colors.transparentColors.grey};
