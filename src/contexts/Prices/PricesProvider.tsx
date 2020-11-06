@@ -9,6 +9,7 @@ import { indexTokenAddress } from 'constants/tokenAddresses'
 
 const PricesProvider: React.FC = ({ children }) => {
   const [indexPrice, setIndexPrice] = useState<string>()
+  const [ethereumPrice, setEthereumPrice] = useState<string>()
   const [totalUSDInFarms, setTotalUSDInFarms] = useState<number>()
   const [apy, setAPY] = useState<string>()
 
@@ -20,6 +21,18 @@ const PricesProvider: React.FC = ({ children }) => {
   if (isUniswapFetchLoadedForFirstTime) {
     setTotalUSDInFarms(uniswapData?.pairs[0]?.reserveUSD)
   }
+
+  useEffect(() => {
+    const coingeckoEthereumPriceUrl = `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
+
+    fetch(coingeckoEthereumPriceUrl)
+      .then((response) => response.json())
+      .then((response) => {
+        const price = response?.ethereum?.usd
+        setEthereumPrice(price || '0')
+      })
+      .catch((error) => console.log(error))
+  }, [])
 
   useEffect(() => {
     const coingeckoIndexPriceUrl = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${indexTokenAddress}&vs_currencies=usd`
@@ -53,6 +66,7 @@ const PricesProvider: React.FC = ({ children }) => {
     <PricesContext.Provider
       value={{
         indexPrice,
+        ethereumPrice,
         totalUSDInFarms,
         apy,
       }}
