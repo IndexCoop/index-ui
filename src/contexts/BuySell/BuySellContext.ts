@@ -1,7 +1,6 @@
 import { createContext } from 'react'
 
 interface BuySellContextValues {
-  isViewingOrderSummary: boolean
   isFetchingOrderData: boolean
   isUserBuying: boolean
   activeField: 'currency' | 'set'
@@ -10,7 +9,6 @@ interface BuySellContextValues {
   tokenQuantity: number
   currencyOptions: any[]
   uniswapData: any
-  onToggleIsViewingOrderSummary: () => void
   onToggleIsUserBuying: () => void
   onSetActiveField: (field: 'currency' | 'set') => void
   onSetSelectedCurrency: (selectedCurrency: any) => void
@@ -20,7 +18,6 @@ interface BuySellContextValues {
 }
 
 const BuySellContext = createContext<BuySellContextValues>({
-  isViewingOrderSummary: false,
   isFetchingOrderData: false,
   isUserBuying: true,
   activeField: 'currency',
@@ -29,7 +26,6 @@ const BuySellContext = createContext<BuySellContextValues>({
   tokenQuantity: 0,
   currencyOptions: [],
   uniswapData: {},
-  onToggleIsViewingOrderSummary: () => {},
   onToggleIsUserBuying: () => {},
   onSetActiveField: () => {},
   onSetSelectedCurrency: () => {},

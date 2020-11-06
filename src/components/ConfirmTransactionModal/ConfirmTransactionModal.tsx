@@ -10,17 +10,10 @@ import styled from 'styled-components'
 import useWallet from 'hooks/useWallet'
 
 import Modal from 'components/CustomModal'
+import { TransactionStatusType } from 'components/TransactionWatcher'
 
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
-
-export enum TransactionStatusType {
-  IS_UNSTARTED,
-  IS_APPROVING,
-  IS_PENDING,
-  IS_COMPLETED,
-  IS_FAILED,
-}
 
 interface ConfirmationModalProps extends ModalProps {
   transactionMiningStatus?: TransactionStatusType

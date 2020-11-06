@@ -7,7 +7,6 @@ import { BasicButton } from 'components/BasicButton'
 
 const BuyTokenPlaceholder: React.FC = () => {
   const {
-    isViewingOrderSummary,
     isFetchingOrderData,
     isUserBuying,
     activeField,
@@ -16,12 +15,12 @@ const BuyTokenPlaceholder: React.FC = () => {
     tokenQuantity,
     currencyOptions,
     uniswapData,
-    onToggleIsViewingOrderSummary,
     onToggleIsUserBuying,
     onSetActiveField,
     onSetCurrencyQuantity,
     onSetTokenQuantity,
     onSetSelectedCurrency,
+    onExecuteBuySell,
   } = useBuySell()
 
   const selectStyles = {
@@ -68,7 +67,9 @@ const BuyTokenPlaceholder: React.FC = () => {
     </>
   )
 
-  const orderSummary = isViewingOrderSummary && (
+  const isOrderDataReady = uniswapData?.amount_out > 0 && !isFetchingOrderData
+
+  const orderSummary = isOrderDataReady && (
     <StyledOrderSummaryContainer>
       <StyledOrderSummaryLabel>Minimum Receive</StyledOrderSummaryLabel>
       <StyledOrderSummaryValue>
@@ -138,7 +139,7 @@ const BuyTokenPlaceholder: React.FC = () => {
           isDisabled={currencyQuantity <= 0 && tokenQuantity <= 0}
           isPending={isFetchingOrderData}
           text={'Buy'}
-          onClick={onToggleIsViewingOrderSummary}
+          onClick={onExecuteBuySell}
         />
       </StyledBuySellCardContent>
     </StyledBuySellCard>

@@ -23,7 +23,7 @@ export type TransactionOptions = {
 export const getUniswapRouterContract = (provider: provider) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
-    (UniswapRouterABI as unknown) as AbiItem,
+    (UniswapRouterABI.abi as unknown) as AbiItem,
     uniswapRouterAddress
   )
   return contract

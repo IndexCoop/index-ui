@@ -6,10 +6,7 @@ import { fetchTokenBuySellData } from 'utils/tokensetsApi'
 import { useDebounce } from 'hooks/useDebounce'
 import useWallet from 'hooks/useWallet'
 import { UniswapPriceData } from './types'
-import {
-  getUniswapTradeTransaction,
-  UniswapTradeType,
-} from 'uniswap-sdk/uniswap'
+import { getUniswapTradeTransaction } from 'uniswap-sdk/uniswap'
 import {
   getUniswapTradeType,
   getUniswapCallData,
@@ -19,9 +16,6 @@ import { useCallback } from 'react'
 import { TransactionStatusType } from 'components/ConfirmTransactionModal'
 
 const BuySellProvider: React.FC = ({ children }) => {
-  const [isViewingOrderSummary, setIsViewingOrderSummary] = useState<boolean>(
-    false
-  )
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
@@ -128,8 +122,6 @@ const BuySellProvider: React.FC = ({ children }) => {
     }
   }, [account, isUserBuying, uniswapData, selectedCurrency])
 
-  const onToggleIsViewingOrderSummary = () =>
-    setIsViewingOrderSummary(!isViewingOrderSummary)
   const onToggleIsUserBuying = () => setIsUserBuying(!isUserBuying)
   const onSetActiveField = (field: 'currency' | 'set') => setActiveField(field)
   const onSetCurrencyQuantity = (e: any) => {
@@ -147,7 +139,6 @@ const BuySellProvider: React.FC = ({ children }) => {
   return (
     <BuySellContext.Provider
       value={{
-        isViewingOrderSummary,
         isFetchingOrderData,
         isUserBuying,
         activeField,
@@ -156,7 +147,6 @@ const BuySellProvider: React.FC = ({ children }) => {
         tokenQuantity,
         currencyOptions,
         uniswapData,
-        onToggleIsViewingOrderSummary,
         onToggleIsUserBuying,
         onSetActiveField,
         onSetSelectedCurrency,
