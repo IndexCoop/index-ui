@@ -113,12 +113,12 @@ const TokenInputs: React.FC = () => {
           isActive={activeField === 'set'}
           onClick={() => onSetActiveField('set')}
         >
-          <StyledCurrencyLabelWrapper>
+          <StyledTokenLabelWrapper>
             <StyledCurrencyLabel>Buy (estimated)</StyledCurrencyLabel>
             <StyledCurrencyLabel>
               ${tokenUsdValue.toFixed(2)}
             </StyledCurrencyLabel>
-          </StyledCurrencyLabelWrapper>
+          </StyledTokenLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
               ref={setTokenInputRef}
@@ -143,10 +143,10 @@ const TokenInputs: React.FC = () => {
         isActive={activeField === 'set'}
         onClick={() => onSetActiveField('set')}
       >
-        <StyledCurrencyLabelWrapper>
+        <StyledTokenLabelWrapper>
           <StyledCurrencyLabel>Sell</StyledCurrencyLabel>
           <StyledCurrencyLabel>${tokenUsdValue.toFixed(2)}</StyledCurrencyLabel>
-        </StyledCurrencyLabelWrapper>
+        </StyledTokenLabelWrapper>
         <StyledCurrencySelectWrapper>
           <StyledInputField
             ref={setTokenInputRef}
@@ -205,6 +205,7 @@ const StyledCurrencyContainer = styled.div<CurrencyContainerProps>`
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
+  height: fit-content;
   padding: 10px 20px;
   margin-bottom: 20px;
   background-color: ${(props) => props.theme.colors.transparentColors.grey};
@@ -223,10 +224,18 @@ const StyledCurrencyLabelWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: -5px;
+`
+
+const StyledTokenLabelWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const StyledCurrencyLabel = styled.div`
   font-size: 14px;
+  margin-bottom: 5px;
 `
 
 const StyledCurrencySelectWrapper = styled.div`
