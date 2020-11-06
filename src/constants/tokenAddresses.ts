@@ -16,6 +16,12 @@ export const uniswapRouterAddress = process.env.REACT_APP_UNISWAP_ROUTER_ADDRESS
 
 export const currencyTokens = [
   {
+    name: 'Ether',
+    label: 'ETH',
+    id: 'wrapped_ether',
+    address: undefined,
+  },
+  {
     name: 'Dai',
     label: 'DAI',
     id: 'dai',
@@ -26,11 +32,5 @@ export const currencyTokens = [
     label: 'USDC',
     id: 'usdc',
     address: usdcTokenAddress,
-  },
-  {
-    name: 'Ether',
-    label: 'ETH',
-    id: 'wrapped_ether',
-    address: undefined,
   },
 ]
