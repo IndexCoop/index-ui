@@ -6,19 +6,19 @@ import { Container, Card, CardContent } from 'react-neu'
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 
-import usePrices from 'hooks/usePrices';
+import usePrices from 'hooks/usePrices'
 
 const Treasury: React.FC = () => {
-  const { totalUSDInFarms, dpiPrice } = usePrices()
+  const { totalUSDInFarms, indexPrice } = usePrices()
 
   const totalUSDInFarmsValue =
     typeof totalUSDInFarms !== 'undefined'
       ? '$' + numeral(totalUSDInFarms).format('0.00a')
       : '--'
 
-  const dpiPriceValue =
-    typeof dpiPrice !== 'undefined' && Number(dpiPrice) > 0
-      ? '$' + numeral(dpiPrice).format('0.00a')
+  const indexPriceValue =
+    typeof indexPrice !== 'undefined' && Number(indexPrice) > 0
+      ? '$' + numeral(indexPrice).format('0.00a')
       : '--'
 
   return (
@@ -45,7 +45,7 @@ const Treasury: React.FC = () => {
                 alt: 'Owl',
               }}
               label='$INDEX Price'
-              value={dpiPriceValue}
+              value={indexPriceValue}
             />
           </CardContent>
         </Card>
