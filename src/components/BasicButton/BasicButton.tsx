@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PulseLoader from 'react-spinners/PulseLoader'
 
 interface BasicButtonProps {
   text: string
@@ -19,7 +20,11 @@ const BuyTokenPlaceholder: React.FC<BasicButtonProps> = ({
   }
 
   if (isPending) {
-    return <StyledPendingButton disabled>Please wait</StyledPendingButton>
+    return (
+      <StyledPendingButton disabled>
+        <PulseLoader color='white' size={8} />
+      </StyledPendingButton>
+    )
   }
 
   return <StyledSubmitButton onClick={onClick}>{text}</StyledSubmitButton>
