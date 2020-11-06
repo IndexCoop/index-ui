@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import PendingTransaction from './PendingTransaction'
 import ApprovingTransaction from './ApprovingTransaction'
 import CompletedTransaction from './CompletedTransaction'
+import FailedTransaction from './FailedTransaction'
 
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 
@@ -21,7 +22,7 @@ const ConfirmTransactionModal: React.FC<TransactionWatcherProps> = ({
   approvingTransactionComponent = <ApprovingTransaction />,
   pendingTransactionComponent = <PendingTransaction />,
   completedTransactionComponent = <CompletedTransaction />,
-  failedTransactionComponent,
+  failedTransactionComponent = <FailedTransaction />,
   longTransactionComponent,
 }) => {
   switch (transactionStatus) {

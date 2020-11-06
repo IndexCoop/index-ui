@@ -8,7 +8,7 @@ import { makeEtherscanLink } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWatcherContext'
 import { BasicButton } from 'components/BasicButton'
 
-const CompletedTransaction: React.FC = () => {
+const FailedTransaction: React.FC = () => {
   const theme = useTheme()
   const {
     transactionId,
@@ -26,15 +26,15 @@ const CompletedTransaction: React.FC = () => {
   return (
     <StyledCard>
       <StyledIcon
-        src='https://index-dao.s3.amazonaws.com/green-check.svg'
-        alt='check mark'
+        src='https://index-dao.s3.amazonaws.com/red-x.svg'
+        alt='red x'
       />
-      <StyledCardBody>Your transaction succeeded!</StyledCardBody>
+      <StyledCardBody>Your transaction failed</StyledCardBody>
       <ExternalLink href={etherscanLink} target='_blank'>
         View the transaction
       </ExternalLink>
       <Spacer />
-      <BasicButton text='Finish' onClick={onFinishTransaction} />
+      <BasicButton text='Try Again' onClick={onFinishTransaction} />
     </StyledCard>
   )
 }
@@ -62,4 +62,4 @@ const StyledCardBody = styled.p`
   margin-bottom: 10px;
 `
 
-export default CompletedTransaction
+export default FailedTransaction
