@@ -24,7 +24,7 @@ export const currencyTokens = [
   {
     name: 'Dai',
     label: 'DAI',
-    id: 'dai',
+    id: 'mcd',
     address: daiTokenAddress,
   },
   {
