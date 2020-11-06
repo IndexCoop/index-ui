@@ -5,6 +5,7 @@ import CompletedTransaction from './CompletedTransaction'
 import FailedTransaction from './FailedTransaction'
 
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
+import LongTransaction from './LongTransaction'
 
 interface TransactionWatcherProps {
   transactionStatus?: TransactionStatusType
@@ -23,7 +24,7 @@ const ConfirmTransactionModal: React.FC<TransactionWatcherProps> = ({
   pendingTransactionComponent = <PendingTransaction />,
   completedTransactionComponent = <CompletedTransaction />,
   failedTransactionComponent = <FailedTransaction />,
-  longTransactionComponent,
+  longTransactionComponent = <LongTransaction />,
 }) => {
   switch (transactionStatus) {
     case TransactionStatusType.IS_UNSTARTED:

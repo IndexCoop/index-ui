@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTheme, Spacer } from 'react-neu'
+import { Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import ExternalLink from 'components/ExternalLink'
@@ -9,7 +9,6 @@ import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWa
 import { BasicButton } from 'components/BasicButton'
 
 const CompletedTransaction: React.FC = () => {
-  const theme = useTheme()
   const {
     transactionId,
     onSetTransactionId,
