@@ -8,7 +8,7 @@ const TransactionWatcherProvider: React.FC = ({ children }) => {
   const [transactionId, setTransactionId] = useState<string>()
   const [transactionStatus, setTransactionStatus] = useState<
     TransactionStatusType
-  >()
+  >(TransactionStatusType.IS_PENDING)
 
   return (
     <TransactionWatcherContext.Provider

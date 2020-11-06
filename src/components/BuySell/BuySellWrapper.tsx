@@ -1,15 +1,15 @@
 import React from 'react'
 
-import useBuySell from 'hooks/useBuySell'
 import TransactionWatcher from 'components/TransactionWatcher'
 import { BuySellWidget } from 'components/BuySell'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 const BuySellWrapper: React.FC = () => {
-  const { transactionStatusType } = useBuySell()
+  const { transactionStatus } = useTransactionWatcher()
 
   return (
     <TransactionWatcher
-      transactionStatus={transactionStatusType}
+      transactionStatus={transactionStatus}
       startTransactionComponent={<BuySellWidget />}
     />
   )

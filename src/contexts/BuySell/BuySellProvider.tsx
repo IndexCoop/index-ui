@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { provider } from 'web3-core'
 
 import BuySellContext from './BuySellContext'
@@ -12,8 +12,7 @@ import {
   getUniswapCallData,
   getUniswapTransactionOptions,
 } from './utils'
-import { useCallback } from 'react'
-import { TransactionStatusType } from 'components/TransactionWatcher'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
@@ -27,9 +26,12 @@ const BuySellProvider: React.FC = ({ children }) => {
     {} as UniswapPriceData
   )
 
-  const [transactionStatusType, setTransactionStatusType] = useState<
-    TransactionStatusType | undefined
-  >(TransactionStatusType.IS_PENDING)
+  const {
+    transactionId,
+    transactionStatus,
+    onSetTransactionId,
+    onSetTransactionStatus,
+  } = useTransactionWatcher()
 
   const {
     account,
@@ -147,7 +149,6 @@ const BuySellProvider: React.FC = ({ children }) => {
         tokenQuantity,
         currencyOptions,
         uniswapData,
-        transactionStatusType,
         onToggleIsUserBuying,
         onSetActiveField,
         onSetSelectedCurrency,
