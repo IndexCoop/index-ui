@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Select from 'react-select'
 
 import useBuySell from 'hooks/useBuySell'
@@ -96,7 +96,7 @@ const BuyTokenPlaceholder: React.FC = () => {
       <StyledBuySellCardContent>
         <StyledCardHeader>{buySellButtons}</StyledCardHeader>
 
-        <StyledCurrencyContainer>
+        <StyledCurrencyContainer isActive={activeField === 'currency'}>
           <StyledCurrencyContainerLabel>Pay with</StyledCurrencyContainerLabel>
           <StyledCurrencySelectWrapper>
             <StyledInputField
@@ -116,7 +116,7 @@ const BuyTokenPlaceholder: React.FC = () => {
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
 
-        <StyledCurrencyContainer>
+        <StyledCurrencyContainer isActive={activeField === 'set'}>
           <StyledCurrencyContainerLabel>
             Buy (estimated)
           </StyledCurrencyContainerLabel>
@@ -194,15 +194,26 @@ const StyledActiveButton = styled.button`
   cursor: pointer;
 `
 
-const StyledCurrencyContainer = styled.div`
+interface CurrencyContainerProps {
+  isActive?: boolean
+}
+
+const StyledCurrencyContainer = styled.div<CurrencyContainerProps>`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
-  background-color: ${(props) => props.theme.colors.transparentColors.grey};
-  border-radius: ${(props) => props.theme.borderRadius}px;
   padding: 10px 20px;
   margin-bottom: 20px;
+  background-color: ${(props) => props.theme.colors.transparentColors.grey};
+  border-radius: ${(props) => props.theme.borderRadius}px;
+
+  ${(props) =>
+    props.isActive &&
+    css`
+      background-color: transparent;
+      border: 1px solid ${props.theme.colors.transparentColors.grey};
+    `}
 `
 
 const StyledCurrencyContainerLabel = styled.div`
