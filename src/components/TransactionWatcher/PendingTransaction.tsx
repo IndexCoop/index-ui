@@ -1,16 +1,25 @@
 import React from 'react'
+import { useTheme } from 'react-neu'
 import styled from 'styled-components'
 import MoonLoader from 'react-spinners/MoonLoader'
 
-import { useTheme } from 'react-neu'
+import ExternalLink from 'components/ExternalLink'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
+import { makeEtherscanLink } from 'utils/index'
 
 const PendingTransaction: React.FC = () => {
   const theme = useTheme()
+  const { transactionId } = useTransactionWatcher()
+
+  const etherscanLink = transactionId && makeEtherscanLink(transactionId)
 
   return (
     <StyledCard>
       <MoonLoader color={theme.textColor} size={30} />
       <StyledCardBody>Your transaction is pending</StyledCardBody>
+      <ExternalLink href={etherscanLink} target='_blank'>
+        View the transaction
+      </ExternalLink>
     </StyledCard>
   )
 }
@@ -30,6 +39,7 @@ const StyledCardBody = styled.p`
   font-size: 20px;
   font-weight: 600;
   margin-top: 40px;
+  margin-bottom: 10px;
 `
 
 export default PendingTransaction

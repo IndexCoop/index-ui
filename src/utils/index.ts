@@ -109,3 +109,7 @@ export const decToBn = (dec: number, decimals = 18) => {
 export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
   return balance.dividedBy(new BigNumber(10).pow(decimals)).toFixed()
 }
+
+export const makeEtherscanLink = (transactionHash: string) => {
+  return `https://etherscan.io/tx/${transactionHash}`
+}
