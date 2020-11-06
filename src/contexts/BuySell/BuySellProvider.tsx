@@ -9,13 +9,14 @@ import { UniswapPriceData } from './types'
 import {
   getUniswapTradeTransaction,
   UniswapTradeType,
-} from '../../uniswap-sdk/uniswap'
+} from 'uniswap-sdk/uniswap'
 import {
   getUniswapTradeType,
   getUniswapCallData,
   getUniswapTransactionOptions,
 } from './utils'
 import { useCallback } from 'react'
+import { TransactionStatusType } from 'components/ConfirmTransactionModal'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [isViewingOrderSummary, setIsViewingOrderSummary] = useState<boolean>(
@@ -31,6 +32,10 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [uniswapData, setUniswapData] = useState<UniswapPriceData>(
     {} as UniswapPriceData
   )
+
+  const [transactionStatusType, setTransactionStatusType] = useState<
+    TransactionStatusType | undefined
+  >()
 
   const {
     account,
@@ -87,7 +92,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     })
   }, [isUserBuying, selectedCurrency, activeField, targetTradeQuantity])
 
-  const onExecuteBuySell = useCallback(() => {
+  const onExecuteBuySell = useCallback(async () => {
     if (!account) return
 
     const uniswapTradeType = getUniswapTradeType(
@@ -114,6 +119,13 @@ const BuySellProvider: React.FC = ({ children }) => {
       uniswapCallData,
       transactionOptions
     )
+
+    try {
+      const transactionId = await uniswapTradeTransaction()
+      console.log(transactionId)
+    } catch (e) {
+      console.log('error is', e)
+    }
   }, [account, isUserBuying, uniswapData, selectedCurrency])
 
   const onToggleIsViewingOrderSummary = () =>
@@ -150,7 +162,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         onSetSelectedCurrency,
         onSetCurrencyQuantity: onSetCurrencyQuantity,
         onSetTokenQuantity: onSetTokenQuantity,
-        onExecuteBuySell: () => {},
+        onExecuteBuySell,
       }}
     >
       {children}
