@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import { Button } from 'react-neu'
@@ -7,9 +7,7 @@ import useWallet from 'hooks/useWallet'
 import UnlockWalletModal from 'components/UnlockWalletModal'
 import WalletModal from 'components/WalletModal'
 
-interface WalletButtonProps {}
-
-const WalletButton: React.FC<WalletButtonProps> = (props) => {
+const WalletButton: React.FC = () => {
   const {
     account,
     isShowingWalletModal,
