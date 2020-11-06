@@ -13,6 +13,7 @@ import {
   getUniswapTransactionOptions,
 } from './utils'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
+import { currencyTokens } from 'constants/tokenAddresses'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
@@ -39,22 +40,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   }: { account: string | null | undefined; ethereum: provider } = useWallet()
 
   useEffect(() => {
-    const options = [
-      {
-        value: 'wrapped_eth',
-        label: 'ETH',
-      },
-      {
-        value: 'dai',
-        label: 'DAI',
-      },
-      {
-        value: 'usdc',
-        label: 'USDC',
-      },
-    ]
-    setCurrencyOptions(options)
-    setSelectedCurrency(options[0])
+    setCurrencyOptions(currencyTokens)
+    setSelectedCurrency(currencyTokens[0])
   }, [])
 
   const debouncedCurrencyQuantity = useDebounce(currencyQuantity)
