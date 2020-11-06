@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import PendingTransaction from './PendingTransaction'
 
 export enum TransactionStatusType {
   IS_UNSTARTED,
@@ -22,7 +23,7 @@ interface TransactionWatcherProps {
 const ConfirmTransactionModal: React.FC<TransactionWatcherProps> = ({
   transactionStatus,
   startTransactionComponent,
-  pendingTransactionComponent,
+  pendingTransactionComponent = <PendingTransaction />,
   approvingTransactionComponent,
   completedTransactionComponent,
   failedTransactionComponent,

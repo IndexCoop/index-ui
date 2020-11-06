@@ -29,7 +29,7 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   const [transactionStatusType, setTransactionStatusType] = useState<
     TransactionStatusType | undefined
-  >()
+  >(TransactionStatusType.IS_PENDING)
 
   const {
     account,

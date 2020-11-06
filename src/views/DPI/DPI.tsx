@@ -12,7 +12,7 @@ import {
   Description,
   IndexComponentsTable,
 } from 'components/ProductPage'
-import { BuySellWidget } from 'components/BuySell'
+import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
 import MarketData from './components/MarketData'
 
@@ -36,7 +36,7 @@ const DpiProductPage: React.FC = () => {
       <Container size='lg'>
         <ProductPageHeader>
           <MarketData />
-          <BuySellWidget />
+          <BuySellWrapper />
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
