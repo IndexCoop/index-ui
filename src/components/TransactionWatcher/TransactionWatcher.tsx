@@ -2,14 +2,7 @@ import React, { useMemo } from 'react'
 import PendingTransaction from './PendingTransaction'
 import ApprovingTransaction from './ApprovingTransaction'
 
-export enum TransactionStatusType {
-  IS_UNSTARTED,
-  IS_APPROVING,
-  IS_PENDING,
-  IS_COMPLETED,
-  IS_FAILED,
-  IS_LONG,
-}
+import { TransactionStatusType } from 'contexts/TransactionWatcher'
 
 interface TransactionWatcherProps {
   transactionStatus?: TransactionStatusType
