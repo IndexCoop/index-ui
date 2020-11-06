@@ -137,7 +137,7 @@ const BuyTokenPlaceholder: React.FC = () => {
         <BasicButton
           isDisabled={currencyQuantity <= 0 && tokenQuantity <= 0}
           isPending={isFetchingOrderData}
-          text={'Review Order'}
+          text={'Buy'}
           onClick={onToggleIsViewingOrderSummary}
         />
       </StyledBuySellCardContent>
@@ -146,12 +146,8 @@ const BuyTokenPlaceholder: React.FC = () => {
 }
 
 const StyledBuySellCard = styled.div`
-  max-height: 200px;
   background-color: ${(props) => props.theme.colors.grey[600]};
   border-radius: ${(props) => props.theme.borderRadius}px;
-  @media (min-width: 768px) {
-    max-height: 500px;
-  }
 `
 
 const StyledBuySellCardContent = styled.div`

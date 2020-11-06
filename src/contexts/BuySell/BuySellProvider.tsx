@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from 'react'
+import { provider } from 'web3-core'
 
 import BuySellContext from './BuySellContext'
 import { fetchTokenBuySellData } from 'utils/tokensetsApi'
 import { useDebounce } from 'hooks/useDebounce'
+import useWallet from 'hooks/useWallet'
 import { UniswapPriceData } from './types'
+import {
+  getUniswapTradeTransaction,
+  UniswapTradeType,
+} from '../../uniswap-sdk/uniswap'
+import {
+  getUniswapTradeType,
+  getUniswapCallData,
+  getUniswapTransactionOptions,
+} from './utils'
+import { useCallback } from 'react'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [isViewingOrderSummary, setIsViewingOrderSummary] = useState<boolean>(
@@ -19,6 +31,11 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [uniswapData, setUniswapData] = useState<UniswapPriceData>(
     {} as UniswapPriceData
   )
+
+  const {
+    account,
+    ethereum,
+  }: { account: string | null | undefined; ethereum: provider } = useWallet()
 
   useEffect(() => {
     const options = [
@@ -69,6 +86,35 @@ const BuySellProvider: React.FC = ({ children }) => {
       }
     })
   }, [isUserBuying, selectedCurrency, activeField, targetTradeQuantity])
+
+  const onExecuteBuySell = useCallback(() => {
+    if (!account) return
+
+    const uniswapTradeType = getUniswapTradeType(
+      isUserBuying,
+      selectedCurrency.value,
+      uniswapData
+    )
+    const uniswapCallData = getUniswapCallData(
+      uniswapTradeType,
+      uniswapData,
+      account
+    )
+    const transactionOptions = getUniswapTransactionOptions(
+      uniswapTradeType,
+      uniswapData,
+      account
+    )
+
+    if (!uniswapCallData || !transactionOptions) return
+
+    const uniswapTradeTransaction = getUniswapTradeTransaction(
+      ethereum,
+      uniswapTradeType,
+      uniswapCallData,
+      transactionOptions
+    )
+  }, [account, isUserBuying, uniswapData, selectedCurrency])
 
   const onToggleIsViewingOrderSummary = () =>
     setIsViewingOrderSummary(!isViewingOrderSummary)
