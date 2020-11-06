@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import { TransactionStatusType } from 'components/TransactionWatcher'
 
 interface BuySellContextValues {
   isFetchingOrderData: boolean
@@ -9,6 +10,7 @@ interface BuySellContextValues {
   tokenQuantity: number
   currencyOptions: any[]
   uniswapData: any
+  transactionStatusType: TransactionStatusType | undefined
   onToggleIsUserBuying: () => void
   onSetActiveField: (field: 'currency' | 'set') => void
   onSetSelectedCurrency: (selectedCurrency: any) => void
@@ -26,6 +28,7 @@ const BuySellContext = createContext<BuySellContextValues>({
   tokenQuantity: 0,
   currencyOptions: [],
   uniswapData: {},
+  transactionStatusType: undefined,
   onToggleIsUserBuying: () => {},
   onSetActiveField: () => {},
   onSetSelectedCurrency: () => {},

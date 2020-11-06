@@ -13,7 +13,7 @@ import {
   getUniswapTransactionOptions,
 } from './utils'
 import { useCallback } from 'react'
-import { TransactionStatusType } from 'components/ConfirmTransactionModal'
+import { TransactionStatusType } from 'components/TransactionWatcher'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
@@ -147,6 +147,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         tokenQuantity,
         currencyOptions,
         uniswapData,
+        transactionStatusType,
         onToggleIsUserBuying,
         onSetActiveField,
         onSetSelectedCurrency,

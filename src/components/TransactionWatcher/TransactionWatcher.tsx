@@ -10,7 +10,7 @@ export enum TransactionStatusType {
 }
 
 interface TransactionWatcherProps {
-  transactionMiningStatus?: TransactionStatusType
+  transactionStatus?: TransactionStatusType
   startTransactionComponent?: any
   pendingTransactionComponent?: any
   approvingTransactionComponent?: any
@@ -20,7 +20,7 @@ interface TransactionWatcherProps {
 }
 
 const ConfirmTransactionModal: React.FC<TransactionWatcherProps> = ({
-  transactionMiningStatus,
+  transactionStatus,
   startTransactionComponent,
   pendingTransactionComponent,
   approvingTransactionComponent,
@@ -28,7 +28,7 @@ const ConfirmTransactionModal: React.FC<TransactionWatcherProps> = ({
   failedTransactionComponent,
   longTransactionComponent,
 }) => {
-  switch (transactionMiningStatus) {
+  switch (transactionStatus) {
     case TransactionStatusType.IS_UNSTARTED:
       return startTransactionComponent
 
