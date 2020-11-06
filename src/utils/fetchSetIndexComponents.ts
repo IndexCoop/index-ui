@@ -1,9 +1,11 @@
 import { camelCase } from 'lodash'
 
+const proxyPrefixURL = 'https://cors-anywhere.herokuapp.com/'
 const baseURL = 'https://api.tokensets.com/public/v2/portfolios/'
+const apiURL = proxyPrefixURL + baseURL
 
 export default (index: string) => {
-  return fetch(baseURL + index)
+  return fetch(apiURL + index)
     .then((response) => response.json())
     .then((response) => {
       if (!response?.portfolio?.components) {
@@ -14,13 +16,14 @@ export default (index: string) => {
         portfolio: { components },
       } = response
       const formattedComponents = components.map((component: any) => {
-        return Object.keys(component).reduce(
-          (camelCased: any, k: string) => ({
-            ...camelCased,
+        const camelCasedComponent = Object.keys(component).reduce(
+          (comp: any, k: string) => ({
+            ...comp,
             [camelCase(k)]: component[k],
           }),
           {}
         )
+        return camelCasedComponent
       })
 
       return formattedComponents
