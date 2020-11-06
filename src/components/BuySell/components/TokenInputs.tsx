@@ -9,7 +9,6 @@ import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 
 const TokenInputs: React.FC = () => {
   const {
-    isFetchingOrderData,
     isUserBuying,
     activeField,
     selectedCurrency,
@@ -72,6 +71,11 @@ const TokenInputs: React.FC = () => {
     latestPrice || 0
   )
 
+  const tokenPaymentOptions = currencyOptions.map((token: any) => ({
+    ...token,
+    value: token.id,
+  }))
+
   if (isUserBuying) {
     return (
       <>
@@ -98,7 +102,7 @@ const TokenInputs: React.FC = () => {
             />
             <Select
               value={selectedCurrency}
-              options={currencyOptions}
+              options={tokenPaymentOptions}
               styles={selectStyles}
               onChange={onSetSelectedCurrency}
             />
@@ -182,7 +186,7 @@ const TokenInputs: React.FC = () => {
           />
           <Select
             value={selectedCurrency}
-            options={currencyOptions}
+            options={tokenPaymentOptions}
             styles={selectStyles}
             onChange={onSetSelectedCurrency}
           />
