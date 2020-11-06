@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import MoonLoader from 'react-spinners/MoonLoader'
+
+import { useTheme } from 'react-neu'
 
 interface PendingTransactionProps {
   onDismiss?: (...args: any[]) => any
@@ -8,11 +11,13 @@ interface PendingTransactionProps {
 const PendingTransaction: React.FC<PendingTransactionProps> = ({
   onDismiss,
 }) => {
+  const theme = useTheme()
   return (
     <StyledCard>
       <StyledCardHeader>
         <StyledCardTitle>Confirmation</StyledCardTitle>
       </StyledCardHeader>
+      <MoonLoader color={theme.textColor} size={30} />
       <StyledCardBody>Please confirm your transaction</StyledCardBody>
     </StyledCard>
   )
@@ -30,6 +35,7 @@ const StyledCard = styled.div`
 const StyledCardHeader = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 40px;
 `
 
 const StyledCardTitle = styled.h3`
@@ -38,9 +44,10 @@ const StyledCardTitle = styled.h3`
 `
 
 const StyledCardBody = styled.p`
+  text-align: center;
   font-size: 20px;
   font-weight: 600;
-  text-align: center;
+  margin-top: 40px;
 `
 
 export default PendingTransaction

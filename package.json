@@ -28,6 +28,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-select": "^3.1.0",
+    "react-spinners": "^0.9.0",
     "react-toastify": "^6.0.8",
     "recharts": "^1.8.5",
     "styled-components": "^5.2.0",
