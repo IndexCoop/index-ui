@@ -35,6 +35,7 @@ const createTheme = (): {
 
   const green = hslToCssString({ h: 147, s: 73, l: 44 })
   const red = hslToCssString({ h: 356, s: 69, l: 55 })
+  const transparentColors = generateTransparentColors(baseGreyH)
 
   const buttonSizes = {
     lg: 72,
@@ -53,6 +54,7 @@ const createTheme = (): {
     white,
     green,
     red,
+    transparentColors,
   }
 
   const colorsDark = {
@@ -66,6 +68,7 @@ const createTheme = (): {
     white: whiteDark,
     green,
     red,
+    transparentColors,
   }
 
   const spacing = {
@@ -143,6 +146,12 @@ const generateGreys = (h: number) => {
     700: hslToCssString({ h, s: 17, l: 15 }),
     800: hslToCssString({ h, s: 20, l: 10 }),
     900: hslToCssString({ h, s: 20, l: 5 }),
+  }
+}
+
+const generateTransparentColors = (h: number) => {
+  return {
+    grey: hslToCssString({ h, s: 10, l: 37, a: 50 }),
   }
 }
 

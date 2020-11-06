@@ -147,7 +147,7 @@ const BuyTokenPlaceholder: React.FC = () => {
 }
 
 const StyledBuySellCard = styled.div`
-  background-color: ${(props) => props.theme.colors.grey[600]};
+  background-color: ${(props) => props.theme.colors.transparentColors.grey};
   border-radius: ${(props) => props.theme.borderRadius}px;
 `
 
@@ -199,7 +199,7 @@ const StyledCurrencyContainer = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
-  background-color: ${(props) => props.theme.colors.grey[500]};
+  background-color: ${(props) => props.theme.colors.transparentColors.grey};
   border-radius: ${(props) => props.theme.borderRadius}px;
   padding: 10px 20px;
   margin-bottom: 20px;
@@ -224,6 +224,9 @@ const StyledInputField = styled.input`
   border-radius: 4px;
   background: none;
   border: none;
+  &:focus {
+    outline: none;
+  }
 `
 
 const StyledTargetTokenSymbol = styled.span`
