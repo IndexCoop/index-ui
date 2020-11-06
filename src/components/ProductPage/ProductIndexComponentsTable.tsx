@@ -64,7 +64,7 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
         <StyledTableHeader>24hr Change</StyledTableHeader>
 
         {components?.slice(0, amountToDisplay - 1).map((data) => (
-          <ComponentRow component={data} />
+          <ComponentRow key={data.name} component={data} />
         ))}
       </IndexComponentsTable>
 
@@ -88,8 +88,9 @@ const ComponentRow: React.FC<ComponentRowProps> = ({ component }) => {
     name,
   } = component
   // use math.abs so numeral formats negative numbers without '-' for design spec
-  const percentChange =
-    numeral(Math.abs(parseFloat(dailyPercentChange))).format('0.00') + '%'
+  const percentChange = numeral(
+    Math.abs(parseFloat(dailyPercentChange))
+  ).format('0.00')
   return (
     <>
       <StyledTokenLogo src={image} alt={`${name} Logo`} />
@@ -108,9 +109,9 @@ const ComponentRow: React.FC<ComponentRowProps> = ({ component }) => {
 
       <StyledTableData>{percentOfSet}%</StyledTableData>
       {parseFloat(dailyPercentChange) < 0 ? (
-        <NegativeChange>{percentChange}</NegativeChange>
+        <NegativeChange>{percentChange}%</NegativeChange>
       ) : (
-        <PositiveChange>{percentChange}</PositiveChange>
+        <PositiveChange>{percentChange}%</PositiveChange>
       )}
     </>
   )
