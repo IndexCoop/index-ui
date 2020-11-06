@@ -19,11 +19,8 @@ const BuyTokenPlaceholder: React.FC = () => {
     <StyledBuySellCard>
       <StyledBuySellCardContent>
         <BuySellSelector />
-
         <TokenInputs />
-
         <OrderSummary />
-
         <BasicButton
           isDisabled={!currencyQuantity || !tokenQuantity}
           isPending={isFetchingOrderData}

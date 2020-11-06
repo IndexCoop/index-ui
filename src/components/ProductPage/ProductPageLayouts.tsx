@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const ProductPageHeader = styled.div`
   @media (min-width: 768px) {
     display: grid;
-    grid-template-columns: [chart] 60% [buybox] 30%;
+    grid-template-columns: [chart] 60% [buybox] 300px;
   }
 `
 
