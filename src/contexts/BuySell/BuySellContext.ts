@@ -5,8 +5,8 @@ interface BuySellContextValues {
   isUserBuying: boolean
   activeField: 'currency' | 'set'
   selectedCurrency: undefined
-  currencyQuantity: number
-  tokenQuantity: number
+  currencyQuantity: number | undefined
+  tokenQuantity: number | undefined
   currencyOptions: any[]
   uniswapData: any
   onToggleIsUserBuying: () => void
@@ -22,8 +22,8 @@ const BuySellContext = createContext<BuySellContextValues>({
   isUserBuying: true,
   activeField: 'currency',
   selectedCurrency: undefined,
-  currencyQuantity: 0,
-  tokenQuantity: 0,
+  currencyQuantity: undefined,
+  tokenQuantity: undefined,
   currencyOptions: [],
   uniswapData: {},
   onToggleIsUserBuying: () => {},

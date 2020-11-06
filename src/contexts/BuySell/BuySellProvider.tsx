@@ -20,8 +20,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
-  const [currencyQuantity, setCurrencyQuantity] = useState<number>(0)
-  const [tokenQuantity, setTokenQuantity] = useState<number>(0)
+  const [currencyQuantity, setCurrencyQuantity] = useState<number>()
+  const [tokenQuantity, setTokenQuantity] = useState<number>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
   const [uniswapData, setUniswapData] = useState<UniswapPriceData>(
     {} as UniswapPriceData

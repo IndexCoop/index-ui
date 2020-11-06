@@ -8,8 +8,8 @@ import { DPI_ETH_UNISWAP_QUERY } from 'utils/graphql'
 import { indexTokenAddress } from 'constants/tokenAddresses'
 
 const PricesProvider: React.FC = ({ children }) => {
-  const [indexPrice, setIndexPrice] = useState<string>()
-  const [ethereumPrice, setEthereumPrice] = useState<string>()
+  const [indexPrice, setIndexPrice] = useState<string>('0')
+  const [ethereumPrice, setEthereumPrice] = useState<string>('0')
   const [totalUSDInFarms, setTotalUSDInFarms] = useState<number>()
   const [apy, setAPY] = useState<string>()
 

@@ -25,7 +25,7 @@ const BuyTokenPlaceholder: React.FC = () => {
         <OrderSummary />
 
         <BasicButton
-          isDisabled={currencyQuantity <= 0 && tokenQuantity <= 0}
+          isDisabled={!currencyQuantity || !tokenQuantity}
           isPending={isFetchingOrderData}
           text={'Buy'}
           onClick={onExecuteBuySell}
