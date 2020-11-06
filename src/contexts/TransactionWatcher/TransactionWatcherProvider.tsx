@@ -8,7 +8,7 @@ const TransactionWatcherProvider: React.FC = ({ children }) => {
   const [transactionId, setTransactionId] = useState<string>()
   const [transactionStatus, setTransactionStatus] = useState<
     TransactionStatusType
-  >(TransactionStatusType.IS_FAILED)
+  >(TransactionStatusType.IS_UNSTARTED)
 
   return (
     <TransactionWatcherContext.Provider

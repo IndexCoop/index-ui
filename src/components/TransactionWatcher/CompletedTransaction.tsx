@@ -30,7 +30,8 @@ const CompletedTransaction: React.FC = () => {
       />
       <StyledCardBody>Your transaction succeeded!</StyledCardBody>
       <ExternalLink href={etherscanLink} target='_blank'>
-        View the transaction
+        View the transaction{' '}
+        <StyledTransactionArrow src='https://index-dao.s3.amazonaws.com/external-arrow.svg' />
       </ExternalLink>
       <Spacer />
       <BasicButton text='Finish' onClick={onFinishTransaction} />
@@ -51,6 +52,11 @@ const StyledCard = styled.div`
 const StyledIcon = styled.img`
   width: 55px;
   height: 55px;
+`
+const StyledTransactionArrow = styled.img`
+  width: 9px;
+  height: 9px;
+  margin-left: 2px;
 `
 
 const StyledCardBody = styled.p`
