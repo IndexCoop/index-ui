@@ -9,6 +9,8 @@ import { getEarnedIndexTokenQuantity } from 'index-sdk/stake'
 import {
   dpiTokenAddress,
   indexTokenAddress,
+  daiTokenAddress,
+  usdcTokenAddress,
   uniswapEthDpiLpTokenAddress,
   stakingRewardsAddress,
 } from 'constants/tokenAddresses'
@@ -16,6 +18,8 @@ import {
 const Provider: React.FC = ({ children }) => {
   const [indexBalance, setIndexBalance] = useState<BigNumber>()
   const [dpiBalance, setDpiBalance] = useState<BigNumber>()
+  const [daiBalance, setDaiBalance] = useState<BigNumber>()
+  const [usdcBalance, setUsdcBalance] = useState<BigNumber>()
   const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] = useState<
     BigNumber
   >()
@@ -42,6 +46,8 @@ const Provider: React.FC = ({ children }) => {
       const balances = await Promise.all([
         getBalance(provider, indexTokenAddress as string, userAddress),
         getBalance(provider, dpiTokenAddress as string, userAddress),
+        getBalance(provider, daiTokenAddress as string, userAddress),
+        getBalance(provider, usdcTokenAddress as string, userAddress),
         getBalance(
           provider,
           uniswapEthDpiLpTokenAddress as string,
@@ -57,14 +63,20 @@ const Provider: React.FC = ({ children }) => {
       setDpiBalance(
         new BigNumber(balances[1]).dividedBy(new BigNumber(10).pow(18))
       )
-      setUniswapEthDpiLpBalance(
+      setDaiBalance(
         new BigNumber(balances[2]).dividedBy(new BigNumber(10).pow(18))
       )
-      setStakedUniswapEthDpiLpBalance(
+      setUsdcBalance(
         new BigNumber(balances[3]).dividedBy(new BigNumber(10).pow(18))
       )
-      setUnharvestedIndexBalance(
+      setUniswapEthDpiLpBalance(
         new BigNumber(balances[4]).dividedBy(new BigNumber(10).pow(18))
+      )
+      setStakedUniswapEthDpiLpBalance(
+        new BigNumber(balances[5]).dividedBy(new BigNumber(10).pow(18))
+      )
+      setUnharvestedIndexBalance(
+        new BigNumber(balances[6]).dividedBy(new BigNumber(10).pow(18))
       )
     },
     [
@@ -106,6 +118,8 @@ const Provider: React.FC = ({ children }) => {
       value={{
         indexBalance,
         dpiBalance,
+        daiBalance,
+        usdcBalance,
         uniswapEthDpiLpBalance,
         stakedUniswapEthDpiLpBalance,
         unharvestedIndexBalance,

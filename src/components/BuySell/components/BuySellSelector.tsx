@@ -44,6 +44,7 @@ const StyledBuySellButton = styled.button`
   padding-bottom: 20px;
   margin-bottom: 20px;
   cursor: pointer;
+  outline: none;
   &:hover {
     color: ${(props) => props.theme.colors.grey[400]};
     border-bottom: 2px solid ${(props) => props.theme.colors.grey[400]};
@@ -61,6 +62,7 @@ const StyledActiveButton = styled.button`
   padding-bottom: 20px;
   margin-bottom: 20px;
   cursor: pointer;
+  outline: none;
 `
 
 export default BuySellSelector
