@@ -4,7 +4,7 @@ interface BuySellContextValues {
   isFetchingOrderData: boolean
   isUserBuying: boolean
   activeField: 'currency' | 'set'
-  selectedCurrency: undefined
+  selectedCurrency: any
   currencyQuantity: number | undefined
   tokenQuantity: number | undefined
   currencyOptions: any[]

@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components'
 import Select from 'react-select'
 
 import useBuySell from 'hooks/useBuySell'
-import useBalances from 'hooks/useBalances'
 
 const TokenInputs: React.FC = () => {
   const {
