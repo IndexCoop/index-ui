@@ -31,17 +31,17 @@ const BuySellButton: React.FC = () => {
   const loginRequiredBeforeSubmit = uniswapData?.amount_in && !account
 
   const dpiApprovalRequired = !isUserBuying && !dpiApproval.isApproved
-  const dpiApproving = !isUserBuying && !dpiApproval.isApproving
+  const dpiApproving = !isUserBuying && dpiApproval.isApproving
 
   const daiApprovalRequired =
-    selectedCurrency?.id === 'mcd' && !daiApproval.isApproved
+    isUserBuying && selectedCurrency?.id === 'mcd' && !daiApproval.isApproved
   const daiApproving =
-    selectedCurrency?.id === 'mcd' && !daiApproval.isApproving
+    isUserBuying && selectedCurrency?.id === 'mcd' && daiApproval.isApproving
 
   const usdcApprovalRequired =
-    selectedCurrency?.id === 'usdc' && !usdcApproval.isApproved
+    isUserBuying && selectedCurrency?.id === 'usdc' && !usdcApproval.isApproved
   const usdcApproving =
-    selectedCurrency?.id === 'usdc' && !usdcApproval.isApproving
+    isUserBuying && selectedCurrency?.id === 'usdc' && usdcApproval.isApproving
 
   let buttonText: string
   let buttonAction: (...args: any[]) => any
