@@ -17,6 +17,7 @@ import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
+import { SnapshotProposalsProvider } from 'contexts/SnapshotProposals'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -26,6 +27,7 @@ import FAQ from 'views/FAQ'
 import Home from 'views/Home'
 import DPI from 'views/DPI'
 import INDEX from 'views/INDEX'
+import Vote from 'views/Vote'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
@@ -68,6 +70,9 @@ const App: React.FC = () => {
             <Route exact path='/index'>
               <INDEX />
             </Route>
+            <Route exact path='/vote'>
+              <Vote />
+            </Route>
             <Route exact path='/farm'>
               <Farm />
             </Route>
@@ -102,7 +107,9 @@ const Providers: React.FC = ({ children }) => {
                   <FarmingProvider>
                     <DpiTokenMarketDataProvider>
                       <IndexTokenMarketDataProvider>
-                        {children}
+                        <SnapshotProposalsProvider>
+                          {children}
+                        </SnapshotProposalsProvider>
                       </IndexTokenMarketDataProvider>
                     </DpiTokenMarketDataProvider>
                   </FarmingProvider>
