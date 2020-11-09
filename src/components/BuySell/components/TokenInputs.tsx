@@ -3,9 +3,7 @@ import styled, { css } from 'styled-components'
 import Select from 'react-select'
 
 import useBuySell from 'hooks/useBuySell'
-import usePrices from 'hooks/usePrices'
-import BigNumber from 'utils/bignumber'
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import useBalances from 'hooks/useBalances'
 
 const TokenInputs: React.FC = () => {
   const {
@@ -15,41 +13,12 @@ const TokenInputs: React.FC = () => {
     currencyQuantity,
     tokenQuantity,
     currencyOptions,
+    uniswapData,
     onSetActiveField,
     onSetCurrencyQuantity,
     onSetTokenQuantity,
     onSetSelectedCurrency,
   } = useBuySell()
-  const { ethereumPrice } = usePrices()
-  const { latestPrice } = useDpiTokenMarketData()
-
-  const selectStyles = {
-    control: (styles: any) => ({
-      ...styles,
-      width: 100,
-      background: 'none',
-      border: 'none',
-      color: 'white',
-      marginRight: -10,
-    }),
-    singleValue: (styles: any) => ({
-      ...styles,
-      color: 'white',
-      fontWeight: 600,
-      fontSize: 20,
-      marginLeft: 20,
-    }),
-    menu: (styles: any) => ({
-      ...styles,
-      color: 'black',
-    }),
-    indicatorSeparator: () => ({}),
-    indicatorContainer: (styles: any) => ({
-      ...styles,
-      marginLeft: 0,
-      padding: 0,
-    }),
-  }
 
   const currencyInputRef = useRef<any>()
   const setTokenInputRef = useRef<any>()
@@ -63,13 +32,6 @@ const TokenInputs: React.FC = () => {
       setTokenInputRef?.current?.focus()
     }
   }, [activeField])
-
-  const currencyUsdValue = new BigNumber(currencyQuantity || 0).multipliedBy(
-    ethereumPrice || 0
-  )
-  const tokenUsdValue = new BigNumber(tokenQuantity || 0).multipliedBy(
-    latestPrice || 0
-  )
 
   const tokenPaymentOptions = currencyOptions.map((token: any) => ({
     ...token,
@@ -86,7 +48,7 @@ const TokenInputs: React.FC = () => {
           <StyledCurrencyLabelWrapper>
             <StyledCurrencyLabel>Pay with</StyledCurrencyLabel>
             <StyledCurrencyLabel>
-              ${currencyUsdValue.toFixed(2)}
+              {uniswapData?.display?.input_value_usd}
             </StyledCurrencyLabel>
           </StyledCurrencyLabelWrapper>
           <StyledCurrencySelectWrapper>
@@ -103,7 +65,7 @@ const TokenInputs: React.FC = () => {
             <Select
               value={selectedCurrency}
               options={tokenPaymentOptions}
-              styles={selectStyles}
+              styles={dropdownSelectStyles}
               onChange={onSetSelectedCurrency}
             />
           </StyledCurrencySelectWrapper>
@@ -116,7 +78,7 @@ const TokenInputs: React.FC = () => {
           <StyledTokenLabelWrapper>
             <StyledCurrencyLabel>Buy (estimated)</StyledCurrencyLabel>
             <StyledCurrencyLabel>
-              ${tokenUsdValue.toFixed(2)}
+              {uniswapData?.display?.output_value_usd}
             </StyledCurrencyLabel>
           </StyledTokenLabelWrapper>
           <StyledCurrencySelectWrapper>
@@ -145,7 +107,9 @@ const TokenInputs: React.FC = () => {
       >
         <StyledTokenLabelWrapper>
           <StyledCurrencyLabel>Sell</StyledCurrencyLabel>
-          <StyledCurrencyLabel>${tokenUsdValue.toFixed(2)}</StyledCurrencyLabel>
+          <StyledCurrencyLabel>
+            {uniswapData?.display?.input_value_usd}
+          </StyledCurrencyLabel>
         </StyledTokenLabelWrapper>
         <StyledCurrencySelectWrapper>
           <StyledInputField
@@ -169,7 +133,7 @@ const TokenInputs: React.FC = () => {
         <StyledCurrencyLabelWrapper>
           <StyledCurrencyLabel>Receive (estimated)</StyledCurrencyLabel>
           <StyledCurrencyLabel>
-            ${currencyUsdValue.toFixed(2)}
+            {uniswapData?.display?.output_value_usd}
           </StyledCurrencyLabel>
         </StyledCurrencyLabelWrapper>
 
@@ -187,13 +151,41 @@ const TokenInputs: React.FC = () => {
           <Select
             value={selectedCurrency}
             options={tokenPaymentOptions}
-            styles={selectStyles}
+            styles={dropdownSelectStyles}
             onChange={onSetSelectedCurrency}
           />
         </StyledCurrencySelectWrapper>
       </StyledCurrencyContainer>
     </>
   )
+}
+
+const dropdownSelectStyles = {
+  control: (styles: any) => ({
+    ...styles,
+    width: 100,
+    background: 'none',
+    border: 'none',
+    color: 'white',
+    marginRight: -10,
+  }),
+  singleValue: (styles: any) => ({
+    ...styles,
+    color: 'white',
+    fontWeight: 600,
+    fontSize: 20,
+    marginLeft: 20,
+  }),
+  menu: (styles: any) => ({
+    ...styles,
+    color: 'black',
+  }),
+  indicatorSeparator: () => ({}),
+  indicatorContainer: (styles: any) => ({
+    ...styles,
+    marginLeft: 0,
+    padding: 0,
+  }),
 }
 
 interface CurrencyContainerProps {
