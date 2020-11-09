@@ -123,7 +123,7 @@ const StyledColumnHeader = styled.div`
 const StyledColumn = styled.div`
   font-size: 14px;
   color: ${(props) => props.theme.textColor};
-  padding: 10px 10px 10px 30px;
+  padding: 5px 10px 5px 30px;
   align-items: center;
   display: flex;
 `
