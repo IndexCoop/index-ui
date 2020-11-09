@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import Select from 'react-select'
 
 import useBuySell from 'hooks/useBuySell'
+import MaxButton from './MaxButton'
 
 const TokenInputs: React.FC = () => {
   const {
@@ -69,6 +70,8 @@ const TokenInputs: React.FC = () => {
             />
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
+
+        <MaxButton />
 
         <StyledCurrencyContainer
           isActive={activeField === 'set'}

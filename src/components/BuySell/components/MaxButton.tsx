@@ -10,33 +10,48 @@ const MaxButton: React.FC = () => {
 
   const { ethBalance, dpiBalance, daiBalance, usdcBalance } = useBalances()
 
-  let spendingTokenSymbol: string
-  let spendingTokenBalance: BigNumber | undefined
+  const isMaxSpendEnabled =
+    !isUserBuying || (isUserBuying && selectedCurrency?.id !== 'wrapped_eth')
+
+  let spendingTokenSymbol = 'ETH'
+  let spendingTokenBalance = new BigNumber(0)
 
   if (!isUserBuying) {
     spendingTokenSymbol = 'DPI'
-    spendingTokenBalance = dpiBalance
+    spendingTokenBalance = dpiBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'wrapped_eth') {
     spendingTokenSymbol = selectedCurrency.label
-    spendingTokenBalance = ethBalance
+    spendingTokenBalance = ethBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'mcd') {
     spendingTokenSymbol = selectedCurrency.label
-    spendingTokenBalance = daiBalance
+    spendingTokenBalance = daiBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'dai') {
     spendingTokenSymbol = selectedCurrency.label
-    spendingTokenBalance = usdcBalance
+    spendingTokenBalance = usdcBalance || new BigNumber(0)
   }
 
-  return null
+  if (isMaxSpendEnabled) {
+    return (
+      <StyledMaxButton>
+        {spendingTokenBalance.toString()} {spendingTokenSymbol}
+      </StyledMaxButton>
+    )
+  }
+
+  return (
+    <StyledMaxButton>
+      {spendingTokenBalance.toString()} {spendingTokenSymbol}
+    </StyledMaxButton>
+  )
 }
 
-const StyledBuySellCard = styled.div`
-  height: fit-content;
-  background-color: ${(props) => props.theme.colors.transparentColors.grey};
-  border-radius: ${(props) => props.theme.borderRadius}px;
+const StyledMaxButton = styled.span`
+  width: 100%;
+  margin-bottom: 20px;
+  margin-left: 10px;
 `
 
-const StyledBuySellCardContent = styled.div`
+const StyledSpendableBalance = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
