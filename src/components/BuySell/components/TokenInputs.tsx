@@ -59,7 +59,7 @@ const TokenInputs: React.FC = () => {
               min='0'
               step='0.01'
               placeholder='0'
-              onChange={onSetCurrencyQuantity}
+              onChange={(e) => onSetCurrencyQuantity(e.target.value)}
               onFocus={() => onSetActiveField('currency')}
             />
             <Select
@@ -91,7 +91,7 @@ const TokenInputs: React.FC = () => {
               min='0'
               step='0.01'
               placeholder='0'
-              onChange={onSetTokenQuantity}
+              onChange={(e) => onSetTokenQuantity(e.target.value)}
               onFocus={() => onSetActiveField('set')}
             />
             <StyledTargetTokenSymbol>DPI</StyledTargetTokenSymbol>
@@ -121,7 +121,7 @@ const TokenInputs: React.FC = () => {
             min='0'
             step='0.01'
             placeholder='0'
-            onChange={onSetTokenQuantity}
+            onChange={(e) => onSetTokenQuantity(e.target.value)}
             onFocus={() => onSetActiveField('set')}
           />
           <StyledTargetTokenSymbol>DPI</StyledTargetTokenSymbol>
@@ -147,7 +147,7 @@ const TokenInputs: React.FC = () => {
             min='0'
             step='0.01'
             placeholder='0'
-            onChange={onSetCurrencyQuantity}
+            onChange={(e) => onSetCurrencyQuantity(e.target.value)}
             onFocus={() => onSetActiveField('currency')}
           />
           <Select

@@ -5,8 +5,8 @@ interface BuySellContextValues {
   isUserBuying: boolean
   activeField: 'currency' | 'set'
   selectedCurrency: any
-  currencyQuantity: number | undefined
-  tokenQuantity: number | undefined
+  currencyQuantity: string | undefined
+  tokenQuantity: string | undefined
   currencyOptions: any[]
   uniswapData: any
   onToggleIsUserBuying: () => void

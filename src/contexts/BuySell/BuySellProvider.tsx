@@ -20,8 +20,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
-  const [currencyQuantity, setCurrencyQuantity] = useState<number>()
-  const [tokenQuantity, setTokenQuantity] = useState<number>()
+  const [currencyQuantity, setCurrencyQuantity] = useState<string>()
+  const [tokenQuantity, setTokenQuantity] = useState<string>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
   const [uniswapData, setUniswapData] = useState<UniswapPriceData>(
     {} as UniswapPriceData
@@ -113,13 +113,13 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   const onToggleIsUserBuying = () => setIsUserBuying(!isUserBuying)
   const onSetActiveField = (field: 'currency' | 'set') => setActiveField(field)
-  const onSetCurrencyQuantity = (e: any) => {
+  const onSetCurrencyQuantity = (currencyQuantity: string) => {
     setIsFetchingOrderData(true)
-    setCurrencyQuantity(e.target.value)
+    setCurrencyQuantity(currencyQuantity)
   }
-  const onSetTokenQuantity = (e: any) => {
+  const onSetTokenQuantity = (tokenQuantity: string) => {
     setIsFetchingOrderData(true)
-    setTokenQuantity(e.target.value)
+    setTokenQuantity(tokenQuantity)
   }
   const onSetSelectedCurrency = (currency: any) => {
     setSelectedCurrency(currency)
@@ -139,8 +139,8 @@ const BuySellProvider: React.FC = ({ children }) => {
         onToggleIsUserBuying,
         onSetActiveField,
         onSetSelectedCurrency,
-        onSetCurrencyQuantity: onSetCurrencyQuantity,
-        onSetTokenQuantity: onSetTokenQuantity,
+        onSetCurrencyQuantity,
+        onSetTokenQuantity,
         onExecuteBuySell,
       }}
     >
