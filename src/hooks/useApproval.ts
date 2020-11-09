@@ -22,7 +22,6 @@ const useApproval = (
   }: { account: string | null | undefined; ethereum?: provider } = useWallet()
 
   const handleApprove = useCallback(async () => {
-    console.log('handling approval...', account, spenderAddress, tokenAddress)
     if (!ethereum || !account || !spenderAddress || !tokenAddress) {
       return
     }
