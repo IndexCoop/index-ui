@@ -78,7 +78,7 @@ const MaxButton: React.FC = () => {
     return (
       <>
         <StyledMaxButton onClick={buttonAction}>
-          {spendingTokenBalance.toFixed(5)} {spendingTokenSymbol}
+          Max {spendingTokenBalance.toFixed(5)} {spendingTokenSymbol}
         </StyledMaxButton>
         {!userHasSufficientFunds && (
           <StyledInsufficientBalance>

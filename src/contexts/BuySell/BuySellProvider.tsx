@@ -14,6 +14,10 @@ import {
 } from './utils'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { currencyTokens } from 'constants/tokenAddresses'
+import useBalances from 'hooks/useBalances'
+import BigNumber from 'utils/bignumber'
+import { TransactionStatusType } from 'contexts/TransactionWatcher'
+import { waitTransaction } from 'utils/index'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
@@ -33,6 +37,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     onSetTransactionId,
     onSetTransactionStatus,
   } = useTransactionWatcher()
+
+  const { ethBalance, dpiBalance, daiBalance, usdcBalance } = useBalances()
 
   const {
     account,
@@ -86,7 +92,24 @@ const BuySellProvider: React.FC = ({ children }) => {
   }, [isUserBuying, selectedCurrency, activeField, targetTradeQuantity])
 
   const onExecuteBuySell = useCallback(async () => {
-    if (!account) return
+    if (!account || !selectedCurrency) return
+
+    const requiredBalance = new BigNumber(uniswapData.amount_in).dividedBy(
+      new BigNumber(10).pow(18)
+    )
+
+    let userBalance = new BigNumber(0)
+    if (!isUserBuying) {
+      userBalance = dpiBalance || new BigNumber(0)
+    } else if (selectedCurrency.id === 'wrapped_eth') {
+      userBalance = ethBalance || new BigNumber(0)
+    } else if (selectedCurrency.id === 'mcd') {
+      userBalance = daiBalance || new BigNumber(0)
+    } else if (selectedCurrency.id === 'usdc') {
+      userBalance = usdcBalance || new BigNumber(0)
+    }
+
+    if (userBalance?.isLessThanOrEqualTo(requiredBalance)) return
 
     const uniswapTradeType = getUniswapTradeType(
       isUserBuying,
@@ -114,12 +137,25 @@ const BuySellProvider: React.FC = ({ children }) => {
     )
 
     try {
+      onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
       const transactionId = await uniswapTradeTransaction()
-      console.log(transactionId)
+      onSetTransactionId(transactionId)
+      onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+      await waitTransaction(ethereum, transactionId)
+      onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
     } catch (e) {
-      console.log('error is', e)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
-  }, [account, isUserBuying, uniswapData, selectedCurrency])
+  }, [
+    account,
+    isUserBuying,
+    uniswapData,
+    selectedCurrency,
+    ethBalance,
+    dpiBalance,
+    daiBalance,
+    usdcBalance,
+  ])
 
   const onToggleIsUserBuying = () => setIsUserBuying(!isUserBuying)
   const onSetActiveField = (field: 'currency' | 'set') => setActiveField(field)
