@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import Select from 'react-select'
+import { useTheme } from 'react-neu'
 
 import useBuySell from 'hooks/useBuySell'
 import MaxButton from './MaxButton'
-import { useTheme } from 'react-neu'
 
 const TokenInputs: React.FC = () => {
   const {
@@ -202,20 +202,20 @@ const TokenInputs: React.FC = () => {
   )
 }
 
-interface CurrencyContainerProps {
+interface StyledCurrencyContainerProps {
   isActive?: boolean
 }
 
-const StyledCurrencyContainer = styled.div<CurrencyContainerProps>`
+const StyledCurrencyContainer = styled.div<StyledCurrencyContainerProps>`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
   padding: 10px 20px;
   margin-bottom: 20px;
+  cursor: pointer;
   background-color: ${(props) => props.theme.colors.transparentColors.grey};
   border-radius: ${(props) => props.theme.borderRadius}px;
-  cursor: pointer;
 
   ${(props) =>
     props.isActive &&
