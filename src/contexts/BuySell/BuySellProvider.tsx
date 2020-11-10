@@ -1,23 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { provider } from 'web3-core'
 
+import BigNumber from 'utils/bignumber'
 import BuySellContext from './BuySellContext'
 import { fetchTokenBuySellData } from 'utils/tokensetsApi'
-import { useDebounce } from 'hooks/useDebounce'
 import useWallet from 'hooks/useWallet'
-import { UniswapPriceData } from './types'
+import useBalances from 'hooks/useBalances'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
+import { useDebounce } from 'hooks/useDebounce'
 import { getUniswapTradeTransaction } from 'uniswap-sdk/uniswap'
 import {
   getUniswapTradeType,
   getUniswapCallData,
   getUniswapTransactionOptions,
 } from './utils'
-import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { currencyTokens } from 'constants/currencyTokens'
-import useBalances from 'hooks/useBalances'
-import BigNumber from 'utils/bignumber'
-import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { waitTransaction } from 'utils/index'
+import { TransactionStatusType } from 'contexts/TransactionWatcher'
+import { currencyTokens } from 'constants/currencyTokens'
+import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
