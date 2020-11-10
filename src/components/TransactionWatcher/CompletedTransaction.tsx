@@ -2,11 +2,11 @@ import React from 'react'
 import { Spacer } from 'react-neu'
 import styled from 'styled-components'
 
+import { RoundedButton } from 'components/RoundedButton'
 import ExternalLink from 'components/ExternalLink'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { makeEtherscanLink } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWatcherContext'
-import { RoundedButton } from 'components/RoundedButton'
 
 const CompletedTransaction: React.FC = () => {
   const {

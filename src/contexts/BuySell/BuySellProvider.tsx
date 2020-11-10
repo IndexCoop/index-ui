@@ -13,7 +13,7 @@ import {
   getUniswapTransactionOptions,
 } from './utils'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { currencyTokens } from 'constants/tokenAddresses'
+import { currencyTokens } from 'constants/currencyTokens'
 import useBalances from 'hooks/useBalances'
 import BigNumber from 'utils/bignumber'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'

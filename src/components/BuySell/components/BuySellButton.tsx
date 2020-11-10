@@ -9,7 +9,7 @@ import {
   usdcTokenAddress,
   dpiTokenAddress,
   uniswapRouterAddress,
-} from 'constants/tokenAddresses'
+} from 'constants/ethContractAddresses'
 
 /**
  * BuySellButton - Displays a button used in the buy sell flow.

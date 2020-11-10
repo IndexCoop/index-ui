@@ -13,7 +13,7 @@ import {
   usdcTokenAddress,
   uniswapEthDpiLpTokenAddress,
   stakingRewardsAddress,
-} from 'constants/tokenAddresses'
+} from 'constants/ethContractAddresses'
 
 const Provider: React.FC = ({ children }) => {
   const [ethBalance, setEthBalance] = useState<BigNumber>()

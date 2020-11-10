@@ -20,7 +20,7 @@ import { waitTransaction } from 'utils/index'
 import {
   stakingRewardsAddress,
   uniswapEthDpiLpTokenAddress,
-} from 'constants/tokenAddresses'
+} from 'constants/ethContractAddresses'
 
 // Oct 7th 2020, 12pm PDT
 const farmingStartTime = 1602097200000

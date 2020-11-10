@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks'
 import PricesContext from './PricesContext'
 
 import { DPI_ETH_UNISWAP_QUERY } from 'utils/graphql'
-import { indexTokenAddress } from 'constants/tokenAddresses'
+import { indexTokenAddress } from 'constants/ethContractAddresses'
 
 const PricesProvider: React.FC = ({ children }) => {
   const [indexPrice, setIndexPrice] = useState<string>('0')

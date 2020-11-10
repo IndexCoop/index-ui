@@ -4,7 +4,7 @@ import { AbiItem } from 'web3-utils'
 import BigNumber from 'utils/bignumber'
 
 import UniswapRouterABI from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
-import { uniswapRouterAddress } from 'constants/tokenAddresses'
+import { uniswapRouterAddress } from 'constants/ethContractAddresses'
 
 export enum UniswapTradeType {
   SWAP_EXACT_TOKENS_FOR_TOKENS,

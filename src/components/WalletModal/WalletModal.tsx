@@ -22,7 +22,7 @@ import Split from 'components/Split'
 
 import useBalances from 'hooks/useBalances'
 
-import * as tokenAddresses from 'constants/tokenAddresses'
+import * as tokenAddresses from 'constants/ethContractAddresses'
 
 const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const { reset } = useWallet()
