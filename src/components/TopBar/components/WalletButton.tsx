@@ -15,19 +15,18 @@ const WalletButton: React.FC = () => {
     onOpenWalletModal,
   } = useWallet()
 
+  const openWalletText = !!account ? 'View Balances' : 'Unlock Wallet'
+  const variant = !!account ? 'tertiary' : 'default'
+
   return (
     <>
       <StyledWalletButton>
-        {!account ? (
-          <Button onClick={onOpenWalletModal} size='sm' text='Unlock Wallet' />
-        ) : (
-          <Button
-            onClick={onOpenWalletModal}
-            size='sm'
-            text='View Balances'
-            variant='tertiary'
-          />
-        )}
+        <Button
+          onClick={onOpenWalletModal}
+          size='sm'
+          text={openWalletText}
+          variant={variant}
+        />
       </StyledWalletButton>
       <WalletModal
         isOpen={!!account && isShowingWalletModal}
