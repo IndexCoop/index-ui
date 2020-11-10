@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import { UniswapPriceData } from './types'
 
 interface BuySellContextValues {
   isFetchingOrderData: boolean
@@ -8,7 +9,7 @@ interface BuySellContextValues {
   currencyQuantity: string | undefined
   tokenQuantity: string | undefined
   currencyOptions: any[]
-  uniswapData: any
+  uniswapData: UniswapPriceData | undefined
   onToggleIsUserBuying: () => void
   onSetActiveField: (field: 'currency' | 'set') => void
   onSetSelectedCurrency: (selectedCurrency: any) => void
@@ -25,7 +26,7 @@ const BuySellContext = createContext<BuySellContextValues>({
   currencyQuantity: undefined,
   tokenQuantity: undefined,
   currencyOptions: [],
-  uniswapData: {},
+  uniswapData: undefined,
   onToggleIsUserBuying: () => {},
   onSetActiveField: () => {},
   onSetSelectedCurrency: () => {},
