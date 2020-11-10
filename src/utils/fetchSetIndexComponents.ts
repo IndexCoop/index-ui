@@ -1,11 +1,9 @@
 import { camelCase } from 'lodash'
 
-const proxyPrefixURL = 'https://cors-anywhere.herokuapp.com/'
-const baseURL = 'https://api.tokensets.com/public/v2/portfolios/'
-const apiURL = proxyPrefixURL + baseURL
+const apiUrl = 'https://api.tokensets.com/public/v2/portfolios/'
 
 export default (index: string) => {
-  return fetch(apiURL + index)
+  return fetch(apiUrl + index)
     .then((response) => response.json())
     .then((response) => {
       if (!response?.portfolio?.components) {
