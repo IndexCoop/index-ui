@@ -27,8 +27,8 @@ const PendingTransaction: React.FC = () => {
 
 const StyledCard = styled.div`
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 20px;
   background-color: ${(props) => props.theme.colors.grey[600]};

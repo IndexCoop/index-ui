@@ -241,7 +241,7 @@ const StyledCurrencySelectWrapper = styled.div`
 
 const StyledInputField = styled.input`
   font-size: 20px;
-  width: 50%;
+  width: 70%;
   cursor: pointer;
   color: ${(props) => props.theme.textColor};
   padding: 0px;
