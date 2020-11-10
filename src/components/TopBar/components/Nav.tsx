@@ -23,6 +23,9 @@ const Nav: React.FC = () => {
       <StyledLink activeClassName='active' to='/faq'>
         FAQ
       </StyledLink>
+      <StyledOutboundLink href='https://docs.indexcoop.com/' target='_blank'>
+        Docs
+      </StyledOutboundLink>
     </StyledNav>
   )
 }
@@ -33,6 +36,20 @@ const StyledNav = styled.nav`
 `
 
 const StyledLink = styled(NavLink)`
+  color: ${(props) => props.theme.colors.grey[500]};
+  font-weight: 700;
+  padding-left: ${(props) => props.theme.spacing[3]}px;
+  padding-right: ${(props) => props.theme.spacing[3]}px;
+  text-decoration: none;
+  &:hover {
+    color: ${(props) => props.theme.colors.grey[600]};
+  }
+  &.active {
+    color: ${(props) => props.theme.colors.primary.light};
+  }
+`
+
+const StyledOutboundLink = styled.a`
   color: ${(props) => props.theme.colors.grey[500]};
   font-weight: 700;
   padding-left: ${(props) => props.theme.spacing[3]}px;
