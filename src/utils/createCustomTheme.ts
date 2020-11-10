@@ -151,7 +151,7 @@ const generateGreys = (h: number) => {
 
 const generateTransparentColors = (h: number) => {
   return {
-    grey: hslToCssString({ h, s: 10, l: 37, a: 50 }),
+    grey: hslToCssString({ h, s: 7, l: 52, a: 20 }),
   }
 }
 
