@@ -61,17 +61,26 @@ const BuySellProvider: React.FC = ({ children }) => {
       targetTradeQuantity,
       selectedCurrency?.id,
       activeField
-    ).then((uniswapData: any) => {
+    ).then((uniswapData: UniswapPriceData) => {
       setIsFetchingOrderData(false)
 
       if (!uniswapData) return setUniswapData({} as any)
 
       setUniswapData(uniswapData)
 
-      if (activeField === 'currency') {
-        setTokenQuantity(uniswapData.display?.to_quantity)
+      // Populate the inactive field with API response
+      if (isUserBuying) {
+        if (activeField === 'currency') {
+          setTokenQuantity(uniswapData.display?.to_quantity)
+        } else {
+          setCurrencyQuantity(uniswapData.display?.from_quantity)
+        }
       } else {
-        setCurrencyQuantity(uniswapData.display?.from_quantity)
+        if (activeField === 'currency') {
+          setTokenQuantity(uniswapData.display?.from_quantity)
+        } else {
+          setCurrencyQuantity(uniswapData.display?.to_quantity)
+        }
       }
     })
   }, [isUserBuying, selectedCurrency, activeField, targetTradeQuantity])
