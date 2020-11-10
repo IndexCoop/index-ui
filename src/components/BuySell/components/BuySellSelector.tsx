@@ -53,12 +53,12 @@ const StyledBuySellButton = styled.button`
 
 const StyledActiveButton = styled.button`
   width: 50%;
-  color: ${(props) => props.theme.colors.primary.light};
   background: none;
   font-size: 20px;
   font-weight: 600;
   border: none;
   border-bottom: 2px solid ${(props) => props.theme.colors.primary.light};
+  color: ${(props) => props.theme.colors.primary.light};
   padding-bottom: 20px;
   margin-bottom: 20px;
   cursor: pointer;

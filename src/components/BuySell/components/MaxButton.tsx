@@ -20,8 +20,9 @@ const MaxButton: React.FC = () => {
 
   const { ethBalance, dpiBalance, daiBalance, usdcBalance } = useBalances()
 
-  const isMaxSpendEnabled =
-    !isUserBuying || (isUserBuying && selectedCurrency?.id !== 'wrapped_eth')
+  // Do not allow users to spend maximum ETH quantity due to gas cost complications
+  const isMaxSpendDisabled =
+    isUserBuying && selectedCurrency?.id === 'wrapped_eth'
 
   let spendingTokenSymbol = 'ETH'
   let spendingTokenBalance = new BigNumber(0)
@@ -74,12 +75,12 @@ const MaxButton: React.FC = () => {
     )
   }
 
-  if (isMaxSpendEnabled) {
+  if (isMaxSpendDisabled) {
     return (
       <>
-        <StyledMaxButton onClick={buttonAction}>
-          Max {spendingTokenBalance.toFixed(5)} {spendingTokenSymbol}
-        </StyledMaxButton>
+        <StyledMaxSpendableBalance>
+          {spendingTokenBalance.toFixed(5)} {spendingTokenSymbol}
+        </StyledMaxSpendableBalance>
         {!userHasSufficientFunds && (
           <StyledInsufficientBalance>
             Insufficient funds
@@ -91,9 +92,9 @@ const MaxButton: React.FC = () => {
 
   return (
     <>
-      <StyledMaxSpendableBalance>
-        {spendingTokenBalance.toFixed(5)} {spendingTokenSymbol}
-      </StyledMaxSpendableBalance>
+      <StyledMaxButton onClick={buttonAction}>
+        Max {spendingTokenBalance.toFixed(5)} {spendingTokenSymbol}
+      </StyledMaxButton>
       {!userHasSufficientFunds && (
         <StyledInsufficientBalance>
           Insufficient funds
