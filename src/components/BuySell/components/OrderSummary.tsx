@@ -6,7 +6,8 @@ import useBuySell from 'hooks/useBuySell'
 const OrderSummary: React.FC = () => {
   const { isFetchingOrderData, uniswapData } = useBuySell()
 
-  const isOrderDataReady = uniswapData?.amount_out > 0 && !isFetchingOrderData
+  const isOrderDataReady =
+    Number(uniswapData?.amount_out) > 0 && !isFetchingOrderData
 
   if (isOrderDataReady) {
     return (

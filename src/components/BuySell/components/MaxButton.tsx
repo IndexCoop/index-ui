@@ -10,10 +10,10 @@ const MaxButton: React.FC = () => {
   const {
     isUserBuying,
     selectedCurrency,
-    currencyQuantity,
-    tokenQuantity,
+    uniswapData,
     onSetCurrencyQuantity,
     onSetTokenQuantity,
+    onSetActiveField,
   } = useBuySell()
 
   const { account } = useWallet()
@@ -22,7 +22,6 @@ const MaxButton: React.FC = () => {
 
   const isMaxSpendEnabled =
     !isUserBuying || (isUserBuying && selectedCurrency?.id !== 'wrapped_eth')
-  let userHasSufficientFunds = false
 
   let spendingTokenSymbol = 'ETH'
   let spendingTokenBalance = new BigNumber(0)
@@ -31,32 +30,39 @@ const MaxButton: React.FC = () => {
   if (!isUserBuying) {
     spendingTokenSymbol = 'DPI'
     spendingTokenBalance = dpiBalance || new BigNumber(0)
-    userHasSufficientFunds = spendingTokenBalance.isGreaterThanOrEqualTo(
-      tokenQuantity || 0
-    )
-    buttonAction = () => onSetTokenQuantity(spendingTokenBalance.toString())
+    buttonAction = () => {
+      onSetActiveField('set')
+      onSetTokenQuantity(spendingTokenBalance.toString())
+    }
   } else if (selectedCurrency?.id === 'wrapped_eth') {
     spendingTokenSymbol = selectedCurrency.label
     spendingTokenBalance = ethBalance || new BigNumber(0)
-    userHasSufficientFunds = spendingTokenBalance.isGreaterThanOrEqualTo(
-      currencyQuantity || 0
-    )
-    buttonAction = () => onSetCurrencyQuantity(spendingTokenBalance.toString())
+    buttonAction = () => {
+      onSetActiveField('currency')
+      onSetCurrencyQuantity(spendingTokenBalance.toString())
+    }
   } else if (selectedCurrency?.id === 'mcd') {
     spendingTokenSymbol = selectedCurrency.label
     spendingTokenBalance = daiBalance || new BigNumber(0)
-    userHasSufficientFunds = spendingTokenBalance.isGreaterThanOrEqualTo(
-      currencyQuantity || 0
-    )
-    buttonAction = () => onSetCurrencyQuantity(spendingTokenBalance.toString())
+    buttonAction = () => {
+      onSetActiveField('currency')
+      onSetCurrencyQuantity(spendingTokenBalance.toString())
+    }
   } else if (selectedCurrency?.id === 'usdc') {
     spendingTokenSymbol = selectedCurrency.label
     spendingTokenBalance = usdcBalance || new BigNumber(0)
-    userHasSufficientFunds = spendingTokenBalance.isGreaterThanOrEqualTo(
-      currencyQuantity || 0
-    )
-    buttonAction = () => onSetCurrencyQuantity(spendingTokenBalance.toString())
+    buttonAction = () => {
+      onSetActiveField('currency')
+      onSetCurrencyQuantity(spendingTokenBalance.toString())
+    }
   }
+
+  const requiredQuantity = new BigNumber(uniswapData?.amount_in || 0).dividedBy(
+    new BigNumber(10).pow(18)
+  )
+  const userHasSufficientFunds = spendingTokenBalance.isGreaterThanOrEqualTo(
+    requiredQuantity
+  )
 
   if (!account) return null
 
