@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import Select from 'react-select'
 
 import useBuySell from 'hooks/useBuySell'
 import MaxButton from './MaxButton'
+import { useTheme } from 'react-neu'
 
 const TokenInputs: React.FC = () => {
   const {
@@ -22,6 +23,47 @@ const TokenInputs: React.FC = () => {
 
   const currencyInputRef = useRef<any>()
   const setTokenInputRef = useRef<any>()
+
+  const theme = useTheme()
+
+  const dropdownSelectStyles = useMemo(
+    () => ({
+      control: (styles: any) => ({
+        ...styles,
+        width: 100,
+        background: 'none',
+        border: 'none',
+        marginRight: -10,
+      }),
+      singleValue: (styles: any) => ({
+        ...styles,
+        color: theme.textColor,
+        fontWeight: 600,
+        fontSize: 20,
+        width: 100,
+        textAlign: 'right',
+      }),
+      menu: (styles: any) => ({
+        ...styles,
+        color: 'black',
+      }),
+      dropdownIndicator: (styles: any) => ({
+        ...styles,
+        'color': theme.textColor,
+        'cursor': 'pointer',
+        '&:hover': {
+          color: theme.textColor,
+        },
+      }),
+      indicatorSeparator: () => ({}),
+      indicatorContainer: (styles: any) => ({
+        ...styles,
+        marginLeft: 0,
+        padding: 0,
+      }),
+    }),
+    [theme]
+  )
 
   useEffect(() => {
     if (activeField === 'currency' && currencyInputRef) {
@@ -158,34 +200,6 @@ const TokenInputs: React.FC = () => {
       </StyledCurrencyContainer>
     </>
   )
-}
-
-const dropdownSelectStyles = {
-  control: (styles: any) => ({
-    ...styles,
-    width: 100,
-    background: 'none',
-    border: 'none',
-    color: 'white',
-    marginRight: -10,
-  }),
-  singleValue: (styles: any) => ({
-    ...styles,
-    color: 'white',
-    fontWeight: 600,
-    fontSize: 20,
-    marginLeft: 20,
-  }),
-  menu: (styles: any) => ({
-    ...styles,
-    color: 'black',
-  }),
-  indicatorSeparator: () => ({}),
-  indicatorContainer: (styles: any) => ({
-    ...styles,
-    marginLeft: 0,
-    padding: 0,
-  }),
 }
 
 interface CurrencyContainerProps {
