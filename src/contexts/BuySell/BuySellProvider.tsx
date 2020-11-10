@@ -54,6 +54,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (!targetTradeQuantity) return
 
+    setIsFetchingOrderData(true)
     fetchTokenBuySellData(
       'dpi',
       isUserBuying,

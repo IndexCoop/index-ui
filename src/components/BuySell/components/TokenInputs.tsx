@@ -128,6 +128,8 @@ const TokenInputs: React.FC = () => {
         </StyledCurrencySelectWrapper>
       </StyledCurrencyContainer>
 
+      <MaxButton />
+
       <StyledCurrencyContainer
         isActive={activeField === 'currency'}
         onClick={() => onSetActiveField('currency')}
