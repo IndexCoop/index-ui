@@ -35,19 +35,19 @@ const StyledCardHeader = styled.div`
 
 const StyledBuySellButton = styled.button`
   width: 50%;
-  color: white;
   background: none;
   font-size: 20px;
   font-weight: 600;
   border: none;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid ${(props) => props.theme.colors.grey[400]};
+  color: ${(props) => props.theme.colors.grey[400]};
   padding-bottom: 20px;
   margin-bottom: 20px;
   cursor: pointer;
   outline: none;
   &:hover {
-    color: ${(props) => props.theme.colors.grey[400]};
-    border-bottom: 2px solid ${(props) => props.theme.colors.grey[400]};
+    border-bottom: 2px solid ${(props) => props.theme.textColor};
+    color: ${(props) => props.theme.textColor};
   }
 `
 
@@ -58,7 +58,7 @@ const StyledActiveButton = styled.button`
   font-size: 20px;
   font-weight: 600;
   border: none;
-  border-bottom: 1px solid ${(props) => props.theme.colors.primary.light};
+  border-bottom: 2px solid ${(props) => props.theme.colors.primary.light};
   padding-bottom: 20px;
   margin-bottom: 20px;
   cursor: pointer;
