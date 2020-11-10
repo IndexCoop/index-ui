@@ -6,7 +6,7 @@ import ExternalLink from 'components/ExternalLink'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { makeEtherscanLink } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWatcherContext'
-import { BasicButton } from 'components/BasicButton'
+import { RoundedButton } from 'components/RoundedButton'
 
 const FailedTransaction: React.FC = () => {
   const {
@@ -34,7 +34,7 @@ const FailedTransaction: React.FC = () => {
         <StyledTransactionArrow src='https://index-dao.s3.amazonaws.com/external-arrow.svg' />
       </ExternalLink>
       <Spacer />
-      <BasicButton text='Try Again' onClick={onFinishTransaction} />
+      <RoundedButton text='Try Again' onClick={onFinishTransaction} />
     </StyledCard>
   )
 }

@@ -2,19 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 import PulseLoader from 'react-spinners/PulseLoader'
 
-interface BasicButtonProps {
+interface RoundedButtonProps {
   text: string
   isDisabled?: boolean
   isPending?: boolean
   onClick?: (...args: any[]) => any
 }
 
-const BuyTokenPlaceholder: React.FC<BasicButtonProps> = ({
+const RoundedButton: React.FC<RoundedButtonProps> = ({
   text,
   isDisabled,
   isPending,
   onClick,
-}: BasicButtonProps) => {
+}: RoundedButtonProps) => {
   if (isDisabled) {
     return <StyledDisabledButton disabled>{text}</StyledDisabledButton>
   }
@@ -64,4 +64,4 @@ const StyledSubmitButton = styled.button`
   cursor: pointer;
 `
 
-export default BuyTokenPlaceholder
+export default RoundedButton

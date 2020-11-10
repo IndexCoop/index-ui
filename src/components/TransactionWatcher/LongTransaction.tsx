@@ -6,7 +6,7 @@ import ExternalLink from 'components/ExternalLink'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { makeEtherscanLink } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWatcherContext'
-import { BasicButton } from 'components/BasicButton'
+import { RoundedButton } from 'components/RoundedButton'
 
 const LongTransaction: React.FC = () => {
   const {
@@ -30,7 +30,7 @@ const LongTransaction: React.FC = () => {
         <img src='https://index-dao.s3.amazonaws.com/external-arrow.svg' />
       </ExternalLink>
       <Spacer />
-      <BasicButton text='Finish' onClick={onFinishTransaction} />
+      <RoundedButton text='Finish' onClick={onFinishTransaction} />
     </StyledCard>
   )
 }

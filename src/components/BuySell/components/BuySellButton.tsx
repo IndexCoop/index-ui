@@ -1,7 +1,7 @@
 import React from 'react'
 
 import useBuySell from 'hooks/useBuySell'
-import { BasicButton } from 'components/BasicButton'
+import { RoundedButton } from 'components/RoundedButton'
 import useWallet from 'hooks/useWallet'
 import useApproval from 'hooks/useApproval'
 import {
@@ -68,7 +68,7 @@ const BuySellButton: React.FC = () => {
   }
 
   return (
-    <BasicButton
+    <RoundedButton
       isDisabled={!currencyQuantity || !tokenQuantity}
       isPending={isFetchingOrderData}
       text={buttonText}
