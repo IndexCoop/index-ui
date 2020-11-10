@@ -130,10 +130,7 @@ const TokenInputs: React.FC = () => {
 
       <MaxButton />
 
-      <StyledCurrencyContainer
-        isActive={activeField === 'currency'}
-        onClick={() => onSetActiveField('currency')}
-      >
+      <StyledCurrencyContainer>
         <StyledCurrencyLabelWrapper>
           <StyledCurrencyLabel>Receive (estimated)</StyledCurrencyLabel>
           <StyledCurrencyLabel>
@@ -143,14 +140,13 @@ const TokenInputs: React.FC = () => {
 
         <StyledCurrencySelectWrapper>
           <StyledInputField
+            readOnly
             ref={currencyInputRef}
             value={currencyQuantity}
             type='number'
             min='0'
             step='0.01'
             placeholder='0'
-            onChange={(e) => onSetCurrencyQuantity(e.target.value)}
-            onFocus={() => onSetActiveField('currency')}
           />
           <Select
             value={selectedCurrency}
