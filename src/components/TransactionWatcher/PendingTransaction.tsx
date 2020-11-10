@@ -31,7 +31,7 @@ const StyledCard = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: ${(props) => props.theme.colors.grey[600]};
+  background-color: ${(props) => props.theme.colors.transparentColors.grey};
   border-radius: ${(props) => props.theme.borderRadius}px;
 `
 

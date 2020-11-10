@@ -26,7 +26,7 @@ const StyledCard = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: ${(props) => props.theme.colors.grey[600]};
+  background-color: ${(props) => props.theme.colors.transparentColors.grey};
   border-radius: ${(props) => props.theme.borderRadius}px;
 `
 
