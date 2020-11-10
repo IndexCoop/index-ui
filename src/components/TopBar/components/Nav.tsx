@@ -50,8 +50,6 @@ const StyledLink = styled(NavLink)`
 `
 
 const StyledOutboundLink = styled.a`
-  align-items: center;
-  display: flex;
   color: ${(props) => props.theme.colors.grey[500]};
   font-weight: 700;
   padding-left: ${(props) => props.theme.spacing[3]}px;
