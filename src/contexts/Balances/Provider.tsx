@@ -72,7 +72,7 @@ const Provider: React.FC = ({ children }) => {
         new BigNumber(balances[3]).dividedBy(new BigNumber(10).pow(18))
       )
       setUsdcBalance(
-        new BigNumber(balances[4]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[4]).dividedBy(new BigNumber(10).pow(6))
       )
       setUniswapEthDpiLpBalance(
         new BigNumber(balances[5]).dividedBy(new BigNumber(10).pow(18))

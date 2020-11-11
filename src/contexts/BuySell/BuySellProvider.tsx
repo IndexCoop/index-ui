@@ -83,11 +83,17 @@ const BuySellProvider: React.FC = ({ children }) => {
   }, [isUserBuying, selectedCurrency, activeField, targetTradeQuantity])
 
   const onExecuteBuySell = useCallback(async () => {
-    if (!account || !selectedCurrency) return
+    if (!account || !uniswapData?.amount_in || !selectedCurrency) return
 
-    const requiredBalance = new BigNumber(uniswapData.amount_in).dividedBy(
+    let requiredBalance = new BigNumber(uniswapData?.amount_in).dividedBy(
       new BigNumber(10).pow(18)
     )
+
+    if (selectedCurrency.id === 'usdc') {
+      requiredBalance = new BigNumber(uniswapData?.amount_in || 0).dividedBy(
+        new BigNumber(10).pow(6)
+      )
+    }
 
     let userBalance = new BigNumber(0)
     if (!isUserBuying) {
@@ -104,7 +110,7 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     const uniswapTradeType = getUniswapTradeType(
       isUserBuying,
-      selectedCurrency.value,
+      selectedCurrency.id,
       uniswapData
     )
     const uniswapCallData = getUniswapCallData(
@@ -132,8 +138,12 @@ const BuySellProvider: React.FC = ({ children }) => {
       const transactionId = await uniswapTradeTransaction()
       onSetTransactionId(transactionId)
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
-      await waitTransaction(ethereum, transactionId)
-      onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
+      const isSuccessful = await waitTransaction(ethereum, transactionId)
+      if (isSuccessful) {
+        onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
+      } else {
+        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
+      }
     } catch (e) {
       onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }

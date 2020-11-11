@@ -27,6 +27,9 @@ const MaxButton: React.FC = () => {
   let spendingTokenSymbol = 'ETH'
   let spendingTokenBalance = new BigNumber(0)
   let buttonAction = () => {}
+  let requiredQuantity = new BigNumber(uniswapData?.amount_in || 0).dividedBy(
+    new BigNumber(10).pow(18)
+  )
 
   if (!isUserBuying) {
     spendingTokenSymbol = 'DPI'
@@ -56,11 +59,11 @@ const MaxButton: React.FC = () => {
       onSetActiveField('currency')
       onSetCurrencyQuantity(spendingTokenBalance.toString())
     }
+    requiredQuantity = new BigNumber(uniswapData?.amount_in || 0).dividedBy(
+      new BigNumber(10).pow(6)
+    )
   }
 
-  const requiredQuantity = new BigNumber(uniswapData?.amount_in || 0).dividedBy(
-    new BigNumber(10).pow(18)
-  )
   const userHasSufficientFunds = spendingTokenBalance.isGreaterThanOrEqualTo(
     requiredQuantity
   )
