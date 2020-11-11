@@ -157,11 +157,9 @@ const BuySellProvider: React.FC = ({ children }) => {
   }
   const onSetActiveField = (field: 'currency' | 'set') => setActiveField(field)
   const onSetCurrencyQuantity = (currencyQuantity: string) => {
-    setIsFetchingOrderData(true)
     setCurrencyQuantity(currencyQuantity)
   }
   const onSetTokenQuantity = (tokenQuantity: string) => {
-    setIsFetchingOrderData(true)
     setTokenQuantity(tokenQuantity)
   }
   const onSetSelectedCurrency = (currency: any) => {
