@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import styled from 'styled-components'
 
 import BigNumber from 'utils/bignumber'
 import useWallet from 'hooks/useWallet'
@@ -49,83 +50,90 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text='My Wallet' />
-      <ModalContent>
-        <Split>
-          <Box row>
-            <FancyValue
-              icon={{
-                alt: 'Owl',
-                src: 'https://index-dao.s3.amazonaws.com/owl.png',
-              }}
-              link={`https://etherscan.io/address/${tokenAddresses.indexTokenAddress}`}
-              label='INDEX balance'
-              value={getDisplayBalance(indexBalance)}
-            />
-          </Box>
-          <Box row>
-            <FancyValue
-              icon={{
-                alt: 'Defi Pulse Icon',
-                src:
-                  'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
-              }}
-              label='DPI balance'
-              link={`https://etherscan.io/address/${tokenAddresses.dpiTokenAddress}`}
-              value={getDisplayBalance(dpiBalance)}
-            />
-          </Box>
-        </Split>
-        <Spacer />
+      <StyledModalBody>
+        <ModalTitle text='My Wallet' />
+        <ModalContent>
+          <Split>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'Owl',
+                  src: 'https://index-dao.s3.amazonaws.com/owl.png',
+                }}
+                link={`https://etherscan.io/address/${tokenAddresses.indexTokenAddress}`}
+                label='INDEX balance'
+                value={getDisplayBalance(indexBalance)}
+              />
+            </Box>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'Defi Pulse Icon',
+                  src:
+                    'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
+                }}
+                label='DPI balance'
+                link={`https://etherscan.io/address/${tokenAddresses.dpiTokenAddress}`}
+                value={getDisplayBalance(dpiBalance)}
+              />
+            </Box>
+          </Split>
+          <Spacer />
+          <Separator />
+          <Spacer />
+          <Split>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'Uniswap LP Icon',
+                  src:
+                    'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
+                }}
+                label='Uniswap ETH/DPI LP balance'
+                link={`https://etherscan.io/address/${tokenAddresses.uniswapEthDpiLpTokenAddress}`}
+                value={getDisplayBalance(uniswapEthDpiLpBalance)}
+              />
+            </Box>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'Staked Uniswap LP Icon',
+                  src:
+                    'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
+                }}
+                iconStyles={{ opacity: 0.5 }}
+                label='Staked Uniswap ETH/DPI LP'
+                link={`https://etherscan.io/address/${tokenAddresses.stakingRewardsAddress}`}
+                value={getDisplayBalance(stakedUniswapEthDpiLpBalance)}
+              />
+            </Box>
+          </Split>
+          <Spacer />
+          <Split>
+            <Box row>
+              <Button
+                href='https://app.uniswap.org/#/add/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/ETH'
+                text='Add Liquidity'
+                variant='secondary'
+              />
+            </Box>
+          </Split>
+        </ModalContent>
         <Separator />
-        <Spacer />
-        <Split>
-          <Box row>
-            <FancyValue
-              icon={{
-                alt: 'Uniswap LP Icon',
-                src:
-                  'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
-              }}
-              label='Uniswap ETH/DPI LP balance'
-              link={`https://etherscan.io/address/${tokenAddresses.uniswapEthDpiLpTokenAddress}`}
-              value={getDisplayBalance(uniswapEthDpiLpBalance)}
-            />
-          </Box>
-          <Box row>
-            <FancyValue
-              icon={{
-                alt: 'Staked Uniswap LP Icon',
-                src:
-                  'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
-              }}
-              iconStyles={{ opacity: 0.5 }}
-              label='Staked Uniswap ETH/DPI LP'
-              link={`https://etherscan.io/address/${tokenAddresses.stakingRewardsAddress}`}
-              value={getDisplayBalance(stakedUniswapEthDpiLpBalance)}
-            />
-          </Box>
-        </Split>
-        <Spacer />
-        <Separator />
-        <Spacer />
-        <Split>
-          <Box row>
-            <Button
-              href='https://app.uniswap.org/#/add/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/ETH'
-              text='Add Liquidity'
-              variant='secondary'
-            />
-          </Box>
-        </Split>
-      </ModalContent>
-      <Separator />
-      <ModalActions>
-        <Button onClick={onDismiss} text='Close' variant='secondary' />
-        <Button onClick={handleSignOut} text='Sign Out' />
-      </ModalActions>
+        <ModalActions>
+          <Button onClick={onDismiss} text='Close' variant='secondary' />
+          <Button onClick={handleSignOut} text='Sign Out' />
+        </ModalActions>
+      </StyledModalBody>
     </Modal>
   )
 }
+
+const StyledModalBody = styled.div`
+  @media (max-width: 600px) {
+    height: 100vh;
+    overflow-y: scroll;
+  }
+`
 
 export default WalletModal

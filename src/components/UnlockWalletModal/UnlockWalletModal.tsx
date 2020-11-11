@@ -91,8 +91,10 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   )
 }
 const StyledModalBody = styled.div`
-  height: 100vh;
-  overflow-y: scroll;
+  @media (max-width: 600px) {
+    height: 100vh;
+    overflow-y: scroll;
+  }
 `
 
 const StyledWalletsWrapper = styled.div`
