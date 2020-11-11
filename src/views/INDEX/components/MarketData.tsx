@@ -52,7 +52,7 @@ const MarketData: React.FC = () => {
         <StyledDpiPrice>
           {'$' + numeral(chartPrice).format('0.00a')}
         </StyledDpiPrice>
-        <StyledDpiPriceChange>
+        <StyledDpiPriceChange isLoss={epochPriceChange < 0}>
           {numeral((epochPriceChange / priceAtEpochStart) * 100).format(
             '0.00a'
           ) + '%'}
@@ -93,7 +93,8 @@ const StyledDpiPrice = styled.span`
 
 const StyledDpiPriceChange = styled.span`
   font-size: 24px;
-  color: #03c75e;
+  color: ${(props: { isLoss: boolean }) =>
+    props.isLoss ? '#ff4a4a' : '#03c75e'};
 `
 
 const StyledIcon = styled.img`
