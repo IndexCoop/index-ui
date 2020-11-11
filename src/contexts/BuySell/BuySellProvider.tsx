@@ -77,11 +77,7 @@ const BuySellProvider: React.FC = ({ children }) => {
           setCurrencyQuantity(uniswapData.display?.from_quantity)
         }
       } else {
-        if (activeField === 'currency') {
-          setTokenQuantity(uniswapData.display?.from_quantity)
-        } else {
-          setCurrencyQuantity(uniswapData.display?.to_quantity)
-        }
+        setCurrencyQuantity(uniswapData.display?.to_quantity)
       }
     })
   }, [isUserBuying, selectedCurrency, activeField, targetTradeQuantity])
@@ -152,7 +148,13 @@ const BuySellProvider: React.FC = ({ children }) => {
     usdcBalance,
   ])
 
-  const onToggleIsUserBuying = () => setIsUserBuying(!isUserBuying)
+  const onToggleIsUserBuying = () => {
+    // If the user is switching to sell, ensure `set` field can only be selected.
+    if (isUserBuying) {
+      onSetActiveField('set')
+    }
+    setIsUserBuying(!isUserBuying)
+  }
   const onSetActiveField = (field: 'currency' | 'set') => setActiveField(field)
   const onSetCurrencyQuantity = (currencyQuantity: string) => {
     setIsFetchingOrderData(true)
