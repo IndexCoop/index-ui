@@ -24,9 +24,7 @@ import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
-import ComingSoon from 'views/ComingSoon'
 import Farm from 'views/Farm'
-import FAQ from 'views/FAQ'
 import Home from 'views/Home'
 import DPI from 'views/DPI'
 import INDEX from 'views/INDEX'
@@ -45,14 +43,6 @@ const App: React.FC = () => {
   const handlePresentMobileMenu = useCallback(() => {
     setMobileMenu(true)
   }, [setMobileMenu])
-
-  if (process.env.REACT_APP_LAUNCHED === 'false') {
-    return (
-      <Providers>
-        <ComingSoon />
-      </Providers>
-    )
-  }
 
   return (
     <Router>
@@ -78,9 +68,6 @@ const App: React.FC = () => {
             </Route>
             <Route exact path='/farm'>
               <Farm />
-            </Route>
-            <Route path='/faq'>
-              <FAQ />
             </Route>
           </Switch>
         </StyledBackgroundDiv>
