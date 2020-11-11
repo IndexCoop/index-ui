@@ -112,13 +112,6 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
         <Split>
           <Box row>
             <Button
-              href='https://www.tokensets.com/portfolio/dpi'
-              text='Buy DPI Tokens'
-              variant='secondary'
-            />
-          </Box>
-          <Box row>
-            <Button
               href='https://app.uniswap.org/#/add/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/ETH'
               text='Add Liquidity'
               variant='secondary'

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 
@@ -19,12 +20,7 @@ const Home: React.FC = () => {
         diversified in crypto index products.
       </HomeTitle>
 
-      <HomeHeaderCTA
-        href='https://www.tokensets.com/portfolio/dpi'
-        target='_blank'
-      >
-        View the DeFi Pulse Index
-      </HomeHeaderCTA>
+      <HomeHeaderCTA to='/dpi'>View the DeFi Pulse Index</HomeHeaderCTA>
     </div>
   )
 }
@@ -47,7 +43,7 @@ const AuvText = styled.span`
   }
 `
 
-const HomeHeaderCTA = styled.a`
+const HomeHeaderCTA = styled(NavLink)`
   color: white;
   background-color: #03c75e;
   font-size: 18px;
