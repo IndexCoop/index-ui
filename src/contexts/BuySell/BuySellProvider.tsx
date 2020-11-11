@@ -31,12 +31,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     {} as UniswapPriceData
   )
 
-  const {
-    transactionId,
-    transactionStatus,
-    onSetTransactionId,
-    onSetTransactionStatus,
-  } = useTransactionWatcher()
+  const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
 
   const { ethBalance, dpiBalance, daiBalance, usdcBalance } = useBalances()
 
