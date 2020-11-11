@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import DpiIndexComponentsContext from './DpiIndexComponentsContext'
-import fetchSetIndexAllocation from 'utils/fetchSetIndexComponents'
+import { fetchSetComponents } from 'utils/tokensetsApi'
 
 const DpiIndexComponentsProvider: React.FC = ({ children }) => {
   const [dpiIndexComponents, setDpiIndexComponents] = useState<any>([])
 
   useEffect(() => {
-    fetchSetIndexAllocation('dpi')
+    fetchSetComponents('dpi')
       .then((response: any) => {
         setDpiIndexComponents(response)
       })

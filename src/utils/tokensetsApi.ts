@@ -1,9 +1,27 @@
 import { camelCase } from 'lodash'
 
-const apiUrl = 'https://api.tokensets.com/public/v2/portfolios/'
+const baseURL = 'https://api.tokensets.com/public'
 
-export default (index: string) => {
-  return fetch(apiUrl + index)
+export const fetchTokenBuySellData = (
+  id: string,
+  isBuyOrder: boolean,
+  requestQuantity: number | string,
+  currencyId: string,
+  activeField: 'set' | 'currency'
+) => {
+  const buyOrSellRoute = isBuyOrder ? 'buy_price' : 'sell_price'
+  const requestUrl = `${baseURL}/v2/portfolios/${id}/${buyOrSellRoute}?quantity=${requestQuantity}&currency=${currencyId}&input_type=${activeField}`
+
+  return fetch(requestUrl)
+    .then((response) => response.json())
+    .then((json) => json.buy_price || json.sell_price || {})
+    .catch((error) => console.log(error))
+}
+
+export const fetchSetComponents = (set: string) => {
+  const requestUrl = `${baseURL}/v2/portfolios/${set}`
+
+  return fetch(requestUrl)
     .then((response) => response.json())
     .then((response) => {
       if (!response?.portfolio?.components) {

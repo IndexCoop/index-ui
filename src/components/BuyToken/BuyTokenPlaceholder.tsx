@@ -34,7 +34,6 @@ const CenteredContent = styled.div`
   flex-direction: row;
   margin: auto;
   padding: 32px 48px;
-
   @media (min-width: 400px) {
     flex-direction: column;
     text-align: center;

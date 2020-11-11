@@ -1,7 +1,8 @@
 import { createContext } from 'react'
 
 interface PricesContextValues {
-  dpiPrice?: string
+  indexPrice?: string
+  ethereumPrice?: string
   totalUSDInFarms?: number
   apy?: string
 }

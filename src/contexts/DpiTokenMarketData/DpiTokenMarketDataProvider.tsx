@@ -24,9 +24,9 @@ const DpiMarketDataProvider: React.FC = ({ children }) => {
     <MarketDataContext.Provider
       value={{
         ...dpiMarketData,
-        latestMarketCap: selectLatestMarketData(dpiMarketData.marketcaps),
-        latestPrice: selectLatestMarketData(dpiMarketData.prices),
-        latestVolume: selectLatestMarketData(dpiMarketData.volumes),
+        latestMarketCap: selectLatestMarketData(dpiMarketData?.marketcaps),
+        latestPrice: selectLatestMarketData(dpiMarketData?.prices),
+        latestVolume: selectLatestMarketData(dpiMarketData?.volumes),
       }}
     >
       {children}

@@ -15,10 +15,12 @@ import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
 import { FarmingProvider } from 'contexts/Farming'
 import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
+import { BuySellProvider } from 'contexts/BuySell'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { SnapshotProposalsProvider } from 'contexts/SnapshotProposals'
+import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -99,29 +101,33 @@ const Providers: React.FC = ({ children }) => {
       darkTheme={darkTheme}
       lightTheme={lightTheme}
     >
-      <WalletProvider>
-        <ApolloProvider client={graphqlClient}>
-          <AirdropProvider>
-            <ExternalAirdropProvider>
-              <PricesProvider>
-                <BalancesProvider>
-                  <FarmingProvider>
-                    <DpiTokenMarketDataProvider>
-                      <DpiIndexComponentsProvider>
-                        <IndexTokenMarketDataProvider>
-                          <SnapshotProposalsProvider>
-                            {children}
-                          </SnapshotProposalsProvider>
-                        </IndexTokenMarketDataProvider>
-                      </DpiIndexComponentsProvider>
-                    </DpiTokenMarketDataProvider>
-                  </FarmingProvider>
-                </BalancesProvider>
-              </PricesProvider>
-            </ExternalAirdropProvider>
-          </AirdropProvider>
-        </ApolloProvider>
-      </WalletProvider>
+      <TransactionWatcherProvider>
+        <WalletProvider>
+          <ApolloProvider client={graphqlClient}>
+            <AirdropProvider>
+              <ExternalAirdropProvider>
+                <PricesProvider>
+                  <BalancesProvider>
+                    <FarmingProvider>
+                      <BuySellProvider>
+                        <DpiTokenMarketDataProvider>
+                          <DpiIndexComponentsProvider>
+                            <IndexTokenMarketDataProvider>
+                              <SnapshotProposalsProvider>
+                                {children}
+                              </SnapshotProposalsProvider>
+                            </IndexTokenMarketDataProvider>
+                          </DpiIndexComponentsProvider>
+                        </DpiTokenMarketDataProvider>
+                      </BuySellProvider>
+                    </FarmingProvider>
+                  </BalancesProvider>
+                </PricesProvider>
+              </ExternalAirdropProvider>
+            </AirdropProvider>
+          </ApolloProvider>
+        </WalletProvider>
+      </TransactionWatcherProvider>
       <ToastContainer transition={Slide} position='bottom-left' />
     </ThemeProvider>
   )

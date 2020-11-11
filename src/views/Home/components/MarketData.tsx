@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
-import { Container, Card, CardContent, Spacer } from 'react-neu'
+import { NavLink } from 'react-router-dom'
+import { Card, CardContent, Spacer } from 'react-neu'
 
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
@@ -35,10 +36,7 @@ const MarketData: React.FC = () => {
               </StyledDpiIconLabel>
               <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
             </div>
-            <StyledViewMoreButton
-              href='https://www.tokensets.com/portfolio/dpi'
-              target='_blank'
-            >
+            <StyledViewMoreButton to='/dpi'>
               View the DeFi Pulse Index ➔
             </StyledViewMoreButton>
           </StyledDpiSplitHeader>
@@ -132,7 +130,7 @@ const StyledDpiIconLabel = styled.div`
   margin-bottom: 10px;
 `
 
-const StyledViewMoreButton = styled.a`
+const StyledViewMoreButton = styled(NavLink)`
   height: 24px;
   color: ${(props) => props.theme.colors.grey[500]};
   cursor: pointer;

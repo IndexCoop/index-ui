@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { provider } from "web3-core";
-import { useCallback } from "react";
-import BigNumber from "bignumber.js";
+import React, { useState, useEffect } from 'react'
+import { provider } from 'web3-core'
+import { useCallback } from 'react'
+import BigNumber from 'bignumber.js'
 
-import AirdropContext from "./AirdropContext";
+import AirdropContext from './AirdropContext'
 import ConfirmTransactionModal, {
   TransactionStatusType,
-} from "components/ConfirmTransactionModal";
+} from 'components/ConfirmTransactionModal'
 
 import {
   claimAirdrop,
   checkIsAirdropClaimed,
   getAirdropDataForAddress,
-} from "index-sdk/index";
+} from 'index-sdk/index'
 import useWallet from 'hooks/useWallet'
-import { waitTransaction } from "utils/index";
+import { waitTransaction } from 'utils/index'
 
 const AirdropProvider: React.FC = ({ children }) => {
-  const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false);
+  const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
   const [transactionStatusType, setTransactionStatusType] = useState<
     TransactionStatusType | undefined
-  >();
-  const [airdropQuantity, setAirdropQuantity] = useState<string>();
-  const [rewardIndex, setRewardIndex] = useState<number>();
-  const [rewardProof, setRewardProof] = useState<string[]>();
-  const [isClaimable, setIsClaimable] = useState<boolean>(false);
-  const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>();
+  >()
+  const [airdropQuantity, setAirdropQuantity] = useState<string>()
+  const [rewardIndex, setRewardIndex] = useState<number>()
+  const [rewardProof, setRewardProof] = useState<string[]>()
+  const [isClaimable, setIsClaimable] = useState<boolean>(false)
+  const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
   const {
     account,
     ethereum,
-  }: { account: string | null | undefined; ethereum: provider } = useWallet();
+  }: { account: string | null | undefined; ethereum: provider } = useWallet()
 
   const checkAirdropClaimStatus = useCallback(async () => {
     setAirdropQuantity(undefined)
@@ -38,7 +38,7 @@ const AirdropProvider: React.FC = ({ children }) => {
     setIsClaimable(false)
     setClaimableQuantity(new BigNumber(0))
 
-    const initialAirdropReward = getAirdropDataForAddress(account || "");
+    const initialAirdropReward = getAirdropDataForAddress(account || '')
 
     if (!initialAirdropReward) {
       return
@@ -47,33 +47,34 @@ const AirdropProvider: React.FC = ({ children }) => {
     const isAlreadyClaimed = await checkIsAirdropClaimed(
       ethereum,
       initialAirdropReward.index as number
-    );
+    )
 
     if (isAlreadyClaimed) {
-      return;
+      return
     }
 
-    const claimQuantity = new BigNumber(initialAirdropReward.amount || "0")
-      .dividedBy(new BigNumber(10).pow(18))
+    const claimQuantity = new BigNumber(
+      initialAirdropReward.amount || '0'
+    ).dividedBy(new BigNumber(10).pow(18))
 
-    setAirdropQuantity(initialAirdropReward.amount);
-    setRewardIndex(initialAirdropReward.index);
-    setRewardProof(initialAirdropReward.proof);
-    setIsClaimable(true);
-    setClaimableQuantity(claimQuantity);
-  }, [ethereum, account]);
+    setAirdropQuantity(initialAirdropReward.amount)
+    setRewardIndex(initialAirdropReward.index)
+    setRewardProof(initialAirdropReward.proof)
+    setIsClaimable(true)
+    setClaimableQuantity(claimQuantity)
+  }, [ethereum, account])
 
   useEffect(() => {
-    if (!ethereum || !account) return;
+    if (!ethereum || !account) return
 
-    checkAirdropClaimStatus();
-  }, [ethereum, account, checkAirdropClaimStatus]);
+    checkAirdropClaimStatus()
+  }, [ethereum, account, checkAirdropClaimStatus])
 
   const onClaimAirdrop = useCallback(async () => {
-    if (!rewardIndex || !account || !airdropQuantity || !rewardProof) return;
+    if (!rewardIndex || !account || !airdropQuantity || !rewardProof) return
 
-    setConfirmTxModalIsOpen(true);
-    setTransactionStatusType(TransactionStatusType.IS_APPROVING);
+    setConfirmTxModalIsOpen(true)
+    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
     const transactionId = await claimAirdrop(
       ethereum,
       account,
@@ -81,21 +82,21 @@ const AirdropProvider: React.FC = ({ children }) => {
       account,
       airdropQuantity,
       rewardProof
-    );
+    )
 
     if (!transactionId) {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED);
-      return;
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      return
     }
 
-    setTransactionStatusType(TransactionStatusType.IS_PENDING);
-    const success = await waitTransaction(ethereum, transactionId);
+    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    const success = await waitTransaction(ethereum, transactionId)
 
     if (success) {
-      setTransactionStatusType(TransactionStatusType.IS_COMPLETED);
-      setClaimableQuantity(new BigNumber(0));
+      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+      setClaimableQuantity(new BigNumber(0))
     } else {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED);
+      setTransactionStatusType(TransactionStatusType.IS_FAILED)
     }
   }, [
     ethereum,
@@ -104,7 +105,7 @@ const AirdropProvider: React.FC = ({ children }) => {
     airdropQuantity,
     rewardProof,
     setConfirmTxModalIsOpen,
-  ]);
+  ])
 
   return (
     <AirdropContext.Provider
@@ -124,7 +125,7 @@ const AirdropProvider: React.FC = ({ children }) => {
         onDismiss={() => setConfirmTxModalIsOpen(false)}
       />
     </AirdropContext.Provider>
-  );
-};
+  )
+}
 
-export default AirdropProvider;
+export default AirdropProvider

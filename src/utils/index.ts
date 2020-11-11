@@ -73,6 +73,19 @@ export const getAllowance = async (
   }
 }
 
+export const getEthBalance = async (
+  provider: provider,
+  userAddress: string
+): Promise<string> => {
+  const web3 = new Web3(provider)
+  try {
+    const balance: string = await web3.eth.getBalance(userAddress)
+    return balance
+  } catch (e) {
+    return '0'
+  }
+}
+
 export const getBalance = async (
   provider: provider,
   tokenAddress: string,
@@ -108,4 +121,8 @@ export const decToBn = (dec: number, decimals = 18) => {
 
 export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
   return balance.dividedBy(new BigNumber(10).pow(decimals)).toFixed()
+}
+
+export const makeEtherscanLink = (transactionHash: string) => {
+  return `https://etherscan.io/tx/${transactionHash}`
 }

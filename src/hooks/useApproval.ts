@@ -10,13 +10,16 @@ import useAllowance from './useAllowance'
 const useApproval = (
   tokenAddress?: string,
   spenderAddress?: string,
-  onTxHash?: (txHash: string) => void,
+  onTxHash?: (txHash: string) => void
 ) => {
   const allowance = useAllowance(tokenAddress, spenderAddress)
   const [isApproving, setIsApproving] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
 
-  const { account, ethereum }: { account: string | null | undefined, ethereum?: provider} = useWallet()
+  const {
+    account,
+    ethereum,
+  }: { account: string | null | undefined; ethereum?: provider } = useWallet()
 
   const handleApprove = useCallback(async () => {
     if (!ethereum || !account || !spenderAddress || !tokenAddress) {
@@ -29,7 +32,7 @@ const useApproval = (
         spenderAddress,
         tokenAddress,
         ethereum,
-        onTxHash,
+        onTxHash
       )
       setIsApproved(result)
       setIsApproving(false)
@@ -51,10 +54,7 @@ const useApproval = (
     if (!!allowance?.toNumber()) {
       setIsApproved(true)
     }
-  }, [
-    allowance,
-    setIsApproved,
-  ])
+  }, [allowance, setIsApproved])
 
   return {
     isApproved,
