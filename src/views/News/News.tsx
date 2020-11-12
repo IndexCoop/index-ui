@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import HeaderNewsCard from './components/HeaderNewsCard'
 import NewsCard from './components/NewsCard'
 import fetchNews from 'utils/newsApi'
-import News from '.'
+import NewsCardPlaceholder from './components/NewsCardPlaceholder'
 
 const Vote: React.FC = () => {
   const newsContent = fetchNews()
@@ -27,6 +27,7 @@ const Vote: React.FC = () => {
           title={headerArticle.title}
           author={headerArticle.author}
           link={headerArticle.link}
+          readTime={headerArticle.readTime}
         />
         <Spacer />
         <StyledNewsFeed>
@@ -37,9 +38,11 @@ const Vote: React.FC = () => {
                 title={article.title}
                 author={article.author}
                 link={article.link}
+                readTime={article.readTime}
               />
             )
           })}
+          {newsContent.length % 3 === 0 && <NewsCardPlaceholder />}
         </StyledNewsFeed>
       </Container>
     </Page>

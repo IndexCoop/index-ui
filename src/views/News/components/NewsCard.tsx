@@ -2,18 +2,20 @@ import React from 'react'
 import styled from 'styled-components'
 import { Surface } from 'react-neu'
 
-interface HeaderNewsCardProps {
+interface NewsCardProps {
   title: string
   author: string
   image: string
   link: string
+  readTime: string
 }
 
-const HeaderNewsCard: React.FC<HeaderNewsCardProps> = ({
+const NewsCard: React.FC<NewsCardProps> = ({
   title,
   author,
   image,
   link,
+  readTime,
 }) => {
   return (
     <StyledNewsCard>
@@ -23,7 +25,7 @@ const HeaderNewsCard: React.FC<HeaderNewsCardProps> = ({
           <StyledCardContent>
             <StyledCardTitle>{title}</StyledCardTitle>
             <StyledCardAuthor>By {author}</StyledCardAuthor>
-            <StyledReadMore>Read more</StyledReadMore>
+            <StyledReadMore>{readTime}</StyledReadMore>
           </StyledCardContent>
         </StyledCard>
       </Surface>
@@ -70,4 +72,4 @@ const StyledReadMore = styled.span`
   font-weight: 600;
 `
 
-export default HeaderNewsCard
+export default NewsCard

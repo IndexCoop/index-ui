@@ -7,6 +7,7 @@ interface HeaderNewsCardProps {
   author: string
   image: string
   link: string
+  readTime: string
 }
 
 const HeaderNewsCard: React.FC<HeaderNewsCardProps> = ({
@@ -14,6 +15,7 @@ const HeaderNewsCard: React.FC<HeaderNewsCardProps> = ({
   author,
   image,
   link,
+  readTime,
 }) => {
   return (
     <Surface fill>
@@ -22,7 +24,7 @@ const HeaderNewsCard: React.FC<HeaderNewsCardProps> = ({
         <StyledCardContent>
           <StyledCardTitle>{title}</StyledCardTitle>
           <StyledCardAuthor>By {author}</StyledCardAuthor>
-          <StyledReadMore>Read more</StyledReadMore>
+          <StyledReadMore>{readTime}</StyledReadMore>
         </StyledCardContent>
       </StyledCard>
     </Surface>
@@ -54,9 +56,14 @@ const StyledCardImage = styled.img`
   z-index: -1;
   border-radius: ${(props) => props.theme.borderRadius}px;
 `
-const StyledCardTitle = styled.h1``
-const StyledCardAuthor = styled.h3``
+const StyledCardTitle = styled.h1`
+  font-size: 56px;
+`
+const StyledCardAuthor = styled.h3`
+  font-size: 32px;
+`
 const StyledReadMore = styled.span`
+  font-size: 24px;
   font-weight: 600;
 `
 
