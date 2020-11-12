@@ -41,7 +41,7 @@ const StyledCard = styled.div`
 `
 
 const StyledCardContent = styled.div`
-  padding: 20px;
+  padding: 20px 40px;
 `
 
 const StyledCardImage = styled.img`
