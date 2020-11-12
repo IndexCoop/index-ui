@@ -2,16 +2,26 @@ import React from 'react'
 import styled from 'styled-components'
 import { Surface } from 'react-neu'
 
-const HeaderNewsCard: React.FC = () => {
+interface HeaderNewsCardProps {
+  title: string
+  author: string
+  image: string
+  link: string
+}
+
+const HeaderNewsCard: React.FC<HeaderNewsCardProps> = ({
+  title,
+  author,
+  image,
+  link,
+}) => {
   return (
     <Surface fill>
       <StyledCard>
-        <StyledCardImage src='https://miro.medium.com/max/1400/1*jGrGl4jcZ_uUQZ3xDM-Ntw.png' />
+        <StyledCardImage src={image} />
         <StyledCardContent>
-          <StyledCardTitle>
-            How to Capture Intrinsic Productivity in an Index Fund
-          </StyledCardTitle>
-          <StyledCardAuthor>By Over analyser</StyledCardAuthor>
+          <StyledCardTitle>{title}</StyledCardTitle>
+          <StyledCardAuthor>By {author}</StyledCardAuthor>
           <StyledReadMore>Read more</StyledReadMore>
         </StyledCardContent>
       </StyledCard>
@@ -23,6 +33,11 @@ const StyledCard = styled.div`
   height: 400px;
   width: 100%;
   position: relative;
+  transition: 0.2s;
+  &:hover {
+    transform: scale(1.005);
+    cursor: pointer;
+  }
 `
 
 const StyledCardContent = styled.div`
@@ -37,6 +52,7 @@ const StyledCardImage = styled.img`
   width: 100%;
   height: 100%;
   z-index: -1;
+  border-radius: ${(props) => props.theme.borderRadius}px;
 `
 const StyledCardTitle = styled.h1``
 const StyledCardAuthor = styled.h3``
