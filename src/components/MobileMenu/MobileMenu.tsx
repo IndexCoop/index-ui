@@ -34,9 +34,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink exact activeClassName='active' to='/vote'>
             Vote
           </StyledLink>
-          <StyledLink activeClassName='active' to='/faq' onClick={onDismiss}>
-            FAQ
-          </StyledLink>
           <StyledOutboundLink
             href='https://docs.indexcoop.com/'
             target='_blank'
