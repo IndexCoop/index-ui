@@ -1,20 +1,18 @@
 import React from 'react'
-import { Container, Spacer, Card } from 'react-neu'
+import { Container, Spacer } from 'react-neu'
 import Page from 'components/Page'
 import styled from 'styled-components'
-import HeaderNewsCard from './components/HeaderNewsCard'
 
 const Vote: React.FC = () => {
   return (
     <Page>
-      <Container size='lg'>
-        <StyledPageHeader>News</StyledPageHeader>
+      <Container size='sm'>
+        <StyledPageHeader>Vote</StyledPageHeader>
         <Spacer size='sm' />
-        <StyledPageSubheader>
-          The latest news from the Index Coop
-        </StyledPageSubheader>
+        <StyledPageSubheader>View and vote on proposals</StyledPageSubheader>
         <Spacer size='md' />
-        <HeaderNewsCard />
+        <StyledSectionHeader>Proposals</StyledSectionHeader>
+        <Spacer size='md' />
       </Container>
     </Page>
   )
