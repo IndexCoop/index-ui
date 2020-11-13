@@ -97,8 +97,8 @@ const Home: React.FC = () => {
           <SectionSubTitle>Join Us</SectionSubTitle>
           <SectionTitle>Come Join The Community</SectionTitle>
           <LargeDescription>
-            Starting with the DeFi Pulse Index, the Index Coop creates a high
-            bar for quality that helps investors maintain peace of mind.
+            Say hi on the Discord and forum, and join our passionate community
+            building the future of finance.
           </LargeDescription>
           <ButtonContainer>
             <ButtonLink
@@ -255,11 +255,16 @@ const Description = styled.p`
 `
 
 const LargeDescription = styled.p`
-  font-size: 24px;
+  font-size: 32px;
   line-height: 1.4;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
   @media (max-width: 768px) {
-    font-size: 20px;
+    font-size: 28px;
     margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
   }
 `
 
