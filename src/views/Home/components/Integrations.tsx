@@ -57,7 +57,7 @@ const Integrations: React.FC = () => (
               <StyledCardTitle>Moonswap</StyledCardTitle>
               <StyledCardDescription>
                 Earn yield by providing liquidity to the ETH/DPI Pool by
-                Moonswapa.
+                Moonswap.
               </StyledCardDescription>
 
               <StyledOutboundLink
@@ -144,7 +144,7 @@ const Integrations: React.FC = () => (
       <Spacer />
 
       <StyledCardRow>
-        <StyledCardContainer>
+        <StyledFixedCardContainer>
           <StyledIntegrationTypeText>
             Call & Put Options
           </StyledIntegrationTypeText>
@@ -166,12 +166,13 @@ const Integrations: React.FC = () => (
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
-        </StyledCardContainer>
+        </StyledFixedCardContainer>
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledFixedCardContainer>
           <StyledIntegrationTypeText>Lend & Borrow</StyledIntegrationTypeText>
+
           <Surface fill>
             <StyledCardContent>
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1283747298573381633/so8jjWOm_400x400.jpg' />
@@ -189,14 +190,15 @@ const Integrations: React.FC = () => (
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
-        </StyledCardContainer>
+        </StyledFixedCardContainer>
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledFixedCardContainer>
           <StyledIntegrationTypeText>
             Smart Contract Cover
           </StyledIntegrationTypeText>
+
           <Surface fill>
             <StyledCardContent>
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1004666585292951554/WPfTLP3M_400x400.jpg' />
@@ -214,7 +216,7 @@ const Integrations: React.FC = () => (
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
-        </StyledCardContainer>
+        </StyledFixedCardContainer>
       </StyledCardRow>
 
       <Spacer />
@@ -400,6 +402,16 @@ const StyledCardContainer = styled.div`
   margin-bottom: 20px;
   @media (max-width: 768px) {
     width: 100%;
+  }
+`
+
+const StyledFixedCardContainer = styled.div`
+  height: 300px;
+  width: 30%;
+  margin-bottom: 50px;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 60px;
   }
 `
 
