@@ -42,7 +42,7 @@ const Integrations: React.FC = () => (
                 href='https://homora.alphafinance.io/'
                 target='_blank'
               >
-                View the Pool
+                View Pools
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
@@ -61,7 +61,7 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://homora.alphafinance.io/'
+                href='https://farm.moonswap.fi/eth/farms/DPI-ETH%20UNI-V2%20LP'
                 target='_blank'
               >
                 View the Pool
@@ -87,7 +87,7 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://homora.alphafinance.io/'
+                href='https://app.zerion.io/invest/asset/DPI-0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
                 target='_blank'
               >
                 Learn more
@@ -109,7 +109,7 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://homora.alphafinance.io/'
+                href='https://www.argent.xyz/'
                 target='_blank'
               >
                 Learn more
@@ -130,10 +130,7 @@ const Integrations: React.FC = () => (
                 wallet for Android & iOS.
               </StyledCardDescription>
 
-              <StyledOutboundLink
-                href='https://homora.alphafinance.io/'
-                target='_blank'
-              >
+              <StyledOutboundLink href='https://www.dharma.io/' target='_blank'>
                 Learn more
               </StyledOutboundLink>
             </StyledCardContent>
@@ -158,11 +155,8 @@ const Integrations: React.FC = () => (
                 Options on the DeFi Pulse Index.
               </StyledCardDescription>
 
-              <StyledOutboundLink
-                href='https://homora.alphafinance.io/'
-                target='_blank'
-              >
-                View Options
+              <StyledOutboundLink href='https://opyn.co/#/buy' target='_blank'>
+                View Prices
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
@@ -234,10 +228,17 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://homora.alphafinance.io/'
+                href='https://info.uniswap.org/token/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
                 target='_blank'
               >
-                View Uniswap DPI Token
+                Trade DeFi Pulse Index
+              </StyledOutboundLink>
+
+              <StyledOutboundLink
+                href='https://uniswap.info/token/0x0954906da0Bf32d5479e25f46056d22f08464cab'
+                target='_blank'
+              >
+                Trade INDEX
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
@@ -258,7 +259,7 @@ const Integrations: React.FC = () => (
                 href='https://pools.balancer.exchange/#/explore?type=shared&token=0x1494CA1F11D487c2bBe4543E90080AeBa4BA3C2b'
                 target='_blank'
               >
-                View Balancer Pools
+                Trade DeFi Pulse Index
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
@@ -275,10 +276,10 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://pools.balancer.exchange/#/explore?type=shared&token=0x1494CA1F11D487c2bBe4543E90080AeBa4BA3C2b'
+                href='https://1inch.exchange/#/ETH/DPI'
                 target='_blank'
               >
-                View 1inch Liquidity
+                Trade DeFi Pulse Index
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
@@ -299,7 +300,7 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://homora.alphafinance.io/'
+                href='https://explore.duneanalytics.com/dashboard/index-coop-community'
                 target='_blank'
               >
                 View Analytics Dashboard
@@ -319,10 +320,7 @@ const Integrations: React.FC = () => (
                 Track DeFi Pulse Index project rankings.
               </StyledCardDescription>
 
-              <StyledOutboundLink
-                href='https://homora.alphafinance.io/'
-                target='_blank'
-              >
+              <StyledOutboundLink href='https://defipulse.com/' target='_blank'>
                 Learn more
               </StyledOutboundLink>
             </StyledCardContent>
@@ -341,7 +339,7 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://homora.alphafinance.io/'
+                href='https://www.coingecko.com/en/coins/defipulse-index'
                 target='_blank'
               >
                 View Price Chart
@@ -362,7 +360,7 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://homora.alphafinance.io/'
+                href='https://coinmarketcap.com/currencies/defi-pulse-index/'
                 target='_blank'
               >
                 View Price Chart
@@ -442,6 +440,8 @@ const StyledCardDescription = styled.p`
 `
 
 const StyledOutboundLink = styled.a`
+  display: block;
+  margin-bottom: 10px;
   color: ${(props) => props.theme.colors.primary.light};
   font-weight: 700;
   text-decoration: none;
