@@ -11,63 +11,26 @@ const Integrations: React.FC = () => (
     <StyledIntegrationsContainer>
       <StyledCardRow>
         <StyledCardContainer>
-          <StyledIntegrationTypeText>
-            Call & Put Options
-          </StyledIntegrationTypeText>
-
-          <Surface fill>
-            <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1126715773940948992/unaMO0Vj_400x400.png' />
-              <StyledCardTitle>Opyn</StyledCardTitle>
-              <StyledCardDescription>
-                Index Coop creates and maintains the world's best crypto index
-                products.
-              </StyledCardDescription>
-            </StyledCardContent>
-          </Surface>
-        </StyledCardContainer>
-
-        <Spacer />
-
-        <StyledCardContainer>
-          <StyledIntegrationTypeText>Lend & Borrow</StyledIntegrationTypeText>
-          <Surface fill>
-            <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1283747298573381633/so8jjWOm_400x400.jpg' />
-              <StyledCardTitle>CREAM Finance</StyledCardTitle>
-              <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
-              </StyledCardDescription>
-            </StyledCardContent>
-          </Surface>
-        </StyledCardContainer>
-      </StyledCardRow>
-
-      <Spacer />
-
-      <StyledCardRow>
-        <StyledCardContainer>
           <StyledIntegrationTypeText>Earn Yield</StyledIntegrationTypeText>
-          <Surface fill>
-            <StyledCardContent>
-              <StyledCardIcon src='https://alphafinance.io/wp-content/uploads//2020/09/Alpha_Logo_02@3x-blue.svg' />
-              <StyledCardTitle>Alpha Homora</StyledCardTitle>
-              <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
-              </StyledCardDescription>
-            </StyledCardContent>
-          </Surface>
-        </StyledCardContainer>
-
-        <Spacer />
-
-        <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/owl.png' />
               <StyledCardTitle>Index Coop</StyledCardTitle>
+              <StyledCardDescription>
+                Our products are built on Set Protocol's battle-tested V2
+                infrastructure.
+              </StyledCardDescription>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
+
+        <Spacer />
+
+        <StyledCardContainer>
+          <Surface fill>
+            <StyledCardContent>
+              <StyledCardIcon src='https://alphafinance.io/wp-content/uploads//2020/09/Alpha_Logo_02@3x-blue.svg' />
+              <StyledCardTitle>Alpha Homora</StyledCardTitle>
               <StyledCardDescription>
                 Our products are built on Set Protocol's battle-tested V2
                 infrastructure.
@@ -134,6 +97,61 @@ const Integrations: React.FC = () => (
               <StyledCardDescription>
                 Index Coop is a Decentralized and Autonomous Asset Manager
                 governed, maintained, and upgraded by INDEX token holders.
+              </StyledCardDescription>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
+      </StyledCardRow>
+
+      <Spacer />
+
+      <StyledCardRow>
+        <StyledCardContainer>
+          <StyledIntegrationTypeText>
+            Call & Put Options
+          </StyledIntegrationTypeText>
+
+          <Surface fill>
+            <StyledCardContent>
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1126715773940948992/unaMO0Vj_400x400.png' />
+              <StyledCardTitle>Opyn</StyledCardTitle>
+              <StyledCardDescription>
+                Index Coop creates and maintains the world's best crypto index
+                products.
+              </StyledCardDescription>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
+
+        <Spacer />
+
+        <StyledCardContainer>
+          <StyledIntegrationTypeText>Lend & Borrow</StyledIntegrationTypeText>
+          <Surface fill>
+            <StyledCardContent>
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1283747298573381633/so8jjWOm_400x400.jpg' />
+              <StyledCardTitle>CREAM Finance</StyledCardTitle>
+              <StyledCardDescription>
+                Our products are built on Set Protocol's battle-tested V2
+                infrastructure.
+              </StyledCardDescription>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
+
+        <Spacer />
+
+        <StyledCardContainer>
+          <StyledIntegrationTypeText>
+            Smart Contract Cover
+          </StyledIntegrationTypeText>
+          <Surface fill>
+            <StyledCardContent>
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1004666585292951554/WPfTLP3M_400x400.jpg' />
+              <StyledCardTitle>Nexus Mutual</StyledCardTitle>
+              <StyledCardDescription>
+                Our products are built on Set Protocol's battle-tested V2
+                infrastructure.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -222,26 +240,6 @@ const Integrations: React.FC = () => (
           </Surface>
         </StyledCardContainer>
       </StyledCardRow>
-
-      <Spacer />
-
-      <StyledCardContainer>
-        <StyledIntegrationTypeText>
-          Smart Contract Cover
-        </StyledIntegrationTypeText>
-        <Surface fill>
-          <StyledCardContent>
-            <StyledCardIcon src='https://pbs.twimg.com/profile_images/1004666585292951554/WPfTLP3M_400x400.jpg' />
-            <StyledCardTitle>Nexus Mutual</StyledCardTitle>
-            <StyledCardDescription>
-              Our products are built on Set Protocol's battle-tested V2
-              infrastructure.
-            </StyledCardDescription>
-          </StyledCardContent>
-        </Surface>
-      </StyledCardContainer>
-
-      <Spacer />
     </StyledIntegrationsContainer>
   </div>
 )
