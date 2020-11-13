@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Container } from 'react-neu'
-import { NavLink } from 'react-router-dom'
+import { useTheme } from 'react-neu'
 
 import Page from 'components/Page'
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 
 const Home: React.FC = () => {
   const { latestMarketCap } = useDpiTokenMarketData()
+  const { darkMode } = useTheme()
 
   return (
     <Page>
@@ -62,7 +63,11 @@ const Home: React.FC = () => {
             a high bar for quality that helps investors maintain peace of mind.
           </LargeDescription>
           <CenteredImage
-            src='https://index-dao.s3.amazonaws.com/dpi_hero.png'
+            src={
+              darkMode
+                ? 'https://index-dao.s3.amazonaws.com/dpi_hero.png'
+                : 'https://index-dao.s3.amazonaws.com/dpi_hero_light.png'
+            }
             alt='DPI hero image'
           />
         </CenteredSection>
@@ -104,7 +109,11 @@ const Home: React.FC = () => {
             >
               <Button>
                 <ButtonImg
-                  src='https://index-dao.s3.amazonaws.com/discord.png'
+                  src={
+                    darkMode
+                      ? 'https://index-dao.s3.amazonaws.com/discord.png'
+                      : 'https://index-dao.s3.amazonaws.com/discord_light.png'
+                  }
                   alt='Discord logo'
                 />
                 <ButtonText>Discord</ButtonText>
@@ -117,7 +126,11 @@ const Home: React.FC = () => {
             >
               <Button>
                 <ButtonImg
-                  src='https://index-dao.s3.amazonaws.com/speech_bubble.png'
+                  src={
+                    darkMode
+                      ? 'https://index-dao.s3.amazonaws.com/speech_bubble.png'
+                      : 'https://index-dao.s3.amazonaws.com/speech_bubble_light.png'
+                  }
                   alt='Forum logo'
                 />
                 <ButtonText>Forum</ButtonText>
@@ -212,6 +225,9 @@ const CenteredImage = styled.img`
   position: relative;
   top: -50px;
   z-index: -1;
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `
 
 const ImageContainerLeft = styled.div`
@@ -251,6 +267,8 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  padding-left: 20px;
+  padding-right: 20px;
 `
 
 const ButtonLink = styled.a`
@@ -271,6 +289,8 @@ const Button = styled.div`
   transition: 0.2s;
   @media (max-width: 768px) {
     font-size: 20px;
+    height: 90px;
+    width: 90px;
   }
   &:hover {
     transform: scale(1.05);
@@ -279,6 +299,10 @@ const Button = styled.div`
 
 const ButtonImg = styled.img`
   width: 60px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    width: 45px;
+  }
 `
 
 const ButtonText = styled.p`
