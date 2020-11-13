@@ -33,8 +33,26 @@ const Integrations: React.FC = () => (
           <StyledIntegrationTypeText>Lend & Borrow</StyledIntegrationTypeText>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_3.svg' />
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1283747298573381633/so8jjWOm_400x400.jpg' />
               <StyledCardTitle>CREAM Finance</StyledCardTitle>
+              <StyledCardDescription>
+                Our products are built on Set Protocol's battle-tested V2
+                infrastructure.
+              </StyledCardDescription>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
+      </StyledCardRow>
+
+      <Spacer />
+
+      <StyledCardRow>
+        <StyledCardContainer>
+          <StyledIntegrationTypeText>Earn Yield</StyledIntegrationTypeText>
+          <Surface fill>
+            <StyledCardContent>
+              <StyledCardIcon src='https://alphafinance.io/wp-content/uploads//2020/09/Alpha_Logo_02@3x-blue.svg' />
+              <StyledCardTitle>Alpha Homora</StyledCardTitle>
               <StyledCardDescription>
                 Our products are built on Set Protocol's battle-tested V2
                 infrastructure.
@@ -46,11 +64,25 @@ const Integrations: React.FC = () => (
         <Spacer />
 
         <StyledCardContainer>
-          <StyledIntegrationTypeText>Earn Yield</StyledIntegrationTypeText>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_3.svg' />
-              <StyledCardTitle>Alpha Homora</StyledCardTitle>
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/owl.png' />
+              <StyledCardTitle>Index Coop</StyledCardTitle>
+              <StyledCardDescription>
+                Our products are built on Set Protocol's battle-tested V2
+                infrastructure.
+              </StyledCardDescription>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
+
+        <Spacer />
+
+        <StyledCardContainer>
+          <Surface fill>
+            <StyledCardContent>
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1292537117143445504/73Pfh9lK_400x400.jpg' />
+              <StyledCardTitle>Mooniswap</StyledCardTitle>
               <StyledCardDescription>
                 Our products are built on Set Protocol's battle-tested V2
                 infrastructure.
@@ -67,7 +99,7 @@ const Integrations: React.FC = () => (
           <StyledIntegrationTypeText>Wallets</StyledIntegrationTypeText>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_2.svg' />
+              <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/argent.svg' />
               <StyledCardTitle>Argent</StyledCardTitle>
               <StyledCardDescription>
                 Index Coop is a Decentralized and Autonomous Asset Manager
@@ -82,7 +114,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_2.svg' />
+              <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/zerion.svg' />
               <StyledCardTitle>Zerion</StyledCardTitle>
               <StyledCardDescription>
                 Index Coop is a Decentralized and Autonomous Asset Manager
@@ -97,7 +129,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_2.svg' />
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1323302938056404993/LA9VzCsY_400x400.jpg' />
               <StyledCardTitle>Dharma</StyledCardTitle>
               <StyledCardDescription>
                 Index Coop is a Decentralized and Autonomous Asset Manager
@@ -115,7 +147,7 @@ const Integrations: React.FC = () => (
           <StyledIntegrationTypeText>Exchange</StyledIntegrationTypeText>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_3.svg' />
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1242184851152928769/wG2eTAfD_400x400.jpg' />
               <StyledCardTitle>Uniswap</StyledCardTitle>
               <StyledCardDescription>
                 Our products are built on Set Protocol's battle-tested V2
@@ -130,7 +162,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_3.svg' />
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1174715409100083200/RYCU7_dZ_400x400.png' />
               <StyledCardTitle>Balancer</StyledCardTitle>
               <StyledCardDescription>
                 Our products are built on Set Protocol's battle-tested V2
@@ -150,7 +182,7 @@ const Integrations: React.FC = () => (
           </StyledIntegrationTypeText>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_3.svg' />
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1127499943114096645/RMWlZ_aT_400x400.png' />
               <StyledCardTitle>Dune Analytics</StyledCardTitle>
               <StyledCardDescription>
                 Our products are built on Set Protocol's battle-tested V2
@@ -165,7 +197,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_3.svg' />
+              <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/coingecko.png' />
               <StyledCardTitle>Coin Gecko</StyledCardTitle>
               <StyledCardDescription>
                 Our products are built on Set Protocol's battle-tested V2
@@ -180,7 +212,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_3.svg' />
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1099721619352768513/QU-2Gqyi_400x400.png' />
               <StyledCardTitle>DeFi Pulse</StyledCardTitle>
               <StyledCardDescription>
                 Our products are built on Set Protocol's battle-tested V2
@@ -199,7 +231,7 @@ const Integrations: React.FC = () => (
         </StyledIntegrationTypeText>
         <Surface fill>
           <StyledCardContent>
-            <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_3.svg' />
+            <StyledCardIcon src='https://pbs.twimg.com/profile_images/1004666585292951554/WPfTLP3M_400x400.jpg' />
             <StyledCardTitle>Nexus Mutual</StyledCardTitle>
             <StyledCardDescription>
               Our products are built on Set Protocol's battle-tested V2
@@ -260,7 +292,7 @@ const StyledCardTitle = styled.p`
 const StyledCardIcon = styled.img`
   margin-bottom: 20px;
   width: 50px;
-  border-radius: 14px;
+  border-radius: 50%;
 `
 
 const StyledCardDescription = styled.p`
