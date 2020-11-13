@@ -17,8 +17,7 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/owl.png' />
               <StyledCardTitle>Index Coop</StyledCardTitle>
               <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
+                Earn INDEX tokens be staking Uniswap ETH/DPI LP tokens.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -32,8 +31,7 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://alphafinance.io/wp-content/uploads//2020/09/Alpha_Logo_02@3x-blue.svg' />
               <StyledCardTitle>Alpha Homora</StyledCardTitle>
               <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
+                Earn leveraged yield in the ETH/DPI Pool by Alpha Homora.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -44,11 +42,10 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1292537117143445504/73Pfh9lK_400x400.jpg' />
-              <StyledCardTitle>Mooniswap</StyledCardTitle>
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1302071527630798849/7tGUJFw5_400x400.jpg' />
+              <StyledCardTitle>Moonswap</StyledCardTitle>
               <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
+                Earn leveraged yield in the ETH/DPI Pool by Moonswap
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -65,8 +62,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/argent.svg' />
               <StyledCardTitle>Argent</StyledCardTitle>
               <StyledCardDescription>
-                Index Coop is a Decentralized and Autonomous Asset Manager
-                governed, maintained, and upgraded by INDEX token holders.
+                Buy & Sell the DeFi Pulse Index natively in the Argent wallet
+                app.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -80,8 +77,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/zerion.svg' />
               <StyledCardTitle>Zerion</StyledCardTitle>
               <StyledCardDescription>
-                Index Coop is a Decentralized and Autonomous Asset Manager
-                governed, maintained, and upgraded by INDEX token holders.
+                View your portfolio performance and get DeFi Pulse Index in the
+                Zerion web app.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -95,8 +92,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1323302938056404993/LA9VzCsY_400x400.jpg' />
               <StyledCardTitle>Dharma</StyledCardTitle>
               <StyledCardDescription>
-                Index Coop is a Decentralized and Autonomous Asset Manager
-                governed, maintained, and upgraded by INDEX token holders.
+                Get exposure to DeFi Pulse Index in this easy to use crypto
+                wallet.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -116,8 +113,7 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1126715773940948992/unaMO0Vj_400x400.png' />
               <StyledCardTitle>Opyn</StyledCardTitle>
               <StyledCardDescription>
-                Index Coop creates and maintains the world's best crypto index
-                products.
+                Buy Put & Call Options for the DeFi Pulse Index.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -132,8 +128,7 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1283747298573381633/so8jjWOm_400x400.jpg' />
               <StyledCardTitle>CREAM Finance</StyledCardTitle>
               <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
+                Lend your DPI for yield, or borrow DPI to hedge.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -150,8 +145,7 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1004666585292951554/WPfTLP3M_400x400.jpg' />
               <StyledCardTitle>Nexus Mutual</StyledCardTitle>
               <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
+                Buy Smart Contract Cover for the DeFi Pulse smart contarcts.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -168,8 +162,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1242184851152928769/wG2eTAfD_400x400.jpg' />
               <StyledCardTitle>Uniswap</StyledCardTitle>
               <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
+                Buy & Sell DeFi Pulse Index and INDEX tokens on crypto's biggest
+                DEX.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -183,8 +177,7 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1174715409100083200/RYCU7_dZ_400x400.png' />
               <StyledCardTitle>Balancer</StyledCardTitle>
               <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
+                Buy & Sell DeFi Pulse Index.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -203,8 +196,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1127499943114096645/RMWlZ_aT_400x400.png' />
               <StyledCardTitle>Dune Analytics</StyledCardTitle>
               <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
+                View our dashboard tracking DeFi Pulse Index holders, TVL, and
+                volume.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -218,8 +211,7 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/coingecko.png' />
               <StyledCardTitle>Coin Gecko</StyledCardTitle>
               <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
+                Compare DeFi Pulse Index with the wider crypto market.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -233,8 +225,7 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1099721619352768513/QU-2Gqyi_400x400.png' />
               <StyledCardTitle>DeFi Pulse</StyledCardTitle>
               <StyledCardDescription>
-                Our products are built on Set Protocol's battle-tested V2
-                infrastructure.
+                Track DeFi Pulse Index projects on the methodologists site.
               </StyledCardDescription>
             </StyledCardContent>
           </Surface>
@@ -295,6 +286,7 @@ const StyledCardIcon = styled.img`
 
 const StyledCardDescription = styled.p`
   font-size: 18px;
+  line-height: 1.5;
 `
 
 export default Integrations
