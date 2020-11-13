@@ -24,6 +24,7 @@ import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
+import About from 'views/About'
 import Farm from 'views/Farm'
 import Home from 'views/Home'
 import DPI from 'views/DPI'
@@ -65,6 +66,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path='/vote'>
               <Vote />
+            </Route>
+            <Route exact path='/about'>
+              <About />
             </Route>
             <Route exact path='/farm'>
               <Farm />
