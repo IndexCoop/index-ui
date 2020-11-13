@@ -229,11 +229,17 @@ const StyledIntegrationsTitle = styled.h2`
 const StyledCardRow = styled.div`
   display: flex;
   align-items: flex-end;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 const StyledCardContainer = styled.div`
-  margin-bottom: 20px;
   width: 30%;
+  margin-bottom: 20px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 const StyledCardContent = styled.div`
