@@ -9,9 +9,9 @@ const Integrations: React.FC = () => (
     </StyledIntegrationsTitle>
 
     <StyledIntegrationsContainer>
+      <StyledIntegrationTypeText>Earn Yield</StyledIntegrationTypeText>
       <StyledCardRow>
         <StyledCardContainer>
-          <StyledIntegrationTypeText>Earn Yield</StyledIntegrationTypeText>
           <Surface fill>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/owl.png' />
@@ -19,6 +19,10 @@ const Integrations: React.FC = () => (
               <StyledCardDescription>
                 Earn INDEX tokens be staking Uniswap ETH/DPI LP tokens.
               </StyledCardDescription>
+
+              <StyledOutboundLink href='/farm'>
+                View the Pool
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -33,6 +37,13 @@ const Integrations: React.FC = () => (
               <StyledCardDescription>
                 Earn leveraged yield in the ETH/DPI Pool by Alpha Homora.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                View the Pool
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -45,8 +56,16 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1302071527630798849/7tGUJFw5_400x400.jpg' />
               <StyledCardTitle>Moonswap</StyledCardTitle>
               <StyledCardDescription>
-                Earn leveraged yield in the ETH/DPI Pool by Moonswap
+                Earn yield by providing liquidity to the ETH/DPI Pool by
+                Moonswapa.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                View the Pool
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -54,17 +73,25 @@ const Integrations: React.FC = () => (
 
       <Spacer />
 
+      <StyledIntegrationTypeText>Wallets</StyledIntegrationTypeText>
+
       <StyledCardRow>
         <StyledCardContainer>
-          <StyledIntegrationTypeText>Wallets</StyledIntegrationTypeText>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/argent.svg' />
-              <StyledCardTitle>Argent</StyledCardTitle>
+              <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/zerion.svg' />
+              <StyledCardTitle>Zerion</StyledCardTitle>
               <StyledCardDescription>
-                Buy & Sell the DeFi Pulse Index natively in the Argent wallet
-                app.
+                Track your portfolio performance and buy DeFi Pulse Index in the
+                Zerion app for Desktop, Android & iOS.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                Learn more
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -74,12 +101,19 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/zerion.svg' />
-              <StyledCardTitle>Zerion</StyledCardTitle>
+              <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/argent.svg' />
+              <StyledCardTitle>Argent</StyledCardTitle>
               <StyledCardDescription>
-                View your portfolio performance and get DeFi Pulse Index in the
-                Zerion web app.
+                Buy & Sell the DeFi Pulse Index natively in the Argent wallet
+                app for Android & iOS.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                Learn more
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -92,9 +126,16 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1323302938056404993/LA9VzCsY_400x400.jpg' />
               <StyledCardTitle>Dharma</StyledCardTitle>
               <StyledCardDescription>
-                Get exposure to DeFi Pulse Index in this easy to use crypto
-                wallet.
+                Get exposure to DeFi Pulse Index with this easy to use crypto
+                wallet for Android & iOS.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                Learn more
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -113,8 +154,16 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1126715773940948992/unaMO0Vj_400x400.png' />
               <StyledCardTitle>Opyn</StyledCardTitle>
               <StyledCardDescription>
-                Buy Put & Call Options for the DeFi Pulse Index.
+                Earn premiums or hedge your risk buying and selling Put & Call
+                Options on the DeFi Pulse Index.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                View Options
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -128,8 +177,16 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1283747298573381633/so8jjWOm_400x400.jpg' />
               <StyledCardTitle>CREAM Finance</StyledCardTitle>
               <StyledCardDescription>
-                Lend your DPI for yield, or borrow DPI to hedge.
+                Lend your DPI for yield, or borrow DPI to hedge your DeFi
+                exposure.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://app.cream.finance/'
+                target='_blank'
+              >
+                View Lend & Borrow Rates
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -145,8 +202,16 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1004666585292951554/WPfTLP3M_400x400.jpg' />
               <StyledCardTitle>Nexus Mutual</StyledCardTitle>
               <StyledCardDescription>
-                Buy Smart Contract Cover for the DeFi Pulse smart contarcts.
+                Buy Smart Contract Cover for the Set Protocol V2 contracts used
+                to power the DeFi Pulse Index.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://app.nexusmutual.io/cover/buy/get-quote?address=0xa4c8d221d8BB851f83aadd0223a8900A6921A349'
+                target='_blank'
+              >
+                View Coverage Rates
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -154,17 +219,24 @@ const Integrations: React.FC = () => (
 
       <Spacer />
 
+      <StyledIntegrationTypeText>Exchange</StyledIntegrationTypeText>
+
       <StyledCardRow>
         <StyledCardContainer>
-          <StyledIntegrationTypeText>Exchange</StyledIntegrationTypeText>
           <Surface fill>
             <StyledCardContent>
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1242184851152928769/wG2eTAfD_400x400.jpg' />
               <StyledCardTitle>Uniswap</StyledCardTitle>
               <StyledCardDescription>
-                Buy & Sell DeFi Pulse Index and INDEX tokens on crypto's biggest
-                DEX.
+                Trade DeFi Pulse Index and INDEX tokens on crypto's biggest DEX.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                View Uniswap DPI Token
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -177,28 +249,80 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1174715409100083200/RYCU7_dZ_400x400.png' />
               <StyledCardTitle>Balancer</StyledCardTitle>
               <StyledCardDescription>
-                Buy & Sell DeFi Pulse Index.
+                Trade the DeFi Pulse Index on multiple Balancer pools.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://pools.balancer.exchange/#/explore?type=shared&token=0x1494CA1F11D487c2bBe4543E90080AeBa4BA3C2b'
+                target='_blank'
+              >
+                View Balancer Pools
+              </StyledOutboundLink>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
+        <Spacer />
+
+        <StyledCardContainer>
+          <Surface fill>
+            <StyledCardContent>
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1323344385501765632/JOV3GKt4_400x400.jpg' />
+              <StyledCardTitle>1inch</StyledCardTitle>
+              <StyledCardDescription>
+                Trade the DeFi Pulse Index on the 1inch DEX aggregator.
+              </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://pools.balancer.exchange/#/explore?type=shared&token=0x1494CA1F11D487c2bBe4543E90080AeBa4BA3C2b'
+                target='_blank'
+              >
+                View 1inch Liquidity
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
       </StyledCardRow>
 
-      <Spacer />
+      <StyledIntegrationTypeText>Prices & Analytics</StyledIntegrationTypeText>
 
       <StyledCardRow>
         <StyledCardContainer>
-          <StyledIntegrationTypeText>
-            Prices & Analytics
-          </StyledIntegrationTypeText>
           <Surface fill>
             <StyledCardContent>
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1127499943114096645/RMWlZ_aT_400x400.png' />
               <StyledCardTitle>Dune Analytics</StyledCardTitle>
               <StyledCardDescription>
                 View our dashboard tracking DeFi Pulse Index holders, TVL, and
-                volume.
+                total mint & redeem volume.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                View Analytics Dashboard
+              </StyledOutboundLink>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
+
+        <Spacer />
+
+        <StyledCardContainer>
+          <Surface fill>
+            <StyledCardContent>
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1099721619352768513/QU-2Gqyi_400x400.png' />
+              <StyledCardTitle>DeFi Pulse</StyledCardTitle>
+              <StyledCardDescription>
+                Track DeFi Pulse Index project rankings.
+              </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                Learn more
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -213,6 +337,13 @@ const Integrations: React.FC = () => (
               <StyledCardDescription>
                 Compare DeFi Pulse Index with the wider crypto market.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                View Price Chart
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
@@ -222,15 +353,24 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1099721619352768513/QU-2Gqyi_400x400.png' />
-              <StyledCardTitle>DeFi Pulse</StyledCardTitle>
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1323404104517836800/diNpmVhG_400x400.jpg' />
+              <StyledCardTitle>CoinMarketCap</StyledCardTitle>
               <StyledCardDescription>
-                Track DeFi Pulse Index projects on the methodologists site.
+                Compare DeFi Pulse Index with the wider crypto market.
               </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://homora.alphafinance.io/'
+                target='_blank'
+              >
+                View Price Chart
+              </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
       </StyledCardRow>
+
+      <Spacer />
     </StyledIntegrationsContainer>
   </div>
 )
@@ -249,7 +389,7 @@ const StyledIntegrationsTitle = styled.h2`
 
 const StyledCardRow = styled.div`
   display: flex;
-  align-items: flex-end;
+  flex-wrap: wrap;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -287,6 +427,12 @@ const StyledCardIcon = styled.img`
 const StyledCardDescription = styled.p`
   font-size: 18px;
   line-height: 1.5;
+`
+
+const StyledOutboundLink = styled.a`
+  color: ${(props) => props.theme.colors.primary.light};
+  font-weight: 700;
+  text-decoration: none;
 `
 
 export default Integrations
