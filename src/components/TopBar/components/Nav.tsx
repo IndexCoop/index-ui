@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
+import ProductsDropdown from './ProductsDropdown'
 
 const Nav: React.FC = () => {
   return (
@@ -8,12 +9,7 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName='active' to='/'>
         Home
       </StyledLink>
-      <StyledLink exact activeClassName='active' to='/dpi'>
-        DeFi Pulse Index
-      </StyledLink>
-      <StyledLink exact activeClassName='active' to='/index'>
-        INDEX
-      </StyledLink>
+      <ProductsDropdown />
       <StyledLink exact activeClassName='active' to='/vote'>
         Vote
       </StyledLink>
@@ -33,6 +29,11 @@ const Nav: React.FC = () => {
 const StyledNav = styled.nav`
   align-items: center;
   display: flex;
+`
+
+const CustomDropdownOption = styled.div`
+  width: 200px;
+  margin: 10px;
 `
 
 const StyledLink = styled(NavLink)`
