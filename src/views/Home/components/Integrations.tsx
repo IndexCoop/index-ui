@@ -224,7 +224,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1242184851152928769/wG2eTAfD_400x400.jpg' />
               <StyledCardTitle>Uniswap</StyledCardTitle>
               <StyledCardDescription>
-                Trade DeFi Pulse Index and INDEX tokens on crypto's biggest DEX.
+                Trade DeFi Pulse Index and the Index Coop governance token on
+                crypto's biggest DEX.
               </StyledCardDescription>
 
               <StyledOutboundLink
@@ -236,6 +237,34 @@ const Integrations: React.FC = () => (
 
               <StyledOutboundLink
                 href='https://uniswap.info/token/0x0954906da0Bf32d5479e25f46056d22f08464cab'
+                target='_blank'
+              >
+                Trade INDEX
+              </StyledOutboundLink>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
+
+        <Spacer />
+
+        <StyledCardContainer>
+          <Surface fill>
+            <StyledCardContent>
+              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1323344385501765632/JOV3GKt4_400x400.jpg' />
+              <StyledCardTitle>1inch</StyledCardTitle>
+              <StyledCardDescription>
+                Trade the DeFi Pulse Index and Index Coop governance token on
+                the 1inch DEX aggregator.
+              </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://1inch.exchange/#/ETH/DPI'
+                target='_blank'
+              >
+                Trade DeFi Pulse Index
+              </StyledOutboundLink>
+              <StyledOutboundLink
+                href='https://1inch.exchange/#/ETH/INDEX'
                 target='_blank'
               >
                 Trade INDEX
@@ -264,26 +293,6 @@ const Integrations: React.FC = () => (
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
-        <Spacer />
-
-        <StyledCardContainer>
-          <Surface fill>
-            <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1323344385501765632/JOV3GKt4_400x400.jpg' />
-              <StyledCardTitle>1inch</StyledCardTitle>
-              <StyledCardDescription>
-                Trade the DeFi Pulse Index on the 1inch DEX aggregator.
-              </StyledCardDescription>
-
-              <StyledOutboundLink
-                href='https://1inch.exchange/#/ETH/DPI'
-                target='_blank'
-              >
-                Trade DeFi Pulse Index
-              </StyledOutboundLink>
-            </StyledCardContent>
-          </Surface>
-        </StyledCardContainer>
       </StyledCardRow>
 
       <StyledIntegrationTypeText>Prices & Analytics</StyledIntegrationTypeText>
@@ -295,8 +304,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1127499943114096645/RMWlZ_aT_400x400.png' />
               <StyledCardTitle>Dune Analytics</StyledCardTitle>
               <StyledCardDescription>
-                View our dashboard tracking DeFi Pulse Index holders, TVL, and
-                total mint & redeem volume.
+                View our dashboard tracking DPI distribution, DEX liquidity,
+                total mint & redeem volume, and more.
               </StyledCardDescription>
 
               <StyledOutboundLink
