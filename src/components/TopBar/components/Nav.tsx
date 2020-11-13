@@ -31,11 +31,6 @@ const StyledNav = styled.nav`
   display: flex;
 `
 
-const CustomDropdownOption = styled.div`
-  width: 200px;
-  margin: 10px;
-`
-
 const StyledLink = styled(NavLink)`
   color: ${(props) => props.theme.colors.grey[500]};
   font-weight: 700;

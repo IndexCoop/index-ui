@@ -67,6 +67,7 @@ const ProductsDropdown: React.FC = () => {
 
   return (
     <Select
+      isSearchable={false}
       value={{ label: 'Products' }}
       options={[
         {
