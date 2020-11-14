@@ -99,6 +99,7 @@ const MarketData: React.FC = () => {
           </CardContent>
         </Card>
       </Split>
+      <Spacer size='lg' />
     </>
   )
 }
