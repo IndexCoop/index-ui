@@ -32,7 +32,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://alphafinance.io/wp-content/uploads//2020/09/Alpha_Logo_02@3x-blue.svg' />
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/alphafinance.png' />
               <StyledCardTitle>Alpha Homora</StyledCardTitle>
               <StyledCardDescription>
                 Earn leveraged yield in the ETH/DPI Pool by Alpha Homora.
@@ -53,7 +53,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1302071527630798849/7tGUJFw5_400x400.jpg' />
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/moonswap.png' />
               <StyledCardTitle>Moonswap</StyledCardTitle>
               <StyledCardDescription>
                 Earn yield by providing liquidity to the ETH/DPI Pool by
@@ -123,7 +123,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1323302938056404993/LA9VzCsY_400x400.jpg' />
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/dharma.png' />
               <StyledCardTitle>Dharma</StyledCardTitle>
               <StyledCardDescription>
                 Get exposure to DeFi Pulse Index with this easy to use crypto
@@ -169,7 +169,7 @@ const Integrations: React.FC = () => (
 
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1283747298573381633/so8jjWOm_400x400.jpg' />
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/cream.png' />
               <StyledCardTitle>CREAM Finance</StyledCardTitle>
               <StyledCardDescription>
                 Lend your DPI for yield, or borrow DPI to hedge your DeFi
@@ -195,7 +195,7 @@ const Integrations: React.FC = () => (
 
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1004666585292951554/WPfTLP3M_400x400.jpg' />
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/nexusmutual.png' />
               <StyledCardTitle>Nexus Mutual</StyledCardTitle>
               <StyledCardDescription>
                 Buy Smart Contract Cover for the Set Protocol V2 contracts used
@@ -250,7 +250,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1323344385501765632/JOV3GKt4_400x400.jpg' />
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/1inch.png' />
               <StyledCardTitle>1inch</StyledCardTitle>
               <StyledCardDescription>
                 Trade the DeFi Pulse Index and Index Coop governance token on
@@ -278,7 +278,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1174715409100083200/RYCU7_dZ_400x400.png' />
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/balancer.png' />
               <StyledCardTitle>Balancer</StyledCardTitle>
               <StyledCardDescription>
                 Trade the DeFi Pulse Index on multiple Balancer pools.
@@ -301,7 +301,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1127499943114096645/RMWlZ_aT_400x400.png' />
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/duneanalytics.png' />
               <StyledCardTitle>Dune Analytics</StyledCardTitle>
               <StyledCardDescription>
                 View our dashboard tracking DPI distribution, DEX liquidity,
@@ -323,7 +323,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1099721619352768513/QU-2Gqyi_400x400.png' />
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/defipulse.png' />
               <StyledCardTitle>DeFi Pulse</StyledCardTitle>
               <StyledCardDescription>
                 Track DeFi Pulse Index project rankings.
@@ -362,7 +362,7 @@ const Integrations: React.FC = () => (
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
-              <StyledCardIcon src='https://pbs.twimg.com/profile_images/1323404104517836800/diNpmVhG_400x400.jpg' />
+              <StyledCardIcon src='https://index-dao.s3.amazonaws.com/coinmarketcap.png' />
               <StyledCardTitle>CoinMarketCap</StyledCardTitle>
               <StyledCardDescription>
                 Compare DeFi Pulse Index with the wider crypto market.
