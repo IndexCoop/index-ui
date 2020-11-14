@@ -18,6 +18,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
 
 const StyledLink = styled.a`
   color: ${(props) => props.theme.colors.primary.light};
+  text-decoration: none;
   &:visited {
     color: ${(props) => props.theme.colors.primary.light};
   }

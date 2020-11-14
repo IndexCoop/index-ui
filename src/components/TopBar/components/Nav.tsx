@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
+import ProductsDropdown from './ProductsDropdown'
 
 const Nav: React.FC = () => {
   return (
@@ -8,20 +9,15 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName='active' to='/'>
         Home
       </StyledLink>
-      <StyledLink exact activeClassName='active' to='/dpi'>
-        DeFi Pulse Index
-      </StyledLink>
-      <StyledLink exact activeClassName='active' to='/index'>
-        INDEX
-      </StyledLink>
+      <ProductsDropdown />
       <StyledLink exact activeClassName='active' to='/vote'>
         Vote
       </StyledLink>
+      <StyledLink exact activeClassName='active' to='/about'>
+        About
+      </StyledLink>
       <StyledLink exact activeClassName='active' to='/farm'>
         Farm
-      </StyledLink>
-      <StyledLink activeClassName='active' to='/faq'>
-        FAQ
       </StyledLink>
       <StyledOutboundLink href='https://docs.indexcoop.com/' target='_blank'>
         Docs

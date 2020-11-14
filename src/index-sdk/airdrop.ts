@@ -3,7 +3,7 @@ import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
 import AirdropABI from 'index-sdk/abi/Airdrop.json'
-import { airdropAddress } from 'constants/tokenAddresses'
+import { airdropAddress } from 'constants/ethContractAddresses'
 import rewardsMerkleRoot from './rewardsMerkleRoot.json'
 
 export const getAirdropContract = (provider: provider, address: string) => {
@@ -17,7 +17,7 @@ export const getAirdropContract = (provider: provider, address: string) => {
 
 export const getAirdropDataForAddress = (
   address: string
-): { index: number, amount: string, proof: string[] } | undefined => {
+): { index: number; amount: string; proof: string[] } | undefined => {
   const rewardBranch = (rewardsMerkleRoot as any)[address?.toLowerCase()]
 
   if (!rewardBranch) return

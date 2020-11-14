@@ -15,16 +15,17 @@ import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
 import { FarmingProvider } from 'contexts/Farming'
 import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
+import { BuySellProvider } from 'contexts/BuySell'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { SnapshotProposalsProvider } from 'contexts/SnapshotProposals'
+import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
-import ComingSoon from 'views/ComingSoon'
+import About from 'views/About'
 import Farm from 'views/Farm'
-import FAQ from 'views/FAQ'
 import Home from 'views/Home'
 import DPI from 'views/DPI'
 import INDEX from 'views/INDEX'
@@ -43,14 +44,6 @@ const App: React.FC = () => {
   const handlePresentMobileMenu = useCallback(() => {
     setMobileMenu(true)
   }, [setMobileMenu])
-
-  if (process.env.REACT_APP_LAUNCHED === 'false') {
-    return (
-      <Providers>
-        <ComingSoon />
-      </Providers>
-    )
-  }
 
   return (
     <Router>
@@ -74,11 +67,11 @@ const App: React.FC = () => {
             <Route exact path='/vote'>
               <Vote />
             </Route>
+            <Route exact path='/about'>
+              <About />
+            </Route>
             <Route exact path='/farm'>
               <Farm />
-            </Route>
-            <Route path='/faq'>
-              <FAQ />
             </Route>
           </Switch>
         </StyledBackgroundDiv>
@@ -99,29 +92,33 @@ const Providers: React.FC = ({ children }) => {
       darkTheme={darkTheme}
       lightTheme={lightTheme}
     >
-      <WalletProvider>
-        <ApolloProvider client={graphqlClient}>
-          <AirdropProvider>
-            <ExternalAirdropProvider>
-              <PricesProvider>
-                <BalancesProvider>
-                  <FarmingProvider>
-                    <DpiTokenMarketDataProvider>
-                      <DpiIndexComponentsProvider>
-                        <IndexTokenMarketDataProvider>
-                          <SnapshotProposalsProvider>
-                            {children}
-                          </SnapshotProposalsProvider>
-                        </IndexTokenMarketDataProvider>
-                      </DpiIndexComponentsProvider>
-                    </DpiTokenMarketDataProvider>
-                  </FarmingProvider>
-                </BalancesProvider>
-              </PricesProvider>
-            </ExternalAirdropProvider>
-          </AirdropProvider>
-        </ApolloProvider>
-      </WalletProvider>
+      <TransactionWatcherProvider>
+        <WalletProvider>
+          <ApolloProvider client={graphqlClient}>
+            <AirdropProvider>
+              <ExternalAirdropProvider>
+                <PricesProvider>
+                  <BalancesProvider>
+                    <FarmingProvider>
+                      <BuySellProvider>
+                        <DpiTokenMarketDataProvider>
+                          <DpiIndexComponentsProvider>
+                            <IndexTokenMarketDataProvider>
+                              <SnapshotProposalsProvider>
+                                {children}
+                              </SnapshotProposalsProvider>
+                            </IndexTokenMarketDataProvider>
+                          </DpiIndexComponentsProvider>
+                        </DpiTokenMarketDataProvider>
+                      </BuySellProvider>
+                    </FarmingProvider>
+                  </BalancesProvider>
+                </PricesProvider>
+              </ExternalAirdropProvider>
+            </AirdropProvider>
+          </ApolloProvider>
+        </WalletProvider>
+      </TransactionWatcherProvider>
       <ToastContainer transition={Slide} position='bottom-left' />
     </ThemeProvider>
   )

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import { Button } from 'react-neu'
@@ -7,56 +7,34 @@ import useWallet from 'hooks/useWallet'
 import UnlockWalletModal from 'components/UnlockWalletModal'
 import WalletModal from 'components/WalletModal'
 
-interface WalletButtonProps {}
+const WalletButton: React.FC = () => {
+  const {
+    account,
+    isShowingWalletModal,
+    onCloseWalletModal,
+    onOpenWalletModal,
+  } = useWallet()
 
-const WalletButton: React.FC<WalletButtonProps> = (props) => {
-  
-  const [walletModalIsOpen, setWalletModalIsOpen] = useState(false)
-  const [unlockModalIsOpen, setUnlockModalIsOpen] = useState(false)
-
-  const { account } = useWallet()
-
-  const handleDismissUnlockModal = useCallback(() => {
-    setUnlockModalIsOpen(false)
-  }, [setUnlockModalIsOpen])
-
-  const handleDismissWalletModal = useCallback(() => {
-    setWalletModalIsOpen(false)
-  }, [setWalletModalIsOpen])
-
-  const handleWalletClick = useCallback(() => {
-    setWalletModalIsOpen(true)
-  }, [setWalletModalIsOpen])
-
-  const handleUnlockWalletClick = useCallback(() => {
-    setUnlockModalIsOpen(true)
-  }, [setUnlockModalIsOpen])
+  const openWalletText = !!account ? 'View Balances' : 'Unlock Wallet'
+  const variant = !!account ? 'tertiary' : 'default'
 
   return (
     <>
       <StyledWalletButton>
-        {!account ? (
-          <Button
-            onClick={handleUnlockWalletClick}
-            size="sm"
-            text="Unlock Wallet"
-          />
-        ) : (
-          <Button
-            onClick={handleWalletClick}
-            size="sm"
-            text="View Balances"
-            variant="tertiary"
-          />
-        )}
+        <Button
+          onClick={onOpenWalletModal}
+          size='sm'
+          text={openWalletText}
+          variant={variant}
+        />
       </StyledWalletButton>
       <WalletModal
-        isOpen={walletModalIsOpen} 
-        onDismiss={handleDismissWalletModal}
+        isOpen={!!account && isShowingWalletModal}
+        onDismiss={onCloseWalletModal}
       />
       <UnlockWalletModal
-        isOpen={unlockModalIsOpen}
-        onDismiss={handleDismissUnlockModal}
+        isOpen={!account && isShowingWalletModal}
+        onDismiss={onCloseWalletModal}
       />
     </>
   )

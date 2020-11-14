@@ -20,7 +20,7 @@
 }
 
 body {
-  background: #F0E7EA;
+  background: #f0e7ea;
   margin: 0;
   font-family: 'Aeonik', sans-serif;
   font-size: 16px;
@@ -66,4 +66,17 @@ div > .Toastify__toast--warning {
 
 div > .Toastify__toast--error {
   border-top: 5px solid #df4857;
+}
+
+/* Remove input field number arrows */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
 }
