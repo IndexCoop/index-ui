@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { NavLink, useLocation } from 'react-router-dom'
 import ProductsDropdown from './ProductsDropdown'
+import ResourcesDropdown from './ResourcesDropdown'
 
 const Nav: React.FC = () => {
   return (
@@ -9,19 +10,17 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName='active' to='/'>
         Home
       </StyledLink>
-      <StyledLink exact activeClassName='active' to='/about'>
-        About
-      </StyledLink>
       <ProductsDropdown />
+      <ResourcesDropdown />
       <StyledLink exact activeClassName='active' to='/farm'>
         Farm
       </StyledLink>
       <StyledLink exact activeClassName='active' to='/vote'>
         Vote
       </StyledLink>
-      <StyledOutboundLink href='https://docs.indexcoop.com/' target='_blank'>
+      {/* <StyledOutboundLink href='https://docs.indexcoop.com/' target='_blank'>
         Docs
-      </StyledOutboundLink>
+      </StyledOutboundLink> */}
     </StyledNav>
   )
 }

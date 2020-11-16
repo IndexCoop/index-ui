@@ -4,13 +4,27 @@ import { NavLink, useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import { useTheme } from 'react-neu'
 
-const CustomOption = ({ innerProps, value, label }: any) => (
-  <CustomDropdownOption {...innerProps}>
-    <StyledLink exact activeClassName='active' to={`/${value}`}>
-      {label}
-    </StyledLink>
-  </CustomDropdownOption>
-)
+const CustomOption = (props: any) => {
+  const { innerProps, value, label, data } = props
+
+  if (data?.link) {
+    return (
+      <CustomDropdownOption {...innerProps}>
+        <StyledOutboundLink href={data.link} target='_blank'>
+          {label}
+        </StyledOutboundLink>
+      </CustomDropdownOption>
+    )
+  }
+
+  return (
+    <CustomDropdownOption {...innerProps}>
+      <StyledLink exact activeClassName='active' to={`/${value}`}>
+        {label}
+      </StyledLink>
+    </CustomDropdownOption>
+  )
+}
 
 const ProductsDropdown: React.FC = () => {
   const theme = useTheme()
@@ -22,7 +36,7 @@ const ProductsDropdown: React.FC = () => {
     return {
       control: (styles: any) => ({
         ...styles,
-        width: 120,
+        width: 130,
         background: 'none',
         border: 'none',
       }),
@@ -42,7 +56,6 @@ const ProductsDropdown: React.FC = () => {
       menu: (styles: any) => ({
         ...styles,
         color: 'black',
-        width: 180,
       }),
       dropdownIndicator: (styles: any) => ({
         ...styles,
@@ -68,15 +81,16 @@ const ProductsDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'Products' }}
+      value={{ label: 'Resources' } as any}
       options={[
         {
-          value: 'dpi',
-          label: 'DeFi Pulse Index',
+          value: 'about',
+          label: 'About',
         },
         {
-          value: 'index',
-          label: 'INDEX',
+          value: 'docs',
+          label: 'Docs',
+          link: 'https://docs.indexcoop.com/',
         },
       ]}
       components={{
@@ -88,11 +102,25 @@ const ProductsDropdown: React.FC = () => {
 }
 
 const CustomDropdownOption = styled.div`
-  width: 200px;
+  width: 100px;
   margin: 10px;
 `
 
 const StyledLink = styled(NavLink)`
+  color: ${(props) => props.theme.colors.grey[500]};
+  font-weight: 700;
+  padding-left: ${(props) => props.theme.spacing[3]}px;
+  padding-right: ${(props) => props.theme.spacing[3]}px;
+  text-decoration: none;
+  &:hover {
+    color: ${(props) => props.theme.colors.grey[600]};
+  }
+  &.active {
+    color: ${(props) => props.theme.colors.primary.light};
+  }
+`
+
+const StyledOutboundLink = styled.a`
   color: ${(props) => props.theme.colors.grey[500]};
   font-weight: 700;
   padding-left: ${(props) => props.theme.spacing[3]}px;
