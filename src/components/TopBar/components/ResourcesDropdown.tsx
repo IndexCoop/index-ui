@@ -31,7 +31,7 @@ const ProductsDropdown: React.FC = () => {
   const { pathname } = useLocation()
 
   const dropdownSelectStyles = useMemo(() => {
-    const isProductRouteActive = pathname === '/dpi' || pathname === '/index'
+    const isResourcesRouteActive = pathname === '/about' || pathname === '/news'
 
     return {
       control: (styles: any) => ({
@@ -42,13 +42,13 @@ const ProductsDropdown: React.FC = () => {
       }),
       singleValue: (styles: any) => ({
         ...styles,
-        'color': isProductRouteActive
+        'color': isResourcesRouteActive
           ? theme.colors.primary.light
           : theme.colors.grey[500],
         'fontWeight': 600,
         'cursor': 'pointer',
         '&:hover': {
-          color: isProductRouteActive
+          color: isResourcesRouteActive
             ? theme.colors.primary.light
             : theme.colors.grey[600],
         },
@@ -59,12 +59,12 @@ const ProductsDropdown: React.FC = () => {
       }),
       dropdownIndicator: (styles: any) => ({
         ...styles,
-        'color': isProductRouteActive
+        'color': isResourcesRouteActive
           ? theme.colors.primary.light
           : theme.colors.grey[500],
         'cursor': 'pointer',
         '&:hover': {
-          color: isProductRouteActive
+          color: isResourcesRouteActive
             ? theme.colors.primary.light
             : theme.colors.grey[500],
         },
