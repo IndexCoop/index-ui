@@ -9,15 +9,15 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName='active' to='/'>
         Home
       </StyledLink>
-      <ProductsDropdown />
-      <StyledLink exact activeClassName='active' to='/vote'>
-        Vote
-      </StyledLink>
       <StyledLink exact activeClassName='active' to='/about'>
         About
       </StyledLink>
+      <ProductsDropdown />
       <StyledLink exact activeClassName='active' to='/farm'>
         Farm
+      </StyledLink>
+      <StyledLink exact activeClassName='active' to='/vote'>
+        Vote
       </StyledLink>
       <StyledOutboundLink href='https://docs.indexcoop.com/' target='_blank'>
         Docs
