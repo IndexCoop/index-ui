@@ -88,6 +88,10 @@ const ProductsDropdown: React.FC = () => {
           label: 'About',
         },
         {
+          value: 'news',
+          label: 'News',
+        },
+        {
           value: 'docs',
           label: 'Docs',
           link: 'https://docs.indexcoop.com/',
