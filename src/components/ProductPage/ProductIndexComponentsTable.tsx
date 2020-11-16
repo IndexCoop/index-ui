@@ -63,7 +63,7 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
         <StyledTableHeader>Allocation</StyledTableHeader>
         <StyledTableHeader>24hr Change</StyledTableHeader>
 
-        {components?.slice(0, amountToDisplay - 1).map((data) => (
+        {components?.slice(0, amountToDisplay).map((data) => (
           <ComponentRow key={data.name} component={data} />
         ))}
       </IndexComponentsTable>
