@@ -20,6 +20,8 @@ const NewsCard: React.FC<NewsCardProps> = ({
 
   return (
     <StyledNewsCard
+      href={link}
+      target='_blank'
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => {
         setIsHovering(false)
@@ -27,7 +29,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
     >
       <StyledCardImage src={image} />
       <StyledCardContent>
-        <StyledCardTitle>{title}</StyledCardTitle>
+        <StyledCardTitle isHovering={isHovering}>{title}</StyledCardTitle>
         <StyledCardAuthor isHovering={isHovering}>
           By {author} · {readTime}
         </StyledCardAuthor>
@@ -40,12 +42,12 @@ interface IsHoveringProp {
   isHovering: boolean
 }
 
-const StyledNewsCard = styled.div`
+const StyledNewsCard = styled.a`
   width: 32%;
   margin-bottom: 20px;
   transition: 0.2s;
   cursor: pointer;
-  height: 500px;
+  text-decoration: none;
   &:hover {
     color: ${(props) => props.theme.colors.primary.light};
   }
@@ -58,11 +60,22 @@ const StyledCardContent = styled.div``
 
 const StyledCardImage = styled.img`
   width: 100%;
-  height: 300px;
+  height: 200px;
   object-fit: cover;
   border-radius: ${(props) => props.theme.borderRadius}px;
+
+  @media (max-width: 600px) {
+    height: 200px;
+  }
 `
-const StyledCardTitle = styled.h1``
+const StyledCardTitle = styled.h1<IsHoveringProp>`
+  color: ${(props) => props.theme.textColor};
+  ${(props) =>
+    props.isHovering &&
+    css`
+      color: ${(props) => props.theme.colors.primary.light};
+    `}
+`
 const StyledCardAuthor = styled.span<IsHoveringProp>`
   color: ${(props) => props.theme.colors.grey[400]};
 

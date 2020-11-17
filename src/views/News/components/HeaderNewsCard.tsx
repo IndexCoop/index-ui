@@ -20,6 +20,8 @@ const HeaderNewsCard: React.FC<HeaderNewsCardProps> = ({
 
   return (
     <StyledCard
+      href={link}
+      target='_blank'
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => {
         setIsHovering(false)
@@ -40,23 +42,28 @@ interface IsHoveringProp {
   isHovering: boolean
 }
 
-const StyledCard = styled.div`
+const StyledCard = styled.a`
   width: 100%;
   transition: 0.2s;
+  cursor: pointer;
+  text-decoration: none;
   &:hover {
     color: ${(props) => props.theme.colors.primary.light};
   }
 `
 
 const StyledCardImage = styled.img`
-  height: 400px;
+  height: 450px;
   width: 100%;
   object-fit: cover;
   border-radius: ${(props) => props.theme.borderRadius}px;
-  cursor: pointer;
   color: ${(props) => props.theme.textColor};
   &:hover {
     color: ${(props) => props.theme.colors.primary.light};
+  }
+
+  @media (max-width: 600px) {
+    height: 200px;
   }
 `
 
@@ -70,7 +77,6 @@ const StyledCardTitle = styled.a<IsHoveringProp>`
   font-size: 32px;
   margin-top: 5px;
   margin-bottom: 10px;
-  cursor: pointer;
   font-weight: 600;
   color: ${(props) => props.theme.textColor};
 
@@ -84,6 +90,11 @@ const StyledCardTitle = styled.a<IsHoveringProp>`
 const StyledCardText = styled.a<IsHoveringProp>`
   font-size: 20px;
   text-decoration: none;
+
+  @media (max-width: 600px) {
+    font-size: 16px;
+  }
+
   color: ${(props) => props.theme.colors.grey[400]};
 
   ${(props) =>
