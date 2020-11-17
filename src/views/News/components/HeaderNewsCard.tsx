@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Surface } from 'react-neu'
+import React, { useState } from 'react'
+import styled, { css } from 'styled-components'
+import { Surface, Spacer } from 'react-neu'
 
 interface HeaderNewsCardProps {
   title: string
@@ -17,54 +17,81 @@ const HeaderNewsCard: React.FC<HeaderNewsCardProps> = ({
   link,
   readTime,
 }) => {
+  const [isHovering, setIsHovering] = useState<boolean>(false)
+
   return (
-    <Surface fill>
-      <StyledCard>
-        <StyledCardImage src={image} />
-        <StyledCardContent>
-          <StyledCardTitle>{title}</StyledCardTitle>
-          <StyledCardAuthor>By {author}</StyledCardAuthor>
-          <StyledReadMore>{readTime}</StyledReadMore>
-        </StyledCardContent>
-      </StyledCard>
-    </Surface>
+    <StyledCard
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => {
+        setIsHovering(false)
+      }}
+    >
+      <StyledCardImage src={image} />
+      <StyledCardContent>
+        <StyledCardTitle isHovering={isHovering}>{title}</StyledCardTitle>
+        <StyledCardText isHovering={isHovering} href={link}>
+          By {author} · {readTime}
+        </StyledCardText>
+      </StyledCardContent>
+    </StyledCard>
   )
 }
 
+interface IsHoveringProp {
+  isHovering: boolean
+}
+
 const StyledCard = styled.div`
-  height: 400px;
   width: 100%;
-  position: relative;
   transition: 0.2s;
   &:hover {
-    transform: scale(1.005);
-    cursor: pointer;
+    color: ${(props) => props.theme.colors.primary.light};
+  }
+`
+
+const StyledCardImage = styled.img`
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: ${(props) => props.theme.borderRadius}px;
+  cursor: pointer;
+  color: ${(props) => props.theme.textColor};
+  &:hover {
+    color: ${(props) => props.theme.colors.primary.light};
   }
 `
 
 const StyledCardContent = styled.div`
-  padding: 20px 40px;
+  height: 100px;
+  width: 100%;
 `
 
-const StyledCardImage = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  border-radius: ${(props) => props.theme.borderRadius}px;
-`
-const StyledCardTitle = styled.h1`
-  font-size: 56px;
-`
-const StyledCardAuthor = styled.h3`
+const StyledCardTitle = styled.a<IsHoveringProp>`
+  display: block;
   font-size: 32px;
-`
-const StyledReadMore = styled.span`
-  font-size: 24px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
   font-weight: 600;
+  color: ${(props) => props.theme.textColor};
+
+  ${(props) =>
+    props.isHovering &&
+    css`
+      color: ${(props) => props.theme.colors.primary.light};
+    `}
+`
+
+const StyledCardText = styled.a<IsHoveringProp>`
+  font-size: 20px;
+  text-decoration: none;
+  color: ${(props) => props.theme.colors.grey[400]};
+
+  ${(props) =>
+    props.isHovering &&
+    css`
+      color: ${(props) => props.theme.colors.grey[500]};
+    `}
 `
 
 export default HeaderNewsCard

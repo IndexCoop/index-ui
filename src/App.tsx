@@ -133,6 +133,7 @@ const StyledBackgroundDiv = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
+  z-index: -100;
 `
 
 export default App

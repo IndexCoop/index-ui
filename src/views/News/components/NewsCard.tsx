@@ -1,6 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Surface } from 'react-neu'
+import React, { useState } from 'react'
+import styled, { css } from 'styled-components'
 
 interface NewsCardProps {
   title: string
@@ -17,59 +16,61 @@ const NewsCard: React.FC<NewsCardProps> = ({
   link,
   readTime,
 }) => {
+  const [isHovering, setIsHovering] = useState<boolean>(false)
+
   return (
-    <StyledNewsCard>
-      <Surface fill>
-        <StyledCard>
-          <StyledCardImage src={image} />
-          <StyledCardContent>
-            <StyledCardTitle>{title}</StyledCardTitle>
-            <StyledCardAuthor>By {author}</StyledCardAuthor>
-            <StyledReadMore>{readTime}</StyledReadMore>
-          </StyledCardContent>
-        </StyledCard>
-      </Surface>
+    <StyledNewsCard
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => {
+        setIsHovering(false)
+      }}
+    >
+      <StyledCardImage src={image} />
+      <StyledCardContent>
+        <StyledCardTitle>{title}</StyledCardTitle>
+        <StyledCardAuthor isHovering={isHovering}>
+          By {author} · {readTime}
+        </StyledCardAuthor>
+      </StyledCardContent>
     </StyledNewsCard>
   )
+}
+
+interface IsHoveringProp {
+  isHovering: boolean
 }
 
 const StyledNewsCard = styled.div`
   width: 32%;
   margin-bottom: 20px;
   transition: 0.2s;
+  cursor: pointer;
+  height: 500px;
+  &:hover {
+    color: ${(props) => props.theme.colors.primary.light};
+  }
   @media (max-width: 600px) {
     width: 100%;
   }
-  &:hover {
-    transform: scale(1.005);
-    cursor: pointer;
-  }
 `
 
-const StyledCard = styled.div`
-  height: 400px;
-  width: 100%;
-  position: relative;
-`
-
-const StyledCardContent = styled.div`
-  padding: 20px;
-`
+const StyledCardContent = styled.div``
 
 const StyledCardImage = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: cover;
   width: 100%;
-  height: 100%;
-  z-index: -1;
+  height: 300px;
+  object-fit: cover;
   border-radius: ${(props) => props.theme.borderRadius}px;
 `
 const StyledCardTitle = styled.h1``
-const StyledCardAuthor = styled.h3``
-const StyledReadMore = styled.span`
-  font-weight: 600;
+const StyledCardAuthor = styled.span<IsHoveringProp>`
+  color: ${(props) => props.theme.colors.grey[400]};
+
+  ${(props) =>
+    props.isHovering &&
+    css`
+      color: ${(props) => props.theme.colors.grey[500]};
+    `}
 `
 
 export default NewsCard
