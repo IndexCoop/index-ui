@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import ProductsDropdown from './ProductsDropdown'
+import ResourcesDropdown from './ResourcesDropdown'
 
 const Nav: React.FC = () => {
   return (
@@ -10,18 +11,13 @@ const Nav: React.FC = () => {
         Home
       </StyledLink>
       <ProductsDropdown />
-      <StyledLink exact activeClassName='active' to='/vote'>
-        Vote
-      </StyledLink>
-      <StyledLink exact activeClassName='active' to='/about'>
-        About
-      </StyledLink>
+      <ResourcesDropdown />
       <StyledLink exact activeClassName='active' to='/farm'>
         Farm
       </StyledLink>
-      <StyledOutboundLink href='https://docs.indexcoop.com/' target='_blank'>
-        Docs
-      </StyledOutboundLink>
+      <StyledLink exact activeClassName='active' to='/vote'>
+        Vote
+      </StyledLink>
     </StyledNav>
   )
 }
@@ -32,20 +28,6 @@ const StyledNav = styled.nav`
 `
 
 const StyledLink = styled(NavLink)`
-  color: ${(props) => props.theme.colors.grey[500]};
-  font-weight: 700;
-  padding-left: ${(props) => props.theme.spacing[3]}px;
-  padding-right: ${(props) => props.theme.spacing[3]}px;
-  text-decoration: none;
-  &:hover {
-    color: ${(props) => props.theme.colors.grey[600]};
-  }
-  &.active {
-    color: ${(props) => props.theme.colors.primary.light};
-  }
-`
-
-const StyledOutboundLink = styled.a`
   color: ${(props) => props.theme.colors.grey[500]};
   font-weight: 700;
   padding-left: ${(props) => props.theme.spacing[3]}px;
