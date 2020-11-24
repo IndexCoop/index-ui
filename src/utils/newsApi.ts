@@ -1,6 +1,13 @@
 const newsContent = [
   {
     image: 'https://miro.medium.com/max/1400/0*c1iwaImJm9AYc4iw',
+    title: 'View From the Nest #3 (Weekly Summary)',
+    author: 'DarkForestCapital',
+    readTime: '5 minute read',
+    link: 'https://indexcoop.substack.com/p/view-from-the-nest-3',
+  },
+  {
+    image: 'https://miro.medium.com/max/1400/0*c1iwaImJm9AYc4iw',
     title: 'View From the Nest #2 (Weekly Summary)',
     author: 'DarkForestCapital',
     readTime: '5 minute read',
