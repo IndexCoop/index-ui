@@ -20,6 +20,7 @@ import { currencyTokens } from 'constants/currencyTokens'
 import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
+  const [buySellToken, setBuySellToken] = useState<'dpi' | 'index'>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
@@ -33,7 +34,13 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
 
-  const { ethBalance, dpiBalance, daiBalance, usdcBalance } = useBalances()
+  const {
+    ethBalance,
+    dpiBalance,
+    indexBalance,
+    daiBalance,
+    usdcBalance,
+  } = useBalances()
 
   const {
     account,
@@ -57,7 +64,7 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     setIsFetchingOrderData(true)
     fetchTokenBuySellData(
-      'dpi',
+      buySellToken,
       isUserBuying,
       targetTradeQuantity,
       selectedCurrency?.id,
@@ -96,7 +103,9 @@ const BuySellProvider: React.FC = ({ children }) => {
     }
 
     let userBalance = new BigNumber(0)
-    if (!isUserBuying) {
+    if (!isUserBuying && buySellToken === 'index') {
+      userBalance = indexBalance || new BigNumber(0)
+    } else if (!isUserBuying && buySellToken === 'dpi') {
       userBalance = dpiBalance || new BigNumber(0)
     } else if (selectedCurrency.id === 'wrapped_eth') {
       userBalance = ethBalance || new BigNumber(0)
@@ -179,6 +188,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   return (
     <BuySellContext.Provider
       value={{
+        buySellToken,
         isFetchingOrderData,
         isUserBuying,
         activeField,
@@ -187,6 +197,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         tokenQuantity,
         currencyOptions,
         uniswapData,
+        onSetBuySellToken: setBuySellToken,
         onToggleIsUserBuying,
         onSetActiveField,
         onSetSelectedCurrency,
