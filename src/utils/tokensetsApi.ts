@@ -1,6 +1,6 @@
 import { camelCase } from 'lodash'
 
-const baseURL = 'https://api.tokensets.com/public'
+const baseURL = process.env.REACT_APP_TOKENSETS_API
 
 export const fetchTokenBuySellData = (
   id: string,
