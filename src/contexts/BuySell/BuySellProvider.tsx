@@ -32,6 +32,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     {} as UniswapPriceData
   )
 
+  console.log('buyselltoken set to ', buySellToken)
+
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
 
   const {

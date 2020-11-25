@@ -27,12 +27,13 @@ const DpiProductPage: React.FC = () => {
     latestVolume,
   } = useIndexTokenMarketData()
   const { indexBalance } = useBalances()
+
   return (
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
           <MarketData />
-          <BuySellWrapper />
+          <BuySellWrapper tokenId='index' />
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
