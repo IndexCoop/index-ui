@@ -8,6 +8,7 @@ import MaxButton from './MaxButton'
 
 const TokenInputs: React.FC = () => {
   const {
+    buySellToken,
     isUserBuying,
     activeField,
     selectedCurrency,
@@ -136,7 +137,9 @@ const TokenInputs: React.FC = () => {
               onChange={(e) => onSetTokenQuantity(e.target.value)}
               onFocus={() => onSetActiveField('set')}
             />
-            <StyledTargetTokenSymbol>DPI</StyledTargetTokenSymbol>
+            <StyledTargetTokenSymbol>
+              {buySellToken.toUpperCase()}
+            </StyledTargetTokenSymbol>
           </StyledCurrencySelectWrapper>
         </StyledCurrencyContainer>
       </>
@@ -166,7 +169,9 @@ const TokenInputs: React.FC = () => {
             onChange={(e) => onSetTokenQuantity(e.target.value)}
             onFocus={() => onSetActiveField('set')}
           />
-          <StyledTargetTokenSymbol>DPI</StyledTargetTokenSymbol>
+          <StyledTargetTokenSymbol>
+            {buySellToken.toUpperCase()}
+          </StyledTargetTokenSymbol>
         </StyledCurrencySelectWrapper>
       </StyledCurrencyContainer>
 
