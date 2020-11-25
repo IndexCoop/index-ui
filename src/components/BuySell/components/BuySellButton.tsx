@@ -8,6 +8,7 @@ import {
   daiTokenAddress,
   usdcTokenAddress,
   dpiTokenAddress,
+  indexTokenAddress,
   uniswapRouterAddress,
 } from 'constants/ethContractAddresses'
 
@@ -20,6 +21,7 @@ import {
  */
 const BuySellButton: React.FC = () => {
   const {
+    buySellToken,
     isFetchingOrderData,
     isUserBuying,
     currencyQuantity,
@@ -33,12 +35,28 @@ const BuySellButton: React.FC = () => {
   const daiApproval = useApproval(daiTokenAddress, uniswapRouterAddress)
   const usdcApproval = useApproval(usdcTokenAddress, uniswapRouterAddress)
   const dpiApproval = useApproval(dpiTokenAddress, uniswapRouterAddress)
+  const indexApproval = useApproval(indexTokenAddress, uniswapRouterAddress)
 
   // Only prompt the user at end of the buy flow. (So they can preview the order before logging in)
   const loginRequiredBeforeSubmit = uniswapData?.amount_in && !account
 
-  const dpiApprovalRequired = !isUserBuying && !dpiApproval.isApproved
-  const dpiApproving = !isUserBuying && dpiApproval.isApproving
+  const dpiApprovalRequired =
+    !isUserBuying &&
+    buySellToken.toLowerCase() === 'dpi' &&
+    !dpiApproval.isApproved
+  const dpiApproving =
+    !isUserBuying &&
+    buySellToken.toLowerCase() === 'dpi' &&
+    dpiApproval.isApproving
+
+  const indexApprovalRequired =
+    !isUserBuying &&
+    buySellToken.toLowerCase() === 'index' &&
+    !indexApproval.isApproved
+  const indexApproving =
+    !isUserBuying &&
+    buySellToken.toLowerCase() === 'index' &&
+    indexApproval.isApproving
 
   const daiApprovalRequired =
     isUserBuying && selectedCurrency?.id === 'mcd' && !daiApproval.isApproved
@@ -55,12 +73,15 @@ const BuySellButton: React.FC = () => {
   if (loginRequiredBeforeSubmit) {
     buttonText = 'Login'
     buttonAction = onOpenWalletModal
-  } else if (dpiApproving || daiApproving || usdcApproving) {
+  } else if (dpiApproving || indexApproving || daiApproving || usdcApproving) {
     buttonText = 'Approving'
     buttonAction = () => {}
   } else if (dpiApprovalRequired) {
     buttonText = 'Approve DPI'
     buttonAction = dpiApproval.onApprove
+  } else if (indexApprovalRequired) {
+    buttonText = 'Approve INDEX'
+    buttonAction = indexApproval.onApprove
   } else if (daiApprovalRequired) {
     buttonText = 'Approve DAI'
     buttonAction = daiApproval.onApprove
