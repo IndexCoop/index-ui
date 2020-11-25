@@ -1,5 +1,6 @@
 import { createContext } from 'react'
 import { UniswapPriceData } from './types'
+import BigNumber from 'utils/bignumber'
 
 interface BuySellContextValues {
   buySellToken: 'dpi' | 'index'
@@ -10,6 +11,7 @@ interface BuySellContextValues {
   currencyQuantity: string | undefined
   tokenQuantity: string | undefined
   currencyOptions: any[]
+  spendingTokenBalance: BigNumber
   uniswapData: UniswapPriceData | undefined
   onSetBuySellToken: (tokenId: 'index' | 'dpi') => void
   onToggleIsUserBuying: () => void
@@ -29,6 +31,7 @@ const BuySellContext = createContext<BuySellContextValues>({
   currencyQuantity: undefined,
   tokenQuantity: undefined,
   currencyOptions: [],
+  spendingTokenBalance: new BigNumber(0),
   uniswapData: undefined,
   onSetBuySellToken: () => {},
   onToggleIsUserBuying: () => {},

@@ -52,6 +52,19 @@ const BuySellProvider: React.FC = ({ children }) => {
     setSelectedCurrency(currencyTokens[0])
   }, [])
 
+  let spendingTokenBalance = new BigNumber(0)
+  if (!isUserBuying && buySellToken === 'index') {
+    spendingTokenBalance = indexBalance || new BigNumber(0)
+  } else if (!isUserBuying && buySellToken === 'dpi') {
+    spendingTokenBalance = dpiBalance || new BigNumber(0)
+  } else if (selectedCurrency?.id === 'wrapped_eth') {
+    spendingTokenBalance = ethBalance || new BigNumber(0)
+  } else if (selectedCurrency?.id === 'mcd') {
+    spendingTokenBalance = daiBalance || new BigNumber(0)
+  } else if (selectedCurrency?.id === 'usdc') {
+    spendingTokenBalance = usdcBalance || new BigNumber(0)
+  }
+
   const debouncedCurrencyQuantity = useDebounce(currencyQuantity)
   const debouncedTokenQuantity = useDebounce(tokenQuantity)
   const targetTradeQuantity =
@@ -102,20 +115,7 @@ const BuySellProvider: React.FC = ({ children }) => {
       )
     }
 
-    let userBalance = new BigNumber(0)
-    if (!isUserBuying && buySellToken === 'index') {
-      userBalance = indexBalance || new BigNumber(0)
-    } else if (!isUserBuying && buySellToken === 'dpi') {
-      userBalance = dpiBalance || new BigNumber(0)
-    } else if (selectedCurrency.id === 'wrapped_eth') {
-      userBalance = ethBalance || new BigNumber(0)
-    } else if (selectedCurrency.id === 'mcd') {
-      userBalance = daiBalance || new BigNumber(0)
-    } else if (selectedCurrency.id === 'usdc') {
-      userBalance = usdcBalance || new BigNumber(0)
-    }
-
-    if (userBalance?.isLessThanOrEqualTo(requiredBalance)) return
+    if (spendingTokenBalance?.isLessThanOrEqualTo(requiredBalance)) return
 
     const uniswapTradeType = getUniswapTradeType(
       isUserBuying,
@@ -196,6 +196,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         currencyQuantity,
         tokenQuantity,
         currencyOptions,
+        spendingTokenBalance,
         uniswapData,
         onSetBuySellToken: setBuySellToken,
         onToggleIsUserBuying,

@@ -8,9 +8,11 @@ import useWallet from 'hooks/useWallet'
 
 const MaxButton: React.FC = () => {
   const {
+    buySellToken,
     isUserBuying,
     selectedCurrency,
     uniswapData,
+    spendingTokenBalance,
     onSetCurrencyQuantity,
     onSetTokenQuantity,
     onSetActiveField,
@@ -25,36 +27,31 @@ const MaxButton: React.FC = () => {
     isUserBuying && selectedCurrency?.id === 'wrapped_eth'
 
   let spendingTokenSymbol = 'ETH'
-  let spendingTokenBalance = new BigNumber(0)
   let buttonAction = () => {}
   let requiredQuantity = new BigNumber(uniswapData?.amount_in || 0).dividedBy(
     new BigNumber(10).pow(18)
   )
 
   if (!isUserBuying) {
-    spendingTokenSymbol = 'DPI'
-    spendingTokenBalance = dpiBalance || new BigNumber(0)
+    spendingTokenSymbol = buySellToken.toUpperCase()
     buttonAction = () => {
       onSetActiveField('set')
       onSetTokenQuantity(spendingTokenBalance.toString())
     }
   } else if (selectedCurrency?.id === 'wrapped_eth') {
     spendingTokenSymbol = selectedCurrency.label
-    spendingTokenBalance = ethBalance || new BigNumber(0)
     buttonAction = () => {
       onSetActiveField('currency')
       onSetCurrencyQuantity(spendingTokenBalance.toString())
     }
   } else if (selectedCurrency?.id === 'mcd') {
     spendingTokenSymbol = selectedCurrency.label
-    spendingTokenBalance = daiBalance || new BigNumber(0)
     buttonAction = () => {
       onSetActiveField('currency')
       onSetCurrencyQuantity(spendingTokenBalance.toString())
     }
   } else if (selectedCurrency?.id === 'usdc') {
     spendingTokenSymbol = selectedCurrency.label
-    spendingTokenBalance = usdcBalance || new BigNumber(0)
     buttonAction = () => {
       onSetActiveField('currency')
       onSetCurrencyQuantity(spendingTokenBalance.toString())
