@@ -10,7 +10,8 @@ export const fetchTokenBuySellData = (
   activeField: 'set' | 'currency'
 ) => {
   const buyOrSellRoute = isBuyOrder ? 'buy_price' : 'sell_price'
-  const requestUrl = `${baseURL}/v2/portfolios/${id}/${buyOrSellRoute}?quantity=${requestQuantity}&currency=${currencyId}&input_type=${activeField}`
+  const coinOrSetRoute = id.toLowerCase() === 'index' ? 'coin' : 'portfolio'
+  const requestUrl = `${baseURL}/v2/${coinOrSetRoute}/${id}/${buyOrSellRoute}?quantity=${requestQuantity}&currency=${currencyId}&input_type=${activeField}`
 
   return fetch(requestUrl)
     .then((response) => response.json())
