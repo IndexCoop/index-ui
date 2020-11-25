@@ -11,7 +11,7 @@ import {
   WalletBalance,
   Description,
 } from 'components/ProductPage'
-import { BuyTokenPlaceholder } from 'components/BuyToken'
+import { BuySellWrapper } from 'components/BuySell'
 import MarketData from './components/MarketData'
 
 import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
@@ -27,12 +27,13 @@ const DpiProductPage: React.FC = () => {
     latestVolume,
   } = useIndexTokenMarketData()
   const { indexBalance } = useBalances()
+
   return (
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
           <MarketData />
-          <BuyTokenPlaceholder />
+          <BuySellWrapper tokenId='index' />
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance

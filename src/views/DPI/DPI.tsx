@@ -31,12 +31,13 @@ const DpiProductPage: React.FC = () => {
   } = useDpiTokenMarketData()
   const { components } = useDpiIndexComponents()
   const { dpiBalance } = useBalances()
+
   return (
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
           <MarketData />
-          <BuySellWrapper />
+          <BuySellWrapper tokenId='dpi' />
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance

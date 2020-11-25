@@ -20,6 +20,7 @@ import { currencyTokens } from 'constants/currencyTokens'
 import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
+  const [buySellToken, setBuySellToken] = useState<'dpi' | 'index'>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
@@ -33,7 +34,13 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
 
-  const { ethBalance, dpiBalance, daiBalance, usdcBalance } = useBalances()
+  const {
+    ethBalance,
+    dpiBalance,
+    indexBalance,
+    daiBalance,
+    usdcBalance,
+  } = useBalances()
 
   const {
     account,
@@ -44,6 +51,19 @@ const BuySellProvider: React.FC = ({ children }) => {
     setCurrencyOptions(currencyTokens)
     setSelectedCurrency(currencyTokens[0])
   }, [])
+
+  let spendingTokenBalance = new BigNumber(0)
+  if (!isUserBuying && buySellToken === 'index') {
+    spendingTokenBalance = indexBalance || new BigNumber(0)
+  } else if (!isUserBuying && buySellToken === 'dpi') {
+    spendingTokenBalance = dpiBalance || new BigNumber(0)
+  } else if (selectedCurrency?.id === 'wrapped_eth') {
+    spendingTokenBalance = ethBalance || new BigNumber(0)
+  } else if (selectedCurrency?.id === 'mcd') {
+    spendingTokenBalance = daiBalance || new BigNumber(0)
+  } else if (selectedCurrency?.id === 'usdc') {
+    spendingTokenBalance = usdcBalance || new BigNumber(0)
+  }
 
   const debouncedCurrencyQuantity = useDebounce(currencyQuantity)
   const debouncedTokenQuantity = useDebounce(tokenQuantity)
@@ -57,7 +77,7 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     setIsFetchingOrderData(true)
     fetchTokenBuySellData(
-      'dpi',
+      buySellToken,
       isUserBuying,
       targetTradeQuantity,
       selectedCurrency?.id,
@@ -95,18 +115,7 @@ const BuySellProvider: React.FC = ({ children }) => {
       )
     }
 
-    let userBalance = new BigNumber(0)
-    if (!isUserBuying) {
-      userBalance = dpiBalance || new BigNumber(0)
-    } else if (selectedCurrency.id === 'wrapped_eth') {
-      userBalance = ethBalance || new BigNumber(0)
-    } else if (selectedCurrency.id === 'mcd') {
-      userBalance = daiBalance || new BigNumber(0)
-    } else if (selectedCurrency.id === 'usdc') {
-      userBalance = usdcBalance || new BigNumber(0)
-    }
-
-    if (userBalance?.isLessThanOrEqualTo(requiredBalance)) return
+    if (spendingTokenBalance?.isLessThanOrEqualTo(requiredBalance)) return
 
     const uniswapTradeType = getUniswapTradeType(
       isUserBuying,
@@ -179,6 +188,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   return (
     <BuySellContext.Provider
       value={{
+        buySellToken,
         isFetchingOrderData,
         isUserBuying,
         activeField,
@@ -186,7 +196,9 @@ const BuySellProvider: React.FC = ({ children }) => {
         currencyQuantity,
         tokenQuantity,
         currencyOptions,
+        spendingTokenBalance,
         uniswapData,
+        onSetBuySellToken: setBuySellToken,
         onToggleIsUserBuying,
         onSetActiveField,
         onSetSelectedCurrency,
