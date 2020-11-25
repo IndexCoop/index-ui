@@ -1,6 +1,7 @@
 import { camelCase } from 'lodash'
 
-const baseURL = 'https://api.tokensets.com/public'
+// const baseURL = 'https://api.tokensets.com/public'
+const baseURL = `https://fc9e2e276de78afd4806f40ae53dc656.tokensets.com/public`
 
 export const fetchTokenBuySellData = (
   id: string,
@@ -10,7 +11,7 @@ export const fetchTokenBuySellData = (
   activeField: 'set' | 'currency'
 ) => {
   const buyOrSellRoute = isBuyOrder ? 'buy_price' : 'sell_price'
-  const coinOrSetRoute = id.toLowerCase() === 'index' ? 'coin' : 'portfolio'
+  const coinOrSetRoute = id.toLowerCase() === 'index' ? 'coins' : 'portfolio'
   const requestUrl = `${baseURL}/v2/${coinOrSetRoute}/${id}/${buyOrSellRoute}?quantity=${requestQuantity}&currency=${currencyId}&input_type=${activeField}`
 
   return fetch(requestUrl)
