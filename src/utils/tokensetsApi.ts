@@ -1,7 +1,6 @@
 import { camelCase } from 'lodash'
 
-// const baseURL = 'https://api.tokensets.com/public'
-const baseURL = `https://fc9e2e276de78afd4806f40ae53dc656.tokensets.com/public`
+const baseURL = 'https://api.tokensets.com/public'
 
 export const fetchTokenBuySellData = (
   id: string,
