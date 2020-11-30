@@ -356,9 +356,9 @@ const Integrations: React.FC = () => (
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
+      </StyledCardRow>
 
-        <Spacer />
-
+      <StyledCardRow>
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
@@ -377,9 +377,11 @@ const Integrations: React.FC = () => (
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
+        <Spacer />
+        <StyledCardContainer></StyledCardContainer>
+        <Spacer />
+        <StyledCardContainer></StyledCardContainer>
       </StyledCardRow>
-
-      <Spacer />
     </StyledIntegrationsContainer>
   </div>
 )
