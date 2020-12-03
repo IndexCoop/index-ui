@@ -54,13 +54,15 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   const [price, setPrice] = useState(data)
 
   useEffect(() => {
-    if (durationSelector === 0) {
-      setPrice(data?.slice((data?.length * 29) / 30))
-    } else if (durationSelector === 1) {
-      setPrice(data?.slice((data?.length * 23) / 30))
-    } else if (durationSelector === 2) {
-      setPrice(data)
-    }
+    setTimeout(() => {
+      if (durationSelector === 0) {
+        setPrice(data?.slice((data?.length * 29) / 30))
+      } else if (durationSelector === 1) {
+        setPrice(data?.slice((data?.length * 23) / 30))
+      } else if (durationSelector === 2) {
+        setPrice(data)
+      }
+    }, 0)
   }, [durationSelector, data])
 
   const handleDailyButton = () => {

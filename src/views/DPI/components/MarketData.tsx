@@ -30,30 +30,36 @@ const MarketData: React.FC = () => {
     setTimeout(() => {
       setChartPrice(payload.y || 0)
       setChartDate(payload.x || Date.now())
-    }, 0)
 
-    if (isDaily) {
-      setDateString(
-        priceData.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric' })
-      )
-    } else {
-      setDateString(priceData.toDateString())
-    }
+      if (isDaily) {
+        setDateString(
+          priceData.toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: 'numeric',
+          })
+        )
+      } else {
+        setDateString(priceData.toDateString())
+      }
+    }, 0)
   }
 
   const resetChartPrice = () => {
     setTimeout(() => {
       setChartPrice(latestPrice || 0)
       setChartDate(Date.now())
-    }, 0)
 
-    if (isDaily) {
-      setDateString(
-        priceData.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric' })
-      )
-    } else {
-      setDateString(priceData.toDateString())
-    }
+      if (isDaily) {
+        setDateString(
+          priceData.toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: 'numeric',
+          })
+        )
+      } else {
+        setDateString(priceData.toDateString())
+      }
+    }, 0)
   }
 
   const priceData = new Date(chartDate)
