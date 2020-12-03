@@ -14,6 +14,7 @@ import {
   usdcTokenAddress,
   uniswapEthDpiLpTokenAddress,
   stakingRewardsAddress,
+  farmTwoAddress,
 } from 'constants/ethContractAddresses'
 
 const Provider: React.FC = ({ children }) => {
@@ -63,8 +64,7 @@ const Provider: React.FC = ({ children }) => {
         getBalance(provider, stakingRewardsAddress as string, userAddress),
         getEarnedIndexTokenQuantity(provider, userAddress),
 
-        // TODO update with address for farm two
-        getBalance(provider, stakingRewardsAddress as string, userAddress),
+        getBalance(provider, farmTwoAddress as string, userAddress),
         getEarnedFarmTwoBalance(provider, userAddress),
       ])
 
