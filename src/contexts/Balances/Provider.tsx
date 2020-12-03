@@ -6,6 +6,7 @@ import Context from './Context'
 import useWallet from 'hooks/useWallet'
 import { getBalance, getEthBalance } from 'utils/index'
 import { getEarnedIndexTokenQuantity } from 'index-sdk/stake'
+import { getEarnedIndexTokenQuantity as getEarnedFarmTwoBalance } from 'index-sdk/farmTwo'
 import {
   dpiTokenAddress,
   indexTokenAddress,
@@ -64,7 +65,7 @@ const Provider: React.FC = ({ children }) => {
 
         // TODO update with address for farm two
         getBalance(provider, stakingRewardsAddress as string, userAddress),
-        getEarnedIndexTokenQuantity(provider, userAddress),
+        getEarnedFarmTwoBalance(provider, userAddress),
       ])
 
       setEthBalance(

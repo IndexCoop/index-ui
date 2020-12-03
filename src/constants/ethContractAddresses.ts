@@ -2,6 +2,7 @@
 export const airdropAddress = process.env.REACT_APP_INDEX_AIRDROP_ADDRESS
 export const stakingRewardsAddress =
   process.env.REACT_APP_INDEX_STAKING_REWARDS_ADDRESS
+export const farmTwoAddress = process.env.REACT_APP_FARM_TWO_ADDRESS
 
 // Token Addresses
 export const indexTokenAddress = process.env.REACT_APP_INDEX_TOKEN_ADDRESS
