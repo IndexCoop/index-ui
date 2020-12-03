@@ -13,10 +13,10 @@ import {
   unstakeUniswapEthDpiLpTokens,
   claimEarnedIndexLpReward,
   unstakeAndClaimEarnedIndexLpReward,
-} from 'index-sdk/stake'
+} from 'index-sdk/farmTwo'
 import { waitTransaction } from 'utils/index'
 import {
-  stakingRewardsAddress,
+  farmTwoAddress,
   uniswapEthDpiLpTokenAddress,
 } from 'constants/ethContractAddresses'
 
@@ -32,7 +32,7 @@ const Provider: React.FC = ({ children }) => {
     isApproved,
     isApproving,
     onApprove,
-  } = useApproval(uniswapEthDpiLpTokenAddress, stakingRewardsAddress, () =>
+  } = useApproval(uniswapEthDpiLpTokenAddress, farmTwoAddress, () =>
     setConfirmTxModalIsOpen(false)
   )
 
