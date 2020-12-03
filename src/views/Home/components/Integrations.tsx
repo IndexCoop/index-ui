@@ -17,7 +17,7 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/owl.png' />
               <StyledCardTitle>Index Coop</StyledCardTitle>
               <StyledCardDescription>
-                Earn INDEX tokens be staking Uniswap ETH/DPI LP tokens.
+                Earn INDEX tokens by staking Uniswap ETH/DPI LP tokens.
               </StyledCardDescription>
 
               <StyledOutboundLink href='/farm'>
@@ -356,9 +356,9 @@ const Integrations: React.FC = () => (
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
+      </StyledCardRow>
 
-        <Spacer />
-
+      <StyledCardRow>
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
@@ -377,9 +377,11 @@ const Integrations: React.FC = () => (
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
+        <Spacer />
+        <StyledCardContainer></StyledCardContainer>
+        <Spacer />
+        <StyledCardContainer></StyledCardContainer>
       </StyledCardRow>
-
-      <Spacer />
     </StyledIntegrationsContainer>
   </div>
 )
@@ -405,7 +407,7 @@ const StyledCardRow = styled.div`
 `
 
 const StyledCardContainer = styled.div`
-  width: 30%;
+  flex: 1;
   margin-bottom: 20px;
   @media (max-width: 768px) {
     width: 100%;
@@ -414,7 +416,7 @@ const StyledCardContainer = styled.div`
 
 const StyledFixedCardContainer = styled.div`
   height: 300px;
-  width: 30%;
+  flex: 1;
   margin-bottom: 50px;
   @media (max-width: 768px) {
     width: 100%;
