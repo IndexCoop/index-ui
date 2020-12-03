@@ -7,6 +7,12 @@ export interface ContextValues {
   daiBalance?: BigNumber
   usdcBalance?: BigNumber
   uniswapEthDpiLpBalance?: BigNumber
+
+  // For Liquidity Mining 1 program
   stakedUniswapEthDpiLpBalance?: BigNumber
   unharvestedIndexBalance?: BigNumber
+
+  // For Liquidity Mining 2 program
+  stakedFarmTwoBalance?: BigNumber
+  unharvestedFarmTwoBalance?: BigNumber
 }

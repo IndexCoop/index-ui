@@ -31,6 +31,10 @@ const Provider: React.FC = ({ children }) => {
   const [unharvestedIndexBalance, setUnharvestedIndexBalance] = useState<
     BigNumber
   >()
+  const [stakedFarmTwoBalance, setStakedFarmTwoBalance] = useState<BigNumber>()
+  const [unharvestedFarmTwoBalance, setUnharvestedFarmTwoBalance] = useState<
+    BigNumber
+  >()
 
   const {
     account,
@@ -127,8 +131,12 @@ const Provider: React.FC = ({ children }) => {
         daiBalance,
         usdcBalance,
         uniswapEthDpiLpBalance,
+
         stakedUniswapEthDpiLpBalance,
         unharvestedIndexBalance,
+
+        stakedFarmTwoBalance,
+        unharvestedFarmTwoBalance,
       }}
     >
       {children}
