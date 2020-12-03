@@ -21,16 +21,17 @@ interface SimplePriceChartProps {
   }[]
   onMouseMove?: (...args: any[]) => any
   onMouseLeave?: (...args: any[]) => any
+  setIsDaily?: (...args: any[]) => any
 }
 
 const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   title,
   showTooltip,
-  showDurations,
   icon,
   data,
   onMouseMove = () => {},
   onMouseLeave = () => {},
+  setIsDaily = () => {},
 }) => {
   const theme = useTheme()
   const formatFloats = (n: number) => parseFloat(numeral(n).format('0.00a'))
@@ -39,7 +40,14 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
     const {
       payload: { x, y },
     } = chartData
-    return [new Date(x).toLocaleDateString(), '$' + formatFloats(y)]
+    let timeString = new Date(x).toLocaleDateString()
+    if (durationSelector === 0) {
+      timeString = new Date(x).toLocaleTimeString([], {
+        hour: 'numeric',
+        minute: 'numeric',
+      })
+    }
+    return [timeString, '$' + formatFloats(y)]
   }
 
   const [durationSelector, setDurationSelector] = useState<number>(2)
@@ -57,12 +65,15 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
 
   const handleDailyButton = () => {
     setDurationSelector(0)
+    setIsDaily(true)
   }
   const handleWeeklyButton = () => {
     setDurationSelector(1)
+    setIsDaily(false)
   }
   const handleMonthlyButton = () => {
     setDurationSelector(2)
+    setIsDaily(false)
   }
 
   const renderTooltip = (props: any) => {
