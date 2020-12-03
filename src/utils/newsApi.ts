@@ -1,5 +1,28 @@
 const newsContent = [
   {
+    image: 'http://i3.ytimg.com/vi/NITWj6NqTuU/maxresdefault.jpg',
+    title: 'Talking Crypto With Regan Bozman (Index Core Contributor)',
+    author: 'Gabriel Haines',
+    readTime: '1 hour podcast',
+    link: 'https://www.youtube.com/watch?v=NITWj6NqTuU&feature=youtu.be',
+  },
+  {
+    image: 'https://miro.medium.com/max/1400/0*c1iwaImJm9AYc4iw',
+    title: 'View From the Nest #4 (Weekly Summary)',
+    author: 'DarkForestCapital',
+    readTime: '5 minute read',
+    link: 'https://indexcoop.substack.com/p/view-from-the-nest-3',
+  },
+  {
+    image:
+      'https://pbs.twimg.com/profile_banners/1312497976883904512/1602012492/1500x500',
+    title: 'Digging into Divergence Loss',
+    author: 'Overanalyser',
+    readTime: '5 minute read',
+    link:
+      'https://overanalyser.medium.com/digging-into-divergence-loss-30a1ec17c2f5',
+  },
+  {
     image: 'https://miro.medium.com/max/1400/0*c1iwaImJm9AYc4iw',
     title: 'View From the Nest #3 (Weekly Summary)',
     author: 'DarkForestCapital',
