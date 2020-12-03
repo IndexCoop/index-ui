@@ -1,5 +1,5 @@
-import React from 'react'
-import { Container, useTheme } from 'react-neu'
+import React, { useEffect, useState } from 'react'
+import { Container, useTheme, Button, Spacer } from 'react-neu'
 import numeral from 'numeral'
 import styled from 'styled-components'
 
@@ -10,6 +10,7 @@ import { ResponsiveContainer, LineChart, Line, YAxis, Tooltip } from 'recharts'
 interface SimplePriceChartProps {
   title?: string
   showTooltip?: boolean
+  showDurations?: boolean
   icon: {
     src: string
     alt: string
@@ -25,6 +26,7 @@ interface SimplePriceChartProps {
 const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   title,
   showTooltip,
+  showDurations,
   icon,
   data,
   onMouseMove = () => {},
@@ -40,6 +42,29 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
     return [new Date(x).toLocaleDateString(), '$' + formatFloats(y)]
   }
 
+  const [durationSelector, setDurationSelector] = useState<number>(2)
+  const [price, setPrice] = useState(data)
+
+  useEffect(() => {
+    if (durationSelector === 0) {
+      setPrice(data?.slice((data?.length * 29) / 30))
+    } else if (durationSelector === 1) {
+      setPrice(data?.slice((data?.length * 23) / 30))
+    } else if (durationSelector === 2) {
+      setPrice(data)
+    }
+  }, [durationSelector, data])
+
+  const handleDailyButton = () => {
+    setDurationSelector(0)
+  }
+  const handleWeeklyButton = () => {
+    setDurationSelector(1)
+  }
+  const handleMonthlyButton = () => {
+    setDurationSelector(2)
+  }
+
   const renderTooltip = (props: any) => {
     if (!showTooltip) return null
 
@@ -49,8 +74,8 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
     return <FancyValue icon={icon} label={label} value={value} />
   }
 
-  const minY = Math.min(...(data || []).map<number>(({ y }) => y))
-  const maxY = Math.max(...(data || []).map<number>(({ y }) => y))
+  const minY = Math.min(...(price || []).map<number>(({ y }) => y))
+  const maxY = Math.max(...(price || []).map<number>(({ y }) => y))
   const minimumYAxisLabel = minY - 5 > 0 ? minY - 5 : 0
 
   return (
@@ -58,7 +83,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
       {title && <ChartTitle>{title}</ChartTitle>}
       <ChartContainer>
         <LineChart
-          data={data}
+          data={price}
           onMouseMove={onMouseMove}
           onMouseLeave={onMouseLeave}
         >
@@ -92,6 +117,31 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
           </defs>
         </LineChart>
       </ChartContainer>
+      <div style={{ float: 'right', display: 'flex', paddingBottom: '20px' }}>
+        <Button
+          full
+          size={'sm'}
+          text='1D'
+          variant={durationSelector === 0 ? 'default' : 'secondary'}
+          onClick={handleDailyButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='1W'
+          variant={durationSelector === 1 ? 'default' : 'secondary'}
+          onClick={handleWeeklyButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='1M'
+          variant={durationSelector === 2 ? 'default' : 'secondary'}
+          onClick={handleMonthlyButton}
+        />
+      </div>
     </Container>
   )
 }
@@ -102,6 +152,20 @@ const ChartContainer = styled(ResponsiveContainer)`
 
 const ChartTitle = styled.h2`
   font-size: 42px;
+`
+
+const DurationButton = styled.button`
+  background-color: radial-gradient(
+    circle at center top,
+    rgb(22, 20, 31),
+    rgb(22, 20, 31)
+  );
+  border: none;
+  border-radius: 50px;
+  margin: 8px;
+  padding: 0 0 10 10 px;
+  font-size: 1em;
+  color: white;
 `
 
 export default MarketDataChart
