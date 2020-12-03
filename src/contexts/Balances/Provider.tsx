@@ -61,6 +61,10 @@ const Provider: React.FC = ({ children }) => {
         ),
         getBalance(provider, stakingRewardsAddress as string, userAddress),
         getEarnedIndexTokenQuantity(provider, userAddress),
+
+        // TODO update with address for farm two
+        getBalance(provider, stakingRewardsAddress as string, userAddress),
+        getEarnedIndexTokenQuantity(provider, userAddress),
       ])
 
       setEthBalance(
@@ -86,6 +90,12 @@ const Provider: React.FC = ({ children }) => {
       )
       setUnharvestedIndexBalance(
         new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(18))
+      )
+      setStakedFarmTwoBalance(
+        new BigNumber(balances[8]).dividedBy(new BigNumber(10).pow(18))
+      )
+      setUnharvestedFarmTwoBalance(
+        new BigNumber(balances[9]).dividedBy(new BigNumber(10).pow(18))
       )
     },
     [
