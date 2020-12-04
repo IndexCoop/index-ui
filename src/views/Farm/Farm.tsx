@@ -1,9 +1,6 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Box, Button, Container, Separator, Spacer } from 'react-neu'
-
-import useFarming from 'hooks/useFarming'
-import useWallet from 'hooks/useWallet'
 
 import Page from 'components/Page'
 import Split from 'components/Split'
@@ -14,26 +11,6 @@ import RewardsCard from './components/Rewards'
 import Treasury from './components/Treasury'
 
 const Farm: React.FC = () => {
-  const { status } = useWallet()
-  const { onUnstakeAndHarvest } = useFarming()
-
-  const UnstakeAndHarvestButton = useMemo(() => {
-    if (status !== 'connected') {
-      return <Button disabled text='Claim &amp; Unstake' variant='secondary' />
-    }
-    return (
-      <Button
-        onClick={onUnstakeAndHarvest}
-        text='Claim &amp; Unstake'
-        variant='secondary'
-      />
-    )
-  }, [status, onUnstakeAndHarvest])
-  const icon = {
-    src: 'https://index-dao.s3.amazonaws.com/moon.png',
-    alt: 'Moon',
-  }
-
   return (
     <Page>
       <Container>
@@ -52,10 +29,6 @@ const Farm: React.FC = () => {
           <HarvestCard />
         </Split>
         <Spacer />
-        <Box row justifyContent='center'>
-          {UnstakeAndHarvestButton}
-        </Box>
-        <Spacer size='lg' />
         <Separator />
         <Spacer size='lg' />
         <Box row justifyContent='center'>
@@ -71,12 +44,14 @@ const StyledPageHeader = styled.div`
   color: ${(props) => props.theme.textColor};
   font-size: 48px;
   font-weight: 700;
+  text-align: center;
   width: 100%;
 `
 
 const StyledPageSubheader = styled.div`
   color: ${(props) => props.theme.colors.grey[500]};
   font-size: 24px;
+  text-align: center;
   width: 100%;
 `
 

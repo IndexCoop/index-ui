@@ -1,6 +1,4 @@
 import React, { useCallback, useMemo, useState } from 'react'
-
-import Countdown, { CountdownRenderProps } from 'react-countdown'
 import numeral from 'numeral'
 import {
   Box,
@@ -31,13 +29,11 @@ const Stake: React.FC = () => {
   const { stakedUniswapEthDpiLpBalance: stakedBalance } = useBalances()
   const { status } = useWallet()
   const {
-    countdown,
-    farmingStartTime,
     isApproved,
     isApproving,
     onApprove,
     onStake,
-    onUnstake,
+    onUnstakeAndHarvest,
   } = useFarming()
   const { apy } = usePrices()
 
@@ -57,13 +53,10 @@ const Stake: React.FC = () => {
     [handleDismissStakeModal, onStake]
   )
 
-  const handleOnUnstake = useCallback(
-    (amount: string) => {
-      onUnstake(amount)
-      handleDismissUnstakeModal()
-    },
-    [handleDismissUnstakeModal, onUnstake]
-  )
+  const handleOnUnstake = useCallback(() => {
+    onUnstakeAndHarvest()
+    handleDismissUnstakeModal()
+  }, [handleDismissUnstakeModal, onUnstakeAndHarvest])
 
   const handleStakeClick = useCallback(() => {
     setStakeModalIsOpen(true)
@@ -99,13 +92,13 @@ const Stake: React.FC = () => {
   const UnstakeButton = useMemo(() => {
     const hasStaked = stakedBalance && stakedBalance.toNumber() > 0
     if (status !== 'connected' || !hasStaked) {
-      return <Button disabled full text='Unstake' variant='secondary' />
+      return <Button disabled full text='Unstake & Claim' variant='secondary' />
     }
     return (
       <Button
         full
         onClick={handleUnstakeClick}
-        text='Unstake'
+        text='Unstake & Claim'
         variant='secondary'
       />
     )
@@ -119,26 +112,12 @@ const Stake: React.FC = () => {
     }
   }, [stakedBalance])
 
-  const renderer = (countdownProps: CountdownRenderProps) => {
-    const { hours, minutes, seconds } = countdownProps
-    const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
-    const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
-    const paddedHours = hours < 10 ? `0${hours}` : hours
-    return (
-      <Box row justifyContent='center'>
-        <Label
-          text={`Farming starts in ${paddedHours}:${paddedMinutes}:${paddedSeconds}`}
-        />
-      </Box>
-    )
-  }
-
   return (
     <>
       <Card>
         <CardIcon>
           <StyledIcon
-            alt='Chick icon'
+            alt='expiring icon'
             src='https://index-dao.s3.amazonaws.com/chick.png'
           />
         </CardIcon>
@@ -157,11 +136,6 @@ const Stake: React.FC = () => {
           {UnstakeButton}
           {StakeButton}
         </CardActions>
-        {typeof countdown !== 'undefined' && countdown > 0 && (
-          <CardActions>
-            <Countdown date={farmingStartTime} renderer={renderer} />
-          </CardActions>
-        )}
       </Card>
       <StakeModal
         isOpen={stakeModalIsOpen}
