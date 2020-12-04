@@ -10,8 +10,9 @@ import useWallet from 'hooks/useWallet'
 
 import StakeModal from './components/StakeModal'
 import UnstakeModal from './components/UnstakeModal'
-import { farmTwoStartTime } from 'index-sdk/farmTwo'
+
 import BigNumber from 'utils/bignumber'
+import { farmEndTime } from 'index-sdk/stake'
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
@@ -115,7 +116,7 @@ const Stake: React.FC = () => {
   }, [unharvestedIndexBalance])
 
   const currentTime = Date.now()
-  const isPoolActive = new BigNumber(farmTwoStartTime).isGreaterThan(
+  const isPoolActive = new BigNumber(farmEndTime).isGreaterThan(
     new BigNumber(currentTime)
   )
 

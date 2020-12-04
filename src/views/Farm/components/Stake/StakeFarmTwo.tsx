@@ -4,12 +4,15 @@ import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import useBalances from 'hooks/useBalances'
-import useFarming from 'hooks/useFarming'
+import useFarmingTwo from 'hooks/useFarmingTwo'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
 import StakeModal from './components/StakeModal'
 import UnstakeModal from './components/UnstakeModal'
+
+import BigNumber from 'utils/bignumber'
+import { farmTwoStartTime } from 'index-sdk/farmTwo'
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
@@ -27,7 +30,7 @@ const Stake: React.FC = () => {
     onStake,
     onUnstakeAndHarvest,
     onHarvest,
-  } = useFarming()
+  } = useFarmingTwo()
   const { apy } = usePrices()
 
   const handleDismissStakeModal = useCallback(() => {
@@ -120,6 +123,13 @@ const Stake: React.FC = () => {
     }
   }, [unharvestedIndexBalance])
 
+  const currentTime = Date.now()
+  const isPoolActive = new BigNumber(farmTwoStartTime).isGreaterThan(
+    new BigNumber(currentTime)
+  )
+
+  const poolTitle = isPoolActive ? 'Upcoming Pool' : 'Active Pool'
+
   return (
     <>
       <Card>
@@ -129,7 +139,7 @@ const Stake: React.FC = () => {
             src='https://index-dao.s3.amazonaws.com/up-arrow.svg'
           />
           <Spacer size='sm' />
-          <StyledCardTitle>Active Pool</StyledCardTitle>
+          <StyledCardTitle>{poolTitle}</StyledCardTitle>
           <Spacer size='sm' />
           <StyledCardText>Active Dec. 7th - Jan. 6th</StyledCardText>
           <Spacer />
