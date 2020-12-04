@@ -7,6 +7,7 @@ import Split from 'components/Split'
 
 import HarvestCard from './components/Harvest'
 import StakeCard from './components/Stake'
+import StakeFarmTwoCard from './components/Stake/StakeFarmTwo'
 import RewardsCard from './components/Rewards'
 import Treasury from './components/Treasury'
 
@@ -23,9 +24,10 @@ const Farm: React.FC = () => {
       <Spacer />
       <Treasury />
       <Spacer />
-      <Container>
+      <Container size='lg'>
         <Split>
           <StakeCard />
+          <StakeFarmTwoCard />
           <HarvestCard />
         </Split>
         <Spacer />

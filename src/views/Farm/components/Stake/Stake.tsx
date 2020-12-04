@@ -11,9 +11,6 @@ import {
 } from 'react-neu'
 import styled from 'styled-components'
 
-import Label from 'components/Label'
-import Value from 'components/Value'
-
 import useBalances from 'hooks/useBalances'
 import useFarming from 'hooks/useFarming'
 import usePrices from 'hooks/usePrices'
@@ -26,7 +23,10 @@ const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
   const [unstakeModalIsOpen, setUnstakeModalIsOpen] = useState(false)
 
-  const { stakedUniswapEthDpiLpBalance: stakedBalance } = useBalances()
+  const {
+    stakedUniswapEthDpiLpBalance: stakedBalance,
+    unharvestedIndexBalance,
+  } = useBalances()
   const { status } = useWallet()
   const {
     isApproved,
@@ -112,11 +112,19 @@ const Stake: React.FC = () => {
     }
   }, [stakedBalance])
 
+  const formattedEarnedBalance = useMemo(() => {
+    if (unharvestedIndexBalance) {
+      return numeral(unharvestedIndexBalance.toString()).format('0.00000a')
+    } else {
+      return '--'
+    }
+  }, [unharvestedIndexBalance])
+
   return (
     <>
       <Card>
         <CardContent>
-          <StyledIcon
+          <StyledHeaderIcon
             alt='expiring icon'
             src='https://index-dao.s3.amazonaws.com/down-arrow.svg'
           />
@@ -125,13 +133,30 @@ const Stake: React.FC = () => {
           <Spacer size='sm' />
           <StyledCardText>Active Oct. 7th - Dec. 6th</StyledCardText>
           <Spacer />
-          <StyledSectionTitle>{formattedStakedBalance}</StyledSectionTitle>
+          <StyledSectionTitle>
+            {formattedStakedBalance}
+            <StyledTokenIcon
+              alt='eth dpi icon'
+              src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
+            />
+          </StyledSectionTitle>
           <StyledSectionLabel>
             (Staked ETH/DPI Uniswap LP Tokens)
           </StyledSectionLabel>
           <Spacer />
           <StyledSectionTitle>{apy}% APY</StyledSectionTitle>
           <StyledSectionLabel>(Unstable)</StyledSectionLabel>
+          <Spacer />
+          <StyledSectionTitle>
+            {formattedEarnedBalance}
+            <StyledTokenIcon
+              alt='owl icon'
+              src='https://index-dao.s3.amazonaws.com/owl.png'
+            />
+          </StyledSectionTitle>
+          <StyledSectionLabel>
+            Unclaimed INDEX in expiring pool
+          </StyledSectionLabel>
           <Spacer />
         </CardContent>
         <CardActions>
@@ -153,31 +178,36 @@ const Stake: React.FC = () => {
   )
 }
 
-const StyledIcon = styled.img`
+const StyledHeaderIcon = styled.img`
   height: 58px;
   width: 58px;
 `
 
+const StyledTokenIcon = styled.img`
+  height: 20px;
+  margin-left: 10px;
+`
+
 const StyledCardTitle = styled.span`
-  color: ${(props) => props.theme.colors.grey};
   font-weight: 600;
   font-size: 28px;
 `
 
 const StyledCardText = styled.span`
-  color: ${(props) => props.theme.colors.grey};
+  color: ${(props) => props.theme.colors.grey[500]};
   font-weight: 600;
   font-size: 18px;
 `
 
 const StyledSectionTitle = styled.span`
-  color: ${(props) => props.theme.colors.grey};
+  display: flex;
+  align-items: center;
   font-weight: 600;
   font-size: 24px;
 `
 const StyledSectionLabel = styled.span`
-  color: ${(props) => props.theme.colors.grey};
-  font-size: 20px;
+  color: ${(props) => props.theme.colors.grey[500]};
+  font-size: 16px;
 `
 
 export default Stake
