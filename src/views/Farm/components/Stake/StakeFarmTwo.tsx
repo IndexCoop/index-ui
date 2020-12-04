@@ -1,14 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import numeral from 'numeral'
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardIcon,
-  Spacer,
-} from 'react-neu'
+import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import useBalances from 'hooks/useBalances'

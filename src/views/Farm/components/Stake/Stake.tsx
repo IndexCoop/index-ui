@@ -10,6 +10,8 @@ import useWallet from 'hooks/useWallet'
 
 import StakeModal from './components/StakeModal'
 import UnstakeModal from './components/UnstakeModal'
+import { farmTwoStartTime } from 'index-sdk/farmTwo'
+import BigNumber from 'utils/bignumber'
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
@@ -112,6 +114,13 @@ const Stake: React.FC = () => {
     }
   }, [unharvestedIndexBalance])
 
+  const currentTime = Date.now()
+  const isPoolActive = new BigNumber(farmTwoStartTime).isGreaterThan(
+    new BigNumber(currentTime)
+  )
+
+  const poolTitle = isPoolActive ? 'Expiring Pool' : 'Expired Pool'
+
   return (
     <>
       <Card>
@@ -121,7 +130,7 @@ const Stake: React.FC = () => {
             src='https://index-dao.s3.amazonaws.com/down-arrow.svg'
           />
           <Spacer size='sm' />
-          <StyledCardTitle>Expiring Pool</StyledCardTitle>
+          <StyledCardTitle>{poolTitle}</StyledCardTitle>
           <Spacer size='sm' />
           <StyledCardText>Active Oct. 7th - Dec. 6th</StyledCardText>
           <Spacer />
@@ -151,7 +160,7 @@ const Stake: React.FC = () => {
           </StyledSectionLabel>
           <Spacer />
         </CardContent>
-        <CardActions>{StakeButton}</CardActions>
+        {isPoolActive && <CardActions>{StakeButton}</CardActions>}
         <CardActions>{UnstakeButton}</CardActions>
       </Card>
       <StakeModal

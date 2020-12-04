@@ -123,3 +123,7 @@ export const unstakeAndClaimEarnedIndexLpReward = (
       })
   })
 }
+
+// TODO: update with correct date
+// Currently set for 12pm PST Dec. 6th
+export const farmTwoStartTime = '1607284800000'
