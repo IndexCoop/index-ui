@@ -5,7 +5,6 @@ import { Box, Button, Container, Separator, Spacer } from 'react-neu'
 import Page from 'components/Page'
 import Split from 'components/Split'
 
-import HarvestCard from './components/Harvest'
 import StakeCard from './components/Stake'
 import StakeFarmTwoCard from './components/Stake/StakeFarmTwo'
 import RewardsCard from './components/Rewards'
@@ -24,11 +23,10 @@ const Farm: React.FC = () => {
       <Spacer />
       <Treasury />
       <Spacer />
-      <Container size='lg'>
+      <Container>
         <Split>
           <StakeCard />
           <StakeFarmTwoCard />
-          <HarvestCard />
         </Split>
         <Spacer />
         <Separator />

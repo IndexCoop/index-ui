@@ -34,6 +34,7 @@ const Stake: React.FC = () => {
     onApprove,
     onStake,
     onUnstakeAndHarvest,
+    onHarvest,
   } = useFarming()
   const { apy } = usePrices()
 
@@ -104,6 +105,13 @@ const Stake: React.FC = () => {
     )
   }, [stakedBalance, status, handleUnstakeClick])
 
+  const ClaimButton = useMemo(() => {
+    if (status !== 'connected') {
+      return <Button disabled full text='Claim' variant='secondary' />
+    }
+    return <Button full onClick={onHarvest} text='Claim' />
+  }, [status, onHarvest])
+
   const formattedStakedBalance = useMemo(() => {
     if (stakedBalance) {
       return numeral(stakedBalance.toString()).format('0.00000a')
@@ -155,14 +163,15 @@ const Stake: React.FC = () => {
             />
           </StyledSectionTitle>
           <StyledSectionLabel>
-            Unclaimed INDEX in expiring pool
+            Unclaimed INDEX in active pool
           </StyledSectionLabel>
           <Spacer />
         </CardContent>
         <CardActions>
-          {UnstakeButton}
+          {ClaimButton}
           {StakeButton}
         </CardActions>
+        <CardActions>{UnstakeButton}</CardActions>
       </Card>
       <StakeModal
         isOpen={stakeModalIsOpen}

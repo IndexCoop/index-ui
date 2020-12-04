@@ -159,16 +159,8 @@ const Stake: React.FC = () => {
           </StyledSectionLabel>
           <Spacer />
         </CardContent>
-        <CardActions>
-          {UnstakeButton}
-          {StakeButton}
-        </CardActions>
+        <CardActions>{UnstakeButton}</CardActions>
       </Card>
-      <StakeModal
-        isOpen={stakeModalIsOpen}
-        onDismiss={handleDismissStakeModal}
-        onStake={handleOnStake}
-      />
       <UnstakeModal
         isOpen={unstakeModalIsOpen}
         onDismiss={handleDismissUnstakeModal}
