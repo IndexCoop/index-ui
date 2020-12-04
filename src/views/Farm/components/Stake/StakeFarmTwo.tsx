@@ -26,6 +26,7 @@ const Stake: React.FC = () => {
   const {
     isApproved,
     isApproving,
+    isPoolActive,
     onApprove,
     onStake,
     onUnstakeAndHarvest,
@@ -122,11 +123,6 @@ const Stake: React.FC = () => {
       return '--'
     }
   }, [unharvestedIndexBalance])
-
-  const currentTime = Date.now()
-  const isPoolActive = new BigNumber(farmTwoStartTime).isGreaterThan(
-    new BigNumber(currentTime)
-  )
 
   const poolTitle = isPoolActive ? 'Upcoming Pool' : 'Active Pool'
 

@@ -19,6 +19,7 @@ import {
   farmTwoAddress,
   uniswapEthDpiLpTokenAddress,
 } from 'constants/ethContractAddresses'
+import { farmTwoStartTime } from 'index-sdk/farmTwo'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -161,9 +162,15 @@ const Provider: React.FC = ({ children }) => {
     }
   }, [ethereum, account, setConfirmTxModalIsOpen])
 
+  const currentTime = Date.now()
+  const isPoolActive = new BigNumber(farmTwoStartTime).isGreaterThan(
+    new BigNumber(currentTime)
+  )
+
   return (
     <Context.Provider
       value={{
+        isPoolActive,
         isApproved,
         isApproving,
         onApprove: handleApprove,

@@ -102,10 +102,10 @@ const Providers: React.FC = ({ children }) => {
           <ApolloProvider client={graphqlClient}>
             <AirdropProvider>
               <ExternalAirdropProvider>
-                <PricesProvider>
-                  <BalancesProvider>
-                    <FarmingProvider>
-                      <FarmingTwoProvider>
+                <BalancesProvider>
+                  <FarmingProvider>
+                    <FarmingTwoProvider>
+                      <PricesProvider>
                         <BuySellProvider>
                           <DpiTokenMarketDataProvider>
                             <DpiIndexComponentsProvider>
@@ -117,10 +117,10 @@ const Providers: React.FC = ({ children }) => {
                             </DpiIndexComponentsProvider>
                           </DpiTokenMarketDataProvider>
                         </BuySellProvider>
-                      </FarmingTwoProvider>
-                    </FarmingProvider>
-                  </BalancesProvider>
-                </PricesProvider>
+                      </PricesProvider>
+                    </FarmingTwoProvider>
+                  </FarmingProvider>
+                </BalancesProvider>
               </ExternalAirdropProvider>
             </AirdropProvider>
           </ApolloProvider>
