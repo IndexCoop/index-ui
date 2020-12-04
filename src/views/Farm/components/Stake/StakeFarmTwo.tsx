@@ -115,24 +115,22 @@ const Stake: React.FC = () => {
   return (
     <>
       <Card>
-        <CardContent>
+        <CardIcon>
           <StyledIcon
             alt='expiring icon'
-            src='https://index-dao.s3.amazonaws.com/down-arrow.svg'
+            src='https://index-dao.s3.amazonaws.com/chick.png'
           />
-          <Spacer size='sm' />
-          <StyledCardTitle>Expiring Pool</StyledCardTitle>
-          <Spacer size='sm' />
-          <StyledCardText>Active Oct. 7th - Dec. 6th</StyledCardText>
+        </CardIcon>
+        <CardContent>
+          <Box alignItems='center' column>
+            <Value value={formattedStakedBalance} />
+            <Label text='Staked Uniswap ETH/DPI LP Tokens' />
+          </Box>
           <Spacer />
-          <StyledSectionTitle>{formattedStakedBalance}</StyledSectionTitle>
-          <StyledSectionLabel>
-            (Staked ETH/DPI Uniswap LP Tokens)
-          </StyledSectionLabel>
-          <Spacer />
-          <StyledSectionTitle>{apy}% APY</StyledSectionTitle>
-          <StyledSectionLabel>(Unstable)</StyledSectionLabel>
-          <Spacer />
+          <Box alignItems='center' column>
+            <StyledAPYQuantity>{apy}% APY</StyledAPYQuantity>
+            <StyledAPYLabel>(Unstable)</StyledAPYLabel>
+          </Box>
         </CardContent>
         <CardActions>
           {UnstakeButton}
@@ -155,27 +153,16 @@ const Stake: React.FC = () => {
 
 const StyledIcon = styled.img`
   height: 58px;
-  width: 58px;
+  text-align: center;
+  min-width: 58px;
 `
 
-const StyledCardTitle = styled.span`
+const StyledAPYQuantity = styled.span`
   color: ${(props) => props.theme.colors.grey};
   font-weight: 600;
   font-size: 28px;
 `
-
-const StyledCardText = styled.span`
-  color: ${(props) => props.theme.colors.grey};
-  font-weight: 600;
-  font-size: 18px;
-`
-
-const StyledSectionTitle = styled.span`
-  color: ${(props) => props.theme.colors.grey};
-  font-weight: 600;
-  font-size: 24px;
-`
-const StyledSectionLabel = styled.span`
+const StyledAPYLabel = styled.span`
   color: ${(props) => props.theme.colors.grey};
   font-size: 20px;
 `
