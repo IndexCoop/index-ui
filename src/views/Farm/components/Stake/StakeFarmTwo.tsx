@@ -11,9 +11,6 @@ import useWallet from 'hooks/useWallet'
 import StakeModal from './components/StakeModal'
 import UnstakeModal from './components/UnstakeModal'
 
-import BigNumber from 'utils/bignumber'
-import { farmTwoStartTime } from 'index-sdk/farmTwo'
-
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
   const [unstakeModalIsOpen, setUnstakeModalIsOpen] = useState(false)
