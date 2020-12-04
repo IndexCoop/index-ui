@@ -6,14 +6,20 @@ import PricesContext from './PricesContext'
 
 import { DPI_ETH_UNISWAP_QUERY } from 'utils/graphql'
 import { indexTokenAddress } from 'constants/ethContractAddresses'
+import useFarming from 'hooks/useFarming'
+import useFarmingTwo from '../../hooks/useFarmingTwo'
 
 const PricesProvider: React.FC = ({ children }) => {
   const [indexPrice, setIndexPrice] = useState<string>('0')
   const [ethereumPrice, setEthereumPrice] = useState<string>('0')
   const [totalUSDInFarms, setTotalUSDInFarms] = useState<number>()
+
   const [apy, setAPY] = useState<string>()
+  const [farmTwoApy, setFarmTwoApy] = useState<string>()
 
   const { loading, error, data: uniswapData } = useQuery(DPI_ETH_UNISWAP_QUERY)
+  const { isPoolActive: isPoolOneActive } = useFarming()
+  const { isPoolActive: isPoolTwoActive } = useFarmingTwo()
 
   const isUniswapFetchLoadedForFirstTime =
     !totalUSDInFarms && !loading && !error
@@ -49,7 +55,7 @@ const PricesProvider: React.FC = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    if (!indexPrice || !totalUSDInFarms) return
+    if (!indexPrice || !totalUSDInFarms || !isPoolOneActive) return
 
     const totalTokenEmissionsPerDay = 15000
     const totalUSDEmissionPerDay =
@@ -62,6 +68,20 @@ const PricesProvider: React.FC = ({ children }) => {
     setAPY(calculatedApy.toFixed(2))
   }, [totalUSDInFarms, indexPrice])
 
+  useEffect(() => {
+    if (!indexPrice || !totalUSDInFarms || !isPoolTwoActive) return
+
+    const totalTokenEmissionsPerDay = 3864
+    const totalUSDEmissionPerDay =
+      totalTokenEmissionsPerDay * Number(indexPrice)
+    const dailyYield = new BigNumber(totalUSDEmissionPerDay)
+      .dividedBy(new BigNumber(totalUSDInFarms))
+      .multipliedBy(100)
+    const calculatedApy = dailyYield.multipliedBy(365)
+
+    setFarmTwoApy(calculatedApy.toFixed(2))
+  }, [totalUSDInFarms, indexPrice])
+
   return (
     <PricesContext.Provider
       value={{
@@ -69,6 +89,7 @@ const PricesProvider: React.FC = ({ children }) => {
         ethereumPrice,
         totalUSDInFarms,
         apy,
+        farmTwoApy,
       }}
     >
       {children}

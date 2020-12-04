@@ -29,7 +29,7 @@ const Stake: React.FC = () => {
     onUnstakeAndHarvest,
     onHarvest,
   } = useFarmingTwo()
-  const { apy } = usePrices()
+  const { farmTwoApy } = usePrices()
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
@@ -147,7 +147,7 @@ const Stake: React.FC = () => {
             (Staked ETH/DPI Uniswap LP Tokens)
           </StyledSectionLabel>
           <Spacer />
-          <StyledSectionTitle>{apy}% APY</StyledSectionTitle>
+          <StyledSectionTitle>{farmTwoApy}% APY</StyledSectionTitle>
           <StyledSectionLabel>(Unstable)</StyledSectionLabel>
           <Spacer />
           <StyledSectionTitle>
