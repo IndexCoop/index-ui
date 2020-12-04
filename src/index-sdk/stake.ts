@@ -124,6 +124,5 @@ export const unstakeAndClaimEarnedIndexLpReward = (
   })
 }
 
-// TODO: update with correct date
-// Currently set for 12pm PST Dec. 6th
-export const farmEndTime = '1607284800000'
+// Currently set for 12pm PST Dec. 7th
+export const farmEndTime = '1607371200000'
