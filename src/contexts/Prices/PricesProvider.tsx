@@ -7,7 +7,7 @@ import PricesContext from './PricesContext'
 import { DPI_ETH_UNISWAP_QUERY } from 'utils/graphql'
 import { indexTokenAddress } from 'constants/ethContractAddresses'
 import useFarming from 'hooks/useFarming'
-import useFarmingTwo from '../../hooks/useFarmingTwo'
+import useFarmingTwo from 'hooks/useFarmingTwo'
 
 const PricesProvider: React.FC = ({ children }) => {
   const [indexPrice, setIndexPrice] = useState<string>('0')
