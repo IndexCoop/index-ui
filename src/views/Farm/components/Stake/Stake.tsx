@@ -9,14 +9,9 @@ import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
 import StakeModal from './components/StakeModal'
-import UnstakeModal from './components/UnstakeModal'
-
-import BigNumber from 'utils/bignumber'
-import { farmEndTime } from 'index-sdk/stake'
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
-  const [unstakeModalIsOpen, setUnstakeModalIsOpen] = useState(false)
 
   const {
     stakedUniswapEthDpiLpBalance: stakedBalance,
@@ -26,6 +21,7 @@ const Stake: React.FC = () => {
   const {
     isApproved,
     isApproving,
+    isPoolActive,
     onApprove,
     onStake,
     onUnstakeAndHarvest,
@@ -36,10 +32,6 @@ const Stake: React.FC = () => {
     setStakeModalIsOpen(false)
   }, [setStakeModalIsOpen])
 
-  const handleDismissUnstakeModal = useCallback(() => {
-    setUnstakeModalIsOpen(false)
-  }, [setUnstakeModalIsOpen])
-
   const handleOnStake = useCallback(
     (amount: string) => {
       onStake(amount)
@@ -48,23 +40,15 @@ const Stake: React.FC = () => {
     [handleDismissStakeModal, onStake]
   )
 
-  const handleOnUnstake = useCallback(() => {
-    onUnstakeAndHarvest()
-    handleDismissUnstakeModal()
-  }, [handleDismissUnstakeModal, onUnstakeAndHarvest])
-
   const handleStakeClick = useCallback(() => {
     setStakeModalIsOpen(true)
   }, [setStakeModalIsOpen])
-
-  const handleUnstakeClick = useCallback(() => {
-    setUnstakeModalIsOpen(true)
-  }, [setUnstakeModalIsOpen])
 
   const StakeButton = useMemo(() => {
     if (status !== 'connected') {
       return <Button disabled full text='Stake' variant='secondary' />
     }
+
     if (!isApproved) {
       return (
         <Button
@@ -92,12 +76,12 @@ const Stake: React.FC = () => {
     return (
       <Button
         full
-        onClick={handleUnstakeClick}
+        onClick={onUnstakeAndHarvest}
         text='Unstake & Claim'
         variant='secondary'
       />
     )
-  }, [stakedBalance, status, handleUnstakeClick])
+  }, [stakedBalance, status, onUnstakeAndHarvest])
 
   const formattedStakedBalance = useMemo(() => {
     if (stakedBalance) {
@@ -114,11 +98,6 @@ const Stake: React.FC = () => {
       return '--'
     }
   }, [unharvestedIndexBalance])
-
-  const currentTime = Date.now()
-  const isPoolActive = new BigNumber(farmEndTime).isGreaterThan(
-    new BigNumber(currentTime)
-  )
 
   const poolTitle = isPoolActive ? 'Expiring Pool' : 'Expired Pool'
 
@@ -156,9 +135,7 @@ const Stake: React.FC = () => {
               src='https://index-dao.s3.amazonaws.com/owl.png'
             />
           </StyledSectionTitle>
-          <StyledSectionLabel>
-            Unclaimed INDEX in expiring pool
-          </StyledSectionLabel>
+          <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
           <Spacer />
         </CardContent>
         {isPoolActive && <CardActions>{StakeButton}</CardActions>}
@@ -168,11 +145,6 @@ const Stake: React.FC = () => {
         isOpen={stakeModalIsOpen}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
-      />
-      <UnstakeModal
-        isOpen={unstakeModalIsOpen}
-        onDismiss={handleDismissUnstakeModal}
-        onUnstake={handleOnUnstake}
       />
     </>
   )
