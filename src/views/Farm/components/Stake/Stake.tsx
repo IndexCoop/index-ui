@@ -122,7 +122,7 @@ const Stake: React.FC = () => {
             />
           </StyledSectionTitle>
           <StyledSectionLabel>
-            (Staked ETH/DPI Uniswap LP Tokens)
+            Staked ETH/DPI Uniswap LP Tokens
           </StyledSectionLabel>
           <Spacer />
           <StyledSectionTitle>{apy}% APY</StyledSectionTitle>
