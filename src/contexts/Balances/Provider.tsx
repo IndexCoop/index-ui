@@ -106,6 +106,8 @@ const Provider: React.FC = ({ children }) => {
       setUniswapEthDpiLpBalance,
       setStakedUniswapEthDpiLpBalance,
       setUnharvestedIndexBalance,
+      setStakedFarmTwoBalance,
+      setUnharvestedFarmTwoBalance,
     ]
   )
 
@@ -119,6 +121,8 @@ const Provider: React.FC = ({ children }) => {
       setUniswapEthDpiLpBalance(new BigNumber(0))
       setStakedUniswapEthDpiLpBalance(new BigNumber(0))
       setUnharvestedIndexBalance(new BigNumber(0))
+      setStakedFarmTwoBalance(new BigNumber(0))
+      setUnharvestedFarmTwoBalance(new BigNumber(0))
     }
   }, [status])
 

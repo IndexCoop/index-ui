@@ -14,8 +14,8 @@ const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
 
   const {
-    stakedUniswapEthDpiLpBalance: stakedBalance,
-    unharvestedIndexBalance,
+    stakedFarmTwoBalance: stakedBalance,
+    unharvestedFarmTwoBalance,
   } = useBalances()
   const { status } = useWallet()
   const {
@@ -100,12 +100,12 @@ const Stake: React.FC = () => {
   }, [stakedBalance])
 
   const formattedEarnedBalance = useMemo(() => {
-    if (unharvestedIndexBalance) {
-      return numeral(unharvestedIndexBalance.toString()).format('0.00000a')
+    if (unharvestedFarmTwoBalance) {
+      return numeral(unharvestedFarmTwoBalance.toString()).format('0.00000a')
     } else {
       return '--'
     }
-  }, [unharvestedIndexBalance])
+  }, [unharvestedFarmTwoBalance])
 
   const poolTitle = isPoolActive ? 'Upcoming Pool' : 'Active Pool'
 
