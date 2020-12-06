@@ -163,7 +163,7 @@ const Provider: React.FC = ({ children }) => {
   }, [ethereum, account, setConfirmTxModalIsOpen])
 
   const currentTime = Date.now()
-  const isPoolActive = new BigNumber(farmTwoStartTime).isGreaterThan(
+  const isPoolActive = new BigNumber(farmTwoStartTime).isLessThan(
     new BigNumber(currentTime)
   )
 
