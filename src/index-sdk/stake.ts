@@ -124,5 +124,5 @@ export const unstakeAndClaimEarnedIndexLpReward = (
   })
 }
 
-// Currently set for 12pm PST Dec. 7th
+// Currently set for 12pm PST Dec. 6th
 export const farmEndTime = '1607284800000'
