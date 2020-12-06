@@ -14,8 +14,8 @@ const PricesProvider: React.FC = ({ children }) => {
   const [ethereumPrice, setEthereumPrice] = useState<string>('0')
   const [totalUSDInFarms, setTotalUSDInFarms] = useState<number>()
 
-  const [apy, setAPY] = useState<string>()
-  const [farmTwoApy, setFarmTwoApy] = useState<string>()
+  const [apy, setAPY] = useState<string>('0.00')
+  const [farmTwoApy, setFarmTwoApy] = useState<string>('0.00')
 
   const { loading, error, data: uniswapData } = useQuery(DPI_ETH_UNISWAP_QUERY)
   const { isPoolActive: isPoolOneActive } = useFarming()
