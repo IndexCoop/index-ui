@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Box, Button, Container, Separator, Spacer } from 'react-neu'
+import { Box, Container, Separator, Spacer } from 'react-neu'
 
 import Page from 'components/Page'
 import Split from 'components/Split'
@@ -9,6 +9,7 @@ import StakeCard from './components/Stake'
 import StakeFarmTwoCard from './components/Stake/StakeFarmTwo'
 import RewardsCard from './components/Rewards'
 import Treasury from './components/Treasury'
+import MigrationNotice from './components/MigrationNotice'
 
 const Farm: React.FC = () => {
   return (
@@ -19,8 +20,9 @@ const Farm: React.FC = () => {
         <StyledPageSubheader>
           Earn rewards for supplying DPI liquidity
         </StyledPageSubheader>
+        <Spacer />
+        <MigrationNotice />
       </Container>
-      <Spacer />
       <Treasury />
       <Spacer />
       <Container>
