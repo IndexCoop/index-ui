@@ -10,6 +10,8 @@ const MarketData: React.FC = () => {
   const { latestPrice, prices } = useIndexTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
+  const [isDaily, setIsDaily] = useState<Boolean>(false)
+  const [dateString, setDateString] = useState<String>('')
 
   useEffect(() => {
     if (latestPrice) setChartPrice(latestPrice)
@@ -29,6 +31,14 @@ const MarketData: React.FC = () => {
       setChartPrice(payload.y || 0)
       setChartDate(payload.x || Date.now())
     }, 0)
+
+    if (isDaily) {
+      setDateString(
+        priceData.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric' })
+      )
+    } else {
+      setDateString(priceData.toDateString())
+    }
   }
 
   const resetChartPrice = () => {
@@ -36,6 +46,14 @@ const MarketData: React.FC = () => {
       setChartPrice(latestPrice || 0)
       setChartDate(Date.now())
     }, 0)
+
+    if (isDaily) {
+      setDateString(
+        priceData.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric' })
+      )
+    } else {
+      setDateString(priceData.toDateString())
+    }
   }
 
   const priceData = new Date(chartDate)
@@ -47,7 +65,7 @@ const MarketData: React.FC = () => {
         <span>INDEX</span>
       </StyledDpiIconLabel>
       <StyledDpiTitle>Index Coop Token</StyledDpiTitle>
-      <p>{priceData.toDateString()}</p>
+      <p>{dateString}</p>
       <StyledDpiPriceWrapper>
         <StyledDpiPrice>
           {'$' + numeral(chartPrice).format('0.00a')}
@@ -63,6 +81,7 @@ const MarketData: React.FC = () => {
         data={prices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}
+        setIsDaily={setIsDaily}
       />
     </div>
   )
