@@ -120,7 +120,7 @@ const Stake: React.FC = () => {
           <Spacer size='sm' />
           <StyledCardTitle>{poolTitle}</StyledCardTitle>
           <Spacer size='sm' />
-          <StyledCardText>Active Dec. 7th - Jan. 6th</StyledCardText>
+          <StyledCardText>Active Dec. 7th - Jan. 5th</StyledCardText>
           <Spacer />
           <StyledSectionTitle>
             {formattedStakedBalance}
