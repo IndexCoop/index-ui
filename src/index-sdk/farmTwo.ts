@@ -3,14 +3,14 @@ import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
 import StakeABI from 'index-sdk/abi/Stake.json'
-import { stakingRewardsAddress } from 'constants/ethContractAddresses'
+import { farmTwoAddress } from 'constants/ethContractAddresses'
 import BigNumber from 'utils/bignumber'
 
 export const getStakingRewardsContract = (provider: provider) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
     (StakeABI as unknown) as AbiItem,
-    stakingRewardsAddress
+    farmTwoAddress
   )
   return contract
 }
@@ -125,4 +125,4 @@ export const unstakeAndClaimEarnedIndexLpReward = (
 }
 
 // Currently set for 12pm PST Dec. 7th
-export const farmEndTime = '1607371200000'
+export const farmTwoStartTime = '1607371200000'

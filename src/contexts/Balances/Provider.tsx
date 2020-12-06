@@ -6,6 +6,7 @@ import Context from './Context'
 import useWallet from 'hooks/useWallet'
 import { getBalance, getEthBalance } from 'utils/index'
 import { getEarnedIndexTokenQuantity } from 'index-sdk/stake'
+import { getEarnedIndexTokenQuantity as getEarnedFarmTwoBalance } from 'index-sdk/farmTwo'
 import {
   dpiTokenAddress,
   indexTokenAddress,
@@ -13,6 +14,7 @@ import {
   usdcTokenAddress,
   uniswapEthDpiLpTokenAddress,
   stakingRewardsAddress,
+  farmTwoAddress,
 } from 'constants/ethContractAddresses'
 
 const Provider: React.FC = ({ children }) => {
@@ -29,6 +31,10 @@ const Provider: React.FC = ({ children }) => {
     setStakedUniswapEthDpiLpBalance,
   ] = useState<BigNumber>()
   const [unharvestedIndexBalance, setUnharvestedIndexBalance] = useState<
+    BigNumber
+  >()
+  const [stakedFarmTwoBalance, setStakedFarmTwoBalance] = useState<BigNumber>()
+  const [unharvestedFarmTwoBalance, setUnharvestedFarmTwoBalance] = useState<
     BigNumber
   >()
 
@@ -57,6 +63,9 @@ const Provider: React.FC = ({ children }) => {
         ),
         getBalance(provider, stakingRewardsAddress as string, userAddress),
         getEarnedIndexTokenQuantity(provider, userAddress),
+
+        getBalance(provider, farmTwoAddress as string, userAddress),
+        getEarnedFarmTwoBalance(provider, userAddress),
       ])
 
       setEthBalance(
@@ -83,6 +92,12 @@ const Provider: React.FC = ({ children }) => {
       setUnharvestedIndexBalance(
         new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(18))
       )
+      setStakedFarmTwoBalance(
+        new BigNumber(balances[8]).dividedBy(new BigNumber(10).pow(18))
+      )
+      setUnharvestedFarmTwoBalance(
+        new BigNumber(balances[9]).dividedBy(new BigNumber(10).pow(18))
+      )
     },
     [
       setEthBalance,
@@ -91,6 +106,8 @@ const Provider: React.FC = ({ children }) => {
       setUniswapEthDpiLpBalance,
       setStakedUniswapEthDpiLpBalance,
       setUnharvestedIndexBalance,
+      setStakedFarmTwoBalance,
+      setUnharvestedFarmTwoBalance,
     ]
   )
 
@@ -104,6 +121,8 @@ const Provider: React.FC = ({ children }) => {
       setUniswapEthDpiLpBalance(new BigNumber(0))
       setStakedUniswapEthDpiLpBalance(new BigNumber(0))
       setUnharvestedIndexBalance(new BigNumber(0))
+      setStakedFarmTwoBalance(new BigNumber(0))
+      setUnharvestedFarmTwoBalance(new BigNumber(0))
     }
   }, [status])
 
@@ -127,8 +146,12 @@ const Provider: React.FC = ({ children }) => {
         daiBalance,
         usdcBalance,
         uniswapEthDpiLpBalance,
+
         stakedUniswapEthDpiLpBalance,
         unharvestedIndexBalance,
+
+        stakedFarmTwoBalance,
+        unharvestedFarmTwoBalance,
       }}
     >
       {children}

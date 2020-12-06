@@ -13,6 +13,7 @@ import { BalancesProvider } from 'contexts/Balances'
 import { AirdropProvider } from 'contexts/Airdrop'
 import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
 import { FarmingProvider } from 'contexts/Farming'
+import { FarmingTwoProvider } from 'contexts/FarmingTwo'
 import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
 import { BuySellProvider } from 'contexts/BuySell'
@@ -101,23 +102,25 @@ const Providers: React.FC = ({ children }) => {
           <ApolloProvider client={graphqlClient}>
             <AirdropProvider>
               <ExternalAirdropProvider>
-                <PricesProvider>
-                  <BalancesProvider>
-                    <FarmingProvider>
-                      <BuySellProvider>
-                        <DpiTokenMarketDataProvider>
-                          <DpiIndexComponentsProvider>
-                            <IndexTokenMarketDataProvider>
-                              <SnapshotProposalsProvider>
-                                {children}
-                              </SnapshotProposalsProvider>
-                            </IndexTokenMarketDataProvider>
-                          </DpiIndexComponentsProvider>
-                        </DpiTokenMarketDataProvider>
-                      </BuySellProvider>
-                    </FarmingProvider>
-                  </BalancesProvider>
-                </PricesProvider>
+                <BalancesProvider>
+                  <FarmingProvider>
+                    <FarmingTwoProvider>
+                      <PricesProvider>
+                        <BuySellProvider>
+                          <DpiTokenMarketDataProvider>
+                            <DpiIndexComponentsProvider>
+                              <IndexTokenMarketDataProvider>
+                                <SnapshotProposalsProvider>
+                                  {children}
+                                </SnapshotProposalsProvider>
+                              </IndexTokenMarketDataProvider>
+                            </DpiIndexComponentsProvider>
+                          </DpiTokenMarketDataProvider>
+                        </BuySellProvider>
+                      </PricesProvider>
+                    </FarmingTwoProvider>
+                  </FarmingProvider>
+                </BalancesProvider>
               </ExternalAirdropProvider>
             </AirdropProvider>
           </ApolloProvider>

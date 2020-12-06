@@ -13,14 +13,13 @@ import {
   unstakeUniswapEthDpiLpTokens,
   claimEarnedIndexLpReward,
   unstakeAndClaimEarnedIndexLpReward,
-} from 'index-sdk/stake'
+} from 'index-sdk/farmTwo'
 import { waitTransaction } from 'utils/index'
 import {
-  stakingRewardsAddress,
+  farmTwoAddress,
   uniswapEthDpiLpTokenAddress,
 } from 'constants/ethContractAddresses'
-
-import { farmEndTime } from 'index-sdk/stake'
+import { farmTwoStartTime } from 'index-sdk/farmTwo'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -34,7 +33,7 @@ const Provider: React.FC = ({ children }) => {
     isApproved,
     isApproving,
     onApprove,
-  } = useApproval(uniswapEthDpiLpTokenAddress, stakingRewardsAddress, () =>
+  } = useApproval(uniswapEthDpiLpTokenAddress, farmTwoAddress, () =>
     setConfirmTxModalIsOpen(false)
   )
 
@@ -164,16 +163,16 @@ const Provider: React.FC = ({ children }) => {
   }, [ethereum, account, setConfirmTxModalIsOpen])
 
   const currentTime = Date.now()
-  const isPoolActive = new BigNumber(farmEndTime).isGreaterThan(
+  const isPoolActive = new BigNumber(farmTwoStartTime).isGreaterThan(
     new BigNumber(currentTime)
   )
 
   return (
     <Context.Provider
       value={{
+        isPoolActive,
         isApproved,
         isApproving,
-        isPoolActive,
         onApprove: handleApprove,
         onHarvest: handleHarvest,
         onUnstakeAndHarvest: handleUnstakeAndHarvest,

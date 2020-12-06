@@ -4,7 +4,7 @@ import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import useBalances from 'hooks/useBalances'
-import useFarming from 'hooks/useFarming'
+import useFarmingTwo from 'hooks/useFarmingTwo'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
@@ -14,8 +14,8 @@ const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
 
   const {
-    stakedUniswapEthDpiLpBalance: stakedBalance,
-    unharvestedIndexBalance,
+    stakedFarmTwoBalance: stakedBalance,
+    unharvestedFarmTwoBalance,
   } = useBalances()
   const { status } = useWallet()
   const {
@@ -25,8 +25,9 @@ const Stake: React.FC = () => {
     onApprove,
     onStake,
     onUnstakeAndHarvest,
-  } = useFarming()
-  const { apy } = usePrices()
+    onHarvest,
+  } = useFarmingTwo()
+  const { farmTwoApy } = usePrices()
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
@@ -48,7 +49,6 @@ const Stake: React.FC = () => {
     if (status !== 'connected') {
       return <Button disabled full text='Stake' variant='secondary' />
     }
-
     if (!isApproved) {
       return (
         <Button
@@ -73,6 +73,7 @@ const Stake: React.FC = () => {
     if (status !== 'connected' || !hasStaked) {
       return <Button disabled full text='Unstake & Claim' variant='secondary' />
     }
+
     return (
       <Button
         full
@@ -83,6 +84,13 @@ const Stake: React.FC = () => {
     )
   }, [stakedBalance, status, onUnstakeAndHarvest])
 
+  const ClaimButton = useMemo(() => {
+    if (status !== 'connected') {
+      return <Button disabled full text='Claim' variant='secondary' />
+    }
+    return <Button full onClick={onHarvest} text='Claim' />
+  }, [status, onHarvest])
+
   const formattedStakedBalance = useMemo(() => {
     if (stakedBalance) {
       return numeral(stakedBalance.toString()).format('0.00000a')
@@ -92,27 +100,27 @@ const Stake: React.FC = () => {
   }, [stakedBalance])
 
   const formattedEarnedBalance = useMemo(() => {
-    if (unharvestedIndexBalance) {
-      return numeral(unharvestedIndexBalance.toString()).format('0.00000a')
+    if (unharvestedFarmTwoBalance) {
+      return numeral(unharvestedFarmTwoBalance.toString()).format('0.00000a')
     } else {
       return '--'
     }
-  }, [unharvestedIndexBalance])
+  }, [unharvestedFarmTwoBalance])
 
-  const poolTitle = isPoolActive ? 'Expiring Pool' : 'Expired Pool'
+  const poolTitle = isPoolActive ? 'Upcoming Pool' : 'Active Pool'
 
   return (
     <>
       <Card>
         <CardContent>
           <StyledHeaderIcon
-            alt='expiring icon'
-            src='https://index-dao.s3.amazonaws.com/down-arrow.svg'
+            alt='active icon'
+            src='https://index-dao.s3.amazonaws.com/up-arrow.svg'
           />
           <Spacer size='sm' />
           <StyledCardTitle>{poolTitle}</StyledCardTitle>
           <Spacer size='sm' />
-          <StyledCardText>Active Oct. 7th - Dec. 6th</StyledCardText>
+          <StyledCardText>Active Dec. 7th - Jan. 6th</StyledCardText>
           <Spacer />
           <StyledSectionTitle>
             {formattedStakedBalance}
@@ -125,7 +133,7 @@ const Stake: React.FC = () => {
             Staked ETH/DPI Uniswap LP Tokens
           </StyledSectionLabel>
           <Spacer />
-          <StyledSectionTitle>{apy}% APY</StyledSectionTitle>
+          <StyledSectionTitle>{farmTwoApy}% APY</StyledSectionTitle>
           <StyledSectionLabel>(Unstable)</StyledSectionLabel>
           <Spacer />
           <StyledSectionTitle>
@@ -138,7 +146,10 @@ const Stake: React.FC = () => {
           <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
           <Spacer />
         </CardContent>
-        {isPoolActive && <CardActions>{StakeButton}</CardActions>}
+        <CardActions>
+          {ClaimButton}
+          {StakeButton}
+        </CardActions>
         <CardActions>{UnstakeButton}</CardActions>
       </Card>
       <StakeModal

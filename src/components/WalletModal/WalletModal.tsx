@@ -32,7 +32,12 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     dpiBalance,
     uniswapEthDpiLpBalance,
     stakedUniswapEthDpiLpBalance,
+    stakedFarmTwoBalance,
   } = useBalances()
+
+  const totalStakedEthDpiLpBalance = (
+    stakedUniswapEthDpiLpBalance || new BigNumber(0)
+  ).plus(stakedFarmTwoBalance || 0)
 
   const getDisplayBalance = useCallback((value?: BigNumber) => {
     if (value) {
@@ -104,7 +109,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 iconStyles={{ opacity: 0.5 }}
                 label='Staked Uniswap ETH/DPI LP'
                 link={`https://etherscan.io/address/${tokenAddresses.stakingRewardsAddress}`}
-                value={getDisplayBalance(stakedUniswapEthDpiLpBalance)}
+                value={getDisplayBalance(totalStakedEthDpiLpBalance)}
               />
             </Box>
           </Split>
