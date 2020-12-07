@@ -21,7 +21,6 @@ const Stake: React.FC = () => {
   const {
     isApproved,
     isApproving,
-    isPoolActive,
     onApprove,
     onStake,
     onUnstakeAndHarvest,
@@ -107,8 +106,6 @@ const Stake: React.FC = () => {
     }
   }, [unharvestedFarmTwoBalance])
 
-  const poolTitle = isPoolActive ? 'Upcoming Pool' : 'Active Pool'
-
   return (
     <>
       <Card>
@@ -118,7 +115,7 @@ const Stake: React.FC = () => {
             src='https://index-dao.s3.amazonaws.com/up-arrow.svg'
           />
           <Spacer size='sm' />
-          <StyledCardTitle>{poolTitle}</StyledCardTitle>
+          <StyledCardTitle>Active Pool</StyledCardTitle>
           <Spacer size='sm' />
           <StyledCardText>Active Dec. 7th - Jan. 5th</StyledCardText>
           <Spacer />
