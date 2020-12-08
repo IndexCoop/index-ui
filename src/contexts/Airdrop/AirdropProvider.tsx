@@ -15,12 +15,11 @@ import {
 } from 'index-sdk/index'
 import useWallet from 'hooks/useWallet'
 import { waitTransaction } from 'utils/index'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 const AirdropProvider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
-  const [transactionStatusType, setTransactionStatusType] = useState<
-    TransactionStatusType | undefined
-  >()
+  const { transactionStatus, onSetTransactionStatus } = useTransactionWatcher()
   const [airdropQuantity, setAirdropQuantity] = useState<string>()
   const [rewardIndex, setRewardIndex] = useState<number>()
   const [rewardProof, setRewardProof] = useState<string[]>()
@@ -74,7 +73,7 @@ const AirdropProvider: React.FC = ({ children }) => {
     if (!rewardIndex || !account || !airdropQuantity || !rewardProof) return
 
     setConfirmTxModalIsOpen(true)
-    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+    onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
     const transactionId = await claimAirdrop(
       ethereum,
       account,
@@ -85,18 +84,18 @@ const AirdropProvider: React.FC = ({ children }) => {
     )
 
     if (!transactionId) {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
       return
     }
 
-    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    onSetTransactionStatus(TransactionStatusType.IS_PENDING)
     const success = await waitTransaction(ethereum, transactionId)
 
     if (success) {
-      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+      onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
       setClaimableQuantity(new BigNumber(0))
     } else {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
   }, [
     ethereum,
@@ -121,7 +120,7 @@ const AirdropProvider: React.FC = ({ children }) => {
       {children}
       <ConfirmTransactionModal
         isOpen={confirmTxModalIsOpen}
-        transactionMiningStatus={transactionStatusType}
+        transactionMiningStatus={transactionStatus}
         onDismiss={() => setConfirmTxModalIsOpen(false)}
       />
     </AirdropContext.Provider>
