@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { NavLink, useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import { useTheme } from 'react-neu'
+import * as path from 'path'
 
 const CustomOption = (props: any) => {
   const { innerProps, value, label, data } = props
@@ -31,7 +32,8 @@ const ProductsDropdown: React.FC = () => {
   const { pathname } = useLocation()
 
   const dropdownSelectStyles = useMemo(() => {
-    const isResourcesRouteActive = pathname === '/about' || pathname === '/news'
+    const isResourcesRouteActive =
+      pathname === '/about' || pathname === '/news' || pathname === '/rewards'
 
     return {
       control: (styles: any) => ({
@@ -95,6 +97,10 @@ const ProductsDropdown: React.FC = () => {
           value: 'docs',
           label: 'Docs',
           link: 'https://docs.indexcoop.com/',
+        },
+        {
+          value: 'rewards',
+          label: 'Rewards',
         },
       ]}
       components={{

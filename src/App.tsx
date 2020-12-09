@@ -32,6 +32,7 @@ import DPI from 'views/DPI'
 import INDEX from 'views/INDEX'
 import Vote from 'views/Vote'
 import News from 'views/News'
+import ContributorRewards from './views/ContributorRewards'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
@@ -74,6 +75,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path='/farm'>
               <Farm />
+            </Route>
+            <Route exact path='/rewards'>
+              <ContributorRewards />
             </Route>
             <Route path='/news'>
               <News />
