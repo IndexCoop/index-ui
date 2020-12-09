@@ -19,20 +19,13 @@ const Provider: React.FC = ({ children }) => {
   const [transactionStatusType, setTransactionStatusType] = useState<
     TransactionStatusType | undefined
   >()
-  const [amount, setAmount] = useState<BigNumber>()
+  const [amount, setAmount] = useState<BigNumber>(new BigNumber(0))
   const { account, ethereum } = useWallet()
 
   const checkClaimStatus = useCallback(async () => {
-    setAmount(new BigNumber(0))
-    if (!ethereum || !account) return
-    setAmount(await getUnclaimedRewards(ethereum as provider, account))
+    //if (!ethereum || !account) return
+    setAmount(await getUnclaimedRewards(ethereum as provider, account || ''))
   }, [ethereum, account])
-
-  useEffect(() => {
-    if (!ethereum || !account) return
-
-    checkClaimStatus()
-  }, [ethereum, account, checkClaimStatus])
 
   const handleClaim = useCallback(async () => {
     if (!ethereum || !account) {
@@ -58,6 +51,10 @@ const Provider: React.FC = ({ children }) => {
       setTransactionStatusType(TransactionStatusType.IS_FAILED)
     }
   }, [ethereum, account, setConfirmTxModalIsOpen])
+
+  useEffect(() => {
+    checkClaimStatus()
+  }, [ethereum, account, checkClaimStatus, handleClaim])
 
   return (
     <Context.Provider

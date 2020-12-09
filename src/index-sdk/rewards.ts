@@ -9,8 +9,16 @@ export const getMerkleContract = (provider: provider) => {
   const web3 = new Web3(provider)
   return new web3.eth.Contract(
     (MerkleABI as unknown) as AbiItem,
-    '0xaf099b9badc400ea2c07bb21729461889487438e'
+    '0x9B88ed915538068762f282cc696B322FeC151888'
   )
+}
+
+const getMerkleAccount = (account: string) => {
+  let key = Object.keys(merkleData).find(
+    (key) => account.toLowerCase() === key.toLowerCase()
+  )
+  if (key === undefined) return undefined
+  return (merkleData as any)[key]
 }
 
 export const claimRewards = (
@@ -18,7 +26,7 @@ export const claimRewards = (
   account: string
 ): Promise<string | null> => {
   const merkleContract = getMerkleContract(provider)
-  const merkleAccount = (merkleData as any)[account.toLowerCase()]
+  const merkleAccount = getMerkleAccount(account)
   return new Promise((resolve) => {
     merkleContract.methods
       .claim(
@@ -41,7 +49,8 @@ export const claimRewards = (
 
 export const isClaimed = async (provider: provider, account: string) => {
   const merkleContract = getMerkleContract(provider)
-  const merkleAccount = (merkleData as any)[account.toLowerCase()]
+  const merkleAccount = getMerkleAccount(account)
+  if (merkleAccount === undefined) return false
   try {
     const isAlreadyClaimed: boolean = await merkleContract.methods
       .isClaimed(merkleAccount.index)
@@ -57,10 +66,12 @@ export const getUnclaimedRewards = async (
   provider: provider,
   account: string
 ): Promise<BigNumber> => {
-  const merkleAccount = (merkleData as any)[account.toLowerCase()]
+  const merkleAccount = getMerkleAccount(account)
   if (await isClaimed(provider, account)) {
     return new BigNumber(0)
   } else {
-    return new BigNumber(merkleAccount.amount)
+    return new BigNumber(merkleAccount?.amount || 0).div(
+      new BigNumber(Math.pow(10, 18))
+    )
   }
 }

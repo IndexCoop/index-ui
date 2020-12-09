@@ -10,7 +10,7 @@ const MonthlyClaim: React.FC = () => {
   const { status } = useWallet()
 
   const ClaimButton = useMemo(() => {
-    if (status !== 'connected' || amount) {
+    if (status !== 'connected' || !amount?.isEqualTo(0)) {
       return <Button disabled full text='Claim' variant='secondary' />
     }
     return <Button full onClick={onClaim} text='Claim' />
@@ -24,7 +24,7 @@ const MonthlyClaim: React.FC = () => {
           <MonthsDropdown />
           <Spacer />
           <StyledSectionTitle>
-            {amount?.toString() || '--'}
+            {status === 'connected' ? amount?.toString() || 0 : '--'}
             <StyledTokenIcon
               alt='owl icon'
               src='https://index-dao.s3.amazonaws.com/owl.png'
