@@ -36,6 +36,7 @@ import ContributorRewards from './views/ContributorRewards'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
+import { RewardsProvider } from './contexts/Rewards'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -105,27 +106,29 @@ const Providers: React.FC = ({ children }) => {
         <WalletProvider>
           <ApolloProvider client={graphqlClient}>
             <AirdropProvider>
-              <ExternalAirdropProvider>
-                <BalancesProvider>
-                  <FarmingProvider>
-                    <FarmingTwoProvider>
-                      <PricesProvider>
-                        <BuySellProvider>
-                          <DpiTokenMarketDataProvider>
-                            <DpiIndexComponentsProvider>
-                              <IndexTokenMarketDataProvider>
-                                <SnapshotProposalsProvider>
-                                  {children}
-                                </SnapshotProposalsProvider>
-                              </IndexTokenMarketDataProvider>
-                            </DpiIndexComponentsProvider>
-                          </DpiTokenMarketDataProvider>
-                        </BuySellProvider>
-                      </PricesProvider>
-                    </FarmingTwoProvider>
-                  </FarmingProvider>
-                </BalancesProvider>
-              </ExternalAirdropProvider>
+              <RewardsProvider>
+                <ExternalAirdropProvider>
+                  <BalancesProvider>
+                    <FarmingProvider>
+                      <FarmingTwoProvider>
+                        <PricesProvider>
+                          <BuySellProvider>
+                            <DpiTokenMarketDataProvider>
+                              <DpiIndexComponentsProvider>
+                                <IndexTokenMarketDataProvider>
+                                  <SnapshotProposalsProvider>
+                                    {children}
+                                  </SnapshotProposalsProvider>
+                                </IndexTokenMarketDataProvider>
+                              </DpiIndexComponentsProvider>
+                            </DpiTokenMarketDataProvider>
+                          </BuySellProvider>
+                        </PricesProvider>
+                      </FarmingTwoProvider>
+                    </FarmingProvider>
+                  </BalancesProvider>
+                </ExternalAirdropProvider>
+              </RewardsProvider>
             </AirdropProvider>
           </ApolloProvider>
         </WalletProvider>
