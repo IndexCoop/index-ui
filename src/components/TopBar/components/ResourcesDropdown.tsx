@@ -31,7 +31,8 @@ const ProductsDropdown: React.FC = () => {
   const { pathname } = useLocation()
 
   const dropdownSelectStyles = useMemo(() => {
-    const isResourcesRouteActive = pathname === '/about' || pathname === '/news'
+    const isResourcesRouteActive =
+      pathname === '/about' || pathname === '/news' || pathname === '/rewards'
 
     return {
       control: (styles: any) => ({
@@ -95,6 +96,10 @@ const ProductsDropdown: React.FC = () => {
           value: 'docs',
           label: 'Docs',
           link: 'https://docs.indexcoop.com/',
+        },
+        {
+          value: 'rewards',
+          label: 'Rewards',
         },
       ]}
       components={{

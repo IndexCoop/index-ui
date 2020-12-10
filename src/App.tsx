@@ -32,9 +32,11 @@ import DPI from 'views/DPI'
 import INDEX from 'views/INDEX'
 import Vote from 'views/Vote'
 import News from 'views/News'
+import ContributorRewards from './views/ContributorRewards'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
+import { RewardsProvider } from './contexts/Rewards'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -75,6 +77,9 @@ const App: React.FC = () => {
             <Route exact path='/farm'>
               <Farm />
             </Route>
+            <Route exact path='/rewards'>
+              <ContributorRewards />
+            </Route>
             <Route path='/news'>
               <News />
             </Route>
@@ -101,27 +106,29 @@ const Providers: React.FC = ({ children }) => {
         <WalletProvider>
           <ApolloProvider client={graphqlClient}>
             <AirdropProvider>
-              <ExternalAirdropProvider>
-                <BalancesProvider>
-                  <FarmingProvider>
-                    <FarmingTwoProvider>
-                      <PricesProvider>
-                        <BuySellProvider>
-                          <DpiTokenMarketDataProvider>
-                            <DpiIndexComponentsProvider>
-                              <IndexTokenMarketDataProvider>
-                                <SnapshotProposalsProvider>
-                                  {children}
-                                </SnapshotProposalsProvider>
-                              </IndexTokenMarketDataProvider>
-                            </DpiIndexComponentsProvider>
-                          </DpiTokenMarketDataProvider>
-                        </BuySellProvider>
-                      </PricesProvider>
-                    </FarmingTwoProvider>
-                  </FarmingProvider>
-                </BalancesProvider>
-              </ExternalAirdropProvider>
+              <RewardsProvider>
+                <ExternalAirdropProvider>
+                  <BalancesProvider>
+                    <FarmingProvider>
+                      <FarmingTwoProvider>
+                        <PricesProvider>
+                          <BuySellProvider>
+                            <DpiTokenMarketDataProvider>
+                              <DpiIndexComponentsProvider>
+                                <IndexTokenMarketDataProvider>
+                                  <SnapshotProposalsProvider>
+                                    {children}
+                                  </SnapshotProposalsProvider>
+                                </IndexTokenMarketDataProvider>
+                              </DpiIndexComponentsProvider>
+                            </DpiTokenMarketDataProvider>
+                          </BuySellProvider>
+                        </PricesProvider>
+                      </FarmingTwoProvider>
+                    </FarmingProvider>
+                  </BalancesProvider>
+                </ExternalAirdropProvider>
+              </RewardsProvider>
             </AirdropProvider>
           </ApolloProvider>
         </WalletProvider>
