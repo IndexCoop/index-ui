@@ -10,11 +10,11 @@ const MonthlyClaim: React.FC = () => {
   const { status } = useWallet()
 
   const ClaimButton = useMemo(() => {
-    if (status !== 'connected' || !amount?.isEqualTo(0)) {
-      return <Button disabled full text='Claim' variant='secondary' />
+    if (status === 'connected' && !amount?.isZero()) {
+      return <Button full onClick={onClaim} text='Claim' />
     }
-    return <Button full onClick={onClaim} text='Claim' />
-  }, [status, onClaim])
+    return <Button disabled full text='Claim' variant='secondary' />
+  }, [status, onClaim, amount])
 
   return (
     <>

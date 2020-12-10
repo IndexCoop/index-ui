@@ -9,7 +9,7 @@ export const getMerkleContract = (provider: provider) => {
   const web3 = new Web3(provider)
   return new web3.eth.Contract(
     (MerkleABI as unknown) as AbiItem,
-    '0x9B88ed915538068762f282cc696B322FeC151888'
+    '0xa6bb7b6B2C5C3477F20686B98Ea09796F8f93184'
   )
 }
 
