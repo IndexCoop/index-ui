@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { NavLink, useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import { useTheme } from 'react-neu'
-import * as path from 'path'
 
 const CustomOption = (props: any) => {
   const { innerProps, value, label, data } = props

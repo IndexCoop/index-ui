@@ -1,20 +1,20 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
-import useWallet from '../../../hooks/useWallet'
+import useWallet from 'hooks/useWallet'
 import MonthsDropdown from './MonthsDropdown'
-import useRewards from '../../../hooks/useRewards'
+import useRewards from 'hooks/useRewards'
 
 const MonthlyClaim: React.FC = () => {
-  const { onClaim, amount } = useRewards()
+  const { claimableQuantity, onClaimRewards } = useRewards()
   const { status } = useWallet()
 
   const ClaimButton = useMemo(() => {
-    if (status === 'connected' && !amount?.isZero()) {
-      return <Button full onClick={onClaim} text='Claim' />
+    if (status === 'connected' && !claimableQuantity?.isZero()) {
+      return <Button full onClick={onClaimRewards} text='Claim' />
     }
     return <Button disabled full text='Claim' variant='secondary' />
-  }, [status, onClaim, amount])
+  }, [status, onClaimRewards, claimableQuantity])
 
   return (
     <>
@@ -24,7 +24,7 @@ const MonthlyClaim: React.FC = () => {
           <MonthsDropdown />
           <Spacer />
           <StyledSectionTitle>
-            {status === 'connected' ? amount?.toString() || 0 : '--'}
+            {status === 'connected' ? claimableQuantity?.toString() || 0 : '--'}
             <StyledTokenIcon
               alt='owl icon'
               src='https://index-dao.s3.amazonaws.com/owl.png'

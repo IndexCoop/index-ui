@@ -1,15 +1,14 @@
 import Web3 from 'web3'
-import MerkleABI from './abi/MerkleDistributor.json'
-import merkleData from './novemberRewardsMerkle.json'
 import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
-import BigNumber from 'bignumber.js'
+import MerkleABI from './abi/MerkleDistributor.json'
+import merkleData from './novemberRewardsMerkle.json'
 
 export const getMerkleContract = (provider: provider) => {
   const web3 = new Web3(provider)
   return new web3.eth.Contract(
     (MerkleABI as unknown) as AbiItem,
-    '0xa6bb7b6B2C5C3477F20686B98Ea09796F8f93184'
+    process.env.REACT_APP_NOVEMBER_REWARDS_ADDRESS
   )
 }
 
@@ -21,39 +20,24 @@ const getMerkleAccount = (account: string) => {
   return (merkleData as any)[key]
 }
 
-export const claimRewards = (
-  provider: provider,
-  account: string
-): Promise<string | null> => {
-  const merkleContract = getMerkleContract(provider)
-  const merkleAccount = getMerkleAccount(account)
-  return new Promise((resolve) => {
-    merkleContract.methods
-      .claim(
-        merkleAccount.index,
-        account.toLowerCase(),
-        merkleAccount.amount,
-        merkleAccount.proof
-      )
-      .send({ from: account, gas: 120000 })
-      .on('transactionHash', (txId: string) => {
-        if (!txId) resolve(null)
-        resolve(txId)
-      })
-      .on('error', (error: any) => {
-        console.log(error)
-        resolve(null)
-      })
-  })
+export const getRewardsDataForAddress = (
+  address: string
+): { index: number; amount: string; proof: string[] } | undefined => {
+  const rewardBranch = getMerkleAccount(address)
+
+  if (!rewardBranch) return
+  return rewardBranch
 }
 
-export const isClaimed = async (provider: provider, account: string) => {
-  const merkleContract = getMerkleContract(provider)
-  const merkleAccount = getMerkleAccount(account)
-  if (merkleAccount === undefined) return false
+export const checkIsRewardsClaimed = async (
+  provider: provider,
+  rewardIndex: number
+): Promise<boolean> => {
+  const airdropContract = getMerkleContract(provider)
+
   try {
-    const isAlreadyClaimed: boolean = await merkleContract.methods
-      .isClaimed(merkleAccount.index)
+    const isAlreadyClaimed: boolean = await airdropContract.methods
+      .isClaimed(rewardIndex)
       .call()
     return isAlreadyClaimed
   } catch (e) {
@@ -62,16 +46,29 @@ export const isClaimed = async (provider: provider, account: string) => {
   }
 }
 
-export const getUnclaimedRewards = async (
+export const claimRewards = async (
   provider: provider,
-  account: string
-): Promise<BigNumber> => {
-  const merkleAccount = getMerkleAccount(account)
-  if (await isClaimed(provider, account)) {
-    return new BigNumber(0)
-  } else {
-    return new BigNumber(merkleAccount?.amount || 0).div(
-      new BigNumber(Math.pow(10, 18))
-    )
-  }
+  accountAddress: string,
+  rewardIndex: number,
+  claimRecipientAddress: string,
+  amount: string,
+  proof: string[]
+): Promise<string | null> => {
+  const airdropContract = getMerkleContract(provider)
+  const claimArgs = [rewardIndex, claimRecipientAddress, amount, proof]
+
+  return new Promise((resolve) => {
+    airdropContract.methods
+      .claim(...claimArgs)
+      .send({ from: accountAddress, gas: 120000 })
+      .on('transactionHash', (txId: string) => {
+        if (!txId) resolve(null)
+
+        resolve(txId)
+      })
+      .on('error', (error: any) => {
+        console.log(error)
+        resolve(null)
+      })
+  })
 }

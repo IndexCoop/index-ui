@@ -1,7 +1,7 @@
 import React from 'react'
-import Page from '../../components/Page'
 import styled from 'styled-components'
 import { Container, Spacer } from 'react-neu'
+import Page from 'components/Page'
 import MonthlyClaim from './components/MonthlyClaim'
 
 const ContributorRewards: React.FC = () => {

@@ -1,6 +1,10 @@
 import BigNumber from 'bignumber.js'
 
 export interface ContextValues {
-  onClaim: () => void
-  amount?: BigNumber
+  rewardsQuantity?: string
+  rewardIndex?: number
+  rewardProof?: string[]
+  isClaimable?: boolean
+  claimableQuantity?: BigNumber
+  onClaimRewards: () => void
 }

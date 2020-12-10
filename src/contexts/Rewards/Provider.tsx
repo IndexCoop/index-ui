@@ -7,35 +7,80 @@ import ConfirmTransactionModal, {
   TransactionStatusType,
 } from 'components/ConfirmTransactionModal'
 import useWallet from 'hooks/useWallet'
-import { claimRewards, getUnclaimedRewards } from 'index-sdk/rewards'
-import { waitTransaction } from 'utils/index'
 import {
-  checkIsAirdropClaimed,
-  getAirdropDataForAddress,
-} from '../../index-sdk'
+  checkIsRewardsClaimed,
+  claimRewards,
+  getRewardsDataForAddress,
+} from 'index-sdk/rewards'
+import { waitTransaction } from 'utils/index'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
   const [transactionStatusType, setTransactionStatusType] = useState<
     TransactionStatusType | undefined
   >()
-  const [amount, setAmount] = useState<BigNumber>(new BigNumber(0))
-  const { account, ethereum } = useWallet()
+  const [rewardsQuantity, setRewardsQuantity] = useState<string>()
+  const [rewardIndex, setRewardIndex] = useState<number>()
+  const [rewardProof, setRewardProof] = useState<string[]>()
+  const [isClaimable, setIsClaimable] = useState<boolean>(false)
+  const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
+  const {
+    account,
+    ethereum,
+  }: { account: string | null | undefined; ethereum: provider } = useWallet()
 
-  const checkClaimStatus = useCallback(async () => {
-    //if (!ethereum || !account) return
-    setAmount(await getUnclaimedRewards(ethereum as provider, account || ''))
-  }, [ethereum, account])
+  const checkRewardClaimStatus = useCallback(async () => {
+    setRewardsQuantity(undefined)
+    setRewardIndex(undefined)
+    setRewardProof(undefined)
+    setIsClaimable(false)
+    setClaimableQuantity(new BigNumber(0))
 
-  const handleClaim = useCallback(async () => {
-    if (!ethereum || !account) {
+    const initialReward = getRewardsDataForAddress(account || '')
+
+    if (!initialReward) {
       return
     }
 
+    const isAlreadyClaimed = await checkIsRewardsClaimed(
+      ethereum,
+      initialReward.index as number
+    )
+
+    if (isAlreadyClaimed) {
+      return
+    }
+
+    const claimQuantity = new BigNumber(initialReward.amount || '0').dividedBy(
+      new BigNumber(10).pow(18)
+    )
+
+    setRewardsQuantity(initialReward.amount)
+    setRewardIndex(initialReward.index)
+    setRewardProof(initialReward.proof)
+    setIsClaimable(true)
+    setClaimableQuantity(claimQuantity)
+  }, [ethereum, account])
+
+  useEffect(() => {
+    if (!ethereum || !account) return
+
+    checkRewardClaimStatus()
+  }, [ethereum, account, checkRewardClaimStatus])
+
+  const onClaimRewards = useCallback(async () => {
+    if (!rewardIndex || !account || !rewardsQuantity || !rewardProof) return
+
     setConfirmTxModalIsOpen(true)
     setTransactionStatusType(TransactionStatusType.IS_APPROVING)
-
-    const transactionId = await claimRewards(ethereum as provider, account)
+    const transactionId = await claimRewards(
+      ethereum,
+      account,
+      rewardIndex,
+      account,
+      rewardsQuantity,
+      rewardProof
+    )
 
     if (!transactionId) {
       setTransactionStatusType(TransactionStatusType.IS_FAILED)
@@ -43,24 +88,32 @@ const Provider: React.FC = ({ children }) => {
     }
 
     setTransactionStatusType(TransactionStatusType.IS_PENDING)
-    const success = await waitTransaction(ethereum as provider, transactionId)
+    const success = await waitTransaction(ethereum, transactionId)
 
     if (success) {
       setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+      setClaimableQuantity(new BigNumber(0))
     } else {
       setTransactionStatusType(TransactionStatusType.IS_FAILED)
     }
-  }, [ethereum, account, setConfirmTxModalIsOpen])
-
-  useEffect(() => {
-    checkClaimStatus()
-  }, [ethereum, account, checkClaimStatus, handleClaim])
+  }, [
+    ethereum,
+    account,
+    rewardIndex,
+    rewardsQuantity,
+    rewardProof,
+    setConfirmTxModalIsOpen,
+  ])
 
   return (
     <Context.Provider
       value={{
-        onClaim: handleClaim,
-        amount: amount,
+        rewardsQuantity,
+        claimableQuantity,
+        rewardIndex,
+        rewardProof,
+        isClaimable,
+        onClaimRewards,
       }}
     >
       {children}
