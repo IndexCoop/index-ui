@@ -7,6 +7,7 @@ import ConfirmTransactionModal, {
   TransactionStatusType,
 } from 'components/ConfirmTransactionModal'
 import useWallet from 'hooks/useWallet'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import {
   checkIsRewardsClaimed,
   claimRewards,
@@ -16,14 +17,13 @@ import { waitTransaction } from 'utils/index'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
-  const [transactionStatusType, setTransactionStatusType] = useState<
-    TransactionStatusType | undefined
-  >()
   const [rewardsQuantity, setRewardsQuantity] = useState<string>()
   const [rewardIndex, setRewardIndex] = useState<number>()
   const [rewardProof, setRewardProof] = useState<string[]>()
   const [isClaimable, setIsClaimable] = useState<boolean>(false)
   const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
+
+  const { transactionStatus, onSetTransactionStatus } = useTransactionWatcher()
   const {
     account,
     ethereum,
@@ -72,7 +72,7 @@ const Provider: React.FC = ({ children }) => {
     if (!rewardIndex || !account || !rewardsQuantity || !rewardProof) return
 
     setConfirmTxModalIsOpen(true)
-    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+    onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
     const transactionId = await claimRewards(
       ethereum,
       account,
@@ -83,18 +83,18 @@ const Provider: React.FC = ({ children }) => {
     )
 
     if (!transactionId) {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
       return
     }
 
-    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    onSetTransactionStatus(TransactionStatusType.IS_PENDING)
     const success = await waitTransaction(ethereum, transactionId)
 
     if (success) {
-      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+      onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
       setClaimableQuantity(new BigNumber(0))
     } else {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
   }, [
     ethereum,
@@ -119,10 +119,10 @@ const Provider: React.FC = ({ children }) => {
       {children}
       <ConfirmTransactionModal
         isOpen={confirmTxModalIsOpen}
-        transactionMiningStatus={transactionStatusType}
+        transactionMiningStatus={transactionStatus}
         onDismiss={() => {
           setConfirmTxModalIsOpen(false)
-          setTransactionStatusType(undefined)
+          onSetTransactionStatus(undefined)
         }}
       />
     </Context.Provider>

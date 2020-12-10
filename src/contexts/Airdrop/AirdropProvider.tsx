@@ -19,12 +19,13 @@ import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 const AirdropProvider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
-  const { transactionStatus, onSetTransactionStatus } = useTransactionWatcher()
   const [airdropQuantity, setAirdropQuantity] = useState<string>()
   const [rewardIndex, setRewardIndex] = useState<number>()
   const [rewardProof, setRewardProof] = useState<string[]>()
   const [isClaimable, setIsClaimable] = useState<boolean>(false)
   const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
+
+  const { transactionStatus, onSetTransactionStatus } = useTransactionWatcher()
   const {
     account,
     ethereum,

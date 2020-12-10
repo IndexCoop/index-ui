@@ -19,15 +19,13 @@ import {
   stakingRewardsAddress,
   uniswapEthDpiLpTokenAddress,
 } from 'constants/ethContractAddresses'
-
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { farmEndTime } from 'index-sdk/stake'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
-  const [transactionStatusType, setTransactionStatusType] = useState<
-    TransactionStatusType | undefined
-  >()
 
+  const { transactionStatus, onSetTransactionStatus } = useTransactionWatcher()
   const { account, ethereum } = useWallet()
 
   const {
@@ -49,7 +47,7 @@ const Provider: React.FC = ({ children }) => {
         return
 
       setConfirmTxModalIsOpen(true)
-      setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+      onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
       const bigStakeQuantity = new BigNumber(amount).multipliedBy(
         new BigNumber(10).pow(18)
@@ -61,17 +59,17 @@ const Provider: React.FC = ({ children }) => {
       )
 
       if (!transactionId) {
-        setTransactionStatusType(TransactionStatusType.IS_FAILED)
+        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
         return
       }
 
-      setTransactionStatusType(TransactionStatusType.IS_PENDING)
+      onSetTransactionStatus(TransactionStatusType.IS_PENDING)
       const success = await waitTransaction(ethereum as provider, transactionId)
 
       if (success) {
-        setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+        onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
       } else {
-        setTransactionStatusType(TransactionStatusType.IS_FAILED)
+        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
       }
     },
     [ethereum, account, setConfirmTxModalIsOpen]
@@ -83,7 +81,7 @@ const Provider: React.FC = ({ children }) => {
         return
 
       setConfirmTxModalIsOpen(true)
-      setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+      onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
       const bigStakeQuantity = new BigNumber(amount).multipliedBy(
         new BigNumber(10).pow(18)
@@ -95,17 +93,17 @@ const Provider: React.FC = ({ children }) => {
       )
 
       if (!transactionId) {
-        setTransactionStatusType(TransactionStatusType.IS_FAILED)
+        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
         return
       }
 
-      setTransactionStatusType(TransactionStatusType.IS_PENDING)
+      onSetTransactionStatus(TransactionStatusType.IS_PENDING)
       const success = await waitTransaction(ethereum as provider, transactionId)
 
       if (success) {
-        setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+        onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
       } else {
-        setTransactionStatusType(TransactionStatusType.IS_FAILED)
+        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
       }
     },
     [ethereum, account, setConfirmTxModalIsOpen]
@@ -115,7 +113,7 @@ const Provider: React.FC = ({ children }) => {
     if (!ethereum || !account) return
 
     setConfirmTxModalIsOpen(true)
-    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+    onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
     const transactionId = await claimEarnedIndexLpReward(
       ethereum as provider,
@@ -123,17 +121,17 @@ const Provider: React.FC = ({ children }) => {
     )
 
     if (!transactionId) {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
       return
     }
 
-    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    onSetTransactionStatus(TransactionStatusType.IS_PENDING)
     const success = await waitTransaction(ethereum as provider, transactionId)
 
     if (success) {
-      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+      onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
     } else {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
   }, [ethereum, account, setConfirmTxModalIsOpen])
 
@@ -141,7 +139,7 @@ const Provider: React.FC = ({ children }) => {
     if (!ethereum || !account) return
 
     setConfirmTxModalIsOpen(true)
-    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+    onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
     const transactionId = await unstakeAndClaimEarnedIndexLpReward(
       ethereum as provider,
@@ -149,17 +147,17 @@ const Provider: React.FC = ({ children }) => {
     )
 
     if (!transactionId) {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
       return
     }
 
-    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    onSetTransactionStatus(TransactionStatusType.IS_PENDING)
     const success = await waitTransaction(ethereum as provider, transactionId)
 
     if (success) {
-      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+      onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
     } else {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
   }, [ethereum, account, setConfirmTxModalIsOpen])
 
@@ -184,10 +182,10 @@ const Provider: React.FC = ({ children }) => {
       {children}
       <ConfirmTransactionModal
         isOpen={confirmTxModalIsOpen}
-        transactionMiningStatus={transactionStatusType}
+        transactionMiningStatus={transactionStatus}
         onDismiss={() => {
           setConfirmTxModalIsOpen(false)
-          setTransactionStatusType(undefined)
+          onSetTransactionStatus(undefined)
         }}
       />
     </Context.Provider>
