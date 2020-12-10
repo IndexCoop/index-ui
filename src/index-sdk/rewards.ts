@@ -1,20 +1,22 @@
 import Web3 from 'web3'
 import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
+
 import MerkleABI from './abi/MerkleDistributor.json'
 import merkleData from './novemberRewardsMerkle.json'
+import { novemberRewardsAddress } from 'constants/ethContractAddresses'
 
 export const getMerkleContract = (provider: provider) => {
   const web3 = new Web3(provider)
   return new web3.eth.Contract(
     (MerkleABI as unknown) as AbiItem,
-    process.env.REACT_APP_NOVEMBER_REWARDS_ADDRESS
+    novemberRewardsAddress
   )
 }
 
 const getMerkleAccount = (account: string) => {
   let key = Object.keys(merkleData).find(
-    (key) => account.toLowerCase() === key.toLowerCase()
+    (key) => account?.toLowerCase() === key.toLowerCase()
   )
   if (key === undefined) return undefined
   return (merkleData as any)[key]
