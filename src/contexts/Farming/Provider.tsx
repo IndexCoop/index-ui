@@ -25,7 +25,12 @@ import { farmEndTime } from 'index-sdk/stake'
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
 
-  const { transactionStatus, onSetTransactionStatus } = useTransactionWatcher()
+  const {
+    transactionId,
+    transactionStatus,
+    onSetTransactionStatus,
+    onSetTransactionId,
+  } = useTransactionWatcher()
   const { account, ethereum } = useWallet()
 
   const {
@@ -63,6 +68,8 @@ const Provider: React.FC = ({ children }) => {
         return
       }
 
+      onSetTransactionId(transactionId)
+
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
       const success = await waitTransaction(ethereum as provider, transactionId)
 
@@ -97,6 +104,8 @@ const Provider: React.FC = ({ children }) => {
         return
       }
 
+      onSetTransactionId(transactionId)
+
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
       const success = await waitTransaction(ethereum as provider, transactionId)
 
@@ -125,6 +134,8 @@ const Provider: React.FC = ({ children }) => {
       return
     }
 
+    onSetTransactionId(transactionId)
+
     onSetTransactionStatus(TransactionStatusType.IS_PENDING)
     const success = await waitTransaction(ethereum as provider, transactionId)
 
@@ -150,6 +161,8 @@ const Provider: React.FC = ({ children }) => {
       onSetTransactionStatus(TransactionStatusType.IS_FAILED)
       return
     }
+
+    onSetTransactionId(transactionId)
 
     onSetTransactionStatus(TransactionStatusType.IS_PENDING)
     const success = await waitTransaction(ethereum as provider, transactionId)
@@ -182,6 +195,7 @@ const Provider: React.FC = ({ children }) => {
       {children}
       <ConfirmTransactionModal
         isOpen={confirmTxModalIsOpen}
+        transactionId={transactionId}
         transactionMiningStatus={transactionStatus}
         onDismiss={() => {
           setConfirmTxModalIsOpen(false)

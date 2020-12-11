@@ -25,7 +25,12 @@ const AirdropProvider: React.FC = ({ children }) => {
   const [isClaimable, setIsClaimable] = useState<boolean>(false)
   const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
 
-  const { transactionStatus, onSetTransactionStatus } = useTransactionWatcher()
+  const {
+    transactionId,
+    transactionStatus,
+    onSetTransactionStatus,
+    onSetTransactionId,
+  } = useTransactionWatcher()
   const {
     account,
     ethereum,
@@ -89,6 +94,8 @@ const AirdropProvider: React.FC = ({ children }) => {
       return
     }
 
+    onSetTransactionId(transactionId)
+
     onSetTransactionStatus(TransactionStatusType.IS_PENDING)
     const success = await waitTransaction(ethereum, transactionId)
 
@@ -121,6 +128,7 @@ const AirdropProvider: React.FC = ({ children }) => {
       {children}
       <ConfirmTransactionModal
         isOpen={confirmTxModalIsOpen}
+        transactionId={transactionId}
         transactionMiningStatus={transactionStatus}
         onDismiss={() => setConfirmTxModalIsOpen(false)}
       />
