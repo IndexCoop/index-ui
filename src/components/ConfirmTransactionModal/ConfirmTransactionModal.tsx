@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo } from 'react'
 import {
   ModalContent,
   ModalProps,
@@ -38,7 +38,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
     }
   }, [connector])
 
-  const etherscanLink = useCallback(() => {
+  const etherscanLink = useMemo(() => {
     if (!transactionId) return
 
     const etherscanUrl = makeEtherscanLink(transactionId)
