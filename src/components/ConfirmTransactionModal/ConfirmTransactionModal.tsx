@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import {
   ModalContent,
   ModalProps,
@@ -10,17 +10,21 @@ import styled from 'styled-components'
 import useWallet from 'hooks/useWallet'
 
 import Modal from 'components/CustomModal'
+import ExternalLink from 'components/ExternalLink'
 import { TransactionStatusType } from 'components/TransactionWatcher'
+import { makeEtherscanLink } from 'utils/index'
 
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
 
 interface ConfirmationModalProps extends ModalProps {
+  transactionId?: string
   transactionMiningStatus?: TransactionStatusType
 }
 
 const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
   isOpen,
+  transactionId,
   transactionMiningStatus,
   onDismiss,
 }) => {
@@ -34,6 +38,22 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
     }
   }, [connector])
 
+  const etherscanLink = useCallback(() => {
+    if (!transactionId) return
+
+    const etherscanUrl = makeEtherscanLink(transactionId)
+
+    return (
+      <>
+        <Spacer />
+        <ExternalLink href={etherscanUrl} target='_blank' textAlign='center'>
+          View the transaction{' '}
+          <img src='https://index-dao.s3.amazonaws.com/external-arrow.svg' />
+        </ExternalLink>
+      </>
+    )
+  }, [transactionId])
+
   switch (transactionMiningStatus) {
     case TransactionStatusType.IS_UNSTARTED:
     case TransactionStatusType.IS_APPROVING:
@@ -43,6 +63,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             {WalletLogo}
             <Spacer />
             <StyledText>Confirm transaction in your wallet.</StyledText>
+            <Spacer />
           </ModalContent>
         </Modal>
       )
@@ -53,6 +74,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             {WalletLogo}
             <Spacer />
             <StyledText>Your transaction is processing.</StyledText>
+            {etherscanLink}
           </ModalContent>
         </Modal>
       )
@@ -63,6 +85,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             {WalletLogo}
             <Spacer />
             <StyledText>Your transaction succeeded.</StyledText>
+            {etherscanLink}
           </ModalContent>
           <ModalActions>
             <Button text='Close' variant='secondary' onClick={onDismiss} />
@@ -76,6 +99,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             {WalletLogo}
             <Spacer />
             <StyledText>Your transaction could not be processed.</StyledText>
+            {etherscanLink}
           </ModalContent>
           <ModalActions>
             <Button text='Close' variant='secondary' onClick={onDismiss} />
@@ -89,6 +113,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
             {WalletLogo}
             <Spacer />
             <StyledText>Confirm transaction in wallet.</StyledText>
+            <Spacer />
           </ModalContent>
         </Modal>
       )
