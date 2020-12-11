@@ -14,13 +14,11 @@ import {
   getAirdropDataForAddress,
 } from 'index-sdk/index'
 import useWallet from 'hooks/useWallet'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { waitTransaction } from 'utils/index'
 
 const AirdropProvider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
-  const [transactionStatusType, setTransactionStatusType] = useState<
-    TransactionStatusType | undefined
-  >()
   const [externalAddress, setExternalAddress] = useState<string>()
   const [airdropQuantity, setAirdropQuantity] = useState<string>()
   const [rewardIndex, setRewardIndex] = useState<number>()
@@ -28,6 +26,13 @@ const AirdropProvider: React.FC = ({ children }) => {
   const [isClaimable, setIsClaimable] = useState<boolean>(false)
   const [claimErrorMessage, setClaimErrorMessage] = useState<string>()
   const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
+
+  const {
+    transactionId,
+    transactionStatus,
+    onSetTransactionStatus,
+    onSetTransactionId,
+  } = useTransactionWatcher()
   const {
     account,
     ethereum,
@@ -86,7 +91,7 @@ const AirdropProvider: React.FC = ({ children }) => {
       return
 
     setConfirmTxModalIsOpen(true)
-    setTransactionStatusType(TransactionStatusType.IS_APPROVING)
+    onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
     const transactionId = await claimAirdrop(
       ethereum,
@@ -98,17 +103,19 @@ const AirdropProvider: React.FC = ({ children }) => {
     )
 
     if (!transactionId) {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
       return
     }
 
-    setTransactionStatusType(TransactionStatusType.IS_PENDING)
+    onSetTransactionId(transactionId)
+    onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+
     const success = await waitTransaction(ethereum, transactionId)
 
     if (success) {
-      setTransactionStatusType(TransactionStatusType.IS_COMPLETED)
+      onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
     } else {
-      setTransactionStatusType(TransactionStatusType.IS_FAILED)
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
   }, [
     ethereum,
@@ -138,10 +145,11 @@ const AirdropProvider: React.FC = ({ children }) => {
       {children}
       <ConfirmTransactionModal
         isOpen={confirmTxModalIsOpen}
-        transactionMiningStatus={transactionStatusType}
+        transactionId={transactionId}
+        transactionMiningStatus={transactionStatus}
         onDismiss={() => {
           setConfirmTxModalIsOpen(false)
-          setTransactionStatusType(undefined)
+          onSetTransactionStatus(undefined)
         }}
       />
     </AirdropContext.Provider>

@@ -144,10 +144,14 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     try {
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
+
       const transactionId = await uniswapTradeTransaction()
+
       onSetTransactionId(transactionId)
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+
       const isSuccessful = await waitTransaction(ethereum, transactionId)
+
       if (isSuccessful) {
         onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
       } else {
