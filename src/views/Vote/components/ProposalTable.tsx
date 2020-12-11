@@ -39,9 +39,10 @@ const ProposalTable: React.FC = () => {
         )}
         {proposalIds.map((id, i) => {
           const isActive =
-            indexProposals[id].msg.payload.start <= currentTime &&
-            currentTime <= indexProposals[id].msg.payload.end
-          const isExecuted = indexProposals[id].msg.payload.end < currentTime
+            indexProposals[id]?.msg?.payload?.start <= currentTime &&
+            currentTime <= indexProposals[id]?.msg?.payload?.end
+          const isExecuted = indexProposals[id]?.msg?.payload?.end < currentTime
+
           return (
             <>
               <StyledColumnRow>
