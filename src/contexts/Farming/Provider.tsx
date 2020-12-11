@@ -8,6 +8,7 @@ import ConfirmTransactionModal, {
 } from 'components/ConfirmTransactionModal'
 import useApproval from 'hooks/useApproval'
 import useWallet from 'hooks/useWallet'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import {
   stakeUniswapEthDpiLpTokens,
   unstakeUniswapEthDpiLpTokens,
@@ -19,7 +20,6 @@ import {
   stakingRewardsAddress,
   uniswapEthDpiLpTokenAddress,
 } from 'constants/ethContractAddresses'
-import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { farmEndTime } from 'index-sdk/stake'
 
 const Provider: React.FC = ({ children }) => {

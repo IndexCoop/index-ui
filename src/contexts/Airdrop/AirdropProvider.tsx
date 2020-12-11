@@ -14,8 +14,8 @@ import {
   getAirdropDataForAddress,
 } from 'index-sdk/index'
 import useWallet from 'hooks/useWallet'
-import { waitTransaction } from 'utils/index'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
+import { waitTransaction } from 'utils/index'
 
 const AirdropProvider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
