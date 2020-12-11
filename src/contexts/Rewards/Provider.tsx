@@ -93,8 +93,8 @@ const Provider: React.FC = ({ children }) => {
     }
 
     onSetTransactionId(transactionId)
-
     onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+
     const success = await waitTransaction(ethereum, transactionId)
 
     if (success) {

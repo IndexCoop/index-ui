@@ -69,8 +69,8 @@ const Provider: React.FC = ({ children }) => {
       }
 
       onSetTransactionId(transactionId)
-
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+
       const success = await waitTransaction(ethereum as provider, transactionId)
 
       if (success) {
@@ -105,8 +105,8 @@ const Provider: React.FC = ({ children }) => {
       }
 
       onSetTransactionId(transactionId)
-
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+
       const success = await waitTransaction(ethereum as provider, transactionId)
 
       if (success) {
@@ -135,8 +135,8 @@ const Provider: React.FC = ({ children }) => {
     }
 
     onSetTransactionId(transactionId)
-
     onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+
     const success = await waitTransaction(ethereum as provider, transactionId)
 
     if (success) {
@@ -163,8 +163,8 @@ const Provider: React.FC = ({ children }) => {
     }
 
     onSetTransactionId(transactionId)
-
     onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+
     const success = await waitTransaction(ethereum as provider, transactionId)
 
     if (success) {
