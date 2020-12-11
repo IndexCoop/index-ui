@@ -5,6 +5,14 @@ import useSnapshotProposals from 'hooks/useSnapshotProposals'
 
 const SNAPSHOT_INDEX_PROPOSAL_BASE = 'https://snapshot.page/#/index/proposal'
 
+interface StyledButtonProps {
+  readonly isActive: boolean
+}
+
+interface StyledColumnProps {
+  readonly isActive?: boolean
+}
+
 const ProposalTable: React.FC = () => {
   const { indexProposals = {} } = useSnapshotProposals()
   const currentTime = Math.round(new Date().getTime() / 1000)
@@ -30,18 +38,19 @@ const ProposalTable: React.FC = () => {
           <StyledEmptyMessage>No proposals yet</StyledEmptyMessage>
         )}
         {proposalIds.map((id, i) => {
+          const isActive =
+            indexProposals[id].msg.payload.start <= currentTime &&
+            currentTime <= indexProposals[id].msg.payload.end
+          const isExecuted = indexProposals[id].msg.payload.end < currentTime
           return (
             <>
               <StyledColumnRow>
                 <StyledColumn style={{ width: '60%' }}>
                   {indexProposals[id].msg.payload.name}
                 </StyledColumn>
-                <StyledColumn style={{ width: '20%' }}>
-                  {indexProposals[id].msg.payload.start <= currentTime &&
-                    currentTime <= indexProposals[id].msg.payload.end &&
-                    'Active'}
-                  {indexProposals[id].msg.payload.end < currentTime &&
-                    'Executed'}
+                <StyledColumn style={{ width: '20%' }} isActive={isActive}>
+                  {isActive && 'Active'}
+                  {isExecuted && 'Executed'}
                 </StyledColumn>
                 <StyledColumn style={{ width: '20%' }}>
                   <StyledButton
@@ -51,6 +60,7 @@ const ProposalTable: React.FC = () => {
                         '_blank'
                       )
                     }}
+                    isActive={isActive}
                   >
                     View
                   </StyledButton>
@@ -76,8 +86,9 @@ const StyledEmptyMessage = styled.div`
   align-items: center;
 `
 
-const StyledButton = styled.div`
-  background-color: ${(props) => props.theme.colors.grey[500]};
+const StyledButton = styled.div<StyledButtonProps>`
+  background-color: ${(props) =>
+    props.isActive ? props.theme.colors.green : props.theme.colors.grey[500]};
   border-radius: 15px;
   height: 30px;
   width: 80%;
@@ -120,9 +131,11 @@ const StyledColumnHeader = styled.div`
   padding: 10px 10px 10px 30px;
 `
 
-const StyledColumn = styled.div`
+const StyledColumn = styled.div<StyledColumnProps>`
   font-size: 14px;
-  color: ${(props) => props.theme.textColor};
+  font-weight: ${(props) => (props.isActive ? '600' : '400')};
+  color: ${(props) =>
+    props.isActive ? props.theme.colors.green : props.theme.textColor};
   padding: 5px 10px 5px 30px;
   align-items: center;
   display: flex;
