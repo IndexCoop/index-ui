@@ -1,5 +1,28 @@
 const newsContent = [
   {
+    image:
+      'https://cdn.substack.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fb3ce60ca-2d25-4d98-8f07-c9cee24b0d6c_1188x680.png',
+    title: 'View From the Nest #7',
+    author: 'DarkForestCapital',
+    readTime: '5 minute read',
+    link: 'https://indexcoop.substack.com/p/view-from-the-nest-7',
+  },
+  {
+    image:
+      'https://cdn.substack.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F1b2fedcd-32fd-41a3-a795-0250e8c47656_2880x1620.png',
+    title: 'View From the Nest #6',
+    author: 'DarkForestCapital',
+    readTime: '7 minute read',
+    link: 'https://indexcoop.substack.com/p/view-from-the-nest-6',
+  },
+  {
+    image: 'https://pbs.twimg.com/media/Eofx3xYVgAAjFhk?format=jpg&name=large',
+    title: 'View From the Nest #5',
+    author: 'DarkForestCapital',
+    readTime: '5 minute read',
+    link: 'https://indexcoop.substack.com/p/view-from-the-nest-5',
+  },
+  {
     image: 'http://i3.ytimg.com/vi/NITWj6NqTuU/maxresdefault.jpg',
     title: 'Talking Crypto With Regan Bozman (Index Core Contributor)',
     author: 'Gabriel Haines',
@@ -11,11 +34,11 @@ const newsContent = [
     title: 'View From the Nest #4 (Weekly Summary)',
     author: 'DarkForestCapital',
     readTime: '5 minute read',
-    link: 'https://indexcoop.substack.com/p/view-from-the-nest-3',
+    link:
+      'https://indexcoop.substack.com/p/view-from-the-nest-4-monthly-review',
   },
   {
-    image:
-      'https://pbs.twimg.com/profile_banners/1312497976883904512/1602012492/1500x500',
+    image: 'https://miro.medium.com/max/1400/0*c1iwaImJm9AYc4iw',
     title: 'Digging into Divergence Loss',
     author: 'Overanalyser',
     readTime: '5 minute read',
@@ -44,8 +67,7 @@ const newsContent = [
     link: 'https://medium.com/indexcoop/index-coop-october-update-d6e004136bb5',
   },
   {
-    image:
-      'https://pbs.twimg.com/profile_banners/1312497976883904512/1602012492/1500x500',
+    image: 'https://miro.medium.com/max/1400/0*c1iwaImJm9AYc4iw',
     title: 'The Top Secret, Open Source, Composable, Master Plan',
     author: 'Overanalyser',
     readTime: '5 minute read',
@@ -74,8 +96,7 @@ const newsContent = [
     link: 'https://indexcoop.substack.com/p/view-from-the-nest-1',
   },
   {
-    image:
-      'https://pbs.twimg.com/profile_banners/1312497976883904512/1602012492/1500x500',
+    image: 'https://miro.medium.com/max/1400/0*c1iwaImJm9AYc4iw',
     title: 'How to Capture Intrinsic Productivity in an Index Fund',
     author: 'Overanalyser',
     readTime: '4 minute read',
