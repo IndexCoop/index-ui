@@ -8,5 +8,6 @@ export interface ContextValues {
   isClaimable?: boolean
   claimableQuantity?: BigNumber
   onClaimRewards: () => void
+  month?: string
   setMonth: Dispatch<SetStateAction<string>>
 }

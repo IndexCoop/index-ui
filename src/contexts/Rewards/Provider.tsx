@@ -17,8 +17,9 @@ import { waitTransaction } from 'utils/index'
 
 import { novemberRewardsAddress } from '../../constants/ethContractAddresses'
 import novemberMerkleData from 'index-sdk/novemberRewardsMerkle.json'
-import { testRewardsAddress } from '../../constants/ethContractAddresses'
-import testMerkleData from 'index-sdk/testRewardsMerkle.json'
+
+import { decemberRewardsAddress } from '../../constants/ethContractAddresses'
+import decemberMerkleData from 'index-sdk/decemberRewardsMerkle.json'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -27,7 +28,7 @@ const Provider: React.FC = ({ children }) => {
   const [rewardProof, setRewardProof] = useState<string[]>()
   const [isClaimable, setIsClaimable] = useState<boolean>(false)
   const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
-  const [month, setMonth] = useState('')
+  const [month, setMonth] = useState('December 2020')
   const [rewardsAddress, setRewardsAddress] = useState('')
   const [merkleData, setMerkleData] = useState({})
 
@@ -45,17 +46,14 @@ const Provider: React.FC = ({ children }) => {
   //set proper contract address and merkle data depending on month
   useEffect(() => {
     switch (month) {
-      case 'December': {
+      case 'December 2020': {
+        setRewardsAddress(decemberRewardsAddress!)
+        setMerkleData(decemberMerkleData)
         break
       }
-      case 'November': {
+      case 'November 2020': {
         setRewardsAddress(novemberRewardsAddress!)
         setMerkleData(novemberMerkleData)
-        break
-      }
-      case 'Test': {
-        setRewardsAddress(testRewardsAddress!)
-        setMerkleData(testMerkleData)
         break
       }
     }
@@ -111,7 +109,7 @@ const Provider: React.FC = ({ children }) => {
       account,
       rewardsQuantity,
       rewardProof,
-      merkleData
+      rewardsAddress
     )
 
     if (!transactionId) {
@@ -150,6 +148,7 @@ const Provider: React.FC = ({ children }) => {
         rewardProof,
         isClaimable,
         onClaimRewards,
+        month,
         setMonth,
       }}
     >

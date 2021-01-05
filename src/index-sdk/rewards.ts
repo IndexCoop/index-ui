@@ -58,13 +58,13 @@ export const claimRewards = async (
   claimRecipientAddress: string,
   amount: string,
   proof: string[],
-  rewardsAddress: any
+  rewardsAddress: string
 ): Promise<string | null> => {
-  const airdropContract = getMerkleContract(provider, rewardsAddress)
+  const rewardsContract = getMerkleContract(provider, rewardsAddress)
   const claimArgs = [rewardIndex, claimRecipientAddress, amount, proof]
 
   return new Promise((resolve) => {
-    airdropContract.methods
+    rewardsContract.methods
       .claim(...claimArgs)
       .send({ from: accountAddress, gas: 120000 })
       .on('transactionHash', (txId: string) => {

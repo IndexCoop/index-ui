@@ -16,20 +16,16 @@ const MonthlyClaim: React.FC = () => {
     return <Button disabled full text='Claim' variant='secondary' />
   }, [status, onClaimRewards, claimableQuantity])
 
-  const [currentMonth, setCurrentMonth] = useState('')
-  const liftMonthState = (month: string) => {
-    setCurrentMonth(month)
+  const onSelectMonth = (month: string) => {
+    setMonth(month)
   }
-  useEffect(() => {
-    setMonth(currentMonth)
-  }, [setMonth, currentMonth])
 
   return (
     <>
       <Card>
         <CardContent>
           <Spacer size='sm' />
-          <MonthsDropdown liftMonthState={liftMonthState} />
+          <MonthsDropdown onSelectMonth={onSelectMonth} />
           <Spacer />
           <StyledSectionTitle>
             {status === 'connected' ? claimableQuantity?.toString() || 0 : '--'}

@@ -3,18 +3,12 @@ import { useTheme } from 'react-neu'
 import { NavLink, useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import styled from 'styled-components'
+import useRewards from '../../../hooks/useRewards'
 
-const MonthsDropdown = (props: { liftMonthState: Function }) => {
+const MonthsDropdown = (props: { onSelectMonth: Function }) => {
   const theme = useTheme()
   const { pathname } = useLocation()
-
-  const [currentMonth, setCurrentMonth] = useState('December')
-  const setMonth = (label: string) => {
-    setCurrentMonth(label)
-  }
-  useEffect(() => {
-    props.liftMonthState(currentMonth)
-  }, [props, currentMonth])
+  const { month, setMonth } = useRewards()
 
   const CustomOption = (props: any) => {
     const { innerProps, value, label, data } = props
@@ -68,19 +62,15 @@ const MonthsDropdown = (props: { liftMonthState: Function }) => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: currentMonth } as any}
+      value={{ label: month } as any}
       options={[
         {
-          value: 'December',
-          label: 'December',
+          value: 'December 2020',
+          label: 'December 2020',
         },
         {
-          value: 'November',
-          label: 'November',
-        },
-        {
-          value: 'Test',
-          label: 'Test',
+          value: 'November 2020',
+          label: 'November 2020',
         },
       ]}
       components={{
