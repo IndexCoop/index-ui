@@ -15,6 +15,11 @@ import {
 } from 'index-sdk/rewards'
 import { waitTransaction } from 'utils/index'
 
+import { novemberRewardsAddress } from '../../constants/ethContractAddresses'
+import novemberMerkleData from 'index-sdk/novemberRewardsMerkle.json'
+import { testRewardsAddress } from '../../constants/ethContractAddresses'
+import testMerkleData from 'index-sdk/testRewardsMerkle.json'
+
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
   const [rewardsQuantity, setRewardsQuantity] = useState<string>()
@@ -22,6 +27,9 @@ const Provider: React.FC = ({ children }) => {
   const [rewardProof, setRewardProof] = useState<string[]>()
   const [isClaimable, setIsClaimable] = useState<boolean>(false)
   const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
+  const [month, setMonth] = useState('')
+  const [rewardsAddress, setRewardsAddress] = useState('')
+  const [merkleData, setMerkleData] = useState({})
 
   const {
     transactionId,
@@ -34,6 +42,25 @@ const Provider: React.FC = ({ children }) => {
     ethereum,
   }: { account: string | null | undefined; ethereum: provider } = useWallet()
 
+  //set proper contract address and merkle data depending on month
+  useEffect(() => {
+    switch (month) {
+      case 'December': {
+        break
+      }
+      case 'November': {
+        setRewardsAddress(novemberRewardsAddress!)
+        setMerkleData(novemberMerkleData)
+        break
+      }
+      case 'Test': {
+        setRewardsAddress(testRewardsAddress!)
+        setMerkleData(testMerkleData)
+        break
+      }
+    }
+  }, [month])
+
   const checkRewardClaimStatus = useCallback(async () => {
     setRewardsQuantity(undefined)
     setRewardIndex(undefined)
@@ -41,17 +68,16 @@ const Provider: React.FC = ({ children }) => {
     setIsClaimable(false)
     setClaimableQuantity(new BigNumber(0))
 
-    const initialReward = getRewardsDataForAddress(account || '')
-
+    const initialReward = getRewardsDataForAddress(account || '', merkleData)
     if (!initialReward) {
       return
     }
 
     const isAlreadyClaimed = await checkIsRewardsClaimed(
       ethereum,
-      initialReward.index as number
+      initialReward.index as number,
+      rewardsAddress
     )
-
     if (isAlreadyClaimed) {
       return
     }
@@ -65,13 +91,13 @@ const Provider: React.FC = ({ children }) => {
     setRewardProof(initialReward.proof)
     setIsClaimable(true)
     setClaimableQuantity(claimQuantity)
-  }, [ethereum, account])
+  }, [ethereum, account, merkleData, rewardsAddress])
 
   useEffect(() => {
     if (!ethereum || !account) return
 
     checkRewardClaimStatus()
-  }, [ethereum, account, checkRewardClaimStatus])
+  }, [ethereum, account, checkRewardClaimStatus, merkleData, rewardsAddress])
 
   const onClaimRewards = useCallback(async () => {
     if (!rewardIndex || !account || !rewardsQuantity || !rewardProof) return
@@ -84,7 +110,8 @@ const Provider: React.FC = ({ children }) => {
       rewardIndex,
       account,
       rewardsQuantity,
-      rewardProof
+      rewardProof,
+      merkleData
     )
 
     if (!transactionId) {
@@ -110,6 +137,8 @@ const Provider: React.FC = ({ children }) => {
     rewardsQuantity,
     rewardProof,
     setConfirmTxModalIsOpen,
+    merkleData,
+    rewardsAddress,
   ])
 
   return (
@@ -121,6 +150,7 @@ const Provider: React.FC = ({ children }) => {
         rewardProof,
         isClaimable,
         onClaimRewards,
+        setMonth,
       }}
     >
       {children}

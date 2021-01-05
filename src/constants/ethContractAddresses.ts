@@ -5,6 +5,7 @@ export const stakingRewardsAddress =
 export const farmTwoAddress = process.env.REACT_APP_FARM_TWO_ADDRESS
 export const novemberRewardsAddress =
   process.env.REACT_APP_NOVEMBER_REWARDS_ADDRESS
+export const testRewardsAddress = process.env.REACT_APP_TEST_REWARDS_ADDRESS
 
 // Token Addresses
 export const indexTokenAddress = process.env.REACT_APP_INDEX_TOKEN_ADDRESS

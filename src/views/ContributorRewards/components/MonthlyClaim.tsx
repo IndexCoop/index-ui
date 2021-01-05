@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 import useWallet from 'hooks/useWallet'
@@ -6,7 +6,7 @@ import MonthsDropdown from './MonthsDropdown'
 import useRewards from 'hooks/useRewards'
 
 const MonthlyClaim: React.FC = () => {
-  const { claimableQuantity, onClaimRewards } = useRewards()
+  const { claimableQuantity, onClaimRewards, setMonth } = useRewards()
   const { status } = useWallet()
 
   const ClaimButton = useMemo(() => {
@@ -16,12 +16,20 @@ const MonthlyClaim: React.FC = () => {
     return <Button disabled full text='Claim' variant='secondary' />
   }, [status, onClaimRewards, claimableQuantity])
 
+  const [currentMonth, setCurrentMonth] = useState('')
+  const liftMonthState = (month: string) => {
+    setCurrentMonth(month)
+  }
+  useEffect(() => {
+    setMonth(currentMonth)
+  }, [setMonth, currentMonth])
+
   return (
     <>
       <Card>
         <CardContent>
           <Spacer size='sm' />
-          <MonthsDropdown />
+          <MonthsDropdown liftMonthState={liftMonthState} />
           <Spacer />
           <StyledSectionTitle>
             {status === 'connected' ? claimableQuantity?.toString() || 0 : '--'}
