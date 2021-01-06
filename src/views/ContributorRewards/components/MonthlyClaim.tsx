@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 import useWallet from 'hooks/useWallet'
