@@ -15,10 +15,11 @@ import {
 } from 'index-sdk/rewards'
 import { waitTransaction } from 'utils/index'
 
-import { novemberRewardsAddress } from '../../constants/ethContractAddresses'
+import {
+  novemberRewardsAddress,
+  decemberRewardsAddress,
+} from 'constants/ethContractAddresses'
 import novemberMerkleData from 'index-sdk/novemberRewardsMerkle.json'
-
-import { decemberRewardsAddress } from '../../constants/ethContractAddresses'
 import decemberMerkleData from 'index-sdk/decemberRewardsMerkle.json'
 
 const Provider: React.FC = ({ children }) => {
