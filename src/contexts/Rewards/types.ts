@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js'
+import { Dispatch, SetStateAction } from 'react'
 
 export interface ContextValues {
   rewardsQuantity?: string
@@ -7,4 +8,6 @@ export interface ContextValues {
   isClaimable?: boolean
   claimableQuantity?: BigNumber
   onClaimRewards: () => void
+  month?: string
+  setMonth: Dispatch<SetStateAction<string>>
 }

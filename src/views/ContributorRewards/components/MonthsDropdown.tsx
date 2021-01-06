@@ -1,21 +1,23 @@
 import React, { useMemo } from 'react'
 import { useTheme } from 'react-neu'
-import { NavLink, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import styled from 'styled-components'
+import useRewards from 'hooks/useRewards'
 
-const CustomOption = (props: any) => {
-  const { innerProps, value, label, data } = props
-  return (
-    <DropdownOption {...innerProps}>
-      <StyledMonth>{label}</StyledMonth>
-    </DropdownOption>
-  )
-}
-
-const MonthsDropdown: React.FC = () => {
+const MonthsDropdown = () => {
   const theme = useTheme()
   const { pathname } = useLocation()
+  const { month, setMonth } = useRewards()
+
+  const CustomOption = (props: any) => {
+    const { innerProps, label } = props
+    return (
+      <DropdownOption {...innerProps}>
+        <StyledMonth onClick={() => setMonth(label)}>{label}</StyledMonth>
+      </DropdownOption>
+    )
+  }
 
   const dropdownSelectStyles = useMemo(() => {
     return {
@@ -27,7 +29,7 @@ const MonthsDropdown: React.FC = () => {
       singleValue: (styles: any) => ({
         ...styles,
         'font-weight': 600,
-        'font-size': '28px',
+        'font-size': '24px',
         'color': theme.colors.white[500],
         'cursor': 'pointer',
         '&:hover': {
@@ -60,11 +62,15 @@ const MonthsDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'November' } as any}
+      value={{ label: month } as any}
       options={[
         {
-          value: 'November',
-          label: 'November',
+          value: 'December 2020',
+          label: 'December 2020',
+        },
+        {
+          value: 'November 2020',
+          label: 'November 2020',
         },
       ]}
       components={{
