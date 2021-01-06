@@ -1,17 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { useTheme } from 'react-neu'
-import { NavLink, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import styled from 'styled-components'
-import useRewards from '../../../hooks/useRewards'
+import useRewards from 'hooks/useRewards'
 
-const MonthsDropdown = (props: { onSelectMonth: Function }) => {
+const MonthsDropdown = () => {
   const theme = useTheme()
   const { pathname } = useLocation()
   const { month, setMonth } = useRewards()
 
   const CustomOption = (props: any) => {
-    const { innerProps, value, label, data } = props
+    const { innerProps, label } = props
     return (
       <DropdownOption {...innerProps}>
         <StyledMonth onClick={() => setMonth(label)}>{label}</StyledMonth>
@@ -29,7 +29,7 @@ const MonthsDropdown = (props: { onSelectMonth: Function }) => {
       singleValue: (styles: any) => ({
         ...styles,
         'font-weight': 600,
-        'font-size': '28px',
+        'font-size': '24px',
         'color': theme.colors.white[500],
         'cursor': 'pointer',
         '&:hover': {

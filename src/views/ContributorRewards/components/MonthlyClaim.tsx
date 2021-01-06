@@ -6,7 +6,7 @@ import MonthsDropdown from './MonthsDropdown'
 import useRewards from 'hooks/useRewards'
 
 const MonthlyClaim: React.FC = () => {
-  const { claimableQuantity, onClaimRewards, setMonth } = useRewards()
+  const { claimableQuantity, onClaimRewards } = useRewards()
   const { status } = useWallet()
 
   const ClaimButton = useMemo(() => {
@@ -16,16 +16,12 @@ const MonthlyClaim: React.FC = () => {
     return <Button disabled full text='Claim' variant='secondary' />
   }, [status, onClaimRewards, claimableQuantity])
 
-  const onSelectMonth = (month: string) => {
-    setMonth(month)
-  }
-
   return (
     <>
       <Card>
         <CardContent>
           <Spacer size='sm' />
-          <MonthsDropdown onSelectMonth={onSelectMonth} />
+          <MonthsDropdown />
           <Spacer />
           <StyledSectionTitle>
             {status === 'connected' ? claimableQuantity?.toString() || 0 : '--'}
