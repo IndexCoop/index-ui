@@ -1,24 +1,19 @@
 import React from 'react'
-import {
-  Box,
-  Button,
-  Notice,
-  NoticeContent,
-  NoticeIcon,
-  Spacer,
-} from 'react-neu'
+import { Notice, NoticeContent, NoticeIcon, Spacer } from 'react-neu'
 import styled from 'styled-components'
+import ExternalLink from 'components/ExternalLink'
 
 const MigrationNotice: React.FC = () => (
   <>
     <Notice>
-      <NoticeIcon>⏳</NoticeIcon>
+      <NoticeIcon>⭐️</NoticeIcon>
       <NoticeContent>
         <StyledNoticeContentInner>
-          <span>
-            Please migrate from the expiring pool to the active pool below to
-            continue farming INDEX rewards starting December 7th, 12pm PST.
-          </span>
+          Liquidity Mining rewards have been extended. No migration is
+          necessary.{'\n'}
+          <ExternalLink href='https://snapshot.page/#/index/proposal/QmZ7AWrHWrY6T6wsNujTEYNgMwmCjDGhT4bw4SAQR75rXr'>
+            Learn more here.{' '}
+          </ExternalLink>
         </StyledNoticeContentInner>
       </NoticeContent>
     </Notice>
@@ -27,8 +22,9 @@ const MigrationNotice: React.FC = () => (
 )
 
 const StyledNoticeContentInner = styled.div`
-  align-items: center;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   @media (max-width: 768px) {
     flex-flow: column nowrap;
     align-items: flex-start;
