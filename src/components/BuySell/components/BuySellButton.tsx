@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 import { RoundedButton } from 'components/RoundedButton'
 import useBuySell from 'hooks/useBuySell'
@@ -11,6 +11,8 @@ import {
   indexTokenAddress,
   uniswapRouterAddress,
 } from 'constants/ethContractAddresses'
+
+const transakSDK = require('@transak/transak-sdk').default
 
 /**
  * BuySellButton - Displays a button used in the buy sell flow.
@@ -68,8 +70,27 @@ const BuySellButton: React.FC = () => {
   const usdcApproving =
     isUserBuying && selectedCurrency?.id === 'usdc' && usdcApproval.isApproving
 
+  const transakLauncher = () => {
+    let transak = new transakSDK({
+      apiKey: process.env.REACT_APP_TRANSAK_API_KEY,
+      environment: 'STAGING', // STAGING/PRODUCTION
+      defaultCryptoCurrency: buySellToken,
+      walletAddress: '',
+      themeColor: '0063ed',
+      fiatCurrency: '',
+      email: '',
+      redirectURL: '',
+      hostURL: window.location.origin,
+      widgetHeight: '550px',
+      widgetWidth: '450px',
+    })
+
+    transak.init()
+  }
+
   let buttonText: string
   let buttonAction: (...args: any[]) => any
+  let buyWithFiat: ReactElement | null = null
   if (loginRequiredBeforeSubmit) {
     buttonText = 'Login'
     buttonAction = onOpenWalletModal
@@ -91,18 +112,32 @@ const BuySellButton: React.FC = () => {
   } else if (isUserBuying) {
     buttonText = 'Buy'
     buttonAction = onExecuteBuySell
+    buyWithFiat = (
+      <>
+        <div style={{ margin: '10px', color: '#8c8c8c' }}>or</div>
+        <RoundedButton
+          isDisabled={false}
+          isPending={false}
+          text={'Buy with Fiat'}
+          onClick={transakLauncher}
+        />
+      </>
+    )
   } else {
     buttonText = 'Sell'
     buttonAction = onExecuteBuySell
   }
 
   return (
-    <RoundedButton
-      isDisabled={!currencyQuantity || !tokenQuantity}
-      isPending={isFetchingOrderData}
-      text={buttonText}
-      onClick={buttonAction}
-    />
+    <>
+      <RoundedButton
+        isDisabled={!currencyQuantity || !tokenQuantity}
+        isPending={isFetchingOrderData}
+        text={buttonText}
+        onClick={buttonAction}
+      />
+      {buyWithFiat}
+    </>
   )
 }
 
