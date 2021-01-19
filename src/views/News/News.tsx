@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Spacer, Card } from 'react-neu'
 import Page from 'components/Page'
 import styled from 'styled-components'
@@ -7,7 +7,11 @@ import NewsCard from './components/NewsCard'
 import fetchNews from 'utils/newsApi'
 import NewsCardPlaceholder from './components/NewsCardPlaceholder'
 
-const Vote: React.FC = () => {
+const Vote = (props: { title: string }) => {
+  useEffect(() => {
+    document.title = props.title
+  }, [])
+
   const newsContent = fetchNews()
 
   const headerArticle = newsContent[0]

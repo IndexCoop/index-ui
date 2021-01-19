@@ -60,28 +60,28 @@ const App: React.FC = () => {
           />
           <Switch>
             <Route exact path='/'>
-              <Home />
+              <Home title={'Index - Home'} />
             </Route>
             <Route exact path='/dpi'>
-              <DPI />
+              <DPI title={'Index - DPI'} />
             </Route>
             <Route exact path='/index'>
-              <INDEX />
+              <INDEX title={'Index - Index'} />
             </Route>
             <Route exact path='/vote'>
-              <Vote />
+              <Vote title={'Index - Vote'} />
             </Route>
             <Route exact path='/about'>
-              <About />
+              <About title={'Index - About'} />
             </Route>
             <Route exact path='/farm'>
-              <Farm />
+              <Farm title={'Index - Farm'} />
             </Route>
             <Route exact path='/rewards'>
-              <ContributorRewards />
+              <ContributorRewards title={'Index - Rewards'} />
             </Route>
             <Route path='/news'>
-              <News />
+              <News title={'Index - News'} />
             </Route>
           </Switch>
         </StyledBackgroundDiv>

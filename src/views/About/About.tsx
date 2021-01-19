@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Container } from 'react-neu'
 import { useTheme } from 'react-neu'
@@ -6,7 +6,11 @@ import { useTheme } from 'react-neu'
 import Page from 'components/Page'
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 
-const Home: React.FC = () => {
+const About = (props: { title: string }) => {
+  useEffect(() => {
+    document.title = props.title
+  }, [])
+
   const { latestMarketCap } = useDpiTokenMarketData()
   const { darkMode } = useTheme()
 
@@ -317,4 +321,4 @@ const ButtonText = styled.p`
   margin-bottom: 0;
 `
 
-export default Home
+export default About

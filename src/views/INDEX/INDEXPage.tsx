@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container } from 'react-neu'
 import styled from 'styled-components'
 
@@ -19,7 +19,11 @@ import useBalances from 'hooks/useBalances'
 
 import IndexReleaseScheduleImage from 'assets/index-token-release-schedule.png'
 
-const DpiProductPage: React.FC = () => {
+const DpiProductPage = (props: { title: string }) => {
+  useEffect(() => {
+    document.title = props.title
+  }, [])
+
   const {
     prices,
     latestPrice,
