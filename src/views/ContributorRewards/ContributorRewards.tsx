@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Container, Spacer } from 'react-neu'
 import Page from 'components/Page'
 import MonthlyClaim from './components/MonthlyClaim'
 
-const ContributorRewards: React.FC = () => {
+const ContributorRewards = (props: { title: string }) => {
+  useEffect(() => {
+    document.title = props.title
+  }, [])
+
   return (
     <Page>
       <Container>

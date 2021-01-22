@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container } from 'react-neu'
 import styled from 'styled-components'
 
@@ -22,7 +22,11 @@ import useBalances from 'hooks/useBalances'
 
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
-const DpiProductPage: React.FC = () => {
+const DpiProductPage = (props: { title: string }) => {
+  useEffect(() => {
+    document.title = props.title
+  }, [])
+
   const {
     prices,
     latestPrice,

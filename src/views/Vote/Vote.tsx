@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Spacer } from 'react-neu'
 import Page from 'components/Page'
 import styled from 'styled-components'
 import ProposalTable from './components/ProposalTable'
 
-const Vote: React.FC = () => {
+const Vote = (props: { title: string }) => {
+  useEffect(() => {
+    document.title = props.title
+  }, [])
+
   return (
     <Page>
       <Container size='sm'>

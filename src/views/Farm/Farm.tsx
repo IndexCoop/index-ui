@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Box, Container, Separator, Spacer } from 'react-neu'
 
@@ -11,7 +11,11 @@ import RewardsCard from './components/Rewards'
 import Treasury from './components/Treasury'
 import MigrationNotice from './components/MigrationNotice'
 
-const Farm: React.FC = () => {
+const Farm = (props: { title: string }) => {
+  useEffect(() => {
+    document.title = props.title
+  }, [])
+
   return (
     <Page>
       <Container>
