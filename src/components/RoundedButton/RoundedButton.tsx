@@ -7,6 +7,7 @@ interface RoundedButtonProps {
   isDisabled?: boolean
   isPending?: boolean
   onClick?: (...args: any[]) => any
+  buttonClassName?: string
 }
 
 const RoundedButton: React.FC<RoundedButtonProps> = ({
@@ -14,6 +15,7 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
   isDisabled,
   isPending,
   onClick,
+  buttonClassName,
 }: RoundedButtonProps) => {
   if (isDisabled) {
     return <StyledDisabledButton disabled>{text}</StyledDisabledButton>
@@ -27,7 +29,11 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
     )
   }
 
-  return <StyledSubmitButton onClick={onClick}>{text}</StyledSubmitButton>
+  return (
+    <StyledSubmitButton onClick={onClick} className={buttonClassName}>
+      {text}
+    </StyledSubmitButton>
+  )
 }
 
 const StyledDisabledButton = styled.button`
