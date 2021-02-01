@@ -54,6 +54,7 @@ const Vote = (props: { title: string }) => {
           {listArticles.map((article: any) => {
             return (
               <NewsCard
+                key={article.link}
                 image={article.image}
                 title={article.title}
                 author={article.author}
