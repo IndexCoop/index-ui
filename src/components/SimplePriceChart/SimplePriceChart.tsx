@@ -130,31 +130,33 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
           </defs>
         </LineChart>
       </ChartContainer>
-      <div style={{ float: 'right', display: 'flex', paddingBottom: '20px' }}>
-        <Button
-          full
-          size={'sm'}
-          text='1D'
-          variant={durationSelector === 0 ? 'default' : 'secondary'}
-          onClick={handleDailyButton}
-        />
-        <Spacer size={'sm'} />
-        <Button
-          full
-          size={'sm'}
-          text='1W'
-          variant={durationSelector === 1 ? 'default' : 'secondary'}
-          onClick={handleWeeklyButton}
-        />
-        <Spacer size={'sm'} />
-        <Button
-          full
-          size={'sm'}
-          text='1M'
-          variant={durationSelector === 2 ? 'default' : 'secondary'}
-          onClick={handleMonthlyButton}
-        />
-      </div>
+      <DurationWrapper>
+        <ButtonWrapper>
+          <Button
+            full
+            size={'sm'}
+            text='1D'
+            variant={durationSelector === 0 ? 'default' : 'secondary'}
+            onClick={handleDailyButton}
+          />
+          <Spacer size={'sm'} />
+          <Button
+            full
+            size={'sm'}
+            text='1W'
+            variant={durationSelector === 1 ? 'default' : 'secondary'}
+            onClick={handleWeeklyButton}
+          />
+          <Spacer size={'sm'} />
+          <Button
+            full
+            size={'sm'}
+            text='1M'
+            variant={durationSelector === 2 ? 'default' : 'secondary'}
+            onClick={handleMonthlyButton}
+          />
+        </ButtonWrapper>
+      </DurationWrapper>
     </Container>
   )
 }
@@ -167,18 +169,14 @@ const ChartTitle = styled.h2`
   font-size: 42px;
 `
 
-const DurationButton = styled.button`
-  background-color: radial-gradient(
-    circle at center top,
-    rgb(22, 20, 31),
-    rgb(22, 20, 31)
-  );
-  border: none;
-  border-radius: 50px;
-  margin: 8px;
-  padding: 0 0 10 10 px;
-  font-size: 1em;
-  color: white;
+const DurationWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  padding-bottom: 20px;
 `
 
 export default MarketDataChart
