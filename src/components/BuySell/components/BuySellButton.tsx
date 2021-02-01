@@ -73,7 +73,7 @@ const BuySellButton: React.FC = () => {
   const transakLauncher = () => {
     let transak = new transakSDK({
       apiKey: process.env.REACT_APP_TRANSAK_API_KEY,
-      environment: 'STAGING', // STAGING/PRODUCTION
+      environment: process.env.REACT_APP_ENVIRONMENT?.toUpperCase(), // STAGING or PRODUCTION
       defaultCryptoCurrency: buySellToken,
       walletAddress: '',
       themeColor: '0063ed',
