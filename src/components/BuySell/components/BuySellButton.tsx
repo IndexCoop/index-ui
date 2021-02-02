@@ -75,11 +75,8 @@ const BuySellButton: React.FC = () => {
       apiKey: process.env.REACT_APP_TRANSAK_API_KEY,
       environment: process.env.REACT_APP_ENVIRONMENT?.toUpperCase(), // STAGING or PRODUCTION
       defaultCryptoCurrency: buySellToken,
-      walletAddress: '',
       themeColor: '0063ed',
-      fiatCurrency: '',
-      email: '',
-      redirectURL: '',
+      redirectURL: 'http://localhost:3000',
       hostURL: window.location.origin,
       widgetHeight: '550px',
       widgetWidth: '450px',
@@ -90,7 +87,7 @@ const BuySellButton: React.FC = () => {
 
   let buttonText: string
   let buttonAction: (...args: any[]) => any
-  let buyWithFiat: ReactElement | null = null
+  let buyWithCash: ReactElement | null = null
   if (loginRequiredBeforeSubmit) {
     buttonText = 'Login'
     buttonAction = onOpenWalletModal
@@ -112,13 +109,13 @@ const BuySellButton: React.FC = () => {
   } else if (isUserBuying) {
     buttonText = 'Buy'
     buttonAction = onExecuteBuySell
-    buyWithFiat = (
+    buyWithCash = (
       <>
         <div style={{ margin: '10px', color: '#8c8c8c' }}>or</div>
         <RoundedButton
           isDisabled={false}
           isPending={false}
-          text={'Buy with Fiat'}
+          text='Buy with Cash'
           onClick={transakLauncher}
         />
       </>
@@ -137,7 +134,7 @@ const BuySellButton: React.FC = () => {
         text={buttonText}
         onClick={buttonAction}
       />
-      {buyWithFiat}
+      {buyWithCash}
     </>
   )
 }
