@@ -19,9 +19,9 @@ const MarketData: React.FC = () => {
 
   const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
-  const dpiTokenIcon = {
+  const cgiTokenIcon = {
     src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
-    alt: 'DefiPulse Index Logo',
+    alt: 'CGI Logo',
   }
 
   const updateChartPrice = (chartData: any) => {
@@ -67,8 +67,8 @@ const MarketData: React.FC = () => {
   return (
     <div>
       <StyledDpiIconLabel>
-        <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
-        <span>DPI</span>
+        <StyledIcon src={cgiTokenIcon.src} alt={cgiTokenIcon.alt} />
+        <span>CGI</span>
       </StyledDpiIconLabel>
       <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
       <p>{dateString}</p>
@@ -83,7 +83,7 @@ const MarketData: React.FC = () => {
         </StyledDpiPriceChange>
       </StyledDpiPriceWrapper>
       <SimplePriceChart
-        icon={dpiTokenIcon}
+        icon={cgiTokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}

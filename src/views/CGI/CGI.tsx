@@ -22,7 +22,7 @@ import useBalances from 'hooks/useBalances'
 
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
-const DpiProductPage = (props: { title: string }) => {
+const CgiProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [])
@@ -82,16 +82,6 @@ const DpiProductPage = (props: { title: string }) => {
             For the cryptoasset basket wrapped-bitcoin (wBTC) and wrapped-Ether
             (wETH) were selected based on being the largest and most established
             cryptoassets.
-            <h2>Objective</h2>
-            The DeFi Pulse Index is a digital asset index designed to track
-            tokens’ performance within the Decentralized Finance industry. The
-            index is weighted based on the value of each token’s circulating
-            supply. The DeFi Pulse Index aims to track projects in Decentralized
-            Finance that have significant usage and show a commitment to ongoing
-            maintenance and development.
-            <ExternalLink href='https://pulse.inc' target='_blank'>
-              <h4>View the official methodology here.</h4>
-            </ExternalLink>
             <h2>Abstract</h2>
             Academic research conducted in partnership with Imperial College
             London found that a pairing of gold and cryptoassets in a way that
@@ -252,9 +242,9 @@ const DpiProductPage = (props: { title: string }) => {
   )
 }
 
-const StyledDpiIndexCalculationImage = styled.img`
+const StyledCgiIndexCalculationImage = styled.img`
   margin-bottom: 20px;
   width: 100%;
 `
 
-export default DpiProductPage
+export default CgiProductPage
