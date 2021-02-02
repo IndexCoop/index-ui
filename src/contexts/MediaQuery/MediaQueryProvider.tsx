@@ -7,8 +7,6 @@ const MediaQueryProvider: React.FC = ({ children }) => {
   const [deviceWidth, setDeviceWidth] = useState<number>(0)
   const [deviceHeight, setDeviceHeight] = useState<number>(0)
   /* eslint no-restricted-globals:1 */
-  // const [deviceWidth, setDeviceWidth] = useState<number>(0)
-  // const [deviceHeight, setDeviceHeight] = useState<number>(0)
   const [isMobile, setIsMobile] = useState<boolean>(false)
   const [isTablet, setIsTablet] = useState<boolean>(false)
   const [isDesktop, setIsDesktop] = useState<boolean>(false)
