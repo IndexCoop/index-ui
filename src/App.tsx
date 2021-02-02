@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import MobileMenu from 'components/MobileMenu'
 import TopBar from 'components/TopBar'
 
+import { MediaQueryProvider } from 'contexts/MediaQuery'
 import { BalancesProvider } from 'contexts/Balances'
 import { AirdropProvider } from 'contexts/Airdrop'
 import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
@@ -105,31 +106,33 @@ const Providers: React.FC = ({ children }) => {
       <TransactionWatcherProvider>
         <WalletProvider>
           <ApolloProvider client={graphqlClient}>
-            <AirdropProvider>
-              <RewardsProvider>
-                <ExternalAirdropProvider>
-                  <BalancesProvider>
-                    <FarmingProvider>
-                      <FarmingTwoProvider>
-                        <PricesProvider>
-                          <BuySellProvider>
-                            <DpiTokenMarketDataProvider>
-                              <DpiIndexComponentsProvider>
-                                <IndexTokenMarketDataProvider>
-                                  <SnapshotProposalsProvider>
-                                    {children}
-                                  </SnapshotProposalsProvider>
-                                </IndexTokenMarketDataProvider>
-                              </DpiIndexComponentsProvider>
-                            </DpiTokenMarketDataProvider>
-                          </BuySellProvider>
-                        </PricesProvider>
-                      </FarmingTwoProvider>
-                    </FarmingProvider>
-                  </BalancesProvider>
-                </ExternalAirdropProvider>
-              </RewardsProvider>
-            </AirdropProvider>
+            <MediaQueryProvider>
+              <AirdropProvider>
+                <RewardsProvider>
+                  <ExternalAirdropProvider>
+                    <BalancesProvider>
+                      <FarmingProvider>
+                        <FarmingTwoProvider>
+                          <PricesProvider>
+                            <BuySellProvider>
+                              <DpiTokenMarketDataProvider>
+                                <DpiIndexComponentsProvider>
+                                  <IndexTokenMarketDataProvider>
+                                    <SnapshotProposalsProvider>
+                                      {children}
+                                    </SnapshotProposalsProvider>
+                                  </IndexTokenMarketDataProvider>
+                                </DpiIndexComponentsProvider>
+                              </DpiTokenMarketDataProvider>
+                            </BuySellProvider>
+                          </PricesProvider>
+                        </FarmingTwoProvider>
+                      </FarmingProvider>
+                    </BalancesProvider>
+                  </ExternalAirdropProvider>
+                </RewardsProvider>
+              </AirdropProvider>
+            </MediaQueryProvider>
           </ApolloProvider>
         </WalletProvider>
       </TransactionWatcherProvider>
