@@ -31,7 +31,7 @@ const Provider: React.FC = ({ children }) => {
   const [rewardProof, setRewardProof] = useState<string[]>()
   const [isClaimable, setIsClaimable] = useState<boolean>(false)
   const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
-  const [month, setMonth] = useState('December 2020')
+  const [month, setMonth] = useState('Select a Reward Month')
   const [rewardsAddress, setRewardsAddress] = useState('')
   const [merkleData, setMerkleData] = useState({})
 

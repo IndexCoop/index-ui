@@ -50,6 +50,10 @@ const MonthsDropdown = () => {
           color: theme.colors.grey[500],
         },
       }),
+      valueContainer: (styles: any) => ({
+        ...styles,
+        overflow: 'initial',
+      }),
       indicatorSeparator: () => ({}),
       indicatorContainer: (styles: any) => ({
         ...styles,
