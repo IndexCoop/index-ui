@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
-import useDpiTokenMarketData from 'hooks/useCgiTokenMarketData'
+import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 
 const Home: React.FC = () => {
   const { latestMarketCap } = useDpiTokenMarketData()
