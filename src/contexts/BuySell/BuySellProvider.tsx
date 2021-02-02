@@ -20,7 +20,9 @@ import { currencyTokens } from 'constants/currencyTokens'
 import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
-  const [buySellToken, setBuySellToken] = useState<'dpi' | 'index'>('dpi')
+  const [buySellToken, setBuySellToken] = useState<'dpi' | 'index' | 'cgi'>(
+    'dpi'
+  )
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
@@ -100,7 +102,13 @@ const BuySellProvider: React.FC = ({ children }) => {
         setCurrencyQuantity(uniswapData.display?.to_quantity)
       }
     })
-  }, [isUserBuying, selectedCurrency, activeField, targetTradeQuantity])
+  }, [
+    isUserBuying,
+    selectedCurrency,
+    activeField,
+    targetTradeQuantity,
+    buySellToken,
+  ])
 
   const onExecuteBuySell = useCallback(async () => {
     if (!account || !uniswapData?.amount_in || !selectedCurrency) return

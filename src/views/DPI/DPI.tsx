@@ -16,7 +16,7 @@ import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
 import MarketData from './components/MarketData'
 
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import useDpiTokenMarketData from 'hooks/useCgiTokenMarketData'
 import useDpiIndexComponents from 'hooks/useDpiIndexComponents'
 import useBalances from 'hooks/useBalances'
 

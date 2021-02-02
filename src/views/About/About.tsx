@@ -4,7 +4,7 @@ import { Container } from 'react-neu'
 import { useTheme } from 'react-neu'
 
 import Page from 'components/Page'
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import useDpiTokenMarketData from 'hooks/useCgiTokenMarketData'
 
 const About = (props: { title: string }) => {
   useEffect(() => {
