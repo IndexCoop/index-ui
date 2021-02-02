@@ -79,7 +79,7 @@ const BuySellButton: React.FC = () => {
       redirectURL: 'http://localhost:3000',
       hostURL: window.location.origin,
       widgetHeight: '550px',
-      widgetWidth: '450px',
+      widgetWidth: '400px',
     })
 
     transak.init()
