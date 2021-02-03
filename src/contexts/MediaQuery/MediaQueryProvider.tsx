@@ -31,6 +31,10 @@ const MediaQueryProvider: React.FC = ({ children }) => {
     }
   })
 
+  useEffect(() => {
+    handleWindowSizeChange()
+  }, [])
+
   return (
     <MediaQueryContext.Provider
       value={{
