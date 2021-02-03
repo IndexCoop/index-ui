@@ -4,6 +4,7 @@ import { RoundedButton } from 'components/RoundedButton'
 import useBuySell from 'hooks/useBuySell'
 import useWallet from 'hooks/useWallet'
 import useApproval from 'hooks/useApproval'
+import useMediaQuery from 'hooks/useMediaQuery'
 import {
   daiTokenAddress,
   usdcTokenAddress,
@@ -38,6 +39,7 @@ const BuySellButton: React.FC = () => {
   const usdcApproval = useApproval(usdcTokenAddress, uniswapRouterAddress)
   const dpiApproval = useApproval(dpiTokenAddress, uniswapRouterAddress)
   const indexApproval = useApproval(indexTokenAddress, uniswapRouterAddress)
+  const { isMobile } = useMediaQuery()
 
   // Only prompt the user at end of the buy flow. (So they can preview the order before logging in)
   const loginRequiredBeforeSubmit = uniswapData?.amount_in && !account
@@ -79,10 +81,14 @@ const BuySellButton: React.FC = () => {
       redirectURL: 'http://localhost:3000',
       hostURL: window.location.origin,
       widgetHeight: '550px',
-      widgetWidth: '400px',
+      widgetWidth: isMobile ? '350px' : '450px',
     })
 
     transak.init()
+
+    transak.on(transak.ALL_EVENTS, (data: any) => {
+      console.log(data)
+    })
   }
 
   let buttonText: string
