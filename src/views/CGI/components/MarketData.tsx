@@ -66,22 +66,22 @@ const MarketData: React.FC = () => {
 
   return (
     <div>
-      <StyledDpiIconLabel>
+      <StyledCgiIconLabel>
         <StyledIcon src={cgiTokenIcon.src} alt={cgiTokenIcon.alt} />
         <span>CGI</span>
-      </StyledDpiIconLabel>
-      <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
+      </StyledCgiIconLabel>
+      <StyledCgiTitle>DeFi Pulse Index</StyledCgiTitle>
       <p>{dateString}</p>
-      <StyledDpiPriceWrapper>
-        <StyledDpiPrice>
+      <StyledCgiPriceWrapper>
+        <StyledCgiPrice>
           {'$' + numeral(chartPrice).format('0.00a')}
-        </StyledDpiPrice>
-        <StyledDpiPriceChange isLoss={epochPriceChange < 0}>
+        </StyledCgiPrice>
+        <StyledCgiPriceChange isLoss={epochPriceChange < 0}>
           {numeral((epochPriceChange / priceAtEpochStart) * 100).format(
             '0.00a'
           ) + '%'}
-        </StyledDpiPriceChange>
-      </StyledDpiPriceWrapper>
+        </StyledCgiPriceChange>
+      </StyledCgiPriceWrapper>
       <SimplePriceChart
         icon={cgiTokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
@@ -93,30 +93,30 @@ const MarketData: React.FC = () => {
   )
 }
 
-const StyledDpiTitle = styled.div`
+const StyledCgiTitle = styled.div`
   font-size: 32px;
   font-weight: 600;
 `
 
-const StyledDpiIconLabel = styled.div`
+const StyledCgiIconLabel = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 `
 
-const StyledDpiPriceWrapper = styled.div`
+const StyledCgiPriceWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   margin-top: 10px;
 `
 
-const StyledDpiPrice = styled.span`
+const StyledCgiPrice = styled.span`
   font-size: 36px;
   margin-right: 10px;
   line-height: 1;
 `
 
-const StyledDpiPriceChange = styled.span`
+const StyledCgiPriceChange = styled.span`
   font-size: 24px;
   color: ${(props: { isLoss: boolean }) =>
     props.isLoss ? '#ff4a4a' : '#03c75e'};
