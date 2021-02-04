@@ -32,7 +32,10 @@ const ProductsDropdown: React.FC = () => {
 
   const dropdownSelectStyles = useMemo(() => {
     const isResourcesRouteActive =
-      pathname === '/about' || pathname === '/news' || pathname === '/rewards'
+      pathname === '/about' ||
+      pathname === '/news' ||
+      pathname === '/rewards' ||
+      pathname === '/how-to-buy'
 
     return {
       control: (styles: any) => ({
@@ -101,6 +104,10 @@ const ProductsDropdown: React.FC = () => {
           value: 'rewards',
           label: 'Rewards',
         },
+        {
+          value: 'how-to-buy',
+          label: 'How to Buy',
+        },
       ]}
       components={{
         Option: CustomOption,
@@ -111,7 +118,7 @@ const ProductsDropdown: React.FC = () => {
 }
 
 const CustomDropdownOption = styled.div`
-  width: 100px;
+  width: 120px;
   margin: 10px;
 `
 
