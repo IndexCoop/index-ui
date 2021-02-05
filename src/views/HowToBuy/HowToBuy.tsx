@@ -4,7 +4,17 @@ import { Container } from 'react-neu'
 import { useTheme } from 'react-neu'
 
 import Page from 'components/Page'
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import useMediaQuery from '../../hooks/useMediaQuery'
+
+import banner from './images/Banner_thin_DPI_guide_1.svg'
+import image1 from './images/Mobile_frame_1.svg'
+import image2 from './images/Mobile_frame_2.svg'
+import image3 from './images/Mobile_frame_3.svg'
+import image4 from './images/Mobile_frame_4.svg'
+import image5 from './images/Mobile_frame_5.svg'
+import image6 from './images/Mobile_frame_6.svg'
+import dpiImage1 from './images/DPI_image_1.png'
+import dpiImage2 from './images/DPI_image_2.png'
 
 const HowToBuy = (props: { title: string }) => {
   useEffect(() => {
@@ -12,6 +22,60 @@ const HowToBuy = (props: { title: string }) => {
   }, [])
 
   const { darkMode } = useTheme()
+
+  const { isMobile } = useMediaQuery()
+
+  let headerImage = isMobile ? null : <HeaderImage src={banner} />
+
+  let doubleImage1 = isMobile ? (
+    <div>
+      <Image src={image1} />
+      <Image src={image2} />
+    </div>
+  ) : (
+    <div style={{ display: 'flex' }}>
+      <div style={{ maxWidth: '45%', float: 'left', padding: '5px' }}>
+        <Image src={image1} />
+      </div>
+      <div style={{ maxWidth: '45%', float: 'right', padding: '5px' }}>
+        <Image src={image2} />
+      </div>
+    </div>
+  )
+
+  let doubleImage2 = isMobile ? (
+    <div>
+      <Image src={image3} />
+      <Image src={image4} />
+    </div>
+  ) : (
+    <div style={{ display: 'flex' }}>
+      <div style={{ maxWidth: '45%', float: 'left', padding: '5px' }}>
+        <Image src={image3} />
+      </div>
+      <div style={{ maxWidth: '45%', float: 'right', padding: '5px' }}>
+        <Image src={image4} />
+      </div>
+    </div>
+  )
+
+  let doubleImage3 = isMobile ? (
+    <div>
+      <Image src={image5} />
+      <Image src={image6} />
+    </div>
+  ) : (
+    <ol>
+      <div style={{ display: 'flex' }}>
+        <div style={{ maxWidth: '45%', float: 'left', padding: '5px' }}>
+          <Image src={image5} />
+        </div>
+        <div style={{ maxWidth: '45%', float: 'right', padding: '5px' }}>
+          <Image src={image6} />
+        </div>
+      </div>
+    </ol>
+  )
 
   return (
     <Page>
@@ -23,7 +87,7 @@ const HowToBuy = (props: { title: string }) => {
               <HighlightedHeader> DeFi Pulse Index </HighlightedHeader>
             </AboutTitle>
             <br />
-            <CenteredImage src={'Banner_thin_DPI_guide.svg'} />
+            {headerImage}
           </div>
         </Section>
         <Section>
@@ -66,15 +130,15 @@ const HowToBuy = (props: { title: string }) => {
                   Click the shopping cart icon in the bottom menu, then search
                   for ‘DPI’ in the search field at the top of the screen.
                 </li>
-                <Image src={''} />
+                {doubleImage1}
                 <li>
-                  Check the contract address matches what is shown on
+                  Check the contract address matches what is shown on&nbsp;
                   <Link
                     href={'https://www.coingecko.com/en/coins/defipulse-index'}
                   >
                     Coingecko
                   </Link>
-                  and/or
+                  and/or&nbsp;
                   <Link
                     href={
                       'https://etherscan.io/token/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
@@ -93,13 +157,15 @@ const HowToBuy = (props: { title: string }) => {
                   connect your bank account and exchange U.S. dollars to buy
                   DPI.
                 </li>
+                {doubleImage2}
               </ol>
-              <Image src={''} />
               <br />
               Not all payment methods are supported in all countries or states.
               Notably, bank purchases are supported in California but not New
               York.
-              <Image src={''} />
+              <br />
+              <br />
+              {doubleImage3}
               <br />
               <br />
               Some mobile wallets don’t support direct purchases of DPI with USD
@@ -115,7 +181,7 @@ const HowToBuy = (props: { title: string }) => {
               If your mobile wallet doesn’t support crypto purchases in your
               country or state, you can move to OPTION 2, Part A in this guide.
               It will teach you how to buy DAI, ETH or USDC on a centralized
-              exchange and send it to a
+              exchange and send it to a&nbsp;
               <Link
                 href={
                   'https://www.google.com/search?sxsrf=ALeKk01NxL7nslidvV4ay2Tc1wZjgwZfWQ%3A1611627619709&ei=Y3wPYMmyKtfl5NoP65WNGA&q=what+is+a+web3+crypto+wallet&oq=what+is+a+web3+crypto+wallet&gs_lcp=CgZwc3ktYWIQAzoECAAQRzoHCCMQsAIQJ1DVJVjwLmCiMGgAcAJ4AIABS4gBggWSAQIxMJgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=psy-ab&ved=0ahUKEwiJ8KDexLjuAhXXMlkFHetKAwMQ4dUDCA0&uact=5'
@@ -123,9 +189,9 @@ const HowToBuy = (props: { title: string }) => {
               >
                 Web3 wallet,
               </Link>
-              such as
+              such as&nbsp;
               <Link href={'https://metamask.io/'}>MetaMask</Link>
-              or
+              or&nbsp;
               <Link href={'https://walletconnect.org/'}>WalletConnect,</Link>
               that allows you to buy tokens such as DPI. Once your assets are in
               the Web3 wallet you are just one small step away from buying DPI.
@@ -143,13 +209,13 @@ const HowToBuy = (props: { title: string }) => {
               <br />
               <ol>
                 <li>
-                  Open an account at a centralized exchange such as
-                  <Link href-={'https://www.binance.com/en'}> Binance, </Link>
-                  <Link href={'https://www.bitstamp.net/'}> Bitstamp, </Link>
-                  <Link href={'https://www.coinbase.com/'}> Coinbase, </Link>
-                  <Link href={'https://www.gemini.com/'}> Gemini, </Link>
-                  or
-                  <Link href={'https://www.kraken.com/'}> Kraken. </Link>
+                  Open an account at a centralized exchange such as&nbsp;
+                  <Link href-={'https://www.binance.com/en'}>Binance,</Link>
+                  <Link href={'https://www.bitstamp.net/'}>Bitstamp,</Link>
+                  <Link href={'https://www.coinbase.com/'}>Coinbase,</Link>
+                  <Link href={'https://www.gemini.com/'}>Gemini,</Link>
+                  or&nbsp;
+                  <Link href={'https://www.kraken.com/'}>Kraken.</Link>
                 </li>
                 <br />
                 <li>
@@ -165,14 +231,14 @@ const HowToBuy = (props: { title: string }) => {
                 <li>
                   To buy DPI on the Web using indexcoop.com or a decentralized
                   exchange you’ll need to create an account with a Web3 wallet
-                  such as
+                  such as&nbsp;
                   <Link href={'https://metamask.io/'}>MetaMask</Link>
-                  or
+                  or&nbsp;
                   <Link href={'https://walletconnect.org/'}>
                     WalletConnect,
                   </Link>
                   then send DAI, ETH, or USDC from your centralized exchange to
-                  your Metamask or WalletConnect address.
+                  your Metamask or WalletConnect address.&nbsp;
                   <Link href={'https://boxmining.com/metamask-tutorial/'}>
                     Here’s a great tutorial on setting up a Metamask account and
                     also depositing funds into the wallet.
@@ -188,7 +254,7 @@ const HowToBuy = (props: { title: string }) => {
               arrives safely before transferring larger amounts.
               <br />
               <br />
-              While you can buy DPI on decentralized exchanges, such as
+              While you can buy DPI on decentralized exchanges, such as&nbsp;
               <Link
                 href={
                   'https://info.uniswap.org/pair/0x4d5ef58aac27d99935e5b6b4a6778ff292059991'
@@ -197,7 +263,7 @@ const HowToBuy = (props: { title: string }) => {
                 Uniswap,
               </Link>
               we will show a purchase via indexcoop.com - the website managed by
-              the Index Coop, the
+              the Index Coop, the&nbsp;
               <Link
                 href={
                   'https://www.google.com/search?sxsrf=ALeKk01kP0CozxN-ffaZeIb5-V7FXFTCJA%3A1611627627153&ei=a3wPYLHiCIir5NoPrqOM4AM&q=what+is+a+decentralied+anonyouns+organization&oq=what+is+a+decentralied+anonyouns+orga&gs_lcp=CgZwc3ktYWIQAxgAMgUIIRCgAToECAAQRzoFCAAQyQM6AggAOgQIIxAnOggIABDJAxCRAjoFCAAQkQI6CAgAELEDEIMBOgUIABCxAzoECAAQCjoHCAAQFBCHAjoHCAAQyQMQDToECAAQDToGCAAQFhAeOggIIRAWEB0QHjoHCCEQChCgAToECCEQCjoHCCEQChCrAjoKCCEQFhAKEB0QHlD6jAhYo9wIYPbsCGgAcAJ4AIABeYgBiRKSAQQyNi4zmAEAoAEBqgEHZ3dzLXdpesgBCMABAQ&sclient=psy-ab'
@@ -209,9 +275,9 @@ const HowToBuy = (props: { title: string }) => {
               <br />
               <ol>
                 <li>
-                  Visit
+                  Visit&nbsp;
                   <Link href={'https://www.indexcoop.com'}>indexcoop.com</Link>
-                  and using the navigation head to the
+                  and using the navigation head to the&nbsp;
                   <Link href={'https://www.indexcoop.com/dpi'}>DPI</Link>
                   page
                 </li>
@@ -222,7 +288,7 @@ const HowToBuy = (props: { title: string }) => {
                   WalletConnect) by logging in with your password.
                 </li>
                 <br />
-                <Image src={''} />
+                <Image style={{ maxWidth: '90%' }} src={dpiImage1} />
                 <li>
                   Populate the Buy / Sell widget with the amount of DPI you
                   would like to buy, review your transaction, then click ‘Buy’.
@@ -231,6 +297,7 @@ const HowToBuy = (props: { title: string }) => {
                   <br />
                   In this example, we’re seeking to buy 0.2 ETH’s worth of DPI.
                 </li>
+                <Image style={{ maxWidth: '90%' }} src={dpiImage2} />
                 <br />
                 <li>
                   The Index Coop website will then prompt your wallet, which
@@ -248,7 +315,7 @@ const HowToBuy = (props: { title: string }) => {
                 </li>
               </ol>
               <br />
-              Congratulations! You now own DPI and are part of
+              Congratulations! You now own DPI and are part of&nbsp;
               <Link
                 href={
                   'https://explore.duneanalytics.com/dashboard/index-coop-community'
@@ -262,14 +329,14 @@ const HowToBuy = (props: { title: string }) => {
               <br />
               Now that you hold DPI in your Web3 wallet you may find it easier
               to manage DPI and any other assets through a portfolio tracker
-              like
+              like&nbsp;
               <Link href={'https://gnosis-safe.io/'}>Gnosis</Link>
-              or
+              or&nbsp;
               <Link href={'https://app.zerion.io/'}>Zerion.</Link>
               These applications let you simply track or connect a wallet and
               view gain/loss, portfolio allocations and you can even buy or sell
               through them You may also wish to transfer your DPI holdings from
-              your Web3 wallet to a more secure
+              your Web3 wallet to a more secure&nbsp;
               <Link
                 href={
                   'https://www.google.com/search?sxsrf=ALeKk00iRF14cd4kv_qjdR7cO2KyPMka5w%3A1611027755026&ei=K1UGYKiXAajt5gLy9I_wDw&q=best+cold+wallet+cryptocurrency&oq=best+cold+wallet+cryptocurrency&gs_lcp=CgZwc3ktYWIQAzIJCAAQyQMQFhAeMgYIABAWEB46BAgAEEc6CggjELACEMkDECc6CAgAEAgQDRAeUOgEWJ0MYKQOaABwAngAgAHfAYgBhwiSAQUxLjUuMZgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=psy-ab&ved=0ahUKEwjo2L6IiqfuAhWotlkKHXL6A_4Q4dUDCA0&uact=5'
@@ -279,11 +346,11 @@ const HowToBuy = (props: { title: string }) => {
               </Link>
               <br />
               <br />
-              For more information, follow us on
+              For more information, follow us on&nbsp;
               <Link href={'https://twitter.com/indexcoop'}>Twitter</Link>
-              and join our
+              and join our&nbsp;
               <Link href={'https://discord.gg/RKZ4S3b'}>Discord</Link>
-              and
+              and&nbsp;
               <Link href={'https://gov.indexcoop.com/'}>Forum.</Link>
             </Description>
           </div>
@@ -346,7 +413,18 @@ const SectionSubTitle = styled.p`
   }
 `
 
+// const Image = styled.img`
+//   min-width: 250px;
+//   max-width: 100%;
+//   @media (max-width: 768px) {
+//     max-width: 100%;
+//   }
+// `
+
 const Image = styled.img`
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
   min-width: 250px;
   max-width: 100%;
   @media (max-width: 768px) {
@@ -354,7 +432,7 @@ const Image = styled.img`
   }
 `
 
-const CenteredImage = styled.img`
+const HeaderImage = styled.img`
   position: relative;
   top: -50px;
   z-index: -1;
@@ -378,9 +456,9 @@ const Description = styled.p`
 
 const Link = styled.a`
   text-decoration: none;
-  padding-left: 6px;
-  padding-right: 6px;
+  padding-right: 5px;
   color: #a9a7ff;
+  display: inline-block;
 `
 
 export default HowToBuy
