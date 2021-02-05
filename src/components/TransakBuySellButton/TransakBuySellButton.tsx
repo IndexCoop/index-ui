@@ -27,11 +27,7 @@ const getTransakLauncher = (isMobile: boolean, buySellToken: string) => {
 }
 
 /**
- * TransakBuySellButton - Displays a button used in the buy sell flow.
- * The button can be used to:
- * 1. Prompt user login to complete a transaction
- * 2. Prompt the user to approve input currency to Uniswap Router
- * 3. Execute the trade transaction
+ * TransakBuySellButton - Displays a button used to initiate a Transak buy sell flow
  */
 const TransakBuySellButton: React.FC = () => {
   const { buySellToken } = useBuySell()
