@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 
 import { RoundedButton } from 'components/RoundedButton'
 import useBuySell from 'hooks/useBuySell'
@@ -72,28 +72,8 @@ const BuySellButton: React.FC = () => {
   const usdcApproving =
     isUserBuying && selectedCurrency?.id === 'usdc' && usdcApproval.isApproving
 
-  const transakLauncher = () => {
-    let transak = new transakSDK({
-      apiKey: process.env.REACT_APP_TRANSAK_API_KEY,
-      environment: process.env.REACT_APP_ENVIRONMENT?.toUpperCase(), // STAGING or PRODUCTION
-      defaultCryptoCurrency: buySellToken,
-      themeColor: '0063ed',
-      redirectURL: 'http://localhost:3000',
-      hostURL: window.location.origin,
-      widgetHeight: '550px',
-      widgetWidth: isMobile ? '350px' : '450px',
-    })
-
-    transak.init()
-
-    transak.on(transak.ALL_EVENTS, (data: any) => {
-      console.log(data)
-    })
-  }
-
   let buttonText: string
   let buttonAction: (...args: any[]) => any
-  let buyWithCash: ReactElement | null = null
   if (loginRequiredBeforeSubmit) {
     buttonText = 'Login'
     buttonAction = onOpenWalletModal
@@ -115,33 +95,19 @@ const BuySellButton: React.FC = () => {
   } else if (isUserBuying) {
     buttonText = 'Buy'
     buttonAction = onExecuteBuySell
-    buyWithCash = (
-      <>
-        <div style={{ margin: '10px', color: '#8c8c8c' }}>or</div>
-        <RoundedButton
-          isDisabled={false}
-          isPending={false}
-          text='Buy with Cash'
-          onClick={transakLauncher}
-        />
-      </>
-    )
   } else {
     buttonText = 'Sell'
     buttonAction = onExecuteBuySell
   }
 
   return (
-    <>
-      <RoundedButton
-        buttonClassName={buySellToken}
-        isDisabled={!currencyQuantity || !tokenQuantity}
-        isPending={isFetchingOrderData}
-        text={buttonText}
-        onClick={buttonAction}
-      />
-      {buyWithCash}
-    </>
+    <RoundedButton
+      buttonClassName={buySellToken}
+      isDisabled={!currencyQuantity || !tokenQuantity}
+      isPending={isFetchingOrderData}
+      text={buttonText}
+      onClick={buttonAction}
+    />
   )
 }
 
