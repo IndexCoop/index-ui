@@ -55,7 +55,7 @@ const StyledCard = styled.a`
 const StyledCardImage = styled.img`
   height: 450px;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: ${(props) => props.theme.borderRadius}px;
   color: ${(props) => props.theme.textColor};
   &:hover {
