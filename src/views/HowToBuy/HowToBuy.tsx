@@ -22,6 +22,8 @@ const HowToBuy = (props: { title: string }) => {
               How To Buy The{' '}
               <HighlightedHeader> DeFi Pulse Index </HighlightedHeader>
             </AboutTitle>
+            <br />
+            <CenteredImage src={'Banner_thin_DPI_guide.svg'} />
           </div>
         </Section>
         <Section>
@@ -294,7 +296,7 @@ const HowToBuy = (props: { title: string }) => {
 const Section = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
   @media (max-width: 768px) {
     font-size: 36px;
     flex-direction: column;
@@ -326,6 +328,7 @@ const SectionTitle = styled.p`
   font-weight: 600;
   line-height: 1.1;
   margin-bottom: 40px;
+  margin-top: 0px;
   @media (max-width: 768px) {
     font-size: 48px;
     margin-top: 20px;
@@ -355,6 +358,10 @@ const CenteredImage = styled.img`
   position: relative;
   top: -50px;
   z-index: -1;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
   @media (max-width: 768px) {
     max-width: 100%;
   }
