@@ -6,75 +6,119 @@ import { useTheme } from 'react-neu'
 import Page from 'components/Page'
 import useMediaQuery from '../../hooks/useMediaQuery'
 
-import banner from './images/Banner_thin_DPI_guide_1.svg'
-import image1 from './images/Mobile_frame_1.svg'
-import image2 from './images/Mobile_frame_2.svg'
-import image3 from './images/Mobile_frame_3.svg'
-import image4 from './images/Mobile_frame_4.svg'
-import image5 from './images/Mobile_frame_5.svg'
-import image6 from './images/Mobile_frame_6.svg'
-import dpiImage1 from './images/DPI_image_1.png'
-import dpiImage2 from './images/DPI_image_2.png'
-
 const HowToBuy = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [])
 
-  const { darkMode } = useTheme()
-
   const { isMobile } = useMediaQuery()
 
-  let headerImage = isMobile ? null : <HeaderImage src={banner} />
+  let headerImage = isMobile ? null : (
+    <HeaderImage
+      src={
+        'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-banner.svg'
+      }
+    />
+  )
 
   let doubleImage1 = isMobile ? (
-    <div>
-      <Image src={image1} />
-      <Image src={image2} />
+    <div style={{ marginLeft: '-40px' }}>
+      <Image
+        src={
+          'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-1.svg'
+        }
+      />
+      <Image
+        src={
+          'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-2.svg'
+        }
+      />
     </div>
   ) : (
-    <div style={{ display: 'flex' }}>
-      <div style={{ maxWidth: '45%', float: 'left', padding: '5px' }}>
-        <Image src={image1} />
+    <div
+      style={{ display: 'flex', marginLeft: '-40px', justifyContent: 'center' }}
+    >
+      <div style={{ maxWidth: '50%', padding: '5px' }}>
+        <Image
+          src={
+            'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-1.svg'
+          }
+        />
       </div>
-      <div style={{ maxWidth: '45%', float: 'right', padding: '5px' }}>
-        <Image src={image2} />
+      <div style={{ maxWidth: '50%', padding: '5px' }}>
+        <Image
+          src={
+            'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-2.svg'
+          }
+        />
       </div>
     </div>
   )
 
   let doubleImage2 = isMobile ? (
-    <div>
-      <Image src={image3} />
-      <Image src={image4} />
+    <div style={{ marginLeft: '-40px' }}>
+      <Image
+        src={
+          'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-3.svg'
+        }
+      />
+      <Image
+        src={
+          'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-4.svg'
+        }
+      />
     </div>
   ) : (
-    <div style={{ display: 'flex' }}>
-      <div style={{ maxWidth: '45%', float: 'left', padding: '5px' }}>
-        <Image src={image3} />
+    <div
+      style={{ display: 'flex', marginLeft: '-40px', justifyContent: 'center' }}
+    >
+      <div style={{ maxWidth: '50%', padding: '5px' }}>
+        <Image
+          src={
+            'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-3.svg'
+          }
+        />
       </div>
-      <div style={{ maxWidth: '45%', float: 'right', padding: '5px' }}>
-        <Image src={image4} />
+      <div style={{ maxWidth: '50%', padding: '5px' }}>
+        <Image
+          src={
+            'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-4.svg'
+          }
+        />
       </div>
     </div>
   )
 
   let doubleImage3 = isMobile ? (
     <div>
-      <Image src={image5} />
-      <Image src={image6} />
+      <Image
+        src={
+          'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-5.svg'
+        }
+      />
+      <Image
+        src={
+          'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-6.svg'
+        }
+      />
     </div>
   ) : (
-    <ol>
-      <div style={{ display: 'flex' }}>
-        <div style={{ maxWidth: '45%', float: 'left', padding: '5px' }}>
-          <Image src={image5} />
-        </div>
-        <div style={{ maxWidth: '45%', float: 'right', padding: '5px' }}>
-          <Image src={image6} />
-        </div>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ maxWidth: '50%', padding: '5px' }}>
+        <Image
+          src={
+            'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-5.svg'
+          }
+        />
       </div>
-    </ol>
+      <div style={{ maxWidth: '50%', padding: '5px' }}>
+        <Image
+          src={
+            'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-mobile-1.svg'
+          }
+        />
+      </div>
+    </div>
   )
 
   return (
@@ -130,6 +174,7 @@ const HowToBuy = (props: { title: string }) => {
                   Click the shopping cart icon in the bottom menu, then search
                   for ‘DPI’ in the search field at the top of the screen.
                 </li>
+                <br />
                 {doubleImage1}
                 <li>
                   Check the contract address matches what is shown on&nbsp;
@@ -157,6 +202,7 @@ const HowToBuy = (props: { title: string }) => {
                   connect your bank account and exchange U.S. dollars to buy
                   DPI.
                 </li>
+                <br />
                 {doubleImage2}
               </ol>
               <br />
@@ -166,7 +212,6 @@ const HowToBuy = (props: { title: string }) => {
               <br />
               <br />
               {doubleImage3}
-              <br />
               <br />
               Some mobile wallets don’t support direct purchases of DPI with USD
               or other fiat currencies. Most wallet providers work with payment
@@ -288,7 +333,19 @@ const HowToBuy = (props: { title: string }) => {
                   WalletConnect) by logging in with your password.
                 </li>
                 <br />
-                <Image style={{ maxWidth: '90%' }} src={dpiImage1} />
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Image
+                    style={{
+                      marginLeft: '-40px',
+                      marginRight: '0px',
+                      width: '100%',
+                    }}
+                    src={
+                      'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-1.png'
+                    }
+                  />
+                </div>
+                <br />
                 <li>
                   Populate the Buy / Sell widget with the amount of DPI you
                   would like to buy, review your transaction, then click ‘Buy’.
@@ -297,7 +354,19 @@ const HowToBuy = (props: { title: string }) => {
                   <br />
                   In this example, we’re seeking to buy 0.2 ETH’s worth of DPI.
                 </li>
-                <Image style={{ maxWidth: '90%' }} src={dpiImage2} />
+                <br />
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Image
+                    style={{
+                      marginLeft: '-40px',
+                      marginRight: '0px',
+                      width: '100%',
+                    }}
+                    src={
+                      'https://index-dao.s3.amazonaws.com/dpi-how-to-buy/dpi-how-to-buy-2.png'
+                    }
+                  />
+                </div>
                 <br />
                 <li>
                   The Index Coop website will then prompt your wallet, which
@@ -412,14 +481,6 @@ const SectionSubTitle = styled.p`
     font-size: 24px;
   }
 `
-
-// const Image = styled.img`
-//   min-width: 250px;
-//   max-width: 100%;
-//   @media (max-width: 768px) {
-//     max-width: 100%;
-//   }
-// `
 
 const Image = styled.img`
   position: relative;
