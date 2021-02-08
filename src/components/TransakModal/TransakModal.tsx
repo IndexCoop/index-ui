@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import styled from 'styled-components'
 import {
   Button,
   ModalActions,
@@ -10,7 +11,7 @@ import {
 import Modal from 'components/CustomModal'
 import useBuySell from 'hooks/useBuySell'
 import useMediaQuery from 'hooks/useMediaQuery'
-import transakImage from '../../assets/transak_logo.png'
+import transakImage from 'assets/transak_logo.png'
 
 const transakSDK = require('@transak/transak-sdk').default
 
@@ -39,9 +40,13 @@ const TransakModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text={(<img src={transakImage} />) as any} />
+      <ModalTitle text={(<StyledHeaderImage src={transakImage} />) as any} />
       <ModalContent>
-        <p>Transak allows you to buy DPI with GBP, EUR or IDR.</p>
+        <p>
+          Transak allows you to buy the DeFi Pulse Index with GBP, EUR or INR.
+          To ensure the best experience, please turn off any ad-blocking
+          extensions.
+        </p>
       </ModalContent>
       <ModalActions>
         <Button onClick={onDismiss} text='Cancel' variant='secondary' />
@@ -50,5 +55,9 @@ const TransakModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     </Modal>
   )
 }
+
+const StyledHeaderImage = styled.img`
+  max-width: 200px;
+`
 
 export default TransakModal
