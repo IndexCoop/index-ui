@@ -39,6 +39,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   const {
     ethBalance,
     dpiBalance,
+    cgiBalance,
     indexBalance,
     daiBalance,
     usdcBalance,
@@ -59,6 +60,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = indexBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'dpi') {
     spendingTokenBalance = dpiBalance || new BigNumber(0)
+  } else if (!isUserBuying && buySellToken === 'cgi') {
+    spendingTokenBalance = cgiBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'wrapped_eth') {
     spendingTokenBalance = ethBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'mcd') {

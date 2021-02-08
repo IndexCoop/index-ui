@@ -14,6 +14,7 @@ interface IndexComponent {
 
 interface DpiIndexComponentsProps {
   components?: IndexComponent[]
+  marketCap?: number
 }
 
 const CgiIndexComponents = createContext<DpiIndexComponentsProps>({})

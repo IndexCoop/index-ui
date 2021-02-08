@@ -20,7 +20,7 @@ const MarketData: React.FC = () => {
   const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
   const cgiTokenIcon = {
-    src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
+    src: 'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
     alt: 'CGI Logo',
   }
 
@@ -70,7 +70,7 @@ const MarketData: React.FC = () => {
         <StyledIcon src={cgiTokenIcon.src} alt={cgiTokenIcon.alt} />
         <span>CGI</span>
       </StyledCgiIconLabel>
-      <StyledCgiTitle>DeFi Pulse Index</StyledCgiTitle>
+      <StyledCgiTitle>CoinShares Crypto Gold Index</StyledCgiTitle>
       <p>{dateString}</p>
       <StyledCgiPriceWrapper>
         <StyledCgiPrice>

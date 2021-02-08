@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from 'react-neu'
 import styled from 'styled-components'
 
@@ -21,19 +21,26 @@ import useCgiIndexComponents from 'hooks/useCgiIndexComponents'
 import useBalances from 'hooks/useBalances'
 
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
+import { fetchHistoricalTokenMarketData } from 'utils/tokensetsApi'
+import { coingeckoCgiId } from 'constants/coingeckoIds'
 
 const CgiProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [])
 
-  const {
-    prices,
-    latestPrice,
-    latestMarketCap,
-    latestVolume,
-  } = useCgiTokenMarketData()
-  const { components } = useCgiIndexComponents()
+  const [marketCap, setMarketCap] = useState(0)
+
+  useEffect(() => {
+    fetchHistoricalTokenMarketData(coingeckoCgiId)
+      .then((response: any) => {
+        setMarketCap(response)
+      })
+      .catch((error: any) => console.log(error))
+  }, [])
+
+  const { prices, latestPrice, latestVolume } = useCgiTokenMarketData()
+  const { components, marketCap: latestMarketCap } = useCgiIndexComponents()
   const { cgiBalance } = useBalances()
 
   return (
