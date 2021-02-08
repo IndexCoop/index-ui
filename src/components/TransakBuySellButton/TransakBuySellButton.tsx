@@ -13,7 +13,7 @@ const getTransakLauncher = (isMobile: boolean, buySellToken: string) => {
     defaultCryptoCurrency: buySellToken,
     fiatCurrency: 'GBP',
     themeColor: '0063ed',
-    redirectURL: 'http://localhost:3000',
+    // redirectURL: 'http://localhost:3000',
     hostURL: window.location.origin,
     widgetHeight: '550px',
     widgetWidth: isMobile ? '350px' : '450px',
