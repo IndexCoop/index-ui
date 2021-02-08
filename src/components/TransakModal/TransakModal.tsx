@@ -44,8 +44,8 @@ const TransakModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
       <ModalContent>
         <StyledTransakDescription>
           Transak allows you to easily buy the DeFi Pulse Index with GBP, EUR or
-          INR. To pay with Transak you will need to complete a quick KYC and
-          have an ethereum wallet address ready to receive DPI tokens.
+          INR. To pay with Transak you will need to complete a quick KYC form
+          and have an ethereum wallet address ready to receive DPI tokens.
         </StyledTransakDescription>
         <StyledTransakDescription>
           To ensure the best experience, please turn off any ad-blocking
@@ -66,6 +66,7 @@ const StyledHeaderImage = styled.img`
 
 const StyledTransakDescription = styled.p`
   line-height: 1.5;
+  font-size: 18px;
 `
 
 export default TransakModal
