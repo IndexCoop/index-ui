@@ -11,8 +11,8 @@ const getTransakLauncher = (isMobile: boolean, buySellToken: string) => {
     apiKey: process.env.REACT_APP_TRANSAK_API_KEY,
     environment: process.env.REACT_APP_ENVIRONMENT?.toUpperCase(), // STAGING or PRODUCTION
     defaultCryptoCurrency: buySellToken,
-    fiatCurrency: 'GBP',
     themeColor: '0063ed',
+    // fiatCurrency: 'GBP',
     // redirectURL: 'http://localhost:3000',
     hostURL: window.location.origin,
     widgetHeight: '550px',
