@@ -42,15 +42,19 @@ const TransakModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     <Modal isOpen={isOpen}>
       <ModalTitle text={(<StyledHeaderImage src={transakImage} />) as any} />
       <ModalContent>
-        <p>
-          Transak allows you to buy the DeFi Pulse Index with GBP, EUR or INR.
+        <StyledTransakDescription>
+          Transak allows you to easily buy the DeFi Pulse Index with GBP, EUR or
+          INR. To pay with Transak you will need to complete a quick KYC and
+          have an ethereum wallet address ready to receive DPI tokens.
+        </StyledTransakDescription>
+        <StyledTransakDescription>
           To ensure the best experience, please turn off any ad-blocking
           extensions.
-        </p>
+        </StyledTransakDescription>
       </ModalContent>
       <ModalActions>
         <Button onClick={onDismiss} text='Cancel' variant='secondary' />
-        <Button onClick={onOpenTransakLauncher} text='Transak' />
+        <Button onClick={onOpenTransakLauncher} text='Buy DPI' />
       </ModalActions>
     </Modal>
   )
@@ -58,6 +62,10 @@ const TransakModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
 
 const StyledHeaderImage = styled.img`
   max-width: 200px;
+`
+
+const StyledTransakDescription = styled.p`
+  line-height: 1.5;
 `
 
 export default TransakModal
