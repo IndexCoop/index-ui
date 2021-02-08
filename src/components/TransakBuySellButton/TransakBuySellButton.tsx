@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import styled from 'styled-components'
 
 import { RoundedButton } from 'components/RoundedButton'
 import useBuySell from 'hooks/useBuySell'
@@ -39,13 +40,23 @@ const TransakBuySellButton: React.FC = () => {
   }, [isMobile, buySellToken])
 
   return (
-    <RoundedButton
-      isDisabled={false}
-      isPending={false}
-      text='Buy with Cash'
-      onClick={onOpenTransakLauncher}
-    />
+    <StyledButtonWrapper>
+      <p>- or -</p>
+      <RoundedButton
+        isDisabled={false}
+        isPending={false}
+        text='Buy with Cash'
+        onClick={onOpenTransakLauncher}
+      />
+    </StyledButtonWrapper>
   )
 }
+
+const StyledButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 
 export default TransakBuySellButton

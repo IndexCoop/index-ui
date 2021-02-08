@@ -44,7 +44,6 @@ const DpiProductPage = (props: { title: string }) => {
           <MarketData />
           <div>
             <BuySellWrapper tokenId='dpi' />
-            <Spacer />
             <TransakBuySellButton />
           </div>
         </ProductPageHeader>
