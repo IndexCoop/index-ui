@@ -44,6 +44,7 @@ const ProductsDropdown: React.FC = () => {
         ...styles,
         color: 'black',
         width: 180,
+        overflow: 'hidden',
       }),
       dropdownIndicator: (styles: any) => ({
         ...styles,
@@ -93,8 +94,9 @@ const ProductsDropdown: React.FC = () => {
 }
 
 const CustomDropdownOption = styled.div`
-  width: 200px;
+  width: 170px;
   margin: 10px;
+  overflow: hidden;
 `
 
 const StyledLink = styled(NavLink)`

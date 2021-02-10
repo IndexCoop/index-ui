@@ -61,7 +61,7 @@ const StyledCardContent = styled.div``
 const StyledCardImage = styled.img`
   width: 100%;
   height: 200px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: ${(props) => props.theme.borderRadius}px;
 
   @media (max-width: 600px) {

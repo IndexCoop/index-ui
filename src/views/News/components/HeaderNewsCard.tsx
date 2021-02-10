@@ -30,7 +30,7 @@ const HeaderNewsCard: React.FC<HeaderNewsCardProps> = ({
       <StyledCardImage src={image} />
       <StyledCardContent>
         <StyledCardTitle isHovering={isHovering}>{title}</StyledCardTitle>
-        <StyledCardText isHovering={isHovering} href={link}>
+        <StyledCardText isHovering={isHovering}>
           By {author} · {readTime}
         </StyledCardText>
       </StyledCardContent>
@@ -72,7 +72,7 @@ const StyledCardContent = styled.div`
   width: 100%;
 `
 
-const StyledCardTitle = styled.a<IsHoveringProp>`
+const StyledCardTitle = styled.p<IsHoveringProp>`
   display: block;
   font-size: 32px;
   margin-top: 5px;
@@ -87,7 +87,7 @@ const StyledCardTitle = styled.a<IsHoveringProp>`
     `}
 `
 
-const StyledCardText = styled.a<IsHoveringProp>`
+const StyledCardText = styled.p<IsHoveringProp>`
   font-size: 20px;
   text-decoration: none;
 

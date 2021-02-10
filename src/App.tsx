@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import MobileMenu from 'components/MobileMenu'
 import TopBar from 'components/TopBar'
 
+import { MediaQueryProvider } from 'contexts/MediaQuery'
 import { BalancesProvider } from 'contexts/Balances'
 import { AirdropProvider } from 'contexts/Airdrop'
 import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
@@ -36,6 +37,7 @@ import INDEX from 'views/INDEX'
 import Vote from 'views/Vote'
 import News from 'views/News'
 import ContributorRewards from './views/ContributorRewards'
+import HowToBuy from './views/HowToBuy'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
@@ -89,6 +91,9 @@ const App: React.FC = () => {
             <Route path='/news'>
               <News title={'Index - News'} />
             </Route>
+            <Route path='/how-to-buy'>
+              <HowToBuy title={'Index - How to Buy'} />
+            </Route>
           </Switch>
         </StyledBackgroundDiv>
       </Providers>
@@ -111,35 +116,37 @@ const Providers: React.FC = ({ children }) => {
       <TransactionWatcherProvider>
         <WalletProvider>
           <ApolloProvider client={graphqlClient}>
-            <AirdropProvider>
-              <RewardsProvider>
-                <ExternalAirdropProvider>
-                  <BalancesProvider>
-                    <FarmingProvider>
-                      <FarmingTwoProvider>
-                        <PricesProvider>
-                          <BuySellProvider>
-                            <DpiTokenMarketDataProvider>
-                              <DpiIndexComponentsProvider>
-                                <CgiTokenMarketDataProvider>
-                                  <CgiIndexComponentsProvider>
-                                    <IndexTokenMarketDataProvider>
-                                      <SnapshotProposalsProvider>
-                                        {children}
-                                      </SnapshotProposalsProvider>
-                                    </IndexTokenMarketDataProvider>
-                                  </CgiIndexComponentsProvider>
-                                </CgiTokenMarketDataProvider>
-                              </DpiIndexComponentsProvider>
-                            </DpiTokenMarketDataProvider>
-                          </BuySellProvider>
-                        </PricesProvider>
-                      </FarmingTwoProvider>
-                    </FarmingProvider>
-                  </BalancesProvider>
-                </ExternalAirdropProvider>
-              </RewardsProvider>
-            </AirdropProvider>
+            <MediaQueryProvider>
+              <AirdropProvider>
+                <RewardsProvider>
+                  <ExternalAirdropProvider>
+                    <BalancesProvider>
+                      <FarmingProvider>
+                        <FarmingTwoProvider>
+                          <PricesProvider>
+                            <BuySellProvider>
+                              <DpiTokenMarketDataProvider>
+                                <DpiIndexComponentsProvider>
+                                  <CgiTokenMarketDataProvider>
+                                    <CgiIndexComponentsProvider>
+                                      <IndexTokenMarketDataProvider>
+                                        <SnapshotProposalsProvider>
+                                          {children}
+                                        </SnapshotProposalsProvider>
+                                      </IndexTokenMarketDataProvider>
+                                    </CgiIndexComponentsProvider>
+                                  </CgiTokenMarketDataProvider>
+                                </DpiIndexComponentsProvider>
+                              </DpiTokenMarketDataProvider>
+                            </BuySellProvider>
+                          </PricesProvider>
+                        </FarmingTwoProvider>
+                      </FarmingProvider>
+                    </BalancesProvider>
+                  </ExternalAirdropProvider>
+                </RewardsProvider>
+              </AirdropProvider>
+            </MediaQueryProvider>
           </ApolloProvider>
         </WalletProvider>
       </TransactionWatcherProvider>

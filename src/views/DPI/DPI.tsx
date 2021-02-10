@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Container } from 'react-neu'
+import { Container, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import Page from 'components/Page'
@@ -21,6 +21,7 @@ import useDpiIndexComponents from 'hooks/useDpiIndexComponents'
 import useBalances from 'hooks/useBalances'
 
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
+import TransakBuySellButton from 'components/TransakBuySellButton'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -41,7 +42,10 @@ const DpiProductPage = (props: { title: string }) => {
       <Container size='lg'>
         <ProductPageHeader>
           <MarketData />
-          <BuySellWrapper tokenId='dpi' />
+          <div>
+            <BuySellWrapper tokenId='dpi' />
+            <TransakBuySellButton />
+          </div>
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance

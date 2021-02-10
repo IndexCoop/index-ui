@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
+import TagManager from 'react-gtm-module'
+import gtmConfig from './utils/googleTagManager'
+
+TagManager.initialize(gtmConfig)
 
 ReactDOM.render(
   <React.StrictMode>

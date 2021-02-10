@@ -50,6 +50,10 @@ const MonthsDropdown = () => {
           color: theme.colors.grey[500],
         },
       }),
+      valueContainer: (styles: any) => ({
+        ...styles,
+        overflow: 'initial',
+      }),
       indicatorSeparator: () => ({}),
       indicatorContainer: (styles: any) => ({
         ...styles,
@@ -64,6 +68,10 @@ const MonthsDropdown = () => {
       isSearchable={false}
       value={{ label: month } as any}
       options={[
+        {
+          value: 'January 2021',
+          label: 'January 2021',
+        },
         {
           value: 'December 2020',
           label: 'December 2020',

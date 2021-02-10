@@ -16,11 +16,13 @@ import {
 import { waitTransaction } from 'utils/index'
 
 import {
-  novemberRewardsAddress,
-  decemberRewardsAddress,
+  november2020RewardsAddress,
+  december2020RewardsAddress,
+  january2021RewardsAddress,
 } from 'constants/ethContractAddresses'
-import novemberMerkleData from 'index-sdk/novemberRewardsMerkle.json'
-import decemberMerkleData from 'index-sdk/decemberRewardsMerkle.json'
+import november2020MerkleData from 'index-sdk/merkleData/november2020Rewards.json'
+import december2020MerkleData from 'index-sdk/merkleData/december2020Rewards.json'
+import january2021MerkleData from 'index-sdk/merkleData/january2021Rewards.json'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -29,7 +31,7 @@ const Provider: React.FC = ({ children }) => {
   const [rewardProof, setRewardProof] = useState<string[]>()
   const [isClaimable, setIsClaimable] = useState<boolean>(false)
   const [claimableQuantity, setClaimableQuantity] = useState<BigNumber>()
-  const [month, setMonth] = useState('December 2020')
+  const [month, setMonth] = useState('Select a Reward Month')
   const [rewardsAddress, setRewardsAddress] = useState('')
   const [merkleData, setMerkleData] = useState({})
 
@@ -47,14 +49,19 @@ const Provider: React.FC = ({ children }) => {
   //set proper contract address and merkle data depending on month
   useEffect(() => {
     switch (month) {
+      case 'January 2021': {
+        setRewardsAddress(january2021RewardsAddress!)
+        setMerkleData(january2021MerkleData)
+        break
+      }
       case 'December 2020': {
-        setRewardsAddress(decemberRewardsAddress!)
-        setMerkleData(decemberMerkleData)
+        setRewardsAddress(december2020RewardsAddress!)
+        setMerkleData(december2020MerkleData)
         break
       }
       case 'November 2020': {
-        setRewardsAddress(novemberRewardsAddress!)
-        setMerkleData(novemberMerkleData)
+        setRewardsAddress(november2020RewardsAddress!)
+        setMerkleData(november2020MerkleData)
         break
       }
     }

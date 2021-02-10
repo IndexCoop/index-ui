@@ -118,6 +118,7 @@ const BuySellButton: React.FC = () => {
 
   return (
     <RoundedButton
+      buttonClassName={buySellToken}
       isDisabled={!currencyQuantity || !tokenQuantity}
       isPending={isFetchingOrderData}
       text={buttonText}

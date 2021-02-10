@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Container, Spacer, Card } from 'react-neu'
+import React, { useEffect, useState } from 'react'
+import { Container, Spacer } from 'react-neu'
 import Page from 'components/Page'
 import styled from 'styled-components'
 import HeaderNewsCard from './components/HeaderNewsCard'
@@ -12,10 +12,32 @@ const Vote = (props: { title: string }) => {
     document.title = props.title
   }, [])
 
-  const newsContent = fetchNews()
+  const [listArticles, setListArticles] = useState<any[]>([])
+  const [headerArticle, setHeaderArticle] = useState({
+    image: '',
+    title: '',
+    author: '',
+    link: '',
+    readTime: '',
+  })
 
-  const headerArticle = newsContent[0]
-  const listArticles = newsContent.slice(1)
+  useEffect(() => {
+    fetchNews().then((newsContent) => {
+      setHeaderArticle(newsContent[0])
+      setListArticles(newsContent.slice(1))
+    })
+  }, [])
+
+  let header =
+    headerArticle.title === '' ? null : (
+      <HeaderNewsCard
+        image={headerArticle.image}
+        title={headerArticle.title}
+        author={headerArticle.author}
+        link={headerArticle.link}
+        readTime={headerArticle.readTime}
+      />
+    )
 
   return (
     <Page>
@@ -26,18 +48,13 @@ const Vote = (props: { title: string }) => {
           The latest news from the Index Coop
         </StyledPageSubheader>
         <Spacer size='md' />
-        <HeaderNewsCard
-          image={headerArticle.image}
-          title={headerArticle.title}
-          author={headerArticle.author}
-          link={headerArticle.link}
-          readTime={headerArticle.readTime}
-        />
+        {header}
         <Spacer />
         <StyledNewsFeed>
           {listArticles.map((article: any) => {
             return (
               <NewsCard
+                key={article.link}
                 image={article.image}
                 title={article.title}
                 author={article.author}
@@ -46,7 +63,7 @@ const Vote = (props: { title: string }) => {
               />
             )
           })}
-          {newsContent.length % 3 === 0 && <NewsCardPlaceholder />}
+          {(listArticles.length + 1) % 3 === 0 && <NewsCardPlaceholder />}
         </StyledNewsFeed>
       </Container>
     </Page>

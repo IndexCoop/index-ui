@@ -71,7 +71,7 @@ const PricesProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (!indexPrice || !totalUSDInFarms || !isPoolTwoActive) return
 
-    const totalTokenEmissionsPerDay = 2500
+    const totalTokenEmissionsPerDay = 1250
     const totalUSDEmissionPerDay =
       totalTokenEmissionsPerDay * Number(indexPrice)
     const dailyYield = new BigNumber(totalUSDEmissionPerDay)
