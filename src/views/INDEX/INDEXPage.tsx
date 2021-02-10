@@ -69,7 +69,6 @@ const DpiProductPage = (props: { title: string }) => {
               <li>Smart contract upgrades to the Index Coop</li>
               <li>How to allocate the Index Coop treasury</li>
               <li>Add new Index Coop products</li>
-              <li>Ratifying rebalance trades for Index Coop products</li>
             </ul>
             <h2>Token Release Schedule</h2>
             <StyledDpiIndexCalculationImage src={IndexReleaseScheduleImage} />
