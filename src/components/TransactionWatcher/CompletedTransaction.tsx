@@ -7,6 +7,8 @@ import ExternalLink from 'components/ExternalLink'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { makeEtherscanLink } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWatcherContext'
+import useLocalStorage from 'hooks/useLocalStorage'
+import addReferral from 'utils/referralApi'
 
 const CompletedTransaction: React.FC = () => {
   const {
@@ -16,8 +18,11 @@ const CompletedTransaction: React.FC = () => {
   } = useTransactionWatcher()
 
   const etherscanLink = transactionId && makeEtherscanLink(transactionId)
+  const [referral, _] = useLocalStorage('referral', '')
 
   const onFinishTransaction = () => {
+    console.log(transactionId, referral)
+    addReferral(transactionId as string, referral)
     onSetTransactionId()
     onSetTransactionStatus(TransactionStatusType.IS_UNSTARTED)
   }
