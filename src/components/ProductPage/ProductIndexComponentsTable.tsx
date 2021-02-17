@@ -39,6 +39,8 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
       )
     }
 
+    if (components.length < 5) return null
+
     return (
       <TableControlText onClick={showDefaultComponents}>
         Show Less

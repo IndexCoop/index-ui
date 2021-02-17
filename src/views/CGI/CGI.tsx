@@ -20,23 +20,12 @@ import useCgiTokenMarketData from 'hooks/useCgiTokenMarketData'
 import useCgiIndexComponents from 'hooks/useCgiIndexComponents'
 import useBalances from 'hooks/useBalances'
 
-import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 import { fetchHistoricalTokenMarketData } from 'utils/tokensetsApi'
 import { coingeckoCgiId } from 'constants/coingeckoIds'
 
 const CgiProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
-
-  const [marketCap, setMarketCap] = useState(0)
-
-  useEffect(() => {
-    fetchHistoricalTokenMarketData(coingeckoCgiId)
-      .then((response: any) => {
-        setMarketCap(response)
-      })
-      .catch((error: any) => console.log(error))
   }, [])
 
   const { prices, latestPrice, latestVolume } = useCgiTokenMarketData()
@@ -58,11 +47,11 @@ const CgiProductPage = (props: { title: string }) => {
           />
           <PriceChanges prices={prices} />
           <IndexComponentsTable components={components} />
-          <TokenStats
+          {/* <TokenStats
             latestPrice={latestPrice}
             latestVolume={latestVolume}
             latestMarketCap={latestMarketCap}
-          />
+          /> */}
           <Description>
             The{' '}
             <strong>
@@ -248,10 +237,5 @@ const CgiProductPage = (props: { title: string }) => {
     </Page>
   )
 }
-
-const StyledCgiIndexCalculationImage = styled.img`
-  margin-bottom: 20px;
-  width: 100%;
-`
 
 export default CgiProductPage

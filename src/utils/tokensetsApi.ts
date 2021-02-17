@@ -52,18 +52,11 @@ export const fetchHistoricalTokenMarketData = (
   id: string,
   baseCurrency = 'usd'
 ) => {
-  const baseURL = 'https://api.tokensets.com/v2/fund_historicals'
-  const requestUrl =
-    baseURL + `/${id}` + `?currency=${baseCurrency}&beta=true&interval=month`
+  const requestUrl = `https://api.tokensets.com/v2/fund_historicals/${id}?currency=${baseCurrency}&beta=true&interval=month`
 
   return fetch(requestUrl)
     .then((response) => response.json())
     .then((response) => {
-      /** @notes from API docs
-       * Minutely data will be used for duration within 1 day
-       * Hourly data will be used for duration between 1 day and 90 days
-       * Daily data will be used for duration above 90 days.
-       */
       const { prices, dates } = response
       return {
         prices: prices.map((item: any, index: number) => [dates[index], item]),
@@ -73,8 +66,6 @@ export const fetchHistoricalTokenMarketData = (
 }
 
 export const fetchSetComponentsBeta = (set: string) => {
-  // const requestUrl = `${baseURL}/v2/portfolios/${set}`
-
   const requestUrl = `https://api.tokensets.com/v2/funds/${set}?beta=true`
 
   return fetch(requestUrl)
