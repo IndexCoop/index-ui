@@ -145,7 +145,7 @@ const HowToBuy = (props: { title: string }) => {
               <br />
               If this is your first time buying digital assets and you do not
               have an exchange account or a cryptocurrency wallet, you can
-              follow this guide and buy DPI in under an hour. If you chose to
+              follow this guide and buy DPI in under an hour. If you choose to
               take longer, that’s fine too.
               <br />
               <br />
@@ -247,6 +247,7 @@ const HowToBuy = (props: { title: string }) => {
               exchange (DEX)
             </SectionSubTitle>
             <Description>
+              <h4>Part A: Buy DAI, ETH, or USDC</h4>
               Before purchasing DPI, you must buy ETH, DAI, or USDC. This is
               necessary because DPI is not currently listed on centralized
               exchanges. Once DPI is listed on such exchanges you will be able
@@ -299,6 +300,7 @@ const HowToBuy = (props: { title: string }) => {
               arrives safely before transferring larger amounts.
               <br />
               <br />
+              <h4>Part B: Buy DPI</h4>
               While you can buy DPI on decentralized exchanges, such as&nbsp;
               <Link
                 href={
@@ -413,14 +415,6 @@ const HowToBuy = (props: { title: string }) => {
               >
                 "cold" wallet.
               </Link>
-              <br />
-              <br />
-              For more information, follow us on&nbsp;
-              <Link href={'https://twitter.com/indexcoop'}>Twitter</Link>
-              and join our&nbsp;
-              <Link href={'https://discord.gg/RKZ4S3b'}>Discord</Link>
-              and&nbsp;
-              <Link href={'https://gov.indexcoop.com/'}>Forum.</Link>
             </Description>
           </div>
         </Section>
