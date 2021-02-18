@@ -43,7 +43,7 @@ const ProductsDropdown: React.FC = () => {
       menu: (styles: any) => ({
         ...styles,
         color: 'black',
-        width: 180,
+        width: 280,
         overflow: 'hidden',
       }),
       dropdownIndicator: (styles: any) => ({
@@ -77,12 +77,12 @@ const ProductsDropdown: React.FC = () => {
           label: 'DeFi Pulse Index',
         },
         {
-          value: 'index',
-          label: 'INDEX',
+          value: 'cgi',
+          label: 'CoinShares Crypto Gold Index',
         },
         {
-          value: 'cgi',
-          label: 'CGI',
+          value: 'index',
+          label: 'Index Coop Token',
         },
       ]}
       components={{
@@ -94,7 +94,7 @@ const ProductsDropdown: React.FC = () => {
 }
 
 const CustomDropdownOption = styled.div`
-  width: 170px;
+  width: 300px;
   margin: 10px;
   overflow: hidden;
 `
