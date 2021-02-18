@@ -91,6 +91,23 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             <Box row>
               <FancyValue
                 icon={{
+                  alt: 'CGI Icon',
+                  src:
+                    'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
+                }}
+                label='CGI balance'
+                link={`https://etherscan.io/address/${tokenAddresses.cgiTokenAddress}`}
+                value={getDisplayBalance(cgiBalance)}
+              />
+            </Box>
+          </Split>
+          <Spacer />
+          <Separator />
+          <Spacer />
+          <Split>
+            <Box row>
+              <FancyValue
+                icon={{
                   alt: 'Uniswap LP Icon',
                   src:
                     'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
@@ -115,28 +132,11 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             </Box>
           </Split>
           <Spacer />
-          <Separator />
-          <Spacer />
-          <Split>
-            <Box row>
-              <FancyValue
-                icon={{
-                  alt: 'CGI Icon',
-                  src:
-                    'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
-                }}
-                label='CGI balance'
-                link={`https://etherscan.io/address/${tokenAddresses.cgiTokenAddress}`}
-                value={getDisplayBalance(cgiBalance)}
-              />
-            </Box>
-          </Split>
-          <Spacer />
           <Split>
             <Box row>
               <Button
                 href='https://app.uniswap.org/#/add/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/ETH'
-                text='Add Liquidity'
+                text='Add ETH/DPI Liquidity'
                 variant='secondary'
               />
             </Box>
