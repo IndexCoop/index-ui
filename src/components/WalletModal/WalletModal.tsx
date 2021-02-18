@@ -30,6 +30,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const {
     indexBalance,
     dpiBalance,
+    cgiBalance,
     uniswapEthDpiLpBalance,
     stakedUniswapEthDpiLpBalance,
     stakedFarmTwoBalance,
@@ -110,6 +111,23 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 label='Staked Uniswap ETH/DPI LP'
                 link={`https://etherscan.io/address/${tokenAddresses.stakingRewardsAddress}`}
                 value={getDisplayBalance(totalStakedEthDpiLpBalance)}
+              />
+            </Box>
+          </Split>
+          <Spacer />
+          <Separator />
+          <Spacer />
+          <Split>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'CGI Icon',
+                  src:
+                    'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
+                }}
+                label='CGI balance'
+                link={`https://etherscan.io/address/${tokenAddresses.cgiTokenAddress}`}
+                value={getDisplayBalance(cgiBalance)}
               />
             </Box>
           </Split>

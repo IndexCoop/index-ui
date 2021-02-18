@@ -6,7 +6,7 @@ import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import useBuySell from 'hooks/useBuySell'
 
 interface BuySellWrapperProps {
-  tokenId: 'index' | 'dpi'
+  tokenId: 'index' | 'dpi' | 'cgi'
 }
 
 const BuySellWrapper: React.FC<BuySellWrapperProps> = ({ tokenId }: any) => {
