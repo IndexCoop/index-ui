@@ -79,8 +79,5 @@
     "prettier": "2.1.2",
     "react-circular-progressbar": "^2.0.3",
     "typescript": "^3.9.7"
-  },
-  "engines": {
-    "node": "11.10.1"
   }
 }

@@ -28,8 +28,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink exact activeClassName='active' to='/dpi'>
             DeFi Pulse Index
           </StyledLink>
+          <StyledLink exact activeClassName='active' to='/cgi'>
+            CoinShares Crypto Gold Index
+          </StyledLink>
           <StyledLink exact activeClassName='active' to='/index'>
-            INDEX
+            Index Coop Token
           </StyledLink>
           <StyledLink exact activeClassName='active' to='/about'>
             About

@@ -47,3 +47,49 @@ export const fetchSetComponents = (set: string) => {
     })
     .catch((error) => console.log(error))
 }
+
+export const fetchHistoricalTokenMarketData = (
+  id: string,
+  baseCurrency = 'usd'
+) => {
+  const requestUrl = `https://api.tokensets.com/v2/fund_historicals/${id}?currency=${baseCurrency}&beta=true&interval=month`
+
+  return fetch(requestUrl)
+    .then((response) => response.json())
+    .then((response) => {
+      const { prices, dates } = response
+      return {
+        prices: prices.map((item: any, index: number) => [dates[index], item]),
+      }
+    })
+    .catch((error) => console.log(error))
+}
+
+export const fetchSetComponentsBeta = (set: string) => {
+  const requestUrl = `https://api.tokensets.com/v2/funds/${set}?beta=true`
+
+  return fetch(requestUrl)
+    .then((response) => response.json())
+    .then((response) => {
+      if (!response?.fund?.components) {
+        // undocumented API endpoint. Throw error if not expected response format
+        throw new Error('Invalid API response from Set Protocol service')
+      }
+      const {
+        fund: { components, market_cap: marketCap },
+      } = response
+      const formattedComponents = components.map((component: any) => {
+        const camelCasedComponent = Object.keys(component).reduce(
+          (comp: any, k: string) => ({
+            ...comp,
+            [camelCase(k)]: component[k],
+          }),
+          {}
+        )
+        return camelCasedComponent
+      })
+
+      return { components: formattedComponents, marketCap }
+    })
+    .catch((error) => console.log(error))
+}

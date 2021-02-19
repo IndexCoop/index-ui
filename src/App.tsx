@@ -20,6 +20,8 @@ import { WalletProvider } from 'contexts/Wallet'
 import { BuySellProvider } from 'contexts/BuySell'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
+import { CgiTokenMarketDataProvider } from 'contexts/CgiTokenMarketData'
+import { CgiIndexComponentsProvider } from 'contexts/CgiIndexComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { SnapshotProposalsProvider } from 'contexts/SnapshotProposals'
 import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
@@ -30,6 +32,7 @@ import About from 'views/About'
 import Farm from 'views/Farm'
 import Home from 'views/Home'
 import DPI from 'views/DPI'
+import CGI from 'views/CGI'
 import INDEX from 'views/INDEX'
 import Vote from 'views/Vote'
 import News from 'views/News'
@@ -66,6 +69,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path='/dpi'>
               <DPI title={'Index - DPI'} />
+            </Route>
+            <Route exact path='/cgi'>
+              <CGI title={'Index - CGI'} />
             </Route>
             <Route exact path='/index'>
               <INDEX title={'Index - Index'} />
@@ -121,11 +127,15 @@ const Providers: React.FC = ({ children }) => {
                             <BuySellProvider>
                               <DpiTokenMarketDataProvider>
                                 <DpiIndexComponentsProvider>
-                                  <IndexTokenMarketDataProvider>
-                                    <SnapshotProposalsProvider>
-                                      {children}
-                                    </SnapshotProposalsProvider>
-                                  </IndexTokenMarketDataProvider>
+                                  <CgiTokenMarketDataProvider>
+                                    <CgiIndexComponentsProvider>
+                                      <IndexTokenMarketDataProvider>
+                                        <SnapshotProposalsProvider>
+                                          {children}
+                                        </SnapshotProposalsProvider>
+                                      </IndexTokenMarketDataProvider>
+                                    </CgiIndexComponentsProvider>
+                                  </CgiTokenMarketDataProvider>
                                 </DpiIndexComponentsProvider>
                               </DpiTokenMarketDataProvider>
                             </BuySellProvider>

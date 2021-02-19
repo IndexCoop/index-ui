@@ -17,7 +17,8 @@ const ProductsDropdown: React.FC = () => {
   const { pathname } = useLocation()
 
   const dropdownSelectStyles = useMemo(() => {
-    const isProductRouteActive = pathname === '/dpi' || pathname === '/index'
+    const isProductRouteActive =
+      pathname === '/dpi' || pathname === '/index' || pathname === '/cgi'
 
     return {
       control: (styles: any) => ({
@@ -42,7 +43,7 @@ const ProductsDropdown: React.FC = () => {
       menu: (styles: any) => ({
         ...styles,
         color: 'black',
-        width: 180,
+        width: 280,
         overflow: 'hidden',
       }),
       dropdownIndicator: (styles: any) => ({
@@ -76,8 +77,12 @@ const ProductsDropdown: React.FC = () => {
           label: 'DeFi Pulse Index',
         },
         {
+          value: 'cgi',
+          label: 'CoinShares Crypto Gold Index',
+        },
+        {
           value: 'index',
-          label: 'INDEX',
+          label: 'Index Coop Token',
         },
       ]}
       components={{
@@ -89,7 +94,7 @@ const ProductsDropdown: React.FC = () => {
 }
 
 const CustomDropdownOption = styled.div`
-  width: 170px;
+  width: 300px;
   margin: 10px;
   overflow: hidden;
 `
