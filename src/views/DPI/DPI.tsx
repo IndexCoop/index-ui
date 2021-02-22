@@ -20,8 +20,8 @@ import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 import useDpiIndexComponents from 'hooks/useDpiIndexComponents'
 import useBalances from 'hooks/useBalances'
 
-import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 import TransakBuySellButton from 'components/TransakBuySellButton'
+import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -59,6 +59,9 @@ const DpiProductPage = (props: { title: string }) => {
             latestPrice={latestPrice}
             latestVolume={latestVolume}
             latestMarketCap={latestMarketCap}
+            fees={{
+              streamingFee: '0.95%',
+            }}
           />
           <Description>
             <strong>The DeFi Pulse Index</strong> is a capitalization-weighted
