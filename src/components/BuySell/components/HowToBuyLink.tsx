@@ -9,12 +9,12 @@ const HowToBuyLink: React.FC = () => {
     return (
       <div>
         <br />
-        <Link href={'/how-to-buy'}>How to Buy</Link>
+        <Link href={'/how-to-buy'}>New to DeFi? Check out our buy guide.</Link>
       </div>
     )
-  } else {
-    return <></>
   }
+
+  return null
 }
 
 const Link = styled.a`
@@ -22,6 +22,6 @@ const Link = styled.a`
   padding-right: 5px;
   color: #a9a7ff;
   display: inline-block;
+  font-size: 14px;
 `
-
 export default HowToBuyLink
