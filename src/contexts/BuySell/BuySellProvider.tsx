@@ -14,6 +14,7 @@ import {
   getUniswapCallData,
   getUniswapTransactionOptions,
 } from './utils'
+import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
@@ -162,11 +163,28 @@ const BuySellProvider: React.FC = ({ children }) => {
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
 
       const isSuccessful = await waitTransaction(ethereum, transactionId)
+      const referralCode = window?.localStorage?.getItem('referral') || ''
 
       if (isSuccessful) {
         onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
+        trackReferral(
+          referralCode,
+          transactionId as string,
+          'COMPLETED',
+          selectedCurrency.id,
+          buySellToken,
+          isUserBuying
+        )
       } else {
         onSetTransactionStatus(TransactionStatusType.IS_FAILED)
+        trackReferral(
+          referralCode,
+          transactionId as string,
+          'PENDING OR FAILED',
+          selectedCurrency.id,
+          buySellToken,
+          isUserBuying
+        )
       }
     } catch (e) {
       onSetTransactionStatus(TransactionStatusType.IS_FAILED)
