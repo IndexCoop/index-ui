@@ -25,6 +25,4 @@ const addReferral = async (
   }
 }
 
-console.log('add referral', addReferral)
-
 export default addReferral
