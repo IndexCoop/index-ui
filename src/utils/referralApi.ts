@@ -20,4 +20,6 @@ const addReferral = async (transactionId: string, referral: string) => {
   }
 }
 
+console.log('add referral', addReferral)
+
 export default addReferral
