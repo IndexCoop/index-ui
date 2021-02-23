@@ -21,7 +21,6 @@ const CompletedTransaction: React.FC = () => {
   const [referral, _] = useLocalStorage('referral', '')
 
   const onFinishTransaction = () => {
-    console.log(transactionId, referral)
     addReferral(transactionId as string, referral)
     onSetTransactionId()
     onSetTransactionStatus(TransactionStatusType.IS_UNSTARTED)
