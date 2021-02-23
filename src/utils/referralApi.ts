@@ -1,9 +1,12 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet')
 
-const addReferral = async (
-  transactionId: string,
+const trackReferral = async (
   referral: string,
-  transactionStatus: string
+  transactionId: string,
+  transactionStatus: string,
+  currencyId: string,
+  productId: string,
+  isBuyOrder: boolean
 ) => {
   try {
     const credentials = JSON.parse(
@@ -19,10 +22,13 @@ const addReferral = async (
       referral_id: referral,
       transaction_id: transactionId,
       transaction_status: transactionStatus,
+      product_id: productId,
+      currency_id: currencyId,
+      is_buy_order: isBuyOrder,
     })
   } catch (err) {
     console.error(err)
   }
 }
 
-export default addReferral
+export default trackReferral
