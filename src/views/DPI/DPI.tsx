@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Container, Spacer } from 'react-neu'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 
 import Page from 'components/Page'
 import {
@@ -23,7 +24,6 @@ import useBalances from 'hooks/useBalances'
 import TransakBuySellButton from 'components/TransakBuySellButton'
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
-import { useHistory } from 'react-router-dom'
 import useLocalStorage from 'hooks/useLocalStorage'
 
 const DpiProductPage = (props: { title: string }) => {

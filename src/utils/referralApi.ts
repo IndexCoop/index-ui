@@ -10,8 +10,8 @@ const addReferral = async (transactionId: string, referral: string) => {
     await doc.loadInfo()
     const sheet = doc.sheetsByIndex[0]
     await sheet.addRow({
-      referral_id: transactionId,
-      transaction_id: referral,
+      referral_id: referral,
+      transaction_id: transactionId,
     })
   } catch (err) {
     console.error(err)
