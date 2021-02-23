@@ -148,10 +148,8 @@ const CgiProductPage = (props: { title: string }) => {
               and publication:
               <ul>
                 <li>Prices are rounded to eight significant figures</li>
-                <li>
-                  Weights are rounded to four decimal places Index levels are
-                </li>
-                <li>rounded to two decimal places</li>
+                <li>Weights are rounded to four decimal places</li>
+                <li>Index levels are rounded to two decimal places</li>
               </ul>
             </p>
             <ExternalLink
