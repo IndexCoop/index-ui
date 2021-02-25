@@ -70,7 +70,7 @@ const ProductsDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'Products' }}
+      value={{ label: 'Products',value:"Index" }}
       options={[
         {
           value: 'dpi',
