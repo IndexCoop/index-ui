@@ -22,7 +22,7 @@ import IndexReleaseScheduleImage from 'assets/index-token-release-schedule.png'
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
+  }, [props.title])
 
   const {
     prices,

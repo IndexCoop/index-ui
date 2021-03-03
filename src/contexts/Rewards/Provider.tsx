@@ -143,8 +143,9 @@ const Provider: React.FC = ({ children }) => {
     rewardsQuantity,
     rewardProof,
     setConfirmTxModalIsOpen,
-    merkleData,
     rewardsAddress,
+    onSetTransactionId,
+    onSetTransactionStatus,
   ])
 
   return (

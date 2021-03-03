@@ -14,7 +14,7 @@ import MigrationNotice from './components/MigrationNotice'
 const Farm = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
+  }, [props.title])
 
   return (
     <Page>

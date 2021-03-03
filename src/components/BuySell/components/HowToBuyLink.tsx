@@ -5,7 +5,7 @@ import useBuySell from 'hooks/useBuySell'
 
 const HowToBuyLink: React.FC = () => {
   const { buySellToken } = useBuySell()
-  if (buySellToken.toLowerCase() == 'dpi') {
+  if (buySellToken.toLowerCase() === 'dpi') {
     return (
       <div>
         <br />

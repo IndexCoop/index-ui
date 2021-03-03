@@ -1,13 +1,11 @@
 import React, { useMemo } from 'react'
 import { useTheme } from 'react-neu'
-import { useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import styled from 'styled-components'
 import useRewards from 'hooks/useRewards'
 
 const MonthsDropdown = () => {
   const theme = useTheme()
-  const { pathname } = useLocation()
   const { month, setMonth } = useRewards()
 
   const CustomOption = (props: any) => {
@@ -61,7 +59,7 @@ const MonthsDropdown = () => {
         padding: 0,
       }),
     }
-  }, [theme, pathname])
+  }, [theme])
 
   return (
     <Select

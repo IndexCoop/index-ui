@@ -66,7 +66,7 @@ const PricesProvider: React.FC = ({ children }) => {
     const calculatedApy = dailyYield.multipliedBy(365)
 
     setAPY(calculatedApy.toFixed(2))
-  }, [totalUSDInFarms, indexPrice])
+  }, [totalUSDInFarms, indexPrice, isPoolOneActive])
 
   useEffect(() => {
     if (!indexPrice || !totalUSDInFarms || !isPoolTwoActive) return
@@ -80,7 +80,7 @@ const PricesProvider: React.FC = ({ children }) => {
     const calculatedApy = dailyYield.multipliedBy(365)
 
     setFarmTwoApy(calculatedApy.toFixed(2))
-  }, [totalUSDInFarms, indexPrice])
+  }, [totalUSDInFarms, indexPrice, isPoolTwoActive])
 
   return (
     <PricesContext.Provider

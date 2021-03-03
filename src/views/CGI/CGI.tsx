@@ -21,9 +21,9 @@ import useBalances from 'hooks/useBalances'
 const CgiProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
+  }, [props.title])
 
-  const { prices, latestPrice, latestVolume } = useCgiTokenMarketData()
+  const { prices, latestPrice } = useCgiTokenMarketData()
   const { components } = useCgiIndexComponents()
   const { cgiBalance } = useBalances()
 
@@ -143,7 +143,7 @@ const CgiProductPage = (props: { title: string }) => {
             </p>
 
             <h2>Data Handling</h2>
-            <p>
+            <div>
               The following rounding of data are used for the Index calculation
               and publication:
               <ul>
@@ -151,7 +151,7 @@ const CgiProductPage = (props: { title: string }) => {
                 <li>Weights are rounded to four decimal places</li>
                 <li>Index levels are rounded to two decimal places</li>
               </ul>
-            </p>
+            </div>
             <ExternalLink
               href='https://coinshares.com/assets/resources/cgi-methodology.pdf'
               target='_blank'

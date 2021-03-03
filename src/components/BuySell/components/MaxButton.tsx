@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 import BigNumber from 'utils/bignumber'
 import useBuySell from 'hooks/useBuySell'
-import useBalances from 'hooks/useBalances'
 import useWallet from 'hooks/useWallet'
 
 const MaxButton: React.FC = () => {
@@ -19,8 +18,6 @@ const MaxButton: React.FC = () => {
   } = useBuySell()
 
   const { account } = useWallet()
-
-  const { ethBalance, dpiBalance, daiBalance, usdcBalance } = useBalances()
 
   // Do not allow users to spend maximum ETH quantity due to gas cost complications
   const isMaxSpendDisabled =

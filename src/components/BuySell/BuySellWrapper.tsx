@@ -15,7 +15,7 @@ const BuySellWrapper: React.FC<BuySellWrapperProps> = ({ tokenId }: any) => {
 
   useEffect(() => {
     onSetBuySellToken(tokenId)
-  }, [])
+  }, [onSetBuySellToken, tokenId])
 
   return (
     <TransactionWatcher

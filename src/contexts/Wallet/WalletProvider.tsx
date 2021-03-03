@@ -18,7 +18,7 @@ const WalletProvider: React.FC = ({ children }) => {
     setConnector('')
     setStatus('disconnected')
     localStorage.removeItem('walletconnect')
-  }, [account, active, connector, status])
+  }, [active, deactivate])
 
   const connect = useCallback(
     async (walletType: string) => {
@@ -41,7 +41,7 @@ const WalletProvider: React.FC = ({ children }) => {
         console.log(err)
       }
     },
-    [account, connector]
+    [activate, reset]
   )
 
   const { library: ethereum } = useWeb3React()

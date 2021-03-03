@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import PendingTransaction from './PendingTransaction'
 import ApprovingTransaction from './ApprovingTransaction'
 import CompletedTransaction from './CompletedTransaction'

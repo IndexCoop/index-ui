@@ -24,7 +24,7 @@ const FancyValue: React.FC<FancyValueProps> = ({
   value,
 }) => {
   const tokenIcon = link ? (
-    <a href={link} target='_blank'>
+    <a href={link} target='_blank' rel='noopener noreferrer'>
       <StyledIcon src={icon.src} alt={icon.alt} style={iconStyles} />
     </a>
   ) : (

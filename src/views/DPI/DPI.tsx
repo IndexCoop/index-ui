@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Container, Spacer } from 'react-neu'
+import { Container } from 'react-neu'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 
@@ -29,7 +29,7 @@ import useLocalStorage from 'hooks/useLocalStorage'
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
+  }, [props.title])
 
   const {
     prices,
@@ -40,14 +40,14 @@ const DpiProductPage = (props: { title: string }) => {
   const { components } = useDpiIndexComponents()
   const { dpiBalance } = useBalances()
 
-  const [_, setReferral] = useLocalStorage('referral', '')
+  const [, setReferral] = useLocalStorage('referral', '')
 
   const history = useHistory()
   const params = new URLSearchParams(history.location.search)
   const value = params.get('referral')
   useEffect(() => {
     if (value) setReferral(value)
-  }, [value])
+  }, [value, setReferral])
 
   return (
     <Page>
