@@ -32,9 +32,9 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
 
   const WalletLogo = useMemo(() => {
     if (connector === 'injected') {
-      return <img src={metamaskLogo} height={96} />
+      return <img alt='metamaskLogo' src={metamaskLogo} height={96} />
     } else if (connector === 'walletconnect') {
-      return <img src={walletConnectLogo} height={72} />
+      return <img alt='walletConnectLogo' src={walletConnectLogo} height={72} />
     }
   }, [connector])
 
@@ -48,7 +48,10 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
         <Spacer />
         <ExternalLink href={etherscanUrl} target='_blank' textAlign='center'>
           View the transaction{' '}
-          <img src='https://index-dao.s3.amazonaws.com/external-arrow.svg' />
+          <img
+            alt='arrow'
+            src='https://index-dao.s3.amazonaws.com/external-arrow.svg'
+          />
         </ExternalLink>
       </>
     )

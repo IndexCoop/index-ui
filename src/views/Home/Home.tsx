@@ -10,7 +10,7 @@ import Integrations from './components/Integrations'
 const Home = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
+  }, [props.title])
 
   return (
     <Page>

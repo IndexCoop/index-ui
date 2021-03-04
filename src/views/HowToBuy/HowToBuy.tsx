@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Container } from 'react-neu'
-import { useTheme } from 'react-neu'
 
 import Page from 'components/Page'
 import useMediaQuery from '../../hooks/useMediaQuery'
@@ -9,7 +8,7 @@ import useMediaQuery from '../../hooks/useMediaQuery'
 const HowToBuy = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
+  }, [props.title])
 
   const { isMobile } = useMediaQuery()
 

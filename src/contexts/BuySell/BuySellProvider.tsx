@@ -194,10 +194,11 @@ const BuySellProvider: React.FC = ({ children }) => {
     isUserBuying,
     uniswapData,
     selectedCurrency,
-    ethBalance,
-    dpiBalance,
-    daiBalance,
-    usdcBalance,
+    buySellToken,
+    ethereum,
+    onSetTransactionId,
+    onSetTransactionStatus,
+    spendingTokenBalance,
   ])
 
   const onToggleIsUserBuying = () => {

@@ -49,7 +49,13 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           <StyledWalletsWrapper>
             <Box flex={1}>
               <WalletProviderCard
-                icon={<img src={metamaskLogo} style={{ height: 32 }} />}
+                icon={
+                  <img
+                    alt='metamaskLogo'
+                    src={metamaskLogo}
+                    style={{ height: 32 }}
+                  />
+                }
                 name='Metamask'
                 onSelect={handleConnectMetamask}
               />
@@ -59,6 +65,7 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               <WalletProviderCard
                 icon={
                   <img
+                    alt='walletConnectLogo'
                     src={walletConnectLogo}
                     style={{ height: 24, marginTop: '8px' }}
                   />
@@ -72,7 +79,13 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           <StyledWalletsWrapper>
             <Box flex={1}>
               <WalletProviderCard
-                icon={<img src={coinbaseWalletLogo} style={{ height: 32 }} />}
+                icon={
+                  <img
+                    alt='coinbaseWalletLogo'
+                    src={coinbaseWalletLogo}
+                    style={{ height: 32 }}
+                  />
+                }
                 name='Coinbase Wallet'
                 onSelect={handleConnectWalletLink}
               />

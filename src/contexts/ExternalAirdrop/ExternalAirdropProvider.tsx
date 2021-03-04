@@ -125,6 +125,8 @@ const AirdropProvider: React.FC = ({ children }) => {
     airdropQuantity,
     rewardProof,
     setConfirmTxModalIsOpen,
+    onSetTransactionId,
+    onSetTransactionStatus,
   ])
 
   return (

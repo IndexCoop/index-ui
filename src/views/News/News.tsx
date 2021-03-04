@@ -10,7 +10,7 @@ import NewsCardPlaceholder from './components/NewsCardPlaceholder'
 const Vote = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
+  }, [props.title])
 
   const [listArticles, setListArticles] = useState<any[]>([])
   const [headerArticle, setHeaderArticle] = useState({

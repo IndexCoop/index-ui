@@ -6,7 +6,11 @@ import ExternalLink from 'components/ExternalLink'
 const MigrationNotice: React.FC = () => (
   <>
     <Notice>
-      <NoticeIcon>⭐️</NoticeIcon>
+      <NoticeIcon>
+        <span role='img' aria-label='star'>
+          ⭐️
+        </span>
+      </NoticeIcon>
       <NoticeContent>
         <StyledNoticeContentInner>
           Liquidity Mining rewards have been extended. No migration is

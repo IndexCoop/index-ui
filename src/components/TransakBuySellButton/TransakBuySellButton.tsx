@@ -12,11 +12,11 @@ const TransakBuySellButton: React.FC = () => {
 
   const onOpenModal = useCallback(() => {
     setIsModalOpen(true)
-  }, [isModalOpen, setIsModalOpen])
+  }, [setIsModalOpen])
 
   const onDismissModal = useCallback(() => {
     setIsModalOpen(false)
-  }, [isModalOpen, setIsModalOpen])
+  }, [setIsModalOpen])
 
   return (
     <StyledButtonWrapper>

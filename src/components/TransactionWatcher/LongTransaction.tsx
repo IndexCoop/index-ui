@@ -27,7 +27,10 @@ const LongTransaction: React.FC = () => {
       <StyledCardBody>Your transaction is still processing</StyledCardBody>
       <ExternalLink href={etherscanLink} target='_blank'>
         View the transaction{' '}
-        <img src='https://index-dao.s3.amazonaws.com/external-arrow.svg' />
+        <img
+          alt='arrow'
+          src='https://index-dao.s3.amazonaws.com/external-arrow.svg'
+        />
       </ExternalLink>
       <Spacer />
       <RoundedButton text='Finish' onClick={onFinishTransaction} />

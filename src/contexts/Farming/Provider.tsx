@@ -79,7 +79,13 @@ const Provider: React.FC = ({ children }) => {
         onSetTransactionStatus(TransactionStatusType.IS_FAILED)
       }
     },
-    [ethereum, account, setConfirmTxModalIsOpen]
+    [
+      ethereum,
+      account,
+      setConfirmTxModalIsOpen,
+      onSetTransactionId,
+      onSetTransactionStatus,
+    ]
   )
 
   const handleUnstake = useCallback(
@@ -115,7 +121,13 @@ const Provider: React.FC = ({ children }) => {
         onSetTransactionStatus(TransactionStatusType.IS_FAILED)
       }
     },
-    [ethereum, account, setConfirmTxModalIsOpen]
+    [
+      ethereum,
+      account,
+      setConfirmTxModalIsOpen,
+      onSetTransactionId,
+      onSetTransactionStatus,
+    ]
   )
 
   const handleHarvest = useCallback(async () => {
@@ -144,7 +156,13 @@ const Provider: React.FC = ({ children }) => {
     } else {
       onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
-  }, [ethereum, account, setConfirmTxModalIsOpen])
+  }, [
+    ethereum,
+    account,
+    setConfirmTxModalIsOpen,
+    onSetTransactionId,
+    onSetTransactionStatus,
+  ])
 
   const handleUnstakeAndHarvest = useCallback(async () => {
     if (!ethereum || !account) return
@@ -172,7 +190,13 @@ const Provider: React.FC = ({ children }) => {
     } else {
       onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
-  }, [ethereum, account, setConfirmTxModalIsOpen])
+  }, [
+    ethereum,
+    account,
+    setConfirmTxModalIsOpen,
+    onSetTransactionId,
+    onSetTransactionStatus,
+  ])
 
   const currentTime = Date.now()
   const isPoolActive = new BigNumber(farmEndTime).isGreaterThan(

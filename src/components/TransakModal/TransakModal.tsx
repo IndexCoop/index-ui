@@ -36,7 +36,7 @@ const TransakModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const onOpenTransakLauncher = useCallback(() => {
     getTransakLauncher(isMobile as boolean, buySellToken)
     onDismiss && onDismiss()
-  }, [isMobile, buySellToken])
+  }, [isMobile, buySellToken, onDismiss])
 
   return (
     <Modal isOpen={isOpen}>

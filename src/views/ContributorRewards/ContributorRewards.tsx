@@ -7,7 +7,7 @@ import MonthlyClaim from './components/MonthlyClaim'
 const ContributorRewards = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
+  }, [props.title])
 
   return (
     <Page>

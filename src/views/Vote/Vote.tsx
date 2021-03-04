@@ -7,7 +7,7 @@ import ProposalTable from './components/ProposalTable'
 const Vote = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
+  }, [props.title])
 
   return (
     <Page>
