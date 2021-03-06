@@ -19,10 +19,12 @@ import {
   november2020RewardsAddress,
   december2020RewardsAddress,
   january2021RewardsAddress,
+  february2021RewardsAddress,
 } from 'constants/ethContractAddresses'
 import november2020MerkleData from 'index-sdk/merkleData/november2020Rewards.json'
 import december2020MerkleData from 'index-sdk/merkleData/december2020Rewards.json'
 import january2021MerkleData from 'index-sdk/merkleData/january2021Rewards.json'
+import february2021MerkleData from 'index-sdk/merkleData/february2021Rewards.json'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -46,9 +48,13 @@ const Provider: React.FC = ({ children }) => {
     ethereum,
   }: { account: string | null | undefined; ethereum: provider } = useWallet()
 
-  //set proper contract address and merkle data depending on month
   useEffect(() => {
     switch (month) {
+      case 'February 2021': {
+        setRewardsAddress(february2021RewardsAddress!)
+        setMerkleData(february2021MerkleData)
+        break
+      }
       case 'January 2021': {
         setRewardsAddress(january2021RewardsAddress!)
         setMerkleData(january2021MerkleData)
