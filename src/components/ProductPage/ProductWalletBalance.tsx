@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, useTheme, Button, Spacer } from 'react-neu'
+import { Button } from 'react-neu'
 import styled from 'styled-components'
 import numeral from 'numeral'
 import BigNumber from 'bignumber.js'
