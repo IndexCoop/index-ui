@@ -10,11 +10,12 @@ export const useAddToMetamask = () => {
     },
     CGI: {
       address: '0xada0a1202462085999652dc5310a7a9e2bf3ed42',
-      image: '',
+      image:
+        'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
     },
     INDEX: {
       address: '0x0954906da0Bf32d5479e25f46056d22f08464cab',
-      image: '',
+      image: 'https://index-dao.s3.amazonaws.com/owl.png',
     },
   }
 
