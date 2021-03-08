@@ -21,3 +21,5 @@ export const usdcTokenAddress = process.env.REACT_APP_USDC_TOKEN_ADDRESS
 export const uniswapEthDpiLpTokenAddress =
   process.env.REACT_APP_UNISWAP_ETH_DPI_LP_TOKEN_ADDRESS
 export const uniswapRouterAddress = process.env.REACT_APP_UNISWAP_ROUTER_ADDRESS
+export const exchangeIssuanceAddress =
+  process.env.REACT_APP_EXCHANGE_ISSUANCE_ADDRESS

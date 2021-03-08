@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ComponentProps } from 'react'
 import styled from 'styled-components'
 
 import BuySellSelector from './components/BuySellSelector'
@@ -6,20 +6,32 @@ import TokenInputs from './components/TokenInputs'
 import OrderSummary from './components/OrderSummary'
 import BuySellButton from './components/BuySellButton'
 import HowToBuyLink from './components/HowToBuyLink'
+import ExchangeSelector from './components/ExchangeSelector'
 
-const BuySellWidget: React.FC = () => {
+interface Props {
+  setIsIssuance: any
+}
+
+const BuySellWidget: React.FC<Props> = ({ setIsIssuance }) => {
   return (
-    <StyledBuySellCard>
-      <StyledBuySellCardContent>
-        <BuySellSelector />
-        <TokenInputs />
-        <OrderSummary />
-        <BuySellButton />
-        <HowToBuyLink />
-      </StyledBuySellCardContent>
-    </StyledBuySellCard>
+    <StyledContainer>
+      <StyledBuySellCard>
+        <StyledBuySellCardContent>
+          <BuySellSelector />
+          <TokenInputs />
+          <OrderSummary />
+          <BuySellButton />
+          <HowToBuyLink />
+        </StyledBuySellCardContent>
+      </StyledBuySellCard>
+      <ExchangeSelector setIsIssuance={setIsIssuance} />
+    </StyledContainer>
   )
 }
+
+const StyledContainer = styled.div`
+  position: relative;
+`
 
 const StyledBuySellCard = styled.div`
   height: fit-content;

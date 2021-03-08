@@ -25,6 +25,7 @@ import { CgiIndexComponentsProvider } from 'contexts/CgiIndexComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { SnapshotProposalsProvider } from 'contexts/SnapshotProposals'
 import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
+import { ExchangeIssuanceProvider } from 'contexts/ExchangeIssuance'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -125,19 +126,21 @@ const Providers: React.FC = ({ children }) => {
                         <FarmingTwoProvider>
                           <PricesProvider>
                             <BuySellProvider>
-                              <DpiTokenMarketDataProvider>
-                                <DpiIndexComponentsProvider>
-                                  <CgiTokenMarketDataProvider>
-                                    <CgiIndexComponentsProvider>
-                                      <IndexTokenMarketDataProvider>
-                                        <SnapshotProposalsProvider>
-                                          {children}
-                                        </SnapshotProposalsProvider>
-                                      </IndexTokenMarketDataProvider>
-                                    </CgiIndexComponentsProvider>
-                                  </CgiTokenMarketDataProvider>
-                                </DpiIndexComponentsProvider>
-                              </DpiTokenMarketDataProvider>
+                              <ExchangeIssuanceProvider>
+                                <DpiTokenMarketDataProvider>
+                                  <DpiIndexComponentsProvider>
+                                    <CgiTokenMarketDataProvider>
+                                      <CgiIndexComponentsProvider>
+                                        <IndexTokenMarketDataProvider>
+                                          <SnapshotProposalsProvider>
+                                            {children}
+                                          </SnapshotProposalsProvider>
+                                        </IndexTokenMarketDataProvider>
+                                      </CgiIndexComponentsProvider>
+                                    </CgiTokenMarketDataProvider>
+                                  </DpiIndexComponentsProvider>
+                                </DpiTokenMarketDataProvider>
+                              </ExchangeIssuanceProvider>
                             </BuySellProvider>
                           </PricesProvider>
                         </FarmingTwoProvider>
