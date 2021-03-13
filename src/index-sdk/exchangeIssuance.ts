@@ -4,7 +4,12 @@ import { AbiItem } from 'web3-utils'
 import BigNumber from 'utils/bignumber'
 
 import ExchangeIssuanceABI from './abi/issuance.json'
-import { exchangeIssuanceAddress } from 'constants/ethContractAddresses'
+import {
+  exchangeIssuanceAddress,
+  dpiTokenAddress,
+  cgiTokenAddress,
+  indexTokenAddress,
+} from 'constants/ethContractAddresses'
 
 export enum IssuanceTradeType {
   ISSUE_SET_FOR_EXACT_TOKEN,
@@ -135,5 +140,62 @@ export const getIssuanceTradeTransaction = (
               reject(error)
             })
         })
+  }
+}
+
+export const getIssuanceTradeData = async (
+  provider: provider,
+  id: string,
+  isIssuanceOrder: boolean,
+  requestQuantity: number | string,
+  currencyAddress: string,
+  activeField: 'set' | 'currency'
+): Promise<any> => {
+  const IssuanceInstance = getIssuanceContract(provider)
+
+  let setTokenAddress: string | undefined
+  if (id === 'dpi') setTokenAddress = dpiTokenAddress
+  else if (id === 'cgi') setTokenAddress = cgiTokenAddress
+  else if (id === 'index') setTokenAddress = indexTokenAddress
+
+  if (!isIssuanceOrder) {
+    return new Promise((resolve) => {
+      IssuanceInstance.methods
+        .getEstimatedRedeemSetAmount(
+          setTokenAddress,
+          currencyAddress,
+          requestQuantity
+        )
+        .call()
+        .then((res: any) => {
+          resolve(res)
+        })
+    })
+  } else if (activeField === 'set') {
+    return new Promise((resolve) => {
+      IssuanceInstance.methods
+        .getAmountInToIssueExactSet(
+          setTokenAddress,
+          currencyAddress,
+          requestQuantity
+        )
+        .call()
+        .then((res: any) => {
+          resolve(res)
+        })
+    })
+  } else {
+    return new Promise((resolve) => {
+      IssuanceInstance.methods
+        .getEstimatedIssueSetAmount(
+          setTokenAddress,
+          currencyAddress,
+          requestQuantity
+        )
+        .call()
+        .then((res: any) => {
+          resolve(res)
+        })
+    })
   }
 }

@@ -10,7 +10,7 @@ import {
   dpiTokenAddress,
   cgiTokenAddress,
   indexTokenAddress,
-  uniswapRouterAddress,
+  exchangeIssuanceAddress,
 } from 'constants/ethContractAddresses'
 
 /**
@@ -33,11 +33,11 @@ const IssueRedeemButton: React.FC = () => {
   } = useExchangeIssuance()
 
   const { account, onOpenWalletModal } = useWallet()
-  const daiApproval = useApproval(daiTokenAddress, uniswapRouterAddress)
-  const usdcApproval = useApproval(usdcTokenAddress, uniswapRouterAddress)
-  const dpiApproval = useApproval(dpiTokenAddress, uniswapRouterAddress)
-  const cgiApproval = useApproval(cgiTokenAddress, uniswapRouterAddress)
-  const indexApproval = useApproval(indexTokenAddress, uniswapRouterAddress)
+  const daiApproval = useApproval(daiTokenAddress, exchangeIssuanceAddress)
+  const usdcApproval = useApproval(usdcTokenAddress, exchangeIssuanceAddress)
+  const dpiApproval = useApproval(dpiTokenAddress, exchangeIssuanceAddress)
+  const cgiApproval = useApproval(cgiTokenAddress, exchangeIssuanceAddress)
+  const indexApproval = useApproval(indexTokenAddress, exchangeIssuanceAddress)
 
   // Only prompt the user at end of the buy flow. (So they can preview the order before logging in)
   const loginRequiredBeforeSubmit = issuanceData?.amount_in && !account

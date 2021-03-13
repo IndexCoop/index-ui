@@ -8,7 +8,10 @@ import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { useDebounce } from 'hooks/useDebounce'
-import { getIssuanceTradeTransaction } from 'index-sdk/exchangeIssuance'
+import {
+  getIssuanceTradeTransaction,
+  getIssuanceTradeData,
+} from 'index-sdk/exchangeIssuance'
 import {
   getIssuanceTradeType,
   getIssuanceCallData,
@@ -82,6 +85,15 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
     if (!targetTradeQuantity) return
 
     setIsFetchingOrderData(true)
+
+    getIssuanceTradeData(
+      ethereum,
+      issuanceToken,
+      isUserIssuing,
+      targetTradeQuantity,
+      selectedCurrency?.address,
+      activeField
+    ).then((res) => console.log(res))
     fetchTokenBuySellData(
       issuanceToken,
       isUserIssuing,
