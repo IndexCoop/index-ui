@@ -18,6 +18,8 @@ import { FarmingTwoProvider } from 'contexts/FarmingTwo'
 import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
 import { BuySellProvider } from 'contexts/BuySell'
+import { FliTokenMarketDataProvider } from 'contexts/FliTokenMarketData'
+import { FliIndexPortfolioDataProvider } from 'contexts/FliIndexPortfolioData'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
 import { CgiTokenMarketDataProvider } from 'contexts/CgiTokenMarketData'
@@ -32,6 +34,7 @@ import About from 'views/About'
 import Farm from 'views/Farm'
 import Home from 'views/Home'
 import DPI from 'views/DPI'
+import FLI from 'views/FLI'
 import CGI from 'views/CGI'
 import INDEX from 'views/INDEX'
 import Vote from 'views/Vote'
@@ -69,6 +72,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path='/dpi'>
               <DPI title={'Index - DPI'} />
+            </Route>
+            <Route exact path='/fli'>
+              <FLI title={'Index - FLI'} />
             </Route>
             <Route exact path='/cgi'>
               <CGI title={'Index - CGI'} />
@@ -125,19 +131,23 @@ const Providers: React.FC = ({ children }) => {
                         <FarmingTwoProvider>
                           <PricesProvider>
                             <BuySellProvider>
-                              <DpiTokenMarketDataProvider>
-                                <DpiIndexComponentsProvider>
-                                  <CgiTokenMarketDataProvider>
-                                    <CgiIndexComponentsProvider>
-                                      <IndexTokenMarketDataProvider>
-                                        <SnapshotProposalsProvider>
-                                          {children}
-                                        </SnapshotProposalsProvider>
-                                      </IndexTokenMarketDataProvider>
-                                    </CgiIndexComponentsProvider>
-                                  </CgiTokenMarketDataProvider>
-                                </DpiIndexComponentsProvider>
-                              </DpiTokenMarketDataProvider>
+                              <FliTokenMarketDataProvider>
+                                <FliIndexPortfolioDataProvider>
+                                  <DpiTokenMarketDataProvider>
+                                    <DpiIndexComponentsProvider>
+                                      <CgiTokenMarketDataProvider>
+                                        <CgiIndexComponentsProvider>
+                                          <IndexTokenMarketDataProvider>
+                                            <SnapshotProposalsProvider>
+                                              {children}
+                                            </SnapshotProposalsProvider>
+                                          </IndexTokenMarketDataProvider>
+                                        </CgiIndexComponentsProvider>
+                                      </CgiTokenMarketDataProvider>
+                                    </DpiIndexComponentsProvider>
+                                  </DpiTokenMarketDataProvider>
+                                </FliIndexPortfolioDataProvider>
+                              </FliTokenMarketDataProvider>
                             </BuySellProvider>
                           </PricesProvider>
                         </FarmingTwoProvider>

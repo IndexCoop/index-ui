@@ -1,6 +1,6 @@
 import { camelCase } from 'lodash'
 
-const baseURL = process.env.REACT_APP_TOKENSETS_API
+const tokensetsUrl = process.env.REACT_APP_TOKENSETS_URL
 
 export const fetchTokenBuySellData = (
   id: string,
@@ -11,7 +11,7 @@ export const fetchTokenBuySellData = (
 ) => {
   const buyOrSellRoute = isBuyOrder ? 'buy_price' : 'sell_price'
   const coinOrSetRoute = id.toLowerCase() === 'index' ? 'coins' : 'portfolios'
-  const requestUrl = `${baseURL}/v2/${coinOrSetRoute}/${id}/${buyOrSellRoute}?quantity=${requestQuantity}&currency=${currencyId}&input_type=${activeField}`
+  const requestUrl = `${tokensetsUrl}/public/v2/${coinOrSetRoute}/${id}/${buyOrSellRoute}?quantity=${requestQuantity}&currency=${currencyId}&input_type=${activeField}`
 
   return fetch(requestUrl)
     .then((response) => response.json())
@@ -20,7 +20,7 @@ export const fetchTokenBuySellData = (
 }
 
 export const fetchSetComponents = (set: string) => {
-  const requestUrl = `${baseURL}/v2/portfolios/${set}`
+  const requestUrl = `${tokensetsUrl}/public/v2/portfolios/${set}`
 
   return fetch(requestUrl)
     .then((response) => response.json())
@@ -32,18 +32,31 @@ export const fetchSetComponents = (set: string) => {
       const {
         portfolio: { components },
       } = response
-      const formattedComponents = components.map((component: any) => {
-        const camelCasedComponent = Object.keys(component).reduce(
-          (comp: any, k: string) => ({
-            ...comp,
-            [camelCase(k)]: component[k],
-          }),
-          {}
-        )
-        return camelCasedComponent
-      })
 
-      return formattedComponents
+      return formatComponents(components)
+    })
+    .catch((error) => console.log(error))
+}
+
+export const fetchSetPortfolioData = (set: string) => {
+  const requestUrl = `${tokensetsUrl}/public/v2/portfolios/${set}`
+
+  return fetch(requestUrl)
+    .then((response) => response.json())
+    .then((response) => {
+      if (!response?.portfolio?.components) {
+        // undocumented API endpoint. Throw error if not expected response format
+        throw new Error('Invalid API response from Set Protocol service')
+      }
+      const {
+        portfolio,
+        portfolio: { components },
+      } = response
+
+      return {
+        ...portfolio,
+        components: formatComponents(components),
+      }
     })
     .catch((error) => console.log(error))
 }
@@ -52,7 +65,7 @@ export const fetchHistoricalTokenMarketData = (
   id: string,
   baseCurrency = 'usd'
 ) => {
-  const requestUrl = `https://api.tokensets.com/v2/fund_historicals/${id}?currency=${baseCurrency}&beta=true&interval=month`
+  const requestUrl = `${tokensetsUrl}/v2/fund_historicals/${id}?currency=${baseCurrency}&beta=true&interval=month`
 
   return fetch(requestUrl)
     .then((response) => response.json())
@@ -66,7 +79,7 @@ export const fetchHistoricalTokenMarketData = (
 }
 
 export const fetchSetComponentsBeta = (set: string) => {
-  const requestUrl = `https://api.tokensets.com/v2/funds/${set}?beta=true`
+  const requestUrl = `${tokensetsUrl}/v2/funds/${set}?beta=true`
 
   return fetch(requestUrl)
     .then((response) => response.json())
@@ -78,18 +91,20 @@ export const fetchSetComponentsBeta = (set: string) => {
       const {
         fund: { components, market_cap: marketCap },
       } = response
-      const formattedComponents = components.map((component: any) => {
-        const camelCasedComponent = Object.keys(component).reduce(
-          (comp: any, k: string) => ({
-            ...comp,
-            [camelCase(k)]: component[k],
-          }),
-          {}
-        )
-        return camelCasedComponent
-      })
-
-      return { components: formattedComponents, marketCap }
+      return { components: formatComponents(components), marketCap }
     })
     .catch((error) => console.log(error))
+}
+
+function formatComponents(components: any) {
+  return components.map((component: any) => {
+    const camelCasedComponent = Object.keys(component).reduce(
+      (comp: any, k: string) => ({
+        ...comp,
+        [camelCase(k)]: component[k],
+      }),
+      {}
+    )
+    return camelCasedComponent
+  })
 }
