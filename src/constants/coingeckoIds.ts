@@ -1,4 +1,4 @@
 export const coingeckoCgiId = 'cgi'
 export const coingeckoDpiId = 'defipulse-index'
-export const coingeckoFliId = 'eth2xfli'
+export const coingeckoFliId = 'ethfli'
 export const coingeckoIndexId = 'index-cooperative'

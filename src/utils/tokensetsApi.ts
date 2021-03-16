@@ -38,29 +38,6 @@ export const fetchSetComponents = (set: string) => {
     .catch((error) => console.log(error))
 }
 
-export const fetchSetPortfolioData = (set: string) => {
-  const requestUrl = `${tokensetsUrl}/public/v2/portfolios/${set}`
-
-  return fetch(requestUrl)
-    .then((response) => response.json())
-    .then((response) => {
-      if (!response?.portfolio?.components) {
-        // undocumented API endpoint. Throw error if not expected response format
-        throw new Error('Invalid API response from Set Protocol service')
-      }
-      const {
-        portfolio,
-        portfolio: { components },
-      } = response
-
-      return {
-        ...portfolio,
-        components: formatComponents(components),
-      }
-    })
-    .catch((error) => console.log(error))
-}
-
 export const fetchHistoricalTokenMarketData = (
   id: string,
   baseCurrency = 'usd'
@@ -89,9 +66,25 @@ export const fetchSetComponentsBeta = (set: string) => {
         throw new Error('Invalid API response from Set Protocol service')
       }
       const {
-        fund: { components, market_cap: marketCap },
+        fund: {
+          components,
+          market_cap: marketCap,
+          id,
+          name,
+          symbol,
+          address,
+          image
+        },
       } = response
-      return { components: formatComponents(components), marketCap }
+      return { 
+        components: formatComponents(components),
+        marketCap,
+        id,
+        name,
+        symbol,
+        address,
+        image,
+      }
     })
     .catch((error) => console.log(error))
 }
