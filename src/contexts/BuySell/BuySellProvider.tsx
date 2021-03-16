@@ -21,7 +21,7 @@ import { currencyTokens } from 'constants/currencyTokens'
 import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
-  const [buySellToken, setBuySellToken] = useState<'dpi' | 'index' | 'cgi'>(
+  const [buySellToken, setBuySellToken] = useState<'dpi' | 'index' | 'cgi' | 'ethfli'>(
     'dpi'
   )
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Container } from 'react-neu'
-import styled from 'styled-components'
 
 import Page from 'components/Page'
 import {
@@ -12,6 +11,7 @@ import {
   IndexComponentsTable,
 } from 'components/ProductPage'
 import MarketData from './components/MarketData'
+import { BuySellWrapper } from 'components/BuySell'
 
 import useFliTokenMarketData from 'hooks/useFliTokenMarketData'
 import useFliIndexPortfolioData from 'hooks/useFliIndexPortfolioData'
@@ -31,6 +31,9 @@ const FliProductPage = (props: { title: string }) => {
       <Container size='lg'>
         <ProductPageHeader>
           <MarketData />
+          <div>
+            <BuySellWrapper tokenId='ethfli' />
+          </div>
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
