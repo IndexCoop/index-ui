@@ -31,6 +31,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     indexBalance,
     dpiBalance,
     cgiBalance,
+    fliBalance,
     uniswapEthDpiLpBalance,
     stakedUniswapEthDpiLpBalance,
     stakedFarmTwoBalance,
@@ -98,6 +99,18 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 label='CGI balance'
                 link={`https://etherscan.io/address/${tokenAddresses.cgiTokenAddress}`}
                 value={getDisplayBalance(cgiBalance)}
+              />
+            </Box>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'FLI Icon',
+                  src:
+                    'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+                }}
+                label='FLI 2x ETH Balance'
+                link={`https://etherscan.io/address/${tokenAddresses.fliTokenAddress}`}
+                value={getDisplayBalance(fliBalance)}
               />
             </Box>
           </Split>
