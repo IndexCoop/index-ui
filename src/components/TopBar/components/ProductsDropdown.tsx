@@ -18,7 +18,7 @@ const ProductsDropdown: React.FC = () => {
 
   const dropdownSelectStyles = useMemo(() => {
     const isProductRouteActive =
-      pathname === '/dpi' || pathname === '/index' || pathname === '/cgi'
+      pathname === '/dpi' || pathname === '/index' || pathname === '/cgi' || pathname === '/fli'
 
     return {
       control: (styles: any) => ({
@@ -83,6 +83,10 @@ const ProductsDropdown: React.FC = () => {
         {
           value: 'index',
           label: 'Index Coop Token',
+        },
+        {
+          value: 'fli',
+          label: 'ETH 2x Flexible Leverage Index',
         },
       ]}
       components={{

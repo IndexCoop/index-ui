@@ -34,6 +34,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink exact activeClassName='active' to='/index'>
             Index Coop Token
           </StyledLink>
+          <StyledLink exact activeClassName='active' to='/fli'>
+            ETH 2x Flexible Leverage Index
+          </StyledLink>
           <StyledLink exact activeClassName='active' to='/about'>
             About
           </StyledLink>
