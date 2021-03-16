@@ -21,9 +21,9 @@ import { currencyTokens } from 'constants/currencyTokens'
 import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
-  const [buySellToken, setBuySellToken] = useState<'dpi' | 'index' | 'cgi' | 'ethfli'>(
-    'dpi'
-  )
+  const [buySellToken, setBuySellToken] = useState<
+    'dpi' | 'index' | 'cgi' | 'ethfli'
+  >('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
@@ -41,6 +41,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     ethBalance,
     dpiBalance,
     cgiBalance,
+    fliBalance,
     indexBalance,
     daiBalance,
     usdcBalance,
@@ -61,6 +62,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = indexBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'dpi') {
     spendingTokenBalance = dpiBalance || new BigNumber(0)
+  } else if (!isUserBuying && buySellToken === 'ethfli') {
+    spendingTokenBalance = fliBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'cgi') {
     spendingTokenBalance = cgiBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'wrapped_eth') {
