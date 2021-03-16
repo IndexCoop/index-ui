@@ -84,31 +84,31 @@ const Provider: React.FC = ({ children }) => {
         new BigNumber(balances[2]).dividedBy(new BigNumber(10).pow(18))
       )
       setFliBalance(
-        new BigNumber(balances[2]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setCgiBalance(
         new BigNumber(balances[3]).dividedBy(new BigNumber(10).pow(18))
       )
-      setDaiBalance(
+      setCgiBalance(
         new BigNumber(balances[4]).dividedBy(new BigNumber(10).pow(18))
       )
+      setDaiBalance(
+        new BigNumber(balances[5]).dividedBy(new BigNumber(10).pow(18))
+      )
       setUsdcBalance(
-        new BigNumber(balances[5]).dividedBy(new BigNumber(10).pow(6))
+        new BigNumber(balances[6]).dividedBy(new BigNumber(10).pow(6))
       )
       setUniswapEthDpiLpBalance(
-        new BigNumber(balances[6]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setStakedUniswapEthDpiLpBalance(
         new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(18))
       )
-      setUnharvestedIndexBalance(
+      setStakedUniswapEthDpiLpBalance(
         new BigNumber(balances[8]).dividedBy(new BigNumber(10).pow(18))
       )
-      setStakedFarmTwoBalance(
+      setUnharvestedIndexBalance(
         new BigNumber(balances[9]).dividedBy(new BigNumber(10).pow(18))
       )
-      setUnharvestedFarmTwoBalance(
+      setStakedFarmTwoBalance(
         new BigNumber(balances[10]).dividedBy(new BigNumber(10).pow(18))
+      )
+      setUnharvestedFarmTwoBalance(
+        new BigNumber(balances[11]).dividedBy(new BigNumber(10).pow(18))
       )
     },
     [
