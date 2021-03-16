@@ -145,6 +145,7 @@ const StyledTableHeader = styled.p`
 const StyledTokenLogo = styled.img`
   width: 100%;
   height: auto;
+  border-radius: 50%;
 `
 
 const StyledTableData = styled(StyledTableHeader)`
