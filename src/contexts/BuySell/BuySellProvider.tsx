@@ -130,7 +130,7 @@ const BuySellProvider: React.FC = ({ children }) => {
       )
     }
 
-    if (spendingTokenBalance?.isLessThanOrEqualTo(requiredBalance)) return
+    if (spendingTokenBalance?.isLessThan(requiredBalance)) return
 
     const uniswapTradeType = getUniswapTradeType(
       isUserBuying,
