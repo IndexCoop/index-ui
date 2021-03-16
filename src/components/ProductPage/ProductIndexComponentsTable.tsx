@@ -59,7 +59,7 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
           <StyledTableHeader>Quantity per token</StyledTableHeader>
         </DisplayOnDesktopOnly>
         <DisplayOnDesktopOnly>
-          <StyledTableHeader>Price per token</StyledTableHeader>
+          <StyledTableHeader>Value per token</StyledTableHeader>
         </DisplayOnDesktopOnly>
 
         <StyledTableHeader>Allocation</StyledTableHeader>
@@ -93,6 +93,9 @@ const ComponentRow: React.FC<ComponentRowProps> = ({ component }) => {
   const percentChange = numeral(
     Math.abs(parseFloat(dailyPercentChange))
   ).format('0.00')
+
+  const formattedPriceUSD = numeral(totalPriceUsd).format('$0,0.00')
+
   return (
     <>
       <StyledTokenLogo src={image} alt={`${name} Logo`} />
@@ -106,7 +109,7 @@ const ComponentRow: React.FC<ComponentRowProps> = ({ component }) => {
         </StyledTableData>
       </DisplayOnDesktopOnly>
       <DisplayOnDesktopOnly>
-        <StyledTableData>${totalPriceUsd}</StyledTableData>
+        <StyledTableData>{formattedPriceUSD}</StyledTableData>
       </DisplayOnDesktopOnly>
 
       <StyledTableData>{percentOfSet}%</StyledTableData>
@@ -142,6 +145,7 @@ const StyledTableHeader = styled.p`
 const StyledTokenLogo = styled.img`
   width: 100%;
   height: auto;
+  border-radius: 50%;
 `
 
 const StyledTableData = styled(StyledTableHeader)`
