@@ -12,6 +12,7 @@ import {
 } from 'components/ProductPage'
 import MarketData from './components/MarketData'
 import { BuySellWrapper } from 'components/BuySell'
+import ExternalLink from 'components/ExternalLink'
 
 import useFliTokenMarketData from 'hooks/useFliTokenMarketData'
 import useFliIndexPortfolioData from 'hooks/useFliIndexPortfolioData'
@@ -44,24 +45,52 @@ const FliProductPage = (props: { title: string }) => {
           <PriceChanges prices={prices} />
           <IndexComponentsTable components={components} />
           <Description>
-            <strong>The Ethereum Flexible Leverage Index</strong> is a
-            capitalization-weighted index that tracks the performance of
-            decentralized financial assets across the market.
-            <h2>Real Leverage</h2>
-            The Real Leverage is the current leverage ratio of the Set. The Real
-            Leverage is calculated by dividing the value of cETH position of the
-            Set by the total value of the Set (the total value of the Set should
-            always be less than its cETH position, since it also contains a debt
-            position). The Real Leverage ratio may differ from the Target
-            Leverage ratio.
-            <h2>Target Leverage</h2>
-            The Target Leverage is the ideal leverage ratio of the product. If
-            the Set is below or above the target leverage ratio, it will post or
-            pull collateral until the target leverage ratio is met.
-            <h2>Debt Position Health</h2>
-            The Debt Position Health is the value of the collateral divided by
-            the value of the borrowed assets. If the debt ratio drops below 125%
-            the debt position will automatically be liquidated.
+            <strong>The Ethereum Flexible Leverage Index</strong> lets you
+            leverage a collateralized debt position in a safe and efficient way,
+            by abstracting its management into a simple index. It enables market
+            participants to take on leverage while minimizing the transaction
+            costs and risks associated with maintaining collateralized debt.
+            <h2>Objective</h2>
+            The Ethereum Flexible Leverage Index (ETH2X-FLI) makes leverage
+            effortless. The end user does not have to worry about:
+            <ul>
+              <li>
+                Monitoring their leveraged loan 24/7, having to always be ready
+                to act.
+              </li>
+
+              <li>
+                High fees, transactions not being included fast enough or the
+                relative UIs being unresponsive during times of high volatility.
+              </li>
+
+              <li>
+                Paying for overpriced stablecoins to deleverage on time or panic
+                trading to save their positions.
+              </li>
+
+              <li>Being liquidated and having to pay the penalty.</li>
+            </ul>
+            ETH2X-FLI has several key advantages over Legacy Leveraged Tokens:
+            <ul>
+              <li>Zero slippage via composable entry and exit.</li>
+
+              <li>
+                Unique Index algorithm reduces rebalancing needs by an order of
+                magnitude.
+              </li>
+
+              <li>
+                Emergency deleveraging possible during Black Swan events for
+                additional fund safety.
+              </li>
+            </ul>
+            <ExternalLink
+              href='https://pulse.inc/flexible-leverage-index'
+              target='_blank'
+            >
+              <h4>View the methodology here.</h4>
+            </ExternalLink>
           </Description>
         </ProductPageContent>
       </Container>
