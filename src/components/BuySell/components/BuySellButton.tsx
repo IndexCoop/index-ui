@@ -8,6 +8,7 @@ import {
   daiTokenAddress,
   usdcTokenAddress,
   dpiTokenAddress,
+  fliTokenAddress,
   cgiTokenAddress,
   indexTokenAddress,
   uniswapRouterAddress,
@@ -36,6 +37,7 @@ const BuySellButton: React.FC = () => {
   const daiApproval = useApproval(daiTokenAddress, uniswapRouterAddress)
   const usdcApproval = useApproval(usdcTokenAddress, uniswapRouterAddress)
   const dpiApproval = useApproval(dpiTokenAddress, uniswapRouterAddress)
+  const fliApproval = useApproval(fliTokenAddress, uniswapRouterAddress)
   const cgiApproval = useApproval(cgiTokenAddress, uniswapRouterAddress)
   const indexApproval = useApproval(indexTokenAddress, uniswapRouterAddress)
 
@@ -50,6 +52,15 @@ const BuySellButton: React.FC = () => {
     !isUserBuying &&
     buySellToken.toLowerCase() === 'dpi' &&
     dpiApproval.isApproving
+
+  const fliApprovalRequired =
+    !isUserBuying &&
+    buySellToken.toLowerCase() === 'ethfli' &&
+    !fliApproval.isApproved
+  const fliApproving =
+    !isUserBuying &&
+    buySellToken.toLowerCase() === 'ethfli' &&
+    fliApproval.isApproving
 
   const cgiApprovalRequired =
     !isUserBuying &&
@@ -86,6 +97,7 @@ const BuySellButton: React.FC = () => {
     buttonAction = onOpenWalletModal
   } else if (
     dpiApproving ||
+    fliApproving ||
     indexApproving ||
     daiApproving ||
     cgiApproving ||
@@ -96,6 +108,9 @@ const BuySellButton: React.FC = () => {
   } else if (dpiApprovalRequired) {
     buttonText = 'Approve DPI'
     buttonAction = dpiApproval.onApprove
+  } else if (fliApprovalRequired) {
+    buttonText = 'Approve FLI'
+    buttonAction = fliApproval.onApprove
   } else if (cgiApprovalRequired) {
     buttonText = 'Approve CGI'
     buttonAction = cgiApproval.onApprove
