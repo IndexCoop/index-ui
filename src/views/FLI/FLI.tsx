@@ -91,6 +91,55 @@ const FliProductPage = (props: { title: string }) => {
             >
               <h4>View the methodology here.</h4>
             </ExternalLink>
+            <h2>Initial Parameters:</h2>
+            <ul>
+              <li>Underlying Asset: ETH</li>
+              <li>Target Leverage Ratio: 2</li>
+              <li>DeFi Lending Protocol: Compound</li>
+              <li>Maximum Leverage Ratio: 2.3</li>
+              <li>Minimum Leverage Ratio: 1.7</li>
+              <li>Recentering Speed: 5%</li>
+            </ul>
+            <h2>Definitions:</h2>
+            <ul>
+              <li>
+                Borrow Rate — the cost to borrow the asset at the DeFi Lending
+                Protocol over the most recent epoch.
+              </li>
+              <li>Epoch Length — the time between rebalances.</li>
+              <li>
+                Target Leverage Ratio (TLR) — the long term target for the value
+                of the assets held by the index divided by the value of the debt
+                held by the index.
+              </li>
+              <li>
+                Current Leverage Ratio (CLR) — the value of the asset currently
+                held by the index divided by the current value of the debt held
+                by the index.
+              </li>
+              <li>
+                Maximum Leverage Ratio (MAXLR) — the highest leverage ratio the
+                index will ever have after a rebalance.
+              </li>
+              <li>
+                Re-centering Speed (RS) — the rate at which the Current Leverage
+                Ratio is adjusted each period to return to the Target Leverage
+                Ratio, when the index is not being adjusted back to the Maximum
+                Leverage Ratio or the Minimum Leverage Ratio.
+              </li>
+            </ul>
+            <h3>Index Price:</h3>
+            <i>
+              FLIt = FLIt-1 * (1 + ((Pricet/Pricet-1–1) * CLRt-1 — (BorrowRatet
+              * (CLRt-1 -1)/CLRt-1)))
+            </i>
+            <h3>Calculation of the new Current Lever Ratio for the period:</h3>
+            <i>CLRt+1 = max(MINLR, min(MAXLR, TLR * (1 — RS) + CLRt * RS))</i>
+            <h2>Fees:</h2>
+            Flexible Leverage Index has a streaming fee of 1.95% (195 basis
+            points) and a 0.1% (10 basis points) mint/redeem fee. The revenue
+            generated from the streaming fee is split 40% to DeFi Pulse and 60%
+            to Index Coop.
           </Description>
         </ProductPageContent>
       </Container>
