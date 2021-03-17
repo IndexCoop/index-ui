@@ -69,7 +69,11 @@ const FliProductPage = (props: { title: string }) => {
                 trading to save their positions.
               </li>
 
-              <li>Being liquidated and having to pay the penalty.</li>
+              <li>
+                Users don't have to manage their liquidation ratio since this is
+                automatically managed by FLI, which drastically reduces
+                liquidations, even during black swan events.
+              </li>
             </ul>
             ETH2X-FLI has several key advantages over Legacy Leveraged Tokens:
             <ul>
