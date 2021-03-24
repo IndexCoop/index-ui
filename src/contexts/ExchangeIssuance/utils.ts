@@ -37,9 +37,11 @@ export const getIssuanceCallData = (
   setToken: string
 ) => {
   const { amount_in, amount_out } = IssuanceData
+  console.log(amount_in, amount_out)
 
   let setTokenAddress
-  if (setToken === 'dpi') setTokenAddress = dpiTokenAddress
+  if (setToken === 'dpi')
+    setTokenAddress = '0xa3b8851337C5e2AA733EC9DCAe13F8FD2F694414'
   else if (setToken === 'cgi') setTokenAddress = cgiTokenAddress
   else if (setToken === 'index') setTokenAddress = indexTokenAddress
 
@@ -67,7 +69,7 @@ export const getIssuanceTransactionOptions = (
   IssuanceData: IssuancePriceData,
   userAddress: string
 ) => {
-  const { gas_cost, gas_price, amount_in } = IssuanceData
+  const { gas_price, amount_out } = IssuanceData
 
   switch (tradeType) {
     case IssuanceTradeType.ISSUE_EXACT_SET_FROM_TOKEN:
@@ -77,7 +79,6 @@ export const getIssuanceTransactionOptions = (
       return {
         from: userAddress,
         gasPrice: gas_price,
-        gas: gas_cost,
       }
 
     // When paying with ETH, input amount should be included in msg.value
@@ -86,8 +87,7 @@ export const getIssuanceTransactionOptions = (
       return {
         from: userAddress,
         gasPrice: gas_price,
-        gas: gas_cost,
-        value: amount_in,
+        value: amount_out,
       }
 
     default:

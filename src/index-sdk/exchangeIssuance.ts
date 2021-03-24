@@ -22,13 +22,15 @@ export enum IssuanceTradeType {
 
 export type TransactionOptions = {
   from: string
-  gas: string
+  gas?: string
   gasPrice: string
   value?: string | number | BigNumber
 }
 
 export const getIssuanceContract = (provider: provider) => {
-  const web3 = new Web3(provider)
+  let web3
+  if (provider) web3 = new Web3(provider)
+  else web3 = new Web3((window as any).ethereum)
   const contract = new web3.eth.Contract(
     (ExchangeIssuanceABI as unknown) as AbiItem,
     exchangeIssuanceAddress
@@ -43,7 +45,6 @@ export const getIssuanceTradeTransaction = (
   txOpts: TransactionOptions
 ): (() => Promise<string>) => {
   const IssuanceInstance = getIssuanceContract(provider)
-  console.log(IssuanceInstance, tradeType)
 
   switch (tradeType) {
     case IssuanceTradeType.ISSUE_SET_FOR_EXACT_TOKEN:
@@ -143,25 +144,101 @@ export const getIssuanceTradeTransaction = (
   }
 }
 
+export const getIssuanceTradeEstimation = async (
+  provider: provider,
+  tradeType: IssuanceTradeType,
+  tradeConfigs: any[],
+  txOpts: TransactionOptions
+): Promise<any> => {
+  const IssuanceInstance = getIssuanceContract(provider)
+  IssuanceInstance.methods
+    .WETH()
+    .call()
+    .then((res: any) => console.log(res))
+
+  switch (tradeType) {
+    case IssuanceTradeType.ISSUE_SET_FOR_EXACT_TOKEN:
+      return new Promise((resolve, reject) => {
+        IssuanceInstance.methods
+          .issueSetForExactToken(...tradeConfigs)
+          .estimateGas(txOpts)
+          .then((res: any) => {
+            resolve(res)
+          })
+      })
+    case IssuanceTradeType.ISSUE_SET_FOR_EXACT_ETH:
+      return new Promise((resolve, reject) => {
+        console.log(tradeConfigs)
+        IssuanceInstance.methods
+          .issueSetForExactETH(...tradeConfigs)
+          .estimateGas(txOpts)
+          .then((res: any) => {
+            resolve(res)
+          })
+      })
+
+    case IssuanceTradeType.ISSUE_EXACT_SET_FROM_TOKEN:
+      return new Promise((resolve, reject) => {
+        IssuanceInstance.methods
+          .issueExactSetFromToken(...tradeConfigs)
+          .estimateGas(txOpts)
+          .then((res: any) => {
+            resolve(res)
+          })
+      })
+
+    case IssuanceTradeType.ISSUE_EXACT_SET_FROM_ETH:
+      return new Promise((resolve, reject) => {
+        IssuanceInstance.methods
+          .issueExactSetFromETH(...tradeConfigs)
+          .estimateGas(txOpts)
+          .then((res: any) => {
+            resolve(res)
+          })
+      })
+
+    case IssuanceTradeType.REDEEM_EXACT_SET_FOR_TOKEN:
+      return new Promise((resolve, reject) => {
+        IssuanceInstance.methods
+          .redeemExactSetForToken(...tradeConfigs)
+          .estimateGas(txOpts)
+          .then((res: any) => {
+            resolve(res)
+          })
+      })
+
+    case IssuanceTradeType.REDEEM_EXACT_SET_FOR_ETH:
+      return new Promise((resolve, reject) => {
+        IssuanceInstance.methods
+          .redeemExactSetForETH(...tradeConfigs)
+          .estimateGas(txOpts)
+          .then((res: any) => {
+            resolve(res)
+          })
+      })
+  }
+}
+
 export const getIssuanceTradeData = async (
   provider: provider,
   id: string,
   isIssuanceOrder: boolean,
-  requestQuantity: number | string,
+  requestQuantity: BigNumber,
   currencyAddress: string,
   activeField: 'set' | 'currency'
 ): Promise<any> => {
   const IssuanceInstance = getIssuanceContract(provider)
 
   let setTokenAddress: string | undefined
-  if (id === 'dpi') setTokenAddress = dpiTokenAddress
+  if (id === 'dpi')
+    setTokenAddress = '0xa3b8851337C5e2AA733EC9DCAe13F8FD2F694414'
   else if (id === 'cgi') setTokenAddress = cgiTokenAddress
   else if (id === 'index') setTokenAddress = indexTokenAddress
 
   if (!isIssuanceOrder) {
     return new Promise((resolve) => {
       IssuanceInstance.methods
-        .getEstimatedRedeemSetAmount(
+        .getAmountOutOnRedeemSet(
           setTokenAddress,
           currencyAddress,
           requestQuantity
@@ -185,6 +262,7 @@ export const getIssuanceTradeData = async (
         })
     })
   } else {
+    console.log(setTokenAddress, currencyAddress, requestQuantity)
     return new Promise((resolve) => {
       IssuanceInstance.methods
         .getEstimatedIssueSetAmount(
@@ -194,6 +272,7 @@ export const getIssuanceTradeData = async (
         )
         .call()
         .then((res: any) => {
+          console.log(res)
           resolve(res)
         })
     })

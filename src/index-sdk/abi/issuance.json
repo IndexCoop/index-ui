@@ -103,6 +103,25 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_recipient",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_refundAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Refund",
+    "type": "event"
+  },
+  {
     "inputs": [],
     "name": "ETH_ADDRESS",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
@@ -197,7 +216,7 @@
       { "internalType": "address", "name": "_outputToken", "type": "address" },
       {
         "internalType": "uint256",
-        "name": "_amountSetToRedeem",
+        "name": "_amountSetToken",
         "type": "uint256"
       }
     ],
@@ -239,7 +258,7 @@
       }
     ],
     "name": "issueExactSetFromETH",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "payable",
     "type": "function"
   },
@@ -267,7 +286,7 @@
       }
     ],
     "name": "issueExactSetFromToken",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -281,7 +300,7 @@
       { "internalType": "uint256", "name": "_minSetReceive", "type": "uint256" }
     ],
     "name": "issueSetForExactETH",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "payable",
     "type": "function"
   },
@@ -301,7 +320,7 @@
       { "internalType": "uint256", "name": "_minSetReceive", "type": "uint256" }
     ],
     "name": "issueSetForExactToken",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -314,13 +333,13 @@
       },
       {
         "internalType": "uint256",
-        "name": "_amountSetToRedeem",
+        "name": "_amountSetToken",
         "type": "uint256"
       },
-      { "internalType": "uint256", "name": "_minETHReceive", "type": "uint256" }
+      { "internalType": "uint256", "name": "_minEthOut", "type": "uint256" }
     ],
     "name": "redeemExactSetForETH",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -338,7 +357,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "_amountSetToRedeem",
+        "name": "_amountSetToken",
         "type": "uint256"
       },
       {
@@ -348,7 +367,7 @@
       }
     ],
     "name": "redeemExactSetForToken",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },

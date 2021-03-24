@@ -3,7 +3,6 @@ import { provider } from 'web3-core'
 
 import BigNumber from 'utils/bignumber'
 import ExchangeIssuanceContext from './ExchangeIssuanceContext'
-import { fetchTokenBuySellData } from 'utils/tokensetsApi'
 import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
@@ -11,12 +10,14 @@ import { useDebounce } from 'hooks/useDebounce'
 import {
   getIssuanceTradeTransaction,
   getIssuanceTradeData,
+  getIssuanceTradeEstimation,
 } from 'index-sdk/exchangeIssuance'
 import {
   getIssuanceTradeType,
   getIssuanceCallData,
   getIssuanceTransactionOptions,
 } from './utils'
+import { decToBn, bnToDec } from 'utils'
 import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
@@ -90,32 +91,57 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
       ethereum,
       issuanceToken,
       isUserIssuing,
-      targetTradeQuantity,
+      decToBn(targetTradeQuantity),
       selectedCurrency?.address,
       activeField
-    ).then((res) => console.log(res))
-    fetchTokenBuySellData(
-      issuanceToken,
-      isUserIssuing,
-      targetTradeQuantity,
-      selectedCurrency?.id,
-      activeField
-    ).then((issuanceData: IssuancePriceData) => {
+    ).then(async (res) => {
+      console.log(bnToDec(new BigNumber(res)))
       setIsFetchingOrderData(false)
+      const dec = bnToDec(new BigNumber(res)).toString()
+      let issuanceData: any = {}
+      if (activeField === 'currency') issuanceData.trade_type = 'exact_in'
+      else issuanceData.trade_type = 'exact_out'
+      issuanceData.amount_in = decToBn(targetTradeQuantity)
+      issuanceData.amount_out = res
 
       if (!issuanceData) return setIssuanceData({} as any)
+
+      const issuanceTradeType = getIssuanceTradeType(
+        isUserIssuing,
+        selectedCurrency.id,
+        issuanceData
+      )
+      const issuanceCallData = getIssuanceCallData(
+        issuanceTradeType,
+        issuanceData,
+        selectedCurrency.address,
+        issuanceToken
+      )
+      const transactionOptions = getIssuanceTransactionOptions(
+        issuanceTradeType,
+        issuanceData,
+        account as string
+      )
+      if (!issuanceCallData || !transactionOptions) return
+      // const estimate = await getIssuanceTradeEstimation(
+      //   ethereum,
+      //   issuanceTradeType,
+      //   issuanceCallData,
+      //   transactionOptions
+      // )
+      // console.log(estimate)
 
       setIssuanceData(issuanceData)
 
       // Populate the inactive field with API response
       if (isUserIssuing) {
         if (activeField === 'currency') {
-          setTokenQuantity(issuanceData.display?.to_quantity)
+          setTokenQuantity(dec)
         } else {
-          setCurrencyQuantity(issuanceData.display?.from_quantity)
+          setCurrencyQuantity(dec)
         }
       } else {
-        setCurrencyQuantity(issuanceData.display?.to_quantity)
+        setCurrencyQuantity(dec)
       }
     })
   }, [
@@ -124,6 +150,8 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
     activeField,
     targetTradeQuantity,
     issuanceToken,
+    ethereum,
+    account,
   ])
 
   const onExecuteIssuance = useCallback(async () => {

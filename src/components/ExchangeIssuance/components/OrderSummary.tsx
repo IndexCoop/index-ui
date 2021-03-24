@@ -12,23 +12,23 @@ const OrderSummary: React.FC = () => {
   if (isOrderDataReady) {
     return (
       <StyledOrderSummaryContainer>
-        <StyledOrderSummaryLabel>Minimum Receive</StyledOrderSummaryLabel>
+        {/* <StyledOrderSummaryLabel>Minimum Receive</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
           {issuanceData?.display?.to_quantity}
-        </StyledOrderSummaryValue>
+        </StyledOrderSummaryValue> */}
 
-        <StyledOrderSummaryLabel>Price Impact</StyledOrderSummaryLabel>
+        {/* <StyledOrderSummaryLabel>Price Impact</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
           {issuanceData?.display?.slippage}
-        </StyledOrderSummaryValue>
+        </StyledOrderSummaryValue> */}
 
         <StyledOrderSummaryLabel>Network Fee</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
           {issuanceData?.display?.gas_price_eth}
         </StyledOrderSummaryValue>
 
-        <StyledOrderSummaryLabel>Offered From</StyledOrderSummaryLabel>
-        <StyledOrderSummaryValue>Uniswap</StyledOrderSummaryValue>
+        {/* <StyledOrderSummaryLabel>Offered From</StyledOrderSummaryLabel>
+        <StyledOrderSummaryValue>Uniswap</StyledOrderSummaryValue> */}
       </StyledOrderSummaryContainer>
     )
   }

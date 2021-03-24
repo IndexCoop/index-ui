@@ -17,7 +17,7 @@ const BuySellWrapper: React.FC<BuySellWrapperProps> = ({ tokenId }: any) => {
   const { onSetBuySellToken } = useBuySell()
   const { onSetIssuanceToken } = useExchangeIssuance()
 
-  const [isIssuance, setIsIssuance] = useState(false)
+  const [isIssuance, setIsIssuance] = useState(true)
 
   useEffect(() => {
     onSetBuySellToken(tokenId)
