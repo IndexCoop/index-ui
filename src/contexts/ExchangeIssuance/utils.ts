@@ -37,7 +37,7 @@ export const getIssuanceCallData = (
   setToken: string
 ) => {
   const { amount_in, amount_out } = IssuanceData
-  console.log(amount_in, amount_out)
+  console.log(amount_in.toString(), amount_out)
 
   let setTokenAddress
   if (setToken === 'dpi')

@@ -165,6 +165,7 @@ export const getIssuanceTradeEstimation = async (
           .then((res: any) => {
             resolve(res)
           })
+          .catch((e: any) => reject(e))
       })
     case IssuanceTradeType.ISSUE_SET_FOR_EXACT_ETH:
       return new Promise((resolve, reject) => {
@@ -175,6 +176,7 @@ export const getIssuanceTradeEstimation = async (
           .then((res: any) => {
             resolve(res)
           })
+          .catch((e: any) => reject(e))
       })
 
     case IssuanceTradeType.ISSUE_EXACT_SET_FROM_TOKEN:
@@ -185,6 +187,7 @@ export const getIssuanceTradeEstimation = async (
           .then((res: any) => {
             resolve(res)
           })
+          .catch((e: any) => reject(e))
       })
 
     case IssuanceTradeType.ISSUE_EXACT_SET_FROM_ETH:
@@ -195,6 +198,7 @@ export const getIssuanceTradeEstimation = async (
           .then((res: any) => {
             resolve(res)
           })
+          .catch((e: any) => reject(e))
       })
 
     case IssuanceTradeType.REDEEM_EXACT_SET_FOR_TOKEN:
@@ -205,6 +209,7 @@ export const getIssuanceTradeEstimation = async (
           .then((res: any) => {
             resolve(res)
           })
+          .catch((e: any) => reject(e))
       })
 
     case IssuanceTradeType.REDEEM_EXACT_SET_FOR_ETH:
@@ -215,6 +220,7 @@ export const getIssuanceTradeEstimation = async (
           .then((res: any) => {
             resolve(res)
           })
+          .catch((e: any) => reject(e))
       })
   }
 }
@@ -236,7 +242,7 @@ export const getIssuanceTradeData = async (
   else if (id === 'index') setTokenAddress = indexTokenAddress
 
   if (!isIssuanceOrder) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       IssuanceInstance.methods
         .getAmountOutOnRedeemSet(
           setTokenAddress,
@@ -247,9 +253,10 @@ export const getIssuanceTradeData = async (
         .then((res: any) => {
           resolve(res)
         })
+        .catch((e: any) => reject(e))
     })
   } else if (activeField === 'set') {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       IssuanceInstance.methods
         .getAmountInToIssueExactSet(
           setTokenAddress,
@@ -260,10 +267,11 @@ export const getIssuanceTradeData = async (
         .then((res: any) => {
           resolve(res)
         })
+        .catch((e: any) => reject(e))
     })
   } else {
     console.log(setTokenAddress, currencyAddress, requestQuantity)
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       IssuanceInstance.methods
         .getEstimatedIssueSetAmount(
           setTokenAddress,
@@ -275,6 +283,7 @@ export const getIssuanceTradeData = async (
           console.log(res)
           resolve(res)
         })
+        .catch((e: any) => reject(e))
     })
   }
 }

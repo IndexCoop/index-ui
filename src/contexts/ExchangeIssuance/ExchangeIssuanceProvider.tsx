@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { provider } from 'web3-core'
+import Web3 from 'web3'
 
 import BigNumber from 'utils/bignumber'
 import ExchangeIssuanceContext from './ExchangeIssuanceContext'
@@ -17,7 +18,7 @@ import {
   getIssuanceCallData,
   getIssuanceTransactionOptions,
 } from './utils'
-import { decToBn, bnToDec } from 'utils'
+import { decToBn, bnToDec, getGasPrice } from 'utils'
 import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
@@ -84,8 +85,10 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (!targetTradeQuantity) return
+    console.log(targetTradeQuantity)
 
     setIsFetchingOrderData(true)
+    if (!ethereum || !account) return
 
     getIssuanceTradeData(
       ethereum,
@@ -94,56 +97,69 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
       decToBn(targetTradeQuantity),
       selectedCurrency?.address,
       activeField
-    ).then(async (res) => {
-      console.log(bnToDec(new BigNumber(res)))
-      setIsFetchingOrderData(false)
-      const dec = bnToDec(new BigNumber(res)).toString()
-      let issuanceData: any = {}
-      if (activeField === 'currency') issuanceData.trade_type = 'exact_in'
-      else issuanceData.trade_type = 'exact_out'
-      issuanceData.amount_in = decToBn(targetTradeQuantity)
-      issuanceData.amount_out = res
+    )
+      .then(async (res) => {
+        setIsFetchingOrderData(false)
+        const dec = bnToDec(new BigNumber(res)).toString()
+        let issuanceData: any = {}
+        if (activeField === 'currency') issuanceData.trade_type = 'exact_in'
+        else issuanceData.trade_type = 'exact_out'
+        issuanceData.amount_in = decToBn(targetTradeQuantity)
+        issuanceData.amount_out = res
 
-      if (!issuanceData) return setIssuanceData({} as any)
+        const issuanceTradeType = getIssuanceTradeType(
+          isUserIssuing,
+          selectedCurrency.id,
+          issuanceData
+        )
+        const issuanceCallData = getIssuanceCallData(
+          issuanceTradeType,
+          issuanceData,
+          selectedCurrency.address,
+          issuanceToken
+        )
+        const transactionOptions = getIssuanceTransactionOptions(
+          issuanceTradeType,
+          issuanceData,
+          account as string
+        )
+        if (!issuanceCallData || !transactionOptions) return
+        let estimate
+        try {
+          estimate = await getIssuanceTradeEstimation(
+            ethereum,
+            issuanceTradeType,
+            issuanceCallData,
+            transactionOptions
+          )
+        } catch (e) {
+          setIssuanceData({} as any)
+          console.log(e)
+          return
+        }
+        const gasPrice = await getGasPrice(ethereum)
+        issuanceData.display = {
+          gas_price_eth: `${bnToDec(
+            new BigNumber(estimate).multipliedBy(new BigNumber(gasPrice))
+          )} ETH`,
+        }
 
-      const issuanceTradeType = getIssuanceTradeType(
-        isUserIssuing,
-        selectedCurrency.id,
-        issuanceData
-      )
-      const issuanceCallData = getIssuanceCallData(
-        issuanceTradeType,
-        issuanceData,
-        selectedCurrency.address,
-        issuanceToken
-      )
-      const transactionOptions = getIssuanceTransactionOptions(
-        issuanceTradeType,
-        issuanceData,
-        account as string
-      )
-      if (!issuanceCallData || !transactionOptions) return
-      // const estimate = await getIssuanceTradeEstimation(
-      //   ethereum,
-      //   issuanceTradeType,
-      //   issuanceCallData,
-      //   transactionOptions
-      // )
-      // console.log(estimate)
+        setIssuanceData(issuanceData)
 
-      setIssuanceData(issuanceData)
-
-      // Populate the inactive field with API response
-      if (isUserIssuing) {
-        if (activeField === 'currency') {
-          setTokenQuantity(dec)
+        // Populate the inactive field with API response
+        if (isUserIssuing) {
+          if (activeField === 'currency') {
+            setTokenQuantity(dec)
+          } else {
+            setCurrencyQuantity(dec)
+          }
         } else {
           setCurrencyQuantity(dec)
         }
-      } else {
-        setCurrencyQuantity(dec)
-      }
-    })
+      })
+      .catch((e: any) => {
+        setIsFetchingOrderData(false)
+      })
   }, [
     isUserIssuing,
     selectedCurrency,

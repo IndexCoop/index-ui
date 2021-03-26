@@ -15,7 +15,6 @@ export type IssuancePriceDisplay = {
 export type IssuancePriceData = {
   amount_in: string
   amount_out: string
-  path: string[]
   deadline: number
   gas_cost: string
   gas_price: string

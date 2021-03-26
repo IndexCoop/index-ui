@@ -126,3 +126,13 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
 export const makeEtherscanLink = (transactionHash: string) => {
   return `https://etherscan.io/tx/${transactionHash}`
 }
+
+export const getGasPrice = async (provider: provider): Promise<string> => {
+  const web3 = new Web3(provider)
+  try {
+    const balance: string = await web3.eth.getGasPrice()
+    return balance
+  } catch (e) {
+    return '100000000000'
+  }
+}
