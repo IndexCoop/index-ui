@@ -9,10 +9,10 @@ import HowToBuyLink from './components/HowToBuyLink'
 import ExchangeSelector from './components/ExchangeSelector'
 
 interface Props {
-  setIsIssuance: any
+  onSetIsIssuance: (...args: any[]) => any
 }
 
-const BuySellWidget: React.FC<Props> = ({ setIsIssuance }) => {
+const BuySellWidget: React.FC<Props> = ({ onSetIsIssuance }) => {
   return (
     <StyledContainer>
       <StyledBuySellCard>
@@ -24,7 +24,7 @@ const BuySellWidget: React.FC<Props> = ({ setIsIssuance }) => {
           <HowToBuyLink />
         </StyledBuySellCardContent>
       </StyledBuySellCard>
-      <ExchangeSelector setIsIssuance={setIsIssuance} />
+      <ExchangeSelector onSetIsIssuance={onSetIsIssuance} />
     </StyledContainer>
   )
 }

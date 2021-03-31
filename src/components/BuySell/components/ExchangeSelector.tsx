@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import DotIcon from 'assets/dotvertical.svg'
 
-const ExchangeSelector: React.FC<any> = ({ setIsIssuance }) => {
+const ExchangeSelector: React.FC<any> = ({ onSetIsIssuance }) => {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <StyledCard>
@@ -14,7 +14,7 @@ const ExchangeSelector: React.FC<any> = ({ setIsIssuance }) => {
           <CustomDropdownOption>
             <StyledOption
               onClick={() => {
-                setIsIssuance(false)
+                onSetIsIssuance(false)
                 setIsOpen(false)
               }}
             >
@@ -22,7 +22,7 @@ const ExchangeSelector: React.FC<any> = ({ setIsIssuance }) => {
             </StyledOption>
             <StyledOption
               onClick={() => {
-                setIsIssuance(true)
+                onSetIsIssuance(true)
                 setIsOpen(false)
               }}
             >

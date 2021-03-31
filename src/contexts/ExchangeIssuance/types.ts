@@ -7,9 +7,6 @@ export type IssuancePriceDisplay = {
   output_value_usd: string
   gas_price_usd: string
   gas_price_eth: string
-  slippage: string
-  total_price_usd: string
-  total_price_currency: string
 }
 
 export type IssuancePriceData = {
