@@ -31,7 +31,7 @@ const BuySellWrapper: React.FC<BuySellWrapperProps> = ({ tokenId }: any) => {
     <TransactionWatcher
       transactionStatus={transactionStatus}
       startTransactionComponent={
-        <BuySellWidget setIsIssuance={setIsIssuance} />
+        <BuySellWidget onSetIsIssuance={setIsIssuance} />
       }
     />
   ) : (
