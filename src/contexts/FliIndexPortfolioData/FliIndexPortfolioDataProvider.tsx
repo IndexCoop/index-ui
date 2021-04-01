@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import FliIndexPortfolioDataContext from './FliIndexPortfolioDataContext'
 import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
-import { coingeckoFliId } from 'constants/coingeckoIds'
+import { tokensetsFliId } from 'constants/tokensetsIds'
 
 const FliIndexPortfolioDataProvider: React.FC = ({ children }) => {
   const [fliIndexPortfolioData, setFliIndexPortfolioData] = useState<any>([])
 
   useEffect(() => {
-    fetchSetComponentsBeta(coingeckoFliId)
+    fetchSetComponentsBeta(tokensetsFliId)
       .then((response: any) => {
         setFliIndexPortfolioData(response)
       })

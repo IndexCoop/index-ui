@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import MarketDataContext from './FliTokenMarketDataContext'
 import { coingeckoFliId } from 'constants/coingeckoIds'
-import { fetchHistoricalTokenMarketData } from 'utils/tokensetsApi'
+import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
 
 const FliMarketDataProvider: React.FC = ({ children }) => {
   const [fliMarketData, setFliMarketData] = useState<any>({})
 
   useEffect(() => {
-    fetchHistoricalTokenMarketData(coingeckoFliId)
+    const endTime = Date.now() / 1000
+    const startTime = endTime - 86400 * 30 // 30 days
+
+    fetchHistoricalTokenMarketData(coingeckoFliId, startTime, endTime)
       .then((response: any) => {
         setFliMarketData(response)
       })
@@ -21,7 +24,9 @@ const FliMarketDataProvider: React.FC = ({ children }) => {
     <MarketDataContext.Provider
       value={{
         ...fliMarketData,
+        latestMarketCap: selectLatestMarketData(fliMarketData?.marketcaps),
         latestPrice: selectLatestMarketData(fliMarketData?.prices),
+        latestVolume: selectLatestMarketData(fliMarketData?.volumes),
       }}
     >
       {children}

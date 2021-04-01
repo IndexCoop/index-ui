@@ -2,17 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import useCombinedTokenMarketCapData from 'hooks/useCombinedTokenMarketCapData'
 
 const Home: React.FC = () => {
-  const { latestMarketCap } = useDpiTokenMarketData()
+  const latestTotalMarketCap  = useCombinedTokenMarketCapData()
 
   return (
     <div>
       <HomeTitle>
         The Index Coop currently has{' '}
         <AuvText>
-          {latestMarketCap?.toLocaleString(undefined, {
+          {latestTotalMarketCap?.toLocaleString(undefined, {
             style: 'currency',
             currency: 'USD',
           })}{' '}
