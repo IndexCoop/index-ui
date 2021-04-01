@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import MarketDataContext from './CgiTokenMarketDataContext'
 import { coingeckoCgiId } from 'constants/coingeckoIds'
-import { fetchHistoricalTokenMarketData } from 'utils/tokensetsApi'
+import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
 
 const CgiMarketDataProvider: React.FC = ({ children }) => {
   const [cgiMarketData, setCgiMarketData] = useState<any>({})
 
   useEffect(() => {
-    fetchHistoricalTokenMarketData(coingeckoCgiId)
+    const endTime = Date.now() / 1000
+    const startTime = endTime - 86400 * 30 // 30 days
+
+    fetchHistoricalTokenMarketData(coingeckoCgiId, startTime, endTime)
       .then((response: any) => {
         setCgiMarketData(response)
       })
@@ -21,7 +24,9 @@ const CgiMarketDataProvider: React.FC = ({ children }) => {
     <MarketDataContext.Provider
       value={{
         ...cgiMarketData,
+        latestMarketCap: selectLatestMarketData(cgiMarketData?.marketcaps),
         latestPrice: selectLatestMarketData(cgiMarketData?.prices),
+        latestVolume: selectLatestMarketData(cgiMarketData?.volumes),
       }}
     >
       {children}
