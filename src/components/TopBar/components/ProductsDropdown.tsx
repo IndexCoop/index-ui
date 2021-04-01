@@ -18,7 +18,10 @@ const ProductsDropdown: React.FC = () => {
 
   const dropdownSelectStyles = useMemo(() => {
     const isProductRouteActive =
-      pathname === '/dpi' || pathname === '/index' || pathname === '/cgi' || pathname === '/fli'
+      pathname === '/dpi' ||
+      pathname === '/index' ||
+      pathname === '/cgi' ||
+      pathname === '/fli'
 
     return {
       control: (styles: any) => ({
@@ -43,7 +46,7 @@ const ProductsDropdown: React.FC = () => {
       menu: (styles: any) => ({
         ...styles,
         color: 'black',
-        width: 280,
+        width: 310,
         overflow: 'hidden',
       }),
       dropdownIndicator: (styles: any) => ({
