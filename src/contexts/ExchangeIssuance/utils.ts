@@ -37,11 +37,9 @@ export const getIssuanceCallData = (
   setToken: string
 ) => {
   const { amount_in, amount_out } = IssuanceData
-  console.log(amount_in.toString(), amount_out)
 
   let setTokenAddress
-  if (setToken === 'dpi')
-    setTokenAddress = '0xa3b8851337C5e2AA733EC9DCAe13F8FD2F694414'
+  if (setToken === 'dpi') setTokenAddress = dpiTokenAddress
   else if (setToken === 'cgi') setTokenAddress = cgiTokenAddress
   else if (setToken === 'index') setTokenAddress = indexTokenAddress
 

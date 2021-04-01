@@ -85,7 +85,6 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (!targetTradeQuantity) return
-    console.log(targetTradeQuantity)
 
     setIsFetchingOrderData(true)
     if (!ethereum || !account) return

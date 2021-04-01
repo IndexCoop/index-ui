@@ -236,8 +236,7 @@ export const getIssuanceTradeData = async (
   const IssuanceInstance = getIssuanceContract(provider)
 
   let setTokenAddress: string | undefined
-  if (id === 'dpi')
-    setTokenAddress = '0xa3b8851337C5e2AA733EC9DCAe13F8FD2F694414'
+  if (id === 'dpi') setTokenAddress = dpiTokenAddress
   else if (id === 'cgi') setTokenAddress = cgiTokenAddress
   else if (id === 'index') setTokenAddress = indexTokenAddress
 
