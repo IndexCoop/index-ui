@@ -14,17 +14,17 @@ import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
 import MarketData from './components/MarketData'
 
-import useCgiTokenMarketData from 'hooks/useCgiTokenMarketData'
-import useCgiIndexComponents from 'hooks/useCgiIndexComponents'
+import useMviTokenMarketData from 'hooks/useMviTokenMarketData'
+import useMviComponents from 'hooks/useMviComponents'
 import useBalances from 'hooks/useBalances'
 
-const CgiProductPage = (props: { title: string }) => {
+const MviProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
 
-  const { prices, latestPrice } = useCgiTokenMarketData()
-  const { components } = useCgiIndexComponents()
+  const { prices, latestPrice } = useMviTokenMarketData()
+  const { components } = useMviComponents()
   const { cgiBalance } = useBalances()
 
   return (
@@ -165,4 +165,4 @@ const CgiProductPage = (props: { title: string }) => {
   )
 }
 
-export default CgiProductPage
+export default MviProductPage
