@@ -107,8 +107,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 icon={{
                   alt: 'MVI Icon',
                   src:
-                    // TODO: swap out with MVI logo
-                    'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+                    'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
                 }}
                 label='Metaverse Index Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.mviTokenAddress}`}
