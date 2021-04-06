@@ -14,6 +14,7 @@ const PricesProvider: React.FC = ({ children }) => {
 
   const [apy] = useState<string>('0.00')
   const [farmTwoApy, setFarmTwoApy] = useState<string>('0.00')
+  const [mviRewardsApy, setMviRewardsApy] = useState<string>('0.00')
 
   const { loading, error, data: uniswapData } = useQuery(DPI_ETH_UNISWAP_QUERY)
 
@@ -72,6 +73,7 @@ const PricesProvider: React.FC = ({ children }) => {
         totalUSDInFarms,
         apy,
         farmTwoApy,
+        mviRewardsApy,
       }}
     >
       {children}
