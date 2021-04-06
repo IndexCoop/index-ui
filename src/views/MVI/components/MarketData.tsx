@@ -4,10 +4,10 @@ import numeral from 'numeral'
 
 import SimplePriceChart from 'components/SimplePriceChart'
 
-import useCgiTokenMarketData from 'hooks/useCgiTokenMarketData'
+import useMviTokenMarketData from 'hooks/useMviTokenMarketData'
 
 const MarketData: React.FC = () => {
-  const { latestPrice, prices } = useCgiTokenMarketData()
+  const { latestPrice, prices } = useMviTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
   const [isDaily, setIsDaily] = useState<Boolean>(false)
@@ -19,7 +19,7 @@ const MarketData: React.FC = () => {
 
   const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
-  const cgiTokenIcon = {
+  const mviTokenIcon = {
     src: 'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
     alt: 'CGI Logo',
   }
@@ -66,24 +66,24 @@ const MarketData: React.FC = () => {
 
   return (
     <div>
-      <StyledCgiIconLabel>
-        <StyledIcon src={cgiTokenIcon.src} alt={cgiTokenIcon.alt} />
+      <StyledMviIconLabel>
+        <StyledIcon src={mviTokenIcon.src} alt={mviTokenIcon.alt} />
         <span>MVI</span>
-      </StyledCgiIconLabel>
-      <StyledCgiTitle>Metaverse Index</StyledCgiTitle>
+      </StyledMviIconLabel>
+      <StyledMviTitle>Metaverse Index</StyledMviTitle>
       <p>{dateString}</p>
-      <StyledCgiPriceWrapper>
-        <StyledCgiPrice>
+      <StyledMviPriceWrapper>
+        <StyledMviPrice>
           {'$' + numeral(chartPrice).format('0.00a')}
-        </StyledCgiPrice>
-        <StyledCgiPriceChange isLoss={epochPriceChange < 0}>
+        </StyledMviPrice>
+        <StyledMviPriceChange isLoss={epochPriceChange < 0}>
           {numeral((epochPriceChange / priceAtEpochStart) * 100).format(
             '0.00a'
           ) + '%'}
-        </StyledCgiPriceChange>
-      </StyledCgiPriceWrapper>
+        </StyledMviPriceChange>
+      </StyledMviPriceWrapper>
       <SimplePriceChart
-        icon={cgiTokenIcon}
+        icon={mviTokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}
@@ -93,30 +93,30 @@ const MarketData: React.FC = () => {
   )
 }
 
-const StyledCgiTitle = styled.div`
+const StyledMviTitle = styled.div`
   font-size: 32px;
   font-weight: 600;
 `
 
-const StyledCgiIconLabel = styled.div`
+const StyledMviIconLabel = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 `
 
-const StyledCgiPriceWrapper = styled.div`
+const StyledMviPriceWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   margin-top: 10px;
 `
 
-const StyledCgiPrice = styled.span`
+const StyledMviPrice = styled.span`
   font-size: 36px;
   margin-right: 10px;
   line-height: 1;
 `
 
-const StyledCgiPriceChange = styled.span`
+const StyledMviPriceChange = styled.span`
   font-size: 24px;
   color: ${(props: { isLoss: boolean }) =>
     props.isLoss ? '#ff4a4a' : '#03c75e'};
