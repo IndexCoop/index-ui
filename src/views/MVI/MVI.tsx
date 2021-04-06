@@ -49,16 +49,16 @@ const MviProductPage = (props: { title: string }) => {
           /> */}
           <Description>
             <p>
-              <strong>The Metaverse Index (MVI).</strong>{' '}
+              <strong>The Metaverse Index (MVI)</strong>{' '}
               <h2>Constituent Weighting</h2>
-              Selection of the $MVI tokens would be based on the following basic
+              Selection of the $MVI tokens is based on the following basic
               criteria:
               <ul>
                 <li>The token must be available on the Ethereum blockchain.</li>
                 <li>
                   Protocol must be in one of the following token categories on
                   Coingecko: Non Fungible Tokens, Entertainment, Virtual
-                  Reality, Augmented Reality and Music. More categories can be
+                  Reality, Augmented Reality and Music. More categories will be
                   added in the future as the market matures.
                 </li>
                 <li>Total market cap must be over $30m.</li>
@@ -75,16 +75,16 @@ const MviProductPage = (props: { title: string }) => {
                   An independent security audit should have been performed on
                   the protocol and results reviewed by the product
                   methodologist. In the case that no audit has been performed,
-                  the methodologist will apply subjective judgement of the
-                  protocol based on assessment of the criteria above and
-                  communications with the team.
+                  the methodologist applies subjective judgement of the protocol
+                  based on assessment of the criteria above and communications
+                  with the team.
                 </li>
                 <li>
-                  In the event of a security issue the methodologist should work
+                  In the event of a security issue the methodologist will work
                   with the project team to understand the issue and any effects
-                  to the $MVI holdings. The team would be expected to provide
-                  users of the protocol with a reliable solution and adequate
-                  documentation to ensure transparency about the incident.
+                  to $MVI holdings. The team is expected to provide users of the
+                  protocol with a reliable solution and adequate documentation
+                  to ensure transparency about any incidents.
                 </li>
                 <li>
                   Tokens will not be staked at the launch of the index. This is
@@ -92,7 +92,6 @@ const MviProductPage = (props: { title: string }) => {
                   possible to safely generate yield through staking.
                 </li>
               </ul>
-              <h2>Rebalancing Mechanism</h2>
               <h2>Index Calculation</h2>
               <p>
                 The $MVI uses a combination of root market cap and liquidity
@@ -102,7 +101,6 @@ const MviProductPage = (props: { title: string }) => {
               </p>
               <p>TW = 75%*RMCW + 25%*LW</p>
               <p>where,</p>
-              <p>TW – token weight in the $MVI</p>
               <p>TW – token weight in the $MVI</p>
               <p>RMCW – square root of market cap weighted allocation</p>
               <p>LW – liquidity weighted allocation</p>
