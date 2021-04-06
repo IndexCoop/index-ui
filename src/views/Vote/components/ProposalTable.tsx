@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Spacer } from 'react-neu'
 import useSnapshotProposals from 'hooks/useSnapshotProposals'
@@ -17,9 +17,15 @@ const ProposalTable: React.FC = () => {
   const { indexProposals = {} } = useSnapshotProposals()
   const currentTime = Math.round(new Date().getTime() / 1000)
   const proposalIds = Object.keys(indexProposals)
+  const [searchTerm, setSearchTerm] = useState('')
 
   return (
     <div>
+      <StyledInputField
+        type='text'
+        placeholder='Filter proposals'
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <StyledTable>
         <StyledBackground />
         <StyledProposalTableHeader>
@@ -43,46 +49,65 @@ const ProposalTable: React.FC = () => {
             currentTime <= indexProposals[id]?.msg?.payload?.end
           const isExecuted = indexProposals[id]?.msg?.payload?.end < currentTime
 
-          return (
-            <>
-              <StyledColumnRow>
-                <StyledColumn style={{ width: '60%' }}>
-                  {indexProposals[id].msg.payload.name}
-                </StyledColumn>
-                <StyledColumn style={{ width: '20%' }} isActive={isActive}>
-                  {isActive && 'Active'}
-                  {isExecuted && 'Executed'}
-                </StyledColumn>
-                <StyledColumn style={{ width: '20%' }}>
-                  <StyledButton
-                    onClick={() => {
-                      window.open(
-                        `${SNAPSHOT_INDEX_PROPOSAL_BASE}/${id}`,
-                        '_blank'
-                      )
-                    }}
-                    isActive={isActive}
-                  >
-                    View
-                  </StyledButton>
-                </StyledColumn>
-              </StyledColumnRow>
-              {i !== proposalIds.length - 1 ? (
-                <StyledDivider />
-              ) : (
-                <Spacer size='md' />
-              )}
-            </>
-          )
+          if (
+            searchTerm &&
+            !indexProposals[id].msg.payload.name
+              .toUpperCase()
+              .includes(searchTerm.toUpperCase())
+          ) {
+            return
+          } else {
+            return (
+              <>
+                <StyledColumnRow>
+                  <StyledColumn style={{ width: '60%' }}>
+                    {indexProposals[id].msg.payload.name}
+                  </StyledColumn>
+                  <StyledColumn style={{ width: '20%' }} isActive={isActive}>
+                    {isActive && 'Active'}
+                    {isExecuted && 'Executed'}
+                  </StyledColumn>
+                  <StyledColumn style={{ width: '20%' }}>
+                    <StyledButton
+                      onClick={() => {
+                        window.open(
+                          `${SNAPSHOT_INDEX_PROPOSAL_BASE}/${id}`,
+                          '_blank'
+                        )
+                      }}
+                      isActive={isActive}
+                    >
+                      View
+                    </StyledButton>
+                  </StyledColumn>
+                </StyledColumnRow>
+                {i !== proposalIds.length - 1 ? (
+                  <StyledDivider />
+                ) : (
+                  <Spacer size='md' />
+                )}
+              </>
+            )
+          }
         })}
       </StyledTable>
     </div>
   )
 }
 
+const StyledInputField = styled.input`
+  float: right;
+  position: relative;
+  bottom: 45px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+`
+
 const StyledEmptyMessage = styled.div`
   font-size: 18px;
   display: flex;
+  padding-bottom: 20px;
   justify-content: center;
   align-items: center;
 `
