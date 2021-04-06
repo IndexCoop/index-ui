@@ -12,11 +12,11 @@ interface IndexComponent {
   dailyPercentChange: string
 }
 
-interface DpiIndexComponentsProps {
+interface MviIndexComponentsProps {
   components?: IndexComponent[]
   marketCap?: number
 }
 
-const MviIndexComponents = createContext<DpiIndexComponentsProps>({})
+const MviIndexComponents = createContext<MviIndexComponentsProps>({})
 
 export default MviIndexComponents
