@@ -10,17 +10,17 @@ import useApproval from 'hooks/useApproval'
 import useWallet from 'hooks/useWallet'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import {
-  stakeUniswapEthDpiLpTokens,
-  unstakeUniswapEthDpiLpTokens,
+  stakeUniswapEthMviLpTokens,
+  unstakeUniswapEthMviLpTokens,
   claimEarnedIndexLpReward,
   unstakeAndClaimEarnedIndexLpReward,
-} from 'index-sdk/farmTwo'
+  mviStakingRewardsStartTime,
+} from 'index-sdk/mviStaking'
 import { waitTransaction } from 'utils/index'
 import {
-  farmTwoAddress,
-  uniswapEthDpiLpTokenAddress,
+  mviStakingRewardsAddress,
+  uniswapEthMviLpTokenAddress,
 } from 'constants/ethContractAddresses'
-import { farmTwoStartTime } from 'index-sdk/farmTwo'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -37,7 +37,7 @@ const Provider: React.FC = ({ children }) => {
     isApproved,
     isApproving,
     onApprove,
-  } = useApproval(uniswapEthDpiLpTokenAddress, farmTwoAddress, () =>
+  } = useApproval(uniswapEthMviLpTokenAddress, mviStakingRewardsAddress, () =>
     setConfirmTxModalIsOpen(false)
   )
 
@@ -48,8 +48,9 @@ const Provider: React.FC = ({ children }) => {
 
   const handleStake = useCallback(
     async (amount: string) => {
-      if (!ethereum || !account || !amount || new BigNumber(amount).lte(0))
+      if (!ethereum || !account || !amount || new BigNumber(amount).lte(0)) {
         return
+      }
 
       setConfirmTxModalIsOpen(true)
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
@@ -57,7 +58,7 @@ const Provider: React.FC = ({ children }) => {
       const bigStakeQuantity = new BigNumber(amount).multipliedBy(
         new BigNumber(10).pow(18)
       )
-      const transactionId = await stakeUniswapEthDpiLpTokens(
+      const transactionId = await stakeUniswapEthMviLpTokens(
         ethereum as provider,
         account,
         bigStakeQuantity
@@ -90,8 +91,9 @@ const Provider: React.FC = ({ children }) => {
 
   const handleUnstake = useCallback(
     async (amount: string) => {
-      if (!ethereum || !account || !amount || new BigNumber(amount).lte(0))
+      if (!ethereum || !account || !amount || new BigNumber(amount).lte(0)) {
         return
+      }
 
       setConfirmTxModalIsOpen(true)
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
@@ -99,7 +101,7 @@ const Provider: React.FC = ({ children }) => {
       const bigStakeQuantity = new BigNumber(amount).multipliedBy(
         new BigNumber(10).pow(18)
       )
-      const transactionId = await unstakeUniswapEthDpiLpTokens(
+      const transactionId = await unstakeUniswapEthMviLpTokens(
         ethereum as provider,
         account,
         bigStakeQuantity
@@ -199,7 +201,7 @@ const Provider: React.FC = ({ children }) => {
   ])
 
   const currentTime = Date.now()
-  const isPoolActive = new BigNumber(farmTwoStartTime).isLessThan(
+  const isPoolActive = new BigNumber(mviStakingRewardsStartTime).isLessThan(
     new BigNumber(currentTime)
   )
 
