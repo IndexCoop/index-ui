@@ -9,6 +9,7 @@ import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
 import StakeModal from './components/StakeModal'
+import Split from 'components/Split'
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
@@ -110,36 +111,60 @@ const Stake: React.FC = () => {
     <>
       <Card>
         <CardContent>
-          <StyledHeaderIcon
-            alt='MVI Icon'
-            src='https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg'
-          />
-          <Spacer size='sm' />
-          <StyledCardTitle>MVI Liquidity Program</StyledCardTitle>
-          <Spacer size='sm' />
-          <StyledCardText>Active Apr. 8th - May. 9th</StyledCardText>
-          <Spacer />
-          <StyledSectionTitle>
-            {formattedStakedBalance}
-            <StyledTokenIcon
-              alt='eth dpi icon'
-              src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
+          <StyledCardTitleWrapper>
+            <StyledHeaderIcon
+              alt='MVI Icon'
+              src='https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg'
             />
-          </StyledSectionTitle>
-          <StyledSectionLabel>
-            Staked ETH/DPI Uniswap LP Tokens
-          </StyledSectionLabel>
+            <Spacer size='md' />
+            <StyledLmTitle>
+              <StyledCardTitle>MVI Liquidity Program</StyledCardTitle>
+              <Spacer size='sm' />
+              <StyledCardSubtitle>
+                Active Apr. 8th - May. 9th
+              </StyledCardSubtitle>
+            </StyledLmTitle>
+          </StyledCardTitleWrapper>
           <Spacer />
-          <StyledSectionTitle>{farmTwoApy}% APY</StyledSectionTitle>
-          <StyledSectionLabel>(Unstable)</StyledSectionLabel>
-          <Spacer />
-          <StyledSectionTitle>
+
+          <StyledFarmTokensAndApyWrapper>
+            <Split>
+              <div>
+                <StyledFarmText>
+                  {formattedStakedBalance}
+                  <StyledTokenIconWrapper>
+                    <StyledTokenIcon
+                      alt='ETH Icon'
+                      src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
+                    />
+                    <StyledTokenIcon
+                      alt='MVI Icon'
+                      src='https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg'
+                    />
+                  </StyledTokenIconWrapper>
+                </StyledFarmText>
+                <StyledSectionLabel>
+                  Staked ETH/DPI Uniswap LP Tokens
+                </StyledSectionLabel>
+              </div>
+
+              <div>
+                <StyledFarmText>{farmTwoApy}% APY</StyledFarmText>
+                <StyledSectionLabel>(Volatile)</StyledSectionLabel>
+              </div>
+            </Split>
+            <Spacer />
+          </StyledFarmTokensAndApyWrapper>
+
+          <StyledFarmText>
             {formattedEarnedBalance}
-            <StyledTokenIcon
-              alt='owl icon'
-              src='https://index-dao.s3.amazonaws.com/owl.png'
-            />
-          </StyledSectionTitle>
+            <StyledTokenIconWrapper>
+              <StyledTokenIcon
+                alt='owl icon'
+                src='https://index-dao.s3.amazonaws.com/owl.png'
+              />
+            </StyledTokenIconWrapper>
+          </StyledFarmText>
           <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
           <Spacer />
         </CardContent>
@@ -161,11 +186,16 @@ const Stake: React.FC = () => {
 const StyledHeaderIcon = styled.img`
   height: 58px;
   width: 58px;
+  margin-bottom: 10px;
+`
+
+const StyledTokenIconWrapper = styled.div`
+  margin-left: 10px;
 `
 
 const StyledTokenIcon = styled.img`
-  height: 20px;
-  margin-left: 10px;
+  height: 18px;
+  margin-right: 4px;
 `
 
 const StyledCardTitle = styled.span`
@@ -173,18 +203,39 @@ const StyledCardTitle = styled.span`
   font-size: 28px;
 `
 
-const StyledCardText = styled.span`
+const StyledCardSubtitle = styled.span`
   color: ${(props) => props.theme.colors.grey[500]};
   font-weight: 600;
   font-size: 18px;
 `
 
-const StyledSectionTitle = styled.span`
+const StyledCardTitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-weight: 600;
+  font-size: 24px;
+`
+
+const StyledLmTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 24px;
+`
+
+const StyledFarmTokensAndApyWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
+
+const StyledFarmText = styled.span`
   display: flex;
   align-items: center;
   font-weight: 600;
   font-size: 24px;
 `
+
 const StyledSectionLabel = styled.span`
   color: ${(props) => props.theme.colors.grey[500]};
   font-size: 16px;
