@@ -1,1 +1,1 @@
-export { default } from './CGI'
+export { default } from './MVI'

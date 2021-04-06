@@ -36,6 +36,7 @@ import Home from 'views/Home'
 import DPI from 'views/DPI'
 import FLI from 'views/FLI'
 import CGI from 'views/CGI'
+import MVI from 'views/MVI'
 import INDEX from 'views/INDEX'
 import Vote from 'views/Vote'
 import News from 'views/News'
@@ -72,6 +73,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path='/dpi'>
               <DPI title={'Index - DPI'} />
+            </Route>
+            <Route exact path='/mvi'>
+              <MVI title={'Index - MVI'} />
             </Route>
             <Route exact path='/fli'>
               <FLI title={'Index - FLI'} />

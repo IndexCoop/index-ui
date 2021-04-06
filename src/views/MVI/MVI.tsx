@@ -36,7 +36,7 @@ const CgiProductPage = (props: { title: string }) => {
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
-            symbol='CGI'
+            symbol='MVI'
             latestPrice={latestPrice}
             currentBalance={cgiBalance}
           />

@@ -68,9 +68,9 @@ const MarketData: React.FC = () => {
     <div>
       <StyledCgiIconLabel>
         <StyledIcon src={cgiTokenIcon.src} alt={cgiTokenIcon.alt} />
-        <span>CGI</span>
+        <span>MVI</span>
       </StyledCgiIconLabel>
-      <StyledCgiTitle>CoinShares Crypto Gold Index</StyledCgiTitle>
+      <StyledCgiTitle>Metaverse Index</StyledCgiTitle>
       <p>{dateString}</p>
       <StyledCgiPriceWrapper>
         <StyledCgiPrice>
