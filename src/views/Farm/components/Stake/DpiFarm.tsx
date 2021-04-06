@@ -8,7 +8,7 @@ import useFarmingTwo from 'hooks/useFarmingTwo'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
-import StakeModal from './components/StakeModal'
+import DpiStakeModal from './components/DpiStakeModal'
 import Split from 'components/Split'
 
 const Stake: React.FC = () => {
@@ -166,7 +166,7 @@ const Stake: React.FC = () => {
         </CardActions>
         <CardActions>{UnstakeButton}</CardActions>
       </Card>
-      <StakeModal
+      <DpiStakeModal
         isOpen={stakeModalIsOpen}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
