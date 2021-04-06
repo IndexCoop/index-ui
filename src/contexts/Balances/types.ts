@@ -9,13 +9,20 @@ export interface ContextValues {
   mviBalance?: BigNumber
   daiBalance?: BigNumber
   usdcBalance?: BigNumber
-  uniswapEthDpiLpBalance?: BigNumber
 
-  // For Liquidity Mining 1 program
+  // LP Tokens
+  uniswapEthDpiLpBalance?: BigNumber
+  uniswapEthMviLpBalance?: BigNumber
+
+  // For Legacy DPI LM Program
   stakedUniswapEthDpiLpBalance?: BigNumber
   unharvestedIndexBalance?: BigNumber
 
-  // For Liquidity Mining 2 program
+  // For Current DPI LM Program
   stakedFarmTwoBalance?: BigNumber
   unharvestedFarmTwoBalance?: BigNumber
+
+  // For Current MVI LM Program
+  stakedUniswapEthMviLpBalance?: BigNumber
+  unharvestedMviRewardsBalance?: BigNumber
 }
