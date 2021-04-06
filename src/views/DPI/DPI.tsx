@@ -116,7 +116,7 @@ const DpiProductPage = (props: { title: string }) => {
             </ul>
             <h4>Token’s Supply Characteristics</h4>
             It must be possible to reasonably predict the token’s supply over
-            the next five years. At least 5% of the five year supply must be
+            the next five years. At least 7.5% of the five year supply must be
             currently circulating. The token’s economics must not have locking,
             minting or other patterns that would significantly disadvantage
             passive holders.
@@ -197,6 +197,14 @@ const DpiProductPage = (props: { title: string }) => {
                 and deleted from the index calculation are determined during the
                 third week of the month and published before monthly
                 reconstitution.
+              </li>
+              <li>
+                <strong>Weighting:</strong> Any token that has a weight greater
+                than 25% during the determination phase will have its weight
+                capped at 25%. Any excess weight will be redistributed to the
+                remaining components of the DeFi Pulse Index on a weighted
+                basis. This same process will be repeated for every token
+                exceeding the 25% allocation cap. reconstitution.
               </li>
             </ul>
             <h4>Reconstitution Phase</h4>
