@@ -41,11 +41,6 @@ const MviProductPage = (props: { title: string }) => {
           />
           <PriceChanges prices={prices} />
           <IndexComponentsTable components={components} />
-          {/* <TokenStats
-            latestPrice={latestPrice}
-            latestVolume={latestVolume}
-            latestMarketCap={latestMarketCap}
-          /> */}
           <Description>
             <p>
               <strong>The Metaverse Index (MVI)</strong> is a market cap and
