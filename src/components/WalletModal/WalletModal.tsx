@@ -31,6 +31,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     indexBalance,
     dpiBalance,
     cgiBalance,
+    mviBalance,
     fliBalance,
     uniswapEthDpiLpBalance,
     stakedUniswapEthDpiLpBalance,
@@ -101,6 +102,24 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 value={getDisplayBalance(cgiBalance)}
               />
             </Box>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'MVI Icon',
+                  src:
+                    // TODO: swap out with MVI logo
+                    'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+                }}
+                label='Metaverse Index Balance'
+                link={`https://etherscan.io/address/${tokenAddresses.mviTokenAddress}`}
+                value={getDisplayBalance(mviBalance)}
+              />
+            </Box>
+          </Split>
+          <Spacer />
+          <Separator />
+          <Spacer />
+          <Split>
             <Box row>
               <FancyValue
                 icon={{
