@@ -1,5 +1,9 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client'
 import gql from 'graphql-tag'
+import {
+  uniswapEthDpiLpTokenAddress,
+  uniswapEthMviLpTokenAddress,
+} from 'constants/ethContractAddresses'
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -8,9 +12,18 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 })
 
-export const DPI_ETH_UNISWAP_QUERY= gql`
+export const DPI_ETH_UNISWAP_QUERY = gql`
   {
-    pairs(where: { id: "0x4d5ef58aac27d99935e5b6b4a6778ff292059991" }) {
+    pairs(where: { id: "${uniswapEthDpiLpTokenAddress}" }) {
+      id
+      reserveUSD
+    }
+  }
+`
+
+export const DPI_MVI_UNISWAP_QUERY = gql`
+  {
+    pairs(where: { id: "${uniswapEthMviLpTokenAddress}" }) {
       id
       reserveUSD
     }
