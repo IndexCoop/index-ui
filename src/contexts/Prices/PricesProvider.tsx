@@ -10,7 +10,7 @@ import { indexTokenAddress } from 'constants/ethContractAddresses'
 const PricesProvider: React.FC = ({ children }) => {
   const [indexPrice, setIndexPrice] = useState<string>('0')
   const [ethereumPrice, setEthereumPrice] = useState<string>('0')
-  const [totalUSDInFarms, setTotalUSDInFarms] = useState<number>()
+  const [usdInEthDpiPool, setUsdInEthDpiPool] = useState<number>()
   const [usdInEthMviPool, setUsdInEthMviPool] = useState<number>()
 
   const [apy] = useState<string>('0.00')
@@ -24,19 +24,23 @@ const PricesProvider: React.FC = ({ children }) => {
     data: ethMviUniswapData,
   } = useQuery(ETH_MVI_UNISWAP_QUERY)
 
-  const isUniswapFetchLoadedForFirstTime =
-    !totalUSDInFarms && !loading && !error
+  useEffect(() => {
+    const isUniswapFetchLoadedForFirstTime =
+      !usdInEthDpiPool && !loading && !error
 
-  if (isUniswapFetchLoadedForFirstTime) {
-    setTotalUSDInFarms(uniswapData?.pairs[0]?.reserveUSD)
-  }
+    if (isUniswapFetchLoadedForFirstTime) {
+      setUsdInEthDpiPool(uniswapData?.pairs[0]?.reserveUSD)
+    }
+  }, [usdInEthDpiPool, loading, error])
 
-  const isEthMviFetchLoadedForFirstTime =
-    !usdInEthMviPool && !ethMviDataIsLoading && !ethMviDataError
+  useEffect(() => {
+    const isEthMviFetchLoadedForFirstTime =
+      !usdInEthMviPool && !ethMviDataIsLoading && !ethMviDataError
 
-  if (isEthMviFetchLoadedForFirstTime) {
-    setUsdInEthMviPool(ethMviUniswapData?.pairs[0]?.reserveUSD)
-  }
+    if (isEthMviFetchLoadedForFirstTime) {
+      setUsdInEthMviPool(ethMviUniswapData?.pairs[0]?.reserveUSD)
+    }
+  }, [usdInEthMviPool, ethMviDataIsLoading, ethMviDataError])
 
   useEffect(() => {
     const coingeckoEthereumPriceUrl = `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
@@ -65,20 +69,21 @@ const PricesProvider: React.FC = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    if (!indexPrice || !totalUSDInFarms) return
+    if (!indexPrice || !usdInEthDpiPool) return
 
     const totalTokenEmissionsPerDay = 700
     const totalUSDEmissionPerDay =
       totalTokenEmissionsPerDay * Number(indexPrice)
     const dailyYield = new BigNumber(totalUSDEmissionPerDay)
-      .dividedBy(new BigNumber(totalUSDInFarms))
+      .dividedBy(new BigNumber(usdInEthDpiPool))
       .multipliedBy(100)
     const calculatedApy = dailyYield.multipliedBy(365)
 
     setFarmTwoApy(calculatedApy.toFixed(2))
-  }, [totalUSDInFarms, indexPrice])
+  }, [usdInEthDpiPool, indexPrice])
 
   useEffect(() => {
+    // TODO: add a check if april 8th 12pm PST has passed
     if (!indexPrice || !usdInEthMviPool) return
 
     const totalTokenEmissionsPerDay = 127
@@ -90,7 +95,10 @@ const PricesProvider: React.FC = ({ children }) => {
     const calculatedApy = dailyYield.multipliedBy(365)
 
     setMviRewardsApy(calculatedApy.toFixed(2))
-  }, [totalUSDInFarms, indexPrice])
+  }, [usdInEthMviPool, indexPrice])
+
+  const totalUSDInFarms =
+    Number(usdInEthMviPool || '0') + Number(usdInEthDpiPool || '0')
 
   return (
     <PricesContext.Provider
