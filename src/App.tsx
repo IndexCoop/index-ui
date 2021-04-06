@@ -24,6 +24,8 @@ import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
 import { CgiTokenMarketDataProvider } from 'contexts/CgiTokenMarketData'
 import { CgiIndexComponentsProvider } from 'contexts/CgiIndexComponents'
+import { MviTokenMarketDataProvider } from 'contexts/MviTokenMarketData'
+import { MviComponentsProvider } from 'contexts/MviComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { SnapshotProposalsProvider } from 'contexts/SnapshotProposals'
 import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
@@ -141,11 +143,15 @@ const Providers: React.FC = ({ children }) => {
                                     <DpiIndexComponentsProvider>
                                       <CgiTokenMarketDataProvider>
                                         <CgiIndexComponentsProvider>
-                                          <IndexTokenMarketDataProvider>
-                                            <SnapshotProposalsProvider>
-                                              {children}
-                                            </SnapshotProposalsProvider>
-                                          </IndexTokenMarketDataProvider>
+                                          <MviTokenMarketDataProvider>
+                                            <MviComponentsProvider>
+                                              <IndexTokenMarketDataProvider>
+                                                <SnapshotProposalsProvider>
+                                                  {children}
+                                                </SnapshotProposalsProvider>
+                                              </IndexTokenMarketDataProvider>
+                                            </MviComponentsProvider>
+                                          </MviTokenMarketDataProvider>
                                         </CgiIndexComponentsProvider>
                                       </CgiTokenMarketDataProvider>
                                     </DpiIndexComponentsProvider>
