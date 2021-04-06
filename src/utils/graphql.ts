@@ -21,7 +21,7 @@ export const DPI_ETH_UNISWAP_QUERY = gql`
   }
 `
 
-export const DPI_MVI_UNISWAP_QUERY = gql`
+export const ETH_MVI_UNISWAP_QUERY = gql`
   {
     pairs(where: { id: "${uniswapEthMviLpTokenAddress}" }) {
       id

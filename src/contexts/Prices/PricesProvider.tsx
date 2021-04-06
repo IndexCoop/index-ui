@@ -4,25 +4,38 @@ import { useQuery } from '@apollo/react-hooks'
 
 import PricesContext from './PricesContext'
 
-import { DPI_ETH_UNISWAP_QUERY } from 'utils/graphql'
+import { DPI_ETH_UNISWAP_QUERY, ETH_MVI_UNISWAP_QUERY } from 'utils/graphql'
 import { indexTokenAddress } from 'constants/ethContractAddresses'
 
 const PricesProvider: React.FC = ({ children }) => {
   const [indexPrice, setIndexPrice] = useState<string>('0')
   const [ethereumPrice, setEthereumPrice] = useState<string>('0')
   const [totalUSDInFarms, setTotalUSDInFarms] = useState<number>()
+  const [usdInEthMviPool, setUsdInEthMviPool] = useState<number>()
 
   const [apy] = useState<string>('0.00')
   const [farmTwoApy, setFarmTwoApy] = useState<string>('0.00')
   const [mviRewardsApy, setMviRewardsApy] = useState<string>('0.00')
 
   const { loading, error, data: uniswapData } = useQuery(DPI_ETH_UNISWAP_QUERY)
+  const {
+    loading: ethMviDataIsLoading,
+    error: ethMviDataError,
+    data: ethMviUniswapData,
+  } = useQuery(ETH_MVI_UNISWAP_QUERY)
 
   const isUniswapFetchLoadedForFirstTime =
     !totalUSDInFarms && !loading && !error
 
   if (isUniswapFetchLoadedForFirstTime) {
     setTotalUSDInFarms(uniswapData?.pairs[0]?.reserveUSD)
+  }
+
+  const isEthMviFetchLoadedForFirstTime =
+    !usdInEthMviPool && !ethMviDataIsLoading && !ethMviDataError
+
+  if (isEthMviFetchLoadedForFirstTime) {
+    setUsdInEthMviPool(ethMviUniswapData?.pairs[0]?.reserveUSD)
   }
 
   useEffect(() => {
@@ -63,6 +76,20 @@ const PricesProvider: React.FC = ({ children }) => {
     const calculatedApy = dailyYield.multipliedBy(365)
 
     setFarmTwoApy(calculatedApy.toFixed(2))
+  }, [totalUSDInFarms, indexPrice])
+
+  useEffect(() => {
+    if (!indexPrice || !usdInEthMviPool) return
+
+    const totalTokenEmissionsPerDay = 127
+    const totalUSDEmissionPerDay =
+      totalTokenEmissionsPerDay * Number(indexPrice)
+    const dailyYield = new BigNumber(totalUSDEmissionPerDay)
+      .dividedBy(new BigNumber(usdInEthMviPool))
+      .multipliedBy(100)
+    const calculatedApy = dailyYield.multipliedBy(365)
+
+    setMviRewardsApy(calculatedApy.toFixed(2))
   }, [totalUSDInFarms, indexPrice])
 
   return (
