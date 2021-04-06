@@ -4,7 +4,7 @@ import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import useBalances from 'hooks/useBalances'
-import useFarmingTwo from 'hooks/useFarmingTwo'
+import useMviStakingRewards from 'hooks/useMviStakingRewards'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
@@ -26,8 +26,8 @@ const Stake: React.FC = () => {
     onStake,
     onUnstakeAndHarvest,
     onHarvest,
-  } = useFarmingTwo()
-  const { farmTwoApy } = usePrices()
+  } = useMviStakingRewards()
+  const { mviRewardsApy } = usePrices()
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
@@ -149,7 +149,7 @@ const Stake: React.FC = () => {
               </div>
 
               <div>
-                <StyledFarmText>{farmTwoApy}% APY</StyledFarmText>
+                <StyledFarmText>{mviRewardsApy}% APY</StyledFarmText>
                 <StyledSectionLabel>(Volatile)</StyledSectionLabel>
               </div>
             </Split>

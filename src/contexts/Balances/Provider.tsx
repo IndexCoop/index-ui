@@ -7,6 +7,7 @@ import useWallet from 'hooks/useWallet'
 import { getBalance, getEthBalance } from 'utils/index'
 import { getEarnedIndexTokenQuantity } from 'index-sdk/stake'
 import { getEarnedIndexTokenQuantity as getEarnedFarmTwoBalance } from 'index-sdk/farmTwo'
+import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/mviStaking'
 import {
   dpiTokenAddress,
   fliTokenAddress,
@@ -109,7 +110,7 @@ const Provider: React.FC = ({ children }) => {
 
         // Current MVI LM Program Balances
         getBalance(provider, mviStakingRewardsAddress as string, userAddress),
-        getEarnedFarmTwoBalance(provider, userAddress),
+        getMviRewardsBalance(provider, userAddress),
       ])
 
       setEthBalance(
