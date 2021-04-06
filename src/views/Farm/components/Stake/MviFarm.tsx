@@ -15,8 +15,8 @@ const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
 
   const {
-    stakedFarmTwoBalance: stakedBalance,
-    unharvestedFarmTwoBalance,
+    stakedUniswapEthMviLpBalance: stakedBalance,
+    unharvestedMviRewardsBalance,
   } = useBalances()
   const { status } = useWallet()
   const {
@@ -100,12 +100,12 @@ const Stake: React.FC = () => {
   }, [stakedBalance])
 
   const formattedEarnedBalance = useMemo(() => {
-    if (unharvestedFarmTwoBalance) {
-      return numeral(unharvestedFarmTwoBalance.toString()).format('0.00000a')
+    if (unharvestedMviRewardsBalance) {
+      return numeral(unharvestedMviRewardsBalance.toString()).format('0.00000a')
     } else {
       return '--'
     }
-  }, [unharvestedFarmTwoBalance])
+  }, [unharvestedMviRewardsBalance])
 
   return (
     <>
@@ -144,7 +144,7 @@ const Stake: React.FC = () => {
                   </StyledTokenIconWrapper>
                 </StyledFarmText>
                 <StyledSectionLabel>
-                  Staked ETH/DPI Uniswap LP Tokens
+                  Staked ETH/MVI Uniswap LP Tokens
                 </StyledSectionLabel>
               </div>
 
