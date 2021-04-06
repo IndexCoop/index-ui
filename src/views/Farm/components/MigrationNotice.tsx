@@ -8,16 +8,14 @@ const MigrationNotice: React.FC = () => (
     <Notice>
       <NoticeIcon>
         <span role='img' aria-label='star'>
-          ⭐️
+          ⚡️
         </span>
       </NoticeIcon>
       <NoticeContent>
         <StyledNoticeContentInner>
-          Liquidity Mining rewards have been extended. No migration is
-          necessary.{'\n'}
-          <ExternalLink href='https://snapshot.page/#/index/proposal/QmZ7AWrHWrY6T6wsNujTEYNgMwmCjDGhT4bw4SAQR75rXr'>
-            Learn more here.{' '}
-          </ExternalLink>
+          Metaverse Index Liquidity Mining Rewards go live April 8th, 12pm PST.
+          {/* TODO add link to announcement */}
+          <ExternalLink href=''>Learn more here. </ExternalLink>
         </StyledNoticeContentInner>
       </NoticeContent>
     </Notice>
