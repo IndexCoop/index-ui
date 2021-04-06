@@ -9,6 +9,7 @@ import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
 import StakeModal from './components/StakeModal'
+import Split from 'components/Split'
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
@@ -21,7 +22,6 @@ const Stake: React.FC = () => {
   const {
     isApproved,
     isApproving,
-    isPoolActive,
     onApprove,
     onStake,
     onUnstakeAndHarvest,
@@ -99,46 +99,59 @@ const Stake: React.FC = () => {
     }
   }, [unharvestedIndexBalance])
 
-  const poolTitle = isPoolActive ? 'Expiring Pool' : 'Expired Pool'
-
   return (
     <>
       <Card>
         <CardContent>
-          <StyledHeaderIcon
-            alt='expiring icon'
-            src='https://index-dao.s3.amazonaws.com/down-arrow.svg'
-          />
-          <Spacer size='sm' />
-          <StyledCardTitle>{poolTitle}</StyledCardTitle>
-          <Spacer size='sm' />
-          <StyledCardText>Active Oct. 7th - Dec. 6th</StyledCardText>
-          <Spacer />
-          <StyledSectionTitle>
-            {formattedStakedBalance}
-            <StyledTokenIcon
-              alt='eth dpi icon'
-              src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
+          <StyledCardTitleWrapper>
+            <StyledHeaderIcon
+              alt='expiring icon'
+              src='https://index-dao.s3.amazonaws.com/down-arrow.svg'
             />
-          </StyledSectionTitle>
-          <StyledSectionLabel>
-            Staked ETH/DPI Uniswap LP Tokens
-          </StyledSectionLabel>
+            <Spacer size='md' />
+            <StyledLmTitle>
+              <StyledCardTitle>Expired Liquidity Program</StyledCardTitle>
+              <Spacer size='sm' />
+              <StyledCardSubtitle>
+                Active Oct. 7th - Dec. 6th
+              </StyledCardSubtitle>
+            </StyledLmTitle>
+          </StyledCardTitleWrapper>
           <Spacer />
-          <StyledSectionTitle>{apy}% APY</StyledSectionTitle>
-          <StyledSectionLabel>(Unstable)</StyledSectionLabel>
-          <Spacer />
-          <StyledSectionTitle>
+
+          <StyledFarmTokensAndApyWrapper>
+            <Split>
+              <div>
+                <StyledFarmText>
+                  {formattedStakedBalance}
+                  <StyledTokenIcon
+                    alt='eth dpi icon'
+                    src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
+                  />
+                </StyledFarmText>
+                <StyledSectionLabel>
+                  Staked ETH/DPI Uniswap LP Tokens
+                </StyledSectionLabel>
+              </div>
+
+              <div>
+                <StyledFarmText>0.00% APY</StyledFarmText>
+                <StyledSectionLabel>(Volatile)</StyledSectionLabel>
+              </div>
+            </Split>
+            <Spacer />
+          </StyledFarmTokensAndApyWrapper>
+
+          <StyledFarmText>
             {formattedEarnedBalance}
             <StyledTokenIcon
               alt='owl icon'
               src='https://index-dao.s3.amazonaws.com/owl.png'
             />
-          </StyledSectionTitle>
+          </StyledFarmText>
           <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
           <Spacer />
         </CardContent>
-        {isPoolActive && <CardActions>{StakeButton}</CardActions>}
         <CardActions>{UnstakeButton}</CardActions>
       </Card>
       <StakeModal
@@ -165,18 +178,38 @@ const StyledCardTitle = styled.span`
   font-size: 28px;
 `
 
-const StyledCardText = styled.span`
+const StyledCardSubtitle = styled.span`
   color: ${(props) => props.theme.colors.grey[500]};
   font-weight: 600;
   font-size: 18px;
 `
 
-const StyledSectionTitle = styled.span`
+const StyledCardTitleWrapper = styled.div`
   display: flex;
   align-items: center;
   font-weight: 600;
   font-size: 24px;
 `
+
+const StyledLmTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 24px;
+`
+
+const StyledFarmTokensAndApyWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
+
+const StyledFarmText = styled.span`
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 24px;
+`
+
 const StyledSectionLabel = styled.span`
   color: ${(props) => props.theme.colors.grey[500]};
   font-size: 16px;
