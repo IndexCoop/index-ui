@@ -95,8 +95,8 @@ const App: React.FC = () => {
             <Route exact path='/about'>
               <About title={'Index - About'} />
             </Route>
-            <Route exact path='/farm'>
-              <Farm title={'Index - Farm'} />
+            <Route exact path='/liquidity-mining'>
+              <Farm title={'Index - Liquidity Mining'} />
             </Route>
             <Route exact path='/rewards'>
               <ContributorRewards title={'Index - Rewards'} />
