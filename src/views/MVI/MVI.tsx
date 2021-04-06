@@ -24,20 +24,20 @@ const MviProductPage = (props: { title: string }) => {
 
   const { prices, latestPrice } = useMviTokenMarketData()
   const { components } = useMviComponents()
-  const { cgiBalance } = useBalances()
+  const { mviBalance } = useBalances()
 
   return (
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
           <MarketData />
-          <BuySellWrapper tokenId='cgi' />
+          <BuySellWrapper tokenId='mvi' />
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
             symbol='MVI'
             latestPrice={latestPrice}
-            currentBalance={cgiBalance}
+            currentBalance={mviBalance}
           />
           <PriceChanges prices={prices} />
           <IndexComponentsTable components={components} />
