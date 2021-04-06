@@ -11,7 +11,6 @@ import {
   IndexComponentsTable,
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
-import ExternalLink from 'components/ExternalLink'
 import MarketData from './components/MarketData'
 
 import useMviTokenMarketData from 'hooks/useMviTokenMarketData'

@@ -21,7 +21,7 @@ const MarketData: React.FC = () => {
   const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
   const mviTokenIcon = {
     src: 'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
-    alt: 'CGI Logo',
+    alt: 'MVI Logo',
   }
 
   const updateChartPrice = (chartData: any) => {
