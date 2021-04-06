@@ -11,6 +11,7 @@ import {
   dpiTokenAddress,
   fliTokenAddress,
   cgiTokenAddress,
+  mviTokenAddress,
   indexTokenAddress,
   daiTokenAddress,
   usdcTokenAddress,
@@ -25,6 +26,7 @@ const Provider: React.FC = ({ children }) => {
   const [dpiBalance, setDpiBalance] = useState<BigNumber>()
   const [fliBalance, setFliBalance] = useState<BigNumber>()
   const [cgiBalance, setCgiBalance] = useState<BigNumber>()
+  const [mviBalance, setMviBalance] = useState<BigNumber>()
   const [daiBalance, setDaiBalance] = useState<BigNumber>()
   const [usdcBalance, setUsdcBalance] = useState<BigNumber>()
   const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] = useState<
@@ -60,6 +62,7 @@ const Provider: React.FC = ({ children }) => {
         getBalance(provider, dpiTokenAddress as string, userAddress),
         getBalance(provider, fliTokenAddress as string, userAddress),
         getBalance(provider, cgiTokenAddress as string, userAddress),
+        getBalance(provider, mviTokenAddress as string, userAddress),
         getBalance(provider, daiTokenAddress as string, userAddress),
         getBalance(provider, usdcTokenAddress as string, userAddress),
         getBalance(
@@ -89,26 +92,29 @@ const Provider: React.FC = ({ children }) => {
       setCgiBalance(
         new BigNumber(balances[4]).dividedBy(new BigNumber(10).pow(18))
       )
-      setDaiBalance(
+      setMviBalance(
         new BigNumber(balances[5]).dividedBy(new BigNumber(10).pow(18))
       )
+      setDaiBalance(
+        new BigNumber(balances[6]).dividedBy(new BigNumber(10).pow(18))
+      )
       setUsdcBalance(
-        new BigNumber(balances[6]).dividedBy(new BigNumber(10).pow(6))
+        new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(6))
       )
       setUniswapEthDpiLpBalance(
-        new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setStakedUniswapEthDpiLpBalance(
         new BigNumber(balances[8]).dividedBy(new BigNumber(10).pow(18))
       )
-      setUnharvestedIndexBalance(
+      setStakedUniswapEthDpiLpBalance(
         new BigNumber(balances[9]).dividedBy(new BigNumber(10).pow(18))
       )
-      setStakedFarmTwoBalance(
+      setUnharvestedIndexBalance(
         new BigNumber(balances[10]).dividedBy(new BigNumber(10).pow(18))
       )
-      setUnharvestedFarmTwoBalance(
+      setStakedFarmTwoBalance(
         new BigNumber(balances[11]).dividedBy(new BigNumber(10).pow(18))
+      )
+      setUnharvestedFarmTwoBalance(
+        new BigNumber(balances[12]).dividedBy(new BigNumber(10).pow(18))
       )
     },
     [
@@ -132,6 +138,7 @@ const Provider: React.FC = ({ children }) => {
       setDpiBalance(new BigNumber(0))
       setFliBalance(new BigNumber(0))
       setCgiBalance(new BigNumber(0))
+      setMviBalance(new BigNumber(0))
       setDaiBalance(new BigNumber(0))
       setUsdcBalance(new BigNumber(0))
       setUniswapEthDpiLpBalance(new BigNumber(0))
@@ -161,6 +168,7 @@ const Provider: React.FC = ({ children }) => {
         dpiBalance,
         fliBalance,
         cgiBalance,
+        mviBalance,
         daiBalance,
         usdcBalance,
         uniswapEthDpiLpBalance,

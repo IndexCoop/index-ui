@@ -17,6 +17,7 @@ export const indexTokenAddress = process.env.REACT_APP_INDEX_TOKEN_ADDRESS
 export const dpiTokenAddress = process.env.REACT_APP_DPI_TOKEN_ADDRESS
 export const fliTokenAddress = process.env.REACT_APP_FLI_TOKEN_ADDRESS
 export const cgiTokenAddress = process.env.REACT_APP_CGI_TOKEN_ADDRESS
+export const mviTokenAddress = process.env.REACT_APP_MVI_TOKEN_ADDRESS
 export const daiTokenAddress = process.env.REACT_APP_DAI_TOKEN_ADDRESS
 export const usdcTokenAddress = process.env.REACT_APP_USDC_TOKEN_ADDRESS
 
