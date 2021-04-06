@@ -178,6 +178,7 @@ const Stake: React.FC = () => {
 const StyledHeaderIcon = styled.img`
   height: 58px;
   width: 58px;
+  margin-bottom: 10px;
 `
 
 const StyledTokenIcon = styled.img`
@@ -199,6 +200,7 @@ const StyledCardSubtitle = styled.span`
 const StyledCardTitleWrapper = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   font-weight: 600;
   font-size: 24px;
 `
