@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import useBalances from 'hooks/useBalances'
 import useMviStakingRewards from 'hooks/useMviStakingRewards'
+import useMediaQuery from 'hooks/useMediaQuery'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
@@ -28,6 +29,7 @@ const Stake: React.FC = () => {
     onHarvest,
   } = useMviStakingRewards()
   const { mviRewardsApy } = usePrices()
+  const { isMobile } = useMediaQuery()
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
@@ -152,27 +154,29 @@ const Stake: React.FC = () => {
                 <StyledFarmText>{mviRewardsApy}% APY</StyledFarmText>
                 <StyledSectionLabel>(Volatile)</StyledSectionLabel>
               </div>
-            </Split>
-            <Spacer />
-          </StyledFarmTokensAndApyWrapper>
 
-          <StyledFarmText>
-            {formattedEarnedBalance}
-            <StyledTokenIconWrapper>
-              <StyledTokenIcon
-                alt='owl icon'
-                src='https://index-dao.s3.amazonaws.com/owl.png'
-              />
-            </StyledTokenIconWrapper>
-          </StyledFarmText>
-          <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
-          <Spacer />
+              <div>
+                <StyledFarmText>
+                  {formattedEarnedBalance}
+                  <StyledTokenIconWrapper>
+                    <StyledTokenIcon
+                      alt='owl icon'
+                      src='https://index-dao.s3.amazonaws.com/owl.png'
+                    />
+                  </StyledTokenIconWrapper>
+                </StyledFarmText>
+                <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
+              </div>
+            </Split>
+          </StyledFarmTokensAndApyWrapper>
         </CardContent>
-        <CardActions>
-          {ClaimButton}
+        <StyledCardActions isMobile={isMobile}>
           {StakeButton}
-        </CardActions>
-        <CardActions>{UnstakeButton}</CardActions>
+          <Spacer />
+          {ClaimButton}
+          <Spacer />
+          {UnstakeButton}
+        </StyledCardActions>
       </Card>
       <MviStakeModal
         isOpen={stakeModalIsOpen}
@@ -239,6 +243,16 @@ const StyledFarmText = styled.span`
 const StyledSectionLabel = styled.span`
   color: ${(props) => props.theme.colors.grey[500]};
   font-size: 16px;
+`
+
+interface StyledCardActionProps {
+  isMobile: boolean
+}
+
+const StyledCardActions = styled.div<StyledCardActionProps>`
+  display: flex;
+  flex-wrap: ${(props) => (props.isMobile ? 'wrap' : 'no-wrap')};
+  padding: 30px;
 `
 
 export default Stake
