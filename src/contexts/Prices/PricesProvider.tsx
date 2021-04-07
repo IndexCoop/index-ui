@@ -20,7 +20,11 @@ const PricesProvider: React.FC = ({ children }) => {
 
   const { isPoolActive: isMviPoolActive } = useMviStakingRewards()
 
-  const { loading, error, data: uniswapData } = useQuery(DPI_ETH_UNISWAP_QUERY)
+  const {
+    loading: ethDpiDataIsLoading,
+    error: ethDpiDataError,
+    data: ethDpiUniswapData,
+  } = useQuery(DPI_ETH_UNISWAP_QUERY)
   const {
     loading: ethMviDataIsLoading,
     error: ethMviDataError,
@@ -28,22 +32,16 @@ const PricesProvider: React.FC = ({ children }) => {
   } = useQuery(ETH_MVI_UNISWAP_QUERY)
 
   useEffect(() => {
-    const isUniswapFetchLoadedForFirstTime =
-      !usdInEthDpiPool && !loading && !error
-
-    if (isUniswapFetchLoadedForFirstTime) {
-      setUsdInEthDpiPool(uniswapData?.pairs[0]?.reserveUSD)
+    if (!ethDpiDataIsLoading && !ethDpiDataError) {
+      setUsdInEthDpiPool(ethDpiUniswapData?.pairs[0]?.reserveUSD)
     }
-  }, [usdInEthDpiPool, loading, error])
+  }, [ethDpiDataIsLoading, ethDpiDataError])
 
   useEffect(() => {
-    const isEthMviFetchLoadedForFirstTime =
-      !usdInEthMviPool && !ethMviDataIsLoading && !ethMviDataError
-
-    if (isEthMviFetchLoadedForFirstTime) {
+    if (!ethMviDataIsLoading && !ethMviDataError) {
       setUsdInEthMviPool(ethMviUniswapData?.pairs[0]?.reserveUSD)
     }
-  }, [usdInEthMviPool, ethMviDataIsLoading, ethMviDataError])
+  }, [ethMviDataIsLoading, ethMviDataError])
 
   useEffect(() => {
     const coingeckoEthereumPriceUrl = `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
