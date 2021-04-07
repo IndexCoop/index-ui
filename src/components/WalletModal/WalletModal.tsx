@@ -31,10 +31,13 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     indexBalance,
     dpiBalance,
     cgiBalance,
+    mviBalance,
     fliBalance,
     uniswapEthDpiLpBalance,
+    uniswapEthMviLpBalance,
     stakedUniswapEthDpiLpBalance,
     stakedFarmTwoBalance,
+    stakedUniswapEthMviLpBalance,
   } = useBalances()
 
   const totalStakedEthDpiLpBalance = (
@@ -54,6 +57,32 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     toast.success("You've successfully signed out.")
     onDismiss && onDismiss()
   }, [reset, onDismiss])
+
+  const ethMviTokenIcon = (
+    <StyledLpTokenWrapper>
+      <StyledLpTokenImage
+        alt='ETH Icon'
+        src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
+      />
+      <StyledLpTokenImage
+        alt='MVI Icon'
+        src='https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg'
+      />
+    </StyledLpTokenWrapper>
+  )
+
+  const ethDpiTokenIcon = (
+    <StyledLpTokenWrapper>
+      <StyledLpTokenImage
+        alt='ETH Icon'
+        src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
+      />
+      <StyledLpTokenImage
+        alt='DPI Icon'
+        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
+      />
+    </StyledLpTokenWrapper>
+  )
 
   return (
     <Modal isOpen={isOpen}>
@@ -104,6 +133,24 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             <Box row>
               <FancyValue
                 icon={{
+                  alt: 'MVI Icon',
+                  src:
+                    'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
+                }}
+                label='Metaverse Index Balance'
+                link={`https://etherscan.io/address/${tokenAddresses.mviTokenAddress}`}
+                value={getDisplayBalance(mviBalance)}
+              />
+            </Box>
+          </Split>
+          <Spacer />
+          <Separator />
+          <Spacer />
+
+          <Split>
+            <Box row>
+              <FancyValue
+                icon={{
                   alt: 'FLI Icon',
                   src:
                     'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
@@ -117,14 +164,11 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           <Spacer />
           <Separator />
           <Spacer />
+
           <Split>
             <Box row>
               <FancyValue
-                icon={{
-                  alt: 'Uniswap LP Icon',
-                  src:
-                    'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
-                }}
+                iconComponent={ethDpiTokenIcon}
                 label='Uniswap ETH/DPI LP balance'
                 link={`https://etherscan.io/address/${tokenAddresses.uniswapEthDpiLpTokenAddress}`}
                 value={getDisplayBalance(uniswapEthDpiLpBalance)}
@@ -133,27 +177,58 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             <Box row>
               <FancyValue
                 icon={{
-                  alt: 'Staked Uniswap LP Icon',
+                  alt: 'Staked Uniswap ETH/DPI LP Icon',
                   src:
                     'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
                 }}
-                iconStyles={{ opacity: 0.5 }}
                 label='Staked Uniswap ETH/DPI LP'
-                link={`https://etherscan.io/address/${tokenAddresses.stakingRewardsAddress}`}
+                link={`https://etherscan.io/address/${tokenAddresses.farmTwoAddress}`}
                 value={getDisplayBalance(totalStakedEthDpiLpBalance)}
               />
             </Box>
           </Split>
           <Spacer />
+          <Box row>
+            <Button
+              href='https://app.uniswap.org/#/add/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/ETH'
+              text='Add ETH/DPI Liquidity'
+              variant='secondary'
+            />
+          </Box>
+          <Spacer />
+          <Separator />
+          <Spacer />
+
           <Split>
             <Box row>
-              <Button
-                href='https://app.uniswap.org/#/add/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/ETH'
-                text='Add ETH/DPI Liquidity'
-                variant='secondary'
+              <FancyValue
+                iconComponent={ethMviTokenIcon}
+                label='Uniswap ETH/MVI LP balance'
+                link={`https://etherscan.io/address/${tokenAddresses.uniswapEthMviLpTokenAddress}`}
+                value={getDisplayBalance(uniswapEthMviLpBalance)}
+              />
+            </Box>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'Staked Uniswap ETH/MVI LP Icon',
+                  src:
+                    'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
+                }}
+                label='Staked Uniswap ETH/MVI LP'
+                link={`https://etherscan.io/address/${tokenAddresses.mviStakingRewardsAddress}`}
+                value={getDisplayBalance(stakedUniswapEthMviLpBalance)}
               />
             </Box>
           </Split>
+          <Spacer />
+          <Box row>
+            <Button
+              href='https://app.uniswap.org/#/add/0x72e364f2abdc788b7e918bc238b21f109cd634d7/ETH'
+              text='Add ETH/MVI Liquidity'
+              variant='secondary'
+            />
+          </Box>
         </ModalContent>
         <Separator />
         <ModalActions>
@@ -164,6 +239,13 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     </Modal>
   )
 }
+
+const StyledLpTokenImage = styled.img`
+  height: 30px;
+  margin-left: -10px;
+`
+
+const StyledLpTokenWrapper = styled.div``
 
 const StyledModalBody = styled.div`
   @media (max-width: 600px) {
