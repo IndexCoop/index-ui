@@ -20,33 +20,81 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink
             exact
             activeClassName='active'
-            to='/farm'
+            to='/dpi'
             onClick={onDismiss}
           >
-            Farm
-          </StyledLink>
-          <StyledLink exact activeClassName='active' to='/dpi'>
             DeFi Pulse Index
           </StyledLink>
-          <StyledLink exact activeClassName='active' to='/cgi'>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/mvi'
+            onClick={onDismiss}
+          >
+            Metaverse Index
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/cgi'
+            onClick={onDismiss}
+          >
             CoinShares Crypto Gold Index
           </StyledLink>
-          <StyledLink exact activeClassName='active' to='/index'>
-            Index Coop Token
-          </StyledLink>
-          <StyledLink exact activeClassName='active' to='/fli'>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/fli'
+            onClick={onDismiss}
+          >
             ETH 2x Flexible Leverage Index
           </StyledLink>
-          <StyledLink exact activeClassName='active' to='/about'>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/index'
+            onClick={onDismiss}
+          >
+            Index Coop Token
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/about'
+            onClick={onDismiss}
+          >
             About
           </StyledLink>
-          <StyledLink exact activeClassName='active' to='/vote'>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/vote'
+            onClick={onDismiss}
+          >
             Vote
           </StyledLink>
-          <StyledLink exact activeClassName='active' to='/how-to-buy'>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/liquidity-mining'
+            onClick={onDismiss}
+          >
+            Liquidity Mining
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/how-to-buy'
+            onClick={onDismiss}
+          >
             How to Buy
           </StyledLink>
-          <StyledLink exact activeClassName='active' to='/rewards'>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/rewards'
+            onClick={onDismiss}
+          >
             Rewards
           </StyledLink>
           <StyledOutboundLink
@@ -109,7 +157,7 @@ const StyledMobileMenu = styled.div`
 const StyledLink = styled(NavLink)`
   box-sizing: border-box;
   color: ${(props) => props.theme.colors.grey[500]};
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   padding: ${(props) => props.theme.spacing[3]}px
     ${(props) => props.theme.spacing[4]}px;
@@ -127,7 +175,7 @@ const StyledLink = styled(NavLink)`
 const StyledOutboundLink = styled.a`
   box-sizing: border-box;
   color: ${(props) => props.theme.colors.grey[500]};
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   padding: ${(props) => props.theme.spacing[3]}px
     ${(props) => props.theme.spacing[4]}px;

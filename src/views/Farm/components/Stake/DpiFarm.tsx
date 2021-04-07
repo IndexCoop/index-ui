@@ -1,14 +1,16 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import numeral from 'numeral'
-import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
+import { Button, Card, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import useBalances from 'hooks/useBalances'
 import useFarmingTwo from 'hooks/useFarmingTwo'
+import useMediaQuery from 'hooks/useMediaQuery'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
-import StakeModal from './components/StakeModal'
+import DpiStakeModal from './components/DpiStakeModal'
+import Split from 'components/Split'
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
@@ -27,6 +29,7 @@ const Stake: React.FC = () => {
     onHarvest,
   } = useFarmingTwo()
   const { farmTwoApy } = usePrices()
+  const { isMobile } = useMediaQuery()
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
@@ -110,46 +113,64 @@ const Stake: React.FC = () => {
     <>
       <Card>
         <CardContent>
-          <StyledHeaderIcon
-            alt='active icon'
-            src='https://index-dao.s3.amazonaws.com/up-arrow.svg'
-          />
-          <Spacer size='sm' />
-          <StyledCardTitle>Active Pool</StyledCardTitle>
-          <Spacer size='sm' />
-          <StyledCardText>Active Mar. 10th - Apr. 9th</StyledCardText>
-          <Spacer />
-          <StyledSectionTitle>
-            {formattedStakedBalance}
-            <StyledTokenIcon
-              alt='eth dpi icon'
-              src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
+          <StyledCardTitleWrapper>
+            <StyledHeaderIcon
+              src='https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'
+              alt='DefiPulse Index Logo'
             />
-          </StyledSectionTitle>
-          <StyledSectionLabel>
-            Staked ETH/DPI Uniswap LP Tokens
-          </StyledSectionLabel>
+            <Spacer size='md' />
+            <StyledLmTitle>
+              <StyledCardTitle>DPI Liquidity Program</StyledCardTitle>
+              <Spacer size='sm' />
+              <StyledCardSubtitle>
+                Active Mar. 10th - Apr. 9th
+              </StyledCardSubtitle>
+            </StyledLmTitle>
+          </StyledCardTitleWrapper>
           <Spacer />
-          <StyledSectionTitle>{farmTwoApy}% APY</StyledSectionTitle>
-          <StyledSectionLabel>(Unstable)</StyledSectionLabel>
-          <Spacer />
-          <StyledSectionTitle>
-            {formattedEarnedBalance}
-            <StyledTokenIcon
-              alt='owl icon'
-              src='https://index-dao.s3.amazonaws.com/owl.png'
-            />
-          </StyledSectionTitle>
-          <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
-          <Spacer />
+
+          <StyledFarmTokensAndApyWrapper>
+            <Split>
+              <div>
+                <StyledFarmText>
+                  {formattedStakedBalance}
+                  <StyledTokenIcon
+                    alt='eth dpi icon'
+                    src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
+                  />
+                </StyledFarmText>
+                <StyledSectionLabel>
+                  Staked ETH/DPI Uniswap LP Tokens
+                </StyledSectionLabel>
+              </div>
+
+              <div>
+                <StyledFarmText>{farmTwoApy}% APY</StyledFarmText>
+                <StyledSectionLabel>(Volatile)</StyledSectionLabel>
+              </div>
+
+              <div>
+                <StyledFarmText>
+                  {formattedEarnedBalance}
+                  <StyledTokenIcon
+                    alt='owl icon'
+                    src='https://index-dao.s3.amazonaws.com/owl.png'
+                  />
+                </StyledFarmText>
+                <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
+              </div>
+            </Split>
+          </StyledFarmTokensAndApyWrapper>
         </CardContent>
-        <CardActions>
+        <StyledCardActions isMobile={isMobile}>
           {ClaimButton}
+          <Spacer />
           {StakeButton}
-        </CardActions>
-        <CardActions>{UnstakeButton}</CardActions>
+          <Spacer />
+          {UnstakeButton}
+        </StyledCardActions>
       </Card>
-      <StakeModal
+      <DpiStakeModal
         isOpen={stakeModalIsOpen}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
@@ -161,6 +182,7 @@ const Stake: React.FC = () => {
 const StyledHeaderIcon = styled.img`
   height: 58px;
   width: 58px;
+  margin-bottom: 10px;
 `
 
 const StyledTokenIcon = styled.img`
@@ -173,21 +195,53 @@ const StyledCardTitle = styled.span`
   font-size: 28px;
 `
 
-const StyledCardText = styled.span`
+const StyledCardSubtitle = styled.span`
   color: ${(props) => props.theme.colors.grey[500]};
   font-weight: 600;
   font-size: 18px;
 `
 
-const StyledSectionTitle = styled.span`
+const StyledCardTitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-weight: 600;
+  font-size: 24px;
+`
+
+const StyledLmTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 24px;
+`
+
+const StyledFarmTokensAndApyWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
+
+const StyledFarmText = styled.span`
   display: flex;
   align-items: center;
   font-weight: 600;
   font-size: 24px;
 `
+
 const StyledSectionLabel = styled.span`
   color: ${(props) => props.theme.colors.grey[500]};
   font-size: 16px;
+`
+
+interface StyledCardActionProps {
+  isMobile: boolean
+}
+
+const StyledCardActions = styled.div<StyledCardActionProps>`
+  display: flex;
+  flex-wrap: ${(props) => (props.isMobile ? 'wrap' : 'no-wrap')};
+  padding: 30px;
+  padding-top: 0px;
 `
 
 export default Stake

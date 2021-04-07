@@ -22,7 +22,7 @@ import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<
-    'dpi' | 'index' | 'cgi' | 'ethfli'
+    'dpi' | 'index' | 'cgi' | 'ethfli' | 'mvi'
   >('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
@@ -41,6 +41,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     ethBalance,
     dpiBalance,
     cgiBalance,
+    mviBalance,
     fliBalance,
     indexBalance,
     daiBalance,
@@ -66,6 +67,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = fliBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'cgi') {
     spendingTokenBalance = cgiBalance || new BigNumber(0)
+  } else if (!isUserBuying && buySellToken === 'mvi') {
+    spendingTokenBalance = mviBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'wrapped_eth') {
     spendingTokenBalance = ethBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'mcd') {
