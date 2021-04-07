@@ -6,10 +6,11 @@ import Label from 'components/Label'
 import Value from 'components/Value'
 
 interface FancyValueProps {
-  icon: {
+  icon?: {
     src: string
     alt: string
   }
+  iconComponent?: React.ReactNode
   iconStyles?: any
   link?: string
   label: string
@@ -18,18 +19,27 @@ interface FancyValueProps {
 
 const FancyValue: React.FC<FancyValueProps> = ({
   icon,
+  iconComponent,
   iconStyles,
   link,
   label,
   value,
 }) => {
-  const tokenIcon = link ? (
-    <a href={link} target='_blank' rel='noopener noreferrer'>
-      <StyledIcon src={icon.src} alt={icon.alt} style={iconStyles} />
-    </a>
-  ) : (
-    <StyledIcon src={icon.src} alt={icon.alt} style={iconStyles} />
-  )
+  let tokenIcon
+
+  if (iconComponent) {
+    tokenIcon = iconComponent
+  } else if (icon) {
+    tokenIcon = <StyledIcon src={icon.src} alt={icon.alt} style={iconStyles} />
+  }
+
+  if (link) {
+    tokenIcon = (
+      <a href={link} target='_blank' rel='noopener noreferrer'>
+        {tokenIcon}
+      </a>
+    )
+  }
 
   return (
     <Box alignItems='center' row>
