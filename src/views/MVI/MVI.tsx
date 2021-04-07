@@ -42,9 +42,9 @@ const MviProductPage = (props: { title: string }) => {
           <IndexComponentsTable components={components} />
           <Description>
             <p>
-              <strong>The Metaverse Index (MVI)</strong> is a market cap and
-              liquidity weighted index of the top NFT, entertainment, and
-              virtual reality projects on Ethereum.
+              <strong>The Metaverse Index (MVI)</strong> is designed to capture
+              the trend of entertainment, sports and business shifting to take
+              place in virtual environments.
               <h2>Constituent Weighting</h2>
               Selection of the $MVI tokens is based on the following basic
               criteria:
