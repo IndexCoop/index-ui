@@ -26,9 +26,7 @@ import { currencyTokens } from 'constants/currencyTokens'
 import { IssuancePriceData } from './types'
 
 const ExchangeIssuanceProvider: React.FC = ({ children }) => {
-  const [issuanceToken, setIssuanceToken] = useState<'dpi' | 'index' | 'cgi'>(
-    'dpi'
-  )
+  const [issuanceToken, setIssuanceToken] = useState<'dpi' | 'cgi'>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserIssuing, setIsUserIssuing] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
@@ -40,13 +38,14 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
     {} as IssuancePriceData
   )
 
+  const [isIssuance, setIsIssuance] = useState<boolean>(false)
+
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
 
   const {
     ethBalance,
     dpiBalance,
     cgiBalance,
-    indexBalance,
     daiBalance,
     usdcBalance,
   } = useBalances()
@@ -62,9 +61,7 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
   }, [])
 
   let spendingTokenBalance = new BigNumber(0)
-  if (!isUserIssuing && issuanceToken === 'index') {
-    spendingTokenBalance = indexBalance || new BigNumber(0)
-  } else if (!isUserIssuing && issuanceToken === 'dpi') {
+  if (!isUserIssuing && issuanceToken === 'dpi') {
     spendingTokenBalance = dpiBalance || new BigNumber(0)
   } else if (!isUserIssuing && issuanceToken === 'cgi') {
     spendingTokenBalance = cgiBalance || new BigNumber(0)
@@ -89,6 +86,8 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
     setIsFetchingOrderData(true)
     if (!ethereum || !account) return
 
+    setIssuanceData({} as any)
+
     getIssuanceTradeData(
       ethereum,
       issuanceToken,
@@ -97,14 +96,15 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
       selectedCurrency?.address,
       activeField
     )
-      .then(async (res) => {
+      .then(async (output_amount) => {
+        console.log('estimate return', output_amount)
         setIsFetchingOrderData(false)
-        const dec = bnToDec(new BigNumber(res)).toString()
+        const dec = bnToDec(new BigNumber(output_amount)).toString()
         let issuanceData: any = {}
         if (activeField === 'currency') issuanceData.trade_type = 'exact_in'
         else issuanceData.trade_type = 'exact_out'
-        issuanceData.amount_in = decToBn(targetTradeQuantity)
-        issuanceData.amount_out = res
+        issuanceData.amountIn = decToBn(targetTradeQuantity)
+        issuanceData.amountOut = output_amount
 
         const issuanceTradeType = getIssuanceTradeType(
           isUserIssuing,
@@ -133,15 +133,13 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
           )
         } catch (e) {
           setIssuanceData({} as any)
-          console.log(e)
+          console.log('here', e)
           return
         }
         const gasPrice = await getGasPrice(ethereum)
-        issuanceData.display = {
-          gas_price_eth: `${bnToDec(
-            new BigNumber(estimate).multipliedBy(new BigNumber(gasPrice))
-          )} ETH`,
-        }
+        issuanceData.gasCost = `${bnToDec(
+          new BigNumber(estimate).multipliedBy(new BigNumber(gasPrice))
+        )} ETH`
 
         setIssuanceData(issuanceData)
 
@@ -170,14 +168,14 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
   ])
 
   const onExecuteIssuance = useCallback(async () => {
-    if (!account || !issuanceData?.amount_in || !selectedCurrency) return
+    if (!account || !issuanceData?.amountIn || !selectedCurrency) return
 
-    let requiredBalance = new BigNumber(issuanceData?.amount_in).dividedBy(
+    let requiredBalance = new BigNumber(issuanceData?.amountIn).dividedBy(
       new BigNumber(10).pow(18)
     )
 
     if (selectedCurrency.id === 'usdc') {
-      requiredBalance = new BigNumber(issuanceData?.amount_in || 0).dividedBy(
+      requiredBalance = new BigNumber(issuanceData?.amountIn || 0).dividedBy(
         new BigNumber(10).pow(6)
       )
     }
@@ -275,6 +273,10 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
     setSelectedCurrency(currency)
   }
 
+  const onSetIsIssuance = (isIssuance: boolean) => {
+    setIsIssuance(isIssuance)
+  }
+
   return (
     <ExchangeIssuanceContext.Provider
       value={{
@@ -288,6 +290,7 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
         currencyOptions,
         spendingTokenBalance,
         issuanceData,
+        isIssuance,
         onSetIssuanceToken: setIssuanceToken,
         onToggleIsUserIssuing,
         onSetActiveField,
@@ -295,6 +298,7 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
         onSetCurrencyQuantity,
         onSetTokenQuantity,
         onExecuteIssuance,
+        onSetIsIssuance,
       }}
     >
       {children}

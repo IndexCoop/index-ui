@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import DotIcon from 'assets/dotvertical.svg'
+import useExchangeIssuance from 'hooks/useExchangeIssuance'
 
-const ExchangeSelector: React.FC<any> = ({ onSetIsIssuance }) => {
+const ExchangeSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { onSetIsIssuance } = useExchangeIssuance()
   return (
     <StyledCard>
       <StyledIndicatorsContainer onClick={() => setIsOpen(!isOpen)}>

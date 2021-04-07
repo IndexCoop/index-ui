@@ -3,7 +3,7 @@ import { IssuancePriceData } from './types'
 import BigNumber from 'utils/bignumber'
 
 interface ContextValues {
-  issuanceToken: 'dpi' | 'index' | 'cgi'
+  issuanceToken: 'dpi' | 'cgi'
   isFetchingOrderData: boolean
   isUserIssuing: boolean
   activeField: 'currency' | 'set'
@@ -13,13 +13,15 @@ interface ContextValues {
   currencyOptions: any[]
   spendingTokenBalance: BigNumber
   issuanceData: IssuancePriceData | undefined
-  onSetIssuanceToken: (tokenId: 'index' | 'dpi' | 'cgi') => void
+  isIssuance: boolean
+  onSetIssuanceToken: (tokenId: 'dpi' | 'cgi') => void
   onToggleIsUserIssuing: () => void
   onSetActiveField: (field: 'currency' | 'set') => void
   onSetSelectedCurrency: (selectedCurrency: any) => void
   onSetCurrencyQuantity: (event: any) => void
   onSetTokenQuantity: (event: any) => void
   onExecuteIssuance: () => void
+  onSetIsIssuance: (isIssuance: boolean) => void
 }
 
 const ExchangeIssuanceContext = createContext<ContextValues>({
@@ -33,6 +35,7 @@ const ExchangeIssuanceContext = createContext<ContextValues>({
   currencyOptions: [],
   spendingTokenBalance: new BigNumber(0),
   issuanceData: undefined,
+  isIssuance: false,
   onSetIssuanceToken: () => {},
   onToggleIsUserIssuing: () => {},
   onSetActiveField: () => {},
@@ -40,6 +43,7 @@ const ExchangeIssuanceContext = createContext<ContextValues>({
   onSetCurrencyQuantity: () => {},
   onSetTokenQuantity: () => {},
   onExecuteIssuance: () => {},
+  onSetIsIssuance: () => {},
 })
 
 export default ExchangeIssuanceContext

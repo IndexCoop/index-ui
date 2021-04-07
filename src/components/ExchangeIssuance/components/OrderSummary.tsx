@@ -7,15 +7,15 @@ const OrderSummary: React.FC = () => {
   const { isFetchingOrderData, issuanceData } = useExchangeIssuance()
 
   const isOrderDataReady =
-    Number(issuanceData?.amount_out) > 0 && !isFetchingOrderData
+    Number(issuanceData?.amountOut) > 0 && !isFetchingOrderData
 
   if (isOrderDataReady) {
     return (
       <StyledOrderSummaryContainer>
-        {/* <StyledOrderSummaryLabel>Minimum Receive</StyledOrderSummaryLabel>
+        <StyledOrderSummaryLabel>Minimum Receive</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
-          {issuanceData?.display?.to_quantity}
-        </StyledOrderSummaryValue> */}
+          {issuanceData?.amountOut}
+        </StyledOrderSummaryValue>
 
         {/* <StyledOrderSummaryLabel>Price Impact</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
@@ -24,7 +24,7 @@ const OrderSummary: React.FC = () => {
 
         <StyledOrderSummaryLabel>Network Fee</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
-          {issuanceData?.display?.gas_price_eth}
+          {issuanceData?.gasCost}
         </StyledOrderSummaryValue>
 
         {/* <StyledOrderSummaryLabel>Offered From</StyledOrderSummaryLabel>

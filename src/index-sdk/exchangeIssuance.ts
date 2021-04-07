@@ -8,7 +8,6 @@ import {
   exchangeIssuanceAddress,
   dpiTokenAddress,
   cgiTokenAddress,
-  indexTokenAddress,
 } from 'constants/ethContractAddresses'
 
 export enum IssuanceTradeType {
@@ -23,7 +22,7 @@ export enum IssuanceTradeType {
 export type TransactionOptions = {
   from: string
   gas?: string
-  gasPrice: string
+  gasPrice?: string
   value?: string | number | BigNumber
 }
 
@@ -151,10 +150,6 @@ export const getIssuanceTradeEstimation = async (
   txOpts: TransactionOptions
 ): Promise<any> => {
   const IssuanceInstance = getIssuanceContract(provider)
-  IssuanceInstance.methods
-    .WETH()
-    .call()
-    .then((res: any) => console.log(res))
 
   switch (tradeType) {
     case IssuanceTradeType.ISSUE_SET_FOR_EXACT_TOKEN:
@@ -169,7 +164,7 @@ export const getIssuanceTradeEstimation = async (
       })
     case IssuanceTradeType.ISSUE_SET_FOR_EXACT_ETH:
       return new Promise((resolve, reject) => {
-        console.log(tradeConfigs)
+        console.log(tradeConfigs, txOpts)
         IssuanceInstance.methods
           .issueSetForExactETH(...tradeConfigs)
           .estimateGas(txOpts)
@@ -238,7 +233,6 @@ export const getIssuanceTradeData = async (
   let setTokenAddress: string | undefined
   if (id === 'dpi') setTokenAddress = dpiTokenAddress
   else if (id === 'cgi') setTokenAddress = cgiTokenAddress
-  else if (id === 'index') setTokenAddress = indexTokenAddress
 
   if (!isIssuanceOrder) {
     return new Promise((resolve, reject) => {
@@ -269,7 +263,6 @@ export const getIssuanceTradeData = async (
         .catch((e: any) => reject(e))
     })
   } else {
-    console.log(setTokenAddress, currencyAddress, requestQuantity)
     return new Promise((resolve, reject) => {
       IssuanceInstance.methods
         .getEstimatedIssueSetAmount(
@@ -279,7 +272,6 @@ export const getIssuanceTradeData = async (
         )
         .call()
         .then((res: any) => {
-          console.log(res)
           resolve(res)
         })
         .catch((e: any) => reject(e))

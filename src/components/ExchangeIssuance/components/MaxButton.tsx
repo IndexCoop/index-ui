@@ -28,7 +28,7 @@ const MaxButton: React.FC = () => {
 
   let spendingTokenSymbol = 'ETH'
   let buttonAction = () => {}
-  let requiredQuantity = new BigNumber(issuanceData?.amount_in || 0).dividedBy(
+  let requiredQuantity = new BigNumber(issuanceData?.amountIn || 0).dividedBy(
     new BigNumber(10).pow(18)
   )
 
@@ -56,7 +56,7 @@ const MaxButton: React.FC = () => {
       onSetActiveField('currency')
       onSetCurrencyQuantity(spendingTokenBalance.toString())
     }
-    requiredQuantity = new BigNumber(issuanceData?.amount_in || 0).dividedBy(
+    requiredQuantity = new BigNumber(issuanceData?.amountIn || 0).dividedBy(
       new BigNumber(10).pow(6)
     )
   }

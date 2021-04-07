@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import BuySellSelector from './components/BuySellSelector'
@@ -6,13 +6,8 @@ import TokenInputs from './components/TokenInputs'
 import OrderSummary from './components/OrderSummary'
 import BuySellButton from './components/BuySellButton'
 import HowToBuyLink from './components/HowToBuyLink'
-import ExchangeSelector from './components/ExchangeSelector'
 
-interface Props {
-  onSetIsIssuance: (...args: any[]) => any
-}
-
-const BuySellWidget: React.FC<Props> = ({ onSetIsIssuance }) => {
+const BuySellWidget: React.FC = () => {
   return (
     <StyledContainer>
       <StyledBuySellCard>
@@ -24,7 +19,6 @@ const BuySellWidget: React.FC<Props> = ({ onSetIsIssuance }) => {
           <HowToBuyLink />
         </StyledBuySellCardContent>
       </StyledBuySellCard>
-      <ExchangeSelector onSetIsIssuance={onSetIsIssuance} />
     </StyledContainer>
   )
 }

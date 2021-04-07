@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 import TransactionWatcher from 'components/TransactionWatcher'
 import { BuySellWidget } from 'components/BuySell'
+import { ExchangeSelector } from 'components/ExchangeSelector'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import useBuySell from 'hooks/useBuySell'
 
@@ -15,9 +17,7 @@ interface BuySellWrapperProps {
 const BuySellWrapper: React.FC<BuySellWrapperProps> = ({ tokenId }: any) => {
   const { transactionStatus } = useTransactionWatcher()
   const { onSetBuySellToken } = useBuySell()
-  const { onSetIssuanceToken } = useExchangeIssuance()
-
-  const [isIssuance, setIsIssuance] = useState(true)
+  const { onSetIssuanceToken, isIssuance } = useExchangeIssuance()
 
   useEffect(() => {
     onSetBuySellToken(tokenId)
@@ -27,19 +27,40 @@ const BuySellWrapper: React.FC<BuySellWrapperProps> = ({ tokenId }: any) => {
     onSetIssuanceToken(tokenId)
   }, [onSetIssuanceToken, tokenId])
 
-  return !isIssuance ? (
-    <TransactionWatcher
-      transactionStatus={transactionStatus}
-      startTransactionComponent={
-        <BuySellWidget onSetIsIssuance={setIsIssuance} />
-      }
-    />
-  ) : (
-    <TransactionWatcher
-      transactionStatus={transactionStatus}
-      startTransactionComponent={<ExchangeIssuanceWidget />}
-    />
-  )
+  if (tokenId === 'index') {
+    return (
+      <TransactionWatcher
+        transactionStatus={transactionStatus}
+        startTransactionComponent={<BuySellWidget />}
+      />
+    )
+  }
+
+  if (!isIssuance) {
+    return (
+      <StyledDiv>
+        <TransactionWatcher
+          transactionStatus={transactionStatus}
+          startTransactionComponent={<BuySellWidget />}
+        />
+        <ExchangeSelector />
+      </StyledDiv>
+    )
+  } else {
+    return (
+      <StyledDiv>
+        <TransactionWatcher
+          transactionStatus={transactionStatus}
+          startTransactionComponent={<ExchangeIssuanceWidget />}
+        />
+        <ExchangeSelector />
+      </StyledDiv>
+    )
+  }
 }
+
+const StyledDiv = styled.div`
+  position: relative;
+`
 
 export default BuySellWrapper

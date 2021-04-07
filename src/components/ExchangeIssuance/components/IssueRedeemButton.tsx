@@ -9,7 +9,6 @@ import {
   usdcTokenAddress,
   dpiTokenAddress,
   cgiTokenAddress,
-  indexTokenAddress,
   exchangeIssuanceAddress,
 } from 'constants/ethContractAddresses'
 
@@ -37,10 +36,9 @@ const IssueRedeemButton: React.FC = () => {
   const usdcApproval = useApproval(usdcTokenAddress, exchangeIssuanceAddress)
   const dpiApproval = useApproval(dpiTokenAddress, exchangeIssuanceAddress)
   const cgiApproval = useApproval(cgiTokenAddress, exchangeIssuanceAddress)
-  const indexApproval = useApproval(indexTokenAddress, exchangeIssuanceAddress)
 
   // Only prompt the user at end of the buy flow. (So they can preview the order before logging in)
-  const loginRequiredBeforeSubmit = issuanceData?.amount_in && !account
+  const loginRequiredBeforeSubmit = issuanceData?.amountIn && !account
 
   const dpiApprovalRequired =
     !isUserIssuing &&
@@ -60,15 +58,6 @@ const IssueRedeemButton: React.FC = () => {
     issuanceToken.toLowerCase() === 'cgi' &&
     cgiApproval.isApproving
 
-  const indexApprovalRequired =
-    !isUserIssuing &&
-    issuanceToken.toLowerCase() === 'index' &&
-    !indexApproval.isApproved
-  const indexApproving =
-    !isUserIssuing &&
-    issuanceToken.toLowerCase() === 'index' &&
-    indexApproval.isApproving
-
   const daiApprovalRequired =
     isUserIssuing && selectedCurrency?.id === 'mcd' && !daiApproval.isApproved
   const daiApproving =
@@ -84,13 +73,7 @@ const IssueRedeemButton: React.FC = () => {
   if (loginRequiredBeforeSubmit) {
     buttonText = 'Login'
     buttonAction = onOpenWalletModal
-  } else if (
-    dpiApproving ||
-    indexApproving ||
-    daiApproving ||
-    cgiApproving ||
-    usdcApproving
-  ) {
+  } else if (dpiApproving || daiApproving || cgiApproving || usdcApproving) {
     buttonText = 'Approving'
     buttonAction = () => {}
   } else if (dpiApprovalRequired) {
@@ -99,9 +82,6 @@ const IssueRedeemButton: React.FC = () => {
   } else if (cgiApprovalRequired) {
     buttonText = 'Approve CGI'
     buttonAction = cgiApproval.onApprove
-  } else if (indexApprovalRequired) {
-    buttonText = 'Approve INDEX'
-    buttonAction = indexApproval.onApprove
   } else if (daiApprovalRequired) {
     buttonText = 'Approve DAI'
     buttonAction = daiApproval.onApprove

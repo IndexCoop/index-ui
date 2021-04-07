@@ -90,9 +90,9 @@ const TokenInputs: React.FC = () => {
         >
           <StyledCurrencyLabelWrapper>
             <StyledCurrencyLabel>Pay with</StyledCurrencyLabel>
-            <StyledCurrencyLabel>
-              {issuanceData?.display?.input_value_usd}
-            </StyledCurrencyLabel>
+            {/* <StyledCurrencyLabel>
+              {issuanceData?.input_value_usd}
+            </StyledCurrencyLabel> */}
           </StyledCurrencyLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
@@ -122,9 +122,9 @@ const TokenInputs: React.FC = () => {
         >
           <StyledTokenLabelWrapper>
             <StyledCurrencyLabel>Issue (estimated)</StyledCurrencyLabel>
-            <StyledCurrencyLabel>
+            {/* <StyledCurrencyLabel>
               {issuanceData?.display?.output_value_usd}
-            </StyledCurrencyLabel>
+            </StyledCurrencyLabel> */}
           </StyledTokenLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
@@ -154,9 +154,9 @@ const TokenInputs: React.FC = () => {
       >
         <StyledTokenLabelWrapper>
           <StyledCurrencyLabel>Redeem</StyledCurrencyLabel>
-          <StyledCurrencyLabel>
+          {/* <StyledCurrencyLabel>
             {issuanceData?.display?.input_value_usd}
-          </StyledCurrencyLabel>
+          </StyledCurrencyLabel> */}
         </StyledTokenLabelWrapper>
         <StyledCurrencySelectWrapper>
           <StyledInputField
@@ -180,9 +180,9 @@ const TokenInputs: React.FC = () => {
       <StyledCurrencyContainer>
         <StyledCurrencyLabelWrapper>
           <StyledCurrencyLabel>Receive (estimated)</StyledCurrencyLabel>
-          <StyledCurrencyLabel>
+          {/* <StyledCurrencyLabel>
             {issuanceData?.display?.output_value_usd}
-          </StyledCurrencyLabel>
+          </StyledCurrencyLabel> */}
         </StyledCurrencyLabelWrapper>
 
         <StyledCurrencySelectWrapper>

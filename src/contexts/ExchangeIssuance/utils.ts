@@ -3,7 +3,6 @@ import { IssuancePriceData } from './types'
 import {
   dpiTokenAddress,
   cgiTokenAddress,
-  indexTokenAddress,
 } from 'constants/ethContractAddresses'
 
 export const getIssuanceTradeType = (
@@ -14,20 +13,23 @@ export const getIssuanceTradeType = (
   if (isUserIssuing) {
     if (
       selectedCurrency !== 'wrapped_eth' &&
-      IssuanceData.trade_type === 'exact_out'
+      IssuanceData.tradeType === 'exactOut'
     )
       return IssuanceTradeType.ISSUE_EXACT_SET_FROM_TOKEN
     else if (
       selectedCurrency !== 'wrapped_eth' &&
-      IssuanceData.trade_type === 'exact_in'
-    )
+      IssuanceData.tradeType === 'exactIn'
+    ) {
       return IssuanceTradeType.ISSUE_SET_FOR_EXACT_TOKEN
-    else if (IssuanceData.trade_type === 'exact_out')
+    } else if (IssuanceData.tradeType === 'exactOut') {
       return IssuanceTradeType.ISSUE_EXACT_SET_FROM_ETH
+    }
     return IssuanceTradeType.ISSUE_SET_FOR_EXACT_ETH
-  } else if (selectedCurrency !== 'wrapped_eth')
+  } else if (selectedCurrency !== 'wrapped_eth') {
     return IssuanceTradeType.REDEEM_EXACT_SET_FOR_TOKEN
-  else return IssuanceTradeType.REDEEM_EXACT_SET_FOR_ETH
+  } else {
+    return IssuanceTradeType.REDEEM_EXACT_SET_FOR_ETH
+  }
 }
 
 export const getIssuanceCallData = (
@@ -36,26 +38,25 @@ export const getIssuanceCallData = (
   currencyTokenAddress: string,
   setToken: string
 ) => {
-  const { amount_in, amount_out } = IssuanceData
+  const { amountIn, amountOut } = IssuanceData
 
   let setTokenAddress
   if (setToken === 'dpi') setTokenAddress = dpiTokenAddress
   else if (setToken === 'cgi') setTokenAddress = cgiTokenAddress
-  else if (setToken === 'index') setTokenAddress = indexTokenAddress
 
   switch (tradeType) {
     case IssuanceTradeType.ISSUE_EXACT_SET_FROM_TOKEN:
     case IssuanceTradeType.ISSUE_SET_FOR_EXACT_TOKEN:
     case IssuanceTradeType.REDEEM_EXACT_SET_FOR_TOKEN:
-      return [setTokenAddress, currencyTokenAddress, amount_in, amount_out]
+      return [setTokenAddress, currencyTokenAddress, amountIn, amountOut]
     case IssuanceTradeType.REDEEM_EXACT_SET_FOR_ETH:
-      return [setTokenAddress, amount_in, amount_out]
+      return [setTokenAddress, amountIn, amountOut]
 
     // When paying with ETH, input amount should be included in msg.value
     case IssuanceTradeType.ISSUE_EXACT_SET_FROM_ETH:
-      return [setTokenAddress, amount_in]
+      return [setTokenAddress, amountIn]
     case IssuanceTradeType.ISSUE_SET_FOR_EXACT_ETH:
-      return [setTokenAddress, amount_out]
+      return [setTokenAddress, amountIn]
 
     default:
       return null
@@ -67,7 +68,7 @@ export const getIssuanceTransactionOptions = (
   IssuanceData: IssuancePriceData,
   userAddress: string
 ) => {
-  const { gas_price, amount_out } = IssuanceData
+  const { amountIn, amountOut } = IssuanceData
 
   switch (tradeType) {
     case IssuanceTradeType.ISSUE_EXACT_SET_FROM_TOKEN:
@@ -76,16 +77,18 @@ export const getIssuanceTransactionOptions = (
     case IssuanceTradeType.REDEEM_EXACT_SET_FOR_ETH:
       return {
         from: userAddress,
-        gasPrice: gas_price,
       }
 
     // When paying with ETH, input amount should be included in msg.value
     case IssuanceTradeType.ISSUE_EXACT_SET_FROM_ETH:
+      return {
+        from: userAddress,
+        value: amountOut,
+      }
     case IssuanceTradeType.ISSUE_SET_FOR_EXACT_ETH:
       return {
         from: userAddress,
-        gasPrice: gas_price,
-        value: amount_out,
+        value: amountIn,
       }
 
     default:
