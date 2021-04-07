@@ -50,13 +50,11 @@ const ProposalTable: React.FC = () => {
           const isExecuted = indexProposals[id]?.msg?.payload?.end < currentTime
 
           if (
-            searchTerm &&
-            !indexProposals[id].msg.payload.name
+            !searchTerm ||
+            indexProposals[id].msg.payload.name
               .toUpperCase()
               .includes(searchTerm.toUpperCase())
           ) {
-            return
-          } else {
             return (
               <>
                 <StyledColumnRow>
