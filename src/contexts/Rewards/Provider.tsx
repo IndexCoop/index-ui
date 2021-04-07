@@ -20,11 +20,13 @@ import {
   december2020RewardsAddress,
   january2021RewardsAddress,
   february2021RewardsAddress,
+  march2021RewardsAddress,
 } from 'constants/ethContractAddresses'
 import november2020MerkleData from 'index-sdk/merkleData/november2020Rewards.json'
 import december2020MerkleData from 'index-sdk/merkleData/december2020Rewards.json'
 import january2021MerkleData from 'index-sdk/merkleData/january2021Rewards.json'
 import february2021MerkleData from 'index-sdk/merkleData/february2021Rewards.json'
+import march2021MerkleData from 'index-sdk/merkleData/march2021Rewards.json'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -50,6 +52,11 @@ const Provider: React.FC = ({ children }) => {
 
   useEffect(() => {
     switch (month) {
+      case 'March 2021': {
+        setRewardsAddress(march2021RewardsAddress!)
+        setMerkleData(march2021MerkleData)
+        break
+      }
       case 'February 2021': {
         setRewardsAddress(february2021RewardsAddress!)
         setMerkleData(february2021MerkleData)
