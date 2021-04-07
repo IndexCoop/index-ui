@@ -15,6 +15,7 @@ import { AirdropProvider } from 'contexts/Airdrop'
 import { ExternalAirdropProvider } from 'contexts/ExternalAirdrop'
 import { FarmingProvider } from 'contexts/Farming'
 import { FarmingTwoProvider } from 'contexts/FarmingTwo'
+import { MviStakingRewardsProvider } from 'contexts/MviStakingRewards'
 import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
 import { BuySellProvider } from 'contexts/BuySell'
@@ -24,6 +25,8 @@ import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
 import { CgiTokenMarketDataProvider } from 'contexts/CgiTokenMarketData'
 import { CgiIndexComponentsProvider } from 'contexts/CgiIndexComponents'
+import { MviTokenMarketDataProvider } from 'contexts/MviTokenMarketData'
+import { MviComponentsProvider } from 'contexts/MviComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { SnapshotProposalsProvider } from 'contexts/SnapshotProposals'
 import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
@@ -36,6 +39,7 @@ import Home from 'views/Home'
 import DPI from 'views/DPI'
 import FLI from 'views/FLI'
 import CGI from 'views/CGI'
+import MVI from 'views/MVI'
 import INDEX from 'views/INDEX'
 import Vote from 'views/Vote'
 import News from 'views/News'
@@ -73,6 +77,9 @@ const App: React.FC = () => {
             <Route exact path='/dpi'>
               <DPI title={'Index - DPI'} />
             </Route>
+            <Route exact path='/mvi'>
+              <MVI title={'Index - MVI'} />
+            </Route>
             <Route exact path='/fli'>
               <FLI title={'Index - FLI'} />
             </Route>
@@ -88,8 +95,8 @@ const App: React.FC = () => {
             <Route exact path='/about'>
               <About title={'Index - About'} />
             </Route>
-            <Route exact path='/farm'>
-              <Farm title={'Index - Farm'} />
+            <Route exact path='/liquidity-mining'>
+              <Farm title={'Index - Liquidity Mining'} />
             </Route>
             <Route exact path='/rewards'>
               <ContributorRewards title={'Index - Rewards'} />
@@ -129,27 +136,33 @@ const Providers: React.FC = ({ children }) => {
                     <BalancesProvider>
                       <FarmingProvider>
                         <FarmingTwoProvider>
-                          <PricesProvider>
-                            <BuySellProvider>
-                              <FliTokenMarketDataProvider>
-                                <FliIndexPortfolioDataProvider>
-                                  <DpiTokenMarketDataProvider>
-                                    <DpiIndexComponentsProvider>
-                                      <CgiTokenMarketDataProvider>
-                                        <CgiIndexComponentsProvider>
-                                          <IndexTokenMarketDataProvider>
-                                            <SnapshotProposalsProvider>
-                                              {children}
-                                            </SnapshotProposalsProvider>
-                                          </IndexTokenMarketDataProvider>
-                                        </CgiIndexComponentsProvider>
-                                      </CgiTokenMarketDataProvider>
-                                    </DpiIndexComponentsProvider>
-                                  </DpiTokenMarketDataProvider>
-                                </FliIndexPortfolioDataProvider>
-                              </FliTokenMarketDataProvider>
-                            </BuySellProvider>
-                          </PricesProvider>
+                          <MviStakingRewardsProvider>
+                            <PricesProvider>
+                              <BuySellProvider>
+                                <FliTokenMarketDataProvider>
+                                  <FliIndexPortfolioDataProvider>
+                                    <DpiTokenMarketDataProvider>
+                                      <DpiIndexComponentsProvider>
+                                        <CgiTokenMarketDataProvider>
+                                          <CgiIndexComponentsProvider>
+                                            <MviTokenMarketDataProvider>
+                                              <MviComponentsProvider>
+                                                <IndexTokenMarketDataProvider>
+                                                  <SnapshotProposalsProvider>
+                                                    {children}
+                                                  </SnapshotProposalsProvider>
+                                                </IndexTokenMarketDataProvider>
+                                              </MviComponentsProvider>
+                                            </MviTokenMarketDataProvider>
+                                          </CgiIndexComponentsProvider>
+                                        </CgiTokenMarketDataProvider>
+                                      </DpiIndexComponentsProvider>
+                                    </DpiTokenMarketDataProvider>
+                                  </FliIndexPortfolioDataProvider>
+                                </FliTokenMarketDataProvider>
+                              </BuySellProvider>
+                            </PricesProvider>
+                          </MviStakingRewardsProvider>
                         </FarmingTwoProvider>
                       </FarmingProvider>
                     </BalancesProvider>

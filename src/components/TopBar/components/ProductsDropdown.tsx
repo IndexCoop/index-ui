@@ -80,16 +80,20 @@ const ProductsDropdown: React.FC = () => {
           label: 'DeFi Pulse Index',
         },
         {
+          value: 'mvi',
+          label: 'Metaverse Index',
+        },
+        {
           value: 'cgi',
           label: 'CoinShares Crypto Gold Index',
         },
         {
-          value: 'index',
-          label: 'Index Coop Token',
-        },
-        {
           value: 'fli',
           label: 'ETH 2x Flexible Leverage Index',
+        },
+        {
+          value: 'index',
+          label: 'Index Coop Token',
         },
       ]}
       components={{
