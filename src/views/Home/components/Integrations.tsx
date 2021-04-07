@@ -155,7 +155,10 @@ const Integrations: React.FC = () => (
                 Options on the DeFi Pulse Index.
               </StyledCardDescription>
 
-              <StyledOutboundLink href='https://opyn.co/#/buy' target='_blank'>
+              <StyledOutboundLink
+                href='https://www.opyn.co/#/trade'
+                target='_blank'
+              >
                 View Prices
               </StyledOutboundLink>
             </StyledCardContent>
