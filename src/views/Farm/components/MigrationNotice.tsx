@@ -1,7 +1,6 @@
 import React from 'react'
 import { Notice, NoticeContent, NoticeIcon, Spacer } from 'react-neu'
 import styled from 'styled-components'
-import ExternalLink from 'components/ExternalLink'
 
 const MigrationNotice: React.FC = () => (
   <>
@@ -14,8 +13,6 @@ const MigrationNotice: React.FC = () => (
       <NoticeContent>
         <StyledNoticeContentInner>
           Metaverse Index Liquidity Mining Rewards go live April 8th, 12pm PST.
-          {/* TODO add link to announcement */}
-          <ExternalLink href=''>Learn more here. </ExternalLink>
         </StyledNoticeContentInner>
       </NoticeContent>
     </Notice>
