@@ -3,7 +3,6 @@ import BigNumber from 'utils/bignumber'
 import { useQuery } from '@apollo/react-hooks'
 
 import PricesContext from './PricesContext'
-import useMviStakingRewards from 'hooks/useMviStakingRewards'
 
 import { DPI_ETH_UNISWAP_QUERY, ETH_MVI_UNISWAP_QUERY } from 'utils/graphql'
 import { indexTokenAddress } from 'constants/ethContractAddresses'
@@ -17,8 +16,6 @@ const PricesProvider: React.FC = ({ children }) => {
   const [apy] = useState<string>('0.00')
   const [farmTwoApy, setFarmTwoApy] = useState<string>('0.00')
   const [mviRewardsApy, setMviRewardsApy] = useState<string>('0.00')
-
-  const { isPoolActive: isMviPoolActive } = useMviStakingRewards()
 
   const {
     loading: ethDpiDataIsLoading,
@@ -84,7 +81,7 @@ const PricesProvider: React.FC = ({ children }) => {
   }, [usdInEthDpiPool, indexPrice])
 
   useEffect(() => {
-    if (!indexPrice || !usdInEthMviPool || !isMviPoolActive) return
+    if (!indexPrice || !usdInEthMviPool) return
 
     const totalTokenEmissionsPerDay = 127
     const totalUSDEmissionPerDay =
