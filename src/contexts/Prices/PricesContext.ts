@@ -6,6 +6,7 @@ interface PricesContextValues {
   totalUSDInFarms?: number
   apy?: string
   farmTwoApy?: string
+  mviRewardsApy?: string
 }
 
 const PricesContext = createContext<PricesContextValues>({})

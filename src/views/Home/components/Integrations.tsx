@@ -20,7 +20,7 @@ const Integrations: React.FC = () => (
                 Earn INDEX tokens by staking Uniswap ETH/DPI LP tokens.
               </StyledCardDescription>
 
-              <StyledOutboundLink href='/farm'>
+              <StyledOutboundLink href='/liquidity-mining'>
                 View the Pool
               </StyledOutboundLink>
             </StyledCardContent>

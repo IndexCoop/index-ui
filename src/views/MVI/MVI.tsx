@@ -22,7 +22,7 @@ const MviProductPage = (props: { title: string }) => {
     document.title = props.title
   }, [props.title])
 
-  const { prices, latestPrice } = useMviTokenMarketData()
+  const { latestPrice } = useMviTokenMarketData()
   const { components } = useMviComponents()
   const { mviBalance } = useBalances()
 
@@ -39,7 +39,6 @@ const MviProductPage = (props: { title: string }) => {
             latestPrice={latestPrice}
             currentBalance={mviBalance}
           />
-          <PriceChanges prices={prices} />
           <IndexComponentsTable components={components} />
           <Description>
             <p>

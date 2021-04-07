@@ -20,14 +20,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink
             exact
             activeClassName='active'
-            to='/farm'
-            onClick={onDismiss}
-          >
-            Farm
-          </StyledLink>
-          <StyledLink
-            exact
-            activeClassName='active'
             to='/dpi'
             onClick={onDismiss}
           >
@@ -80,6 +72,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
             onClick={onDismiss}
           >
             Vote
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/liquidity-mining'
+            onClick={onDismiss}
+          >
+            Liquidity Mining
           </StyledLink>
           <StyledLink
             exact
