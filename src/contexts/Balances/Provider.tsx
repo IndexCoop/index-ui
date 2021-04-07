@@ -56,7 +56,7 @@ const Provider: React.FC = ({ children }) => {
     BigNumber
   >()
 
-  // Current DPI LM Program
+  // Current MVI LM Program
   const [
     stakedUniswapEthMviLpBalance,
     setStakedUniswapEthMviLpBalance,
