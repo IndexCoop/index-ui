@@ -95,11 +95,16 @@ const IssueRedeemButton: React.FC = () => {
     buttonText = 'Redeem'
     buttonAction = onExecuteIssuance
   }
+  const isApprovalRequired =
+    dpiApprovalRequired ||
+    cgiApprovalRequired ||
+    daiApprovalRequired ||
+    usdcApprovalRequired
 
   return (
     <RoundedButton
       buttonClassName={issuanceToken}
-      isDisabled={!currencyQuantity || !tokenQuantity}
+      isDisabled={!isApprovalRequired && (!currencyQuantity || !tokenQuantity)}
       isPending={isFetchingOrderData}
       text={buttonText}
       onClick={buttonAction}

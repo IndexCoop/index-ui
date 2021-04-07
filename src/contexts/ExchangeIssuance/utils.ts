@@ -4,6 +4,7 @@ import {
   dpiTokenAddress,
   cgiTokenAddress,
 } from 'constants/ethContractAddresses'
+import BigNumber from 'utils/bignumber'
 
 export const getIssuanceTradeType = (
   isUserIssuing: boolean,
@@ -48,9 +49,18 @@ export const getIssuanceCallData = (
     case IssuanceTradeType.ISSUE_EXACT_SET_FROM_TOKEN:
     case IssuanceTradeType.ISSUE_SET_FOR_EXACT_TOKEN:
     case IssuanceTradeType.REDEEM_EXACT_SET_FOR_TOKEN:
-      return [setTokenAddress, currencyTokenAddress, amountIn, amountOut]
+      return [
+        setTokenAddress,
+        currencyTokenAddress,
+        amountIn,
+        new BigNumber(amountOut).dividedBy(new BigNumber(2)).toFixed(0),
+      ]
     case IssuanceTradeType.REDEEM_EXACT_SET_FOR_ETH:
-      return [setTokenAddress, amountIn, amountOut]
+      return [
+        setTokenAddress,
+        amountIn,
+        new BigNumber(amountOut).dividedBy(new BigNumber(2)).toFixed(0),
+      ]
 
     // When paying with ETH, input amount should be included in msg.value
     case IssuanceTradeType.ISSUE_EXACT_SET_FROM_ETH:

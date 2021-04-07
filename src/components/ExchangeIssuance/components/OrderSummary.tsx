@@ -14,7 +14,7 @@ const OrderSummary: React.FC = () => {
       <StyledOrderSummaryContainer>
         <StyledOrderSummaryLabel>Minimum Receive</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
-          {issuanceData?.amountOut}
+          {issuanceData?.amountOutConverted}
         </StyledOrderSummaryValue>
 
         {/* <StyledOrderSummaryLabel>Price Impact</StyledOrderSummaryLabel>
@@ -26,9 +26,6 @@ const OrderSummary: React.FC = () => {
         <StyledOrderSummaryValue>
           {issuanceData?.gasCost}
         </StyledOrderSummaryValue>
-
-        {/* <StyledOrderSummaryLabel>Offered From</StyledOrderSummaryLabel>
-        <StyledOrderSummaryValue>Uniswap</StyledOrderSummaryValue> */}
       </StyledOrderSummaryContainer>
     )
   }

@@ -97,14 +97,17 @@ const ExchangeIssuanceProvider: React.FC = ({ children }) => {
       activeField
     )
       .then(async (output_amount) => {
+        let decimal = 18
+        if (selectedCurrency?.id === 'usdc') decimal = 6
         console.log('estimate return', output_amount)
         setIsFetchingOrderData(false)
-        const dec = bnToDec(new BigNumber(output_amount)).toString()
+        const dec = bnToDec(new BigNumber(output_amount), decimal).toString()
         let issuanceData: any = {}
         if (activeField === 'currency') issuanceData.trade_type = 'exact_in'
         else issuanceData.trade_type = 'exact_out'
         issuanceData.amountIn = decToBn(targetTradeQuantity)
         issuanceData.amountOut = output_amount
+        issuanceData.amountOutConverted = dec
 
         const issuanceTradeType = getIssuanceTradeType(
           isUserIssuing,
