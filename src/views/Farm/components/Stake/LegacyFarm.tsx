@@ -138,19 +138,19 @@ const Stake: React.FC = () => {
                 <StyledFarmText>0.00% APY</StyledFarmText>
                 <StyledSectionLabel>(Volatile)</StyledSectionLabel>
               </div>
-            </Split>
-            <Spacer />
-          </StyledFarmTokensAndApyWrapper>
 
-          <StyledFarmText>
-            {formattedEarnedBalance}
-            <StyledTokenIcon
-              alt='owl icon'
-              src='https://index-dao.s3.amazonaws.com/owl.png'
-            />
-          </StyledFarmText>
-          <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
-          <Spacer />
+              <div>
+                <StyledFarmText>
+                  {formattedEarnedBalance}
+                  <StyledTokenIcon
+                    alt='owl icon'
+                    src='https://index-dao.s3.amazonaws.com/owl.png'
+                  />
+                </StyledFarmText>
+                <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
+              </div>
+            </Split>
+          </StyledFarmTokensAndApyWrapper>
         </CardContent>
         <CardActions>{UnstakeButton}</CardActions>
       </Card>

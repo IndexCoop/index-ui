@@ -1,10 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import numeral from 'numeral'
-import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
+import { Button, Card, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import useBalances from 'hooks/useBalances'
 import useFarmingTwo from 'hooks/useFarmingTwo'
+import useMediaQuery from 'hooks/useMediaQuery'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
@@ -28,6 +29,7 @@ const Stake: React.FC = () => {
     onHarvest,
   } = useFarmingTwo()
   const { farmTwoApy } = usePrices()
+  const { isMobile } = useMediaQuery()
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
@@ -146,25 +148,27 @@ const Stake: React.FC = () => {
                 <StyledFarmText>{farmTwoApy}% APY</StyledFarmText>
                 <StyledSectionLabel>(Volatile)</StyledSectionLabel>
               </div>
-            </Split>
-            <Spacer />
-          </StyledFarmTokensAndApyWrapper>
 
-          <StyledFarmText>
-            {formattedEarnedBalance}
-            <StyledTokenIcon
-              alt='owl icon'
-              src='https://index-dao.s3.amazonaws.com/owl.png'
-            />
-          </StyledFarmText>
-          <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
-          <Spacer />
+              <div>
+                <StyledFarmText>
+                  {formattedEarnedBalance}
+                  <StyledTokenIcon
+                    alt='owl icon'
+                    src='https://index-dao.s3.amazonaws.com/owl.png'
+                  />
+                </StyledFarmText>
+                <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
+              </div>
+            </Split>
+          </StyledFarmTokensAndApyWrapper>
         </CardContent>
-        <CardActions>
+        <StyledCardActions isMobile={isMobile}>
           {ClaimButton}
+          <Spacer />
           {StakeButton}
-        </CardActions>
-        <CardActions>{UnstakeButton}</CardActions>
+          <Spacer />
+          {UnstakeButton}
+        </StyledCardActions>
       </Card>
       <DpiStakeModal
         isOpen={stakeModalIsOpen}
@@ -227,6 +231,17 @@ const StyledFarmText = styled.span`
 const StyledSectionLabel = styled.span`
   color: ${(props) => props.theme.colors.grey[500]};
   font-size: 16px;
+`
+
+interface StyledCardActionProps {
+  isMobile: boolean
+}
+
+const StyledCardActions = styled.div<StyledCardActionProps>`
+  display: flex;
+  flex-wrap: ${(props) => (props.isMobile ? 'wrap' : 'no-wrap')};
+  padding: 30px;
+  padding-top: 0px;
 `
 
 export default Stake

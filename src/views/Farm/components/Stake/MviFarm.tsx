@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import numeral from 'numeral'
-import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
+import { Button, Card, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import useBalances from 'hooks/useBalances'
@@ -253,6 +253,7 @@ const StyledCardActions = styled.div<StyledCardActionProps>`
   display: flex;
   flex-wrap: ${(props) => (props.isMobile ? 'wrap' : 'no-wrap')};
   padding: 30px;
+  padding-top: 0px;
 `
 
 export default Stake
