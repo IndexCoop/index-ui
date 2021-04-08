@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import MarketDataContext from './MviTokenMarketDataContext'
-import { tokensetsMviId } from 'constants/tokensetsIds'
-import { fetchHistoricalTokenMarketData } from 'utils/tokensetsApi'
+import { coingeckoMviId } from 'constants/coingeckoIds'
+import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
 
 const MviMarketDataProvider: React.FC = ({ children }) => {
   const [mviMarketData, setMviMarketData] = useState<any>({})
 
   useEffect(() => {
-    fetchHistoricalTokenMarketData(tokensetsMviId)
+    const endTime = Date.now() / 1000
+    const startTime = endTime - 86400 * 30 // 30 days
+
+    fetchHistoricalTokenMarketData(coingeckoMviId, startTime, endTime)
       .then((response: any) => {
         setMviMarketData(response)
       })
@@ -22,6 +25,8 @@ const MviMarketDataProvider: React.FC = ({ children }) => {
       value={{
         ...mviMarketData,
         latestPrice: selectLatestMarketData(mviMarketData?.prices),
+        latestMarketCap: selectLatestMarketData(mviMarketData?.marketcaps),
+        latestVolume: selectLatestMarketData(mviMarketData?.volumes),
       }}
     >
       {children}
