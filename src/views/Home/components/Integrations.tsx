@@ -1,6 +1,7 @@
 import React from 'react'
 import { Surface, Spacer } from 'react-neu'
 import styled from 'styled-components'
+import sushiSwapLogo from 'assets/sushiswap-logo.png'
 
 const Integrations: React.FC = () => (
   <div>
@@ -275,6 +276,35 @@ const Integrations: React.FC = () => (
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
+      </StyledCardRow>
+
+      <StyledCardRow>
+        <StyledCardContainer>
+          <Surface fill>
+            <StyledCardContent>
+              <StyledCardIcon src={sushiSwapLogo} />
+              <StyledCardTitle>SushiSwap</StyledCardTitle>
+              <StyledCardDescription>
+                Trade DeFi Pulse Index and the Index Coop governance token on
+                one of crypto's leading DEXs.
+              </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://app.sushi.com/token/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
+                target='_blank'
+              >
+                Trade DeFi Pulse Index
+              </StyledOutboundLink>
+
+              <StyledOutboundLink
+                href='https://app.sushi.com/token/0x0954906da0bf32d5479e25f46056d22f08464cab'
+                target='_blank'
+              >
+                Trade INDEX
+              </StyledOutboundLink>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
 
         <Spacer />
 
@@ -284,7 +314,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/balancer.png' />
               <StyledCardTitle>Balancer</StyledCardTitle>
               <StyledCardDescription>
-                Trade the DeFi Pulse Index on multiple Balancer pools.
+                Trade the DeFi Pulse Index and the Index Coop governance token
+                on multiple Balancer pools.
               </StyledCardDescription>
 
               <StyledOutboundLink
@@ -292,6 +323,13 @@ const Integrations: React.FC = () => (
                 target='_blank'
               >
                 Trade DeFi Pulse Index
+              </StyledOutboundLink>
+
+              <StyledOutboundLink
+                href='https://pools.balancer.exchange/#/explore?token=0x0954906da0Bf32d5479e25f46056d22f08464cab'
+                target='_blank'
+              >
+                Trade INDEX
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
@@ -338,9 +376,9 @@ const Integrations: React.FC = () => (
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
+      </StyledCardRow>
 
-        <Spacer />
-
+      <StyledCardRow>
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
@@ -359,9 +397,9 @@ const Integrations: React.FC = () => (
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
-      </StyledCardRow>
 
-      <StyledCardRow>
+        <Spacer />
+
         <StyledCardContainer>
           <Surface fill>
             <StyledCardContent>
@@ -380,10 +418,6 @@ const Integrations: React.FC = () => (
             </StyledCardContent>
           </Surface>
         </StyledCardContainer>
-        <Spacer />
-        <StyledCardContainer></StyledCardContainer>
-        <Spacer />
-        <StyledCardContainer></StyledCardContainer>
       </StyledCardRow>
     </StyledIntegrationsContainer>
   </div>
