@@ -15,8 +15,6 @@ const MediaQueryProvider: React.FC = ({ children }) => {
     setDeviceWidth(window.innerWidth)
     setDeviceHeight(window.innerHeight)
 
-    console.log('width is', window.innerWidth)
-
     if (window.innerWidth < 500) {
       setIsMobile(true)
     } else {

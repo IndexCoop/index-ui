@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import MviIndexComponentsContext from './MviComponentsContext'
-import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
+import { fetchSetComponents } from 'utils/tokensetsApi'
 
 const MviIndexComponentsProvider: React.FC = ({ children }) => {
   const [mviIndexComponents, setMviIndexComponents] = useState<any>([])
 
   useEffect(() => {
-    fetchSetComponentsBeta('mvi')
+    fetchSetComponents('mvi')
       .then((res) => {
         setMviIndexComponents(res)
       })
@@ -14,7 +14,9 @@ const MviIndexComponentsProvider: React.FC = ({ children }) => {
   }, [])
 
   return (
-    <MviIndexComponentsContext.Provider value={mviIndexComponents}>
+    <MviIndexComponentsContext.Provider
+      value={{ components: mviIndexComponents }}
+    >
       {children}
     </MviIndexComponentsContext.Provider>
   )
