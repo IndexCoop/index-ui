@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import DpiIndexComponentsContext from './CgiIndexComponentsContext'
-import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
+import { fetchSetComponents } from 'utils/tokensetsApi'
 
 const CgiIndexComponentsProvider: React.FC = ({ children }) => {
   const [cgiIndexComponents, setCgiIndexComponents] = useState<any>([])
 
   useEffect(() => {
-    fetchSetComponentsBeta('cgi')
+    fetchSetComponents('cgi')
       .then((res) => {
         setCgiIndexComponents(res)
       })
@@ -14,7 +14,9 @@ const CgiIndexComponentsProvider: React.FC = ({ children }) => {
   }, [])
 
   return (
-    <DpiIndexComponentsContext.Provider value={cgiIndexComponents}>
+    <DpiIndexComponentsContext.Provider
+      value={{ components: cgiIndexComponents }}
+    >
       {children}
     </DpiIndexComponentsContext.Provider>
   )
