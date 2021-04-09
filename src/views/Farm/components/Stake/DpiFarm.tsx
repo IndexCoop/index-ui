@@ -163,9 +163,9 @@ const Stake: React.FC = () => {
           </StyledFarmTokensAndApyWrapper>
         </CardContent>
         <StyledCardActions isMobile={isMobile}>
-          {ClaimButton}
-          <Spacer />
           {StakeButton}
+          <Spacer />
+          {ClaimButton}
           <Spacer />
           {UnstakeButton}
         </StyledCardActions>
