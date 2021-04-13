@@ -23,7 +23,7 @@ const FliProductPage = (props: { title: string }) => {
     document.title = props.title
   }, [])
 
-  const { prices, latestPrice } = useFliTokenMarketData()
+  const { prices, dayPrices, latestPrice } = useFliTokenMarketData()
   const { components, symbol } = useFliIndexPortfolioData()
   const { fliBalance } = useBalances()
 
@@ -42,7 +42,7 @@ const FliProductPage = (props: { title: string }) => {
             latestPrice={latestPrice}
             currentBalance={fliBalance}
           />
-          <PriceChanges prices={prices} />
+          <PriceChanges prices={prices} oneDayPrices={dayPrices} />
           <IndexComponentsTable components={components} />
           <Description>
             <strong>The Ethereum Flexible Leverage Index</strong> lets you
