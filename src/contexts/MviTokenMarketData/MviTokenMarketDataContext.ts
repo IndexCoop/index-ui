@@ -2,6 +2,7 @@ import { createContext } from 'react'
 
 interface MviTokenMarketDataValues {
   prices?: number[][]
+  dayPrices?: number[][]
   marketcaps?: number[][]
   volumes?: number[][]
   latestPrice?: number

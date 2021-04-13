@@ -2,6 +2,7 @@ import { createContext } from 'react'
 
 interface IndexTokenMarketDataValues {
   prices?: number[][]
+  dayPrices?: number[][]
   marketcaps?: number[][]
   volumes?: number[][]
   latestPrice?: number

@@ -2,30 +2,28 @@ const baseURL = 'https://api.coingecko.com/api/v3'
 
 export const fetchHistoricalTokenMarketData = (
   id: string,
-  startTime: number | string,
-  endTime: number | string,
   baseCurrency = 'usd'
 ) => {
-  const startTimeUnix = new Date(startTime).valueOf();
-  const endTimeUnix = new Date(endTime).valueOf();
-  const coingeckoHistoricalTokenDataUrl = baseURL +
-    `/coins/${id}/market_chart/range` +
-    `?vs_currency=${baseCurrency}&from=${startTimeUnix}&to=${endTimeUnix}`
+  const coingeckoMaxTokenDataUrl =
+    baseURL +
+    `/coins/${id}/market_chart?vs_currency=${baseCurrency}&days=max&interval=daily`
+  const coingeckoTwoDayTokenDataUrl =
+    baseURL + `/coins/${id}/market_chart?vs_currency=${baseCurrency}&days=2`
 
-  return fetch(coingeckoHistoricalTokenDataUrl)
-    .then(response => response.json())
-    .then(response => {
-      /** @notes from API docs
-       * Minutely data will be used for duration within 1 day
-       * Hourly data will be used for duration between 1 day and 90 days
-       * Daily data will be used for duration above 90 days.
-      */
-      const {
-        prices,
-        market_caps: marketcaps,
-        total_volumes: volumes,
-      } = response
-      return { prices, marketcaps, volumes }
+  return Promise.all([
+    fetch(coingeckoMaxTokenDataUrl),
+    fetch(coingeckoTwoDayTokenDataUrl),
+  ])
+    .then((responses) =>
+      Promise.all(responses.map((response) => response.json()))
+    )
+    .then((data) => {
+      const prices = data[0].prices,
+        dayPrices = data[1].prices,
+        marketcaps = data[0].market_caps,
+        volumes = data[0].total_volumes
+
+      return { prices, dayPrices, marketcaps, volumes }
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error))
 }
