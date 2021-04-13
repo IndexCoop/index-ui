@@ -25,6 +25,7 @@ import TransakBuySellButton from 'components/TransakBuySellButton'
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
 import useLocalStorage from 'hooks/useLocalStorage'
+import { toast } from 'react-toastify'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -41,6 +42,23 @@ const DpiProductPage = (props: { title: string }) => {
   const { dpiBalance } = useBalances()
 
   const [, setReferral] = useLocalStorage('referral', '')
+
+  const toastMessage = (
+    <StyledToastContainer>
+      <StyledToastImage
+        alt='Defi Pulse Icon'
+        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
+      />
+      <StyledToastText>Buy DPI on Zerion, earn 5% cashback!</StyledToastText>
+    </StyledToastContainer>
+  )
+
+  useEffect(() => {
+    toast.success(toastMessage, {
+      position: 'bottom-right',
+      autoClose: false,
+    })
+  }, [])
 
   const history = useHistory()
   const params = new URLSearchParams(history.location.search)
@@ -225,6 +243,21 @@ const DpiProductPage = (props: { title: string }) => {
 const StyledDpiIndexCalculationImage = styled.img`
   margin-bottom: 20px;
   width: 100%;
+`
+
+const StyledToastContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+`
+
+const StyledToastText = styled.p`
+  font-size: 20px;
+`
+
+const StyledToastImage = styled.img`
+  margin-right: 20px;
 `
 
 export default DpiProductPage
