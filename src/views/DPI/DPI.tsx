@@ -20,12 +20,13 @@ import MarketData from './components/MarketData'
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 import useDpiIndexComponents from 'hooks/useDpiIndexComponents'
 import useBalances from 'hooks/useBalances'
+import usePromoToast from 'hooks/usePromoToast'
 
 import TransakBuySellButton from 'components/TransakBuySellButton'
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
 import useLocalStorage from 'hooks/useLocalStorage'
-import { toast } from 'react-toastify'
+import DpiZerionPromo from 'components/PromoToasts'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -41,24 +42,9 @@ const DpiProductPage = (props: { title: string }) => {
   const { components } = useDpiIndexComponents()
   const { dpiBalance } = useBalances()
 
+  usePromoToast(<DpiZerionPromo />)
+
   const [, setReferral] = useLocalStorage('referral', '')
-
-  const toastMessage = (
-    <StyledToastContainer>
-      <StyledToastImage
-        alt='Defi Pulse Icon'
-        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
-      />
-      <StyledToastText>Buy DPI on Zerion, earn 5% cashback!</StyledToastText>
-    </StyledToastContainer>
-  )
-
-  useEffect(() => {
-    toast.success(toastMessage, {
-      position: 'bottom-right',
-      autoClose: false,
-    })
-  }, [])
 
   const history = useHistory()
   const params = new URLSearchParams(history.location.search)
