@@ -42,7 +42,7 @@ const DpiProductPage = (props: { title: string }) => {
   const { components } = useDpiIndexComponents()
   const { dpiBalance } = useBalances()
 
-  usePromoToast(<DpiZerionPromo />)
+  usePromoToast(<DpiZerionPromo />, 'dpi-zerion-promo')
 
   const [, setReferral] = useLocalStorage('referral', '')
 
