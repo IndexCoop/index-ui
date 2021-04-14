@@ -7,9 +7,6 @@ const DpiMarketDataProvider: React.FC = ({ children }) => {
   const [dpiMarketData, setDpiMarketData] = useState<any>({})
 
   useEffect(() => {
-    const endTime = Date.now() / 1000
-    const startTime = endTime - 86400 * 30 // 30 days
-
     fetchHistoricalTokenMarketData(coingeckoDpiId)
       .then((response: any) => {
         setDpiMarketData(response)

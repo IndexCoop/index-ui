@@ -7,9 +7,6 @@ const FliMarketDataProvider: React.FC = ({ children }) => {
   const [fliMarketData, setFliMarketData] = useState<any>({})
 
   useEffect(() => {
-    const endTime = Date.now() / 1000
-    const startTime = endTime - 86400 * 30 // 30 days
-
     fetchHistoricalTokenMarketData(coingeckoFliId)
       .then((response: any) => {
         setFliMarketData(response)

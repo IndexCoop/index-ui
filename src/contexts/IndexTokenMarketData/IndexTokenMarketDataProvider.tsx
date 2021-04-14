@@ -7,9 +7,6 @@ const IndexMarketDataProvider: React.FC = ({ children }) => {
   const [indexMarketData, setIndexMarketData] = useState<any>({})
 
   useEffect(() => {
-    const endTime = Date.now() / 1000
-    const startTime = endTime - 86400 * 30 // 30 days
-
     fetchHistoricalTokenMarketData(coingeckoIndexId)
       .then((response: any) => {
         setIndexMarketData(response)
