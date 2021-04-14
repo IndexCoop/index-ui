@@ -6,6 +6,8 @@ const usePromoToast = (component: React.ReactElement) => {
     toast.success(component, {
       position: 'bottom-right',
       autoClose: false,
+      closeOnClick: false,
+      closeButton: true,
     })
   }, [])
 
