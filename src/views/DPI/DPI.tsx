@@ -231,19 +231,4 @@ const StyledDpiIndexCalculationImage = styled.img`
   width: 100%;
 `
 
-const StyledToastContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100px;
-`
-
-const StyledToastText = styled.p`
-  font-size: 20px;
-`
-
-const StyledToastImage = styled.img`
-  margin-right: 20px;
-`
-
 export default DpiProductPage

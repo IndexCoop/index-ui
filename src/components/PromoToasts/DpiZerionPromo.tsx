@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 interface ToastProps {
   closeToast?: () => void
@@ -33,7 +33,7 @@ const StyledToastContainer = styled.div`
 
 const StyledToastText = styled.a`
   font-size: 20px;
-  margin-right: 20px;
+  margin-right: 40px;
   text-decoration: none;
   color: ${(props) => props.theme.colors.grey[600]};
   &:hover {
@@ -49,7 +49,6 @@ const StyledToastImage = styled.img`
 const StyledCloseButton = styled.span`
   position: absolute;
   height: 20px;
-  top: 10px;
   right: 10px;
   color: ${(props) => props.theme.colors.grey[400]};
   font-size: 20px;
