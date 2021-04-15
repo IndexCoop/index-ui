@@ -24,7 +24,7 @@ const FliProductPage = (props: { title: string }) => {
   }, [])
 
   const { prices, latestPrice } = useFliTokenMarketData()
-  const { components, symbol } = useFliIndexPortfolioData()
+  const { components } = useFliIndexPortfolioData()
   const { fliBalance } = useBalances()
 
   return (
@@ -38,7 +38,7 @@ const FliProductPage = (props: { title: string }) => {
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
-            symbol={symbol}
+            symbol='ETH2x-FLI'
             latestPrice={latestPrice}
             currentBalance={fliBalance}
           />
