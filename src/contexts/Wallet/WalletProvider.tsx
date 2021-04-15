@@ -10,6 +10,7 @@ const WalletProvider: React.FC = ({ children }) => {
   const [isShowingWalletModal, setIsShowingWalletModal] = useState<boolean>(
     false
   )
+  const [isMetamaskConnected, setIsMetamaskConnected] = useState<boolean>(false)
   const { account, activate, active, deactivate } = useWeb3React()
 
   const reset = useCallback(() => {
@@ -30,6 +31,7 @@ const WalletProvider: React.FC = ({ children }) => {
         if (walletType === 'injected') {
           await activate(injected, undefined, true)
           setStatus('connected')
+          setIsMetamaskConnected(true)
         } else if (walletType === 'walletconnect') {
           await activate(walletconnect, undefined, true)
           setStatus('connected')
@@ -62,6 +64,7 @@ const WalletProvider: React.FC = ({ children }) => {
         ethereum,
         status,
         isShowingWalletModal,
+        isMetamaskConnected,
         connect,
         reset,
         onOpenWalletModal,
