@@ -37,7 +37,7 @@ const useApproval = (
       setIsApproved(result)
       setIsApproving(false)
     } catch (e) {
-      setIsApproved(false)
+      setIsApproving(false)
       return false
     }
   }, [
