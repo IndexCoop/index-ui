@@ -10,7 +10,7 @@ import useWallet from 'hooks/useWallet'
 import { useAddToMetamask } from 'hooks/useAddToMetamask'
 
 interface ProductWalletBalanceProps {
-  symbol: string
+  symbol: 'DPI' | 'MVI' | 'ETH2x-FLI' | 'CGI' | 'INDEX'
   latestPrice?: number
   currentBalance?: BigNumber | number
 }
