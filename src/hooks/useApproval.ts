@@ -53,7 +53,10 @@ const useApproval = (
   useEffect(() => {
     if (!!allowance?.toNumber()) {
       setIsApproved(true)
+      return
     }
+
+    setIsApproved(false)
   }, [allowance, setIsApproved])
 
   return {
