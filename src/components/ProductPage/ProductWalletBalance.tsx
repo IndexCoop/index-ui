@@ -1,12 +1,13 @@
 import React from 'react'
-import { Button } from 'react-neu'
 import styled from 'styled-components'
 import numeral from 'numeral'
 import BigNumber from 'bignumber.js'
 
 import { ProductPageSection } from './ProductPageLayouts'
-import { useAddToMetamask } from 'hooks/useAddToMetamask'
+import SimpleButton from 'components/SimpleButton'
+
 import useWallet from 'hooks/useWallet'
+import { useAddToMetamask } from 'hooks/useAddToMetamask'
 
 interface ProductWalletBalanceProps {
   symbol: string
@@ -24,27 +25,32 @@ const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
 
   return (
     <ProductPageSection title='My Assets'>
-      <div>
-        <StyledTokenValuation>
-          ${numeral(latestPrice * Number(currentBalance)).format('0.00a')}
-        </StyledTokenValuation>
-        <StyledTokenBalance>
-          {numeral(currentBalance).format('0.000a')} {symbol}
-        </StyledTokenBalance>
+      <StyledTokenWrapper>
+        <div>
+          <StyledTokenValuation>
+            ${numeral(latestPrice * Number(currentBalance)).format('0.00a')}
+          </StyledTokenValuation>
+          <StyledTokenBalance>
+            {numeral(currentBalance).format('0.000a')} {symbol}
+          </StyledTokenBalance>
+        </div>
         <AddToMetamask>
-          <Button
-            full
-            size={'sm'}
+          <SimpleButton
             text='Add to Metamask'
-            variant={'default'}
-            disabled={wallet.ethereum == undefined}
+            isDisabled={wallet.ethereum == undefined}
             onClick={() => handleAddToMetamask(symbol)}
           />
         </AddToMetamask>
-      </div>
+      </StyledTokenWrapper>
     </ProductPageSection>
   )
 }
+
+const StyledTokenWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`
 
 const StyledTokenValuation = styled.h3`
   display: inline-block;
