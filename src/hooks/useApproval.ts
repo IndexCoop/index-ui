@@ -1,11 +1,11 @@
 import { useCallback, useState, useEffect } from 'react'
-
 import { provider } from 'web3-core'
 
 import useWallet from 'hooks/useWallet'
-import { approve } from 'utils'
-
 import useAllowance from './useAllowance'
+
+import { approve } from 'utils'
+import { minimumRequiredApprovalQuantity } from 'constants/approvals'
 
 const useApproval = (
   tokenAddress?: string,
@@ -51,7 +51,7 @@ const useApproval = (
   ])
 
   useEffect(() => {
-    if (!!allowance?.toNumber()) {
+    if (allowance?.isGreaterThan(minimumRequiredApprovalQuantity)) {
       setIsApproved(true)
       return
     }
