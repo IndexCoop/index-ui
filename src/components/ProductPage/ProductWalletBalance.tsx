@@ -20,7 +20,7 @@ const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
   latestPrice = 0,
   currentBalance = 0,
 }) => {
-  const wallet = useWallet()
+  const { isMetamaskConnected } = useWallet()
   const handleAddToMetamask = useAddToMetamask()
 
   return (
@@ -34,13 +34,13 @@ const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
             {numeral(currentBalance).format('0.000a')} {symbol}
           </StyledTokenBalance>
         </div>
-        <AddToMetamask>
+        <div>
           <SimpleButton
             text='Add to Metamask'
-            isDisabled={wallet.ethereum == undefined}
+            isDisabled={!isMetamaskConnected}
             onClick={() => handleAddToMetamask(symbol)}
           />
-        </AddToMetamask>
+        </div>
       </StyledTokenWrapper>
     </ProductPageSection>
   )
@@ -62,11 +62,6 @@ const StyledTokenBalance = styled.div`
   display: inline-block;
   font-size: 16px;
   color: ${({ theme }) => theme.colors.grey[500]};
-`
-
-const AddToMetamask = styled.div`
-  display: inline-block;
-  float: right;
 `
 
 export default ProductWalletBalance
