@@ -8,14 +8,10 @@ import MarketData from './components/MarketData'
 import Integrations from './components/Integrations'
 import DpiZerionPromo from 'components/PromoToasts'
 
-import usePromoToast from 'hooks/usePromoToast'
-
 const Home = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
-
-  usePromoToast(<DpiZerionPromo />, 'dpi-zerion-promo')
 
   return (
     <Page>
