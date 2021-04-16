@@ -21,8 +21,10 @@ const ProductPriceChanges: React.FC<ProductPriceChangesProps> = ({
   ]
 
   const calculatePriceChange = (daysOfComparison: number) => {
-    if (daysOfComparison == 1) {
-      const startPrice = hourlyPrices ? hourlyPrices.slice(-24)[0][1] : 1
+    if (daysOfComparison <= 30) {
+      const startPrice = hourlyPrices
+        ? hourlyPrices.slice(-24 * daysOfComparison)[0][1]
+        : 1
       const hourlyPricesLength = hourlyPrices ? hourlyPrices.length - 1 : 0
       const latestPrice = hourlyPrices ? hourlyPrices[hourlyPricesLength][1] : 1
       return ((latestPrice - startPrice) / startPrice) * 100
