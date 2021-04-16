@@ -7,10 +7,7 @@ const CgiMarketDataProvider: React.FC = ({ children }) => {
   const [cgiMarketData, setCgiMarketData] = useState<any>({})
 
   useEffect(() => {
-    const endTime = Date.now() / 1000
-    const startTime = endTime - 86400 * 30 // 30 days
-
-    fetchHistoricalTokenMarketData(coingeckoCgiId, startTime, endTime)
+    fetchHistoricalTokenMarketData(coingeckoCgiId)
       .then((response: any) => {
         setCgiMarketData(response)
       })

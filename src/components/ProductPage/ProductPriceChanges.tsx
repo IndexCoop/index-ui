@@ -6,17 +6,13 @@ import { ProductPageSection } from './ProductPageLayouts'
 
 interface ProductPriceChangesProps {
   prices?: number[][]
+  hourlyPrices?: number[][]
 }
 
 const ProductPriceChanges: React.FC<ProductPriceChangesProps> = ({
   prices,
+  hourlyPrices,
 }) => {
-  const [startTime] = prices?.[0] || [0]
-  const [latestTime, latestPrice] = prices?.[prices.length - 1] || [0, 0]
-  // Coingecko API returns each item as hourly data if < 90 days and daily data > 90 days
-  // So if time between start and end time < 90 days, 1 day of data is 24 array items.
-  const ninetyDays = 7776000000
-  const dataCadenceFor24Hours = latestTime - startTime < ninetyDays ? 24 : 1
   const priceChangeIntervals = [
     ['1 Day', 1],
     ['1 Month', 30],
@@ -25,14 +21,19 @@ const ProductPriceChanges: React.FC<ProductPriceChangesProps> = ({
   ]
 
   const calculatePriceChange = (daysOfComparison: number) => {
-    if (!prices || prices.length < daysOfComparison * dataCadenceFor24Hours) {
-      return 0
+    if (daysOfComparison <= 30) {
+      const startPrice = hourlyPrices
+        ? hourlyPrices.slice(-24 * daysOfComparison)[0][1]
+        : 1
+      const hourlyPricesLength = hourlyPrices ? hourlyPrices.length - 1 : 0
+      const latestPrice = hourlyPrices ? hourlyPrices[hourlyPricesLength][1] : 1
+      return ((latestPrice - startPrice) / startPrice) * 100
+    } else if (prices && prices?.length > daysOfComparison) {
+      const startPrice = prices[prices.length - daysOfComparison][1]
+      const latestPrice = prices[prices.length - 1][1]
+      return ((latestPrice - startPrice) / startPrice) * 100
     }
-    const startPriceIndex =
-      prices.length - daysOfComparison * dataCadenceFor24Hours
-    const startPrice = prices[startPriceIndex][1]
-    const priceChange = ((latestPrice - startPrice) / startPrice) * 100
-    return priceChange
+    return 0
   }
 
   const renderAssetPriceChange = (priceChange: number) => {

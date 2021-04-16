@@ -23,7 +23,7 @@ const CgiProductPage = (props: { title: string }) => {
     document.title = props.title
   }, [props.title])
 
-  const { prices, latestPrice } = useCgiTokenMarketData()
+  const { prices, hourlyPrices, latestPrice } = useCgiTokenMarketData()
   const { components } = useCgiIndexComponents()
   const { cgiBalance } = useBalances()
 
@@ -40,7 +40,7 @@ const CgiProductPage = (props: { title: string }) => {
             latestPrice={latestPrice}
             currentBalance={cgiBalance}
           />
-          <PriceChanges prices={prices} />
+          <PriceChanges prices={prices} hourlyPrices={hourlyPrices} />
           <IndexComponentsTable components={components} />
           {/* <TokenStats
             latestPrice={latestPrice}

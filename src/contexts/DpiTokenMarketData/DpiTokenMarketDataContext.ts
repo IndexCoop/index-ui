@@ -2,6 +2,7 @@ import { createContext } from 'react'
 
 interface DpiTokenMarketDataValues {
   prices?: number[][]
+  hourlyPrices?: number[][]
   marketcaps?: number[][]
   volumes?: number[][]
   latestPrice?: number

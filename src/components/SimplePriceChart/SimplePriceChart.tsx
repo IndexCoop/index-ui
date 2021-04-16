@@ -19,6 +19,10 @@ interface SimplePriceChartProps {
     x: string | number
     y: number
   }[]
+  hourlyData?: {
+    x: string | number
+    y: number
+  }[]
   onMouseMove?: (...args: any[]) => any
   onMouseLeave?: (...args: any[]) => any
   setIsDaily?: (...args: any[]) => any
@@ -29,6 +33,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   showTooltip,
   icon,
   data,
+  hourlyData,
   onMouseMove = () => {},
   onMouseLeave = () => {},
   setIsDaily = () => {},
@@ -55,12 +60,13 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
 
   useEffect(() => {
     setTimeout(() => {
+      const hourlyDataInterval = 24
       if (durationSelector === 0) {
-        setPrice(data?.slice((data?.length * 29) / 30))
+        setPrice(hourlyData?.slice(-1 * hourlyDataInterval)) //last day, hourly
       } else if (durationSelector === 1) {
-        setPrice(data?.slice((data?.length * 23) / 30))
+        setPrice(hourlyData?.slice(-7 * hourlyDataInterval)) //last 7 days, hourly
       } else if (durationSelector === 2) {
-        setPrice(data)
+        setPrice(hourlyData?.slice(-30 * hourlyDataInterval)) //last 30 days, hourly
       }
     }, 0)
   }, [durationSelector, data])

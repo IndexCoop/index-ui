@@ -7,7 +7,7 @@ import SimplePriceChart from 'components/SimplePriceChart'
 import useCgiTokenMarketData from 'hooks/useCgiTokenMarketData'
 
 const MarketData: React.FC = () => {
-  const { latestPrice, prices } = useCgiTokenMarketData()
+  const { latestPrice, prices, hourlyPrices } = useCgiTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
   const [isDaily, setIsDaily] = useState<Boolean>(false)
@@ -85,6 +85,7 @@ const MarketData: React.FC = () => {
       <SimplePriceChart
         icon={cgiTokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
+        hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}
         setIsDaily={setIsDaily}

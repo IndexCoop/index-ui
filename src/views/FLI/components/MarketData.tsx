@@ -7,7 +7,7 @@ import SimplePriceChart from 'components/SimplePriceChart'
 import useFliTokenMarketData from 'hooks/useFliTokenMarketData'
 
 const MarketData: React.FC = () => {
-  const { latestPrice, prices } = useFliTokenMarketData()
+  const { latestPrice, prices, hourlyPrices } = useFliTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
   const [isDaily, setIsDaily] = useState<Boolean>(false)
@@ -85,6 +85,7 @@ const MarketData: React.FC = () => {
       <SimplePriceChart
         icon={fliTokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
+        hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}
         setIsDaily={setIsDaily}

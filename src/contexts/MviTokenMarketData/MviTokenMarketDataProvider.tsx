@@ -7,10 +7,7 @@ const MviMarketDataProvider: React.FC = ({ children }) => {
   const [mviMarketData, setMviMarketData] = useState<any>({})
 
   useEffect(() => {
-    const endTime = Date.now() / 1000
-    const startTime = endTime - 86400 * 30 // 30 days
-
-    fetchHistoricalTokenMarketData(coingeckoMviId, startTime, endTime)
+    fetchHistoricalTokenMarketData(coingeckoMviId)
       .then((response: any) => {
         setMviMarketData(response)
       })
