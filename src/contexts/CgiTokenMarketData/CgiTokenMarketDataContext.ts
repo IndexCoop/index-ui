@@ -2,7 +2,7 @@ import { createContext } from 'react'
 
 interface CgiTokenMarketDataValues {
   prices?: number[][]
-  dayPrices?: number[][]
+  hourlyPrices?: number[][]
   marketcaps?: number[][]
   volumes?: number[][]
   latestPrice?: number

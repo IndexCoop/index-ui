@@ -7,23 +7,23 @@ export const fetchHistoricalTokenMarketData = (
   const coingeckoMaxTokenDataUrl =
     baseURL +
     `/coins/${id}/market_chart?vs_currency=${baseCurrency}&days=max&interval=daily`
-  const coingeckoTwoDayTokenDataUrl =
-    baseURL + `/coins/${id}/market_chart?vs_currency=${baseCurrency}&days=2`
+  const coingeckoHourlyTokenDataUrl =
+    baseURL + `/coins/${id}/market_chart?vs_currency=${baseCurrency}&days=30`
 
   return Promise.all([
     fetch(coingeckoMaxTokenDataUrl),
-    fetch(coingeckoTwoDayTokenDataUrl),
+    fetch(coingeckoHourlyTokenDataUrl),
   ])
     .then((responses) =>
       Promise.all(responses.map((response) => response.json()))
     )
     .then((data) => {
       const prices = data[0].prices,
-        dayPrices = data[1].prices,
+        hourlyPrices = data[1].prices,
         marketcaps = data[0].market_caps,
         volumes = data[0].total_volumes
 
-      return { prices, dayPrices, marketcaps, volumes }
+      return { prices, hourlyPrices, marketcaps, volumes }
     })
     .catch((error) => console.log(error))
 }

@@ -8,7 +8,7 @@ import useFliTokenMarketData from 'hooks/useFliTokenMarketData'
 import useFliIndexPortfolioData from 'hooks/useFliIndexPortfolioData'
 
 const MarketData: React.FC = () => {
-  const { latestPrice, prices, dayPrices } = useFliTokenMarketData()
+  const { latestPrice, prices, hourlyPrices } = useFliTokenMarketData()
   const { symbol, name, image } = useFliIndexPortfolioData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
@@ -87,7 +87,7 @@ const MarketData: React.FC = () => {
       <SimplePriceChart
         icon={fliTokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
-        dayData={dayPrices?.map(([x, y]) => ({ x, y }))}
+        hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}
         setIsDaily={setIsDaily}

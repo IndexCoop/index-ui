@@ -7,7 +7,7 @@ import SimplePriceChart from 'components/SimplePriceChart'
 import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
 
 const MarketData: React.FC = () => {
-  const { latestPrice, prices, dayPrices } = useIndexTokenMarketData()
+  const { latestPrice, prices, hourlyPrices } = useIndexTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
   const [isDaily, setIsDaily] = useState<Boolean>(false)
@@ -79,7 +79,7 @@ const MarketData: React.FC = () => {
       <SimplePriceChart
         icon={IndexToken}
         data={prices?.map(([x, y]) => ({ x, y }))}
-        dayData={dayPrices?.map(([x, y]) => ({ x, y }))}
+        hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}
         setIsDaily={setIsDaily}

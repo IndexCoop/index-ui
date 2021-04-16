@@ -2,7 +2,7 @@ import { createContext } from 'react'
 
 interface FliTokenMarketDataValues {
   prices?: number[][]
-  dayPrices?: number[][]
+  hourlyPrices?: number[][]
   marketcaps?: number[][]
   volumes?: number[][]
   latestPrice?: number

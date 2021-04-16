@@ -6,12 +6,12 @@ import { ProductPageSection } from './ProductPageLayouts'
 
 interface ProductPriceChangesProps {
   prices?: number[][]
-  oneDayPrices?: number[][]
+  hourlyPrices?: number[][]
 }
 
 const ProductPriceChanges: React.FC<ProductPriceChangesProps> = ({
   prices,
-  oneDayPrices,
+  hourlyPrices,
 }) => {
   const priceChangeIntervals = [
     ['1 Day', 1],
@@ -22,12 +22,10 @@ const ProductPriceChanges: React.FC<ProductPriceChangesProps> = ({
 
   const calculatePriceChange = (daysOfComparison: number) => {
     if (daysOfComparison == 1) {
-      const oneDayStartPrice = oneDayPrices ? oneDayPrices.slice(-24)[0][1] : 1
-      const oneDayPricesLength = oneDayPrices ? oneDayPrices.length - 1 : 0
-      const oneDayLatestPrice = oneDayPrices
-        ? oneDayPrices[oneDayPricesLength][1]
-        : 1
-      return ((oneDayLatestPrice - oneDayStartPrice) / oneDayStartPrice) * 100
+      const startPrice = hourlyPrices ? hourlyPrices.slice(-24)[0][1] : 1
+      const hourlyPricesLength = hourlyPrices ? hourlyPrices.length - 1 : 0
+      const latestPrice = hourlyPrices ? hourlyPrices[hourlyPricesLength][1] : 1
+      return ((latestPrice - startPrice) / startPrice) * 100
     } else if (prices && prices?.length > daysOfComparison) {
       const startPrice = prices[prices.length - daysOfComparison][1]
       const latestPrice = prices[prices.length - 1][1]

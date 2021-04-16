@@ -7,7 +7,7 @@ import SimplePriceChart from 'components/SimplePriceChart'
 import useMviTokenMarketData from 'hooks/useMviTokenMarketData'
 
 const MarketData: React.FC = () => {
-  const { latestPrice, prices, dayPrices } = useMviTokenMarketData()
+  const { latestPrice, prices, hourlyPrices } = useMviTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
   const [isDaily, setIsDaily] = useState<Boolean>(false)
@@ -85,7 +85,7 @@ const MarketData: React.FC = () => {
       <SimplePriceChart
         icon={mviTokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
-        dayData={dayPrices?.map(([x, y]) => ({ x, y }))}
+        hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}
         setIsDaily={setIsDaily}

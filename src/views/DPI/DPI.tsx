@@ -35,7 +35,7 @@ const DpiProductPage = (props: { title: string }) => {
 
   const {
     prices,
-    dayPrices,
+    hourlyPrices,
     latestPrice,
     latestMarketCap,
     latestVolume,
@@ -70,7 +70,7 @@ const DpiProductPage = (props: { title: string }) => {
             latestPrice={latestPrice}
             currentBalance={dpiBalance}
           />
-          <PriceChanges prices={prices} oneDayPrices={dayPrices} />
+          <PriceChanges prices={prices} hourlyPrices={hourlyPrices} />
           <IndexComponentsTable components={components} />
           <TokenStats
             latestPrice={latestPrice}
