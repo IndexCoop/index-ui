@@ -16,6 +16,7 @@ const MarketData: React.FC = () => {
     latestMarketCap,
     latestPrice,
     prices,
+    hourlyPrices,
   } = useDpiTokenMarketData()
   const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = (latestPrice || 0) - priceAtEpochStart
@@ -45,6 +46,7 @@ const MarketData: React.FC = () => {
           showTooltip
           icon={dpiTokenIcon}
           data={prices?.map(([x, y]) => ({ x, y }))}
+          hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
         />
       </Card>
 
