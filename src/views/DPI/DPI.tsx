@@ -25,7 +25,6 @@ import TransakBuySellButton from 'components/TransakBuySellButton'
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
 import useLocalStorage from 'hooks/useLocalStorage'
-import DpiZerionPromo from 'components/PromoToasts'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {

@@ -6,7 +6,6 @@ import Explanation from 'components/Explanation'
 import HomeHeader from './components/HomeHeader'
 import MarketData from './components/MarketData'
 import Integrations from './components/Integrations'
-import DpiZerionPromo from 'components/PromoToasts'
 
 const Home = (props: { title: string }) => {
   useEffect(() => {
