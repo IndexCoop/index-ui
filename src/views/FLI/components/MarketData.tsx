@@ -5,11 +5,9 @@ import numeral from 'numeral'
 import SimplePriceChart from 'components/SimplePriceChart'
 
 import useFliTokenMarketData from 'hooks/useFliTokenMarketData'
-import useFliIndexPortfolioData from 'hooks/useFliIndexPortfolioData'
 
 const MarketData: React.FC = () => {
   const { latestPrice, prices, hourlyPrices } = useFliTokenMarketData()
-  const { symbol, name, image } = useFliIndexPortfolioData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
   const [isDaily, setIsDaily] = useState<Boolean>(false)
@@ -22,8 +20,8 @@ const MarketData: React.FC = () => {
   const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
   const fliTokenIcon = {
-    src: image || '',
-    alt: `${name || ''} Logo`,
+    src: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+    alt: 'FLI Icon',
   }
 
   const updateChartPrice = (chartData: any) => {
@@ -70,9 +68,9 @@ const MarketData: React.FC = () => {
     <div>
       <StyledFliIconLabel>
         <StyledIcon src={fliTokenIcon.src} alt={fliTokenIcon.alt} />
-        <span>{symbol}</span>
+        <span>ETH2x-FLI</span>
       </StyledFliIconLabel>
-      <StyledFliTitle>{name}</StyledFliTitle>
+      <StyledFliTitle>Ethereum 2x Flexible Leverage Index</StyledFliTitle>
       <p>{dateString}</p>
       <StyledFliPriceWrapper>
         <StyledFliPrice>

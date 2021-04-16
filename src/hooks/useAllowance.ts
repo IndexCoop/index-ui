@@ -18,22 +18,31 @@ const useAllowance = (tokenAddress?: string, spenderAddress?: string) => {
       if (!spenderAddress || !tokenAddress) {
         return
       }
+
       const allowance = await getAllowance(
         userAddress,
         spenderAddress,
         tokenAddress,
         provider
       )
+
       setAllowance(new BigNumber(allowance))
     },
     [setAllowance, spenderAddress, tokenAddress]
   )
 
   useEffect(() => {
-    if (account && ethereum && spenderAddress && tokenAddress) {
-      fetchAllowance(account, ethereum)
+    if (!account || !ethereum || !spenderAddress || !tokenAddress) {
+      return
     }
-    let refreshInterval = setInterval(fetchAllowance, 10000)
+
+    fetchAllowance(account, ethereum)
+
+    let refreshInterval = setInterval(
+      () => fetchAllowance(account, ethereum),
+      10000
+    )
+
     return () => clearInterval(refreshInterval)
   }, [account, ethereum, spenderAddress, tokenAddress, fetchAllowance])
 

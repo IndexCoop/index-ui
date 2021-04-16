@@ -38,7 +38,7 @@ const FliProductPage = (props: { title: string }) => {
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
-            symbol={symbol}
+            symbol='ETH2x-FLI'
             latestPrice={latestPrice}
             currentBalance={fliBalance}
           />
