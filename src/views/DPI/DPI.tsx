@@ -20,13 +20,11 @@ import MarketData from './components/MarketData'
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 import useDpiIndexComponents from 'hooks/useDpiIndexComponents'
 import useBalances from 'hooks/useBalances'
-import usePromoToast from 'hooks/usePromoToast'
 
 import TransakBuySellButton from 'components/TransakBuySellButton'
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
 import useLocalStorage from 'hooks/useLocalStorage'
-import DpiZerionPromo from 'components/PromoToasts'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -42,8 +40,6 @@ const DpiProductPage = (props: { title: string }) => {
   } = useDpiTokenMarketData()
   const { components } = useDpiIndexComponents()
   const { dpiBalance } = useBalances()
-
-  usePromoToast(<DpiZerionPromo />, 'dpi-zerion-promo')
 
   const [, setReferral] = useLocalStorage('referral', '')
 
