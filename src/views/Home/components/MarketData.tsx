@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 import { NavLink } from 'react-router-dom'
@@ -18,7 +18,7 @@ const MarketData: React.FC = () => {
     prices,
     hourlyPrices,
   } = useDpiTokenMarketData()
-  const priceAtEpochStart = prices?.[0]?.[1] || 1
+  const priceAtEpochStart = prices?.slice(-30)[0]?.[1] || 1
   const epochPriceChange = (latestPrice || 0) - priceAtEpochStart
   const dpiTokenIcon = {
     src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
