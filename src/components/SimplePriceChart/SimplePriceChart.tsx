@@ -69,7 +69,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
         setPrice(hourlyData?.slice(-30 * hourlyDataInterval)) //last 30 days, hourly
       }
     }, 0)
-  }, [durationSelector, data])
+  }, [durationSelector, data, hourlyData])
 
   const handleDailyButton = () => {
     setDurationSelector(0)
