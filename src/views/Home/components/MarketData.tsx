@@ -9,6 +9,7 @@ import Split from 'components/Split'
 import SimplePriceChart from 'components/SimplePriceChart'
 
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import { productTokensBySymbol } from 'constants/productTokens'
 
 const MarketData: React.FC = () => {
   const {
@@ -20,12 +21,17 @@ const MarketData: React.FC = () => {
   } = useDpiTokenMarketData()
   const priceAtEpochStart = prices?.[0]?.[1] || 1
   const epochPriceChange = (latestPrice || 0) - priceAtEpochStart
-  const dpiTokenIcon = {
-    src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
-    alt: 'DefiPulse Index Logo',
-  }
 
   const [indexSelector, setIndexSelector] = useState<number>(0)
+  const [indexMetaData, setIndeexMetaData] = useState<{
+    name: string
+    symbol: string
+    image: string
+  }>({
+    name: productTokensBySymbol.DPI.name,
+    symbol: productTokensBySymbol.DPI.symbol,
+    image: productTokensBySymbol.DPI.image,
+  })
   const [priceChartData, setPriceChartData] = useState<number[][]>([[1]])
   const [priceChartHourlyData, setPriceChartHourlyData] = useState<number[][]>([
     [1],
@@ -35,24 +41,44 @@ const MarketData: React.FC = () => {
     setIndexSelector(0)
     setPriceChartData(prices ? prices : [[1]])
     setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
+    setIndeexMetaData({
+      name: productTokensBySymbol.DPI.name,
+      symbol: productTokensBySymbol.DPI.symbol,
+      image: productTokensBySymbol.DPI.image,
+    })
   }
 
   const handleMviButton = () => {
     setIndexSelector(1)
     setPriceChartData(prices ? prices : [[1]])
     setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
+    setIndeexMetaData({
+      name: productTokensBySymbol.MVI.name,
+      symbol: productTokensBySymbol.MVI.symbol,
+      image: productTokensBySymbol.MVI.image,
+    })
   }
 
   const handleEthFliButton = () => {
     setIndexSelector(2)
     setPriceChartData(prices ? prices : [[1]])
     setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
+    setIndeexMetaData({
+      name: productTokensBySymbol['ETH2x-FLI'].name,
+      symbol: productTokensBySymbol['ETH2x-FLI'].symbol,
+      image: productTokensBySymbol['ETH2x-FLI'].image,
+    })
   }
 
   const handleCGIButton = () => {
     setIndexSelector(3)
     setPriceChartData(prices ? prices : [[1]])
     setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
+    setIndeexMetaData({
+      name: productTokensBySymbol.CGI.name,
+      symbol: productTokensBySymbol.CGI.symbol,
+      image: productTokensBySymbol.CGI.image,
+    })
   }
 
   return (
@@ -96,10 +122,13 @@ const MarketData: React.FC = () => {
           <StyledDpiSplitHeader>
             <div>
               <StyledDpiIconLabel>
-                <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
+                <StyledIcon
+                  src={indexMetaData.image}
+                  alt={indexMetaData.symbol + ' Logo'}
+                />
                 <span>DPI</span>
               </StyledDpiIconLabel>
-              <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
+              <StyledDpiTitle>{indexMetaData.name}</StyledDpiTitle>
             </div>
             <StyledViewMoreButton to='/dpi'>
               View the DeFi Pulse Index ➔
@@ -108,7 +137,10 @@ const MarketData: React.FC = () => {
         </CardContent>
         <SimplePriceChart
           showTooltip
-          icon={dpiTokenIcon}
+          icon={{
+            src: indexMetaData.image,
+            alt: indexMetaData.symbol + ' Logo',
+          }}
           data={priceChartData?.map(([x, y]) => ({ x, y }))}
           hourlyData={priceChartHourlyData?.map(([x, y]) => ({ x, y }))}
         />
@@ -118,8 +150,11 @@ const MarketData: React.FC = () => {
         <Card>
           <CardContent>
             <FancyValue
-              icon={dpiTokenIcon}
-              label='Current $DPI Price'
+              icon={{
+                src: indexMetaData.image,
+                alt: indexMetaData.symbol + ' Logo',
+              }}
+              label={'Current $' + indexMetaData.symbol + ' Price'}
               value={'$' + numeral(latestPrice).format('0.00a')}
             />
           </CardContent>
@@ -128,7 +163,10 @@ const MarketData: React.FC = () => {
         <Card>
           <CardContent>
             <FancyValue
-              icon={dpiTokenIcon}
+              icon={{
+                src: indexMetaData.image,
+                alt: indexMetaData.symbol + ' Logo',
+              }}
               label='1 Month Price Change'
               value={
                 numeral((epochPriceChange / priceAtEpochStart) * 100).format(
@@ -144,8 +182,11 @@ const MarketData: React.FC = () => {
         <Card>
           <CardContent>
             <FancyValue
-              icon={dpiTokenIcon}
-              label='$DPI 24hr Volume'
+              icon={{
+                src: indexMetaData.image,
+                alt: indexMetaData.symbol + ' Logo',
+              }}
+              label={'$' + indexMetaData.symbol + ' 24hr Volume'}
               value={'$' + numeral(latestVolume).format('0.00a')}
             />
           </CardContent>
@@ -154,8 +195,11 @@ const MarketData: React.FC = () => {
         <Card>
           <CardContent>
             <FancyValue
-              icon={dpiTokenIcon}
-              label='$DPI Marketcap'
+              icon={{
+                src: indexMetaData.image,
+                alt: indexMetaData.symbol + ' Logo',
+              }}
+              label={'$' + indexMetaData.symbol + ' Marketcap'}
               value={'$' + numeral(latestMarketCap).format('0.00a')}
             />
           </CardContent>
