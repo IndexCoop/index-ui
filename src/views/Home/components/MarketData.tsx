@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 import { NavLink } from 'react-router-dom'
-import { Card, CardContent, Spacer } from 'react-neu'
+import { Button, Card, CardContent, Spacer } from 'react-neu'
 
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
@@ -24,9 +24,73 @@ const MarketData: React.FC = () => {
     src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
     alt: 'DefiPulse Index Logo',
   }
+
+  const [indexSelector, setIndexSelector] = useState<number>(0)
+  const [priceChartData, setPriceChartData] = useState<number[][]>([[1]])
+  const [priceChartHourlyData, setPriceChartHourlyData] = useState<number[][]>([
+    [1],
+  ])
+
+  const handleDpiButton = () => {
+    setIndexSelector(0)
+    setPriceChartData(prices ? prices : [[1]])
+    setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
+  }
+
+  const handleMviButton = () => {
+    setIndexSelector(1)
+    setPriceChartData(prices ? prices : [[1]])
+    setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
+  }
+
+  const handleEthFliButton = () => {
+    setIndexSelector(2)
+    setPriceChartData(prices ? prices : [[1]])
+    setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
+  }
+
+  const handleCGIButton = () => {
+    setIndexSelector(3)
+    setPriceChartData(prices ? prices : [[1]])
+    setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
+  }
+
   return (
     <>
       <StyledMarketDataTitle>Products</StyledMarketDataTitle>
+      <ButtonWrapper>
+        <Button
+          full
+          size={'sm'}
+          text='DPI'
+          variant={indexSelector === 0 ? 'default' : 'secondary'}
+          onClick={handleDpiButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='MVI'
+          variant={indexSelector === 1 ? 'default' : 'secondary'}
+          onClick={handleMviButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='ETH2x-FLI'
+          variant={indexSelector === 2 ? 'default' : 'secondary'}
+          onClick={handleEthFliButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='CGI'
+          variant={indexSelector === 3 ? 'default' : 'secondary'}
+          onClick={handleCGIButton}
+        />
+      </ButtonWrapper>
       <Card>
         <CardContent>
           <StyledDpiSplitHeader>
@@ -45,13 +109,11 @@ const MarketData: React.FC = () => {
         <SimplePriceChart
           showTooltip
           icon={dpiTokenIcon}
-          data={prices?.map(([x, y]) => ({ x, y }))}
-          hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
+          data={priceChartData?.map(([x, y]) => ({ x, y }))}
+          hourlyData={priceChartHourlyData?.map(([x, y]) => ({ x, y }))}
         />
       </Card>
-
       <Spacer />
-
       <Split>
         <Card>
           <CardContent>
@@ -77,9 +139,7 @@ const MarketData: React.FC = () => {
           </CardContent>
         </Card>
       </Split>
-
       <Spacer />
-
       <Split>
         <Card>
           <CardContent>
@@ -148,6 +208,11 @@ const StyledIcon = styled.img`
   text-align: center;
   min-width: 34px;
   margin-right: 5px;
+`
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  padding-bottom: 20px;
 `
 
 export default MarketData
