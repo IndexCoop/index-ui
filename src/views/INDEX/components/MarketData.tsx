@@ -5,12 +5,15 @@ import numeral from 'numeral'
 import SimplePriceChart from 'components/SimplePriceChart'
 
 import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
+import { PriceChartRangeOption } from 'constants/priceChartEnums'
 
 const MarketData: React.FC = () => {
   const { latestPrice, prices, hourlyPrices } = useIndexTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
-  const [chartRange, setChartRange] = useState<number>(30) //default 30 since default chart is 1M
+  const [chartRange, setChartRange] = useState<number>(
+    PriceChartRangeOption.MONTHLY_PRICE_RANGE
+  ) //default 30 since default chart is 1M
   const [dateString, setDateString] = useState<String>('')
 
   useEffect(() => {
@@ -20,7 +23,9 @@ const MarketData: React.FC = () => {
   const priceAtEpochStart = prices?.slice(-chartRange)[0]?.[1] || 1
   const hourlyPriceAtEpochStart = hourlyPrices?.slice(-24)[0]?.[1] || 1
   const startingPrice =
-    chartRange > 1 ? priceAtEpochStart : hourlyPriceAtEpochStart
+    chartRange > PriceChartRangeOption.DAILY_PRICE_RANGE
+      ? priceAtEpochStart
+      : hourlyPriceAtEpochStart
   const epochPriceChange = (chartPrice || 0) - startingPrice
   const IndexToken = {
     src: 'https://index-dao.s3.amazonaws.com/owl.png',
@@ -35,7 +40,7 @@ const MarketData: React.FC = () => {
       setChartDate(payload.x || Date.now())
     }, 0)
 
-    if (chartRange === 1) {
+    if (chartRange === PriceChartRangeOption.DAILY_PRICE_RANGE) {
       setDateString(
         priceData.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric' })
       )
@@ -50,7 +55,7 @@ const MarketData: React.FC = () => {
       setChartDate(Date.now())
     }, 0)
 
-    if (chartRange === 1) {
+    if (chartRange === PriceChartRangeOption.DAILY_PRICE_RANGE) {
       setDateString(
         priceData.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric' })
       )

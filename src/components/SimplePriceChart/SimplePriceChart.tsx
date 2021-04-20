@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import FancyValue from 'components/FancyValue'
 import { ResponsiveContainer, LineChart, Line, YAxis, Tooltip } from 'recharts'
+import { Durations, PriceChartRangeOption } from 'constants/priceChartEnums'
 // docs - http://recharts.org/en-US/guide/
 
 interface SimplePriceChartProps {
@@ -53,18 +54,6 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
       })
     }
     return [timeString, '$' + formatFloats(y)]
-  }
-
-  enum Durations {
-    DAILY = 0,
-    WEEKLY = 1,
-    MONTHLY = 2,
-  }
-
-  enum PriceChartRangeOption {
-    DAILY_PRICE_RANGE = 1,
-    WEEKLY_PRICE_RANGE = 7,
-    MONTHLY_PRICE_RANGE = 30,
   }
 
   const [durationSelector, setDurationSelector] = useState<number>(
