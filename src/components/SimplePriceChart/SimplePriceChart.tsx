@@ -55,9 +55,6 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
     return [timeString, '$' + formatFloats(y)]
   }
 
-  const [durationSelector, setDurationSelector] = useState<number>(2)
-  const [price, setPrice] = useState(data)
-
   enum Durations {
     DAILY = 0,
     WEEKLY = 1,
@@ -69,6 +66,11 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
     WEEKLY_PRICE_RANGE = 7,
     MONTHLY_PRICE_RANGE = 30,
   }
+
+  const [durationSelector, setDurationSelector] = useState<number>(
+    Durations.MONTHLY
+  )
+  const [price, setPrice] = useState(data)
 
   useEffect(() => {
     setTimeout(() => {
