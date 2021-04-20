@@ -10,15 +10,18 @@ const MarketData: React.FC = () => {
   const { latestPrice, prices, hourlyPrices } = useMviTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
-  const [isDaily, setIsDaily] = useState<Boolean>(false)
+  const [chartRange, setChartRange] = useState<number>(30) //default 30 since default chart is 1M
   const [dateString, setDateString] = useState<String>('')
 
   useEffect(() => {
     if (latestPrice) setChartPrice(latestPrice)
   }, [latestPrice])
 
-  const priceAtEpochStart = prices?.[0]?.[1] || 1
-  const epochPriceChange = (chartPrice || 0) - priceAtEpochStart
+  const priceAtEpochStart = prices?.slice(-chartRange)[0]?.[1] || 1
+  const hourlyPriceAtEpochStart = hourlyPrices?.slice(-24)[0]?.[1] || 1
+  const startingPrice =
+    chartRange > 1 ? priceAtEpochStart : hourlyPriceAtEpochStart
+  const epochPriceChange = (chartPrice || 0) - startingPrice
   const mviTokenIcon = {
     src: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
     alt: 'MVI Logo',
@@ -31,7 +34,7 @@ const MarketData: React.FC = () => {
       setChartPrice(payload.y || 0)
       setChartDate(payload.x || Date.now())
 
-      if (isDaily) {
+      if (chartRange === 1) {
         setDateString(
           priceData.toLocaleTimeString([], {
             hour: 'numeric',
@@ -49,7 +52,7 @@ const MarketData: React.FC = () => {
       setChartPrice(latestPrice || 0)
       setChartDate(Date.now())
 
-      if (isDaily) {
+      if (chartRange === 1) {
         setDateString(
           priceData.toLocaleTimeString([], {
             hour: 'numeric',
@@ -77,9 +80,8 @@ const MarketData: React.FC = () => {
           {'$' + numeral(chartPrice).format('0.00a')}
         </StyledMviPrice>
         <StyledMviPriceChange isLoss={epochPriceChange < 0}>
-          {numeral((epochPriceChange / priceAtEpochStart) * 100).format(
-            '0.00a'
-          ) + '%'}
+          {numeral((epochPriceChange / startingPrice) * 100).format('0.00a') +
+            '%'}
         </StyledMviPriceChange>
       </StyledMviPriceWrapper>
       <SimplePriceChart
@@ -88,7 +90,7 @@ const MarketData: React.FC = () => {
         hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}
-        setIsDaily={setIsDaily}
+        setChartRange={setChartRange}
       />
     </div>
   )

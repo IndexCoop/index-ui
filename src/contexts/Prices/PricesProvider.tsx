@@ -32,13 +32,13 @@ const PricesProvider: React.FC = ({ children }) => {
     if (!ethDpiDataIsLoading && !ethDpiDataError) {
       setUsdInEthDpiPool(ethDpiUniswapData?.pairs[0]?.reserveUSD)
     }
-  }, [ethDpiDataIsLoading, ethDpiDataError])
+  }, [ethDpiDataIsLoading, ethDpiDataError, ethDpiUniswapData])
 
   useEffect(() => {
     if (!ethMviDataIsLoading && !ethMviDataError) {
       setUsdInEthMviPool(ethMviUniswapData?.pairs[0]?.reserveUSD)
     }
-  }, [ethMviDataIsLoading, ethMviDataError])
+  }, [ethMviDataIsLoading, ethMviDataError, ethMviUniswapData])
 
   useEffect(() => {
     const coingeckoEthereumPriceUrl = `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`

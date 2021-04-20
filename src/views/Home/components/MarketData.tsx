@@ -19,7 +19,7 @@ const MarketData: React.FC = () => {
     prices,
     hourlyPrices,
   } = useDpiTokenMarketData()
-  const priceAtEpochStart = prices?.[0]?.[1] || 1
+  const priceAtEpochStart = prices?.slice(-30)[0]?.[1] || 1
   const epochPriceChange = (latestPrice || 0) - priceAtEpochStart
 
   const [indexSelector, setIndexSelector] = useState<number>(0)
