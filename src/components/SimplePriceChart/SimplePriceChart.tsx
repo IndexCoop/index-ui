@@ -25,7 +25,7 @@ interface SimplePriceChartProps {
   }[]
   onMouseMove?: (...args: any[]) => any
   onMouseLeave?: (...args: any[]) => any
-  setIsDaily?: (...args: any[]) => any
+  setChartRange?: (...args: any[]) => any
 }
 
 const MarketDataChart: React.FC<SimplePriceChartProps> = ({
@@ -36,7 +36,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   hourlyData,
   onMouseMove = () => {},
   onMouseLeave = () => {},
-  setIsDaily = () => {},
+  setChartRange = () => {},
 }) => {
   const theme = useTheme()
   const formatFloats = (n: number) => parseFloat(numeral(n).format('0.00a'))
@@ -69,19 +69,19 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
         setPrice(hourlyData?.slice(-30 * hourlyDataInterval)) //last 30 days, hourly
       }
     }, 0)
-  }, [durationSelector, data])
+  }, [durationSelector, data, hourlyData])
 
   const handleDailyButton = () => {
     setDurationSelector(0)
-    setIsDaily(true)
+    setChartRange(1)
   }
   const handleWeeklyButton = () => {
     setDurationSelector(1)
-    setIsDaily(false)
+    setChartRange(7)
   }
   const handleMonthlyButton = () => {
     setDurationSelector(2)
-    setIsDaily(false)
+    setChartRange(30)
   }
 
   const renderTooltip = (props: any) => {

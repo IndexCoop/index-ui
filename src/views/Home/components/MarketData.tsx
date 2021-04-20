@@ -18,7 +18,7 @@ const MarketData: React.FC = () => {
     prices,
     hourlyPrices,
   } = useDpiTokenMarketData()
-  const priceAtEpochStart = prices?.[0]?.[1] || 1
+  const priceAtEpochStart = prices?.slice(-30)[0]?.[1] || 1
   const epochPriceChange = (latestPrice || 0) - priceAtEpochStart
   const dpiTokenIcon = {
     src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',

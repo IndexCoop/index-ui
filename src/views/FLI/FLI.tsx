@@ -21,7 +21,7 @@ import useBalances from 'hooks/useBalances'
 const FliProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
-  }, [])
+  }, [props.title])
 
   const { prices, hourlyPrices, latestPrice } = useFliTokenMarketData()
   const { components, symbol } = useFliIndexPortfolioData()
