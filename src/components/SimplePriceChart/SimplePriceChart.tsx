@@ -46,7 +46,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
       payload: { x, y },
     } = chartData
     let timeString = new Date(x).toLocaleDateString()
-    if (durationSelector === 0) {
+    if (durationSelector === Durations.DAILY) {
       timeString = new Date(x).toLocaleTimeString([], {
         hour: 'numeric',
         minute: 'numeric',
@@ -58,30 +58,54 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
   const [durationSelector, setDurationSelector] = useState<number>(2)
   const [price, setPrice] = useState(data)
 
+  enum Durations {
+    DAILY = 0,
+    WEEKLY = 1,
+    MONTHLY = 2,
+  }
+
+  enum PriceChartRangeOption {
+    DAILY_PRICE_RANGE = 1,
+    WEEKLY_PRICE_RANGE = 7,
+    MONTHLY_PRICE_RANGE = 30,
+  }
+
   useEffect(() => {
     setTimeout(() => {
       const hourlyDataInterval = 24
-      if (durationSelector === 0) {
-        setPrice(hourlyData?.slice(-1 * hourlyDataInterval)) //last day, hourly
-      } else if (durationSelector === 1) {
-        setPrice(hourlyData?.slice(-7 * hourlyDataInterval)) //last 7 days, hourly
-      } else if (durationSelector === 2) {
-        setPrice(hourlyData?.slice(-30 * hourlyDataInterval)) //last 30 days, hourly
+      if (durationSelector === Durations.DAILY) {
+        setPrice(
+          hourlyData?.slice(
+            -PriceChartRangeOption.DAILY_PRICE_RANGE * hourlyDataInterval
+          )
+        ) //last day, hourly
+      } else if (durationSelector === Durations.WEEKLY) {
+        setPrice(
+          hourlyData?.slice(
+            -PriceChartRangeOption.WEEKLY_PRICE_RANGE * hourlyDataInterval
+          )
+        ) //last 7 days, hourly
+      } else if (durationSelector === Durations.MONTHLY) {
+        setPrice(
+          hourlyData?.slice(
+            -PriceChartRangeOption.MONTHLY_PRICE_RANGE * hourlyDataInterval
+          )
+        ) //last 30 days, hourly
       }
     }, 0)
   }, [durationSelector, data, hourlyData])
 
   const handleDailyButton = () => {
-    setDurationSelector(0)
-    setChartRange(1)
+    setDurationSelector(Durations.DAILY)
+    setChartRange(PriceChartRangeOption.DAILY_PRICE_RANGE)
   }
   const handleWeeklyButton = () => {
-    setDurationSelector(1)
-    setChartRange(7)
+    setDurationSelector(Durations.WEEKLY)
+    setChartRange(PriceChartRangeOption.WEEKLY_PRICE_RANGE)
   }
   const handleMonthlyButton = () => {
-    setDurationSelector(2)
-    setChartRange(30)
+    setDurationSelector(Durations.MONTHLY)
+    setChartRange(PriceChartRangeOption.MONTHLY_PRICE_RANGE)
   }
 
   const renderTooltip = (props: any) => {
@@ -142,7 +166,9 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             full
             size={'sm'}
             text='1D'
-            variant={durationSelector === 0 ? 'default' : 'secondary'}
+            variant={
+              durationSelector === Durations.DAILY ? 'default' : 'secondary'
+            }
             onClick={handleDailyButton}
           />
           <Spacer size={'sm'} />
@@ -150,7 +176,9 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             full
             size={'sm'}
             text='1W'
-            variant={durationSelector === 1 ? 'default' : 'secondary'}
+            variant={
+              durationSelector === Durations.WEEKLY ? 'default' : 'secondary'
+            }
             onClick={handleWeeklyButton}
           />
           <Spacer size={'sm'} />
@@ -158,7 +186,9 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             full
             size={'sm'}
             text='1M'
-            variant={durationSelector === 2 ? 'default' : 'secondary'}
+            variant={
+              durationSelector === Durations.MONTHLY ? 'default' : 'secondary'
+            }
             onClick={handleMonthlyButton}
           />
         </ButtonWrapper>
