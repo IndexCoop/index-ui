@@ -12,7 +12,6 @@ const useAllProductsMarketData = () => {
     { ...useContext(FliTokenMarketDataContext) },
     { ...useContext(MviTokenMarketDataContext) },
   ]
-  console.log('allProductData', allProductData)
   return allProductData
 }
 

@@ -10,17 +10,11 @@ import SimplePriceChart from 'components/SimplePriceChart'
 
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 import { productTokensBySymbol } from 'constants/productTokens'
+import useAllProductsMarketData from 'hooks/useAllProductsMarketData'
+import { PriceChartRangeOption } from 'constants/priceChartEnums'
 
 const MarketData: React.FC = () => {
-  const {
-    latestVolume,
-    latestMarketCap,
-    latestPrice,
-    prices,
-    hourlyPrices,
-  } = useDpiTokenMarketData()
-  const priceAtEpochStart = prices?.slice(-30)[0]?.[1] || 1
-  const epochPriceChange = (latestPrice || 0) - priceAtEpochStart
+  const allMarketData = useAllProductsMarketData()
 
   const [indexSelector, setIndexSelector] = useState<number>(0)
   const [indexMetaData, setIndeexMetaData] = useState<{
@@ -32,15 +26,16 @@ const MarketData: React.FC = () => {
     symbol: productTokensBySymbol.DPI.symbol,
     image: productTokensBySymbol.DPI.image,
   })
-  const [priceChartData, setPriceChartData] = useState<number[][]>([[1]])
-  const [priceChartHourlyData, setPriceChartHourlyData] = useState<number[][]>([
-    [1],
-  ])
+
+  const priceAtEpochStart =
+    allMarketData[indexSelector].prices?.slice(
+      -PriceChartRangeOption.MONTHLY_PRICE_RANGE
+    )[0]?.[1] || 1
+  const epochPriceChange =
+    (allMarketData[indexSelector].latestPrice || 0) - priceAtEpochStart
 
   const handleDpiButton = () => {
     setIndexSelector(0)
-    setPriceChartData(prices ? prices : [[1]])
-    setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
     setIndeexMetaData({
       name: productTokensBySymbol.DPI.name,
       symbol: productTokensBySymbol.DPI.symbol,
@@ -48,21 +43,17 @@ const MarketData: React.FC = () => {
     })
   }
 
-  const handleMviButton = () => {
+  const handleCGIButton = () => {
     setIndexSelector(1)
-    setPriceChartData(prices ? prices : [[1]])
-    setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
     setIndeexMetaData({
-      name: productTokensBySymbol.MVI.name,
-      symbol: productTokensBySymbol.MVI.symbol,
-      image: productTokensBySymbol.MVI.image,
+      name: productTokensBySymbol.CGI.name,
+      symbol: productTokensBySymbol.CGI.symbol,
+      image: productTokensBySymbol.CGI.image,
     })
   }
 
   const handleEthFliButton = () => {
     setIndexSelector(2)
-    setPriceChartData(prices ? prices : [[1]])
-    setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
     setIndeexMetaData({
       name: productTokensBySymbol['ETH2x-FLI'].name,
       symbol: productTokensBySymbol['ETH2x-FLI'].symbol,
@@ -70,14 +61,12 @@ const MarketData: React.FC = () => {
     })
   }
 
-  const handleCGIButton = () => {
+  const handleMviButton = () => {
     setIndexSelector(3)
-    setPriceChartData(prices ? prices : [[1]])
-    setPriceChartHourlyData(hourlyPrices ? hourlyPrices : [[1]])
     setIndeexMetaData({
-      name: productTokensBySymbol.CGI.name,
-      symbol: productTokensBySymbol.CGI.symbol,
-      image: productTokensBySymbol.CGI.image,
+      name: productTokensBySymbol.MVI.name,
+      symbol: productTokensBySymbol.MVI.symbol,
+      image: productTokensBySymbol.MVI.image,
     })
   }
 
@@ -96,9 +85,9 @@ const MarketData: React.FC = () => {
         <Button
           full
           size={'sm'}
-          text='MVI'
+          text='CGI'
           variant={indexSelector === 1 ? 'default' : 'secondary'}
-          onClick={handleMviButton}
+          onClick={handleCGIButton}
         />
         <Spacer size={'sm'} />
         <Button
@@ -112,9 +101,9 @@ const MarketData: React.FC = () => {
         <Button
           full
           size={'sm'}
-          text='CGI'
+          text='MVI'
           variant={indexSelector === 3 ? 'default' : 'secondary'}
-          onClick={handleCGIButton}
+          onClick={handleMviButton}
         />
       </ButtonWrapper>
       <Card>
@@ -141,8 +130,13 @@ const MarketData: React.FC = () => {
             src: indexMetaData.image,
             alt: indexMetaData.symbol + ' Logo',
           }}
-          data={priceChartData?.map(([x, y]) => ({ x, y }))}
-          hourlyData={priceChartHourlyData?.map(([x, y]) => ({ x, y }))}
+          data={allMarketData[indexSelector].prices?.map(([x, y]) => ({
+            x,
+            y,
+          }))}
+          hourlyData={allMarketData[
+            indexSelector
+          ].hourlyPrices?.map(([x, y]) => ({ x, y }))}
         />
       </Card>
       <Spacer />
@@ -155,7 +149,12 @@ const MarketData: React.FC = () => {
                 alt: indexMetaData.symbol + ' Logo',
               }}
               label={'Current $' + indexMetaData.symbol + ' Price'}
-              value={'$' + numeral(latestPrice).format('0.00a')}
+              value={
+                '$' +
+                numeral(allMarketData[indexSelector].latestPrice).format(
+                  '0.00a'
+                )
+              }
             />
           </CardContent>
         </Card>
@@ -187,7 +186,12 @@ const MarketData: React.FC = () => {
                 alt: indexMetaData.symbol + ' Logo',
               }}
               label={'$' + indexMetaData.symbol + ' 24hr Volume'}
-              value={'$' + numeral(latestVolume).format('0.00a')}
+              value={
+                '$' +
+                numeral(allMarketData[indexSelector].latestVolume).format(
+                  '0.00a'
+                )
+              }
             />
           </CardContent>
         </Card>
@@ -200,7 +204,12 @@ const MarketData: React.FC = () => {
                 alt: indexMetaData.symbol + ' Logo',
               }}
               label={'$' + indexMetaData.symbol + ' Marketcap'}
-              value={'$' + numeral(latestMarketCap).format('0.00a')}
+              value={
+                '$' +
+                numeral(allMarketData[indexSelector].latestMarketCap).format(
+                  '0.00a'
+                )
+              }
             />
           </CardContent>
         </Card>
