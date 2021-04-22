@@ -21,10 +21,12 @@ const MarketData: React.FC = () => {
     name: string
     symbol: string
     image: string
+    url: string
   }>({
     name: productTokensBySymbol.DPI.name,
     symbol: productTokensBySymbol.DPI.symbol,
     image: productTokensBySymbol.DPI.image,
+    url: '/dpi',
   })
 
   const priceAtEpochStart =
@@ -40,6 +42,7 @@ const MarketData: React.FC = () => {
       name: productTokensBySymbol.DPI.name,
       symbol: productTokensBySymbol.DPI.symbol,
       image: productTokensBySymbol.DPI.image,
+      url: '/dpi',
     })
   }
 
@@ -49,6 +52,7 @@ const MarketData: React.FC = () => {
       name: productTokensBySymbol.CGI.name,
       symbol: productTokensBySymbol.CGI.symbol,
       image: productTokensBySymbol.CGI.image,
+      url: '/cgi',
     })
   }
 
@@ -58,6 +62,7 @@ const MarketData: React.FC = () => {
       name: productTokensBySymbol['ETH2x-FLI'].name,
       symbol: productTokensBySymbol['ETH2x-FLI'].symbol,
       image: productTokensBySymbol['ETH2x-FLI'].image,
+      url: '/fli',
     })
   }
 
@@ -67,6 +72,7 @@ const MarketData: React.FC = () => {
       name: productTokensBySymbol.MVI.name,
       symbol: productTokensBySymbol.MVI.symbol,
       image: productTokensBySymbol.MVI.image,
+      url: '/mvi',
     })
   }
 
@@ -115,12 +121,12 @@ const MarketData: React.FC = () => {
                   src={indexMetaData.image}
                   alt={indexMetaData.symbol + ' Logo'}
                 />
-                <span>DPI</span>
+                <span>{indexMetaData.symbol}</span>
               </StyledDpiIconLabel>
               <StyledDpiTitle>{indexMetaData.name}</StyledDpiTitle>
             </div>
-            <StyledViewMoreButton to='/dpi'>
-              View the DeFi Pulse Index ➔
+            <StyledViewMoreButton to={indexMetaData.url}>
+              View the {indexMetaData.name} ➔
             </StyledViewMoreButton>
           </StyledDpiSplitHeader>
         </CardContent>
