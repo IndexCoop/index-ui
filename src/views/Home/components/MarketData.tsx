@@ -8,7 +8,6 @@ import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 import SimplePriceChart from 'components/SimplePriceChart'
 
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 import { productTokensBySymbol } from 'constants/productTokens'
 import useAllProductsMarketData from 'hooks/useAllProductsMarketData'
 import { PriceChartRangeOption } from 'constants/priceChartEnums'
