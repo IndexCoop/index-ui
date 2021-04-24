@@ -19,8 +19,10 @@ import { MviStakingRewardsProvider } from 'contexts/MviStakingRewards'
 import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
 import { BuySellProvider } from 'contexts/BuySell'
-import { FliTokenMarketDataProvider } from 'contexts/FliTokenMarketData'
-import { FliIndexPortfolioDataProvider } from 'contexts/FliIndexPortfolioData'
+import { Eth2xFliTokenMarketDataProvider } from 'contexts/Eth2xFliTokenMarketData'
+import { Eth2xFliIndexPortfolioDataProvider } from 'contexts/Eth2xFliIndexPortfolioData'
+import { Btc2xFliTokenMarketDataProvider } from 'contexts/Btc2xFliTokenMarketData'
+import { Btc2xFliPortfolioDataProvider } from 'contexts/Btc2xFliIndexPortfolioData'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
 import { CgiTokenMarketDataProvider } from 'contexts/CgiTokenMarketData'
@@ -49,6 +51,7 @@ import HowToBuy from './views/HowToBuy'
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
 import { RewardsProvider } from './contexts/Rewards'
+import Btc2xFliIPortfolioDataProvider from 'contexts/Btc2xFliIndexPortfolioData/Btc2xFliPortfolioDataProvider'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -139,27 +142,31 @@ const Providers: React.FC = ({ children }) => {
                           <MviStakingRewardsProvider>
                             <PricesProvider>
                               <BuySellProvider>
-                                <FliTokenMarketDataProvider>
-                                  <FliIndexPortfolioDataProvider>
-                                    <DpiTokenMarketDataProvider>
-                                      <DpiIndexComponentsProvider>
-                                        <CgiTokenMarketDataProvider>
-                                          <CgiIndexComponentsProvider>
-                                            <MviTokenMarketDataProvider>
-                                              <MviComponentsProvider>
-                                                <IndexTokenMarketDataProvider>
-                                                  <SnapshotProposalsProvider>
-                                                    {children}
-                                                  </SnapshotProposalsProvider>
-                                                </IndexTokenMarketDataProvider>
-                                              </MviComponentsProvider>
-                                            </MviTokenMarketDataProvider>
-                                          </CgiIndexComponentsProvider>
-                                        </CgiTokenMarketDataProvider>
-                                      </DpiIndexComponentsProvider>
-                                    </DpiTokenMarketDataProvider>
-                                  </FliIndexPortfolioDataProvider>
-                                </FliTokenMarketDataProvider>
+                                <Eth2xFliTokenMarketDataProvider>
+                                  <Eth2xFliIndexPortfolioDataProvider>
+                                    <Btc2xFliTokenMarketDataProvider>
+                                      <Btc2xFliIPortfolioDataProvider>
+                                        <DpiTokenMarketDataProvider>
+                                          <DpiIndexComponentsProvider>
+                                            <CgiTokenMarketDataProvider>
+                                              <CgiIndexComponentsProvider>
+                                                <MviTokenMarketDataProvider>
+                                                  <MviComponentsProvider>
+                                                    <IndexTokenMarketDataProvider>
+                                                      <SnapshotProposalsProvider>
+                                                        {children}
+                                                      </SnapshotProposalsProvider>
+                                                    </IndexTokenMarketDataProvider>
+                                                  </MviComponentsProvider>
+                                                </MviTokenMarketDataProvider>
+                                              </CgiIndexComponentsProvider>
+                                            </CgiTokenMarketDataProvider>
+                                          </DpiIndexComponentsProvider>
+                                        </DpiTokenMarketDataProvider>
+                                      </Btc2xFliIPortfolioDataProvider>
+                                    </Btc2xFliTokenMarketDataProvider>
+                                  </Eth2xFliIndexPortfolioDataProvider>
+                                </Eth2xFliTokenMarketDataProvider>
                               </BuySellProvider>
                             </PricesProvider>
                           </MviStakingRewardsProvider>

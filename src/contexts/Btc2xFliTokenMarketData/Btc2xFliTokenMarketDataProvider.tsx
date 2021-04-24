@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import MarketDataContext from './FliTokenMarketDataContext'
-import { coingeckoFliId } from 'constants/coingeckoIds'
+import MarketDataContext from './Btc2xFliTokenMarketDataContext'
+import { CoinGeckoIds } from 'constants/tokenIds'
 import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
 
-const FliMarketDataProvider: React.FC = ({ children }) => {
+const Btc2xFliTokenMarketDataProvider: React.FC = ({ children }) => {
   const [fliMarketData, setFliMarketData] = useState<any>({})
 
   useEffect(() => {
-    fetchHistoricalTokenMarketData(coingeckoFliId)
+    fetchHistoricalTokenMarketData(CoinGeckoIds.BTC2XFLI)
       .then((response: any) => {
         setFliMarketData(response)
       })
@@ -31,4 +31,4 @@ const FliMarketDataProvider: React.FC = ({ children }) => {
   )
 }
 
-export default FliMarketDataProvider
+export default Btc2xFliTokenMarketDataProvider

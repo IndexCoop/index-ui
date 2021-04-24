@@ -4,11 +4,11 @@ import numeral from 'numeral'
 
 import SimplePriceChart from 'components/SimplePriceChart'
 
-import useFliTokenMarketData from 'hooks/useFliTokenMarketData'
+import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
 import { PriceChartRangeOption } from 'constants/priceChartEnums'
 
 const MarketData: React.FC = () => {
-  const { latestPrice, prices, hourlyPrices } = useFliTokenMarketData()
+  const { latestPrice, prices, hourlyPrices } = useEth2xFliTokenMarketData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
   const [chartRange, setChartRange] = useState<number>(
