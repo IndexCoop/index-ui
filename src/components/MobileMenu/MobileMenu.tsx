@@ -44,10 +44,18 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink
             exact
             activeClassName='active'
-            to='/fli'
+            to='/ethfli'
             onClick={onDismiss}
           >
             ETH 2x Flexible Leverage Index
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/btcfli'
+            onClick={onDismiss}
+          >
+            BTC 2x Flexible Leverage Index
           </StyledLink>
           <StyledLink
             exact

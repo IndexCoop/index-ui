@@ -14,18 +14,18 @@ import MarketData from './components/MarketData'
 import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
 
-import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
-import useEth2xFliIndexPortfolioData from 'hooks/useEth2xFliIndexPortfolioData'
+import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
+import useBtc2xFliIndexPortfolioData from 'hooks/useBtc2xFliIndexPortfolioData'
 import useBalances from 'hooks/useBalances'
 
-const FliProductPage = (props: { title: string }) => {
+const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
 
-  const { prices, hourlyPrices, latestPrice } = useEth2xFliTokenMarketData()
-  const { components, symbol } = useEth2xFliIndexPortfolioData()
-  const { fliBalance } = useBalances()
+  const { prices, hourlyPrices, latestPrice } = useBtc2xFliTokenMarketData()
+  const { components, symbol } = useBtc2xFliIndexPortfolioData()
+  const { btcfliBalance } = useBalances()
 
   return (
     <Page>
@@ -33,14 +33,14 @@ const FliProductPage = (props: { title: string }) => {
         <ProductPageHeader>
           <MarketData />
           <div>
-            <BuySellWrapper tokenId='ethfli' />
+            <BuySellWrapper tokenId='btcfli' />
           </div>
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
-            symbol='ETH2x-FLI'
+            symbol='BTC2x-FLI'
             latestPrice={latestPrice}
-            currentBalance={fliBalance}
+            currentBalance={btcfliBalance}
           />
           <PriceChanges prices={prices} hourlyPrices={hourlyPrices} />
           <IndexComponentsTable components={components} />
@@ -151,4 +151,4 @@ const FliProductPage = (props: { title: string }) => {
   )
 }
 
-export default FliProductPage
+export default Btc2xFliProductPage

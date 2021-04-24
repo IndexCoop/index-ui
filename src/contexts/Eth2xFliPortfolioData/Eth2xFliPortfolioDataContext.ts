@@ -12,7 +12,7 @@ interface IndexComponent {
   dailyPercentChange: string
 }
 
-interface FliPortfolioDataProps {
+interface Eth2xFliPortfolioDataProps {
   components?: IndexComponent[]
   symbol?: string
   id?: string
@@ -21,6 +21,8 @@ interface FliPortfolioDataProps {
   image?: string
 }
 
-const FliPortfolioData = createContext<FliPortfolioDataProps>({})
+const Eth2xFliPortfolioDataContext = createContext<Eth2xFliPortfolioDataProps>(
+  {}
+)
 
-export default FliPortfolioData
+export default Eth2xFliPortfolioDataContext

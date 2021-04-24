@@ -8,10 +8,11 @@ import {
   daiTokenAddress,
   usdcTokenAddress,
   dpiTokenAddress,
-  fliTokenAddress,
+  eth2xfliTokenAddress,
   cgiTokenAddress,
   indexTokenAddress,
   uniswapRouterAddress,
+  btc2xfliTokenAddress,
 } from 'constants/ethContractAddresses'
 
 /**
@@ -37,9 +38,16 @@ const BuySellButton: React.FC = () => {
   const daiApproval = useApproval(daiTokenAddress, uniswapRouterAddress)
   const usdcApproval = useApproval(usdcTokenAddress, uniswapRouterAddress)
   const dpiApproval = useApproval(dpiTokenAddress, uniswapRouterAddress)
-  const fliApproval = useApproval(fliTokenAddress, uniswapRouterAddress)
+  const eth2xfliApproval = useApproval(
+    eth2xfliTokenAddress,
+    uniswapRouterAddress
+  )
   const cgiApproval = useApproval(cgiTokenAddress, uniswapRouterAddress)
   const indexApproval = useApproval(indexTokenAddress, uniswapRouterAddress)
+  const btc2xfliApproval = useApproval(
+    btc2xfliTokenAddress,
+    uniswapRouterAddress
+  )
 
   // Only prompt the user at end of the buy flow. (So they can preview the order before logging in)
   const loginRequiredBeforeSubmit = uniswapData?.amount_in && !account
@@ -53,14 +61,23 @@ const BuySellButton: React.FC = () => {
     buySellToken.toLowerCase() === 'dpi' &&
     dpiApproval.isApproving
 
-  const fliApprovalRequired =
+  const eth2xfliApprovalRequired =
     !isUserBuying &&
     buySellToken.toLowerCase() === 'ethfli' &&
-    !fliApproval.isApproved
-  const fliApproving =
+    !eth2xfliApproval.isApproved
+  const eth2xfliApproving =
     !isUserBuying &&
     buySellToken.toLowerCase() === 'ethfli' &&
-    fliApproval.isApproving
+    eth2xfliApproval.isApproving
+
+  const btc2xfliApprovalRequired =
+    !isUserBuying &&
+    buySellToken.toLowerCase() === 'btcfli' &&
+    !btc2xfliApproval.isApproved
+  const btc2xfliApproving =
+    !isUserBuying &&
+    buySellToken.toLowerCase() === 'btcfli' &&
+    btc2xfliApproval.isApproving
 
   const cgiApprovalRequired =
     !isUserBuying &&
@@ -97,7 +114,8 @@ const BuySellButton: React.FC = () => {
     buttonAction = onOpenWalletModal
   } else if (
     dpiApproving ||
-    fliApproving ||
+    eth2xfliApproving ||
+    btc2xfliApproving ||
     indexApproving ||
     daiApproving ||
     cgiApproving ||
@@ -108,9 +126,12 @@ const BuySellButton: React.FC = () => {
   } else if (dpiApprovalRequired) {
     buttonText = 'Approve DPI'
     buttonAction = dpiApproval.onApprove
-  } else if (fliApprovalRequired) {
+  } else if (eth2xfliApprovalRequired) {
     buttonText = 'Approve FLI'
-    buttonAction = fliApproval.onApprove
+    buttonAction = eth2xfliApproval.onApprove
+  } else if (btc2xfliApprovalRequired) {
+    buttonText = 'Approve FLI'
+    buttonAction = btc2xfliApproval.onApprove
   } else if (cgiApprovalRequired) {
     buttonText = 'Approve CGI'
     buttonAction = cgiApproval.onApprove

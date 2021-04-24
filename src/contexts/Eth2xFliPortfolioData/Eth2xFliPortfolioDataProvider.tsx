@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import FliIndexPortfolioDataContext from './FliIndexPortfolioDataContext'
+import Eth2xFliPortfolioDataContext from './Eth2xFliPortfolioDataContext'
 import { fetchSetComponents } from 'utils/tokensetsApi'
-import { tokensetsFliId } from 'constants/tokensetsIds'
+import { TokenSetsIds } from 'constants/tokenIds'
 
-const FliIndexPortfolioDataProvider: React.FC = ({ children }) => {
+const Eth2xFliPortfolioDataProvider: React.FC = ({ children }) => {
   const [fliIndexPortfolioData, setFliIndexPortfolioData] = useState<any>([])
 
   useEffect(() => {
-    fetchSetComponents(tokensetsFliId)
+    fetchSetComponents(TokenSetsIds.ETH2XFLI)
       .then((response: any) => {
         setFliIndexPortfolioData(response)
       })
@@ -15,12 +15,12 @@ const FliIndexPortfolioDataProvider: React.FC = ({ children }) => {
   }, [])
 
   return (
-    <FliIndexPortfolioDataContext.Provider
+    <Eth2xFliPortfolioDataContext.Provider
       value={{ components: fliIndexPortfolioData }}
     >
       {children}
-    </FliIndexPortfolioDataContext.Provider>
+    </Eth2xFliPortfolioDataContext.Provider>
   )
 }
 
-export default FliIndexPortfolioDataProvider
+export default Eth2xFliPortfolioDataProvider

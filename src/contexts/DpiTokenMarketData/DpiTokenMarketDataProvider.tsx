@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import MarketDataContext from './DpiTokenMarketDataContext'
-import { coingeckoDpiId } from 'constants/coingeckoIds'
+import { CoinGeckoIds } from 'constants/tokenIds'
 import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
 
 const DpiMarketDataProvider: React.FC = ({ children }) => {
   const [dpiMarketData, setDpiMarketData] = useState<any>({})
 
   useEffect(() => {
-    fetchHistoricalTokenMarketData(coingeckoDpiId)
+    fetchHistoricalTokenMarketData(CoinGeckoIds.DPI)
       .then((response: any) => {
         setDpiMarketData(response)
       })

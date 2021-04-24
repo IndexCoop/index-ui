@@ -20,9 +20,9 @@ import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
 import { BuySellProvider } from 'contexts/BuySell'
 import { Eth2xFliTokenMarketDataProvider } from 'contexts/Eth2xFliTokenMarketData'
-import { Eth2xFliIndexPortfolioDataProvider } from 'contexts/Eth2xFliIndexPortfolioData'
+import { Eth2xFliIndexPortfolioDataProvider } from 'contexts/Eth2xFliPortfolioData'
 import { Btc2xFliTokenMarketDataProvider } from 'contexts/Btc2xFliTokenMarketData'
-import { Btc2xFliPortfolioDataProvider } from 'contexts/Btc2xFliIndexPortfolioData'
+import { Btc2xFliPortfolioDataProvider } from 'contexts/Btc2xFliPortfolioData'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
 import { CgiTokenMarketDataProvider } from 'contexts/CgiTokenMarketData'
@@ -39,7 +39,8 @@ import About from 'views/About'
 import Farm from 'views/Farm'
 import Home from 'views/Home'
 import DPI from 'views/DPI'
-import FLI from 'views/FLI'
+import ETH2XFLI from 'views/ETH2XFLI'
+import BTC2XFLI from 'views/BTC2XFLI'
 import CGI from 'views/CGI'
 import MVI from 'views/MVI'
 import INDEX from 'views/INDEX'
@@ -51,7 +52,6 @@ import HowToBuy from './views/HowToBuy'
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
 import { RewardsProvider } from './contexts/Rewards'
-import Btc2xFliIPortfolioDataProvider from 'contexts/Btc2xFliIndexPortfolioData/Btc2xFliPortfolioDataProvider'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -83,8 +83,11 @@ const App: React.FC = () => {
             <Route exact path='/mvi'>
               <MVI title={'Index - MVI'} />
             </Route>
-            <Route exact path='/fli'>
-              <FLI title={'Index - FLI'} />
+            <Route exact path='/ethfli'>
+              <ETH2XFLI title={'Index - ETH2xFLI'} />
+            </Route>
+            <Route exact path='/btcfli'>
+              <BTC2XFLI title={'Index - BTC2xFLI'} />
             </Route>
             <Route exact path='/cgi'>
               <CGI title={'Index - CGI'} />
@@ -145,7 +148,7 @@ const Providers: React.FC = ({ children }) => {
                                 <Eth2xFliTokenMarketDataProvider>
                                   <Eth2xFliIndexPortfolioDataProvider>
                                     <Btc2xFliTokenMarketDataProvider>
-                                      <Btc2xFliIPortfolioDataProvider>
+                                      <Btc2xFliPortfolioDataProvider>
                                         <DpiTokenMarketDataProvider>
                                           <DpiIndexComponentsProvider>
                                             <CgiTokenMarketDataProvider>
@@ -163,7 +166,7 @@ const Providers: React.FC = ({ children }) => {
                                             </CgiTokenMarketDataProvider>
                                           </DpiIndexComponentsProvider>
                                         </DpiTokenMarketDataProvider>
-                                      </Btc2xFliIPortfolioDataProvider>
+                                      </Btc2xFliPortfolioDataProvider>
                                     </Btc2xFliTokenMarketDataProvider>
                                   </Eth2xFliIndexPortfolioDataProvider>
                                 </Eth2xFliTokenMarketDataProvider>
