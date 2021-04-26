@@ -16,7 +16,7 @@ const MarketData: React.FC = () => {
   const allMarketData = useAllProductsMarketData()
 
   const [indexSelector, setIndexSelector] = useState<number>(0)
-  const [indexMetaData, setIndeexMetaData] = useState<{
+  const [productMetaData, setProductMetaData] = useState<{
     name: string
     symbol: string
     image: string
@@ -37,7 +37,7 @@ const MarketData: React.FC = () => {
 
   const handleDpiButton = () => {
     setIndexSelector(0)
-    setIndeexMetaData({
+    setProductMetaData({
       name: productTokensBySymbol.DPI.name,
       symbol: productTokensBySymbol.DPI.symbol,
       image: productTokensBySymbol.DPI.image,
@@ -47,7 +47,7 @@ const MarketData: React.FC = () => {
 
   const handleCGIButton = () => {
     setIndexSelector(1)
-    setIndeexMetaData({
+    setProductMetaData({
       name: productTokensBySymbol.CGI.name,
       symbol: productTokensBySymbol.CGI.symbol,
       image: productTokensBySymbol.CGI.image,
@@ -57,7 +57,7 @@ const MarketData: React.FC = () => {
 
   const handleEthFliButton = () => {
     setIndexSelector(2)
-    setIndeexMetaData({
+    setProductMetaData({
       name: productTokensBySymbol['ETH2x-FLI'].name,
       symbol: productTokensBySymbol['ETH2x-FLI'].symbol,
       image: productTokensBySymbol['ETH2x-FLI'].image,
@@ -67,7 +67,7 @@ const MarketData: React.FC = () => {
 
   const handleMviButton = () => {
     setIndexSelector(3)
-    setIndeexMetaData({
+    setProductMetaData({
       name: productTokensBySymbol.MVI.name,
       symbol: productTokensBySymbol.MVI.symbol,
       image: productTokensBySymbol.MVI.image,
@@ -117,23 +117,23 @@ const MarketData: React.FC = () => {
             <div>
               <StyledDpiIconLabel>
                 <StyledIcon
-                  src={indexMetaData.image}
-                  alt={indexMetaData.symbol + ' Logo'}
+                  src={productMetaData.image}
+                  alt={productMetaData.symbol + ' Logo'}
                 />
-                <span>{indexMetaData.symbol}</span>
+                <span>{productMetaData.symbol}</span>
               </StyledDpiIconLabel>
-              <StyledDpiTitle>{indexMetaData.name}</StyledDpiTitle>
+              <StyledDpiTitle>{productMetaData.name}</StyledDpiTitle>
             </div>
-            <StyledViewMoreButton to={indexMetaData.url}>
-              View the {indexMetaData.name} ➔
+            <StyledViewMoreButton to={productMetaData.url}>
+              View the {productMetaData.name} ➔
             </StyledViewMoreButton>
           </StyledDpiSplitHeader>
         </CardContent>
         <SimplePriceChart
           showTooltip
           icon={{
-            src: indexMetaData.image,
-            alt: indexMetaData.symbol + ' Logo',
+            src: productMetaData.image,
+            alt: productMetaData.symbol + ' Logo',
           }}
           data={allMarketData[indexSelector].prices?.map(([x, y]) => ({
             x,
@@ -150,10 +150,10 @@ const MarketData: React.FC = () => {
           <CardContent>
             <FancyValue
               icon={{
-                src: indexMetaData.image,
-                alt: indexMetaData.symbol + ' Logo',
+                src: productMetaData.image,
+                alt: productMetaData.symbol + ' Logo',
               }}
-              label={'Current $' + indexMetaData.symbol + ' Price'}
+              label={'Current $' + productMetaData.symbol + ' Price'}
               value={
                 '$' +
                 numeral(allMarketData[indexSelector].latestPrice).format(
@@ -168,8 +168,8 @@ const MarketData: React.FC = () => {
           <CardContent>
             <FancyValue
               icon={{
-                src: indexMetaData.image,
-                alt: indexMetaData.symbol + ' Logo',
+                src: productMetaData.image,
+                alt: productMetaData.symbol + ' Logo',
               }}
               label='1 Month Price Change'
               value={
@@ -187,10 +187,10 @@ const MarketData: React.FC = () => {
           <CardContent>
             <FancyValue
               icon={{
-                src: indexMetaData.image,
-                alt: indexMetaData.symbol + ' Logo',
+                src: productMetaData.image,
+                alt: productMetaData.symbol + ' Logo',
               }}
-              label={'$' + indexMetaData.symbol + ' 24hr Volume'}
+              label={'$' + productMetaData.symbol + ' 24hr Volume'}
               value={
                 '$' +
                 numeral(allMarketData[indexSelector].latestVolume).format(
@@ -205,10 +205,10 @@ const MarketData: React.FC = () => {
           <CardContent>
             <FancyValue
               icon={{
-                src: indexMetaData.image,
-                alt: indexMetaData.symbol + ' Logo',
+                src: productMetaData.image,
+                alt: productMetaData.symbol + ' Logo',
               }}
-              label={'$' + indexMetaData.symbol + ' Marketcap'}
+              label={'$' + productMetaData.symbol + ' Marketcap'}
               value={
                 '$' +
                 numeral(allMarketData[indexSelector].latestMarketCap).format(
