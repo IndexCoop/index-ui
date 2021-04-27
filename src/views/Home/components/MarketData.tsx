@@ -1,64 +1,165 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 import { NavLink } from 'react-router-dom'
-import { Card, CardContent, Spacer } from 'react-neu'
+import { Button, Card, CardContent, Spacer } from 'react-neu'
 
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 import SimplePriceChart from 'components/SimplePriceChart'
 
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import { productTokensBySymbol } from 'constants/productTokens'
+import useAllProductsMarketData from 'hooks/useAllProductsMarketData'
+import { PriceChartRangeOption } from 'constants/priceChartEnums'
 
 const MarketData: React.FC = () => {
-  const {
-    latestVolume,
-    latestMarketCap,
-    latestPrice,
-    prices,
-    hourlyPrices,
-  } = useDpiTokenMarketData()
-  const priceAtEpochStart = prices?.slice(-30)[0]?.[1] || 1
-  const epochPriceChange = (latestPrice || 0) - priceAtEpochStart
-  const dpiTokenIcon = {
-    src: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
-    alt: 'DefiPulse Index Logo',
+  const allMarketData = useAllProductsMarketData()
+
+  const [indexSelector, setIndexSelector] = useState<number>(0)
+  const [productMetaData, setProductMetaData] = useState<{
+    name: string
+    symbol: string
+    image: string
+    url: string
+  }>({
+    name: productTokensBySymbol.DPI.name,
+    symbol: productTokensBySymbol.DPI.symbol,
+    image: productTokensBySymbol.DPI.image,
+    url: '/dpi',
+  })
+
+  const priceAtEpochStart =
+    allMarketData[indexSelector].prices?.slice(
+      -PriceChartRangeOption.MONTHLY_PRICE_RANGE
+    )[0]?.[1] || 1
+  const epochPriceChange =
+    (allMarketData[indexSelector].latestPrice || 0) - priceAtEpochStart
+
+  const handleDpiButton = () => {
+    setIndexSelector(0)
+    setProductMetaData({
+      name: productTokensBySymbol.DPI.name,
+      symbol: productTokensBySymbol.DPI.symbol,
+      image: productTokensBySymbol.DPI.image,
+      url: '/dpi',
+    })
   }
+
+  const handleCGIButton = () => {
+    setIndexSelector(1)
+    setProductMetaData({
+      name: productTokensBySymbol.CGI.name,
+      symbol: productTokensBySymbol.CGI.symbol,
+      image: productTokensBySymbol.CGI.image,
+      url: '/cgi',
+    })
+  }
+
+  const handleEthFliButton = () => {
+    setIndexSelector(2)
+    setProductMetaData({
+      name: productTokensBySymbol['ETH2x-FLI'].name,
+      symbol: productTokensBySymbol['ETH2x-FLI'].symbol,
+      image: productTokensBySymbol['ETH2x-FLI'].image,
+      url: '/fli',
+    })
+  }
+
+  const handleMviButton = () => {
+    setIndexSelector(3)
+    setProductMetaData({
+      name: productTokensBySymbol.MVI.name,
+      symbol: productTokensBySymbol.MVI.symbol,
+      image: productTokensBySymbol.MVI.image,
+      url: '/mvi',
+    })
+  }
+
   return (
     <>
       <StyledMarketDataTitle>Products</StyledMarketDataTitle>
+      <ButtonWrapper>
+        <Button
+          full
+          size={'sm'}
+          text='DPI'
+          variant={indexSelector === 0 ? 'default' : 'secondary'}
+          onClick={handleDpiButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='CGI'
+          variant={indexSelector === 1 ? 'default' : 'secondary'}
+          onClick={handleCGIButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='ETH2x-FLI'
+          variant={indexSelector === 2 ? 'default' : 'secondary'}
+          onClick={handleEthFliButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='MVI'
+          variant={indexSelector === 3 ? 'default' : 'secondary'}
+          onClick={handleMviButton}
+        />
+      </ButtonWrapper>
       <Card>
         <CardContent>
           <StyledDpiSplitHeader>
             <div>
               <StyledDpiIconLabel>
-                <StyledIcon src={dpiTokenIcon.src} alt={dpiTokenIcon.alt} />
-                <span>DPI</span>
+                <StyledIcon
+                  src={productMetaData.image}
+                  alt={productMetaData.symbol + ' Logo'}
+                />
+                <span>{productMetaData.symbol}</span>
               </StyledDpiIconLabel>
-              <StyledDpiTitle>DeFi Pulse Index</StyledDpiTitle>
+              <StyledDpiTitle>{productMetaData.name}</StyledDpiTitle>
             </div>
-            <StyledViewMoreButton to='/dpi'>
-              View the DeFi Pulse Index ➔
+            <StyledViewMoreButton to={productMetaData.url}>
+              View the {productMetaData.name} ➔
             </StyledViewMoreButton>
           </StyledDpiSplitHeader>
         </CardContent>
         <SimplePriceChart
           showTooltip
-          icon={dpiTokenIcon}
-          data={prices?.map(([x, y]) => ({ x, y }))}
-          hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
+          icon={{
+            src: productMetaData.image,
+            alt: productMetaData.symbol + ' Logo',
+          }}
+          data={allMarketData[indexSelector].prices?.map(([x, y]) => ({
+            x,
+            y,
+          }))}
+          hourlyData={allMarketData[
+            indexSelector
+          ].hourlyPrices?.map(([x, y]) => ({ x, y }))}
         />
       </Card>
-
       <Spacer />
-
       <Split>
         <Card>
           <CardContent>
             <FancyValue
-              icon={dpiTokenIcon}
-              label='Current $DPI Price'
-              value={'$' + numeral(latestPrice).format('0.00a')}
+              icon={{
+                src: productMetaData.image,
+                alt: productMetaData.symbol + ' Logo',
+              }}
+              label={'Current $' + productMetaData.symbol + ' Price'}
+              value={
+                '$' +
+                numeral(allMarketData[indexSelector].latestPrice).format(
+                  '0.00a'
+                )
+              }
             />
           </CardContent>
         </Card>
@@ -66,7 +167,10 @@ const MarketData: React.FC = () => {
         <Card>
           <CardContent>
             <FancyValue
-              icon={dpiTokenIcon}
+              icon={{
+                src: productMetaData.image,
+                alt: productMetaData.symbol + ' Logo',
+              }}
               label='1 Month Price Change'
               value={
                 numeral((epochPriceChange / priceAtEpochStart) * 100).format(
@@ -77,16 +181,22 @@ const MarketData: React.FC = () => {
           </CardContent>
         </Card>
       </Split>
-
       <Spacer />
-
       <Split>
         <Card>
           <CardContent>
             <FancyValue
-              icon={dpiTokenIcon}
-              label='$DPI 24hr Volume'
-              value={'$' + numeral(latestVolume).format('0.00a')}
+              icon={{
+                src: productMetaData.image,
+                alt: productMetaData.symbol + ' Logo',
+              }}
+              label={'$' + productMetaData.symbol + ' 24hr Volume'}
+              value={
+                '$' +
+                numeral(allMarketData[indexSelector].latestVolume).format(
+                  '0.00a'
+                )
+              }
             />
           </CardContent>
         </Card>
@@ -94,9 +204,17 @@ const MarketData: React.FC = () => {
         <Card>
           <CardContent>
             <FancyValue
-              icon={dpiTokenIcon}
-              label='$DPI Marketcap'
-              value={'$' + numeral(latestMarketCap).format('0.00a')}
+              icon={{
+                src: productMetaData.image,
+                alt: productMetaData.symbol + ' Logo',
+              }}
+              label={'$' + productMetaData.symbol + ' Marketcap'}
+              value={
+                '$' +
+                numeral(allMarketData[indexSelector].latestMarketCap).format(
+                  '0.00a'
+                )
+              }
             />
           </CardContent>
         </Card>
@@ -148,6 +266,11 @@ const StyledIcon = styled.img`
   text-align: center;
   min-width: 34px;
   margin-right: 5px;
+`
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  padding-bottom: 20px;
 `
 
 export default MarketData
