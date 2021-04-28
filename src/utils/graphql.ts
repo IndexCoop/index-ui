@@ -17,6 +17,7 @@ export const DPI_ETH_UNISWAP_QUERY = gql`
     pairs(where: { id: "${uniswapEthDpiLpTokenAddress}" }) {
       id
       reserveUSD
+      totalSupply
     }
   }
 `
@@ -26,6 +27,7 @@ export const ETH_MVI_UNISWAP_QUERY = gql`
     pairs(where: { id: "${uniswapEthMviLpTokenAddress}" }) {
       id
       reserveUSD
+      totalSupply
     }
   }
 `
