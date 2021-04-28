@@ -124,5 +124,17 @@ export const unstakeAndClaimEarnedIndexLpReward = (
   })
 }
 
+export const getAmountOfStakedTokens = async (
+  provider: provider,
+  contractAddress: string
+) => {
+  const web3 = new Web3(provider)
+  const contract = new web3.eth.Contract(
+    (StakeABI as unknown) as AbiItem,
+    contractAddress
+  )
+  return await contract.methods.totalSupply().call()
+}
+
 // Currently set for 12pm PST Dec. 6th
 export const farmEndTime = '1607284800000'
