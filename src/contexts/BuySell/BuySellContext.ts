@@ -14,7 +14,7 @@ interface BuySellContextValues {
   spendingTokenBalance: BigNumber
   uniswapData: UniswapPriceData | undefined
   onSetBuySellToken: (
-    tokenId: 'index' | 'dpi' | 'cgi' | 'ethfli' | 'mvi'
+    tokenId: 'index' | 'dpi' | 'cgi' | 'ethfli' | 'mvi' | 'btcfli'
   ) => void
   onToggleIsUserBuying: () => void
   onSetActiveField: (field: 'currency' | 'set') => void

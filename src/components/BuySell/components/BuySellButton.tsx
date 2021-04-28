@@ -127,10 +127,10 @@ const BuySellButton: React.FC = () => {
     buttonText = 'Approve DPI'
     buttonAction = dpiApproval.onApprove
   } else if (eth2xfliApprovalRequired) {
-    buttonText = 'Approve FLI'
+    buttonText = 'Approve ETH2x-FLI'
     buttonAction = eth2xfliApproval.onApprove
   } else if (btc2xfliApprovalRequired) {
-    buttonText = 'Approve FLI'
+    buttonText = 'Approve BTC2x-FLI'
     buttonAction = btc2xfliApproval.onApprove
   } else if (cgiApprovalRequired) {
     buttonText = 'Approve CGI'

@@ -152,7 +152,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             <Box row>
               <FancyValue
                 icon={{
-                  alt: 'FLI Icon',
+                  alt: 'ETH2x-FLI Icon',
                   src:
                     'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
                 }}
@@ -170,7 +170,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             <Box row>
               <FancyValue
                 icon={{
-                  alt: 'FLI Icon',
+                  alt: 'BTC2x-FLI Icon',
                   src:
                     'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
                 }}

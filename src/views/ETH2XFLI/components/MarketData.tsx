@@ -29,7 +29,7 @@ const MarketData: React.FC = () => {
   const epochPriceChange = (chartPrice || 0) - startingPrice
   const fliTokenIcon = {
     src: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
-    alt: 'FLI Icon',
+    alt: 'ETH2x-FLI Icon',
   }
 
   const updateChartPrice = (chartData: any) => {
