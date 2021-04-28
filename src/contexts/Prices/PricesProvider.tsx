@@ -102,8 +102,8 @@ const PricesProvider: React.FC = ({ children }) => {
     )
 
     //multiply by totalSupply
-    getAmountOfStakedTokens(ethereum, farmTwoAddress).then(
-      (tokensInStakingContract) => {
+    getAmountOfStakedTokens(ethereum, farmTwoAddress)
+      .then((tokensInStakingContract) => {
         const usdInStakingContract = new BigNumber(tokensInStakingContract)
           .dividedBy(new BigNumber(10).pow(18))
           .multipliedBy(pricePerLPToken)
@@ -113,8 +113,11 @@ const PricesProvider: React.FC = ({ children }) => {
         const calculatedApy = dailyYield.multipliedBy(365)
 
         setFarmTwoApy(calculatedApy.toFixed(2))
-      }
-    )
+      })
+      .catch((error) => {
+        console.log(error)
+        setFarmTwoApy('0.00')
+      })
   }, [usdInEthDpiPool, indexPrice, ethereum, totalSupplyInEthDpiPool])
 
   useEffect(() => {
@@ -137,8 +140,8 @@ const PricesProvider: React.FC = ({ children }) => {
     )
 
     //multiply by totalSupply
-    getAmountOfStakedTokens(ethereum, mviStakingRewardsAddress).then(
-      (tokensInStakingContract) => {
+    getAmountOfStakedTokens(ethereum, mviStakingRewardsAddress)
+      .then((tokensInStakingContract) => {
         const usdInStakingContract = new BigNumber(tokensInStakingContract)
           .dividedBy(new BigNumber(10).pow(18))
           .multipliedBy(pricePerLPToken)
@@ -148,8 +151,11 @@ const PricesProvider: React.FC = ({ children }) => {
         const calculatedApy = dailyYield.multipliedBy(365)
 
         setMviRewardsApy(calculatedApy.toFixed(2))
-      }
-    )
+      })
+      .catch((error) => {
+        console.log(error)
+        setFarmTwoApy('0.00')
+      })
   }, [usdInEthMviPool, indexPrice, ethereum, totalSupplyInEthMviPool])
 
   const totalUSDInFarms =
