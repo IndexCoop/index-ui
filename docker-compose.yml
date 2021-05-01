@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        APP_DIR: $APP_DIR
+    volumes:
+    - ./:$APP_DIR
+    ports:
+      - "$PORT:$PORT"
+    tty: true
