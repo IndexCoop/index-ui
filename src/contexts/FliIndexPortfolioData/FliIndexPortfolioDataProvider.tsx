@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import FliIndexPortfolioDataContext from './FliIndexPortfolioDataContext'
 import { fetchSetComponents } from 'utils/tokensetsApi'
-import { tokensetsFliId } from 'constants/tokensetsIds'
+import { Ethereum2xFlexibleLeverageIndex } from 'constants/productTokens'
 
 const FliIndexPortfolioDataProvider: React.FC = ({ children }) => {
   const [fliIndexPortfolioData, setFliIndexPortfolioData] = useState<any>([])
 
   useEffect(() => {
-    fetchSetComponents(tokensetsFliId)
+    fetchSetComponents(Ethereum2xFlexibleLeverageIndex.tokensetsId)
       .then((response: any) => {
         setFliIndexPortfolioData(response)
       })
