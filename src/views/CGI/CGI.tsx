@@ -12,11 +12,11 @@ import {
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
-import MarketData from './components/MarketData'
 
 import useCgiTokenMarketData from 'hooks/useCgiTokenMarketData'
 import useCgiIndexComponents from 'hooks/useCgiIndexComponents'
 import useBalances from 'hooks/useBalances'
+import MarketData from 'components/MarketData'
 
 const CgiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -31,7 +31,18 @@ const CgiProductPage = (props: { title: string }) => {
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
-          <MarketData />
+          <MarketData
+            prices={prices || [[0]]}
+            hourlyPrices={hourlyPrices || [[0]]}
+            latestPrice={latestPrice || 0}
+            tokenIcon={{
+              src:
+                'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
+              alt: 'CGI Logo',
+            }}
+            tokenSymbol='CGI'
+            title='CoinShares Crypto Gold Index'
+          />
           <BuySellWrapper tokenId='cgi' />
         </ProductPageHeader>
         <ProductPageContent>

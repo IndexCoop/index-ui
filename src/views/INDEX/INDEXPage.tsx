@@ -12,7 +12,7 @@ import {
   Description,
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
-import MarketData from './components/MarketData'
+import MarketData from 'components/MarketData'
 
 import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
 import useBalances from 'hooks/useBalances'
@@ -37,7 +37,17 @@ const DpiProductPage = (props: { title: string }) => {
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
-          <MarketData />
+          <MarketData
+            prices={prices || [[0]]}
+            hourlyPrices={hourlyPrices || [[0]]}
+            latestPrice={latestPrice || 0}
+            tokenIcon={{
+              src: 'https://index-dao.s3.amazonaws.com/owl.png',
+              alt: 'Index Coop Logo',
+            }}
+            tokenSymbol='INDEX'
+            title='Index Coop Token'
+          />
           <BuySellWrapper tokenId='index' />
         </ProductPageHeader>
         <ProductPageContent>

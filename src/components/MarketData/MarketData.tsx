@@ -8,23 +8,22 @@ import { PriceChartRangeOption } from 'constants/priceChartEnums'
 import { InputProps } from 'react-neu'
 
 interface MarketDataInputProps extends InputProps {
-  tokenData: () => {
-    latestPrice: number
-    prices: number[][]
-    hourlyPrices: number[][]
-  }
+  latestPrice: number
+  prices: number[][]
+  hourlyPrices: number[][]
   tokenIcon: { src: string; alt: string }
   title: string
   tokenSymbol: string
 }
 
 const MarketData: React.FC<MarketDataInputProps> = ({
-  tokenData,
+  latestPrice,
+  prices,
+  hourlyPrices,
   tokenIcon,
   title,
   tokenSymbol,
 }) => {
-  const { latestPrice, prices, hourlyPrices } = tokenData()
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
   const [chartRange, setChartRange] = useState<number>(
@@ -88,9 +87,9 @@ const MarketData: React.FC<MarketDataInputProps> = ({
     <div>
       <StyledIconLabel>
         <StyledIcon src={tokenIcon.src} alt={tokenIcon.alt} />
-        <span>${tokenSymbol}</span>
+        <span>{tokenSymbol}</span>
       </StyledIconLabel>
-      <StyledTitle>${title}</StyledTitle>
+      <StyledTitle>{title}</StyledTitle>
       <p>{dateString}</p>
       <StyledPriceWrapper>
         <StyledPrice>{'$' + numeral(chartPrice).format('0.00a')}</StyledPrice>
