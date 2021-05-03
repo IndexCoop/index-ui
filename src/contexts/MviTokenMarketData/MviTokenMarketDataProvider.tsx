@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import MarketDataContext from './MviTokenMarketDataContext'
-import { coingeckoMviId } from 'constants/coingeckoIds'
+import { MetaverseIndex } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
 
 const MviMarketDataProvider: React.FC = ({ children }) => {
   const [mviMarketData, setMviMarketData] = useState<any>({})
 
   useEffect(() => {
-    fetchHistoricalTokenMarketData(coingeckoMviId)
+    fetchHistoricalTokenMarketData(MetaverseIndex.coingeckoId)
       .then((response: any) => {
         setMviMarketData(response)
       })

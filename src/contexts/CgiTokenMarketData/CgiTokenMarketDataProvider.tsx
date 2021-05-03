@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import MarketDataContext from './CgiTokenMarketDataContext'
-import { coingeckoCgiId } from 'constants/coingeckoIds'
+import { CoinsharesCryptoGoldIndex } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
 
 const CgiMarketDataProvider: React.FC = ({ children }) => {
   const [cgiMarketData, setCgiMarketData] = useState<any>({})
 
   useEffect(() => {
-    fetchHistoricalTokenMarketData(coingeckoCgiId)
+    fetchHistoricalTokenMarketData(CoinsharesCryptoGoldIndex.coingeckoId)
       .then((response: any) => {
         setCgiMarketData(response)
       })

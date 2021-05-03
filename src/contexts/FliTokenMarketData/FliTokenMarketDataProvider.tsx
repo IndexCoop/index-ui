@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import MarketDataContext from './FliTokenMarketDataContext'
-import { coingeckoFliId } from 'constants/coingeckoIds'
+import { Ethereum2xFlexibleLeverageIndex } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
 
 const FliMarketDataProvider: React.FC = ({ children }) => {
   const [fliMarketData, setFliMarketData] = useState<any>({})
 
   useEffect(() => {
-    fetchHistoricalTokenMarketData(coingeckoFliId)
+    fetchHistoricalTokenMarketData(Ethereum2xFlexibleLeverageIndex.coingeckoId)
       .then((response: any) => {
         setFliMarketData(response)
       })
