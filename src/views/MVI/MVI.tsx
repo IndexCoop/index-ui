@@ -11,7 +11,7 @@ import {
   IndexComponentsTable,
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
-import MarketData from './components/MarketData'
+import MarketData from 'components/MarketData'
 
 import useMviTokenMarketData from 'hooks/useMviTokenMarketData'
 import useMviComponents from 'hooks/useMviComponents'
@@ -22,7 +22,7 @@ const MviProductPage = (props: { title: string }) => {
     document.title = props.title
   }, [props.title])
 
-  const { latestPrice } = useMviTokenMarketData()
+  const { latestPrice, prices, hourlyPrices } = useMviTokenMarketData()
   const { components } = useMviComponents()
   const { mviBalance } = useBalances()
 
@@ -30,7 +30,17 @@ const MviProductPage = (props: { title: string }) => {
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
-          <MarketData />
+          <MarketData
+            prices={prices || [[0]]}
+            hourlyPrices={hourlyPrices || [[0]]}
+            latestPrice={latestPrice || 0}
+            tokenIcon={{
+              src: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
+              alt: 'MVI Logo',
+            }}
+            tokenSymbol='MVI'
+            title='Metaverse Index'
+          />
           <BuySellWrapper tokenId='mvi' />
         </ProductPageHeader>
         <ProductPageContent>

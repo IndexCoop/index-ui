@@ -15,7 +15,7 @@ import {
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
-import MarketData from './components/MarketData'
+import MarketData from 'components/MarketData'
 
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 import useDpiIndexComponents from 'hooks/useDpiIndexComponents'
@@ -54,7 +54,18 @@ const DpiProductPage = (props: { title: string }) => {
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
-          <MarketData />
+          <MarketData
+            prices={prices || [[0]]}
+            hourlyPrices={hourlyPrices || [[0]]}
+            latestPrice={latestPrice || 0}
+            tokenIcon={{
+              src:
+                'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
+              alt: 'DPI Logo',
+            }}
+            tokenSymbol='DPI'
+            title='Defi Pulse Index'
+          />
           <div>
             <BuySellWrapper tokenId='dpi' />
             <TransakBuySellButton />
