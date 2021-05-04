@@ -58,15 +58,12 @@ const BuySellProvider: React.FC = ({ children }) => {
   }, [])
 
   let spendingTokenBalance = new BigNumber(0)
-  if (!isUserBuying && buySellToken 
-      
-      
-      'index') {
+  if (!isUserBuying && buySellToken === 'index') {
     spendingTokenBalance = indexBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'dpi') {
     spendingTokenBalance = dpiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'ethfli') {
-    spendingTokenBalance = fliBalance || new BigNumber(0)
+    spendingTokenBalance = ethfliBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'mvi') {
     spendingTokenBalance = mviBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'wrapped_eth') {
