@@ -86,7 +86,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   )
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <StyledModalBody>
         <ModalTitle text='My Wallet' />
         <ModalContent>

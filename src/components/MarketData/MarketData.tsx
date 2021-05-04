@@ -4,11 +4,26 @@ import numeral from 'numeral'
 
 import SimplePriceChart from 'components/SimplePriceChart'
 
-import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
 import { PriceChartRangeOption } from 'constants/priceChartEnums'
+import { InputProps } from 'react-neu'
 
-const MarketData: React.FC = () => {
-  const { latestPrice, prices, hourlyPrices } = useIndexTokenMarketData()
+interface MarketDataInputProps extends InputProps {
+  latestPrice: number
+  prices: number[][]
+  hourlyPrices: number[][]
+  tokenIcon: { src: string; alt: string }
+  title: string
+  tokenSymbol: string
+}
+
+const MarketData: React.FC<MarketDataInputProps> = ({
+  latestPrice,
+  prices,
+  hourlyPrices,
+  tokenIcon,
+  title,
+  tokenSymbol,
+}) => {
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
   const [chartRange, setChartRange] = useState<number>(
@@ -27,10 +42,6 @@ const MarketData: React.FC = () => {
       ? priceAtEpochStart
       : hourlyPriceAtEpochStart
   const epochPriceChange = (chartPrice || 0) - startingPrice
-  const IndexToken = {
-    src: 'https://index-dao.s3.amazonaws.com/owl.png',
-    alt: 'Index Coop Logo',
-  }
 
   const updateChartPrice = (chartData: any) => {
     const payload = chartData?.activePayload?.[0]?.payload || {}
@@ -38,53 +49,57 @@ const MarketData: React.FC = () => {
     setTimeout(() => {
       setChartPrice(payload.y || 0)
       setChartDate(payload.x || Date.now())
-    }, 0)
 
-    if (chartRange === PriceChartRangeOption.DAILY_PRICE_RANGE) {
-      setDateString(
-        priceData.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric' })
-      )
-    } else {
-      setDateString(priceData.toDateString())
-    }
+      if (chartRange === PriceChartRangeOption.DAILY_PRICE_RANGE) {
+        setDateString(
+          priceData.toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: 'numeric',
+          })
+        )
+      } else {
+        setDateString(priceData.toDateString())
+      }
+    }, 0)
   }
 
   const resetChartPrice = () => {
     setTimeout(() => {
       setChartPrice(latestPrice || 0)
       setChartDate(Date.now())
-    }, 0)
 
-    if (chartRange === PriceChartRangeOption.DAILY_PRICE_RANGE) {
-      setDateString(
-        priceData.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric' })
-      )
-    } else {
-      setDateString(priceData.toDateString())
-    }
+      if (chartRange === PriceChartRangeOption.DAILY_PRICE_RANGE) {
+        setDateString(
+          priceData.toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: 'numeric',
+          })
+        )
+      } else {
+        setDateString(priceData.toDateString())
+      }
+    }, 0)
   }
 
   const priceData = new Date(chartDate)
 
   return (
     <div>
-      <StyledDpiIconLabel>
-        <StyledIcon src={IndexToken.src} alt={IndexToken.alt} />
-        <span>INDEX</span>
-      </StyledDpiIconLabel>
-      <StyledDpiTitle>Index Coop Token</StyledDpiTitle>
+      <StyledIconLabel>
+        <StyledIcon src={tokenIcon.src} alt={tokenIcon.alt} />
+        <span>{tokenSymbol}</span>
+      </StyledIconLabel>
+      <StyledTitle>{title}</StyledTitle>
       <p>{dateString}</p>
-      <StyledDpiPriceWrapper>
-        <StyledDpiPrice>
-          {'$' + numeral(chartPrice).format('0.00a')}
-        </StyledDpiPrice>
-        <StyledDpiPriceChange isLoss={epochPriceChange < 0}>
+      <StyledPriceWrapper>
+        <StyledPrice>{'$' + numeral(chartPrice).format('0.00a')}</StyledPrice>
+        <StyledPriceChange isLoss={epochPriceChange < 0}>
           {numeral((epochPriceChange / startingPrice) * 100).format('0.00a') +
             '%'}
-        </StyledDpiPriceChange>
-      </StyledDpiPriceWrapper>
+        </StyledPriceChange>
+      </StyledPriceWrapper>
       <SimplePriceChart
-        icon={IndexToken}
+        icon={tokenIcon}
         data={prices?.map(([x, y]) => ({ x, y }))}
         hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
@@ -95,30 +110,30 @@ const MarketData: React.FC = () => {
   )
 }
 
-const StyledDpiTitle = styled.div`
+const StyledTitle = styled.div`
   font-size: 32px;
   font-weight: 600;
 `
 
-const StyledDpiIconLabel = styled.div`
+const StyledIconLabel = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 `
 
-const StyledDpiPriceWrapper = styled.div`
+const StyledPriceWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   margin-top: 10px;
 `
 
-const StyledDpiPrice = styled.span`
+const StyledPrice = styled.span`
   font-size: 36px;
   margin-right: 10px;
   line-height: 1;
 `
 
-const StyledDpiPriceChange = styled.span`
+const StyledPriceChange = styled.span`
   font-size: 24px;
   color: ${(props: { isLoss: boolean }) =>
     props.isLoss ? '#ff4a4a' : '#03c75e'};

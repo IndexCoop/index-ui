@@ -10,7 +10,7 @@ import {
   Description,
   IndexComponentsTable,
 } from 'components/ProductPage'
-import MarketData from './components/MarketData'
+import MarketData from 'components/MarketData'
 import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
 
@@ -31,7 +31,18 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
-          <MarketData />
+          <MarketData
+            prices={prices || [[0]]}
+            hourlyPrices={hourlyPrices || [[0]]}
+            latestPrice={latestPrice || 0}
+            tokenIcon={{
+              src:
+                'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+              alt: 'ETH2xFLI Logo',
+            }}
+            tokenSymbol='ETH2xFLI'
+            title='ETH 2x Flexible Leverage Index'
+          />
           <div>
             <BuySellWrapper tokenId='ethfli' />
           </div>

@@ -10,13 +10,14 @@ import {
   Description,
   IndexComponentsTable,
 } from 'components/ProductPage'
-import MarketData from './components/MarketData'
+import MarketData from 'components/MarketData'
 import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
 
 import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
 import useBtc2xFliIndexPortfolioData from 'hooks/useBtc2xFliIndexPortfolioData'
 import useBalances from 'hooks/useBalances'
+import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 
 const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -24,14 +25,24 @@ const Btc2xFliProductPage = (props: { title: string }) => {
   }, [props.title])
 
   const { prices, hourlyPrices, latestPrice } = useBtc2xFliTokenMarketData()
-  const { components, symbol } = useBtc2xFliIndexPortfolioData()
+  const { components } = useBtc2xFliIndexPortfolioData()
   const { btcfliBalance } = useBalances()
 
   return (
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
-          <MarketData />
+          <MarketData
+            prices={prices || [[0]]}
+            hourlyPrices={hourlyPrices || [[0]]}
+            latestPrice={latestPrice || 0}
+            tokenIcon={{
+              src: Bitcoin2xFlexibleLeverageIndex.image,
+              alt: Bitcoin2xFlexibleLeverageIndex.symbol + ' Logo',
+            }}
+            tokenSymbol={Bitcoin2xFlexibleLeverageIndex.symbol}
+            title={Bitcoin2xFlexibleLeverageIndex.name}
+          />
           <div>
             <BuySellWrapper tokenId='btcfli' />
           </div>
