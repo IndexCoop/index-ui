@@ -17,6 +17,7 @@ import ExternalLink from 'components/ExternalLink'
 import useFliTokenMarketData from 'hooks/useFliTokenMarketData'
 import useFliIndexPortfolioData from 'hooks/useFliIndexPortfolioData'
 import useBalances from 'hooks/useBalances'
+import { Ethereum2xFlexibleLeverageIndex } from 'constants/productTokens'
 
 const FliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -25,7 +26,7 @@ const FliProductPage = (props: { title: string }) => {
 
   const { prices, hourlyPrices, latestPrice } = useFliTokenMarketData()
   const { components, symbol } = useFliIndexPortfolioData()
-  const { fliBalance } = useBalances()
+  const { ethfliBalance } = useBalances()
 
   return (
     <Page>
@@ -36,12 +37,11 @@ const FliProductPage = (props: { title: string }) => {
             hourlyPrices={hourlyPrices || [[0]]}
             latestPrice={latestPrice || 0}
             tokenIcon={{
-              src:
-                'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
-              alt: 'ETH2xFLI Logo',
+              src: Ethereum2xFlexibleLeverageIndex.image,
+              alt: Ethereum2xFlexibleLeverageIndex.symbol + ' Logo',
             }}
-            tokenSymbol='ETH2xFLI'
-            title='ETH 2x Flexible Leverage Index'
+            tokenSymbol={Ethereum2xFlexibleLeverageIndex.symbol}
+            title={Ethereum2xFlexibleLeverageIndex.name}
           />
           <div>
             <BuySellWrapper tokenId='ethfli' />
@@ -51,7 +51,7 @@ const FliProductPage = (props: { title: string }) => {
           <WalletBalance
             symbol='ETH2x-FLI'
             latestPrice={latestPrice}
-            currentBalance={fliBalance}
+            currentBalance={ethfliBalance}
           />
           <PriceChanges prices={prices} hourlyPrices={hourlyPrices} />
           <IndexComponentsTable components={components} />

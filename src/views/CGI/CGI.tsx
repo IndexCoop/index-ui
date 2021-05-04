@@ -18,6 +18,7 @@ import useCgiIndexComponents from 'hooks/useCgiIndexComponents'
 import useBalances from 'hooks/useBalances'
 import MarketData from 'components/MarketData'
 import { toast } from 'react-toastify'
+import { CoinsharesCryptoGoldIndex } from 'constants/productTokens'
 
 const CgiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -49,12 +50,11 @@ const CgiProductPage = (props: { title: string }) => {
             hourlyPrices={hourlyPrices || [[0]]}
             latestPrice={latestPrice || 0}
             tokenIcon={{
-              src:
-                'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
-              alt: 'CGI Logo',
+              src: CoinsharesCryptoGoldIndex.image,
+              alt: CoinsharesCryptoGoldIndex.symbol + ' Logo',
             }}
-            tokenSymbol='CGI'
-            title='CoinShares Crypto Gold Index'
+            tokenSymbol={CoinsharesCryptoGoldIndex.symbol}
+            title={CoinsharesCryptoGoldIndex.name}
           />
         </ProductPageHeader>
         <ProductPageContent>
