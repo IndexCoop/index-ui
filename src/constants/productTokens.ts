@@ -39,7 +39,7 @@ export const IndexToken: ProductToken = {
 export const Ethereum2xFlexibleLeverageIndex: ProductToken = {
   name: 'Ethereum 2x Flexible Leverage Index',
   symbol: 'ETH2x-FLI',
-  address: tokenAddresses.fliTokenAddress,
+  address: tokenAddresses.eth2xfliTokenAddress,
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
   coingeckoId: 'eth-2x-flexible-leverage-index',
   tokensetsId: 'ethfli',

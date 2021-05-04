@@ -8,8 +8,7 @@ import {
   daiTokenAddress,
   usdcTokenAddress,
   dpiTokenAddress,
-  fliTokenAddress,
-  cgiTokenAddress,
+  eth2xfliTokenAddress,
   indexTokenAddress,
   uniswapRouterAddress,
 } from 'constants/ethContractAddresses'
@@ -37,8 +36,7 @@ const BuySellButton: React.FC = () => {
   const daiApproval = useApproval(daiTokenAddress, uniswapRouterAddress)
   const usdcApproval = useApproval(usdcTokenAddress, uniswapRouterAddress)
   const dpiApproval = useApproval(dpiTokenAddress, uniswapRouterAddress)
-  const fliApproval = useApproval(fliTokenAddress, uniswapRouterAddress)
-  const cgiApproval = useApproval(cgiTokenAddress, uniswapRouterAddress)
+  const fliApproval = useApproval(eth2xfliTokenAddress, uniswapRouterAddress)
   const indexApproval = useApproval(indexTokenAddress, uniswapRouterAddress)
 
   // Only prompt the user at end of the buy flow. (So they can preview the order before logging in)
@@ -61,15 +59,6 @@ const BuySellButton: React.FC = () => {
     !isUserBuying &&
     buySellToken.toLowerCase() === 'ethfli' &&
     fliApproval.isApproving
-
-  const cgiApprovalRequired =
-    !isUserBuying &&
-    buySellToken.toLowerCase() === 'cgi' &&
-    !cgiApproval.isApproved
-  const cgiApproving =
-    !isUserBuying &&
-    buySellToken.toLowerCase() === 'cgi' &&
-    cgiApproval.isApproving
 
   const indexApprovalRequired =
     !isUserBuying &&
@@ -100,7 +89,6 @@ const BuySellButton: React.FC = () => {
     fliApproving ||
     indexApproving ||
     daiApproving ||
-    cgiApproving ||
     usdcApproving
   ) {
     buttonText = 'Approving'
@@ -111,9 +99,6 @@ const BuySellButton: React.FC = () => {
   } else if (fliApprovalRequired) {
     buttonText = 'Approve FLI'
     buttonAction = fliApproval.onApprove
-  } else if (cgiApprovalRequired) {
-    buttonText = 'Approve CGI'
-    buttonAction = cgiApproval.onApprove
   } else if (indexApprovalRequired) {
     buttonText = 'Approve INDEX'
     buttonAction = indexApproval.onApprove

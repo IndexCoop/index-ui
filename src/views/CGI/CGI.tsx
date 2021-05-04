@@ -43,7 +43,6 @@ const CgiProductPage = (props: { title: string }) => {
             tokenSymbol='CGI'
             title='CoinShares Crypto Gold Index'
           />
-          <BuySellWrapper tokenId='cgi' />
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
