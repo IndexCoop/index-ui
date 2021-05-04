@@ -17,10 +17,23 @@ import useCgiTokenMarketData from 'hooks/useCgiTokenMarketData'
 import useCgiIndexComponents from 'hooks/useCgiIndexComponents'
 import useBalances from 'hooks/useBalances'
 import MarketData from 'components/MarketData'
+import { toast } from 'react-toastify'
 
 const CgiProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
+    toast.error(
+      'CGI price chart data may be innacurate, and the index is being deprecated. Buying and selling this index has been disabled.',
+      {
+        position: 'top-right',
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    )
   }, [props.title])
 
   const { prices, hourlyPrices, latestPrice } = useCgiTokenMarketData()

@@ -8,7 +8,7 @@ import {
   daiTokenAddress,
   usdcTokenAddress,
   dpiTokenAddress,
-  eth2xfliTokenAddress,
+  fliTokenAddress,
   indexTokenAddress,
   uniswapRouterAddress,
 } from 'constants/ethContractAddresses'
@@ -36,7 +36,7 @@ const BuySellButton: React.FC = () => {
   const daiApproval = useApproval(daiTokenAddress, uniswapRouterAddress)
   const usdcApproval = useApproval(usdcTokenAddress, uniswapRouterAddress)
   const dpiApproval = useApproval(dpiTokenAddress, uniswapRouterAddress)
-  const fliApproval = useApproval(eth2xfliTokenAddress, uniswapRouterAddress)
+  const fliApproval = useApproval(fliTokenAddress, uniswapRouterAddress)
   const indexApproval = useApproval(indexTokenAddress, uniswapRouterAddress)
 
   // Only prompt the user at end of the buy flow. (So they can preview the order before logging in)

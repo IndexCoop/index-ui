@@ -66,6 +66,7 @@ div > .Toastify__toast--warning {
 
 div > .Toastify__toast--error {
   border-top: 5px solid #df4857;
+  background-color: rgb(162, 33, 20);
 }
 
 /* Remove input field number arrows */
