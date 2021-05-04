@@ -18,15 +18,32 @@ import useFliTokenMarketData from 'hooks/useFliTokenMarketData'
 import useFliIndexPortfolioData from 'hooks/useFliIndexPortfolioData'
 import useBalances from 'hooks/useBalances'
 import { Ethereum2xFlexibleLeverageIndex } from 'constants/productTokens'
+import { TokenDataProps } from 'components/ProductPage/ProductDataUI'
 
 const FliProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
 
-  const { prices, hourlyPrices, latestPrice } = useFliTokenMarketData()
-  const { components, symbol } = useFliIndexPortfolioData()
+  const {
+    prices,
+    hourlyPrices,
+    latestPrice,
+    latestMarketCap,
+    latestVolume,
+  } = useFliTokenMarketData()
+  const { components } = useFliIndexPortfolioData()
   const { ethfliBalance } = useBalances()
+  const tokenDataProps: TokenDataProps = {
+    prices: prices,
+    hourlyPrices: hourlyPrices,
+    latestPrice: latestPrice,
+    latestMarketCap: latestMarketCap,
+    latestVolume: latestVolume,
+    token: Ethereum2xFlexibleLeverageIndex,
+    components: components,
+    balance: ethfliBalance,
+  }
 
   return (
     <Page>

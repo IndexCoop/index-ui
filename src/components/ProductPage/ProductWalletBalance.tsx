@@ -8,15 +8,16 @@ import SimpleButton from 'components/SimpleButton'
 
 import useWallet from 'hooks/useWallet'
 import { useAddToMetamask } from 'hooks/useAddToMetamask'
+import { ProductToken } from 'constants/productTokens'
 
 interface ProductWalletBalanceProps {
-  symbol: 'DPI' | 'MVI' | 'ETH2x-FLI' | 'CGI' | 'INDEX'
+  token: ProductToken
   latestPrice?: number
   currentBalance?: BigNumber | number
 }
 
 const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
-  symbol,
+  token,
   latestPrice = 0,
   currentBalance = 0,
 }) => {
@@ -31,14 +32,14 @@ const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
             ${numeral(latestPrice * Number(currentBalance)).format('0.00a')}
           </StyledTokenValuation>
           <StyledTokenBalance>
-            {numeral(currentBalance).format('0.000a')} {symbol}
+            {numeral(currentBalance).format('0.000a')} {token.symbol}
           </StyledTokenBalance>
         </div>
         <div>
           <SimpleButton
             text='Add to Metamask'
             isDisabled={!isMetamaskConnected}
-            onClick={() => handleAddToMetamask(symbol)}
+            onClick={() => handleAddToMetamask(token)}
           />
         </div>
       </StyledTokenWrapper>

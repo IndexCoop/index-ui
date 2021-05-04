@@ -18,15 +18,32 @@ import useCgiIndexComponents from 'hooks/useCgiIndexComponents'
 import useBalances from 'hooks/useBalances'
 import MarketData from 'components/MarketData'
 import { CoinsharesCryptoGoldIndex } from 'constants/productTokens'
+import { TokenDataProps } from 'components/ProductPage/ProductDataUI'
 
 const CgiProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
 
-  const { prices, hourlyPrices, latestPrice } = useCgiTokenMarketData()
+  const {
+    prices,
+    hourlyPrices,
+    latestPrice,
+    latestMarketCap,
+    latestVolume,
+  } = useCgiTokenMarketData()
   const { components } = useCgiIndexComponents()
   const { cgiBalance } = useBalances()
+  const tokenDataProps: TokenDataProps = {
+    prices: prices,
+    hourlyPrices: hourlyPrices,
+    latestPrice: latestPrice,
+    latestMarketCap: latestMarketCap,
+    latestVolume: latestVolume,
+    token: CoinsharesCryptoGoldIndex,
+    components: components,
+    balance: cgiBalance,
+  }
 
   return (
     <Page>
@@ -47,7 +64,7 @@ const CgiProductPage = (props: { title: string }) => {
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
-            symbol='CGI'
+            token={CoinsharesCryptoGoldIndex}
             latestPrice={latestPrice}
             currentBalance={cgiBalance}
           />

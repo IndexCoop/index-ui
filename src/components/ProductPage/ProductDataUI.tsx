@@ -22,19 +22,19 @@ import { ProductToken } from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
 import IndexComponent from 'components/IndexComponent'
 
-export interface TokenDataProp {
-  prices: number[][]
-  hourlyPrices: number[][]
-  latestPrice: number
-  latestMarketCap: number
-  latestVolume: number
+export interface TokenDataProps {
+  prices: number[][] | undefined
+  hourlyPrices: number[][] | undefined
+  latestPrice: number | undefined
+  latestMarketCap: number | undefined
+  latestVolume: number | undefined
   token: ProductToken
-  components: IndexComponent[]
-  balance: BigNumber
+  components: IndexComponent[] | undefined
+  balance: BigNumber | undefined
 }
 
 interface ProductDataUIProps extends InputProps {
-  tokenDataProps: TokenDataProp
+  tokenDataProps: TokenDataProps
 }
 
 const ProductDataUI: React.FC<ProductDataUIProps> = ({
@@ -74,7 +74,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
-            symbol={tokenData.token.symbol}
+            token={tokenData.token}
             latestPrice={tokenData.latestPrice}
             currentBalance={tokenData.balance}
           />
