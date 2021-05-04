@@ -42,7 +42,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     dpiBalance,
     cgiBalance,
     mviBalance,
-    fliBalance,
+    ethfliBalance,
     indexBalance,
     daiBalance,
     usdcBalance,
@@ -64,7 +64,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   } else if (!isUserBuying && buySellToken === 'dpi') {
     spendingTokenBalance = dpiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'ethfli') {
-    spendingTokenBalance = fliBalance || new BigNumber(0)
+    spendingTokenBalance = ethfliBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'cgi') {
     spendingTokenBalance = cgiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'mvi') {

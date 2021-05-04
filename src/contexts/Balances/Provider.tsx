@@ -27,7 +27,7 @@ const Provider: React.FC = ({ children }) => {
   const [ethBalance, setEthBalance] = useState<BigNumber>()
   const [indexBalance, setIndexBalance] = useState<BigNumber>()
   const [dpiBalance, setDpiBalance] = useState<BigNumber>()
-  const [fliBalance, setFliBalance] = useState<BigNumber>()
+  const [ethfliBalance, setEthFliBalance] = useState<BigNumber>()
   const [cgiBalance, setCgiBalance] = useState<BigNumber>()
   const [mviBalance, setMviBalance] = useState<BigNumber>()
   const [daiBalance, setDaiBalance] = useState<BigNumber>()
@@ -122,7 +122,7 @@ const Provider: React.FC = ({ children }) => {
       setDpiBalance(
         new BigNumber(balances[2]).dividedBy(new BigNumber(10).pow(18))
       )
-      setFliBalance(
+      setEthFliBalance(
         new BigNumber(balances[3]).dividedBy(new BigNumber(10).pow(18))
       )
       setCgiBalance(
@@ -166,7 +166,7 @@ const Provider: React.FC = ({ children }) => {
       setEthBalance,
       setIndexBalance,
       setDpiBalance,
-      setFliBalance,
+      setEthFliBalance,
       setCgiBalance,
       setUniswapEthDpiLpBalance,
       setUniswapEthMviLpBalance,
@@ -184,7 +184,7 @@ const Provider: React.FC = ({ children }) => {
       setEthBalance(new BigNumber(0))
       setIndexBalance(new BigNumber(0))
       setDpiBalance(new BigNumber(0))
-      setFliBalance(new BigNumber(0))
+      setEthFliBalance(new BigNumber(0))
       setCgiBalance(new BigNumber(0))
       setMviBalance(new BigNumber(0))
       setDaiBalance(new BigNumber(0))
@@ -217,7 +217,7 @@ const Provider: React.FC = ({ children }) => {
         ethBalance,
         indexBalance,
         dpiBalance,
-        fliBalance,
+        ethfliBalance,
         cgiBalance,
         mviBalance,
         daiBalance,
