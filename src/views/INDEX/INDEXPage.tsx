@@ -18,6 +18,7 @@ import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
 import useBalances from 'hooks/useBalances'
 
 import IndexReleaseScheduleImage from 'assets/index-token-release-schedule.png'
+import { IndexToken } from 'constants/productTokens'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -42,11 +43,11 @@ const DpiProductPage = (props: { title: string }) => {
             hourlyPrices={hourlyPrices || [[0]]}
             latestPrice={latestPrice || 0}
             tokenIcon={{
-              src: 'https://index-dao.s3.amazonaws.com/owl.png',
-              alt: 'Index Coop Logo',
+              src: IndexToken.image,
+              alt: IndexToken.symbol + ' Logo',
             }}
-            tokenSymbol='INDEX'
-            title='Index Coop Token'
+            tokenSymbol={IndexToken.symbol}
+            title={IndexToken.name}
           />
           <BuySellWrapper tokenId='index' />
         </ProductPageHeader>

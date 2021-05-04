@@ -25,6 +25,7 @@ import TransakBuySellButton from 'components/TransakBuySellButton'
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
 import useLocalStorage from 'hooks/useLocalStorage'
+import { DefiPulseIndex } from 'constants/productTokens'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -59,12 +60,11 @@ const DpiProductPage = (props: { title: string }) => {
             hourlyPrices={hourlyPrices || [[0]]}
             latestPrice={latestPrice || 0}
             tokenIcon={{
-              src:
-                'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
-              alt: 'DPI Logo',
+              src: DefiPulseIndex.image,
+              alt: DefiPulseIndex.symbol + ' Logo',
             }}
-            tokenSymbol='DPI'
-            title='Defi Pulse Index'
+            tokenSymbol={DefiPulseIndex.symbol}
+            title={DefiPulseIndex.name}
           />
           <div>
             <BuySellWrapper tokenId='dpi' />

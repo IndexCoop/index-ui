@@ -32,7 +32,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     dpiBalance,
     cgiBalance,
     mviBalance,
-    fliBalance,
+    ethfliBalance,
     uniswapEthDpiLpBalance,
     uniswapEthMviLpBalance,
     stakedUniswapEthDpiLpBalance,
@@ -157,7 +157,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 }}
                 label='FLI 2x ETH Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.fliTokenAddress}`}
-                value={getDisplayBalance(fliBalance)}
+                value={getDisplayBalance(ethfliBalance)}
               />
             </Box>
           </Split>
