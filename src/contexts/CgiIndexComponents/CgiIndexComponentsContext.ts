@@ -1,16 +1,5 @@
 import { createContext } from 'react'
-
-interface IndexComponent {
-  symbol: string
-  id: string
-  name: string
-  address: string
-  quantity: string
-  totalPriceUsd: string
-  percentOfSet: string
-  image: string
-  dailyPercentChange: string
-}
+import IndexComponent from 'components/IndexComponent'
 
 interface DpiIndexComponentsProps {
   components?: IndexComponent[]
