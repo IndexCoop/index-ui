@@ -39,7 +39,7 @@ export const IndexToken: ProductToken = {
 export const Ethereum2xFlexibleLeverageIndex: ProductToken = {
   name: 'Ethereum 2x Flexible Leverage Index',
   symbol: 'ETH2x-FLI',
-  address: tokenAddresses.fliTokenAddress,
+  address: tokenAddresses.eth2xfliTokenAddress,
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
   coingeckoId: 'eth-2x-flexible-leverage-index',
   tokensetsId: 'ethfli',
@@ -54,12 +54,22 @@ export const MetaverseIndex: ProductToken = {
   tokensetsId: 'mvi',
 }
 
+export const Bitcoin2xFlexibleLeverageIndex: ProductToken = {
+  name: 'Bitcoin 2x Flexible Leverage Index',
+  symbol: 'BTC2x-FLI',
+  address: tokenAddresses.btc2xfliTokenAddress,
+  image: 'https://set-core.s3.amazonaws.com/img/portfolios/btc2x_fli.svg',
+  coingeckoId: 'btc-2x-flexible-leverage-index',
+  tokensetsId: 'btcfli',
+}
+
 export const productTokensBySymbol = {
   'DPI': DefiPulseIndex,
   'MVI': MetaverseIndex,
   'CGI': CoinsharesCryptoGoldIndex,
   'ETH2x-FLI': Ethereum2xFlexibleLeverageIndex,
   'INDEX': IndexToken,
+  'BTC2x-FLI': Bitcoin2xFlexibleLeverageIndex,
 }
 
 export default [
@@ -68,4 +78,5 @@ export default [
   CoinsharesCryptoGoldIndex,
   Ethereum2xFlexibleLeverageIndex,
   IndexToken,
+  Bitcoin2xFlexibleLeverageIndex,
 ]

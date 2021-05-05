@@ -5,7 +5,7 @@ export const useAddToMetamask = () => {
   const wallet = useWallet()
 
   const addToken = async (
-    symbol: 'DPI' | 'MVI' | 'ETH2x-FLI' | 'CGI' | 'INDEX'
+    symbol: 'DPI' | 'MVI' | 'ETH2x-FLI' | 'CGI' | 'INDEX' | 'BTC2x-FLI'
   ) => {
     await wallet.ethereum.request({
       method: 'wallet_watchAsset',

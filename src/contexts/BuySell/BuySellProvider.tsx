@@ -22,7 +22,7 @@ import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<
-    'dpi' | 'index' | 'cgi' | 'ethfli' | 'mvi'
+    'dpi' | 'index' | 'cgi' | 'ethfli' | 'mvi' | 'btcfli'
   >('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
@@ -43,6 +43,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     cgiBalance,
     mviBalance,
     ethfliBalance,
+    btcfliBalance,
     indexBalance,
     daiBalance,
     usdcBalance,
@@ -65,6 +66,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = dpiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'ethfli') {
     spendingTokenBalance = ethfliBalance || new BigNumber(0)
+  } else if (!isUserBuying && buySellToken === 'btcfli') {
+    spendingTokenBalance = btcfliBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'cgi') {
     spendingTokenBalance = cgiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'mvi') {
