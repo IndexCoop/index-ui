@@ -14,18 +14,19 @@ import MarketData from 'components/MarketData'
 import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
 
-import useFliTokenMarketData from 'hooks/useFliTokenMarketData'
-import useFliIndexPortfolioData from 'hooks/useFliIndexPortfolioData'
+import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
+import useBtc2xFliIndexPortfolioData from 'hooks/useBtc2xFliIndexPortfolioData'
 import useBalances from 'hooks/useBalances'
+import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 
-const FliProductPage = (props: { title: string }) => {
+const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
 
-  const { prices, hourlyPrices, latestPrice } = useFliTokenMarketData()
-  const { components, symbol } = useFliIndexPortfolioData()
-  const { fliBalance } = useBalances()
+  const { prices, hourlyPrices, latestPrice } = useBtc2xFliTokenMarketData()
+  const { components } = useBtc2xFliIndexPortfolioData()
+  const { btcfliBalance } = useBalances()
 
   return (
     <Page>
@@ -36,22 +37,21 @@ const FliProductPage = (props: { title: string }) => {
             hourlyPrices={hourlyPrices || [[0]]}
             latestPrice={latestPrice || 0}
             tokenIcon={{
-              src:
-                'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
-              alt: 'ETH2xFLI Logo',
+              src: Bitcoin2xFlexibleLeverageIndex.image,
+              alt: Bitcoin2xFlexibleLeverageIndex.symbol + ' Logo',
             }}
-            tokenSymbol='ETH2xFLI'
-            title='ETH 2x Flexible Leverage Index'
+            tokenSymbol={Bitcoin2xFlexibleLeverageIndex.symbol}
+            title={Bitcoin2xFlexibleLeverageIndex.name}
           />
           <div>
-            <BuySellWrapper tokenId='ethfli' />
+            <BuySellWrapper tokenId='btcfli' />
           </div>
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance
-            symbol='ETH2x-FLI'
+            symbol='BTC2x-FLI'
             latestPrice={latestPrice}
-            currentBalance={fliBalance}
+            currentBalance={btcfliBalance}
           />
           <PriceChanges prices={prices} hourlyPrices={hourlyPrices} />
           <IndexComponentsTable components={components} />
@@ -162,4 +162,4 @@ const FliProductPage = (props: { title: string }) => {
   )
 }
 
-export default FliProductPage
+export default Btc2xFliProductPage

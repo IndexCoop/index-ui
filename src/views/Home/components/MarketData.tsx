@@ -61,7 +61,7 @@ const MarketData: React.FC = () => {
       name: productTokensBySymbol['ETH2x-FLI'].name,
       symbol: productTokensBySymbol['ETH2x-FLI'].symbol,
       image: productTokensBySymbol['ETH2x-FLI'].image,
-      url: '/fli',
+      url: '/ethfli',
     })
   }
 
@@ -75,6 +75,15 @@ const MarketData: React.FC = () => {
     })
   }
 
+  const handleBtcFliButton = () => {
+    setIndexSelector(4)
+    setProductMetaData({
+      name: productTokensBySymbol['BTC2x-FLI'].name,
+      symbol: productTokensBySymbol['BTC2x-FLI'].symbol,
+      image: productTokensBySymbol['BTC2x-FLI'].image,
+      url: '/btcfli',
+    })
+  }
   return (
     <>
       <StyledMarketDataTitle>Products</StyledMarketDataTitle>
@@ -109,6 +118,14 @@ const MarketData: React.FC = () => {
           text='MVI'
           variant={indexSelector === 3 ? 'default' : 'secondary'}
           onClick={handleMviButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='BTC2x-FLI'
+          variant={indexSelector === 3 ? 'default' : 'secondary'}
+          onClick={handleBtcFliButton}
         />
       </ButtonWrapper>
       <Card>
