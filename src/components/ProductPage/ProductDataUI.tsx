@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
 import { Container, InputProps } from 'react-neu'
-import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-
 import Page from 'components/Page'
 import {
   ProductPageHeader,
@@ -82,7 +80,9 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
             prices={tokenData.prices}
             hourlyPrices={tokenData.hourlyPrices}
           />
-          <IndexComponentsTable components={tokenData.components} />
+          {tokenData.components !== undefined ? (
+            <IndexComponentsTable components={tokenData.components} />
+          ) : null}
           <TokenStats
             latestPrice={tokenData.latestPrice}
             latestVolume={tokenData.latestVolume}
