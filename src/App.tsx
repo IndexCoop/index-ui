@@ -50,6 +50,8 @@ import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
 import { RewardsProvider } from './contexts/Rewards'
 
+const DISCORD_LINK = 'https://discord.com/invite/74xXr57XHT'
+
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
 
@@ -107,6 +109,14 @@ const App: React.FC = () => {
             <Route path='/how-to-buy'>
               <HowToBuy title={'Index - How to Buy'} />
             </Route>
+            <Route
+              path='/join'
+              render={() => (window.location.href = DISCORD_LINK)}
+            />
+            <Route
+              path='/discord'
+              render={() => (window.location.href = DISCORD_LINK)}
+            />
           </Switch>
         </StyledBackgroundDiv>
       </Providers>
