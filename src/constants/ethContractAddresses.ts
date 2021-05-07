@@ -36,3 +36,7 @@ export const uniswapEthDpiLpTokenAddress =
 export const uniswapEthMviLpTokenAddress =
   process.env.REACT_APP_UNISWAP_ETH_MVI_LP_TOKEN_ADDRESS
 export const uniswapRouterAddress = process.env.REACT_APP_UNISWAP_ROUTER_ADDRESS
+
+// Sushiswap Addresses
+export const sushiswapRouterAddress =
+  process.env.REACT_APP_SUSHISWAP_ROUTER_ADDRESS
