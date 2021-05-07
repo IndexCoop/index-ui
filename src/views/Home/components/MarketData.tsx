@@ -120,13 +120,13 @@ const MarketData: React.FC = () => {
           onClick={handleMviButton}
         />
         <Spacer size={'sm'} />
-        <Button
+        {/* <Button
           full
           size={'sm'}
           text='BTC2x-FLI'
-          variant={indexSelector === 3 ? 'default' : 'secondary'}
+          variant={indexSelector === 4 ? 'default' : 'secondary'}
           onClick={handleBtcFliButton}
-        />
+        /> */}
       </ButtonWrapper>
       <Card>
         <CardContent>
