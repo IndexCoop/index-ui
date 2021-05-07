@@ -58,7 +58,7 @@ export const Bitcoin2xFlexibleLeverageIndex: ProductToken = {
   name: 'Bitcoin 2x Flexible Leverage Index',
   symbol: 'BTC2x-FLI',
   address: tokenAddresses.btc2xfliTokenAddress,
-  image: 'https://set-core.s3.amazonaws.com/img/portfolios/btc2x_fli.svg',
+  image: 'https://set-core.s3.amazonaws.com/img/portfolios/fli_btc.svg',
   coingeckoId: 'btc-2x-flexible-leverage-index',
   tokensetsId: 'btcfli',
 }
