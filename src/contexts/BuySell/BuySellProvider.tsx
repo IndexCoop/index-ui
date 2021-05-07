@@ -17,6 +17,7 @@ import {
 import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
+import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 import { currencyTokens } from 'constants/currencyTokens'
 import { UniswapPriceData } from './types'
 
@@ -156,11 +157,14 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     if (!uniswapCallData || !transactionOptions) return
 
+    const isSushiswapTrade =
+      buySellToken === Bitcoin2xFlexibleLeverageIndex.tokensetsId
     const uniswapTradeTransaction = getUniswapTradeTransaction(
       ethereum,
       uniswapTradeType,
       uniswapCallData,
-      transactionOptions
+      transactionOptions,
+      isSushiswapTrade
     )
 
     try {

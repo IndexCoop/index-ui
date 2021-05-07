@@ -4,7 +4,10 @@ import { AbiItem } from 'web3-utils'
 import BigNumber from 'utils/bignumber'
 
 import UniswapRouterABI from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
-import { uniswapRouterAddress } from 'constants/ethContractAddresses'
+import {
+  uniswapRouterAddress,
+  sushiswapRouterAddress,
+} from 'constants/ethContractAddresses'
 
 export enum UniswapTradeType {
   SWAP_EXACT_TOKENS_FOR_TOKENS,
@@ -20,7 +23,7 @@ export type TransactionOptions = {
   value?: string | number | BigNumber
 }
 
-export const getUniswapRouterContract = (provider: provider) => {
+const getUniswapRouterContract = (provider: provider) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
     (UniswapRouterABI.abi as unknown) as AbiItem,
@@ -29,19 +32,31 @@ export const getUniswapRouterContract = (provider: provider) => {
   return contract
 }
 
+const getSushiswapRouterContract = (provider: provider) => {
+  const web3 = new Web3(provider)
+  const contract = new web3.eth.Contract(
+    (UniswapRouterABI.abi as unknown) as AbiItem,
+    sushiswapRouterAddress
+  )
+  return contract
+}
+
 export const getUniswapTradeTransaction = (
   provider: provider,
   tradeType: UniswapTradeType,
   tradeConfigs: any[],
-  txOpts: TransactionOptions
+  txOpts: TransactionOptions,
+  isSushiswapTrade: boolean
 ): (() => Promise<string>) => {
-  const uniswapInstance = getUniswapRouterContract(provider)
+  const contractInstance = isSushiswapTrade
+    ? getSushiswapRouterContract(provider)
+    : getUniswapRouterContract(provider)
 
   switch (tradeType) {
     case UniswapTradeType.SWAP_EXACT_ETH_FOR_TOKENS:
       return () =>
         new Promise((resolve, reject) => {
-          uniswapInstance.methods
+          contractInstance.methods
             .swapExactETHForTokens(...tradeConfigs)
             .send(txOpts)
             .on('transactionHash', (txId: string) => {
@@ -56,7 +71,7 @@ export const getUniswapTradeTransaction = (
     case UniswapTradeType.SWAP_EXACT_TOKENS_FOR_ETH:
       return () =>
         new Promise((resolve, reject) => {
-          uniswapInstance.methods
+          contractInstance.methods
             .swapExactTokensForETH(...tradeConfigs)
             .send(txOpts)
             .on('transactionHash', (txId: string) => {
@@ -72,7 +87,7 @@ export const getUniswapTradeTransaction = (
     case UniswapTradeType.SWAP_EXACT_TOKENS_FOR_TOKENS:
       return () =>
         new Promise((resolve, reject) => {
-          uniswapInstance.methods
+          contractInstance.methods
             .swapExactTokensForTokens(...tradeConfigs)
             .send(txOpts)
             .on('transactionHash', (txId: string) => {
@@ -88,7 +103,7 @@ export const getUniswapTradeTransaction = (
     case UniswapTradeType.SWAP_ETH_FOR_EXACT_TOKENS:
       return () =>
         new Promise((resolve, reject) => {
-          uniswapInstance.methods
+          contractInstance.methods
             .swapETHForExactTokens(...tradeConfigs)
             .send(txOpts)
             .on('transactionHash', (txId: string) => {
