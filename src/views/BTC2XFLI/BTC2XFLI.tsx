@@ -56,13 +56,13 @@ const Btc2xFliProductPage = (props: { title: string }) => {
           <PriceChanges prices={prices} hourlyPrices={hourlyPrices} />
           <IndexComponentsTable components={components} />
           <Description>
-            <strong>The Ethereum Flexible Leverage Index</strong> lets you
+            <strong>The Bitcoin Flexible Leverage Index</strong> lets you
             leverage a collateralized debt position in a safe and efficient way,
             by abstracting its management into a simple index. It enables market
             participants to take on leverage while minimizing the transaction
             costs and risks associated with maintaining collateralized debt.
             <h2>Objective</h2>
-            The Ethereum Flexible Leverage Index (ETH2X-FLI) makes leverage
+            The Bitcoin Flexible Leverage Index (BTC2X-FLI) makes leverage
             effortless. The end user does not have to worry about:
             <ul>
               <li>
@@ -79,14 +79,8 @@ const Btc2xFliProductPage = (props: { title: string }) => {
                 Paying for overpriced stablecoins to deleverage on time or panic
                 trading to save their positions.
               </li>
-
-              <li>
-                Users don't have to manage their liquidation ratio since this is
-                automatically managed by FLI, which drastically reduces
-                liquidations, even during black swan events.
-              </li>
             </ul>
-            ETH2X-FLI has several key advantages over Legacy Leveraged Tokens:
+            BTC2X-FLI has several key advantages over Legacy Leveraged Tokens:
             <ul>
               <li>Zero slippage via composable entry and exit.</li>
 
@@ -108,12 +102,12 @@ const Btc2xFliProductPage = (props: { title: string }) => {
             </ExternalLink>
             <h2>Initial Parameters:</h2>
             <ul>
-              <li>Underlying Asset: ETH</li>
+              <li>Underlying Asset: WBTC</li>
               <li>Target Leverage Ratio: 2</li>
               <li>DeFi Lending Protocol: Compound</li>
-              <li>Maximum Leverage Ratio: 2.3</li>
-              <li>Minimum Leverage Ratio: 1.7</li>
-              <li>Recentering Speed: 5%</li>
+              <li>Maximum Leverage Ratio: 2.2</li>
+              <li>Minimum Leverage Ratio: 1.8</li>
+              <li>Recentering Speed: 10%</li>
             </ul>
             <h2>Definitions:</h2>
             <ul>
