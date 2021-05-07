@@ -166,7 +166,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 icon={{
                   alt: 'BTC2x-FLI Icon',
                   src:
-                    'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+                    'https://set-core.s3.amazonaws.com/img/portfolios/fli_btc.svg',
                 }}
                 label='BTC 2x FLI Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.btc2xfliTokenAddress}`}
