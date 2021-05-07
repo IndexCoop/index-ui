@@ -161,12 +161,6 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 value={getDisplayBalance(ethfliBalance)}
               />
             </Box>
-          </Split>
-          <Spacer />
-          <Separator />
-          <Spacer />
-
-          <Split>
             <Box row>
               <FancyValue
                 icon={{

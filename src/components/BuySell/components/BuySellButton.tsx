@@ -9,10 +9,11 @@ import {
   usdcTokenAddress,
   dpiTokenAddress,
   eth2xfliTokenAddress,
+  btc2xfliTokenAddress,
   cgiTokenAddress,
   indexTokenAddress,
   uniswapRouterAddress,
-  btc2xfliTokenAddress,
+  sushiswapRouterAddress,
 } from 'constants/ethContractAddresses'
 
 /**
@@ -46,7 +47,7 @@ const BuySellButton: React.FC = () => {
   const indexApproval = useApproval(indexTokenAddress, uniswapRouterAddress)
   const btc2xfliApproval = useApproval(
     btc2xfliTokenAddress,
-    uniswapRouterAddress
+    sushiswapRouterAddress
   )
 
   // Only prompt the user at end of the buy flow. (So they can preview the order before logging in)
