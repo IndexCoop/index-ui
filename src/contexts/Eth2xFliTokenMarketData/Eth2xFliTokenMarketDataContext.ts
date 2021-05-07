@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-interface FliTokenMarketDataValues {
+interface Eth2xFliTokenMarketDataValues {
   prices?: number[][]
   hourlyPrices?: number[][]
   marketcaps?: number[][]
@@ -10,6 +10,6 @@ interface FliTokenMarketDataValues {
   latestVolume?: number
 }
 
-const FliMarketData = createContext<FliTokenMarketDataValues>({})
+const Eth2xFliMarketData = createContext<Eth2xFliTokenMarketDataValues>({})
 
-export default FliMarketData
+export default Eth2xFliMarketData

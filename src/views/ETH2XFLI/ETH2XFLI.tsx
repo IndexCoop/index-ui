@@ -14,18 +14,18 @@ import MarketData from 'components/MarketData'
 import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
 
-import useFliTokenMarketData from 'hooks/useFliTokenMarketData'
-import useFliIndexPortfolioData from 'hooks/useFliIndexPortfolioData'
+import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
+import useEth2xFliIndexPortfolioData from 'hooks/useEth2xFliIndexPortfolioData'
 import useBalances from 'hooks/useBalances'
 import { Ethereum2xFlexibleLeverageIndex } from 'constants/productTokens'
 
-const FliProductPage = (props: { title: string }) => {
+const Eth2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
 
-  const { prices, hourlyPrices, latestPrice } = useFliTokenMarketData()
-  const { components, symbol } = useFliIndexPortfolioData()
+  const { prices, hourlyPrices, latestPrice } = useEth2xFliTokenMarketData()
+  const { components, symbol } = useEth2xFliIndexPortfolioData()
   const { ethfliBalance } = useBalances()
 
   return (
@@ -162,4 +162,4 @@ const FliProductPage = (props: { title: string }) => {
   )
 }
 
-export default FliProductPage
+export default Eth2xFliProductPage

@@ -23,11 +23,14 @@ export const april2021RewardsAddress =
 // Token Addresses
 export const indexTokenAddress = process.env.REACT_APP_INDEX_TOKEN_ADDRESS
 export const dpiTokenAddress = process.env.REACT_APP_DPI_TOKEN_ADDRESS
-export const fliTokenAddress = process.env.REACT_APP_FLI_TOKEN_ADDRESS
+export const eth2xfliTokenAddress =
+  process.env.REACT_APP_ETH2X_FLI_TOKEN_ADDRESS
 export const cgiTokenAddress = process.env.REACT_APP_CGI_TOKEN_ADDRESS
 export const mviTokenAddress = process.env.REACT_APP_MVI_TOKEN_ADDRESS
 export const daiTokenAddress = process.env.REACT_APP_DAI_TOKEN_ADDRESS
 export const usdcTokenAddress = process.env.REACT_APP_USDC_TOKEN_ADDRESS
+export const btc2xfliTokenAddress =
+  process.env.REACT_APP_BTC2X_FLI_TOKEN_ADDRESS
 
 // Uniswap Addresses
 export const uniswapEthDpiLpTokenAddress =
@@ -35,3 +38,7 @@ export const uniswapEthDpiLpTokenAddress =
 export const uniswapEthMviLpTokenAddress =
   process.env.REACT_APP_UNISWAP_ETH_MVI_LP_TOKEN_ADDRESS
 export const uniswapRouterAddress = process.env.REACT_APP_UNISWAP_ROUTER_ADDRESS
+
+// Sushiswap Addresses
+export const sushiswapRouterAddress =
+  process.env.REACT_APP_SUSHISWAP_ROUTER_ADDRESS

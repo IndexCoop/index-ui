@@ -21,7 +21,8 @@ const ProductsDropdown: React.FC = () => {
       pathname === '/dpi' ||
       pathname === '/index' ||
       pathname === '/cgi' ||
-      pathname === '/fli'
+      pathname === '/ethfli' ||
+      pathname === '/btcfli'
 
     return {
       control: (styles: any) => ({
@@ -88,9 +89,13 @@ const ProductsDropdown: React.FC = () => {
           label: 'CoinShares Crypto Gold Index',
         },
         {
-          value: 'fli',
+          value: 'ethfli',
           label: 'ETH 2x Flexible Leverage Index',
         },
+        // {
+        //   value: 'btcfli',
+        //   label: 'BTC 2x Flexible Leverage Index',
+        // },
         {
           value: 'index',
           label: 'Index Coop Token',
