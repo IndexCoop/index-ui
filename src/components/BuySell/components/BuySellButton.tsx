@@ -4,6 +4,7 @@ import { RoundedButton } from 'components/RoundedButton'
 import useBuySell from 'hooks/useBuySell'
 import useWallet from 'hooks/useWallet'
 import useApproval from 'hooks/useApproval'
+import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 import {
   daiTokenAddress,
   usdcTokenAddress,
@@ -35,10 +36,18 @@ const BuySellButton: React.FC = () => {
     onExecuteBuySell,
   } = useBuySell()
 
+  const isSushiswapTrade =
+    buySellToken === Bitcoin2xFlexibleLeverageIndex.tokensetsId
+
+  const tradeRouterAddress = isSushiswapTrade
+    ? sushiswapRouterAddress
+    : uniswapRouterAddress
+
   const { account, onOpenWalletModal } = useWallet()
-  const daiApproval = useApproval(daiTokenAddress, uniswapRouterAddress)
-  const usdcApproval = useApproval(usdcTokenAddress, uniswapRouterAddress)
-  const dpiApproval = useApproval(dpiTokenAddress, uniswapRouterAddress)
+
+  const daiApproval = useApproval(daiTokenAddress, tradeRouterAddress)
+  const usdcApproval = useApproval(usdcTokenAddress, tradeRouterAddress)
+  const dpiApproval = useApproval(dpiTokenAddress, tradeRouterAddress)
   const eth2xfliApproval = useApproval(
     eth2xfliTokenAddress,
     uniswapRouterAddress
