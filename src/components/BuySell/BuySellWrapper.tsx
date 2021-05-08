@@ -6,7 +6,7 @@ import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import useBuySell from 'hooks/useBuySell'
 
 interface BuySellWrapperProps {
-  tokenId: 'index' | 'dpi' | 'ethfli' | 'mvi'
+  tokenId: 'index' | 'dpi' | 'ethfli' | 'mvi' | 'cgi'
 }
 
 const BuySellWrapper: React.FC<BuySellWrapperProps> = ({ tokenId }: any) => {
@@ -20,7 +20,7 @@ const BuySellWrapper: React.FC<BuySellWrapperProps> = ({ tokenId }: any) => {
   return (
     <TransactionWatcher
       transactionStatus={transactionStatus}
-      startTransactionComponent={<BuySellWidget />}
+      startTransactionComponent={<BuySellWidget tokenId={tokenId} />}
     />
   )
 }

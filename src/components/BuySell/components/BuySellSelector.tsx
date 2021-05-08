@@ -3,13 +3,19 @@ import styled from 'styled-components'
 
 import useBuySell from 'hooks/useBuySell'
 
-const BuySellSelector: React.FC = () => {
+interface BuySellSelectorProps {
+  tokenId: any
+}
+
+const BuySellSelector: React.FC<BuySellSelectorProps> = ({ tokenId }) => {
   const { isUserBuying, onToggleIsUserBuying } = useBuySell()
 
   if (isUserBuying) {
     return (
       <StyledCardHeader>
-        <StyledActiveButton>Buy</StyledActiveButton>
+        {tokenId !== 'cgi' ? (
+          <StyledActiveButton>Buy</StyledActiveButton>
+        ) : null}
         <StyledBuySellButton onClick={onToggleIsUserBuying}>
           Sell
         </StyledBuySellButton>
@@ -19,9 +25,11 @@ const BuySellSelector: React.FC = () => {
 
   return (
     <StyledCardHeader>
-      <StyledBuySellButton onClick={onToggleIsUserBuying}>
-        Buy
-      </StyledBuySellButton>
+      {tokenId !== 'cgi' ? (
+        <StyledBuySellButton onClick={onToggleIsUserBuying}>
+          Buy
+        </StyledBuySellButton>
+      ) : null}
       <StyledActiveButton>Sell</StyledActiveButton>
     </StyledCardHeader>
   )

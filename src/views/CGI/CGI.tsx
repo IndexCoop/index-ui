@@ -24,10 +24,10 @@ const CgiProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
     toast.error(
-      'CGI price chart data may be innacurate, and the index is being deprecated. Buying and selling this index has been disabled.',
+      'The CoinShares Crypto Gold Index is being deprecated. Buying this Set has been disabled.',
       {
         position: 'top-right',
-        autoClose: false,
+        autoClose: 5000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -56,6 +56,7 @@ const CgiProductPage = (props: { title: string }) => {
             tokenSymbol={CoinsharesCryptoGoldIndex.symbol}
             title={CoinsharesCryptoGoldIndex.name}
           />
+          <BuySellWrapper tokenId='cgi' />
         </ProductPageHeader>
         <ProductPageContent>
           <WalletBalance

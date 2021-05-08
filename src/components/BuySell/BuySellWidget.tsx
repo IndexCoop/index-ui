@@ -7,11 +7,15 @@ import OrderSummary from './components/OrderSummary'
 import BuySellButton from './components/BuySellButton'
 import HowToBuyLink from './components/HowToBuyLink'
 
-const BuySellWidget: React.FC = () => {
+interface BuySellWidgetProps {
+  tokenId: any
+}
+
+const BuySellWidget: React.FC<BuySellWidgetProps> = ({ tokenId }) => {
   return (
     <StyledBuySellCard>
       <StyledBuySellCardContent>
-        <BuySellSelector />
+        <BuySellSelector tokenId={tokenId} />
         <TokenInputs />
         <OrderSummary />
         <BuySellButton />

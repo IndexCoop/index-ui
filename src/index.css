@@ -40,6 +40,7 @@ button {
 div > .Toastify__toast {
   background: #1d144f;
   color: #ffffff;
+  border-radius: 8px;
 }
 
 div > .Toastify__toast-body {
@@ -49,7 +50,6 @@ div > .Toastify__toast-body {
 div > .Toastify__toast--success {
   background: #ffffff;
   color: #1d144f;
-  border-radius: 8px;
 }
 
 div > .Toastify__progress-bar--success {
@@ -65,7 +65,6 @@ div > .Toastify__toast--warning {
 }
 
 div > .Toastify__toast--error {
-  border-top: 5px solid #df4857;
   background-color: rgb(162, 33, 20);
 }
 
