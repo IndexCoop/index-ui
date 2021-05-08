@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import FliIndexPortfolioDataContext from './FliIndexPortfolioDataContext'
+import Btc2xFliPortfolioDataContext from './Btc2xFliPortfolioDataContext'
 import { fetchSetComponents } from 'utils/tokensetsApi'
-import { Ethereum2xFlexibleLeverageIndex } from 'constants/productTokens'
+import { TokenSetsIds } from 'constants/tokenIds'
 
-const FliIndexPortfolioDataProvider: React.FC = ({ children }) => {
+const Btc2xFliIPortfolioDataProvider: React.FC = ({ children }) => {
   const [fliIndexPortfolioData, setFliIndexPortfolioData] = useState<any>([])
 
   useEffect(() => {
-    fetchSetComponents(Ethereum2xFlexibleLeverageIndex.tokensetsId)
+    fetchSetComponents(TokenSetsIds.BTC2XFLI)
       .then((response: any) => {
         setFliIndexPortfolioData(response)
       })
@@ -15,12 +15,12 @@ const FliIndexPortfolioDataProvider: React.FC = ({ children }) => {
   }, [])
 
   return (
-    <FliIndexPortfolioDataContext.Provider
+    <Btc2xFliPortfolioDataContext.Provider
       value={{ components: fliIndexPortfolioData }}
     >
       {children}
-    </FliIndexPortfolioDataContext.Provider>
+    </Btc2xFliPortfolioDataContext.Provider>
   )
 }
 
-export default FliIndexPortfolioDataProvider
+export default Btc2xFliIPortfolioDataProvider

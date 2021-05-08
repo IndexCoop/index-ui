@@ -17,12 +17,13 @@ import {
 import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
+import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 import { currencyTokens } from 'constants/currencyTokens'
 import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<
-    'dpi' | 'index' | 'ethfli' | 'mvi'
+    'dpi' | 'index' | 'ethfli' | 'mvi' | 'btcfli'
   >('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
@@ -42,6 +43,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     dpiBalance,
     mviBalance,
     ethfliBalance,
+    btcfliBalance,
     indexBalance,
     daiBalance,
     usdcBalance,
@@ -64,6 +66,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = dpiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'ethfli') {
     spendingTokenBalance = ethfliBalance || new BigNumber(0)
+  } else if (!isUserBuying && buySellToken === 'btcfli') {
+    spendingTokenBalance = btcfliBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'mvi') {
     spendingTokenBalance = mviBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'wrapped_eth') {
@@ -150,11 +154,14 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     if (!uniswapCallData || !transactionOptions) return
 
+    const isSushiswapTrade =
+      buySellToken === Bitcoin2xFlexibleLeverageIndex.tokensetsId
     const uniswapTradeTransaction = getUniswapTradeTransaction(
       ethereum,
       uniswapTradeType,
       uniswapCallData,
-      transactionOptions
+      transactionOptions,
+      isSushiswapTrade
     )
 
     try {
