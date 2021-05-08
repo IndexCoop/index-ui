@@ -26,8 +26,9 @@ const CgiProductPage = (props: { title: string }) => {
     toast.error(
       'The CoinShares Crypto Gold Index is being deprecated. Buying this Set has been disabled.',
       {
+        toastId: 'cgi-warning',
         position: 'top-right',
-        autoClose: 5000,
+        autoClose: false,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -35,6 +36,9 @@ const CgiProductPage = (props: { title: string }) => {
         progress: undefined,
       }
     )
+    return () => {
+      toast.dismiss('cgi-warning')
+    }
   }, [props.title])
 
   const { prices, hourlyPrices, latestPrice } = useCgiTokenMarketData()
