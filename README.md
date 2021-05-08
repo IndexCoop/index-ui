@@ -8,6 +8,12 @@ Make a copy of the prod env file
 
 `cp .env.prod .env`
 
+Then install all the dependencies with
+
+`yarn install`
+
+---
+
 This project was created with `create-react-app`.
 
 `yarn start`
@@ -25,4 +31,5 @@ The main purpose of this repository is to continually serve the needs of Index, 
 We greatly encourage any community contribution that may help Index reach more users and greater adoption.
 
 ## License
+
 Index UI is MIT licensed.

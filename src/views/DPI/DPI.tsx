@@ -15,7 +15,7 @@ import {
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
 import ExternalLink from 'components/ExternalLink'
-import MarketData from './components/MarketData'
+import MarketData from 'components/MarketData'
 
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
 import useDpiIndexComponents from 'hooks/useDpiIndexComponents'
@@ -25,6 +25,7 @@ import TransakBuySellButton from 'components/TransakBuySellButton'
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 
 import useLocalStorage from 'hooks/useLocalStorage'
+import { DefiPulseIndex } from 'constants/productTokens'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -54,7 +55,17 @@ const DpiProductPage = (props: { title: string }) => {
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
-          <MarketData />
+          <MarketData
+            prices={prices || [[0]]}
+            hourlyPrices={hourlyPrices || [[0]]}
+            latestPrice={latestPrice || 0}
+            tokenIcon={{
+              src: DefiPulseIndex.image,
+              alt: DefiPulseIndex.symbol + ' Logo',
+            }}
+            tokenSymbol={DefiPulseIndex.symbol}
+            title={DefiPulseIndex.name}
+          />
           <div>
             <BuySellWrapper tokenId='dpi' />
             <TransakBuySellButton />

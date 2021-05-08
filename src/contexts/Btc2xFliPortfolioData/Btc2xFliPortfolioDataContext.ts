@@ -12,7 +12,7 @@ interface IndexComponent {
   dailyPercentChange: string
 }
 
-interface FliPortfolioDataProps {
+interface Btc2xFliPortfolioDataProps {
   components?: IndexComponent[]
   symbol?: string
   id?: string
@@ -21,6 +21,8 @@ interface FliPortfolioDataProps {
   image?: string
 }
 
-const FliPortfolioData = createContext<FliPortfolioDataProps>({})
+const Btc2xFliPortfolioDataContext = createContext<Btc2xFliPortfolioDataProps>(
+  {}
+)
 
-export default FliPortfolioData
+export default Btc2xFliPortfolioDataContext

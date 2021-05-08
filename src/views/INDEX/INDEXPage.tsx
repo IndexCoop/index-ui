@@ -12,12 +12,13 @@ import {
   Description,
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
-import MarketData from './components/MarketData'
+import MarketData from 'components/MarketData'
 
 import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
 import useBalances from 'hooks/useBalances'
 
 import IndexReleaseScheduleImage from 'assets/index-token-release-schedule.png'
+import { IndexToken } from 'constants/productTokens'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -37,7 +38,17 @@ const DpiProductPage = (props: { title: string }) => {
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
-          <MarketData />
+          <MarketData
+            prices={prices || [[0]]}
+            hourlyPrices={hourlyPrices || [[0]]}
+            latestPrice={latestPrice || 0}
+            tokenIcon={{
+              src: IndexToken.image,
+              alt: IndexToken.symbol + ' Logo',
+            }}
+            tokenSymbol={IndexToken.symbol}
+            title={IndexToken.name}
+          />
           <BuySellWrapper tokenId='index' />
         </ProductPageHeader>
         <ProductPageContent>
