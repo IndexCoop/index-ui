@@ -2,12 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 
 import useBuySell from 'hooks/useBuySell'
+import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 
 const OrderSummary: React.FC = () => {
-  const { isFetchingOrderData, uniswapData } = useBuySell()
+  const { isFetchingOrderData, buySellToken, uniswapData } = useBuySell()
 
   const isOrderDataReady =
     Number(uniswapData?.amount_out) > 0 && !isFetchingOrderData
+
+  const isSushiswapTrade =
+    buySellToken === Bitcoin2xFlexibleLeverageIndex.tokensetsId
+  const tradeOrigin = isSushiswapTrade ? 'Sushiswap' : 'Uniswap'
 
   if (isOrderDataReady) {
     return (
@@ -28,7 +33,7 @@ const OrderSummary: React.FC = () => {
         </StyledOrderSummaryValue>
 
         <StyledOrderSummaryLabel>Offered From</StyledOrderSummaryLabel>
-        <StyledOrderSummaryValue>Uniswap</StyledOrderSummaryValue>
+        <StyledOrderSummaryValue>{tradeOrigin}</StyledOrderSummaryValue>
       </StyledOrderSummaryContainer>
     )
   }

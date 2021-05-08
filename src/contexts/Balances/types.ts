@@ -5,6 +5,7 @@ export interface ContextValues {
   indexBalance?: BigNumber
   dpiBalance?: BigNumber
   ethfliBalance?: BigNumber
+  btcfliBalance?: BigNumber
   cgiBalance?: BigNumber
   mviBalance?: BigNumber
   daiBalance?: BigNumber
