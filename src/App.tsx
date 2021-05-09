@@ -46,12 +46,13 @@ import MVI from 'views/MVI'
 import INDEX from 'views/INDEX'
 import Vote from 'views/Vote'
 import News from 'views/News'
-import ContributorRewards from './views/ContributorRewards'
-import HowToBuy from './views/HowToBuy'
+import ContributorRewards from 'views/ContributorRewards'
+import HowToBuy from 'views/HowToBuy'
+import { discordLink } from 'constants/externalLinks'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
-import { RewardsProvider } from './contexts/Rewards'
+import { RewardsProvider } from 'contexts/Rewards'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -113,6 +114,14 @@ const App: React.FC = () => {
             <Route path='/how-to-buy'>
               <HowToBuy title={'Index - How to Buy'} />
             </Route>
+            <Route
+              path='/join'
+              render={() => (window.location.href = discordLink)}
+            />
+            <Route
+              path='/discord'
+              render={() => (window.location.href = discordLink)}
+            />
           </Switch>
         </StyledBackgroundDiv>
       </Providers>
