@@ -87,9 +87,9 @@ const App: React.FC = () => {
             <Route exact path='/ethfli'>
               <ETH2XFLI title={'Index - ETH2xFLI'} />
             </Route>
-            {/* <Route exact path='/btcfli'>
+            <Route exact path='/btcfli'>
               <BTC2XFLI title={'Index - BTC2xFLI'} />
-            </Route> */}
+            </Route>
             <Route exact path='/cgi'>
               <CGI title={'Index - CGI'} />
             </Route>

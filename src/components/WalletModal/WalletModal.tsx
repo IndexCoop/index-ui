@@ -161,7 +161,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 value={getDisplayBalance(ethfliBalance)}
               />
             </Box>
-            {/* <Box row>
+            <Box row>
               <FancyValue
                 icon={{
                   alt: 'BTC2x-FLI Icon',
@@ -172,7 +172,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 link={`https://etherscan.io/address/${tokenAddresses.btc2xfliTokenAddress}`}
                 value={getDisplayBalance(btcfliBalance)}
               />
-            </Box> */}
+            </Box>
           </Split>
           <Spacer />
           <Separator />
