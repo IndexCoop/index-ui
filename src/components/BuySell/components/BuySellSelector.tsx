@@ -6,12 +6,12 @@ import useBuySell from 'hooks/useBuySell'
 const BuySellSelector: React.FC = () => {
   const { isUserBuying, onToggleIsUserBuying, buySellToken } = useBuySell()
 
+  if (isUserBuying && buySellToken === 'cgi') onToggleIsUserBuying()
+
   if (isUserBuying) {
     return (
       <StyledCardHeader>
-        {buySellToken !== 'cgi' ? (
-          <StyledActiveButton>Buy</StyledActiveButton>
-        ) : null}
+        <StyledActiveButton>Buy</StyledActiveButton>
         <StyledBuySellButton onClick={onToggleIsUserBuying}>
           Sell
         </StyledBuySellButton>
