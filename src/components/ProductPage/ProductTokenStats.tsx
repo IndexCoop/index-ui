@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import numeral from 'numeral'
 
 import { ProductPageSection } from './ProductPageLayouts'
+import IndexComponent from 'components/IndexComponent'
 
 interface ProductTokenStatsProps {
   latestPrice?: number
@@ -11,6 +12,7 @@ interface ProductTokenStatsProps {
   fees?: {
     streamingFee: string
   }
+  nav: number
 }
 
 const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
@@ -18,6 +20,7 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
   latestMarketCap,
   latestVolume,
   fees,
+  nav,
 }) => {
   const formatMetric = (metricValue: number) =>
     numeral(metricValue).format('0.00a').toString().toUpperCase()
@@ -51,6 +54,10 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
           </StyledStatMetric>
         </StyledStat>
         {streamingFee}
+        <StyledStat>
+          <StyledStatTitle>NAV</StyledStatTitle>
+          <StyledStatMetric>{numeral(nav).format('$0,0.00')}</StyledStatMetric>
+        </StyledStat>
       </PriceStatsContainer>
     </ProductPageSection>
   )

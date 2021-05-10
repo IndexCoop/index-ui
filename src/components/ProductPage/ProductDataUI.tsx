@@ -50,6 +50,17 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
     if (value) setReferral(value)
   }, [value, setReferral])
 
+  const navReducer = (nav: number, component: IndexComponent): number => {
+    return nav + parseFloat(component.totalPriceUsd)
+  }
+
+  const getNav = () => {
+    let acc = 0
+    return tokenData.components
+      ? tokenData.components.reduce(navReducer, acc)
+      : 0
+  }
+
   return (
     <Page>
       <Container size='lg'>
@@ -90,6 +101,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
             fees={{
               streamingFee: '0.95%',
             }}
+            nav={getNav()}
           />
           <Description>{children}</Description>
         </ProductPageContent>
