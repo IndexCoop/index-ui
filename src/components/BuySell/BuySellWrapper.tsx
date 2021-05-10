@@ -20,7 +20,7 @@ const BuySellWrapper: React.FC<BuySellWrapperProps> = ({ tokenId }: any) => {
   return (
     <TransactionWatcher
       transactionStatus={transactionStatus}
-      startTransactionComponent={<BuySellWidget tokenId={tokenId} />}
+      startTransactionComponent={<BuySellWidget />}
     />
   )
 }
