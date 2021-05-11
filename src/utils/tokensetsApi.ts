@@ -66,25 +66,10 @@ export const fetchSetComponentsBeta = (set: string) => {
         throw new Error('Invalid API response from Set Protocol service')
       }
       const {
-        fund: {
-          components,
-          market_cap: marketCap,
-          id,
-          name,
-          symbol,
-          address,
-          image
-        },
+        fund: { components },
       } = response
-      return { 
-        components: formatComponents(components),
-        marketCap,
-        id,
-        name,
-        symbol,
-        address,
-        image,
-      }
+
+      return formatComponents(components)
     })
     .catch((error) => console.log(error))
 }
