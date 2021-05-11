@@ -21,7 +21,6 @@ const Stake: React.FC = () => {
   } = useBalances()
   const { status } = useWallet()
   const {
-    isPoolActive,
     isApproved,
     isApproving,
     onApprove,
@@ -110,11 +109,6 @@ const Stake: React.FC = () => {
     }
   }, [unharvestedMviRewardsBalance])
 
-  const rewardSubtitle = isPoolActive
-    ? 'Active Apr. 8th - May. 9th'
-    : 'Begins Apr. 8th'
-  const apySubtitle = isPoolActive ? '(Volatile)' : '(Begins Apr. 8th)'
-
   return (
     <>
       <Card>
@@ -128,7 +122,9 @@ const Stake: React.FC = () => {
             <StyledLmTitle>
               <StyledCardTitle>MVI Liquidity Program</StyledCardTitle>
               <Spacer size='sm' />
-              <StyledCardSubtitle>{rewardSubtitle}</StyledCardSubtitle>
+              <StyledCardSubtitle>
+                Active May. 10th - June. 9th
+              </StyledCardSubtitle>
             </StyledLmTitle>
           </StyledCardTitleWrapper>
           <Spacer />
@@ -156,7 +152,7 @@ const Stake: React.FC = () => {
 
               <div>
                 <StyledFarmText>{mviRewardsApy}% APY</StyledFarmText>
-                <StyledSectionLabel>{apySubtitle}</StyledSectionLabel>
+                <StyledSectionLabel>(Volatile)</StyledSectionLabel>
               </div>
 
               <div>
