@@ -3,6 +3,7 @@ import ExternalLink from 'components/ExternalLink'
 import useCgiTokenMarketData from 'hooks/useCgiTokenMarketData'
 import useCgiIndexComponents from 'hooks/useCgiIndexComponents'
 import useBalances from 'hooks/useBalances'
+import { toast } from 'react-toastify'
 import { CoinsharesCryptoGoldIndex } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
@@ -11,6 +12,22 @@ import ProductDataUI, {
 const CgiProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
+    toast.error(
+      'The CoinShares Crypto Gold Index is being deprecated. Buying this Set has been disabled.',
+      {
+        toastId: 'cgi-warning',
+        position: 'top-right',
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    )
+    return () => {
+      toast.dismiss('cgi-warning')
+    }
   }, [props.title])
 
   const {
