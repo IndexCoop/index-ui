@@ -12381,10 +12381,10 @@ react-circular-progressbar@^2.0.3:
   resolved "https://registry.yarnpkg.com/react-circular-progressbar/-/react-circular-progressbar-2.0.3.tgz#fa8eb59f8db168d2904bae4590641792c80f5991"
   integrity sha512-YKN+xAShXA3gYihevbQZbavfiJxo83Dt1cUxqg/cltj4VVsRQpDr7Fg1mvjDG3x1KHGtd9NmYKvJ2mMrPwbKyw==
 
-react-countdown@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/react-countdown/-/react-countdown-2.2.1.tgz#28d56fc1874b5b0d5238b7efe3ae914ed8033783"
-  integrity sha512-e8dUUhlysDqgci32VOOe0uDfeDMaiyyFNrWHdmMky5fithYDt4iOJa22EF96VbkU64R4D+Bww4AbLpqA/J4dww==
+react-countdown@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/react-countdown/-/react-countdown-2.3.2.tgz#4cc27f28f2dcd47237ee66e4b9f6d2a21fc0b0ad"
+  integrity sha512-Q4SADotHtgOxNWhDdvgupmKVL0pMB9DvoFcxv5AzjsxVhzOVxnttMbAywgqeOdruwEAmnPhOhNv/awAgkwru2w==
   dependencies:
     prop-types "^15.7.2"
 
