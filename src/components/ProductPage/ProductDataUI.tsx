@@ -17,7 +17,11 @@ import TransakBuySellButton from 'components/TransakBuySellButton'
 import IndexComponent from 'components/IndexComponent'
 
 import useLocalStorage from 'hooks/useLocalStorage'
-import { DefiPulseIndex, ProductToken } from 'constants/productTokens'
+import {
+  DefiPulseIndex,
+  IndexToken,
+  ProductToken,
+} from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
 
 export interface TokenDataProps {
@@ -96,15 +100,17 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           {tokenData.components && (
             <IndexComponentsTable components={tokenData.components} />
           )}
-          <TokenStats
-            latestPrice={tokenData.latestPrice}
-            latestVolume={tokenData.latestVolume}
-            latestMarketCap={tokenData.latestMarketCap}
-            fees={{
-              streamingFee: '0.95%',
-            }}
-            nav={getNav()}
-          />
+          {tokenData.token.symbol !== IndexToken.symbol && (
+            <TokenStats
+              latestPrice={tokenData.latestPrice}
+              latestVolume={tokenData.latestVolume}
+              latestMarketCap={tokenData.latestMarketCap}
+              fees={{
+                streamingFee: '0.95%',
+              }}
+              nav={getNav()}
+            />
+          )}
           <Description>{children}</Description>
         </ProductPageContent>
       </Container>
