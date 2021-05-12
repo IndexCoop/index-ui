@@ -17,7 +17,7 @@ import TransakBuySellButton from 'components/TransakBuySellButton'
 import IndexComponent from 'components/IndexComponent'
 
 import useLocalStorage from 'hooks/useLocalStorage'
-import { ProductToken } from 'constants/productTokens'
+import { DefiPulseIndex, ProductToken } from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
 
 export interface TokenDataProps {
@@ -67,7 +67,9 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           />
           <div>
             <BuySellWrapper tokenId={tokenData.token.tokensetsId} />
-            <TransakBuySellButton />
+            {tokenData.token.symbol == DefiPulseIndex.symbol && (
+              <TransakBuySellButton />
+            )}
           </div>
         </ProductPageHeader>
         <ProductPageContent>
