@@ -22,9 +22,7 @@ import { currencyTokens } from 'constants/currencyTokens'
 import { UniswapPriceData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
-  const [buySellToken, setBuySellToken] = useState<
-    'dpi' | 'index' | 'cgi' | 'ethfli' | 'mvi' | 'btcfli'
-  >('dpi')
+  const [buySellToken, setBuySellToken] = useState<string>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
@@ -159,6 +157,7 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     const isSushiswapTrade =
       buySellToken === Bitcoin2xFlexibleLeverageIndex.tokensetsId
+
     const uniswapTradeTransaction = getUniswapTradeTransaction(
       ethereum,
       uniswapTradeType,

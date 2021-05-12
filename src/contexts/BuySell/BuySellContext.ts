@@ -3,7 +3,7 @@ import { UniswapPriceData } from './types'
 import BigNumber from 'utils/bignumber'
 
 interface BuySellContextValues {
-  buySellToken: 'dpi' | 'index' | 'cgi' | 'ethfli' | 'mvi' | 'btcfli'
+  buySellToken: string
   isFetchingOrderData: boolean
   isUserBuying: boolean
   activeField: 'currency' | 'set'
@@ -13,9 +13,7 @@ interface BuySellContextValues {
   currencyOptions: any[]
   spendingTokenBalance: BigNumber
   uniswapData: UniswapPriceData | undefined
-  onSetBuySellToken: (
-    tokenId: 'index' | 'dpi' | 'cgi' | 'ethfli' | 'mvi' | 'btcfli'
-  ) => void
+  onSetBuySellToken: (tokenId: string) => void
   onToggleIsUserBuying: () => void
   onSetActiveField: (field: 'currency' | 'set') => void
   onSetSelectedCurrency: (selectedCurrency: any) => void
