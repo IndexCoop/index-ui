@@ -17,7 +17,11 @@ import TransakBuySellButton from 'components/TransakBuySellButton'
 import IndexComponent from 'components/IndexComponent'
 
 import useLocalStorage from 'hooks/useLocalStorage'
-import { DefiPulseIndex, ProductToken } from 'constants/productTokens'
+import {
+  DefiPulseIndex,
+  IndexToken,
+  ProductToken,
+} from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
 
 export interface TokenDataProps {
@@ -49,6 +53,19 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
   useEffect(() => {
     if (value) setReferral(value)
   }, [value, setReferral])
+
+  const netAssetValueReducer = (
+    netAssetValue: number,
+    component: IndexComponent
+  ): number => {
+    return netAssetValue + (parseFloat(component.totalPriceUsd) || 0)
+  }
+
+  const getNetAssetValue = () => {
+    return tokenData.components
+      ? tokenData.components.reduce(netAssetValueReducer, 0)
+      : 0
+  }
 
   return (
     <Page>
@@ -85,14 +102,17 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           {tokenData.components && (
             <IndexComponentsTable components={tokenData.components} />
           )}
-          <TokenStats
-            latestPrice={tokenData.latestPrice}
-            latestVolume={tokenData.latestVolume}
-            latestMarketCap={tokenData.latestMarketCap}
-            fees={{
-              streamingFee: '0.95%',
-            }}
-          />
+          {tokenData.token.symbol !== IndexToken.symbol && (
+            <TokenStats
+              latestPrice={tokenData.latestPrice}
+              latestVolume={tokenData.latestVolume}
+              latestMarketCap={tokenData.latestMarketCap}
+              fees={{
+                streamingFee: '0.95%',
+              }}
+              netAssetValue={getNetAssetValue()}
+            />
+          )}
           <Description>{children}</Description>
         </ProductPageContent>
       </Container>
