@@ -54,14 +54,16 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
     if (value) setReferral(value)
   }, [value, setReferral])
 
-  const navReducer = (nav: number, component: IndexComponent): number => {
-    return nav + parseFloat(component.totalPriceUsd)
+  const netAssetValueReducer = (
+    netAssetValue: number,
+    component: IndexComponent
+  ): number => {
+    return netAssetValue + (parseFloat(component.totalPriceUsd) || 0)
   }
 
-  const getNav = () => {
-    let acc = 0
+  const getNetAssetValue = () => {
     return tokenData.components
-      ? tokenData.components.reduce(navReducer, acc)
+      ? tokenData.components.reduce(netAssetValueReducer, 0)
       : 0
   }
 
@@ -108,7 +110,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
               fees={{
                 streamingFee: '0.95%',
               }}
-              nav={getNav()}
+              netAssetValue={getNetAssetValue()}
             />
           )}
           <Description>{children}</Description>

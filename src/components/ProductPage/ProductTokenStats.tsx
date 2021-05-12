@@ -12,7 +12,7 @@ interface ProductTokenStatsProps {
   fees?: {
     streamingFee: string
   }
-  nav: number
+  netAssetValue: number
 }
 
 const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
@@ -20,7 +20,7 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
   latestMarketCap,
   latestVolume,
   fees,
-  nav,
+  netAssetValue,
 }) => {
   const formatMetric = (metricValue: number) =>
     numeral(metricValue).format('0.00a').toString().toUpperCase()
@@ -55,8 +55,10 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
         </StyledStat>
         {streamingFee}
         <StyledStat>
-          <StyledStatTitle>NAV</StyledStatTitle>
-          <StyledStatMetric>{numeral(nav).format('$0,0.00')}</StyledStatMetric>
+          <StyledStatTitle>Net Asset Value</StyledStatTitle>
+          <StyledStatMetric>
+            {numeral(netAssetValue).format('$0,0.00')}
+          </StyledStatMetric>
         </StyledStat>
       </PriceStatsContainer>
     </ProductPageSection>
