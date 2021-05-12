@@ -92,10 +92,10 @@ const ProductsDropdown: React.FC = () => {
           value: 'ethfli',
           label: 'ETH 2x Flexible Leverage Index',
         },
-        // {
-        //   value: 'btcfli',
-        //   label: 'BTC 2x Flexible Leverage Index',
-        // },
+        {
+          value: 'btcfli',
+          label: 'BTC 2x Flexible Leverage Index',
+        },
         {
           value: 'index',
           label: 'Index Coop Token',
