@@ -14,11 +14,11 @@ import {
 import { BuySellWrapper } from 'components/BuySell'
 import MarketData from 'components/MarketData'
 import TransakBuySellButton from 'components/TransakBuySellButton'
+import IndexComponent from 'components/IndexComponent'
 
 import useLocalStorage from 'hooks/useLocalStorage'
-import { ProductToken } from 'constants/productTokens'
+import { DefiPulseIndex, ProductToken } from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
-import IndexComponent from 'components/IndexComponent'
 
 export interface TokenDataProps {
   prices: number[][] | undefined
@@ -78,7 +78,9 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           />
           <div>
             <BuySellWrapper tokenId={tokenData.token.tokensetsId} />
-            <TransakBuySellButton />
+            {tokenData.token.symbol == DefiPulseIndex.symbol && (
+              <TransakBuySellButton />
+            )}
           </div>
         </ProductPageHeader>
         <ProductPageContent>
@@ -91,9 +93,9 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
             prices={tokenData.prices}
             hourlyPrices={tokenData.hourlyPrices}
           />
-          {tokenData.components !== undefined ? (
+          {tokenData.components && (
             <IndexComponentsTable components={tokenData.components} />
-          ) : null}
+          )}
           <TokenStats
             latestPrice={tokenData.latestPrice}
             latestVolume={tokenData.latestVolume}

@@ -33,7 +33,7 @@ export const IndexToken: ProductToken = {
   address: tokenAddresses.indexTokenAddress,
   image: 'https://index-dao.s3.amazonaws.com/owl.png',
   coingeckoId: 'index-cooperative',
-  tokensetsId: '',
+  tokensetsId: 'index',
 }
 
 export const Ethereum2xFlexibleLeverageIndex: ProductToken = {
