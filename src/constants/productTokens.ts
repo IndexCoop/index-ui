@@ -7,6 +7,7 @@ export interface ProductToken {
   image: string
   coingeckoId: string
   tokensetsId: string
+  fees: any | undefined
 }
 
 export const DefiPulseIndex: ProductToken = {
@@ -16,6 +17,9 @@ export const DefiPulseIndex: ProductToken = {
   image: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
   coingeckoId: 'defipulse-index',
   tokensetsId: 'dpi',
+  fees: {
+    streamingFee: '0.95%',
+  },
 }
 
 export const CoinsharesCryptoGoldIndex: ProductToken = {
@@ -25,6 +29,9 @@ export const CoinsharesCryptoGoldIndex: ProductToken = {
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
   coingeckoId: 'coinshares-gold-and-cryptoassets-index-lite',
   tokensetsId: 'cgi',
+  fees: {
+    streamingFee: '0.95%',
+  },
 }
 
 export const IndexToken: ProductToken = {
@@ -34,6 +41,7 @@ export const IndexToken: ProductToken = {
   image: 'https://index-dao.s3.amazonaws.com/owl.png',
   coingeckoId: 'index-cooperative',
   tokensetsId: 'index',
+  fees: null,
 }
 
 export const Ethereum2xFlexibleLeverageIndex: ProductToken = {
@@ -43,6 +51,9 @@ export const Ethereum2xFlexibleLeverageIndex: ProductToken = {
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
   coingeckoId: 'eth-2x-flexible-leverage-index',
   tokensetsId: 'ethfli',
+  fees: {
+    streamingFee: '1.95%',
+  },
 }
 
 export const MetaverseIndex: ProductToken = {
@@ -52,6 +63,9 @@ export const MetaverseIndex: ProductToken = {
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
   coingeckoId: 'metaverse-index',
   tokensetsId: 'mvi',
+  fees: {
+    streamingFee: '0.95%',
+  },
 }
 
 export const Bitcoin2xFlexibleLeverageIndex: ProductToken = {
@@ -61,6 +75,9 @@ export const Bitcoin2xFlexibleLeverageIndex: ProductToken = {
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/fli_btc.svg',
   coingeckoId: 'btc-2x-flexible-leverage-index',
   tokensetsId: 'btcfli',
+  fees: {
+    streamingFee: '1.95%',
+  },
 }
 
 export const productTokensBySymbol = {
