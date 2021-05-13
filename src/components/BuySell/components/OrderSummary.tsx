@@ -6,6 +6,8 @@ import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 
 const OrderSummary: React.FC = () => {
   const { isFetchingOrderData, buySellToken, uniswapData } = useBuySell()
+  const premiumStr = uniswapData?.display?.slippage || '0.00%'
+  const highPremium = parseFloat(premiumStr) > 5
 
   const isOrderDataReady =
     Number(uniswapData?.amount_out) > 0 && !isFetchingOrderData
@@ -22,10 +24,10 @@ const OrderSummary: React.FC = () => {
           {uniswapData?.display?.to_quantity}
         </StyledOrderSummaryValue>
 
-        <StyledOrderSummaryLabel>Price Impact</StyledOrderSummaryLabel>
-        <StyledOrderSummaryValue>
+        <StyledOrderSummaryLabel>Premium</StyledOrderSummaryLabel>
+        <StyledOrderPremiumValue highPremium={highPremium}>
           {uniswapData?.display?.slippage}
-        </StyledOrderSummaryValue>
+        </StyledOrderPremiumValue>
 
         <StyledOrderSummaryLabel>Network Fee</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
@@ -55,6 +57,16 @@ const StyledOrderSummaryLabel = styled.span`
 const StyledOrderSummaryValue = styled.span`
   font-size: 20px;
   margin-bottom: 20px;
+`
+
+const StyledOrderPremiumValue = styled.span`
+  font-size: 20px;
+  margin-bottom: 20px;
+  ${(props: { highPremium: boolean }) =>
+    props.highPremium &&
+    `
+         color: #ff4a4a;
+    `}
 `
 
 export default OrderSummary
