@@ -22,7 +22,7 @@ const DpiMarketDataProvider: React.FC = ({ children }) => {
       value={{
         ...dpiMarketData,
         latestMarketCap: selectLatestMarketData(dpiMarketData?.marketcaps),
-        latestPrice: selectLatestMarketData(dpiMarketData?.prices),
+        latestPrice: selectLatestMarketData(dpiMarketData?.hourlyPrices),
         latestVolume: selectLatestMarketData(dpiMarketData?.volumes),
       }}
     >
