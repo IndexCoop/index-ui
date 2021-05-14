@@ -107,9 +107,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
               latestPrice={tokenData.latestPrice}
               latestVolume={tokenData.latestVolume}
               latestMarketCap={tokenData.latestMarketCap}
-              fees={{
-                streamingFee: '0.95%',
-              }}
+              fees={tokenData.token.fees}
               netAssetValue={getNetAssetValue()}
             />
           )}
