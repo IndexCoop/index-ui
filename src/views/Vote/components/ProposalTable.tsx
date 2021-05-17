@@ -50,7 +50,7 @@ const ProposalTable: React.FC = () => {
           const isExecuted = indexProposals[id]?.msg?.payload?.end < currentTime
           
           const proposalFilter =
-                   indexProposals[id].msg.payload.name
+                   indexProposals[id].msg?.payload?.name?
                   .toUpperCase()
                   .includes(searchTerm.toUpperCase())
           
