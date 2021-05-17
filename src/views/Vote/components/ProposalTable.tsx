@@ -54,7 +54,7 @@ const ProposalTable: React.FC = () => {
                   .toUpperCase()
                   .includes(searchTerm.toUpperCase())
           
-          const passesFilter = proposalFilter || !searchTerm
+          const shouldDisplayProposal = proposalFilter || !searchTerm
 
           if (passesFilter) {
             return (
