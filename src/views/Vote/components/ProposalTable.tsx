@@ -48,13 +48,15 @@ const ProposalTable: React.FC = () => {
             indexProposals[id]?.msg?.payload?.start <= currentTime &&
             currentTime <= indexProposals[id]?.msg?.payload?.end
           const isExecuted = indexProposals[id]?.msg?.payload?.end < currentTime
+          
+          const proposalFilter =
+                   indexProposals[id].msg.payload.name
+                  .toUpperCase()
+                  .includes(searchTerm.toUpperCase())
+          
+          const passesFilter = proposalFilter || !searchTerm
 
-          if (
-            !searchTerm ||
-            indexProposals[id].msg.payload.name
-              .toUpperCase()
-              .includes(searchTerm.toUpperCase())
-          ) {
+          if (passesFilter) {
             return (
               <>
                 <StyledColumnRow>
