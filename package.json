@@ -12,7 +12,7 @@
     "@types/lodash": "^4.14.164",
     "@types/numeral": "^0.0.28",
     "@types/react-gtm-module": "^2.0.0",
-    "@types/react-select": "^3.0.23",
+    "@types/react-select": "^4.0.15",
     "@types/recharts": "^1.8.16",
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "apollo-client": "^2.6.10",
