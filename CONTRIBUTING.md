@@ -16,7 +16,7 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
 
 ***
 
-- ### [**Code of Conduct** <a name="code-of-conduct"></a>](#Code-of-Conduct)
+- ### [**Code of Conduct** <a name="code-of-conduct"></a>](#↑-Code-of-Conduct)
 
 - ### [**General Information** <a name="general-information"></a>](#<a-href="#table-of-contents">↑</a>-general-information)
   - [**Your Contribution to the Index Coop** <a name="your-contribution-to-the-index-coop"></a>](#your-contribution-to-the-index-coop)
@@ -27,7 +27,7 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
   - [**Understanding Forks** <a name="understanding-forks"></a>](#understanding-forks)
   - [**Understanding Branches** <a name="understanding-branches"></a>](#understanding-branches)
 
-- ### [**Technical Resources** <a name="technical-resoures"></a>](#a-href="#table-of-contents">↑</a>technical-resources)
+- ### [**Technical Resources** <a name="technical-resoures"></a>](#a-href="#table-of-contents">↑</a>-technical-resources)
 
   - [**Coding Conventions** <a name="coding-conventions"></a>](#coding-conventions)
   - [**Code Comments** <a name="code-comments"></a>](#code-comments)
@@ -126,7 +126,7 @@ Within your own forked version of the master repository, you are able to create 
 
 &nbsp;
 
-## <a href="#table-of-contents">↑</a>**Technical Resources**
+## <a href="#table-of-contents">↑</a> **Technical Resources**
 
 ***
 
