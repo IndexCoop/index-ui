@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "@transak/transak-sdk": "^1.0.28",
     "@types/canvas-confetti": "^1.4.0",
-    "@types/lodash": "^4.14.164",
+    "@types/lodash": "^4.14.169",
     "@types/numeral": "^2.0.1",
     "@types/react-gtm-module": "^2.0.0",
     "@types/react-select": "^4.0.15",
