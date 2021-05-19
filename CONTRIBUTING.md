@@ -14,8 +14,6 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
 
 ## **Table of Contents**
 
-***
-
 - ### [**Code of Conduct**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#-code-of-conduct)
 
 - ### [**General Information**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#-general-information)
@@ -54,15 +52,11 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
 
 ## <a href="#table-of-contents">↑</a> **Code of Conduct**
 
-***
-
-The Index Coop is a project that exists through individual entities working together as a unified community. The community is governed by our [Code of Conduct][3], and any unnacceptable behavior encountered while working on the Index UI should be reported to the `dev` channel in our [Discord][4].
+The Index Coop is a project that exists through individual entities working together as a unified community. The community is governed by our [Code of Conduct][3], and any unnacceptable behavior encountered while working on the Index UI should be reported to the `#dev` channel in our [Discord][4].
 
 &nbsp;
 
 ## <a href="#table-of-contents">↑</a> **General Information**
-
-***
 
 ### **Please do not file an issue to ask a question!**
 
@@ -96,9 +90,7 @@ If you are not a developer, then **we still need you!** The Index Coop is a mass
 
 ## <a href="#table-of-contents">↑</a> **Getting Started**
 
-***
-
-GitHub is structured in a way that allows us to manage `index-ui` through the use of forks from the original repository. When you want to begin working on a project for `index-ui`, the first thing you will need to do is create your own fork from the master at `SetProtocol/index-ui`. If you are new to GitHub, then we recommend this [Quickstart guide][15] before getting started, or you can sharpen up your vocabulary skills by reviewing some commonly referenced terms in the [GitHub glossary][16].
+GitHub is structured in a way that allows us to manage `index-ui` through the use of forks from the original repository. When you want to begin working on a project for `index-ui`, the first thing you will need to do is create your own fork from the master that can be found at `SetProtocol/index-ui`. If you are new to GitHub, then we recommend this [Quickstart guide][15] before getting started, or you can sharpen up your vocabulary skills by reviewing some commonly referenced terms in the [GitHub glossary][16].
 
 &nbsp;
 
@@ -133,11 +125,9 @@ Within your own forked version of the master repository, you are able to create 
 
 ## <a href="#table-of-contents">↑</a> **Technical Resources**
 
-***
-
 Below you will find links for some useful resources to utilize as you develop projects for Index:
 
-- [Technical Resources][26]     - A collection of crucial documents, scripts, and repositories.
+- [Technical Resources][26]    - A collection of crucial documents, scripts, and repositories.
 - [Contract Addresses][27]     - A list of contract addresses associated with Index.
 - [FLI Documentation][28]      - The parameters and processes involved with the FLI system.
 - [Community Documents][57]    - A shared Google Drive folder containing images used across Index UI.
@@ -176,8 +166,6 @@ At Index, we are a community-driven project, and proper documentation is essenti
 &nbsp;
 
 ## <a href="#table-of-contents">↑</a> **Issues**
-
-***
 
 #### **☞ ☞ REMINDER ☜ ☜**
 
@@ -225,7 +213,7 @@ There are two primary templates used when filing an issue, so be sure to disting
 
 &nbsp;
 
-#### **\*\*A Note on Issues**\*\*
+### **\*\*A Note on Issues**\*\*
 
 A great way for the Index Coop to continue growing is by granting newcomers with the ability to perform basic tasks to establish a footprint within our community. Providing these opportunities for newcomers is crucial to the ongoing development of our product and makes our DeFi movement even more sustainable and future-proof.
 
@@ -242,8 +230,6 @@ Once you are ready to proceed, you will need to [commit][46] the changes to your
 &nbsp;
 
 ## <a href="#table-of-contents">↑</a> **Pull Requests**
-
-***
 
 [Pull Requests][31] (often referred to as 'PRs') are the means by which the files that have been edited or updated within your fork are merged into the master repository at `SetProtocol/index-ui`. There are different stages to PRs, so be sure to familiarize yourself with the individual stages of the process.
 
@@ -272,8 +258,6 @@ Once you are ready to proceed, you will need to [commit][46] the changes to your
 &nbsp;
 
 ## <a href="#table-of-contents">↑</a> **Troubleshooting**
-
-***
 
 If you are experiencing problems or difficulty with the GitHub interface as it pertains to Index related content, then please direct all questions to the `#dev` channel in our [Discord][4]. All other basic, non-technical questions can be asked in the `#help` channel.
 
