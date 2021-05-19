@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { provider } from 'web3-core'
 
 import BigNumber from 'utils/bignumber'
@@ -33,6 +33,9 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [uniswapData, setUniswapData] = useState<UniswapPriceData>(
     {} as UniswapPriceData
   )
+  const [spendingTokenBalance, setSpendingTokenBalance] = useState<BigNumber>(
+    new BigNumber(0)
+  )
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
 
@@ -58,26 +61,40 @@ const BuySellProvider: React.FC = ({ children }) => {
     setSelectedCurrency(currencyTokens[0])
   }, [])
 
-  let spendingTokenBalance = new BigNumber(0)
-  if (!isUserBuying && buySellToken === 'index') {
-    spendingTokenBalance = indexBalance || new BigNumber(0)
-  } else if (!isUserBuying && buySellToken === 'dpi') {
-    spendingTokenBalance = dpiBalance || new BigNumber(0)
-  } else if (!isUserBuying && buySellToken === 'ethfli') {
-    spendingTokenBalance = ethfliBalance || new BigNumber(0)
-  } else if (!isUserBuying && buySellToken === 'btcfli') {
-    spendingTokenBalance = btcfliBalance || new BigNumber(0)
-  } else if (!isUserBuying && buySellToken === 'cgi') {
-    spendingTokenBalance = cgiBalance || new BigNumber(0)
-  } else if (!isUserBuying && buySellToken === 'mvi') {
-    spendingTokenBalance = mviBalance || new BigNumber(0)
-  } else if (selectedCurrency?.id === 'wrapped_eth') {
-    spendingTokenBalance = ethBalance || new BigNumber(0)
-  } else if (selectedCurrency?.id === 'mcd') {
-    spendingTokenBalance = daiBalance || new BigNumber(0)
-  } else if (selectedCurrency?.id === 'usdc') {
-    spendingTokenBalance = usdcBalance || new BigNumber(0)
-  }
+  useMemo(() => {
+    if (!isUserBuying && buySellToken === 'index') {
+      setSpendingTokenBalance(indexBalance || new BigNumber(0))
+    } else if (!isUserBuying && buySellToken === 'dpi') {
+      setSpendingTokenBalance(dpiBalance || new BigNumber(0))
+    } else if (!isUserBuying && buySellToken === 'ethfli') {
+      setSpendingTokenBalance(ethfliBalance || new BigNumber(0))
+    } else if (!isUserBuying && buySellToken === 'btcfli') {
+      setSpendingTokenBalance(btcfliBalance || new BigNumber(0))
+    } else if (!isUserBuying && buySellToken === 'cgi') {
+      setSpendingTokenBalance(cgiBalance || new BigNumber(0))
+    } else if (!isUserBuying && buySellToken === 'mvi') {
+      setSpendingTokenBalance(mviBalance || new BigNumber(0))
+    } else if (selectedCurrency?.id === 'wrapped_eth') {
+      setSpendingTokenBalance(ethBalance || new BigNumber(0))
+    } else if (selectedCurrency?.id === 'mcd') {
+      setSpendingTokenBalance(daiBalance || new BigNumber(0))
+    } else if (selectedCurrency?.id === 'usdc') {
+      setSpendingTokenBalance(usdcBalance || new BigNumber(0))
+    }
+  }, [
+    isUserBuying,
+    buySellToken,
+    indexBalance,
+    dpiBalance,
+    ethfliBalance,
+    btcfliBalance,
+    cgiBalance,
+    mviBalance,
+    ethBalance,
+    daiBalance,
+    usdcBalance,
+    selectedCurrency?.id,
+  ])
 
   const debouncedCurrencyQuantity = useDebounce(currencyQuantity)
   const debouncedTokenQuantity = useDebounce(tokenQuantity)
