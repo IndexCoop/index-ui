@@ -84,7 +84,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           />
           <div>
             <BuySellWrapper tokenId={tokenData.token.tokensetsId} />
-            {tokenData.token.symbol == DefiPulseIndex.symbol && (
+            {tokenData.token.symbol === DefiPulseIndex.symbol && (
               <TransakBuySellButton />
             )}
           </div>
