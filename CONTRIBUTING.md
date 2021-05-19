@@ -16,7 +16,7 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
 
 ***
 
-- ### [**Code of Conduct** <a name="code-of-conduct"></a>](#↑-Code-of-Conduct)
+- ### [**Code of Conduct**](#↑-code-of-conduct)
 
 - ### [**General Information** <a name="general-information"></a>](#<a-href="#table-of-contents">↑</a>-general-information)
   - [**Your Contribution to the Index Coop** <a name="your-contribution-to-the-index-coop"></a>](#your-contribution-to-the-index-coop)
