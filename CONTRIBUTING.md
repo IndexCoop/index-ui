@@ -31,8 +31,8 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
 
   - [**Installing Depencies**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#installing-depencies)
   - [**Coding Conventions**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#coding-conventions)
-  - [**Code Comments**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#code-comments)
-  - [**Code Documentation**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#code-documentation)
+  - [**Coding Comments**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#coding-comments)
+  - [**Coding Documentation**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#coding-documentation)
 
 - ### [**Issues**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#-issues)
 
@@ -157,7 +157,7 @@ While we don't necessarily require you to follow a strict set of rules, we **hig
 
 &nbsp;
 
-### **Code Comments**
+### **Coding Comments**
 
 A good habit to develop early on is to include some simple comments within your code so that anyone who views your code (including your future self) can gather a brief summary of what is being viewed without spending an inordinate amount of time studying the syntax in order to understand it's functionality. As a general rule:
 
@@ -167,7 +167,7 @@ A good habit to develop early on is to include some simple comments within your 
 
 &nbsp;
 
-### **Code Documentation**
+### **Coding Documentation**
 
 Typically, **documentation is an external resource** that provides an explanation of your code and the purpose it serves to everyone involved with the project. You could consider these Contribution Guidelines to be a form of documentation, as they are a publicly accessible compilation of standards that are pertinent to the development and growth of `index-ui`.
 
