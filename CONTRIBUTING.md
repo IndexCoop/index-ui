@@ -18,32 +18,37 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
 
 - ### [**Code of Conduct**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#-code-of-conduct)
 
-- ### [**General Information** <a name="general-information"></a>](#<a-href="#table-of-contents">↑</a>-general-information)
-  - [**Your Contribution to the Index Coop** <a name="your-contribution-to-the-index-coop"></a>](#your-contribution-to-the-index-coop)
+- ### [**General Information**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#-general-information)
+  - [**Your Contribution to the Index Coop**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#your-contribution-to-the-index-coop)
 
-- ### [**Getting Started** <a name="getting-started"></a>](#a-href="#table-of-contents">↑</a>-getting-started)
+- ### [**Getting Started**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#-getting-started)
 
-  - [**Choosing Your Platform** <a name="choosing-your-platform"></a>](#choosing-your-platform)
-  - [**Understanding Forks** <a name="understanding-forks"></a>](#understanding-forks)
-  - [**Understanding Branches** <a name="understanding-branches"></a>](#understanding-branches)
+  - [**Choosing Your Platform**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#choosing-your-platform)
+  - [**Understanding Forks**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#understanding-forks)
+  - [**Understanding Branches**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#understanding-branches)
 
-- ### [**Technical Resources** <a name="technical-resoures"></a>](#a-href="#table-of-contents">↑</a>-technical-resources)
+- ### [**Technical Resources**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#-technical-resources)
 
-  - [**Coding Conventions** <a name="coding-conventions"></a>](#coding-conventions)
-  - [**Code Comments** <a name="code-comments"></a>](#code-comments)
-  - [**Code Documentation** <a name="code-documentation"></a>](#code-documentation)
+  - [**Installing Depencies**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#installing-depencies)
+  - [**Coding Conventions**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#coding-conventions)
+  - [**Code Comments**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#code-comments)
+  - [**Code Documentation**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#code-documentation)
 
-- ### [**Issues** <a name="issues"></a>](#a-href="#table-of-contents">↑</a>-issues)
+- ### [**Issues**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#-issues)
 
-  - [**Filing an Issue** <a name="filing-an-issue"></a>](#filing-an-issue)
-  - [**Bug Reports** <a name="bug-reports"></a>](#bug-reports)
-  - [**Feature Requests** <a name="feature-requests"></a>](#feature-requests)
+  - [**Filing an Issue**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#filing-an-issue)
+  - [**Bug Reports**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#bug-reports)
+  - [**Feature Requests**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#feature-requests)
+  - [**A Note on Issues**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#a-note-on-issues)
+  - [**Resolving Issues**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#resolving-an-issue)
 
-- ### [**Pull Requests** <a name="pull-requests"></a>](#a-href="#table-of-contents">↑</a>-pull-requests)
+- ### [**Pull Requests**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#-pull-requests)
 
-  - [**Step 1: Creating a Pull Request** <a name="step-1:-creating-a-pull-request"></a>](#step-1:-creating-a-pull-request)
-  - [**Step 2: Reviewing a Pull Request** <a name="step-2:-reviewing-a-pull-request"></a>](#step-2:-reviewing-a-pull-request)
-  - [**Step 3: Merging a Pull Request** <a name="step-3:-merging-a-pull-request"></a>](#step-3:-merging-a-pull-request)
+  - [**Step 1: Creating a Pull Request**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#step-1-creating-a-pull-request)
+  - [**Step 2: Reviewing a Pull Request**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#step-2-reviewing-a-pull-request)
+  - [**Step 3: Merging a Pull Request**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#step-3-merging-a-pull-request)
+  
+- ### [**Troubleshooting**](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#-troubleshooting)
 
 &nbsp;
 
@@ -176,7 +181,7 @@ At Index, we are a community-driven project, and proper documentation is essenti
 
 #### **☞ ☞ REMINDER ☜ ☜**
 
-**Please do not file an issue to ask a [question!](#please-do-not-file-an-issue-to-ask-a-question!)**
+**Please do not file an issue to ask a [question!](https://github.com/tytarman/index-ui/blob/contribution-guidelines/CONTRIBUTING.md#please-do-not-file-an-issue-to-ask-a-question)**
 
 [Issues][20] are an organized way of keeping track of work being done on bug reports and feature requests for `index-ui`. Each issue should have the following aspects in order to maintain consistency and reduce confusion:
 
