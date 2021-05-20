@@ -13,7 +13,7 @@
     "@types/numeral": "^2.0.1",
     "@types/react-gtm-module": "^2.0.0",
     "@types/react-select": "^4.0.15",
-    "@types/recharts": "^1.8.16",
+    "@types/recharts": "^1.8.19",
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "apollo-client": "^2.6.10",
     "axios": "^0.21.0",
