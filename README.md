@@ -27,8 +27,9 @@ Ejects the app from `create-react-app` rails.
 
 ## Contributing
 
-The main purpose of this repository is to continually serve the needs of Index, making it faster, simpler, and easier to use. As new proposals are submitted and the scope of Index's governance evolves we anticipate this tool will change as well.
-We greatly encourage any community contribution that may help Index reach more users and greater adoption.
+The main purpose of this repository is to continually serve the needs of Index, making it faster, simpler, and easier to use. As new proposals are submitted and the scope of Index's governance evolves, we anticipate this tool will change as well.
+
+We greatly encourage any community contribution that may help Index reach more users and promote greater adoption, so be sure to check out our [Contribution Guidelines](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md) for ways to get involved with our project.
 
 ## License
 
