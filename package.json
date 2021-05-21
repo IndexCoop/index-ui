@@ -74,7 +74,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.5",
+    "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
     "@types/web3": "^1.2.2",
     "husky": "^4.3.0",
