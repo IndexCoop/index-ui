@@ -31,10 +31,10 @@
     "react-neu": "^1.0.20",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "react-select": "^3.1.0",
+    "react-select": "^4.3.1",
     "react-spinners": "^0.10.6",
     "react-toastify": "^7.0.4",
-    "recharts": "^1.8.5",
+    "recharts": "^2.0.9",
     "styled-components": "^5.3.0",
     "use-wallet": "^0.8.1",
     "web3": "1.2.11"

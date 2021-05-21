@@ -44,6 +44,10 @@ const TokenInputs: React.FC = () => {
         width: 100,
         textAlign: 'right',
       }),
+      valueContainer: (styles: any) => ({
+        ...styles,
+        overflow: 'visible',
+      }),
       menu: (styles: any) => ({
         ...styles,
         color: 'black',
