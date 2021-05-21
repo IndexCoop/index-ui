@@ -231,7 +231,7 @@ Once you are ready to proceed, you will need to [commit][46] the changes to your
 
 ## <a href="#table-of-contents">↑</a> **Pull Requests**
 
-[Pull Requests][31] (often referred to as 'PRs') are the means by which the files that have been edited or updated within your fork are merged into the master repository at `SetProtocol/index-ui`. There are different stages to PRs, so be sure to familiarize yourself with the individual stages of the process.
+[Pull Requests][31] (often referred to as 'PRs') are the means by which the files that have been edited or updated within your fork are merged into the master repository at `SetProtocol/index-ui`. We have created a [template](https://github.com/SetProtocol/index-ui/blob/master/.github/PULL_REQUEST_TEMPLATE/pull-request-template.md) to make the general formatting easier for our contributors and maintainers, but there are different stages to PRs, so be sure to familiarize yourself with the individual steps of the process.
 
 &nbsp;
 
