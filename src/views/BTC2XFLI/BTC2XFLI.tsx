@@ -14,15 +14,10 @@ const Btc2xFliProductPage = (props: { title: string }) => {
     document.title = props.title
   }, [props.title])
 
-  const {
-    prices,
-    hourlyPrices,
-    latestPrice,
-    latestVolume,
-    latestMarketCap,
-  } = useBtc2xFliTokenMarketData()
+  const { prices, hourlyPrices, latestPrice, latestVolume, latestMarketCap } =
+    useBtc2xFliTokenMarketData()
   const { components } = useBtc2xFliIndexPortfolioData()
-  const { btcfliBalance } = useBalances()
+  const { btcfliBalance, btcfliTotalSupply } = useBalances()
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ExternalLink from 'components/ExternalLink'
 
 import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
@@ -8,21 +8,20 @@ import { Ethereum2xFlexibleLeverageIndex } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
+import { toast } from 'react-toastify'
+import BigNumber from 'utils/bignumber'
 
 const Eth2xFliProductPage = (props: { title: string }) => {
+  const [approachingSupplyCap, setApproachingSupplyCap] = useState<boolean>()
+  const [totalSupply, setTotalSupply] = useState<BigNumber>()
   useEffect(() => {
     document.title = props.title
   }, [props.title])
 
-  const {
-    prices,
-    hourlyPrices,
-    latestPrice,
-    latestMarketCap,
-    latestVolume,
-  } = useEth2xFliTokenMarketData()
+  const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
+    useEth2xFliTokenMarketData()
   const { components } = useEth2xFliIndexPortfolioData()
-  const { ethfliBalance } = useBalances()
+  const { ethfliBalance, ethfliTotalSupply } = useBalances()
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -33,6 +32,45 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: ethfliBalance,
   }
+  const ETHFLI_SUPPLY_CAP = new BigNumber(
+    parseInt(process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || '1')
+  )
+  setTotalSupply(ethfliTotalSupply)
+  setApproachingSupplyCap(
+    totalSupply?.div(ETHFLI_SUPPLY_CAP).isGreaterThan(0.9)
+  )
+
+  console.log(
+    'view',
+    ETHFLI_SUPPLY_CAP.valueOf(),
+    ethfliTotalSupply?.valueOf(),
+    approachingSupplyCap
+  )
+
+  useEffect(() => {
+    if (approachingSupplyCap) {
+      console.log('too much eth2xfli')
+      toast.error(
+        'ETH2x-FLI is within 10% of the supply cap of ' +
+          ETHFLI_SUPPLY_CAP +
+          '. Please be aware of possible market premiums when purchasing.',
+        {
+          toastId: 'ethfli-supply-cap-warning',
+          position: 'top-right',
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      )
+    }
+
+    return () => {
+      toast.dismiss('ethfli-supply-cap-warning')
+    }
+  }, [props.title])
 
   return (
     <ProductDataUI tokenDataProps={tokenDataProps}>
