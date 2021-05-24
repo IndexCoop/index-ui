@@ -105,7 +105,7 @@ export const getBalance = async (
 export const getERC20Contract = (provider: provider, address: string) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
-    (ERC20ABI.abi as unknown) as AbiItem,
+    ERC20ABI.abi as unknown as AbiItem,
     address
   )
   return contract
@@ -125,4 +125,17 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
 
 export const makeEtherscanLink = (transactionHash: string) => {
   return `https://etherscan.io/tx/${transactionHash}`
+}
+
+export const getTotalSupply = async (
+  provider: provider,
+  tokenAddress: string
+): Promise<string> => {
+  const tokenContract = getERC20Contract(provider, tokenAddress)
+  try {
+    const balance: string = await tokenContract.methods.totalSupply().call()
+    return balance
+  } catch (e) {
+    return '0'
+  }
 }

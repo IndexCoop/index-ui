@@ -46,6 +46,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     indexBalance,
     daiBalance,
     usdcBalance,
+    ethfliTotalSupply,
+    btcfliTotalSupply,
   } = useBalances()
 
   const {
@@ -58,6 +60,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     setSelectedCurrency(currencyTokens[0])
   }, [])
 
+  let spendingTokenTotalSupply = new BigNumber(0)
   let spendingTokenBalance = new BigNumber(0)
   if (!isUserBuying && buySellToken === 'index') {
     spendingTokenBalance = indexBalance || new BigNumber(0)
@@ -65,8 +68,10 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = dpiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'ethfli') {
     spendingTokenBalance = ethfliBalance || new BigNumber(0)
+    spendingTokenTotalSupply = ethfliTotalSupply || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'btcfli') {
     spendingTokenBalance = btcfliBalance || new BigNumber(0)
+    spendingTokenTotalSupply = btcfliTotalSupply || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'cgi') {
     spendingTokenBalance = cgiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'mvi') {

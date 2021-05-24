@@ -4,7 +4,7 @@ import { provider } from 'web3-core'
 
 import Context from './Context'
 import useWallet from 'hooks/useWallet'
-import { getBalance, getEthBalance } from 'utils/index'
+import { getBalance, getEthBalance, getTotalSupply } from 'utils/index'
 import { getEarnedIndexTokenQuantity } from 'index-sdk/stake'
 import { getEarnedIndexTokenQuantity as getEarnedFarmTwoBalance } from 'index-sdk/farmTwo'
 import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/mviStaking'
@@ -29,44 +29,36 @@ const Provider: React.FC = ({ children }) => {
   const [indexBalance, setIndexBalance] = useState<BigNumber>()
   const [dpiBalance, setDpiBalance] = useState<BigNumber>()
   const [ethfliBalance, setEthFliBalance] = useState<BigNumber>()
+  const [ethfliTotalSupply, setEthFliTotalSupply] = useState<BigNumber>()
   const [btcfliBalance, setBtcFliBalance] = useState<BigNumber>()
+  const [btcfliTotalSupply, setBtcFliTotalSupply] = useState<BigNumber>()
   const [cgiBalance, setCgiBalance] = useState<BigNumber>()
   const [mviBalance, setMviBalance] = useState<BigNumber>()
   const [daiBalance, setDaiBalance] = useState<BigNumber>()
   const [usdcBalance, setUsdcBalance] = useState<BigNumber>()
 
   // LP Tokens Balances
-  const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] = useState<
-    BigNumber
-  >()
-  const [uniswapEthMviLpBalance, setUniswapEthMviLpBalance] = useState<
-    BigNumber
-  >()
+  const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] =
+    useState<BigNumber>()
+  const [uniswapEthMviLpBalance, setUniswapEthMviLpBalance] =
+    useState<BigNumber>()
 
   // Legacy DPI LM Program
-  const [
-    stakedUniswapEthDpiLpBalance,
-    setStakedUniswapEthDpiLpBalance,
-  ] = useState<BigNumber>()
-  const [unharvestedIndexBalance, setUnharvestedIndexBalance] = useState<
-    BigNumber
-  >()
+  const [stakedUniswapEthDpiLpBalance, setStakedUniswapEthDpiLpBalance] =
+    useState<BigNumber>()
+  const [unharvestedIndexBalance, setUnharvestedIndexBalance] =
+    useState<BigNumber>()
 
   // Current DPI LM Program
   const [stakedFarmTwoBalance, setStakedFarmTwoBalance] = useState<BigNumber>()
-  const [unharvestedFarmTwoBalance, setUnharvestedFarmTwoBalance] = useState<
-    BigNumber
-  >()
+  const [unharvestedFarmTwoBalance, setUnharvestedFarmTwoBalance] =
+    useState<BigNumber>()
 
   // Current MVI LM Program
-  const [
-    stakedUniswapEthMviLpBalance,
-    setStakedUniswapEthMviLpBalance,
-  ] = useState<BigNumber>()
-  const [
-    unharvestedMviRewardsBalance,
-    setUnharvestedMviRewardsBalance,
-  ] = useState<BigNumber>()
+  const [stakedUniswapEthMviLpBalance, setStakedUniswapEthMviLpBalance] =
+    useState<BigNumber>()
+  const [unharvestedMviRewardsBalance, setUnharvestedMviRewardsBalance] =
+    useState<BigNumber>()
 
   const {
     account,
@@ -85,7 +77,9 @@ const Provider: React.FC = ({ children }) => {
         getBalance(provider, indexTokenAddress as string, userAddress),
         getBalance(provider, dpiTokenAddress as string, userAddress),
         getBalance(provider, eth2xfliTokenAddress as string, userAddress),
+        getTotalSupply(provider, eth2xfliTokenAddress as string),
         getBalance(provider, btc2xfliTokenAddress as string, userAddress),
+        getTotalSupply(provider, btc2xfliTokenAddress as string),
         getBalance(provider, cgiTokenAddress as string, userAddress),
         getBalance(provider, mviTokenAddress as string, userAddress),
         getBalance(provider, daiTokenAddress as string, userAddress),
@@ -186,6 +180,29 @@ const Provider: React.FC = ({ children }) => {
     ]
   )
 
+  const fetchTotalSupplies = useCallback(
+    async (userAddress: string, provider: provider) => {
+      const totalSupplies = await Promise.all([
+        getTotalSupply(provider, eth2xfliTokenAddress as string),
+        getTotalSupply(provider, btc2xfliTokenAddress as string),
+      ])
+
+      setEthFliTotalSupply(
+        new BigNumber(totalSupplies[0]).dividedBy(new BigNumber(10).pow(18))
+      )
+      setBtcFliTotalSupply(
+        new BigNumber(totalSupplies[1]).dividedBy(new BigNumber(10).pow(18))
+      )
+
+      console.log(
+        'testing fetchTotalSupplies',
+        ethfliTotalSupply,
+        btcfliTotalSupply
+      )
+    },
+    [setEthFliTotalSupply, setBtcFliTotalSupply]
+  )
+
   useEffect(() => {
     if (status !== 'connected') {
       setEthBalance(new BigNumber(0))
@@ -205,12 +222,15 @@ const Provider: React.FC = ({ children }) => {
       setUnharvestedFarmTwoBalance(new BigNumber(0))
       setStakedUniswapEthMviLpBalance(new BigNumber(0))
       setUnharvestedMviRewardsBalance(new BigNumber(0))
+      setEthFliTotalSupply(new BigNumber(0))
+      setBtcFliTotalSupply(new BigNumber(0))
     }
   }, [status])
 
   useEffect(() => {
     if (account && ethereum) {
       fetchBalances(account, ethereum)
+      fetchTotalSupplies(account, ethereum)
       let refreshInterval = setInterval(
         () => fetchBalances(account, ethereum),
         10000
@@ -233,15 +253,14 @@ const Provider: React.FC = ({ children }) => {
         usdcBalance,
         uniswapEthDpiLpBalance,
         uniswapEthMviLpBalance,
-
         stakedUniswapEthDpiLpBalance,
         unharvestedIndexBalance,
-
         stakedFarmTwoBalance,
         unharvestedFarmTwoBalance,
-
         stakedUniswapEthMviLpBalance,
         unharvestedMviRewardsBalance,
+        ethfliTotalSupply,
+        btcfliTotalSupply,
       }}
     >
       {children}
