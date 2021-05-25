@@ -20,7 +20,6 @@ import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 import { currencyTokens } from 'constants/currencyTokens'
 import { UniswapPriceData } from './types'
-import { toast } from 'react-toastify'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
@@ -34,8 +33,6 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [uniswapData, setUniswapData] = useState<UniswapPriceData>(
     {} as UniswapPriceData
   )
-  const [isApproachingSupplyCap, setIsApproachingSupplyCap] =
-    useState<boolean>(false)
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
 
@@ -61,10 +58,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     setSelectedCurrency(currencyTokens[0])
   }, [])
 
-  let spendingTokenTotalSupply = new BigNumber(0)
-  let spendingTokenSupplyCap = new BigNumber(0)
   let spendingTokenBalance = new BigNumber(0)
-  let spendingTokenSymbol = ''
   if (!isUserBuying && buySellToken === 'index') {
     spendingTokenBalance = indexBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'dpi') {
@@ -84,11 +78,6 @@ const BuySellProvider: React.FC = ({ children }) => {
   } else if (selectedCurrency?.id === 'usdc') {
     spendingTokenBalance = usdcBalance || new BigNumber(0)
   }
-
-  setIsApproachingSupplyCap(
-    spendingTokenTotalSupply.div(spendingTokenSupplyCap).isGreaterThan(0.9)
-  )
-  console.log('isapproaching', isApproachingSupplyCap)
 
   const debouncedCurrencyQuantity = useDebounce(currencyQuantity)
   const debouncedTokenQuantity = useDebounce(tokenQuantity)
@@ -262,7 +251,6 @@ const BuySellProvider: React.FC = ({ children }) => {
         onSetCurrencyQuantity,
         onSetTokenQuantity,
         onExecuteBuySell,
-        isApproachingSupplyCap,
       }}
     >
       {children}

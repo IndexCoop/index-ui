@@ -21,7 +21,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
     useEth2xFliTokenMarketData()
   const { components } = useEth2xFliIndexPortfolioData()
-  const { ethfliBalance } = useBalances()
+  const { ethfliBalance, ethfliTotalSupply } = useBalances()
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -32,13 +32,16 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: ethfliBalance,
   }
-  const { isApproachingSupplyCap } = useBuySell()
   const { account } = useWallet()
+
+  const supplyCap = process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || 1
+  const isApproachingSupplyCap = ethfliTotalSupply
+    ?.div(supplyCap)
+    .isGreaterThan(0.9)
 
   useEffect(() => {
     if (account) {
       if (isApproachingSupplyCap) {
-        console.log('too much eth2xfli')
         toast.error(
           'ETH2x-FLI is approaching the supply cap. Please be aware of possible market premiums when purchasing.',
           {
@@ -58,7 +61,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     return () => {
       toast.dismiss('ethfli-supply-cap-warning')
     }
-  }, [])
+  }, [account, isApproachingSupplyCap])
 
   return (
     <ProductDataUI tokenDataProps={tokenDataProps}>

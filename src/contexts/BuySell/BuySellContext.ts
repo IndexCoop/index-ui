@@ -20,7 +20,6 @@ interface BuySellContextValues {
   onSetCurrencyQuantity: (event: any) => void
   onSetTokenQuantity: (event: any) => void
   onExecuteBuySell: () => void
-  isApproachingSupplyCap: boolean
 }
 
 const BuySellContext = createContext<BuySellContextValues>({
@@ -41,7 +40,6 @@ const BuySellContext = createContext<BuySellContextValues>({
   onSetCurrencyQuantity: () => {},
   onSetTokenQuantity: () => {},
   onExecuteBuySell: () => {},
-  isApproachingSupplyCap: false,
 })
 
 export default BuySellContext

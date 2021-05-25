@@ -191,12 +191,6 @@ const Provider: React.FC = ({ children }) => {
       setBtcFliTotalSupply(
         new BigNumber(totalSupplies[1]).dividedBy(new BigNumber(10).pow(18))
       )
-
-      console.log(
-        'testing fetchTotalSupplies',
-        ethfliTotalSupply,
-        btcfliTotalSupply
-      )
     },
     [setEthFliTotalSupply, setBtcFliTotalSupply]
   )
