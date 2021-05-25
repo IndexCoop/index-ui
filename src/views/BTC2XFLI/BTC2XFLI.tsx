@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { toast } from 'react-toastify'
 import ExternalLink from 'components/ExternalLink'
 
 import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
@@ -8,21 +9,17 @@ import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
+import useWallet from 'hooks/useWallet'
 
 const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
 
-  const {
-    prices,
-    hourlyPrices,
-    latestPrice,
-    latestVolume,
-    latestMarketCap,
-  } = useBtc2xFliTokenMarketData()
+  const { prices, hourlyPrices, latestPrice, latestVolume, latestMarketCap } =
+    useBtc2xFliTokenMarketData()
   const { components } = useBtc2xFliIndexPortfolioData()
-  const { btcfliBalance } = useBalances()
+  const { btcfliBalance, btcfliTotalSupply } = useBalances()
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -33,6 +30,34 @@ const Btc2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: btcfliBalance,
   }
+  const { account } = useWallet()
+
+  const supplyCap = process.env.REACT_APP_BTC2X_FLI_SUPPLY_CAP || 1
+  const isApproachingSupplyCap = btcfliTotalSupply
+    ?.div(supplyCap)
+    .isGreaterThan(0.95)
+
+  useEffect(() => {
+    if (account && isApproachingSupplyCap) {
+      toast.error(
+        "BTC2x-FLI has reached it's supply cap. Beware this product may be trading at a significant premium to it's Net Asset Value.",
+        {
+          toastId: 'btcfli-supply-cap-warning',
+          position: 'top-right',
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      )
+    }
+
+    return () => {
+      toast.dismiss('btcfli-supply-cap-warning')
+    }
+  }, [account, isApproachingSupplyCap])
 
   return (
     <ProductDataUI tokenDataProps={tokenDataProps}>

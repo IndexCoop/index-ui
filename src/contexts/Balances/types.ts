@@ -26,4 +26,7 @@ export interface ContextValues {
   // For Current MVI LM Program
   stakedUniswapEthMviLpBalance?: BigNumber
   unharvestedMviRewardsBalance?: BigNumber
+
+  ethfliTotalSupply?: BigNumber
+  btcfliTotalSupply?: BigNumber
 }

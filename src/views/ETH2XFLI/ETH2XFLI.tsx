@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import ExternalLink from 'components/ExternalLink'
+import { toast } from 'react-toastify'
 
 import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
 import useEth2xFliIndexPortfolioData from 'hooks/useEth2xFliIndexPortfolioData'
@@ -8,21 +9,17 @@ import { Ethereum2xFlexibleLeverageIndex } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
+import useWallet from 'hooks/useWallet'
 
 const Eth2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
 
-  const {
-    prices,
-    hourlyPrices,
-    latestPrice,
-    latestMarketCap,
-    latestVolume,
-  } = useEth2xFliTokenMarketData()
+  const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
+    useEth2xFliTokenMarketData()
   const { components } = useEth2xFliIndexPortfolioData()
-  const { ethfliBalance } = useBalances()
+  const { ethfliBalance, ethfliTotalSupply } = useBalances()
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -33,6 +30,34 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: ethfliBalance,
   }
+  const { account } = useWallet()
+
+  const supplyCap = process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || 1
+  const isApproachingSupplyCap = ethfliTotalSupply
+    ?.div(supplyCap)
+    .isGreaterThan(0.95)
+
+  useEffect(() => {
+    if (account && isApproachingSupplyCap) {
+      toast.error(
+        "ETH2x-FLI has reached it's supply cap. Beware this product may be trading at a significant premium to it's Net Asset Value.",
+        {
+          toastId: 'ethfli-supply-cap-warning',
+          position: 'top-right',
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      )
+    }
+
+    return () => {
+      toast.dismiss('ethfli-supply-cap-warning')
+    }
+  }, [account, isApproachingSupplyCap])
 
   return (
     <ProductDataUI tokenDataProps={tokenDataProps}>
