@@ -10,6 +10,8 @@ import ProductDataUI, {
 } from 'components/ProductPage/ProductDataUI'
 import { toast } from 'react-toastify'
 import BigNumber from 'utils/bignumber'
+import useBuySell from 'hooks/useBuySell'
+import useWallet from 'hooks/useWallet'
 
 const Eth2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -19,7 +21,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
     useEth2xFliTokenMarketData()
   const { components } = useEth2xFliIndexPortfolioData()
-  const { ethfliBalance, ethfliTotalSupply } = useBalances()
+  const { ethfliBalance } = useBalances()
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -30,34 +32,33 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: ethfliBalance,
   }
-  const ETHFLI_SUPPLY_CAP = new BigNumber(
-    parseInt(process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || '1')
-  )
+  const { isApproachingSupplyCap } = useBuySell()
+  const { account } = useWallet()
 
   useEffect(() => {
-    if (ethfliTotalSupply?.div(ETHFLI_SUPPLY_CAP).isGreaterThan(0.9)) {
-      console.log('too much eth2xfli')
-      toast.error(
-        'ETH2x-FLI is within 10% of the supply cap of ' +
-          ETHFLI_SUPPLY_CAP +
-          '. Please be aware of possible market premiums when purchasing.',
-        {
-          toastId: 'ethfli-supply-cap-warning',
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      )
+    if (account) {
+      if (isApproachingSupplyCap) {
+        console.log('too much eth2xfli')
+        toast.error(
+          'ETH2x-FLI is approaching the supply cap. Please be aware of possible market premiums when purchasing.',
+          {
+            toastId: 'ethfli-supply-cap-warning',
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        )
+      }
     }
 
     return () => {
       toast.dismiss('ethfli-supply-cap-warning')
     }
-  }, [props.title])
+  }, [])
 
   return (
     <ProductDataUI tokenDataProps={tokenDataProps}>

@@ -17,10 +17,7 @@ import {
 import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
-import {
-  Bitcoin2xFlexibleLeverageIndex,
-  Ethereum2xFlexibleLeverageIndex,
-} from 'constants/productTokens'
+import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 import { currencyTokens } from 'constants/currencyTokens'
 import { UniswapPriceData } from './types'
 import { toast } from 'react-toastify'
@@ -37,23 +34,10 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [uniswapData, setUniswapData] = useState<UniswapPriceData>(
     {} as UniswapPriceData
   )
+  const [isApproachingSupplyCap, setIsApproachingSupplyCap] =
+    useState<boolean>(false)
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
-
-  const ETHFLI_SUPPLY_CAP = new BigNumber(
-    parseInt(process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || '1')
-  )
-
-  const BTCFLI_SUPPLY_CAP = new BigNumber(
-    parseInt(process.env.REACT_APP_BTC2X_FLI_SUPPLY_CAP || '1')
-  )
-
-  const isApproachingSupplyCap = (
-    supplyCap: BigNumber,
-    totalSupply: BigNumber
-  ) => {
-    return totalSupply.div(supplyCap).isGreaterThan(0.9)
-  }
 
   const {
     ethBalance,
@@ -65,8 +49,6 @@ const BuySellProvider: React.FC = ({ children }) => {
     indexBalance,
     daiBalance,
     usdcBalance,
-    ethfliTotalSupply,
-    btcfliTotalSupply,
   } = useBalances()
 
   const {
@@ -89,14 +71,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = dpiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'ethfli') {
     spendingTokenBalance = ethfliBalance || new BigNumber(0)
-    spendingTokenTotalSupply = ethfliTotalSupply || new BigNumber(0)
-    spendingTokenSupplyCap = ETHFLI_SUPPLY_CAP
-    spendingTokenSymbol = Ethereum2xFlexibleLeverageIndex.symbol
   } else if (!isUserBuying && buySellToken === 'btcfli') {
     spendingTokenBalance = btcfliBalance || new BigNumber(0)
-    spendingTokenTotalSupply = btcfliTotalSupply || new BigNumber(0)
-    spendingTokenSupplyCap = BTCFLI_SUPPLY_CAP
-    spendingTokenSymbol = Bitcoin2xFlexibleLeverageIndex.symbol
   } else if (!isUserBuying && buySellToken === 'cgi') {
     spendingTokenBalance = cgiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'mvi') {
@@ -109,6 +85,11 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = usdcBalance || new BigNumber(0)
   }
 
+  setIsApproachingSupplyCap(
+    spendingTokenTotalSupply.div(spendingTokenSupplyCap).isGreaterThan(0.9)
+  )
+  console.log('isapproaching', isApproachingSupplyCap)
+
   const debouncedCurrencyQuantity = useDebounce(currencyQuantity)
   const debouncedTokenQuantity = useDebounce(tokenQuantity)
   const targetTradeQuantity =
@@ -117,28 +98,6 @@ const BuySellProvider: React.FC = ({ children }) => {
       : debouncedTokenQuantity
 
   useEffect(() => {
-    if (
-      !isUserBuying &&
-      (buySellToken == 'ethfli' || buySellToken == 'btcfli') &&
-      isApproachingSupplyCap(spendingTokenSupplyCap, spendingTokenSupplyCap)
-    ) {
-      toast.error(
-        spendingTokenSymbol +
-          ' is within 10% of the supply cap of ' +
-          spendingTokenSupplyCap +
-          '. Please be aware of possible market premiums when purchasing.',
-        {
-          toastId: 'fli-supply-cap-warning',
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      )
-    }
     if (!targetTradeQuantity) return
 
     setIsFetchingOrderData(true)
@@ -166,10 +125,6 @@ const BuySellProvider: React.FC = ({ children }) => {
         setCurrencyQuantity(uniswapData.display?.to_quantity)
       }
     })
-
-    return () => {
-      toast.dismiss('fli-supply-cap-warning')
-    }
   }, [
     isUserBuying,
     selectedCurrency,
@@ -307,6 +262,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         onSetCurrencyQuantity,
         onSetTokenQuantity,
         onExecuteBuySell,
+        isApproachingSupplyCap,
       }}
     >
       {children}
