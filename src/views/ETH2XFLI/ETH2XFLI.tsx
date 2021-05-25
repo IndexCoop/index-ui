@@ -12,8 +12,6 @@ import { toast } from 'react-toastify'
 import BigNumber from 'utils/bignumber'
 
 const Eth2xFliProductPage = (props: { title: string }) => {
-  const [approachingSupplyCap, setApproachingSupplyCap] = useState<boolean>()
-  const [totalSupply, setTotalSupply] = useState<BigNumber>()
   useEffect(() => {
     document.title = props.title
   }, [props.title])
@@ -35,20 +33,9 @@ const Eth2xFliProductPage = (props: { title: string }) => {
   const ETHFLI_SUPPLY_CAP = new BigNumber(
     parseInt(process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || '1')
   )
-  setTotalSupply(ethfliTotalSupply)
-  setApproachingSupplyCap(
-    totalSupply?.div(ETHFLI_SUPPLY_CAP).isGreaterThan(0.9)
-  )
-
-  console.log(
-    'view',
-    ETHFLI_SUPPLY_CAP.valueOf(),
-    ethfliTotalSupply?.valueOf(),
-    approachingSupplyCap
-  )
 
   useEffect(() => {
-    if (approachingSupplyCap) {
+    if (ethfliTotalSupply?.div(ETHFLI_SUPPLY_CAP).isGreaterThan(0.9)) {
       console.log('too much eth2xfli')
       toast.error(
         'ETH2x-FLI is within 10% of the supply cap of ' +
@@ -57,7 +44,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
         {
           toastId: 'ethfli-supply-cap-warning',
           position: 'top-right',
-          autoClose: false,
+          autoClose: 5000,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,

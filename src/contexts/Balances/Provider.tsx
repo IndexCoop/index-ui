@@ -77,9 +77,7 @@ const Provider: React.FC = ({ children }) => {
         getBalance(provider, indexTokenAddress as string, userAddress),
         getBalance(provider, dpiTokenAddress as string, userAddress),
         getBalance(provider, eth2xfliTokenAddress as string, userAddress),
-        getTotalSupply(provider, eth2xfliTokenAddress as string),
         getBalance(provider, btc2xfliTokenAddress as string, userAddress),
-        getTotalSupply(provider, btc2xfliTokenAddress as string),
         getBalance(provider, cgiTokenAddress as string, userAddress),
         getBalance(provider, mviTokenAddress as string, userAddress),
         getBalance(provider, daiTokenAddress as string, userAddress),
@@ -181,7 +179,7 @@ const Provider: React.FC = ({ children }) => {
   )
 
   const fetchTotalSupplies = useCallback(
-    async (userAddress: string, provider: provider) => {
+    async (provider: provider) => {
       const totalSupplies = await Promise.all([
         getTotalSupply(provider, eth2xfliTokenAddress as string),
         getTotalSupply(provider, btc2xfliTokenAddress as string),
@@ -230,7 +228,7 @@ const Provider: React.FC = ({ children }) => {
   useEffect(() => {
     if (account && ethereum) {
       fetchBalances(account, ethereum)
-      fetchTotalSupplies(account, ethereum)
+      fetchTotalSupplies(ethereum)
       let refreshInterval = setInterval(
         () => fetchBalances(account, ethereum),
         10000
