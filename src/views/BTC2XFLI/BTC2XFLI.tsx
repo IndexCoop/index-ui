@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { toast } from 'react-toastify'
 import ExternalLink from 'components/ExternalLink'
 
 import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
@@ -8,7 +9,6 @@ import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
-import { toast } from 'react-toastify'
 import useWallet from 'hooks/useWallet'
 
 const Btc2xFliProductPage = (props: { title: string }) => {
@@ -35,25 +35,23 @@ const Btc2xFliProductPage = (props: { title: string }) => {
   const supplyCap = process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || 1
   const isApproachingSupplyCap = btcfliTotalSupply
     ?.div(supplyCap)
-    .isGreaterThan(0.9)
+    .isGreaterThan(0.95)
 
   useEffect(() => {
-    if (account) {
-      if (isApproachingSupplyCap) {
-        toast.error(
-          'BTC2x-FLI is approaching the supply cap. Please be aware of possible market premiums when purchasing.',
-          {
-            toastId: 'btcfli-supply-cap-warning',
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        )
-      }
+    if (account && isApproachingSupplyCap) {
+      toast.error(
+        "BTC2x-FLI has reached it's supply cap. Beware this product may be trading at a significant premium to it's Net Asset Value.",
+        {
+          toastId: 'btcfli-supply-cap-warning',
+          position: 'top-right',
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      )
     }
 
     return () => {
