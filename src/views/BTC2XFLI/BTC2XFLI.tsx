@@ -32,7 +32,7 @@ const Btc2xFliProductPage = (props: { title: string }) => {
   }
   const { account } = useWallet()
 
-  const supplyCap = process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || 1
+  const supplyCap = process.env.REACT_APP_BTC2X_FLI_SUPPLY_CAP || 1
   const isApproachingSupplyCap = btcfliTotalSupply
     ?.div(supplyCap)
     .isGreaterThan(0.95)
