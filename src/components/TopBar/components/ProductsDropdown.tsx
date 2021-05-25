@@ -20,7 +20,6 @@ const ProductsDropdown: React.FC = () => {
     const isProductRouteActive =
       pathname === '/dpi' ||
       pathname === '/index' ||
-      pathname === '/cgi' ||
       pathname === '/ethfli' ||
       pathname === '/btcfli'
 
@@ -83,10 +82,6 @@ const ProductsDropdown: React.FC = () => {
         {
           value: 'mvi',
           label: 'Metaverse Index',
-        },
-        {
-          value: 'cgi',
-          label: 'CoinShares Crypto Gold Index',
         },
         {
           value: 'ethfli',

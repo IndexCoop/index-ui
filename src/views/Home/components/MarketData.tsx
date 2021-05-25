@@ -45,16 +45,6 @@ const MarketData: React.FC = () => {
     })
   }
 
-  const handleCGIButton = () => {
-    setIndexSelector(1)
-    setProductMetaData({
-      name: productTokensBySymbol.CGI.name,
-      symbol: productTokensBySymbol.CGI.symbol,
-      image: productTokensBySymbol.CGI.image,
-      url: '/cgi',
-    })
-  }
-
   const handleEthFliButton = () => {
     setIndexSelector(2)
     setProductMetaData({
@@ -94,14 +84,6 @@ const MarketData: React.FC = () => {
           text='DPI'
           variant={indexSelector === 0 ? 'default' : 'secondary'}
           onClick={handleDpiButton}
-        />
-        <Spacer size={'sm'} />
-        <Button
-          full
-          size={'sm'}
-          text='CGI'
-          variant={indexSelector === 1 ? 'default' : 'secondary'}
-          onClick={handleCGIButton}
         />
         <Spacer size={'sm'} />
         <Button
@@ -156,9 +138,9 @@ const MarketData: React.FC = () => {
             x,
             y,
           }))}
-          hourlyData={allMarketData[
-            indexSelector
-          ].hourlyPrices?.map(([x, y]) => ({ x, y }))}
+          hourlyData={allMarketData[indexSelector].hourlyPrices?.map(
+            ([x, y]) => ({ x, y })
+          )}
         />
       </Card>
       <Spacer />

@@ -39,7 +39,6 @@ const BuySellProvider: React.FC = ({ children }) => {
   const {
     ethBalance,
     dpiBalance,
-    cgiBalance,
     mviBalance,
     ethfliBalance,
     btcfliBalance,
@@ -67,8 +66,6 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = ethfliBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'btcfli') {
     spendingTokenBalance = btcfliBalance || new BigNumber(0)
-  } else if (!isUserBuying && buySellToken === 'cgi') {
-    spendingTokenBalance = cgiBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'mvi') {
     spendingTokenBalance = mviBalance || new BigNumber(0)
   } else if (selectedCurrency?.id === 'wrapped_eth') {

@@ -11,7 +11,6 @@ import {
   dpiTokenAddress,
   eth2xfliTokenAddress,
   btc2xfliTokenAddress,
-  cgiTokenAddress,
   indexTokenAddress,
   uniswapRouterAddress,
   sushiswapRouterAddress,
@@ -52,7 +51,6 @@ const BuySellButton: React.FC = () => {
     eth2xfliTokenAddress,
     uniswapRouterAddress
   )
-  const cgiApproval = useApproval(cgiTokenAddress, uniswapRouterAddress)
   const indexApproval = useApproval(indexTokenAddress, uniswapRouterAddress)
   const btc2xfliApproval = useApproval(
     btc2xfliTokenAddress,
@@ -89,15 +87,6 @@ const BuySellButton: React.FC = () => {
     buySellToken.toLowerCase() === 'btcfli' &&
     btc2xfliApproval.isApproving
 
-  const cgiApprovalRequired =
-    !isUserBuying &&
-    buySellToken.toLowerCase() === 'cgi' &&
-    !cgiApproval.isApproved
-  const cgiApproving =
-    !isUserBuying &&
-    buySellToken.toLowerCase() === 'cgi' &&
-    cgiApproval.isApproving
-
   const indexApprovalRequired =
     !isUserBuying &&
     buySellToken.toLowerCase() === 'index' &&
@@ -128,7 +117,6 @@ const BuySellButton: React.FC = () => {
     btc2xfliApproving ||
     indexApproving ||
     daiApproving ||
-    cgiApproving ||
     usdcApproving
   ) {
     buttonText = 'Approving'
@@ -142,9 +130,6 @@ const BuySellButton: React.FC = () => {
   } else if (btc2xfliApprovalRequired) {
     buttonText = 'Approve BTC2x-FLI'
     buttonAction = btc2xfliApproval.onApprove
-  } else if (cgiApprovalRequired) {
-    buttonText = 'Approve CGI'
-    buttonAction = cgiApproval.onApprove
   } else if (indexApprovalRequired) {
     buttonText = 'Approve INDEX'
     buttonAction = indexApproval.onApprove
