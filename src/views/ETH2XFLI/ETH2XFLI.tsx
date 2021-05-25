@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import ExternalLink from 'components/ExternalLink'
 
 import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
@@ -9,8 +9,6 @@ import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
 import { toast } from 'react-toastify'
-import BigNumber from 'utils/bignumber'
-import useBuySell from 'hooks/useBuySell'
 import useWallet from 'hooks/useWallet'
 
 const Eth2xFliProductPage = (props: { title: string }) => {

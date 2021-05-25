@@ -40,7 +40,6 @@ const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
     if (account) {
       if (isApproachingSupplyCap) {
-        console.log('too much eth2xfli')
         toast.error(
           'BTC2x-FLI is approaching the supply cap. Please be aware of possible market premiums when purchasing.',
           {
