@@ -141,7 +141,6 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             axisLine={false}
             tickLine={false}
             mirror={true}
-            tick={{ fontFamily: '' }}
             ticks={[minimumYAxisLabel + 0.001, maxY + 5.001]}
             domain={[minY - 15, maxY + 5]}
             orientation="right"
