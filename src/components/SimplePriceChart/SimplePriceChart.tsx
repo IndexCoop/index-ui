@@ -216,7 +216,7 @@ const DurationWrapper = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   padding-bottom: 20px;
-  padding-top: 10px
+  padding-top: 10px;
 `
 
 export default MarketDataChart
