@@ -108,6 +108,11 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
     return <FancyValue icon={icon} label={label} value={value} />
   }
 
+  const tickFormatter = (val: any) => {
+    if (val <= minY) return 'Min: $' + formatFloats(val)
+    return 'Max: $' + formatFloats(val)
+  }
+
   const minY = Math.min(...(price || []).map<number>(({ y }) => y))
   const maxY = Math.max(...(price || []).map<number>(({ y }) => y))
   const minimumYAxisLabel = minY - 5 > 0 ? minY - 5 : 0
@@ -127,16 +132,22 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             dot={false}
             stroke={'url(#gradient)'}
             strokeWidth={2}
+            animationEasing="ease"
+            animationDuration={800}
           />
           <YAxis
             stroke={theme.colors.grey[500]}
-            tickFormatter={(n) => '$' + formatFloats(n)}
+            tickFormatter={tickFormatter}
             axisLine={false}
             tickLine={false}
             mirror={true}
-            tick={{ fontFamily: 'Roboto Mono' }}
-            ticks={[minimumYAxisLabel, maxY + 5]}
-            domain={[minY - 10, maxY + 10]}
+            ticks={[minimumYAxisLabel + 0.001, maxY + 5.001]}
+            domain={[minY - 15, maxY + 5]}
+            orientation="right"
+            fontSize="15px"
+            width={100}
+            dy={7}
+            dx={1}
           />
           <Tooltip
             content={renderTooltip}
@@ -204,6 +215,7 @@ const DurationWrapper = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   padding-bottom: 20px;
+  padding-top: 10px;
 `
 
 export default MarketDataChart
