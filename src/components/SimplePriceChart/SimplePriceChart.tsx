@@ -82,6 +82,14 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             -PriceChartRangeOption.MONTHLY_PRICE_RANGE * hourlyDataInterval
           )
         ) //last 30 days, hourly
+      } else if (durationSelector === Durations.QUARTERLY) {
+        setPrice(
+          hourlyData?.slice(
+            -PriceChartRangeOption.QUARTERLY_PRICE_RANGE * hourlyDataInterval
+          )
+        ) //last 90 days, hourly
+      } else if (durationSelector === Durations.YEARLY) {
+        setPrice(data?.slice(-PriceChartRangeOption.YEARLY_PRICE_RANGE)) //last year, daily
       }
     }, 0)
   }, [durationSelector, data, hourlyData])
@@ -90,13 +98,25 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
     setDurationSelector(Durations.DAILY)
     setChartRange(PriceChartRangeOption.DAILY_PRICE_RANGE)
   }
+
   const handleWeeklyButton = () => {
     setDurationSelector(Durations.WEEKLY)
     setChartRange(PriceChartRangeOption.WEEKLY_PRICE_RANGE)
   }
+
   const handleMonthlyButton = () => {
     setDurationSelector(Durations.MONTHLY)
     setChartRange(PriceChartRangeOption.MONTHLY_PRICE_RANGE)
+  }
+
+  const handleQuarterlyButton = () => {
+    setDurationSelector(Durations.QUARTERLY)
+    setChartRange(PriceChartRangeOption.QUARTERLY_PRICE_RANGE)
+  }
+
+  const handleYearlyButton = () => {
+    setDurationSelector(Durations.YEARLY)
+    setChartRange(PriceChartRangeOption.YEARLY_PRICE_RANGE)
   }
 
   const renderTooltip = (props: any) => {
@@ -132,7 +152,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             dot={false}
             stroke={'url(#gradient)'}
             strokeWidth={2}
-            animationEasing="ease"
+            animationEasing='ease'
             animationDuration={800}
           />
           <YAxis
@@ -143,8 +163,8 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
             mirror={true}
             ticks={[minimumYAxisLabel + 0.001, maxY + 5.001]}
             domain={[minY - 15, maxY + 5]}
-            orientation="right"
-            fontSize="15px"
+            orientation='right'
+            fontSize='15px'
             width={100}
             dy={7}
             dx={1}
@@ -192,6 +212,26 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
               durationSelector === Durations.MONTHLY ? 'default' : 'secondary'
             }
             onClick={handleMonthlyButton}
+          />
+          <Spacer size={'sm'} />
+          <Button
+            full
+            size={'sm'}
+            text='3M'
+            variant={
+              durationSelector === Durations.QUARTERLY ? 'default' : 'secondary'
+            }
+            onClick={handleQuarterlyButton}
+          />
+          <Spacer size={'sm'} />
+          <Button
+            full
+            size={'sm'}
+            text='1Y'
+            variant={
+              durationSelector === Durations.YEARLY ? 'default' : 'secondary'
+            }
+            onClick={handleYearlyButton}
           />
         </ButtonWrapper>
       </DurationWrapper>
