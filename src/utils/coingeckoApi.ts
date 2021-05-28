@@ -8,7 +8,7 @@ export const fetchHistoricalTokenMarketData = (
     baseURL +
     `/coins/${id}/market_chart?vs_currency=${baseCurrency}&days=max&interval=daily`
   const coingeckoHourlyTokenDataUrl =
-    baseURL + `/coins/${id}/market_chart?vs_currency=${baseCurrency}&days=30`
+    baseURL + `/coins/${id}/market_chart?vs_currency=${baseCurrency}&days=90`
 
   return Promise.all([
     fetch(coingeckoMaxTokenDataUrl),
