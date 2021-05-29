@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { Spacer } from 'react-neu'
 import useSnapshotProposals from 'hooks/useSnapshotProposals'
 
-const SNAPSHOT_INDEX_PROPOSAL_BASE = 'https://snapshot.page/#/index/proposal'
+const SNAPSHOT_INDEX_PROPOSAL_BASE =
+  'https://snapshot.org/#/index-coop.eth/proposal'
 
 interface StyledButtonProps {
   readonly isActive: boolean
