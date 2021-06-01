@@ -121,37 +121,37 @@ const Provider: React.FC = ({ children }) => {
         new BigNumber(balances[4]).dividedBy(new BigNumber(10).pow(18))
       )
       setMviBalance(
-        new BigNumber(balances[6]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[5]).dividedBy(new BigNumber(10).pow(18))
       )
       setDaiBalance(
-        new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[6]).dividedBy(new BigNumber(10).pow(18))
       )
       setUsdcBalance(
-        new BigNumber(balances[8]).dividedBy(new BigNumber(10).pow(6))
+        new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(6))
       )
       setUniswapEthDpiLpBalance(
-        new BigNumber(balances[9]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[8]).dividedBy(new BigNumber(10).pow(18))
       )
       setUniswapEthMviLpBalance(
-        new BigNumber(balances[10]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[9]).dividedBy(new BigNumber(10).pow(18))
       )
       setStakedUniswapEthDpiLpBalance(
-        new BigNumber(balances[11]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[10]).dividedBy(new BigNumber(10).pow(18))
       )
       setUnharvestedIndexBalance(
-        new BigNumber(balances[12]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[11]).dividedBy(new BigNumber(10).pow(18))
       )
       setStakedFarmTwoBalance(
-        new BigNumber(balances[13]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[12]).dividedBy(new BigNumber(10).pow(18))
       )
       setUnharvestedFarmTwoBalance(
-        new BigNumber(balances[14]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[13]).dividedBy(new BigNumber(10).pow(18))
       )
       setStakedUniswapEthMviLpBalance(
-        new BigNumber(balances[15]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[14]).dividedBy(new BigNumber(10).pow(18))
       )
       setUnharvestedMviRewardsBalance(
-        new BigNumber(balances[16]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[15]).dividedBy(new BigNumber(10).pow(18))
       )
     },
     [
