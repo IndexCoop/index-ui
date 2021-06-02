@@ -36,14 +36,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink
             exact
             activeClassName='active'
-            to='/cgi'
-            onClick={onDismiss}
-          >
-            CoinShares Crypto Gold Index
-          </StyledLink>
-          <StyledLink
-            exact
-            activeClassName='active'
             to='/ethfli'
             onClick={onDismiss}
           >

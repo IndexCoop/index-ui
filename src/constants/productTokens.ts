@@ -22,18 +22,6 @@ export const DefiPulseIndex: ProductToken = {
   },
 }
 
-export const CoinsharesCryptoGoldIndex: ProductToken = {
-  name: 'Coinshares Crypto Gold Index',
-  symbol: 'CGI',
-  address: tokenAddresses.cgiTokenAddress,
-  image: 'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
-  coingeckoId: 'coinshares-gold-and-cryptoassets-index-lite',
-  tokensetsId: 'cgi',
-  fees: {
-    streamingFee: '0.95%',
-  },
-}
-
 export const IndexToken: ProductToken = {
   name: 'Index Token',
   symbol: 'INDEX',
@@ -83,7 +71,6 @@ export const Bitcoin2xFlexibleLeverageIndex: ProductToken = {
 export const productTokensBySymbol = {
   'DPI': DefiPulseIndex,
   'MVI': MetaverseIndex,
-  'CGI': CoinsharesCryptoGoldIndex,
   'ETH2x-FLI': Ethereum2xFlexibleLeverageIndex,
   'INDEX': IndexToken,
   'BTC2x-FLI': Bitcoin2xFlexibleLeverageIndex,
@@ -92,7 +79,6 @@ export const productTokensBySymbol = {
 export default [
   DefiPulseIndex,
   MetaverseIndex,
-  CoinsharesCryptoGoldIndex,
   Ethereum2xFlexibleLeverageIndex,
   IndexToken,
   Bitcoin2xFlexibleLeverageIndex,

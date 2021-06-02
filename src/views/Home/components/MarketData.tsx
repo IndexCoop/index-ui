@@ -45,18 +45,8 @@ const MarketData: React.FC = () => {
     })
   }
 
-  const handleCGIButton = () => {
-    setIndexSelector(1)
-    setProductMetaData({
-      name: productTokensBySymbol.CGI.name,
-      symbol: productTokensBySymbol.CGI.symbol,
-      image: productTokensBySymbol.CGI.image,
-      url: '/cgi',
-    })
-  }
-
   const handleEthFliButton = () => {
-    setIndexSelector(2)
+    setIndexSelector(1)
     setProductMetaData({
       name: productTokensBySymbol['ETH2x-FLI'].name,
       symbol: productTokensBySymbol['ETH2x-FLI'].symbol,
@@ -66,7 +56,7 @@ const MarketData: React.FC = () => {
   }
 
   const handleMviButton = () => {
-    setIndexSelector(3)
+    setIndexSelector(2)
     setProductMetaData({
       name: productTokensBySymbol.MVI.name,
       symbol: productTokensBySymbol.MVI.symbol,
@@ -76,7 +66,7 @@ const MarketData: React.FC = () => {
   }
 
   const handleBtcFliButton = () => {
-    setIndexSelector(4)
+    setIndexSelector(3)
     setProductMetaData({
       name: productTokensBySymbol['BTC2x-FLI'].name,
       symbol: productTokensBySymbol['BTC2x-FLI'].symbol,
@@ -99,16 +89,8 @@ const MarketData: React.FC = () => {
         <Button
           full
           size={'sm'}
-          text='CGI'
-          variant={indexSelector === 1 ? 'default' : 'secondary'}
-          onClick={handleCGIButton}
-        />
-        <Spacer size={'sm'} />
-        <Button
-          full
-          size={'sm'}
           text='ETH2x-FLI'
-          variant={indexSelector === 2 ? 'default' : 'secondary'}
+          variant={indexSelector === 1 ? 'default' : 'secondary'}
           onClick={handleEthFliButton}
         />
         <Spacer size={'sm'} />
@@ -116,7 +98,7 @@ const MarketData: React.FC = () => {
           full
           size={'sm'}
           text='MVI'
-          variant={indexSelector === 3 ? 'default' : 'secondary'}
+          variant={indexSelector === 2 ? 'default' : 'secondary'}
           onClick={handleMviButton}
         />
         <Spacer size={'sm'} />
@@ -124,7 +106,7 @@ const MarketData: React.FC = () => {
           full
           size={'sm'}
           text='BTC2x-FLI'
-          variant={indexSelector === 4 ? 'default' : 'secondary'}
+          variant={indexSelector === 3 ? 'default' : 'secondary'}
           onClick={handleBtcFliButton}
         />
       </ButtonWrapper>
@@ -156,9 +138,9 @@ const MarketData: React.FC = () => {
             x,
             y,
           }))}
-          hourlyData={allMarketData[
-            indexSelector
-          ].hourlyPrices?.map(([x, y]) => ({ x, y }))}
+          hourlyData={allMarketData[indexSelector].hourlyPrices?.map(
+            ([x, y]) => ({ x, y })
+          )}
         />
       </Card>
       <Spacer />

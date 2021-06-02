@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Btc2xFliPortfolioDataContext from './Btc2xFliPortfolioDataContext'
 import { fetchSetComponents } from 'utils/tokensetsApi'
-import { TokenSetsIds } from 'constants/tokenIds'
+import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 
 const Btc2xFliIPortfolioDataProvider: React.FC = ({ children }) => {
   const [fliIndexPortfolioData, setFliIndexPortfolioData] = useState<any>([])
 
   useEffect(() => {
-    fetchSetComponents(TokenSetsIds.BTC2XFLI)
+    fetchSetComponents(Bitcoin2xFlexibleLeverageIndex.tokensetsId)
       .then((response: any) => {
         setFliIndexPortfolioData(response)
       })

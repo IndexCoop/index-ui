@@ -30,7 +30,6 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const {
     indexBalance,
     dpiBalance,
-    cgiBalance,
     mviBalance,
     ethfliBalance,
     btcfliBalance,
@@ -106,8 +105,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               <FancyValue
                 icon={{
                   alt: 'Defi Pulse Icon',
-                  src:
-                    'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
+                  src: 'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
                 }}
                 label='DPI balance'
                 link={`https://etherscan.io/address/${tokenAddresses.dpiTokenAddress}`}
@@ -122,21 +120,8 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             <Box row>
               <FancyValue
                 icon={{
-                  alt: 'CGI Icon',
-                  src:
-                    'https://set-core.s3.amazonaws.com/img/portfolios/coinshares_gold.png',
-                }}
-                label='CGI balance'
-                link={`https://etherscan.io/address/${tokenAddresses.cgiTokenAddress}`}
-                value={getDisplayBalance(cgiBalance)}
-              />
-            </Box>
-            <Box row>
-              <FancyValue
-                icon={{
                   alt: 'MVI Icon',
-                  src:
-                    'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
+                  src: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
                 }}
                 label='Metaverse Index Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.mviTokenAddress}`}
@@ -153,8 +138,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               <FancyValue
                 icon={{
                   alt: 'ETH2x-FLI Icon',
-                  src:
-                    'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+                  src: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
                 }}
                 label='ETH 2x FLI Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.eth2xfliTokenAddress}`}
@@ -165,8 +149,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               <FancyValue
                 icon={{
                   alt: 'BTC2x-FLI Icon',
-                  src:
-                    'https://set-core.s3.amazonaws.com/img/portfolios/fli_btc.svg',
+                  src: 'https://set-core.s3.amazonaws.com/img/portfolios/fli_btc.svg',
                 }}
                 label='BTC 2x FLI Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.btc2xfliTokenAddress}`}
@@ -191,8 +174,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               <FancyValue
                 icon={{
                   alt: 'Staked Uniswap ETH/DPI LP Icon',
-                  src:
-                    'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
+                  src: 'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
                 }}
                 label='Staked Uniswap ETH/DPI LP'
                 link={`https://etherscan.io/address/${tokenAddresses.farmTwoAddress}`}
@@ -225,8 +207,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               <FancyValue
                 icon={{
                   alt: 'Staked Uniswap ETH/MVI LP Icon',
-                  src:
-                    'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
+                  src: 'https://set-core.s3.amazonaws.com/img/coin-icons/uni_lp.svg',
                 }}
                 label='Staked Uniswap ETH/MVI LP'
                 link={`https://etherscan.io/address/${tokenAddresses.mviStakingRewardsAddress}`}

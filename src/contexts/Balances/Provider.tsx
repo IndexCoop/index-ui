@@ -12,7 +12,6 @@ import {
   dpiTokenAddress,
   eth2xfliTokenAddress,
   btc2xfliTokenAddress,
-  cgiTokenAddress,
   mviTokenAddress,
   indexTokenAddress,
   daiTokenAddress,
@@ -32,7 +31,6 @@ const Provider: React.FC = ({ children }) => {
   const [ethfliTotalSupply, setEthFliTotalSupply] = useState<BigNumber>()
   const [btcfliBalance, setBtcFliBalance] = useState<BigNumber>()
   const [btcfliTotalSupply, setBtcFliTotalSupply] = useState<BigNumber>()
-  const [cgiBalance, setCgiBalance] = useState<BigNumber>()
   const [mviBalance, setMviBalance] = useState<BigNumber>()
   const [daiBalance, setDaiBalance] = useState<BigNumber>()
   const [usdcBalance, setUsdcBalance] = useState<BigNumber>()
@@ -78,7 +76,6 @@ const Provider: React.FC = ({ children }) => {
         getBalance(provider, dpiTokenAddress as string, userAddress),
         getBalance(provider, eth2xfliTokenAddress as string, userAddress),
         getBalance(provider, btc2xfliTokenAddress as string, userAddress),
-        getBalance(provider, cgiTokenAddress as string, userAddress),
         getBalance(provider, mviTokenAddress as string, userAddress),
         getBalance(provider, daiTokenAddress as string, userAddress),
         getBalance(provider, usdcTokenAddress as string, userAddress),
@@ -123,41 +120,38 @@ const Provider: React.FC = ({ children }) => {
       setBtcFliBalance(
         new BigNumber(balances[4]).dividedBy(new BigNumber(10).pow(18))
       )
-      setCgiBalance(
+      setMviBalance(
         new BigNumber(balances[5]).dividedBy(new BigNumber(10).pow(18))
       )
-      setMviBalance(
+      setDaiBalance(
         new BigNumber(balances[6]).dividedBy(new BigNumber(10).pow(18))
       )
-      setDaiBalance(
-        new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(18))
-      )
       setUsdcBalance(
-        new BigNumber(balances[8]).dividedBy(new BigNumber(10).pow(6))
+        new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(6))
       )
       setUniswapEthDpiLpBalance(
-        new BigNumber(balances[9]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[8]).dividedBy(new BigNumber(10).pow(18))
       )
       setUniswapEthMviLpBalance(
-        new BigNumber(balances[10]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[9]).dividedBy(new BigNumber(10).pow(18))
       )
       setStakedUniswapEthDpiLpBalance(
-        new BigNumber(balances[11]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[10]).dividedBy(new BigNumber(10).pow(18))
       )
       setUnharvestedIndexBalance(
-        new BigNumber(balances[12]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[11]).dividedBy(new BigNumber(10).pow(18))
       )
       setStakedFarmTwoBalance(
-        new BigNumber(balances[13]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[12]).dividedBy(new BigNumber(10).pow(18))
       )
       setUnharvestedFarmTwoBalance(
-        new BigNumber(balances[14]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[13]).dividedBy(new BigNumber(10).pow(18))
       )
       setStakedUniswapEthMviLpBalance(
-        new BigNumber(balances[15]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[14]).dividedBy(new BigNumber(10).pow(18))
       )
       setUnharvestedMviRewardsBalance(
-        new BigNumber(balances[16]).dividedBy(new BigNumber(10).pow(18))
+        new BigNumber(balances[15]).dividedBy(new BigNumber(10).pow(18))
       )
     },
     [
@@ -166,7 +160,6 @@ const Provider: React.FC = ({ children }) => {
       setDpiBalance,
       setEthFliBalance,
       setBtcFliBalance,
-      setCgiBalance,
       setUniswapEthDpiLpBalance,
       setUniswapEthMviLpBalance,
       setStakedUniswapEthDpiLpBalance,
@@ -202,7 +195,6 @@ const Provider: React.FC = ({ children }) => {
       setDpiBalance(new BigNumber(0))
       setEthFliBalance(new BigNumber(0))
       setBtcFliBalance(new BigNumber(0))
-      setCgiBalance(new BigNumber(0))
       setMviBalance(new BigNumber(0))
       setDaiBalance(new BigNumber(0))
       setUsdcBalance(new BigNumber(0))
@@ -239,7 +231,6 @@ const Provider: React.FC = ({ children }) => {
         dpiBalance,
         ethfliBalance,
         btcfliBalance,
-        cgiBalance,
         mviBalance,
         daiBalance,
         usdcBalance,
