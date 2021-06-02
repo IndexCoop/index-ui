@@ -36,14 +36,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink
             exact
             activeClassName='active'
-            to='/cgi'
-            onClick={onDismiss}
-          >
-            CoinShares Crypto Gold Index
-          </StyledLink>
-          <StyledLink
-            exact
-            activeClassName='active'
             to='/ethfli'
             onClick={onDismiss}
           >
@@ -111,6 +103,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           >
             Docs
           </StyledOutboundLink>
+          <StyledOutboundLink
+            href='https://institutions.indexcoop.com/'
+            target='_blank'
+          >
+            Institutions
+          </StyledOutboundLink>
         </StyledMobileMenu>
       </StyledMobileMenuWrapper>
     )
@@ -160,6 +158,9 @@ const StyledMobileMenu = styled.div`
   left: 100%;
   bottom: 0;
   width: calc(100% - 48px);
+  padding-top: 200px;
+  padding-bottom: 100px;
+  overflow-y: scroll;
 `
 
 const StyledLink = styled(NavLink)`
