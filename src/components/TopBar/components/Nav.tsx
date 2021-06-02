@@ -15,11 +15,8 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName='active' to='/liquidity-mining'>
         Liquidity Mining
       </StyledLink>
-      <StyledLink exact activeClassName='active' to='/vote'>
-        Vote
-      </StyledLink>
       <StyledOutboundLink
-        href='https://institutional.indexcoop.com/'
+        href='https://institutions.indexcoop.com/'
         target='_blank'
       >
         Institutions
