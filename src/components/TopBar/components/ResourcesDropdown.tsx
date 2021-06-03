@@ -35,7 +35,8 @@ const ProductsDropdown: React.FC = () => {
       pathname === '/about' ||
       pathname === '/news' ||
       pathname === '/rewards' ||
-      pathname === '/how-to-buy'
+      pathname === '/how-to-buy' ||
+      pathname === '/vote'
 
     return {
       control: (styles: any) => ({
@@ -103,6 +104,10 @@ const ProductsDropdown: React.FC = () => {
         {
           value: 'rewards',
           label: 'Rewards',
+        },
+        {
+          value: 'vote',
+          label: 'Vote',
         },
         {
           value: 'how-to-buy',

@@ -15,9 +15,12 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName='active' to='/liquidity-mining'>
         Liquidity Mining
       </StyledLink>
-      <StyledLink exact activeClassName='active' to='/vote'>
-        Vote
-      </StyledLink>
+      <StyledOutboundLink
+        href='https://institutions.indexcoop.com/'
+        target='_blank'
+      >
+        Institutions
+      </StyledOutboundLink>
     </StyledNav>
   )
 }
@@ -38,6 +41,16 @@ const StyledLink = styled(NavLink)`
   }
   &.active {
     color: ${(props) => props.theme.colors.primary.light};
+  }
+`
+const StyledOutboundLink = styled.a`
+  color: ${(props) => props.theme.colors.grey[500]};
+  font-weight: 700;
+  padding-left: ${(props) => props.theme.spacing[3]}px;
+  padding-right: ${(props) => props.theme.spacing[3]}px;
+  text-decoration: none;
+  &:hover {
+    color: ${(props) => props.theme.colors.grey[600]};
   }
 `
 
