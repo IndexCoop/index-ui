@@ -5,7 +5,6 @@ import Page from 'components/Page'
 import {
   ProductPageHeader,
   ProductPageContent,
-  TokenStats,
   PriceChanges,
   WalletBalance,
   Description,
@@ -17,11 +16,7 @@ import TransakBuySellButton from 'components/TransakBuySellButton'
 import IndexComponent from 'components/IndexComponent'
 
 import useLocalStorage from 'hooks/useLocalStorage'
-import {
-  DefiPulseIndex,
-  IndexToken,
-  ProductToken,
-} from 'constants/productTokens'
+import { DefiPulseIndex, ProductToken } from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
 
 export interface TokenDataProps {
@@ -54,34 +49,11 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
     if (value) setReferral(value)
   }, [value, setReferral])
 
-  const netAssetValueReducer = (
-    netAssetValue: number,
-    component: IndexComponent
-  ): number => {
-    return netAssetValue + (parseFloat(component.totalPriceUsd) || 0)
-  }
-
-  const getNetAssetValue = () => {
-    return tokenData.components
-      ? tokenData.components.reduce(netAssetValueReducer, 0)
-      : 0
-  }
-
   return (
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
-          <MarketData
-            prices={tokenData.prices || [[0]]}
-            hourlyPrices={tokenData.hourlyPrices || [[0]]}
-            latestPrice={tokenData.latestPrice || 0}
-            tokenIcon={{
-              src: tokenData.token.image,
-              alt: tokenData.token.symbol + ' Logo',
-            }}
-            tokenSymbol={tokenData.token.symbol}
-            title={tokenData.token.name}
-          />
+          <MarketData tokenData={tokenData} />
           <div>
             <BuySellWrapper tokenId={tokenData.token.tokensetsId} />
             {tokenData.token.symbol === DefiPulseIndex.symbol && (
@@ -101,15 +73,6 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           />
           {tokenData.components && (
             <IndexComponentsTable components={tokenData.components} />
-          )}
-          {tokenData.token.symbol !== IndexToken.symbol && (
-            <TokenStats
-              latestPrice={tokenData.latestPrice}
-              latestVolume={tokenData.latestVolume}
-              latestMarketCap={tokenData.latestMarketCap}
-              fees={tokenData.token.fees}
-              netAssetValue={getNetAssetValue()}
-            />
           )}
           <Description>{children}</Description>
         </ProductPageContent>
