@@ -2,9 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 
-import { ProductPageSection } from './ProductPageLayouts'
-import IndexComponent from 'components/IndexComponent'
-
 interface ProductTokenStatsProps {
   latestPrice?: number
   latestMarketCap?: number
