@@ -67,6 +67,10 @@ const MonthsDropdown = () => {
       value={{ label: month } as any}
       options={[
         {
+          value: 'May 2021',
+          label: 'May 2021',
+        },
+        {
           value: 'April 2021',
           label: 'April 2021',
         },
