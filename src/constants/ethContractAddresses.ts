@@ -19,6 +19,8 @@ export const march2021RewardsAddress =
   process.env.REACT_APP_MARCH_2021_REWARDS_ADDRESS
 export const april2021RewardsAddress =
   process.env.REACT_APP_APRIL_2021_REWARDS_ADDRESS
+export const may2021RewardsAddress =
+  process.env.REACT_APP_MAY_2021_REWARDS_ADDRESS
 
 // Token Addresses
 export const indexTokenAddress = process.env.REACT_APP_INDEX_TOKEN_ADDRESS
