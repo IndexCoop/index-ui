@@ -20,6 +20,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     useEth2xFliTokenMarketData()
   const { components } = useEth2xFliIndexPortfolioData()
   const { ethfliBalance, ethfliTotalSupply } = useBalances()
+  const supplyCap = process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || 1
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -29,10 +30,10 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     token: Ethereum2xFlexibleLeverageIndex,
     components: components,
     balance: ethfliBalance,
+    supplyCap: supplyCap,
   }
   const { account } = useWallet()
 
-  const supplyCap = process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || 1
   const isApproachingSupplyCap = ethfliTotalSupply
     ?.div(supplyCap)
     .isGreaterThan(0.95)

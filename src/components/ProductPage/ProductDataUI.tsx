@@ -33,6 +33,7 @@ export interface TokenDataProps {
   token: ProductToken
   components: IndexComponent[] | undefined
   balance: BigNumber | undefined
+  supplyCap?: string | number
 }
 
 interface ProductDataUIProps extends InputProps {
@@ -71,17 +72,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
-          <MarketData
-            prices={tokenData.prices || [[0]]}
-            hourlyPrices={tokenData.hourlyPrices || [[0]]}
-            latestPrice={tokenData.latestPrice || 0}
-            tokenIcon={{
-              src: tokenData.token.image,
-              alt: tokenData.token.symbol + ' Logo',
-            }}
-            tokenSymbol={tokenData.token.symbol}
-            title={tokenData.token.name}
-          />
+          <MarketData tokenData={tokenData} />
           <div>
             <BuySellWrapper tokenId={tokenData.token.tokensetsId} />
             {tokenData.token.symbol === DefiPulseIndex.symbol && (

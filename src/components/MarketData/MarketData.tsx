@@ -3,40 +3,35 @@ import styled from 'styled-components'
 import numeral from 'numeral'
 
 import SimplePriceChart from 'components/SimplePriceChart'
+import { TokenDataProps } from 'components/ProductPage/ProductDataUI'
 
 import { PriceChartRangeOption } from 'constants/priceChartEnums'
 import { InputProps } from 'react-neu'
+import { IndexToken } from 'constants/productTokens'
+import { MetaData } from 'components/ProductPage'
+import IndexComponent from 'components/IndexComponent'
 
-interface MarketDataInputProps extends InputProps {
-  latestPrice: number
-  prices: number[][]
-  hourlyPrices: number[][]
-  tokenIcon: { src: string; alt: string }
-  title: string
-  tokenSymbol: string
+interface MarketDataProps extends InputProps {
+  tokenData: TokenDataProps
 }
 
-const MarketData: React.FC<MarketDataInputProps> = ({
-  latestPrice,
-  prices,
-  hourlyPrices,
-  tokenIcon,
-  title,
-  tokenSymbol,
-}) => {
+const MarketData: React.FC<MarketDataProps> = ({ tokenData }) => {
   const [chartPrice, setChartPrice] = useState<number>(0)
   const [chartDate, setChartDate] = useState<number>(Date.now())
   const [chartRange, setChartRange] = useState<number>(
     PriceChartRangeOption.MONTHLY_PRICE_RANGE
   ) //default 30 since default chart is 1M
-  const [dateString, setDateString] = useState<String>('')
+  const [dateString, setDateString] = useState<String>(
+    new Date(Date.now()).toDateString()
+  )
 
   useEffect(() => {
-    if (latestPrice) setChartPrice(latestPrice)
-  }, [latestPrice])
+    if (tokenData.latestPrice) setChartPrice(tokenData.latestPrice || 0)
+  }, [tokenData])
 
-  const priceAtEpochStart = prices?.slice(-chartRange)[0]?.[1] || 1
-  const hourlyPriceAtEpochStart = hourlyPrices?.slice(-24)[0]?.[1] || 1
+  const priceAtEpochStart = tokenData.prices?.slice(-chartRange)[0]?.[1] || 1
+  const hourlyPriceAtEpochStart =
+    tokenData.hourlyPrices?.slice(-24)[0]?.[1] || 1
   const startingPrice =
     chartRange > PriceChartRangeOption.DAILY_PRICE_RANGE
       ? priceAtEpochStart
@@ -52,56 +47,68 @@ const MarketData: React.FC<MarketDataInputProps> = ({
 
       if (chartRange === PriceChartRangeOption.DAILY_PRICE_RANGE) {
         setDateString(
-          priceData.toLocaleTimeString([], {
+          priceDate.toLocaleTimeString([], {
             hour: 'numeric',
             minute: 'numeric',
           })
         )
       } else {
-        setDateString(priceData.toDateString())
+        setDateString(priceDate.toDateString())
       }
     }, 0)
   }
 
   const resetChartPrice = () => {
     setTimeout(() => {
-      setChartPrice(latestPrice || 0)
+      setChartPrice(tokenData.latestPrice || 0)
       setChartDate(Date.now())
 
       if (chartRange === PriceChartRangeOption.DAILY_PRICE_RANGE) {
         setDateString(
-          priceData.toLocaleTimeString([], {
+          priceDate.toLocaleTimeString([], {
             hour: 'numeric',
             minute: 'numeric',
           })
         )
       } else {
-        setDateString(priceData.toDateString())
+        setDateString(priceDate.toDateString())
       }
     }, 0)
   }
 
-  const priceData = new Date(chartDate)
+  const priceDate = new Date(chartDate)
 
   return (
     <div>
       <StyledIconLabel>
-        <StyledIcon src={tokenIcon.src} alt={tokenIcon.alt} />
-        <span>{tokenSymbol}</span>
+        <StyledIcon
+          src={tokenData.token.image}
+          alt={tokenData.token.symbol + ' Logo'}
+        />
+        <span>{tokenData.token.symbol}</span>
       </StyledIconLabel>
-      <StyledTitle>{title}</StyledTitle>
+      <StyledTitle>{tokenData.token.name}</StyledTitle>
       <p>{dateString}</p>
       <StyledPriceWrapper>
-        <StyledPrice>{'$' + numeral(chartPrice).format('0.00a')}</StyledPrice>
-        <StyledPriceChange isLoss={epochPriceChange < 0}>
-          {numeral((epochPriceChange / startingPrice) * 100).format('0.00a') +
-            '%'}
-        </StyledPriceChange>
+        <div>
+          <StyledPrice>{'$' + numeral(chartPrice).format('0.00a')}</StyledPrice>
+          <StyledPriceChange isLoss={epochPriceChange < 0}>
+            {numeral((epochPriceChange / startingPrice) * 100).format('0.00a') +
+              '%'}
+          </StyledPriceChange>
+        </div>
+
+        {tokenData.token.symbol !== IndexToken.symbol && (
+          <MetaData tokenData={tokenData} />
+        )}
       </StyledPriceWrapper>
       <SimplePriceChart
-        icon={tokenIcon}
-        data={prices?.map(([x, y]) => ({ x, y }))}
-        hourlyData={hourlyPrices?.map(([x, y]) => ({ x, y }))}
+        icon={{
+          src: tokenData.token.image,
+          alt: tokenData.token.symbol + ' Logo',
+        }}
+        data={tokenData.prices?.map(([x, y]) => ({ x, y }))}
+        hourlyData={tokenData.hourlyPrices?.map(([x, y]) => ({ x, y }))}
         onMouseMove={updateChartPrice}
         onMouseLeave={resetChartPrice}
         setChartRange={setChartRange}
@@ -124,7 +131,11 @@ const StyledIconLabel = styled.div`
 const StyledPriceWrapper = styled.div`
   display: flex;
   align-items: flex-end;
-  margin-top: 10px;
+  margin: 10px 0 10px 0;
+  justify-content: space-between;
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
 `
 
 const StyledPrice = styled.span`
