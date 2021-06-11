@@ -15,10 +15,8 @@ import Split from 'components/Split'
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
 
-  const {
-    stakedFarmTwoBalance: stakedBalance,
-    unharvestedFarmTwoBalance,
-  } = useBalances()
+  const { stakedFarmTwoBalance: stakedBalance, unharvestedFarmTwoBalance } =
+    useBalances()
   const { status } = useWallet()
   const {
     isApproved,
@@ -123,7 +121,7 @@ const Stake: React.FC = () => {
               <StyledCardTitle>DPI Liquidity Program</StyledCardTitle>
               <Spacer size='sm' />
               <StyledCardSubtitle>
-                Active May. 10th - June. 9th
+                Active June 11th - July 11th
               </StyledCardSubtitle>
             </StyledLmTitle>
           </StyledCardTitleWrapper>
