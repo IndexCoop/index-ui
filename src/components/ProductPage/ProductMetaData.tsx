@@ -75,6 +75,12 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>
+          <StyledStatTitle>Net Asset Value</StyledStatTitle>
+          <StyledStatMetric>
+            ${formatMetric(getNetAssetValue())}
+          </StyledStatMetric>
+        </StyledStat>
+        <StyledStat>
           <StyledStatTitle>{divergenceLabel}</StyledStatTitle>
           <StyledStatMetric color={divergenceLabelColor}>
             {formatDivergenceMetric(netAssetValueDivergence)}%
