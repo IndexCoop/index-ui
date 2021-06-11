@@ -9,7 +9,6 @@ import { PriceChartRangeOption } from 'constants/priceChartEnums'
 import { InputProps } from 'react-neu'
 import { IndexToken } from 'constants/productTokens'
 import { MetaData } from 'components/ProductPage'
-import IndexComponent from 'components/IndexComponent'
 
 interface MarketDataProps extends InputProps {
   tokenData: TokenDataProps

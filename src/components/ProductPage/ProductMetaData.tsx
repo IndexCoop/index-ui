@@ -30,9 +30,10 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
     tokenData.token.symbol === Ethereum2xFlexibleLeverageIndex.symbol ||
     tokenData.token.symbol === Bitcoin2xFlexibleLeverageIndex.symbol
 
-  const realLeverage = tokenData.components
-    ? Number(tokenData.components[0].percentOfSet || 0) / 100
-    : 2
+  const realLeverage =
+    tokenData.components && tokenData.components.length > 0
+      ? Number(tokenData.components[0].percentOfSet || 0) / 100
+      : 2
 
   const netAssetValueReducer = (
     netAssetValue: number,
