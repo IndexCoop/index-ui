@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import numeral from 'numeral'
 
 import { ProductPageSection } from './ProductPageLayouts'
-import IndexComponent from 'components/IndexComponent'
 
 interface ProductTokenStatsProps {
   latestPrice?: number
@@ -20,7 +19,6 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
   latestMarketCap,
   latestVolume,
   fees,
-  netAssetValue,
 }) => {
   const formatMetric = (metricValue: number) =>
     numeral(metricValue).format('0.00a').toString().toUpperCase()
@@ -54,12 +52,6 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
           </StyledStatMetric>
         </StyledStat>
         {streamingFee}
-        <StyledStat>
-          <StyledStatTitle>Net Asset Value</StyledStatTitle>
-          <StyledStatMetric>
-            {numeral(netAssetValue).format('$0,0.00')}
-          </StyledStatMetric>
-        </StyledStat>
       </PriceStatsContainer>
     </ProductPageSection>
   )
@@ -67,17 +59,29 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
 
 const PriceStatsContainer = styled.div`
   display: flex;
+  justify-content: space-evenly;
 `
 const StyledStat = styled.div`
   display: flex;
-  flex: 1;
   flex-direction: column;
+  @media (min-width: 481px) {
+    flex: 1;
+  }
+  @media (max-width: 480px) {
+    align-items: center;
+  }
 `
 const StyledStatTitle = styled.div`
   font-size: 16px;
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
 `
 const StyledStatMetric = styled.div`
   font-size: 24px;
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `
 
 export default ProductTokenStats

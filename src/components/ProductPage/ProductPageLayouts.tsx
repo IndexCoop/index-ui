@@ -4,13 +4,13 @@ import styled from 'styled-components'
 export const ProductPageHeader = styled.div`
   @media (min-width: 768px) {
     display: grid;
-    grid-template-columns: [chart] 60% [buybox] 300px;
+    grid-template-columns: [chart] 70% [buybox] 300px;
   }
 `
 
 export const ProductPageContent = styled.div`
   @media (min-width: 768px) {
-    width: 60%;
+    width: 70%;
   }
 `
 

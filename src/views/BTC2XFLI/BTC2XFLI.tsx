@@ -20,6 +20,7 @@ const Btc2xFliProductPage = (props: { title: string }) => {
     useBtc2xFliTokenMarketData()
   const { components } = useBtc2xFliIndexPortfolioData()
   const { btcfliBalance, btcfliTotalSupply } = useBalances()
+  const supplyCap = process.env.REACT_APP_BTC2X_FLI_SUPPLY_CAP || 1
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -29,10 +30,10 @@ const Btc2xFliProductPage = (props: { title: string }) => {
     token: Bitcoin2xFlexibleLeverageIndex,
     components: components,
     balance: btcfliBalance,
+    supplyCap: supplyCap,
   }
   const { account } = useWallet()
 
-  const supplyCap = process.env.REACT_APP_BTC2X_FLI_SUPPLY_CAP || 1
   const isApproachingSupplyCap = btcfliTotalSupply
     ?.div(supplyCap)
     .isGreaterThan(0.95)
