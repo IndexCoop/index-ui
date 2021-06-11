@@ -105,11 +105,8 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
 
 const PriceStatsContainer = styled.div`
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  padding-right: 10px;
+  padding-top: 10px;
   @media (max-width: 767px) {
-    padding-top: 5px;
     flex-direction: column;
     width: 100%;
   }
@@ -117,7 +114,6 @@ const PriceStatsContainer = styled.div`
 const StyledStat = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   @media (min-width: 481px) {
     padding-right: 15px;
   }
@@ -125,7 +121,6 @@ const StyledStat = styled.div`
 const StyledStatTitle = styled.div`
   font-size: 16px;
   font-weight: 600;
-  text-align: right;
   @media (max-width: 767px) {
     font-size: 22px;
   }

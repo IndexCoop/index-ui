@@ -81,6 +81,15 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           </div>
         </ProductPageHeader>
         <ProductPageContent>
+          {tokenData.token.symbol !== IndexToken.symbol && (
+            <TokenStats
+              latestPrice={tokenData.latestPrice}
+              latestVolume={tokenData.latestVolume}
+              latestMarketCap={tokenData.latestMarketCap}
+              fees={tokenData.token.fees}
+              netAssetValue={getNetAssetValue()}
+            />
+          )}
           <WalletBalance
             token={tokenData.token}
             latestPrice={tokenData.latestPrice}
@@ -92,15 +101,6 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           />
           {tokenData.components && (
             <IndexComponentsTable components={tokenData.components} />
-          )}
-          {tokenData.token.symbol !== IndexToken.symbol && (
-            <TokenStats
-              latestPrice={tokenData.latestPrice}
-              latestVolume={tokenData.latestVolume}
-              latestMarketCap={tokenData.latestMarketCap}
-              fees={tokenData.token.fees}
-              netAssetValue={getNetAssetValue()}
-            />
           )}
           <Description>{children}</Description>
         </ProductPageContent>

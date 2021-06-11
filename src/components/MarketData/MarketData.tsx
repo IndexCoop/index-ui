@@ -88,19 +88,16 @@ const MarketData: React.FC<MarketDataProps> = ({ tokenData }) => {
         <span>{tokenData.token.symbol}</span>
       </StyledIconLabel>
       <StyledTitle>{tokenData.token.name}</StyledTitle>
+      {tokenData.token.symbol !== IndexToken.symbol && (
+        <MetaData tokenData={tokenData} />
+      )}
       <p>{dateString}</p>
       <StyledPriceWrapper>
-        <div>
-          <StyledPrice>{'$' + numeral(chartPrice).format('0.00a')}</StyledPrice>
-          <StyledPriceChange isLoss={epochPriceChange < 0}>
-            {numeral((epochPriceChange / startingPrice) * 100).format('0.00a') +
-              '%'}
-          </StyledPriceChange>
-        </div>
-
-        {tokenData.token.symbol !== IndexToken.symbol && (
-          <MetaData tokenData={tokenData} />
-        )}
+        <StyledPrice>{'$' + numeral(chartPrice).format('0.00a')}</StyledPrice>
+        <StyledPriceChange isLoss={epochPriceChange < 0}>
+          {numeral((epochPriceChange / startingPrice) * 100).format('0.00a') +
+            '%'}
+        </StyledPriceChange>
       </StyledPriceWrapper>
       <SimplePriceChart
         icon={{
@@ -132,7 +129,6 @@ const StyledPriceWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   margin: 10px 0 10px 0;
-  justify-content: space-between;
   @media (max-width: 767px) {
     flex-direction: column;
   }
