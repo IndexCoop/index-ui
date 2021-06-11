@@ -123,7 +123,7 @@ const Stake: React.FC = () => {
               <StyledCardTitle>MVI Liquidity Program</StyledCardTitle>
               <Spacer size='sm' />
               <StyledCardSubtitle>
-                Active May. 10th - June. 9th
+                Active June 11th - July 11th
               </StyledCardSubtitle>
             </StyledLmTitle>
           </StyledCardTitleWrapper>

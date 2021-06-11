@@ -17,13 +17,11 @@ const PricesProvider: React.FC = ({ children }) => {
   const [indexPrice, setIndexPrice] = useState<string>('0')
   const [ethereumPrice, setEthereumPrice] = useState<string>('0')
   const [usdInEthDpiPool, setUsdInEthDpiPool] = useState<number>()
-  const [totalSupplyInEthDpiPool, setTotalSupplyInEthDpiPool] = useState<
-    number
-  >()
+  const [totalSupplyInEthDpiPool, setTotalSupplyInEthDpiPool] =
+    useState<number>()
   const [usdInEthMviPool, setUsdInEthMviPool] = useState<number>()
-  const [totalSupplyInEthMviPool, setTotalSupplyInEthMviPool] = useState<
-    number
-  >()
+  const [totalSupplyInEthMviPool, setTotalSupplyInEthMviPool] =
+    useState<number>()
 
   const [apy] = useState<string>('0.00')
   const [farmTwoApy, setFarmTwoApy] = useState<string>('0.00')
@@ -82,6 +80,7 @@ const PricesProvider: React.FC = ({ children }) => {
       .catch((error) => console.log(error))
   }, [])
 
+  // DPI LM Emissions
   useEffect(() => {
     if (
       !indexPrice ||
@@ -92,7 +91,7 @@ const PricesProvider: React.FC = ({ children }) => {
     )
       return
 
-    const totalTokenEmissionsPerDay = 531
+    const totalTokenEmissionsPerDay = 567
     const totalUSDEmissionPerDay =
       totalTokenEmissionsPerDay * Number(indexPrice)
 
@@ -120,6 +119,7 @@ const PricesProvider: React.FC = ({ children }) => {
       })
   }, [usdInEthDpiPool, indexPrice, ethereum, totalSupplyInEthDpiPool])
 
+  // MVI LM Emissions
   useEffect(() => {
     if (
       !indexPrice ||
@@ -130,7 +130,7 @@ const PricesProvider: React.FC = ({ children }) => {
     )
       return
 
-    const totalTokenEmissionsPerDay = 91
+    const totalTokenEmissionsPerDay = 109
     const totalUSDEmissionPerDay =
       totalTokenEmissionsPerDay * Number(indexPrice)
 
