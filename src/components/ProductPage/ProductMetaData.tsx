@@ -20,11 +20,13 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
     numeral(metricValue).format('0.00').toString().toUpperCase()
   const formatDivergenceMetric = (metricValue: number) =>
     numeral(Math.abs(metricValue)).format('0.00').toString().toUpperCase()
-  const formatSupplyCap = (metricValue: number | string) =>
-    numeral(parseInt(metricValue.toString()))
-      .format('0,0')
-      .toString()
-      .toUpperCase()
+  const formatCurrentSupply = (
+    latestMarketCapMetric: number | undefined,
+    latestPriceMetric: number | undefined
+  ) =>
+    numeral((latestMarketCapMetric || 0) / (latestPriceMetric || 1)).format(
+      '0,0'
+    )
 
   const isFLI =
     tokenData.token.symbol === Ethereum2xFlexibleLeverageIndex.symbol ||
@@ -69,9 +71,12 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
           <StyledStatMetric>2x</StyledStatMetric>
         </StyledStat>
         <StyledStat>
-          <StyledStatTitle>Supply Cap</StyledStatTitle>
+          <StyledStatTitle>Current Supply</StyledStatTitle>
           <StyledStatMetric>
-            {formatSupplyCap(tokenData.supplyCap || 0)}
+            {formatCurrentSupply(
+              tokenData.latestMarketCap,
+              tokenData.latestPrice
+            )}
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>
