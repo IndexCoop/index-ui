@@ -20,10 +20,15 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
     numeral(metricValue).format('0.00').toString().toUpperCase()
   const formatDivergenceMetric = (metricValue: number) =>
     numeral(Math.abs(metricValue)).format('0.00').toString().toUpperCase()
+  const formatSupplyCap = (metricValue: number | string) =>
+    numeral(parseInt(metricValue.toString()))
+      .format('0,0')
+      .toString()
+      .toUpperCase()
 
   const isFLI =
-    tokenData.token.symbol == Ethereum2xFlexibleLeverageIndex.symbol ||
-    tokenData.token.symbol == Bitcoin2xFlexibleLeverageIndex.symbol
+    tokenData.token.symbol === Ethereum2xFlexibleLeverageIndex.symbol ||
+    tokenData.token.symbol === Bitcoin2xFlexibleLeverageIndex.symbol
 
   const realLeverage = tokenData.components
     ? Number(tokenData.components[0].percentOfSet || 0) / 100
@@ -64,7 +69,9 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
         </StyledStat>
         <StyledStat>
           <StyledStatTitle>Supply Cap</StyledStatTitle>
-          <StyledStatMetric>{tokenData.supplyCap}</StyledStatMetric>
+          <StyledStatMetric>
+            {formatSupplyCap(tokenData.supplyCap || 0)}
+          </StyledStatMetric>
         </StyledStat>
         <StyledStat>
           <StyledStatTitle>{divergenceLabel}</StyledStatTitle>
@@ -77,7 +84,13 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
   return (
     <PriceStatsContainer>
       <StyledStat>
-        <StyledStatTitle>NAV</StyledStatTitle>
+        <StyledStatTitle>Market Cap</StyledStatTitle>
+        <StyledStatMetric>
+          ${formatMetric(tokenData.latestMarketCap || 0)}
+        </StyledStatMetric>
+      </StyledStat>
+      <StyledStat>
+        <StyledStatTitle>Net Asset Value</StyledStatTitle>
         <StyledStatMetric>${formatMetric(getNetAssetValue())}</StyledStatMetric>
       </StyledStat>
       <StyledStat>
@@ -92,11 +105,11 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
 
 const PriceStatsContainer = styled.div`
   display: flex;
-  width: 65%;
   align-items: flex-end;
   justify-content: flex-end;
-  padding-right: 5px;
+  padding-right: 10px;
   @media (max-width: 767px) {
+    padding-top: 5px;
     flex-direction: column;
     width: 100%;
   }
@@ -104,12 +117,15 @@ const PriceStatsContainer = styled.div`
 const StyledStat = styled.div`
   display: flex;
   flex-direction: column;
-  padding-right: 15px;
   align-items: flex-end;
+  @media (min-width: 481px) {
+    padding-right: 15px;
+  }
 `
 const StyledStatTitle = styled.div`
   font-size: 16px;
   font-weight: 600;
+  text-align: right;
   @media (max-width: 767px) {
     font-size: 22px;
   }
