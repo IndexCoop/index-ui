@@ -1,9 +1,11 @@
 /// <reference types="cypress" />
 
 describe('Homepage', () => {
-  beforeEach(() => {
-    cy.wait(1000)
+  before(() => {
     cy.visit('http://localhost:3000/')
+  })
+  beforeEach(() => {
+    //cy.wait(1000)
   })
 
   context('HomeHeader', () => {
@@ -32,8 +34,7 @@ describe('Homepage', () => {
 
   context('View Defi Pulse Button', () => {
     it('should navigate to the DPI page', () => {
-      cy.get('.sc-iXquSf').click()
-      cy.location('pathname').should('include', 'dpi')
+      cy.get('.sc-iXquSf').should('have.attr', 'href').and('include', '/dpi')
     })
   })
 
@@ -225,7 +226,7 @@ describe('Homepage', () => {
       it('should contain Sushiswap tile', () => {
         cy.get(
           ':nth-child(11) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
-        ).should('contain', 'Sushiswap')
+        ).should('contain', 'SushiSwap')
       })
     })
 
@@ -240,13 +241,13 @@ describe('Homepage', () => {
     context('Dune Analytics', () => {
       it('should contain Dune Analytics tile', () => {
         cy.get(
-          ':nth-child(11) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(13) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
         ).should('contain', 'Dune Analytics')
       })
 
       it('should link to Dune Analytics page', () => {
         cy.get(
-          ':nth-child(11) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(13) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
         )
           .should('have.attr', 'href')
           .and('include', 'duneanalytics')
@@ -256,24 +257,24 @@ describe('Homepage', () => {
     context('DeFi Pulse', () => {
       it('should contain DeFi Pulse tile', () => {
         cy.get(
-          ':nth-child(11) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(13) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
         ).should('contain', 'DeFi Pulse')
       })
 
       it('should link to DeFi Pulse page', () => {
         cy.get(
-          ':nth-child(11) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(13) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
         )
           .should('have.attr', 'href')
           .and('include', 'defipulse')
       })
     })
 
-    context('CoinGecko', () => {
+    context('Coin Gecko', () => {
       it('should contain CoinGecko tile', () => {
         cy.get(
           ':nth-child(14) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
-        ).should('contain', 'CoinGecko')
+        ).should('contain', 'Coin Gecko')
       })
 
       it('should link to CoinGecko page', () => {
@@ -303,7 +304,7 @@ describe('Homepage', () => {
 
     context('Footer Links', () => {
       it('should contain all links', () => {
-        cy.get('.sc-jQAxuV').children().should('have.length', 4)
+        cy.get('.sc-jQAxuV > .sc-dsXzNU').children().should('have.length', 4)
       })
     })
   })

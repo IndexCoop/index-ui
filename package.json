@@ -43,7 +43,8 @@
     "start": "react-scripts start",
     "build": "CI= GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "e2e": "yarn run cypress open"
   },
   "husky": {
     "hooks": {
