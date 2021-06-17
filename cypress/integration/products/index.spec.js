@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
-describe('DPI', () => {
+describe('INDEX', () => {
   before(() => {
-    cy.visit('http://localhost:3000/dpi')
+    cy.visit('http://localhost:3000/index')
   })
   beforeEach(() => {
     //cy.wait(1000)
@@ -10,31 +10,16 @@ describe('DPI', () => {
 
   context('Product Header', () => {
     it('should show product symbol', () => {
-      cy.get('.sc-jCPRHX > span').should('contain', 'DPI')
+      cy.get('.sc-jCPRHX > span').should('contain', 'INDEX')
     })
     it('should show product name', () => {
-      cy.get('.sc-cfARRi').should('contain', 'DeFi Pulse Index')
+      cy.get('.sc-cfARRi').should('contain', 'Index Token')
     })
     it('should show product price', () => {
       cy.get('.sc-jhDJEt').should('not.be.empty')
     })
     it('should show product percent change', () => {
       cy.get('.sc-enrZtP').should('not.be.empty')
-    })
-  })
-
-  context('Product Metadata', () => {
-    it('should show market cap', () => {
-      cy.get(':nth-child(1) > .sc-geBCVM').should('contain', 'Market Cap')
-      cy.get(':nth-child(1) > .sc-clGGWX').should('not.be.empty')
-    })
-    it('should show NAV', () => {
-      cy.get(':nth-child(2) > .sc-geBCVM').should('contain', 'Net Asset Value')
-      cy.get(':nth-child(2) > .sc-clGGWX').should('not.be.empty')
-    })
-    it('should show prem/discount', () => {
-      cy.get(':nth-child(3) > .sc-geBCVM').should('not.be.empty')
-      cy.get(':nth-child(3) > .sc-clGGWX').should('not.be.empty')
     })
   })
 
@@ -56,36 +41,16 @@ describe('DPI', () => {
       cy.get('.sc-dYXZXt > :nth-child(1)').should('contain', 'Buy (estimated)')
       cy.get('.sc-ckTSus').should('not.be.empty')
     })
-    it('should have Transak button', () => {
-      cy.get('.sc-FRrlG').should('not.be.empty')
-    })
-  })
-
-  context('Product Stats', () => {
-    it('should have a title', () => {
-      cy.get(':nth-child(1) > .sc-liAPKD').should('contain', 'Stats')
-    })
-
-    it('should render values', () => {
-      cy.get(':nth-child(1) > .sc-liAPKD').should('not.be.empty')
-      cy.get(':nth-child(1) > .sc-fiCYzP').should('not.be.empty')
-      cy.get(':nth-child(2) > .sc-hfVBHA').should('not.be.empty')
-      cy.get(':nth-child(2) > .sc-fiCYzP').should('not.be.empty')
-      cy.get(':nth-child(3) > .sc-hfVBHA').should('not.be.empty')
-      cy.get(':nth-child(3) > .sc-fiCYzP').should('not.be.empty')
-      cy.get(':nth-child(4) > .sc-hfVBHA').should('not.be.empty')
-      cy.get(':nth-child(4) > .sc-hfVBHA').should('not.be.empty')
-    })
   })
 
   context('My Assets', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(2) > .sc-liAPKD').should('contain', 'My Assets')
+      cy.get(':nth-child(1) > .sc-liAPKD').should('contain', 'My Assets')
     })
 
     it('should render values', () => {
       cy.get('.sc-kJNqyW').should('not.be.empty')
-      cy.get('.sc-bxLXlR').should('contain', 'DPI')
+      cy.get('.sc-bxLXlR').should('contain', 'INDEX')
     })
 
     it('should contain MetaMask button', () => {
@@ -95,7 +60,7 @@ describe('DPI', () => {
 
   context('Product Changes', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(3) > .sc-liAPKD').should('contain', 'Changes')
+      cy.get(':nth-child(2) > .sc-liAPKD').should('contain', 'Changes')
     })
 
     it('should render values', () => {
@@ -107,21 +72,6 @@ describe('DPI', () => {
       cy.get(':nth-child(3) > .sc-hQYpqk').should('not.be.empty')
       cy.get(':nth-child(4) > .sc-bTJQgd').should('not.be.empty')
       cy.get(':nth-child(4) > .sc-hQYpqk').should('not.be.empty')
-    })
-  })
-
-  context('Product Allocations', () => {
-    it('should have a title', () => {
-      cy.get(':nth-child(4) > .sc-liAPKD').should('contain', 'Allocations')
-    })
-
-    it('should render allocations', () => {
-      cy.get('.sc-jVSGNQ > :nth-child(2) > .sc-QxirK').should('not.be.empty')
-      cy.get(':nth-child(3) > .sc-QxirK').should('not.be.empty')
-      cy.get(':nth-child(4) > .sc-QxirK').should('not.be.empty')
-      cy.get('.sc-jVSGNQ > :nth-child(5)').should('not.be.empty')
-      cy.get('.sc-jVSGNQ > :nth-child(6)').should('not.be.empty')
-      cy.get('.sc-eCbnUT').should('contain', 'More')
     })
   })
 

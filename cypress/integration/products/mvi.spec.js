@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
-describe('DPI', () => {
+describe('MVI', () => {
   before(() => {
-    cy.visit('http://localhost:3000/dpi')
+    cy.visit('http://localhost:3000/mvi')
   })
   beforeEach(() => {
     //cy.wait(1000)
@@ -10,10 +10,10 @@ describe('DPI', () => {
 
   context('Product Header', () => {
     it('should show product symbol', () => {
-      cy.get('.sc-jCPRHX > span').should('contain', 'DPI')
+      cy.get('.sc-jCPRHX > span').should('contain', 'MVI')
     })
     it('should show product name', () => {
-      cy.get('.sc-cfARRi').should('contain', 'DeFi Pulse Index')
+      cy.get('.sc-cfARRi').should('contain', 'Metaverse Index')
     })
     it('should show product price', () => {
       cy.get('.sc-jhDJEt').should('not.be.empty')
@@ -56,9 +56,6 @@ describe('DPI', () => {
       cy.get('.sc-dYXZXt > :nth-child(1)').should('contain', 'Buy (estimated)')
       cy.get('.sc-ckTSus').should('not.be.empty')
     })
-    it('should have Transak button', () => {
-      cy.get('.sc-FRrlG').should('not.be.empty')
-    })
   })
 
   context('Product Stats', () => {
@@ -85,7 +82,7 @@ describe('DPI', () => {
 
     it('should render values', () => {
       cy.get('.sc-kJNqyW').should('not.be.empty')
-      cy.get('.sc-bxLXlR').should('contain', 'DPI')
+      cy.get('.sc-bxLXlR').should('contain', 'MVI')
     })
 
     it('should contain MetaMask button', () => {

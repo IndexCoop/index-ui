@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
-describe('DPI', () => {
+describe('BTC2x-FLI', () => {
   before(() => {
-    cy.visit('http://localhost:3000/dpi')
+    cy.visit('http://localhost:3000/btcfli')
   })
   beforeEach(() => {
     //cy.wait(1000)
@@ -10,10 +10,13 @@ describe('DPI', () => {
 
   context('Product Header', () => {
     it('should show product symbol', () => {
-      cy.get('.sc-jCPRHX > span').should('contain', 'DPI')
+      cy.get('.sc-jCPRHX > span').should('contain', 'BTC2x-FLI')
     })
     it('should show product name', () => {
-      cy.get('.sc-cfARRi').should('contain', 'DeFi Pulse Index')
+      cy.get('.sc-cfARRi').should(
+        'contain',
+        'Bitcoin 2x Flexible Leverage Index'
+      )
     })
     it('should show product price', () => {
       cy.get('.sc-jhDJEt').should('not.be.empty')
@@ -24,17 +27,25 @@ describe('DPI', () => {
   })
 
   context('Product Metadata', () => {
-    it('should show market cap', () => {
-      cy.get(':nth-child(1) > .sc-geBCVM').should('contain', 'Market Cap')
-      cy.get(':nth-child(1) > .sc-clGGWX').should('not.be.empty')
+    it('should show real leverage', () => {
+      cy.get(':nth-child(1) > .sc-geBCVM').should('contain', 'Real Leverage')
+      cy.get(':nth-child(1) > .sc-clGGWX').should('contain', 'x')
+    })
+    it('should show target leverage', () => {
+      cy.get(':nth-child(2) > .sc-geBCVM').should('contain', 'Target Leverage')
+      cy.get(':nth-child(2) > .sc-clGGWX').should('contain', '2x')
+    })
+    it('should show current supply', () => {
+      cy.get(':nth-child(3) > .sc-geBCVM').should('contain', 'Current Supply')
+      cy.get(':nth-child(3) > .sc-clGGWX').should('not.be.empty')
     })
     it('should show NAV', () => {
-      cy.get(':nth-child(2) > .sc-geBCVM').should('contain', 'Net Asset Value')
-      cy.get(':nth-child(2) > .sc-clGGWX').should('not.be.empty')
+      cy.get(':nth-child(4) > .sc-geBCVM').should('contain', 'Net Asset Value')
+      cy.get(':nth-child(4) > .sc-clGGWX').should('not.be.empty')
     })
     it('should show prem/discount', () => {
-      cy.get(':nth-child(3) > .sc-geBCVM').should('not.be.empty')
-      cy.get(':nth-child(3) > .sc-clGGWX').should('not.be.empty')
+      cy.get(':nth-child(5) > .sc-geBCVM').should('not.be.empty')
+      cy.get(':nth-child(5) > .sc-clGGWX').should('not.be.empty')
     })
   })
 
@@ -55,9 +66,6 @@ describe('DPI', () => {
       cy.get('.sc-iiBnNu > :nth-child(1)').should('contain', 'Pay with')
       cy.get('.sc-dYXZXt > :nth-child(1)').should('contain', 'Buy (estimated)')
       cy.get('.sc-ckTSus').should('not.be.empty')
-    })
-    it('should have Transak button', () => {
-      cy.get('.sc-FRrlG').should('not.be.empty')
     })
   })
 
@@ -85,7 +93,7 @@ describe('DPI', () => {
 
     it('should render values', () => {
       cy.get('.sc-kJNqyW').should('not.be.empty')
-      cy.get('.sc-bxLXlR').should('contain', 'DPI')
+      cy.get('.sc-bxLXlR').should('contain', 'BTC2x-FLI')
     })
 
     it('should contain MetaMask button', () => {
@@ -121,7 +129,6 @@ describe('DPI', () => {
       cy.get(':nth-child(4) > .sc-QxirK').should('not.be.empty')
       cy.get('.sc-jVSGNQ > :nth-child(5)').should('not.be.empty')
       cy.get('.sc-jVSGNQ > :nth-child(6)').should('not.be.empty')
-      cy.get('.sc-eCbnUT').should('contain', 'More')
     })
   })
 
