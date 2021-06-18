@@ -43,7 +43,9 @@
     "start": "react-scripts start",
     "build": "CI= GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "e2e": "yarn run cypress run --headless",
+    "cypress:open": "yarn run cypress open"
   },
   "husky": {
     "hooks": {
@@ -77,10 +79,11 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
     "@types/web3": "^1.2.2",
+    "cypress": "^7.5.0",
     "husky": "^4.3.0",
     "lint-staged": "^11.0.0",
     "prettier": "2.3.0",
     "react-circular-progressbar": "^2.0.4",
-    "typescript": "^3.9.7"
+    "typescript": "^4.3.4"
   }
 }
