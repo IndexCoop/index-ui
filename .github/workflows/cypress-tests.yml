@@ -13,5 +13,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          build: copy .env.prod .env && yarn run build
+          build: yarn run build
           start: yarn start

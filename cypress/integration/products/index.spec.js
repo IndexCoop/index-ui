@@ -2,10 +2,8 @@
 
 describe('INDEX', () => {
   before(() => {
+    cy.wait(3000)
     cy.visit('http://localhost:3000/index')
-  })
-  beforeEach(() => {
-    //cy.wait(1000)
   })
 
   context('Product Header', () => {
