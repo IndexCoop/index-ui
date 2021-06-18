@@ -2,10 +2,8 @@
 
 describe('How To Buy', () => {
   before(() => {
+    cy.wait(3000)
     cy.visit('http://localhost:3000/how-to-buy')
-  })
-  beforeEach(() => {
-    //cy.wait(1000)
   })
 
   context('Page Header', () => {
