@@ -26,6 +26,8 @@ export interface ContextValues {
   stakedUniswapEthMviLpBalance?: BigNumber
   unharvestedMviRewardsBalance?: BigNumber
 
+  dpiTotalSupply?: BigNumber
   ethfliTotalSupply?: BigNumber
   btcfliTotalSupply?: BigNumber
+  mviTotalSupply?: BigNumber
 }

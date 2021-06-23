@@ -17,15 +17,10 @@ const DpiProductPage = (props: { title: string }) => {
     document.title = props.title
   }, [props.title])
 
-  const {
-    prices,
-    hourlyPrices,
-    latestPrice,
-    latestMarketCap,
-    latestVolume,
-  } = useDpiTokenMarketData()
+  const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
+    useDpiTokenMarketData()
   const { components } = useDpiIndexComponents()
-  const { dpiBalance } = useBalances()
+  const { dpiBalance, dpiTotalSupply } = useBalances()
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -35,6 +30,7 @@ const DpiProductPage = (props: { title: string }) => {
     token: DefiPulseIndex,
     components: components,
     balance: dpiBalance,
+    currentSupply: dpiTotalSupply,
   }
 
   const [, setReferral] = useLocalStorage('referral', '')

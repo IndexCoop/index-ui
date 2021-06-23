@@ -27,11 +27,13 @@ const Provider: React.FC = ({ children }) => {
   const [ethBalance, setEthBalance] = useState<BigNumber>()
   const [indexBalance, setIndexBalance] = useState<BigNumber>()
   const [dpiBalance, setDpiBalance] = useState<BigNumber>()
+  const [dpiTotalSupply, setDpiTotalSupply] = useState<BigNumber>()
   const [ethfliBalance, setEthFliBalance] = useState<BigNumber>()
   const [ethfliTotalSupply, setEthFliTotalSupply] = useState<BigNumber>()
   const [btcfliBalance, setBtcFliBalance] = useState<BigNumber>()
   const [btcfliTotalSupply, setBtcFliTotalSupply] = useState<BigNumber>()
   const [mviBalance, setMviBalance] = useState<BigNumber>()
+  const [mviTotalSupply, setMviTotalSupply] = useState<BigNumber>()
   const [daiBalance, setDaiBalance] = useState<BigNumber>()
   const [usdcBalance, setUsdcBalance] = useState<BigNumber>()
 
@@ -176,6 +178,8 @@ const Provider: React.FC = ({ children }) => {
       const totalSupplies = await Promise.all([
         getTotalSupply(provider, eth2xfliTokenAddress as string),
         getTotalSupply(provider, btc2xfliTokenAddress as string),
+        getTotalSupply(provider, dpiTokenAddress as string),
+        getTotalSupply(provider, mviTokenAddress as string),
       ])
 
       setEthFliTotalSupply(
@@ -184,8 +188,19 @@ const Provider: React.FC = ({ children }) => {
       setBtcFliTotalSupply(
         new BigNumber(totalSupplies[1]).dividedBy(new BigNumber(10).pow(18))
       )
+      setDpiTotalSupply(
+        new BigNumber(totalSupplies[2]).dividedBy(new BigNumber(10).pow(18))
+      )
+      setMviTotalSupply(
+        new BigNumber(totalSupplies[3]).dividedBy(new BigNumber(10).pow(18))
+      )
     },
-    [setEthFliTotalSupply, setBtcFliTotalSupply]
+    [
+      setEthFliTotalSupply,
+      setBtcFliTotalSupply,
+      setDpiTotalSupply,
+      setMviTotalSupply,
+    ]
   )
 
   useEffect(() => {
@@ -242,8 +257,10 @@ const Provider: React.FC = ({ children }) => {
         unharvestedFarmTwoBalance,
         stakedUniswapEthMviLpBalance,
         unharvestedMviRewardsBalance,
+        dpiTotalSupply,
         ethfliTotalSupply,
         btcfliTotalSupply,
+        mviTotalSupply,
       }}
     >
       {children}
