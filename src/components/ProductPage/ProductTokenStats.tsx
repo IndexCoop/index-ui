@@ -42,6 +42,10 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
     </StyledStat>
   )
 
+  const formattedCurrentSupply = numeral(
+    currentSupply?.toString() || '0'
+  ).format('0,0')
+
   return (
     <ProductPageSection title='Stats'>
       <PriceStatsContainer>
@@ -60,7 +64,7 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
         <StyledStat>
           <StyledStatTitle>Current Supply</StyledStatTitle>
           <StyledStatMetric>
-            {numeral(currentSupply?.toString() || '0').format('0,0')}
+            {formattedCurrentSupply !== '0' ? formattedCurrentSupply : '--'}
           </StyledStatMetric>
         </StyledStat>
         {supplyCapStat}

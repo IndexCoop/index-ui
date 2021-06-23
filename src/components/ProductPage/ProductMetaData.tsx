@@ -34,6 +34,8 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
       ? Number(tokenData.components[0].percentOfSet || 0) / 100
       : 2
 
+  const formattedCurrentySupply = formatCurrentSupply(tokenData?.currentSupply)
+
   const netAssetValueReducer = (
     netAssetValue: number,
     component: IndexComponent
@@ -70,7 +72,7 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
         <StyledStat>
           <StyledStatTitle>Current Supply</StyledStatTitle>
           <StyledStatMetric>
-            {formatCurrentSupply(tokenData?.currentSupply)}
+            {formattedCurrentySupply !== '0' ? formattedCurrentySupply : '--'}
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>
