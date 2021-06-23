@@ -87,6 +87,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
               latestVolume={tokenData.latestVolume}
               latestMarketCap={tokenData.latestMarketCap}
               fees={tokenData.token.fees}
+              supplyCap={tokenData.supplyCap}
               netAssetValue={getNetAssetValue()}
             />
           )}

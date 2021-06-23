@@ -2,10 +2,8 @@
 
 describe('Homepage', () => {
   before(() => {
+    cy.wait(3000)
     cy.visit('http://localhost:3000/')
-  })
-  beforeEach(() => {
-    //cy.wait(1000)
   })
 
   context('HomeHeader', () => {

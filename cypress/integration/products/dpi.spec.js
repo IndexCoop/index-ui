@@ -2,10 +2,8 @@
 
 describe('DPI', () => {
   before(() => {
+    cy.wait(3000)
     cy.visit('http://localhost:3000/dpi')
-  })
-  beforeEach(() => {
-    //cy.wait(1000)
   })
 
   context('Product Header', () => {

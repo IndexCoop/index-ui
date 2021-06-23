@@ -22,7 +22,7 @@ const Btc2xFliTokenMarketDataProvider: React.FC = ({ children }) => {
       value={{
         ...fliMarketData,
         latestMarketCap: selectLatestMarketData(fliMarketData?.marketcaps),
-        latestPrice: selectLatestMarketData(fliMarketData?.prices),
+        latestPrice: selectLatestMarketData(fliMarketData?.hourlyPrices),
         latestVolume: selectLatestMarketData(fliMarketData?.volumes),
       }}
     >

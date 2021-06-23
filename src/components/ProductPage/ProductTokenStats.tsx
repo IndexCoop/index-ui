@@ -12,6 +12,7 @@ interface ProductTokenStatsProps {
     streamingFee: string
   }
   netAssetValue: number
+  supplyCap: string | number | undefined
 }
 
 const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
@@ -19,14 +20,24 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
   latestMarketCap,
   latestVolume,
   fees,
+  supplyCap,
 }) => {
   const formatMetric = (metricValue: number) =>
     numeral(metricValue).format('0.00a').toString().toUpperCase()
+  const formattedSupplyCap = () =>
+    numeral(supplyCap).format('0,0').toString().toUpperCase()
 
   const streamingFee = fees?.streamingFee && (
     <StyledStat>
       <StyledStatTitle>Streaming Fee</StyledStatTitle>
       <StyledStatMetric>{fees?.streamingFee}</StyledStatMetric>
+    </StyledStat>
+  )
+
+  const supplyCapStat = supplyCap != undefined && (
+    <StyledStat>
+      <StyledStatTitle>Supply Cap</StyledStatTitle>
+      <StyledStatMetric>{formattedSupplyCap()}</StyledStatMetric>
     </StyledStat>
   )
 
@@ -51,6 +62,7 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
             {numeral((latestMarketCap || 0) / (latestPrice || 1)).format('0,0')}
           </StyledStatMetric>
         </StyledStat>
+        {supplyCapStat}
         {streamingFee}
       </PriceStatsContainer>
     </ProductPageSection>

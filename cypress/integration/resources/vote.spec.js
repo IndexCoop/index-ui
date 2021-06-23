@@ -2,10 +2,8 @@
 
 describe('Vote', () => {
   before(() => {
+    cy.wait(3000)
     cy.visit('http://localhost:3000/vote')
-  })
-  beforeEach(() => {
-    //cy.wait(1000)
   })
 
   context('Page Header', () => {
