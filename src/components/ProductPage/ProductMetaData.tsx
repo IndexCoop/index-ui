@@ -2,8 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 import { InputProps } from 'react-neu'
+
 import { TokenDataProps } from './ProductDataUI'
 import IndexComponent from 'components/IndexComponent'
+import BigNumber from 'utils/bignumber'
 import {
   Bitcoin2xFlexibleLeverageIndex,
   Ethereum2xFlexibleLeverageIndex,
@@ -20,13 +22,8 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
     numeral(metricValue).format('0.00').toString().toUpperCase()
   const formatDivergenceMetric = (metricValue: number) =>
     numeral(Math.abs(metricValue)).format('0.00').toString().toUpperCase()
-  const formatCurrentSupply = (
-    latestMarketCapMetric: number | undefined,
-    latestPriceMetric: number | undefined
-  ) =>
-    numeral((latestMarketCapMetric || 0) / (latestPriceMetric || 1)).format(
-      '0,0'
-    )
+  const formatCurrentSupply = (currentSupply: BigNumber | undefined) =>
+    numeral(currentSupply || '0').format('0,0')
 
   const isFLI =
     tokenData.token.symbol === Ethereum2xFlexibleLeverageIndex.symbol ||
@@ -73,10 +70,7 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
         <StyledStat>
           <StyledStatTitle>Current Supply</StyledStatTitle>
           <StyledStatMetric>
-            {formatCurrentSupply(
-              tokenData.latestMarketCap,
-              tokenData.latestPrice
-            )}
+            {formatCurrentSupply(tokenData?.currentSupply)}
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>

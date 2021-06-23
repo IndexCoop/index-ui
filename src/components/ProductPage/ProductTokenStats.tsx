@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import numeral from 'numeral'
 
 import { ProductPageSection } from './ProductPageLayouts'
+import BigNumber from 'utils/bignumber'
 
 interface ProductTokenStatsProps {
-  latestPrice?: number
   latestMarketCap?: number
   latestVolume?: number
   fees?: {
@@ -13,14 +13,15 @@ interface ProductTokenStatsProps {
   }
   netAssetValue: number
   supplyCap: string | number | undefined
+  currentSupply: BigNumber | undefined
 }
 
 const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
-  latestPrice,
   latestMarketCap,
   latestVolume,
   fees,
   supplyCap,
+  currentSupply,
 }) => {
   const formatMetric = (metricValue: number) =>
     numeral(metricValue).format('0.00a').toString().toUpperCase()
@@ -59,7 +60,7 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
         <StyledStat>
           <StyledStatTitle>Current Supply</StyledStatTitle>
           <StyledStatMetric>
-            {numeral((latestMarketCap || 0) / (latestPrice || 1)).format('0,0')}
+            {numeral(currentSupply?.toString() || '0').format('0,0')}
           </StyledStatMetric>
         </StyledStat>
         {supplyCapStat}
