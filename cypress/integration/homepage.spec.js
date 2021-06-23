@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('Homepage', () => {
+xdescribe('Homepage', () => {
   before(() => {
     cy.wait(10000)
     cy.visit('http://localhost:3000/')
