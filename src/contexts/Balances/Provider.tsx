@@ -221,8 +221,6 @@ const Provider: React.FC = ({ children }) => {
       setUnharvestedFarmTwoBalance(new BigNumber(0))
       setStakedUniswapEthMviLpBalance(new BigNumber(0))
       setUnharvestedMviRewardsBalance(new BigNumber(0))
-      setEthFliTotalSupply(new BigNumber(0))
-      setBtcFliTotalSupply(new BigNumber(0))
     }
   }, [status])
 
