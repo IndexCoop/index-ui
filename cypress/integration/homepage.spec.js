@@ -2,7 +2,7 @@
 
 describe('Homepage', () => {
   before(() => {
-    cy.wait(3000)
+    cy.wait(10000)
     cy.visit('http://localhost:3000/')
   })
 
