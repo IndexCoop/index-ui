@@ -23,7 +23,7 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
   const formatDivergenceMetric = (metricValue: number) =>
     numeral(Math.abs(metricValue)).format('0.00').toString().toUpperCase()
   const formatCurrentSupply = (currentSupply: BigNumber | undefined) =>
-    numeral(currentSupply || '0').format('0,0')
+    currentSupply ? numeral(currentSupply || '0').format('0,0') : '--'
 
   const isFLI =
     tokenData.token.symbol === Ethereum2xFlexibleLeverageIndex.symbol ||
@@ -33,8 +33,6 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
     tokenData.components && tokenData.components.length > 0
       ? Number(tokenData.components[0].percentOfSet || 0) / 100
       : 2
-
-  const formattedCurrentySupply = formatCurrentSupply(tokenData?.currentSupply)
 
   const netAssetValueReducer = (
     netAssetValue: number,
@@ -72,7 +70,7 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
         <StyledStat>
           <StyledStatTitle>Current Supply</StyledStatTitle>
           <StyledStatMetric>
-            {formattedCurrentySupply !== '0' ? formattedCurrentySupply : '--'}
+            {formatCurrentSupply(tokenData.currentSupply)}
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>
