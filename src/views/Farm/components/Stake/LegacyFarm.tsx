@@ -19,13 +19,8 @@ const Stake: React.FC = () => {
     unharvestedIndexBalance,
   } = useBalances()
   const { status } = useWallet()
-  const {
-    isApproved,
-    isApproving,
-    onApprove,
-    onStake,
-    onUnstakeAndHarvest,
-  } = useFarming()
+  const { isApproved, isApproving, onApprove, onStake, onUnstakeAndHarvest } =
+    useFarming()
   const { apy } = usePrices()
 
   const handleDismissStakeModal = useCallback(() => {
@@ -135,7 +130,7 @@ const Stake: React.FC = () => {
               </div>
 
               <div>
-                <StyledFarmText>0.00% APY</StyledFarmText>
+                <StyledFarmText>0.00% APR</StyledFarmText>
                 <StyledSectionLabel>(Volatile)</StyledSectionLabel>
               </div>
 
