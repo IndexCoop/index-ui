@@ -12,15 +12,10 @@ const MviProductPage = (props: { title: string }) => {
     document.title = props.title
   }, [props.title])
 
-  const {
-    latestPrice,
-    prices,
-    hourlyPrices,
-    latestMarketCap,
-    latestVolume,
-  } = useMviTokenMarketData()
+  const { latestPrice, prices, hourlyPrices, latestMarketCap, latestVolume } =
+    useMviTokenMarketData()
   const { components } = useMviComponents()
-  const { mviBalance } = useBalances()
+  const { mviBalance, mviTotalSupply } = useBalances()
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -30,6 +25,7 @@ const MviProductPage = (props: { title: string }) => {
     token: MetaverseIndex,
     components: components,
     balance: mviBalance,
+    currentSupply: mviTotalSupply,
   }
 
   return (

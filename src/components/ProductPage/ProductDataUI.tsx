@@ -34,6 +34,7 @@ export interface TokenDataProps {
   components: IndexComponent[] | undefined
   balance: BigNumber | undefined
   supplyCap?: string | number
+  currentSupply?: BigNumber | undefined
 }
 
 interface ProductDataUIProps extends InputProps {
@@ -83,12 +84,12 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
         <ProductPageContent>
           {tokenData.token.symbol !== IndexToken.symbol && (
             <TokenStats
-              latestPrice={tokenData.latestPrice}
               latestVolume={tokenData.latestVolume}
               latestMarketCap={tokenData.latestMarketCap}
               fees={tokenData.token.fees}
               supplyCap={tokenData.supplyCap}
               netAssetValue={getNetAssetValue()}
+              currentSupply={tokenData.currentSupply}
             />
           )}
           <WalletBalance

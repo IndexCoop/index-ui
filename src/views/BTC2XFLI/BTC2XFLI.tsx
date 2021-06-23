@@ -31,6 +31,7 @@ const Btc2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: btcfliBalance,
     supplyCap: supplyCap,
+    currentSupply: btcfliTotalSupply,
   }
   const { account } = useWallet()
 
