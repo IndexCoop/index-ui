@@ -183,14 +183,6 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             </Box>
           </Split>
           <Spacer />
-          <Box row>
-            <Button
-              href='https://app.uniswap.org/#/add/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b/ETH'
-              text='Add ETH/DPI Liquidity'
-              variant='secondary'
-            />
-          </Box>
-          <Spacer />
           <Separator />
           <Spacer />
 
@@ -216,13 +208,6 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             </Box>
           </Split>
           <Spacer />
-          <Box row>
-            <Button
-              href='https://app.uniswap.org/#/add/0x72e364f2abdc788b7e918bc238b21f109cd634d7/ETH'
-              text='Add ETH/MVI Liquidity'
-              variant='secondary'
-            />
-          </Box>
         </ModalContent>
         <Separator />
         <ModalActions>
