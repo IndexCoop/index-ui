@@ -3,25 +3,30 @@ import styled from 'styled-components'
 import numeral from 'numeral'
 
 import { ProductPageSection } from './ProductPageLayouts'
+import BigNumber from 'utils/bignumber'
 
 interface ProductTokenStatsProps {
-  latestPrice?: number
   latestMarketCap?: number
   latestVolume?: number
   fees?: {
     streamingFee: string
   }
   netAssetValue: number
+  supplyCap: string | number | undefined
+  currentSupply: BigNumber | undefined
 }
 
 const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
-  latestPrice,
   latestMarketCap,
   latestVolume,
   fees,
+  supplyCap,
+  currentSupply,
 }) => {
   const formatMetric = (metricValue: number) =>
     numeral(metricValue).format('0.00a').toString().toUpperCase()
+  const formattedSupplyCap = () =>
+    numeral(supplyCap).format('0,0').toString().toUpperCase()
 
   const streamingFee = fees?.streamingFee && (
     <StyledStat>
@@ -29,6 +34,17 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
       <StyledStatMetric>{fees?.streamingFee}</StyledStatMetric>
     </StyledStat>
   )
+
+  const supplyCapStat = supplyCap != undefined && (
+    <StyledStat>
+      <StyledStatTitle>Supply Cap</StyledStatTitle>
+      <StyledStatMetric>{formattedSupplyCap()}</StyledStatMetric>
+    </StyledStat>
+  )
+
+  const formattedCurrentSupply = currentSupply
+    ? numeral(currentSupply?.toString() || '0').format('0,0')
+    : '--'
 
   return (
     <ProductPageSection title='Stats'>
@@ -47,10 +63,9 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
         </StyledStat>
         <StyledStat>
           <StyledStatTitle>Current Supply</StyledStatTitle>
-          <StyledStatMetric>
-            {numeral((latestMarketCap || 0) / (latestPrice || 1)).format('0,0')}
-          </StyledStatMetric>
+          <StyledStatMetric>{formattedCurrentSupply}</StyledStatMetric>
         </StyledStat>
+        {supplyCapStat}
         {streamingFee}
       </PriceStatsContainer>
     </ProductPageSection>

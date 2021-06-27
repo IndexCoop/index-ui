@@ -21,7 +21,7 @@ const MviMarketDataProvider: React.FC = ({ children }) => {
     <MarketDataContext.Provider
       value={{
         ...mviMarketData,
-        latestPrice: selectLatestMarketData(mviMarketData?.prices),
+        latestPrice: selectLatestMarketData(mviMarketData?.hourlyPrices),
         latestMarketCap: selectLatestMarketData(mviMarketData?.marketcaps),
         latestVolume: selectLatestMarketData(mviMarketData?.volumes),
       }}

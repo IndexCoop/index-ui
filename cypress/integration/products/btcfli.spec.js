@@ -81,6 +81,8 @@ describe('BTC2x-FLI', () => {
       cy.get(':nth-child(3) > .sc-fiCYzP').should('not.be.empty')
       cy.get(':nth-child(4) > .sc-hfVBHA').should('not.be.empty')
       cy.get(':nth-child(4) > .sc-hfVBHA').should('not.be.empty')
+      cy.get(':nth-child(5) > .sc-hfVBHA').should('not.be.empty')
+      cy.get(':nth-child(5) > .sc-fiCYzP').should('not.be.empty')
     })
   })
 

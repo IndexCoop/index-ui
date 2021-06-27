@@ -151,7 +151,7 @@ const Stake: React.FC = () => {
               </div>
 
               <div>
-                <StyledFarmText>{mviRewardsApy}% APY</StyledFarmText>
+                <StyledFarmText>{mviRewardsApy}% APR</StyledFarmText>
                 <StyledSectionLabel>(Volatile)</StyledSectionLabel>
               </div>
 

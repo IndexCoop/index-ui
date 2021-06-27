@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import ExternalLink from 'components/ExternalLink'
+import numeral from 'numeral'
 import { toast } from 'react-toastify'
 
 import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
@@ -21,6 +22,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
   const { components } = useEth2xFliIndexPortfolioData()
   const { ethfliBalance, ethfliTotalSupply } = useBalances()
   const supplyCap = process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || 1
+
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -31,6 +33,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: ethfliBalance,
     supplyCap: supplyCap,
+    currentSupply: ethfliTotalSupply,
   }
   const { account } = useWallet()
 
