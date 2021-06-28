@@ -21,6 +21,7 @@ import { WalletProvider } from 'contexts/Wallet'
 import { BuySellProvider } from 'contexts/BuySell'
 import { Eth2xFliTokenMarketDataProvider } from 'contexts/Eth2xFliTokenMarketData'
 import { Eth2xFliIndexPortfolioDataProvider } from 'contexts/Eth2xFliPortfolioData'
+import { Eth2xFliTokenTotalSupplyProvider } from 'contexts/Eth2xFliTokenTotalSupply'
 import { Btc2xFliTokenMarketDataProvider } from 'contexts/Btc2xFliTokenMarketData'
 import { Btc2xFliPortfolioDataProvider } from 'contexts/Btc2xFliPortfolioData'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
@@ -150,23 +151,25 @@ const Providers: React.FC = ({ children }) => {
                               <BuySellProvider>
                                 <Eth2xFliTokenMarketDataProvider>
                                   <Eth2xFliIndexPortfolioDataProvider>
-                                    <Btc2xFliTokenMarketDataProvider>
-                                      <Btc2xFliPortfolioDataProvider>
-                                        <DpiTokenMarketDataProvider>
-                                          <DpiIndexComponentsProvider>
-                                            <MviTokenMarketDataProvider>
-                                              <MviComponentsProvider>
-                                                <IndexTokenMarketDataProvider>
-                                                  <SnapshotProposalsProvider>
-                                                    {children}
-                                                  </SnapshotProposalsProvider>
-                                                </IndexTokenMarketDataProvider>
-                                              </MviComponentsProvider>
-                                            </MviTokenMarketDataProvider>
-                                          </DpiIndexComponentsProvider>
-                                        </DpiTokenMarketDataProvider>
-                                      </Btc2xFliPortfolioDataProvider>
-                                    </Btc2xFliTokenMarketDataProvider>
+                                    <Eth2xFliTokenTotalSupplyProvider>
+                                      <Btc2xFliTokenMarketDataProvider>
+                                        <Btc2xFliPortfolioDataProvider>
+                                          <DpiTokenMarketDataProvider>
+                                            <DpiIndexComponentsProvider>
+                                              <MviTokenMarketDataProvider>
+                                                <MviComponentsProvider>
+                                                  <IndexTokenMarketDataProvider>
+                                                    <SnapshotProposalsProvider>
+                                                      {children}
+                                                    </SnapshotProposalsProvider>
+                                                  </IndexTokenMarketDataProvider>
+                                                </MviComponentsProvider>
+                                              </MviTokenMarketDataProvider>
+                                            </DpiIndexComponentsProvider>
+                                          </DpiTokenMarketDataProvider>
+                                        </Btc2xFliPortfolioDataProvider>
+                                      </Btc2xFliTokenMarketDataProvider>
+                                    </Eth2xFliTokenTotalSupplyProvider>
                                   </Eth2xFliIndexPortfolioDataProvider>
                                 </Eth2xFliTokenMarketDataProvider>
                               </BuySellProvider>
