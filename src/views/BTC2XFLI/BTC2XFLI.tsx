@@ -150,7 +150,7 @@ const Btc2xFliProductPage = (props: { title: string }) => {
         (CLRt-1 -1)/CLRt-1)))
       </i>
       <h3>Calculation of the new Current Lever Ratio for the period:</h3>
-      <i>CLRt+1 = max(MINLR, min(MAXLR, TLR * (1 — RS) + CLRt * RS))</i>
+      <i>CLRt+1 = max(MINLR, min(MAXLR, CLRt * (1 - RS) + TLR * RS))</i>
       <h2>Fees:</h2>
       Flexible Leverage Index has a streaming fee of 1.95% (195 basis points)
       and a 0.1% (10 basis points) mint/redeem fee. The revenue generated from
