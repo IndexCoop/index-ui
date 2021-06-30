@@ -175,7 +175,7 @@ const TokenInputs: React.FC = () => {
         <StyledCurrencySelectWrapper>
           <StyledInputField
             ref={setTokenInputRef}
-            value={0}
+            value={amount}
             type='number'
             min='0'
             step='0.01'
@@ -203,7 +203,7 @@ const TokenInputs: React.FC = () => {
           <StyledInputField
             readOnly
             ref={currencyInputRef}
-            value={0}
+            value={zeroExTradeData?.displayBuyAmount.toFixed(6)}
             type='number'
             min='0'
             step='0.01'

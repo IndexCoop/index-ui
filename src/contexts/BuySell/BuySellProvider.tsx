@@ -83,7 +83,7 @@ const BuySellProvider: React.FC = ({ children }) => {
       setSellToken(buySellToken)
     }
 
-    const isExactInputTrade = activeField === 'currency'
+    const isExactInputTrade = !isUserBuying || activeField === 'currency'
 
     getZeroExTradeData(
       isUserBuying,
@@ -106,12 +106,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   ])
 
   const onExecuteBuySell = useCallback(async () => {
-    console.log('1')
-    console.log(account)
-    console.log(zeroExTradeData)
-    console.log(selectedCurrency)
     if (!account || !zeroExTradeData?.sellAmount || !selectedCurrency) return
-    console.log('2')
+
     let requiredBalance = new BigNumber(zeroExTradeData?.sellAmount).dividedBy(
       new BigNumber(10).pow(18)
     )
@@ -125,7 +121,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     // if (spendingTokenBalance?.isLessThan(requiredBalance)) return
 
     const web3 = new Web3(ethereum)
-    //console.log(web3)
+
     zeroExTradeData.from = account
     const tx = await web3.eth.sendTransaction(zeroExTradeData)
 

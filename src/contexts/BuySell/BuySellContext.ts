@@ -1,5 +1,4 @@
 import { createContext } from 'react'
-import { UniswapPriceData } from './types'
 import BigNumber from 'utils/bignumber'
 
 interface BuySellContextValues {
@@ -8,9 +7,6 @@ interface BuySellContextValues {
   isUserBuying: boolean
   activeField: 'currency' | 'set'
   selectedCurrency: any
-  // currencyQuantity: string | undefined
-  // tokenQuantity: string | undefined
-  // currencyOptions: any[]
   spendingTokenBalance: BigNumber
   zeroExTradeData: any | undefined
   currencyOptions: any[]
