@@ -14,6 +14,7 @@ import {
   indexTokenAddress,
   uniswapRouterAddress,
   sushiswapRouterAddress,
+  zeroExRouterAddress,
 } from 'constants/ethContractAddresses'
 
 /**
@@ -33,23 +34,16 @@ const BuySellButton: React.FC = () => {
     zeroExTradeData,
   } = useBuySell()
 
-  const isSushiswapTrade =
-    buySellToken === Bitcoin2xFlexibleLeverageIndex.tokensetsId
-
-  const tradeRouterAddress = isSushiswapTrade
-    ? sushiswapRouterAddress
-    : uniswapRouterAddress
-
   const { account, onOpenWalletModal } = useWallet()
 
-  const daiApproval = useApproval(daiTokenAddress, tradeRouterAddress)
-  const usdcApproval = useApproval(usdcTokenAddress, tradeRouterAddress)
-  const dpiApproval = useApproval(dpiTokenAddress, tradeRouterAddress)
+  const daiApproval = useApproval(daiTokenAddress, zeroExRouterAddress)
+  const usdcApproval = useApproval(usdcTokenAddress, zeroExRouterAddress)
+  const dpiApproval = useApproval(dpiTokenAddress, zeroExRouterAddress)
   const eth2xfliApproval = useApproval(
     eth2xfliTokenAddress,
     uniswapRouterAddress
   )
-  const indexApproval = useApproval(indexTokenAddress, uniswapRouterAddress)
+  const indexApproval = useApproval(indexTokenAddress, zeroExRouterAddress)
   const btc2xfliApproval = useApproval(
     btc2xfliTokenAddress,
     sushiswapRouterAddress
@@ -95,14 +89,18 @@ const BuySellButton: React.FC = () => {
     indexApproval.isApproving
 
   const daiApprovalRequired =
-    isUserBuying && selectedCurrency?.id === 'mcd' && !daiApproval.isApproved
+    isUserBuying && selectedCurrency?.label === 'DAI' && !daiApproval.isApproved
   const daiApproving =
-    isUserBuying && selectedCurrency?.id === 'mcd' && daiApproval.isApproving
+    isUserBuying && selectedCurrency?.label === 'DAI' && daiApproval.isApproving
 
   const usdcApprovalRequired =
-    isUserBuying && selectedCurrency?.id === 'usdc' && !usdcApproval.isApproved
+    isUserBuying &&
+    selectedCurrency?.label === 'USDC' &&
+    !usdcApproval.isApproved
   const usdcApproving =
-    isUserBuying && selectedCurrency?.id === 'usdc' && usdcApproval.isApproving
+    isUserBuying &&
+    selectedCurrency?.label === 'USDC' &&
+    usdcApproval.isApproving
 
   let buttonText: string
   let buttonAction: (...args: any[]) => any

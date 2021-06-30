@@ -1,5 +1,3 @@
-// import { UniswapTradeType } from 'uniswap-sdk/uniswap'
-// import { UniswapPriceData } from './types'
 import axios from 'axios'
 import { tokenInfo } from 'constants/tokenInfo'
 import querystring from 'querystring'
@@ -47,6 +45,9 @@ export const getZeroExTradeData = async (
   zeroExData.minOutput = isExactInput
     ? guaranteedPrice * zeroExData.displaySellAmount
     : parseFloat(amount)
+  zeroExData.maxInput = isExactInput
+    ? parseFloat(amount)
+    : guaranteedPrice * zeroExData.displayBuyAmount
 
   return zeroExData
 }

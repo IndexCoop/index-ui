@@ -62,11 +62,11 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = btcfliBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'mvi') {
     spendingTokenBalance = mviBalance || new BigNumber(0)
-  } else if (selectedCurrency === 'eth') {
+  } else if (selectedCurrency?.label === 'ETH') {
     spendingTokenBalance = ethBalance || new BigNumber(0)
-  } else if (selectedCurrency === 'mcd') {
+  } else if (selectedCurrency?.label === 'DAI') {
     spendingTokenBalance = daiBalance || new BigNumber(0)
-  } else if (selectedCurrency === 'usdc') {
+  } else if (selectedCurrency?.label === 'USDC') {
     spendingTokenBalance = usdcBalance || new BigNumber(0)
   }
 
@@ -112,13 +112,13 @@ const BuySellProvider: React.FC = ({ children }) => {
       new BigNumber(10).pow(18)
     )
 
-    // if (selectedCurrency === 'usdc') {
-    //   requiredBalance = new BigNumber(zeroExTradeData?.sellAmount || 0).dividedBy(
-    //     new BigNumber(10).pow(6)
-    //   );
-    // }
+    if (selectedCurrency === 'usdc') {
+      requiredBalance = new BigNumber(
+        zeroExTradeData?.sellAmount || 0
+      ).dividedBy(new BigNumber(10).pow(6))
+    }
 
-    // if (spendingTokenBalance?.isLessThan(requiredBalance)) return
+    if (spendingTokenBalance?.isLessThan(requiredBalance)) return
 
     const web3 = new Web3(ethereum)
 
