@@ -28,11 +28,9 @@ const BuySellButton: React.FC = () => {
     buySellToken,
     isFetchingOrderData,
     isUserBuying,
-    currencyQuantity,
-    tokenQuantity,
-    uniswapData,
     selectedCurrency,
     onExecuteBuySell,
+    zeroExTradeData,
   } = useBuySell()
 
   const isSushiswapTrade =
@@ -58,7 +56,7 @@ const BuySellButton: React.FC = () => {
   )
 
   // Only prompt the user at end of the buy flow. (So they can preview the order before logging in)
-  const loginRequiredBeforeSubmit = uniswapData?.amount_in && !account
+  const loginRequiredBeforeSubmit = zeroExTradeData?.sellAmount && !account
 
   const dpiApprovalRequired =
     !isUserBuying &&
@@ -150,7 +148,7 @@ const BuySellButton: React.FC = () => {
   return (
     <RoundedButton
       buttonClassName={buySellToken}
-      isDisabled={!currencyQuantity || !tokenQuantity}
+      isDisabled={false}
       isPending={isFetchingOrderData}
       text={buttonText}
       onClick={buttonAction}

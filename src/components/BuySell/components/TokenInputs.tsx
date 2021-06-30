@@ -5,6 +5,8 @@ import { useTheme } from 'react-neu'
 
 import useBuySell from 'hooks/useBuySell'
 import MaxButton from './MaxButton'
+import { getDisplayAdjustedAmount } from 'contexts/BuySell/utils'
+import { tokenInfo } from 'constants/tokenInfo'
 
 const TokenInputs: React.FC = () => {
   const {
@@ -12,14 +14,12 @@ const TokenInputs: React.FC = () => {
     isUserBuying,
     activeField,
     selectedCurrency,
-    currencyQuantity,
-    tokenQuantity,
-    currencyOptions,
-    uniswapData,
+    zeroExTradeData,
     onSetActiveField,
-    onSetCurrencyQuantity,
-    onSetTokenQuantity,
     onSetSelectedCurrency,
+    currencyOptions,
+    onSetAmount,
+    amount,
   } = useBuySell()
 
   const currencyInputRef = useRef<any>()
@@ -94,19 +94,19 @@ const TokenInputs: React.FC = () => {
         >
           <StyledCurrencyLabelWrapper>
             <StyledCurrencyLabel>Pay with</StyledCurrencyLabel>
-            <StyledCurrencyLabel>
+            {/* <StyledCurrencyLabel>
               {uniswapData?.display?.input_value_usd}
-            </StyledCurrencyLabel>
+            </StyledCurrencyLabel> */}
           </StyledCurrencyLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
               ref={currencyInputRef}
-              value={currencyQuantity}
+              value={amount}
               type='number'
               min='0'
               step='0.01'
               placeholder='0'
-              onChange={(e) => onSetCurrencyQuantity(e.target.value)}
+              onChange={(e) => onSetAmount(e.target.value)}
               onFocus={() => onSetActiveField('currency')}
             />
             <Select
@@ -126,19 +126,19 @@ const TokenInputs: React.FC = () => {
         >
           <StyledTokenLabelWrapper>
             <StyledCurrencyLabel>Buy (estimated)</StyledCurrencyLabel>
-            <StyledCurrencyLabel>
+            {/* <StyledCurrencyLabel>
               {uniswapData?.display?.output_value_usd}
-            </StyledCurrencyLabel>
+            </StyledCurrencyLabel> */}
           </StyledTokenLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
               ref={setTokenInputRef}
-              value={tokenQuantity}
+              value={zeroExTradeData?.displayBuyAmount.toFixed(6)}
               type='number'
               min='0'
               step='0.01'
               placeholder='0'
-              onChange={(e) => onSetTokenQuantity(e.target.value)}
+              onChange={(e) => onSetAmount(e.target.value)}
               onFocus={() => onSetActiveField('set')}
             />
             <StyledTargetTokenSymbol>
@@ -158,19 +158,19 @@ const TokenInputs: React.FC = () => {
       >
         <StyledTokenLabelWrapper>
           <StyledCurrencyLabel>Sell</StyledCurrencyLabel>
-          <StyledCurrencyLabel>
+          {/* <StyledCurrencyLabel>
             {uniswapData?.display?.input_value_usd}
-          </StyledCurrencyLabel>
+          </StyledCurrencyLabel> */}
         </StyledTokenLabelWrapper>
         <StyledCurrencySelectWrapper>
           <StyledInputField
             ref={setTokenInputRef}
-            value={tokenQuantity}
+            value={0}
             type='number'
             min='0'
             step='0.01'
             placeholder='0'
-            onChange={(e) => onSetTokenQuantity(e.target.value)}
+            onChange={(e) => onSetAmount(e.target.value)}
             onFocus={() => onSetActiveField('set')}
           />
           <StyledTargetTokenSymbol>
@@ -184,16 +184,16 @@ const TokenInputs: React.FC = () => {
       <StyledCurrencyContainer>
         <StyledCurrencyLabelWrapper>
           <StyledCurrencyLabel>Receive (estimated)</StyledCurrencyLabel>
-          <StyledCurrencyLabel>
+          {/* <StyledCurrencyLabel>
             {uniswapData?.display?.output_value_usd}
-          </StyledCurrencyLabel>
+          </StyledCurrencyLabel> */}
         </StyledCurrencyLabelWrapper>
 
         <StyledCurrencySelectWrapper>
           <StyledInputField
             readOnly
             ref={currencyInputRef}
-            value={currencyQuantity}
+            value={0}
             type='number'
             min='0'
             step='0.01'

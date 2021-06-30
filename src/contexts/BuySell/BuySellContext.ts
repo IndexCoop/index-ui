@@ -8,17 +8,18 @@ interface BuySellContextValues {
   isUserBuying: boolean
   activeField: 'currency' | 'set'
   selectedCurrency: any
-  currencyQuantity: string | undefined
-  tokenQuantity: string | undefined
-  currencyOptions: any[]
+  // currencyQuantity: string | undefined
+  // tokenQuantity: string | undefined
+  // currencyOptions: any[]
   spendingTokenBalance: BigNumber
-  uniswapData: UniswapPriceData | undefined
+  zeroExTradeData: any | undefined
+  currencyOptions: any[]
+  amount: string
   onSetBuySellToken: (tokenId: string) => void
   onToggleIsUserBuying: () => void
   onSetActiveField: (field: 'currency' | 'set') => void
   onSetSelectedCurrency: (selectedCurrency: any) => void
-  onSetCurrencyQuantity: (event: any) => void
-  onSetTokenQuantity: (event: any) => void
+  onSetAmount: (amount: string) => void
   onExecuteBuySell: () => void
 }
 
@@ -28,17 +29,15 @@ const BuySellContext = createContext<BuySellContextValues>({
   isUserBuying: true,
   activeField: 'currency',
   selectedCurrency: undefined,
-  currencyQuantity: undefined,
-  tokenQuantity: undefined,
-  currencyOptions: [],
   spendingTokenBalance: new BigNumber(0),
-  uniswapData: undefined,
+  zeroExTradeData: undefined,
+  currencyOptions: [],
+  amount: '0',
   onSetBuySellToken: () => {},
   onToggleIsUserBuying: () => {},
   onSetActiveField: () => {},
   onSetSelectedCurrency: () => {},
-  onSetCurrencyQuantity: () => {},
-  onSetTokenQuantity: () => {},
+  onSetAmount: () => {},
   onExecuteBuySell: () => {},
 })
 

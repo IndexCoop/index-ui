@@ -1,75 +1,57 @@
-import { UniswapTradeType } from 'uniswap-sdk/uniswap'
-import { UniswapPriceData } from './types'
+// import { UniswapTradeType } from 'uniswap-sdk/uniswap'
+// import { UniswapPriceData } from './types'
+import axios from 'axios'
+import { tokenInfo } from 'constants/tokenInfo'
+import querystring from 'querystring'
+import BigNumber from 'utils/bignumber'
 
-export const getUniswapTradeType = (
+export const getZeroExTradeData = async (
   isUserBuying: boolean,
-  selectedCurrency: string,
-  uniswapData: UniswapPriceData
-): UniswapTradeType => {
-  if (selectedCurrency !== 'wrapped_eth') {
-    return UniswapTradeType.SWAP_EXACT_TOKENS_FOR_TOKENS
+  sellToken: string,
+  buyToken: string,
+  amount: string
+) => {
+  const params: any = {
+    sellToken: tokenInfo[sellToken].address,
+    buyToken: tokenInfo[buyToken].address,
   }
 
-  if (isUserBuying && uniswapData.trade_type === 'exact_out') {
-    return UniswapTradeType.SWAP_ETH_FOR_EXACT_TOKENS
-  }
+  params.sellAmount = getDecimalAdjustedAmount(
+    amount,
+    tokenInfo[sellToken].decimals
+  )
 
-  if (isUserBuying && uniswapData.trade_type === 'exact_in') {
-    return UniswapTradeType.SWAP_EXACT_ETH_FOR_TOKENS
-  }
+  const resp = await axios.get(
+    `https://api.0x.org/swap/v1/quote?${querystring.stringify(params)}`
+  )
+  const zeroExData = resp.data
 
-  return UniswapTradeType.SWAP_EXACT_TOKENS_FOR_ETH
+  zeroExData.displaySellAmount = getDisplayAdjustedAmount(
+    zeroExData.sellAmount,
+    tokenInfo[sellToken].decimals
+  )
+  zeroExData.displayBuyAmount = getDisplayAdjustedAmount(
+    zeroExData.buyAmount,
+    tokenInfo[buyToken].decimals
+  )
+
+  const guaranteedPrice = zeroExData.guaranteedPrice as number
+  zeroExData.minOutput = guaranteedPrice * zeroExData.displaySellAmount
+
+  return zeroExData
 }
 
-export const getUniswapCallData = (
-  tradeType: UniswapTradeType,
-  uniswapData: UniswapPriceData,
-  userAddress: string
-) => {
-  const { amount_in, amount_out, path, deadline } = uniswapData
-
-  switch (tradeType) {
-    case UniswapTradeType.SWAP_EXACT_TOKENS_FOR_TOKENS:
-    case UniswapTradeType.SWAP_EXACT_TOKENS_FOR_ETH:
-      return [amount_in, amount_out, path, userAddress, deadline]
-
-    // When paying with ETH, input amount should be included in msg.value
-    case UniswapTradeType.SWAP_EXACT_ETH_FOR_TOKENS:
-    case UniswapTradeType.SWAP_ETH_FOR_EXACT_TOKENS:
-      return [amount_out, path, userAddress, deadline]
-
-    default:
-      return null
-  }
+export const getDisplayAdjustedAmount = (
+  amount: string,
+  decimals: number
+): number => {
+  return new BigNumber(amount)
+    .dividedBy(new BigNumber('1e' + decimals))
+    .toNumber()
 }
 
-export const getUniswapTransactionOptions = (
-  tradeType: UniswapTradeType,
-  uniswapData: UniswapPriceData,
-  userAddress: string
-) => {
-  const { gas_cost, gas_price, amount_in } = uniswapData
-
-  switch (tradeType) {
-    case UniswapTradeType.SWAP_EXACT_TOKENS_FOR_TOKENS:
-    case UniswapTradeType.SWAP_EXACT_TOKENS_FOR_ETH:
-      return {
-        from: userAddress,
-        gasPrice: gas_price,
-        gas: gas_cost,
-      }
-
-    // When paying with ETH, input amount should be included in msg.value
-    case UniswapTradeType.SWAP_EXACT_ETH_FOR_TOKENS:
-    case UniswapTradeType.SWAP_ETH_FOR_EXACT_TOKENS:
-      return {
-        from: userAddress,
-        gasPrice: gas_price,
-        gas: gas_cost,
-        value: amount_in,
-      }
-
-    default:
-      return null
-  }
+const getDecimalAdjustedAmount = (amount: string, decimals: number): number => {
+  return new BigNumber(amount)
+    .multipliedBy(new BigNumber('1e' + decimals))
+    .toNumber()
 }
