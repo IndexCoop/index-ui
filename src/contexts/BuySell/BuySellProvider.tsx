@@ -83,8 +83,11 @@ const BuySellProvider: React.FC = ({ children }) => {
       setSellToken(buySellToken)
     }
 
+    const isExactInputTrade = activeField === 'currency'
+
     getZeroExTradeData(
       isUserBuying,
+      isExactInputTrade,
       sellToken || '',
       buyToken || '',
       amount || ''

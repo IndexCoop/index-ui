@@ -85,6 +85,8 @@ const TokenInputs: React.FC = () => {
     value: token.id,
   }))
 
+  const isExactInput = activeField === 'currency'
+
   if (isUserBuying) {
     return (
       <>
@@ -101,7 +103,11 @@ const TokenInputs: React.FC = () => {
           <StyledCurrencySelectWrapper>
             <StyledInputField
               ref={currencyInputRef}
-              value={amount}
+              value={
+                isExactInput
+                  ? amount
+                  : zeroExTradeData?.displaySellAmount.toFixed(6)
+              }
               type='number'
               min='0'
               step='0.01'
@@ -133,7 +139,11 @@ const TokenInputs: React.FC = () => {
           <StyledCurrencySelectWrapper>
             <StyledInputField
               ref={setTokenInputRef}
-              value={zeroExTradeData?.displayBuyAmount.toFixed(6)}
+              value={
+                isExactInput
+                  ? zeroExTradeData?.displayBuyAmount.toFixed(6)
+                  : amount
+              }
               type='number'
               min='0'
               step='0.01'

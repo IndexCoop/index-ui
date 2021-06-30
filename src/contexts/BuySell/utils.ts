@@ -7,6 +7,7 @@ import BigNumber from 'utils/bignumber'
 
 export const getZeroExTradeData = async (
   isUserBuying: boolean,
+  isExactInput: boolean,
   sellToken: string,
   buyToken: string,
   amount: string
@@ -16,10 +17,17 @@ export const getZeroExTradeData = async (
     buyToken: tokenInfo[buyToken].address,
   }
 
-  params.sellAmount = getDecimalAdjustedAmount(
-    amount,
-    tokenInfo[sellToken].decimals
-  )
+  if (isExactInput) {
+    params.sellAmount = getDecimalAdjustedAmount(
+      amount,
+      tokenInfo[sellToken].decimals
+    )
+  } else {
+    params.buyAmount = getDecimalAdjustedAmount(
+      amount,
+      tokenInfo[buyToken].decimals
+    )
+  }
 
   const resp = await axios.get(
     `https://api.0x.org/swap/v1/quote?${querystring.stringify(params)}`
@@ -36,7 +44,9 @@ export const getZeroExTradeData = async (
   )
 
   const guaranteedPrice = zeroExData.guaranteedPrice as number
-  zeroExData.minOutput = guaranteedPrice * zeroExData.displaySellAmount
+  zeroExData.minOutput = isExactInput
+    ? guaranteedPrice * zeroExData.displaySellAmount
+    : parseFloat(amount)
 
   return zeroExData
 }
