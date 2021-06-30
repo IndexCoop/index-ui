@@ -141,6 +141,7 @@ const StyledColumn = styled.div<StyledColumnProps>`
   padding: 5px 10px 5px 30px;
   align-items: center;
   display: flex;
+  overflow: hidden;
 `
 
 const StyledColumnRow = styled.div`
