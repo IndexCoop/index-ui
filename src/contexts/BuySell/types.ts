@@ -14,4 +14,5 @@ export type ZeroExData = {
   maxInput: number
   gas: string | undefined
   gasPrice: string
+  formattedSources: string
 }

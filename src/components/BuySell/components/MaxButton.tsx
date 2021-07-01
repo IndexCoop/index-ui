@@ -11,9 +11,9 @@ const MaxButton: React.FC = () => {
     isUserBuying,
     selectedCurrency,
     spendingTokenBalance,
-    onSetActiveField,
     zeroExTradeData,
-    onSetAmount,
+    onSetActiveField,
+    onSetBuySellQuantity,
   } = useBuySell()
 
   const { account } = useWallet()
@@ -29,27 +29,26 @@ const MaxButton: React.FC = () => {
     spendingTokenSymbol = buySellToken.toUpperCase()
     buttonAction = () => {
       onSetActiveField('set')
-      onSetAmount(spendingTokenBalance.toString())
+      onSetBuySellQuantity(spendingTokenBalance.toString())
     }
   } else if (selectedCurrency?.label === 'ETH') {
     spendingTokenSymbol = selectedCurrency.label
     buttonAction = () => {
       onSetActiveField('currency')
-      onSetAmount(spendingTokenBalance.toString())
+      onSetBuySellQuantity(spendingTokenBalance.toString())
     }
   } else if (selectedCurrency?.label === 'DAI') {
     spendingTokenSymbol = selectedCurrency.label
     buttonAction = () => {
       onSetActiveField('currency')
-      onSetAmount(spendingTokenBalance.toString())
+      onSetBuySellQuantity(spendingTokenBalance.toString())
     }
   } else if (selectedCurrency?.label === 'USDC') {
     spendingTokenSymbol = selectedCurrency.label
     buttonAction = () => {
       onSetActiveField('currency')
-      onSetAmount(spendingTokenBalance.toString())
+      onSetBuySellQuantity(spendingTokenBalance.toString())
     }
-    requiredQuantity = new BigNumber(zeroExTradeData?.maxInput || 0)
   }
 
   const userHasSufficientFunds = spendingTokenBalance.isGreaterThanOrEqualTo(

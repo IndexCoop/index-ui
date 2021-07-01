@@ -11,12 +11,12 @@ interface BuySellContextValues {
   spendingTokenBalance: BigNumber
   zeroExTradeData: ZeroExData | undefined
   currencyOptions: any[]
-  amount: string
+  buySellQuantity: string
   onSetBuySellToken: (tokenId: string) => void
   onToggleIsUserBuying: () => void
   onSetActiveField: (field: 'currency' | 'set') => void
   onSetSelectedCurrency: (selectedCurrency: any) => void
-  onSetAmount: (amount: string) => void
+  onSetBuySellQuantity: (amount: string) => void
   onExecuteBuySell: () => void
 }
 
@@ -29,12 +29,12 @@ const BuySellContext = createContext<BuySellContextValues>({
   spendingTokenBalance: new BigNumber(0),
   zeroExTradeData: undefined,
   currencyOptions: [],
-  amount: '0',
+  buySellQuantity: '0',
   onSetBuySellToken: () => {},
   onToggleIsUserBuying: () => {},
   onSetActiveField: () => {},
   onSetSelectedCurrency: () => {},
-  onSetAmount: () => {},
+  onSetBuySellQuantity: () => {},
   onExecuteBuySell: () => {},
 })
 

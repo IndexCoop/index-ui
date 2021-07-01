@@ -9,19 +9,6 @@ const OrderSummary: React.FC = () => {
   const isOrderDataReady =
     Number(zeroExTradeData?.buyAmount) > 0 && !isFetchingOrderData
 
-  const activeSources: any[] = []
-  zeroExTradeData?.sources.forEach((source: any) => {
-    if (source.proportion !== '0') activeSources.push(source)
-  })
-
-  const sourceNames = activeSources.map((source) =>
-    source.name.replaceAll('_', ' ')
-  )
-  const tradeOrigin =
-    sourceNames.length === 1
-      ? sourceNames
-      : sourceNames.slice(0, -1).join(', ') + ' and ' + sourceNames.slice(-1)
-
   if (isOrderDataReady) {
     return (
       <StyledOrderSummaryContainer>
@@ -39,7 +26,9 @@ const OrderSummary: React.FC = () => {
         </StyledOrderSummaryValue>
 
         <StyledOrderSummaryLabel>Offered From</StyledOrderSummaryLabel>
-        <StyledOrderSummaryValue>{tradeOrigin}</StyledOrderSummaryValue>
+        <StyledOrderSummaryValue>
+          {zeroExTradeData?.formattedSources}
+        </StyledOrderSummaryValue>
       </StyledOrderSummaryContainer>
     )
   }

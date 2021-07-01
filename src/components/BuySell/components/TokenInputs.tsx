@@ -9,15 +9,15 @@ import MaxButton from './MaxButton'
 const TokenInputs: React.FC = () => {
   const {
     buySellToken,
+    buySellQuantity,
     isUserBuying,
     activeField,
     selectedCurrency,
+    currencyOptions,
     zeroExTradeData,
     onSetActiveField,
     onSetSelectedCurrency,
-    currencyOptions,
-    onSetAmount,
-    amount,
+    onSetBuySellQuantity,
   } = useBuySell()
 
   const currencyInputRef = useRef<any>()
@@ -103,14 +103,14 @@ const TokenInputs: React.FC = () => {
               ref={currencyInputRef}
               value={
                 isExactInput
-                  ? amount
+                  ? buySellQuantity
                   : zeroExTradeData?.displaySellAmount.toFixed(6)
               }
               type='number'
               min='0'
               step='0.01'
               placeholder='0'
-              onChange={(e) => onSetAmount(e.target.value)}
+              onChange={(e) => onSetBuySellQuantity(e.target.value)}
               onFocus={() => onSetActiveField('currency')}
             />
             <Select
@@ -140,13 +140,13 @@ const TokenInputs: React.FC = () => {
               value={
                 isExactInput
                   ? zeroExTradeData?.displayBuyAmount.toFixed(6)
-                  : amount
+                  : buySellQuantity
               }
               type='number'
               min='0'
               step='0.01'
               placeholder='0'
-              onChange={(e) => onSetAmount(e.target.value)}
+              onChange={(e) => onSetBuySellQuantity(e.target.value)}
               onFocus={() => onSetActiveField('set')}
             />
             <StyledTargetTokenSymbol>
@@ -173,12 +173,12 @@ const TokenInputs: React.FC = () => {
         <StyledCurrencySelectWrapper>
           <StyledInputField
             ref={setTokenInputRef}
-            value={amount}
+            value={buySellQuantity}
             type='number'
             min='0'
             step='0.01'
             placeholder='0'
-            onChange={(e) => onSetAmount(e.target.value)}
+            onChange={(e) => onSetBuySellQuantity(e.target.value)}
             onFocus={() => onSetActiveField('set')}
           />
           <StyledTargetTokenSymbol>

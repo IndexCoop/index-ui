@@ -7,7 +7,7 @@ import BuySellContext from './BuySellContext'
 import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { getZeroExTradeData } from './utils'
+import { getZeroExTradeData } from '../../utils/zeroExUtils'
 import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
@@ -19,9 +19,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
-  const [buyToken, setBuyToken] = useState<string>()
-  const [sellToken, setSellToken] = useState<string>()
-  const [amount, setAmount] = useState<string>('')
+  const [buySellQuantity, setBuySellQuantity] = useState<string>('')
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
   const [zeroExTradeData, setZeroExTradeData] = useState<ZeroExData>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
@@ -45,8 +43,6 @@ const BuySellProvider: React.FC = ({ children }) => {
   }: { account: string | null | undefined; ethereum: provider } = useWallet()
 
   useEffect(() => {
-    setSellToken('ETH')
-    setBuyToken(buySellToken)
     setCurrencyOptions(currencyTokens)
     setSelectedCurrency(currencyTokens[0])
   }, [])
@@ -71,25 +67,18 @@ const BuySellProvider: React.FC = ({ children }) => {
   }
 
   useEffect(() => {
-    if (!amount) return
+    if (!buySellQuantity) return
 
     setIsFetchingOrderData(true)
-
-    if (isUserBuying) {
-      setBuyToken(buySellToken)
-      setSellToken(selectedCurrency.label)
-    } else {
-      setBuyToken(selectedCurrency.label)
-      setSellToken(buySellToken)
-    }
 
     const isExactInputTrade = !isUserBuying || activeField === 'currency'
 
     getZeroExTradeData(
       isExactInputTrade,
-      sellToken || '',
-      buyToken || '',
-      amount || ''
+      isUserBuying,
+      selectedCurrency.label || '',
+      buySellToken || '',
+      buySellQuantity || ''
     ).then((data) => {
       setZeroExTradeData(data)
       setIsFetchingOrderData(false)
@@ -99,9 +88,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     selectedCurrency,
     activeField,
     buySellToken,
-    amount,
-    buyToken,
-    sellToken,
+    buySellQuantity,
   ])
 
   const onExecuteBuySell = useCallback(async () => {
@@ -182,8 +169,8 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   const onSetActiveField = (field: 'currency' | 'set') => setActiveField(field)
 
-  const onSetAmount = (amount: string) => {
-    setAmount(amount)
+  const onSetBuySellQuantity = (amount: string) => {
+    setBuySellQuantity(amount)
   }
 
   const onSetSelectedCurrency = (currency: string) => {
@@ -201,12 +188,12 @@ const BuySellProvider: React.FC = ({ children }) => {
         spendingTokenBalance,
         zeroExTradeData,
         currencyOptions,
-        amount,
+        buySellQuantity,
         onSetBuySellToken: setBuySellToken,
         onToggleIsUserBuying,
         onSetActiveField,
         onSetSelectedCurrency,
-        onSetAmount,
+        onSetBuySellQuantity,
         onExecuteBuySell,
       }}
     >

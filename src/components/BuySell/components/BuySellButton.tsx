@@ -27,7 +27,7 @@ const BuySellButton: React.FC = () => {
 
   const { account, onOpenWalletModal } = useWallet()
 
-  const loginRequiredBeforeSubmit = !account
+  const loginRequired = !account
 
   const tokenApproval = useApproval(
     zeroExTradeData?.sellTokenAddress,
@@ -36,13 +36,16 @@ const BuySellButton: React.FC = () => {
 
   const tokenApprovalRequired = !tokenApproval.isApproved
   const tokenApproving = tokenApproval.isApproving
+  const ignoreApproval =
+    zeroExTradeData?.sellTokenAddress === ethTokenAddress ||
+    zeroExTradeData?.sellTokenAddress === undefined
 
   let buttonText: string
   let buttonAction: (...args: any[]) => any
-  if (tokenApproving) {
+  if (tokenApproving && !ignoreApproval) {
     buttonText = 'Approving'
     buttonAction = () => {}
-  } else if (tokenApprovalRequired) {
+  } else if (tokenApprovalRequired && !ignoreApproval) {
     buttonText = 'Approve Tokens'
     buttonAction = tokenApproval.onApprove
   } else if (isUserBuying) {
@@ -53,20 +56,7 @@ const BuySellButton: React.FC = () => {
     buttonAction = onExecuteBuySell
   }
 
-  if (
-    zeroExTradeData?.sellTokenAddress === ethTokenAddress ||
-    zeroExTradeData?.sellTokenAddress === undefined
-  ) {
-    if (isUserBuying) {
-      buttonText = 'Buy'
-      buttonAction = onExecuteBuySell
-    } else {
-      buttonText = 'Sell'
-      buttonAction = onExecuteBuySell
-    }
-  }
-
-  if (loginRequiredBeforeSubmit) {
+  if (loginRequired) {
     buttonText = 'Login'
     buttonAction = onOpenWalletModal
   }
@@ -74,7 +64,7 @@ const BuySellButton: React.FC = () => {
   return (
     <RoundedButton
       buttonClassName={buySellToken}
-      isDisabled={!zeroExTradeData && buttonText !== 'Login'}
+      isDisabled={!zeroExTradeData && !loginRequired}
       isPending={isFetchingOrderData}
       text={buttonText}
       onClick={buttonAction}
