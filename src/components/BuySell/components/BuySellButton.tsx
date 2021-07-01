@@ -74,7 +74,7 @@ const BuySellButton: React.FC = () => {
   return (
     <RoundedButton
       buttonClassName={buySellToken}
-      isDisabled={false}
+      isDisabled={!zeroExTradeData && buttonText !== 'Login'}
       isPending={isFetchingOrderData}
       text={buttonText}
       onClick={buttonAction}
