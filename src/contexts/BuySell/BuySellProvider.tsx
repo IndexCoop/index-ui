@@ -115,7 +115,12 @@ const BuySellProvider: React.FC = ({ children }) => {
     try {
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
-      const transactionId = (await tx).transactionHash
+      const transactionId: string = await new Promise((resolve, reject) => {
+        tx.on('transactionHash', (txId: string) => {
+          if (!txId) reject()
+          resolve(txId)
+        })
+      })
 
       onSetTransactionId(transactionId)
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
