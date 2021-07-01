@@ -121,6 +121,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     const web3 = new Web3(ethereum)
 
     zeroExTradeData.from = account
+    zeroExTradeData.gas = undefined // use metamask estimated gas limit
     const tx = web3.eth.sendTransaction(zeroExTradeData)
 
     try {
