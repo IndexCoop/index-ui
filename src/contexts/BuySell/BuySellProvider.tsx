@@ -104,7 +104,8 @@ const BuySellProvider: React.FC = ({ children }) => {
       ).dividedBy(new BigNumber(10).pow(6))
     }
 
-    if (spendingTokenBalance?.isLessThan(requiredBalance)) return
+    if (spendingTokenBalance?.isLessThan(requiredBalance.multipliedBy(0.99999)))
+      return
 
     const web3 = new Web3(ethereum)
 
