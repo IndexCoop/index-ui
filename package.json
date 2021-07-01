@@ -80,7 +80,7 @@
     "@types/styled-components": "^5.1.9",
     "@types/web3": "^1.2.2",
     "cypress": "^7.5.0",
-    "husky": "^4.3.0",
+    "husky": "^7.0.0",
     "lint-staged": "^11.0.0",
     "prettier": "2.3.0",
     "react-circular-progressbar": "^2.0.4",
