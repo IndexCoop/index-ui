@@ -86,7 +86,6 @@ const BuySellProvider: React.FC = ({ children }) => {
     const isExactInputTrade = !isUserBuying || activeField === 'currency'
 
     getZeroExTradeData(
-      isUserBuying,
       isExactInputTrade,
       sellToken || '',
       buyToken || '',

@@ -4,7 +4,6 @@ import querystring from 'querystring'
 import BigNumber from 'utils/bignumber'
 
 export const getZeroExTradeData = async (
-  isUserBuying: boolean,
   isExactInput: boolean,
   sellToken: string,
   buyToken: string,
