@@ -15,4 +15,6 @@ export type ZeroExData = {
   gas: string | undefined
   gasPrice: string
   formattedSources: string
+  buyTokenCost: string
+  sellTokenCost: string
 }

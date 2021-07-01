@@ -94,9 +94,9 @@ const TokenInputs: React.FC = () => {
         >
           <StyledCurrencyLabelWrapper>
             <StyledCurrencyLabel>Pay with</StyledCurrencyLabel>
-            {/* <StyledCurrencyLabel>
-              {uniswapData?.display?.input_value_usd}
-            </StyledCurrencyLabel> */}
+            <StyledCurrencyLabel>
+              ${zeroExTradeData?.sellTokenCost}
+            </StyledCurrencyLabel>
           </StyledCurrencyLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
@@ -130,9 +130,9 @@ const TokenInputs: React.FC = () => {
         >
           <StyledTokenLabelWrapper>
             <StyledCurrencyLabel>Buy (estimated)</StyledCurrencyLabel>
-            {/* <StyledCurrencyLabel>
-              {uniswapData?.display?.output_value_usd}
-            </StyledCurrencyLabel> */}
+            <StyledCurrencyLabel>
+              ${zeroExTradeData?.buyTokenCost}
+            </StyledCurrencyLabel>
           </StyledTokenLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
@@ -166,9 +166,9 @@ const TokenInputs: React.FC = () => {
       >
         <StyledTokenLabelWrapper>
           <StyledCurrencyLabel>Sell</StyledCurrencyLabel>
-          {/* <StyledCurrencyLabel>
-            {uniswapData?.display?.input_value_usd}
-          </StyledCurrencyLabel> */}
+          <StyledCurrencyLabel>
+            ${zeroExTradeData?.sellTokenCost}
+          </StyledCurrencyLabel>
         </StyledTokenLabelWrapper>
         <StyledCurrencySelectWrapper>
           <StyledInputField
@@ -192,9 +192,9 @@ const TokenInputs: React.FC = () => {
       <StyledCurrencyContainer>
         <StyledCurrencyLabelWrapper>
           <StyledCurrencyLabel>Receive (estimated)</StyledCurrencyLabel>
-          {/* <StyledCurrencyLabel>
-            {uniswapData?.display?.output_value_usd}
-          </StyledCurrencyLabel> */}
+          <StyledCurrencyLabel>
+            ${zeroExTradeData?.buyTokenCost}
+          </StyledCurrencyLabel>
         </StyledCurrencyLabelWrapper>
 
         <StyledCurrencySelectWrapper>

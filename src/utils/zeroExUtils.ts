@@ -4,6 +4,10 @@ import BigNumber from 'utils/bignumber'
 
 import { tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
+import {
+  fetchCurrentPrice,
+  fetchHistoricalTokenMarketData,
+} from './coingeckoApi'
 
 export const getZeroExTradeData = async (
   isExactInput: boolean,
@@ -29,7 +33,7 @@ export const getZeroExTradeData = async (
   )
 
   const zeroExData: ZeroExData = resp.data
-  return processApiResult(
+  return await processApiResult(
     zeroExData,
     isExactInput,
     sellToken,
@@ -65,13 +69,13 @@ const getApiParams = (
   return params
 }
 
-const processApiResult = (
+const processApiResult = async (
   zeroExData: ZeroExData,
   isExactInput: boolean,
   sellToken: string,
   buyToken: string,
   buySellAmount: string
-): ZeroExData => {
+): Promise<ZeroExData> => {
   zeroExData.displaySellAmount = getDisplayAdjustedAmount(
     zeroExData.sellAmount,
     tokenInfo[sellToken].decimals
@@ -90,6 +94,18 @@ const processApiResult = (
     : guaranteedPrice * zeroExData.displayBuyAmount
 
   zeroExData.formattedSources = formatSources(zeroExData.sources)
+
+  const buyTokenPrice = await fetchCurrentPrice(tokenInfo[buyToken].address)
+  zeroExData.buyTokenCost = (
+    buyTokenPrice * zeroExData.displayBuyAmount
+  ).toFixed(2)
+
+  const sellTokenPrice: number = await fetchCurrentPrice(
+    tokenInfo[sellToken].address
+  )
+  zeroExData.sellTokenCost = (
+    sellTokenPrice * zeroExData.displaySellAmount
+  ).toFixed(2)
 
   return zeroExData
 }
