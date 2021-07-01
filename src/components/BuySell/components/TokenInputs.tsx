@@ -80,7 +80,7 @@ const TokenInputs: React.FC = () => {
 
   const tokenPaymentOptions = currencyOptions.map((token: any) => ({
     ...token,
-    value: token.id,
+    value: token.label,
   }))
 
   const isExactInput = activeField === 'currency'
