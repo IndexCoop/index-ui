@@ -12,7 +12,6 @@ import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
-import { tokenInfo } from 'constants/tokenInfo'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
@@ -122,12 +121,12 @@ const BuySellProvider: React.FC = ({ children }) => {
     const web3 = new Web3(ethereum)
 
     zeroExTradeData.from = account
-    const tx = await web3.eth.sendTransaction(zeroExTradeData)
+    const tx = web3.eth.sendTransaction(zeroExTradeData)
 
     try {
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
-      const transactionId = tx.transactionHash
+      const transactionId = (await tx).transactionHash
 
       onSetTransactionId(transactionId)
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)

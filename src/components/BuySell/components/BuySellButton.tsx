@@ -8,7 +8,6 @@ import {
   ethTokenAddress,
   zeroExRouterAddress,
 } from 'constants/ethContractAddresses'
-import { tokenInfo } from 'constants/tokenInfo'
 
 /**
  * BuySellButton - Displays a button used in the buy sell flow.

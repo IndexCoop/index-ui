@@ -5,8 +5,6 @@ import { useTheme } from 'react-neu'
 
 import useBuySell from 'hooks/useBuySell'
 import MaxButton from './MaxButton'
-import { getDisplayAdjustedAmount } from 'contexts/BuySell/utils'
-import { tokenInfo } from 'constants/tokenInfo'
 
 const TokenInputs: React.FC = () => {
   const {
