@@ -65,7 +65,7 @@ const getApiParams = (
   return params
 }
 
-// Adds some additional information to the ZeroExData return object. This extra information is only used for display purposed, and
+// Adds some additional information to the ZeroExData return object. This extra information is only used for display purposes, and
 // will have no effect on the outcome of the transaction
 const processApiResult = async (
   zeroExData: ZeroExData,

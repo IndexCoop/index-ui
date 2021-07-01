@@ -13,7 +13,6 @@ import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
 import { ZeroExData } from './types'
-import { reject } from 'lodash'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
@@ -120,7 +119,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         tx.on('transactionHash', (txId: string) => {
           if (!txId) reject()
           resolve(txId)
-        }).once('error', () => {
+        }).on('error', () => {
           resolve('0')
         })
       })
