@@ -13,6 +13,7 @@ export const getZeroExTradeData = async (
   const params: any = {
     sellToken: tokenInfo[sellToken].address,
     buyToken: tokenInfo[buyToken].address,
+    excludedSources: 'MultiHop', // MultiHop is usually not worth the gas price
   }
 
   if (isExactInput) {

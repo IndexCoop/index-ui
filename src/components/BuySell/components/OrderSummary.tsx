@@ -4,9 +4,7 @@ import styled from 'styled-components'
 import useBuySell from 'hooks/useBuySell'
 
 const OrderSummary: React.FC = () => {
-  const { isFetchingOrderData, buySellToken, zeroExTradeData } = useBuySell()
-  //const premiumStr = zeroExTradeData?.display?.slippage || '0.00%'
-  //const highPremium = parseFloat(premiumStr) > 5
+  const { isFetchingOrderData, zeroExTradeData } = useBuySell()
 
   const isOrderDataReady =
     Number(zeroExTradeData?.buyAmount) > 0 && !isFetchingOrderData
@@ -20,7 +18,9 @@ const OrderSummary: React.FC = () => {
     source.name.replaceAll('_', ' ')
   )
   const tradeOrigin =
-    sourceNames.slice(0, -1).join(', ') + ' and ' + sourceNames.slice(-1)
+    sourceNames.length === 1
+      ? sourceNames
+      : sourceNames.slice(0, -1).join(', ') + ' and ' + sourceNames.slice(-1)
 
   if (isOrderDataReady) {
     return (
@@ -29,11 +29,6 @@ const OrderSummary: React.FC = () => {
         <StyledOrderSummaryValue>
           {zeroExTradeData?.minOutput.toFixed(6)}
         </StyledOrderSummaryValue>
-
-        {/* <StyledOrderSummaryLabel>Premium</StyledOrderSummaryLabel>
-        <StyledOrderPremiumValue highPremium={highPremium}>
-          {uniswapData?.display?.slippage}
-        </StyledOrderPremiumValue> */}
 
         <StyledOrderSummaryLabel>Network Fee</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
