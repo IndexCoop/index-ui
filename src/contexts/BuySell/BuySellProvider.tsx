@@ -12,6 +12,7 @@ import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
+import { ZeroExData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
@@ -22,7 +23,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [sellToken, setSellToken] = useState<string>()
   const [amount, setAmount] = useState<string>('')
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
-  const [zeroExTradeData, setZeroExTradeData] = useState<any>()
+  const [zeroExTradeData, setZeroExTradeData] = useState<ZeroExData>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()

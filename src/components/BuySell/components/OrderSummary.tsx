@@ -27,7 +27,7 @@ const OrderSummary: React.FC = () => {
       <StyledOrderSummaryContainer>
         <StyledOrderSummaryLabel>Minimum Receive</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
-          {zeroExTradeData.minOutput.toFixed(6)}
+          {zeroExTradeData?.minOutput.toFixed(6)}
         </StyledOrderSummaryValue>
 
         {/* <StyledOrderSummaryLabel>Premium</StyledOrderSummaryLabel>
@@ -37,7 +37,10 @@ const OrderSummary: React.FC = () => {
 
         <StyledOrderSummaryLabel>Network Fee</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
-          {(zeroExTradeData?.gasPrice * zeroExTradeData?.gas) / 1e18 + ' ETH'}
+          {(parseFloat(zeroExTradeData?.gasPrice || '0') *
+            parseFloat(zeroExTradeData?.gas || '0')) /
+            1e18 +
+            ' ETH'}
         </StyledOrderSummaryValue>
 
         <StyledOrderSummaryLabel>Offered From</StyledOrderSummaryLabel>

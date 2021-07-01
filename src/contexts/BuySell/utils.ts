@@ -2,13 +2,14 @@ import axios from 'axios'
 import { tokenInfo } from 'constants/tokenInfo'
 import querystring from 'querystring'
 import BigNumber from 'utils/bignumber'
+import { ZeroExData } from './types'
 
 export const getZeroExTradeData = async (
   isExactInput: boolean,
   sellToken: string,
   buyToken: string,
   amount: string
-) => {
+): Promise<ZeroExData> => {
   const params: any = {
     sellToken: tokenInfo[sellToken].address,
     buyToken: tokenInfo[buyToken].address,
@@ -29,7 +30,7 @@ export const getZeroExTradeData = async (
   const resp = await axios.get(
     `https://api.0x.org/swap/v1/quote?${querystring.stringify(params)}`
   )
-  const zeroExData = resp.data
+  const zeroExData: ZeroExData = resp.data
 
   zeroExData.displaySellAmount = getDisplayAdjustedAmount(
     zeroExData.sellAmount,
@@ -40,7 +41,7 @@ export const getZeroExTradeData = async (
     tokenInfo[buyToken].decimals
   )
 
-  const guaranteedPrice = zeroExData.guaranteedPrice as number
+  const guaranteedPrice = parseFloat(zeroExData.guaranteedPrice)
   zeroExData.minOutput = isExactInput
     ? guaranteedPrice * zeroExData.displaySellAmount
     : parseFloat(amount)

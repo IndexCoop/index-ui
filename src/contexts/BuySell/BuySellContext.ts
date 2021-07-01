@@ -1,5 +1,6 @@
 import { createContext } from 'react'
 import BigNumber from 'utils/bignumber'
+import { ZeroExData } from './types'
 
 interface BuySellContextValues {
   buySellToken: string
@@ -8,7 +9,7 @@ interface BuySellContextValues {
   activeField: 'currency' | 'set'
   selectedCurrency: any
   spendingTokenBalance: BigNumber
-  zeroExTradeData: any | undefined
+  zeroExTradeData: ZeroExData | undefined
   currencyOptions: any[]
   amount: string
   onSetBuySellToken: (tokenId: string) => void
