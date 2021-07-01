@@ -48,6 +48,8 @@ export const getZeroExTradeData = async (
     ? parseFloat(amount)
     : guaranteedPrice * zeroExData.displayBuyAmount
 
+  zeroExData.gas = undefined // use metamask estimated gas limit instead
+
   return zeroExData
 }
 

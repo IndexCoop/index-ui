@@ -32,6 +32,7 @@ export const daiTokenAddress = process.env.REACT_APP_DAI_TOKEN_ADDRESS
 export const usdcTokenAddress = process.env.REACT_APP_USDC_TOKEN_ADDRESS
 export const btc2xfliTokenAddress =
   process.env.REACT_APP_BTC2X_FLI_TOKEN_ADDRESS
+export const ethTokenAddress = process.env.REACT_APP_ETH_TOKEN_ADDRESS
 
 // Uniswap Addresses
 export const uniswapEthDpiLpTokenAddress =

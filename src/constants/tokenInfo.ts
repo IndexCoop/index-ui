@@ -1,9 +1,11 @@
 import {
   btc2xfliTokenAddress,
+  daiTokenAddress,
   dpiTokenAddress,
   eth2xfliTokenAddress,
   indexTokenAddress,
   mviTokenAddress,
+  usdcTokenAddress,
 } from './ethContractAddresses'
 
 export const tokenInfo: any = {
@@ -27,16 +29,16 @@ export const tokenInfo: any = {
     address: indexTokenAddress,
     decimals: 18,
   },
-  ETH: {
-    address: 'ETH',
-    decimals: 18,
-  },
   DAI: {
-    address: 'DAI',
+    address: daiTokenAddress,
     decimals: 18,
   },
   USDC: {
-    address: 'USDC',
+    address: usdcTokenAddress,
     decimals: 6,
+  },
+  ETH: {
+    address: 'ETH',
+    decimals: 18,
   },
 }
