@@ -30,18 +30,22 @@ export const fetchHistoricalTokenMarketData = (
     .catch((error) => console.log(error))
 }
 
-export const fetchCurrentPrice = async (
+export const fetchCoingeckoTokenPrice = async (
   address: string,
   baseCurrency = 'usd'
 ): Promise<number> => {
-  console.log(address)
-  if (address === 'ETH') {
-    console.log('tets')
+  if (address === ethTokenAddress) {
     const getPriceUrl =
       baseURL + `/simple/price/?ids=ethereum&vs_currencies=${baseCurrency}`
+
     const resp = await fetch(getPriceUrl)
-    const data = await resp.json()
-    if (!data['ethereum']) return 0
+
+    const data = await resp.json().catch((err) => {
+      return 0
+    })
+
+    if (data === 0 || !data['ethereum']) return 0
+
     return data['ethereum'][baseCurrency]
   }
 
@@ -50,7 +54,12 @@ export const fetchCurrentPrice = async (
     `/simple/token_price/ethereum/?contract_addresses=${address}&vs_currencies=${baseCurrency}`
 
   const resp = await fetch(getPriceUrl)
-  const data = await resp.json()
-  if (!data[address.toLowerCase()]) return 0
+
+  const data = await resp.json().catch((err) => {
+    return 0
+  })
+
+  if (data === 0 || !data[address.toLowerCase()]) return 0
+
   return data[address.toLowerCase()][baseCurrency]
 }

@@ -4,10 +4,7 @@ import BigNumber from 'utils/bignumber'
 
 import { tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
-import {
-  fetchCurrentPrice,
-  fetchHistoricalTokenMarketData,
-} from './coingeckoApi'
+import { fetchCoingeckoTokenPrice } from './coingeckoApi'
 
 export const getZeroExTradeData = async (
   isExactInput: boolean,
@@ -51,7 +48,6 @@ const getApiParams = (
   const params: any = {
     sellToken: tokenInfo[sellToken].address,
     buyToken: tokenInfo[buyToken].address,
-    excludedSources: 'MultiHop', // MultiHop is usually not worth the gas price
   }
 
   if (isExactInput) {
@@ -69,6 +65,8 @@ const getApiParams = (
   return params
 }
 
+// Adds some additional information to the ZeroExData return object. This extra information is only used for display purposed, and
+// will have no effect on the outcome of the transaction
 const processApiResult = async (
   zeroExData: ZeroExData,
   isExactInput: boolean,
@@ -95,13 +93,16 @@ const processApiResult = async (
 
   zeroExData.formattedSources = formatSources(zeroExData.sources)
 
-  const buyTokenPrice = await fetchCurrentPrice(tokenInfo[buyToken].address)
+  //TODO: decouple getting proper price for zeroExUtils
+  const buyTokenPrice = await fetchCoingeckoTokenPrice(
+    zeroExData.buyTokenAddress
+  )
   zeroExData.buyTokenCost = (
     buyTokenPrice * zeroExData.displayBuyAmount
   ).toFixed(2)
 
-  const sellTokenPrice: number = await fetchCurrentPrice(
-    tokenInfo[sellToken].address
+  const sellTokenPrice: number = await fetchCoingeckoTokenPrice(
+    zeroExData.sellTokenAddress
   )
   zeroExData.sellTokenCost = (
     sellTokenPrice * zeroExData.displaySellAmount

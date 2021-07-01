@@ -7,12 +7,13 @@ import BuySellContext from './BuySellContext'
 import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { getZeroExTradeData } from '../../utils/zeroExUtils'
+import { getZeroExTradeData } from 'utils/zeroExUtils'
 import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
 import { ZeroExData } from './types'
+import { reject } from 'lodash'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
@@ -119,8 +120,12 @@ const BuySellProvider: React.FC = ({ children }) => {
         tx.on('transactionHash', (txId: string) => {
           if (!txId) reject()
           resolve(txId)
+        }).once('error', (err) => {
+          resolve('-1')
         })
       })
+
+      if (transactionId === '-1') throw new Error()
 
       onSetTransactionId(transactionId)
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
