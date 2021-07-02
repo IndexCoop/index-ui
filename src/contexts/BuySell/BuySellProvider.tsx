@@ -174,7 +174,18 @@ const BuySellProvider: React.FC = ({ children }) => {
     setIsUserBuying(!isUserBuying)
   }
 
-  const onSetActiveField = (field: 'currency' | 'set') => setActiveField(field)
+  const onSetActiveField = (field: 'currency' | 'set') => {
+    setActiveField(field)
+
+    if (!isUserBuying) return
+
+    // set BuySellQuantity to the correct value
+    if (field === 'set') {
+      setBuySellQuantity(zeroExTradeData?.displayBuyAmount.toFixed(6) || '')
+    } else {
+      setBuySellQuantity(zeroExTradeData?.displaySellAmount.toFixed(6) || '')
+    }
+  }
 
   const onSetBuySellQuantity = (amount: string) => {
     setBuySellQuantity(amount)

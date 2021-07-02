@@ -34,7 +34,7 @@ export const getZeroExTradeData = async (
     zeroExData,
     isExactInput,
     sellToken,
-    buySellToken,
+    buyToken,
     buySellAmount
   )
 }
