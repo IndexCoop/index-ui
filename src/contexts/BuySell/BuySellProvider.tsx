@@ -120,11 +120,9 @@ const BuySellProvider: React.FC = ({ children }) => {
           if (!txId) reject()
           resolve(txId)
         }).on('error', () => {
-          resolve('0')
+          reject()
         })
       })
-
-      if (transactionId === '0') throw new Error()
 
       onSetTransactionId(transactionId)
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
