@@ -2,40 +2,33 @@ import React from 'react'
 import styled from 'styled-components'
 
 import useBuySell from 'hooks/useBuySell'
-import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 
 const OrderSummary: React.FC = () => {
-  const { isFetchingOrderData, buySellToken, uniswapData } = useBuySell()
-  const premiumStr = uniswapData?.display?.slippage || '0.00%'
-  const highPremium = parseFloat(premiumStr) > 5
+  const { isFetchingOrderData, zeroExTradeData } = useBuySell()
 
   const isOrderDataReady =
-    Number(uniswapData?.amount_out) > 0 && !isFetchingOrderData
-
-  const isSushiswapTrade =
-    buySellToken === Bitcoin2xFlexibleLeverageIndex.tokensetsId
-  const tradeOrigin = isSushiswapTrade ? 'Sushiswap' : 'Uniswap'
+    Number(zeroExTradeData?.buyAmount) > 0 && !isFetchingOrderData
 
   if (isOrderDataReady) {
     return (
       <StyledOrderSummaryContainer>
         <StyledOrderSummaryLabel>Minimum Receive</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
-          {uniswapData?.display?.to_quantity}
+          {zeroExTradeData?.minOutput.toFixed(6)}
         </StyledOrderSummaryValue>
-
-        <StyledOrderSummaryLabel>Premium</StyledOrderSummaryLabel>
-        <StyledOrderPremiumValue highPremium={highPremium}>
-          {uniswapData?.display?.slippage}
-        </StyledOrderPremiumValue>
 
         <StyledOrderSummaryLabel>Network Fee</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
-          {uniswapData?.display?.gas_price_eth}
+          {(parseFloat(zeroExTradeData?.gasPrice || '0') *
+            parseFloat(zeroExTradeData?.gas || '0')) /
+            1e18 +
+            ' ETH'}
         </StyledOrderSummaryValue>
 
         <StyledOrderSummaryLabel>Offered From</StyledOrderSummaryLabel>
-        <StyledOrderSummaryValue>{tradeOrigin}</StyledOrderSummaryValue>
+        <StyledOrderSummaryValue>
+          {zeroExTradeData?.formattedSources}
+        </StyledOrderSummaryValue>
       </StyledOrderSummaryContainer>
     )
   }

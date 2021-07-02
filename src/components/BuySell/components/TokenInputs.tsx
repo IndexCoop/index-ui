@@ -9,17 +9,15 @@ import MaxButton from './MaxButton'
 const TokenInputs: React.FC = () => {
   const {
     buySellToken,
+    buySellQuantity,
     isUserBuying,
     activeField,
     selectedCurrency,
-    currencyQuantity,
-    tokenQuantity,
     currencyOptions,
-    uniswapData,
+    zeroExTradeData,
     onSetActiveField,
-    onSetCurrencyQuantity,
-    onSetTokenQuantity,
     onSetSelectedCurrency,
+    onSetBuySellQuantity,
   } = useBuySell()
 
   const currencyInputRef = useRef<any>()
@@ -82,8 +80,10 @@ const TokenInputs: React.FC = () => {
 
   const tokenPaymentOptions = currencyOptions.map((token: any) => ({
     ...token,
-    value: token.id,
+    value: token.label,
   }))
+
+  const isExactInput = activeField === 'currency'
 
   if (isUserBuying) {
     return (
@@ -95,18 +95,22 @@ const TokenInputs: React.FC = () => {
           <StyledCurrencyLabelWrapper>
             <StyledCurrencyLabel>Pay with</StyledCurrencyLabel>
             <StyledCurrencyLabel>
-              {uniswapData?.display?.input_value_usd}
+              ${zeroExTradeData?.sellTokenCost}
             </StyledCurrencyLabel>
           </StyledCurrencyLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
               ref={currencyInputRef}
-              value={currencyQuantity}
+              value={
+                isExactInput
+                  ? buySellQuantity
+                  : zeroExTradeData?.displaySellAmount.toFixed(6)
+              }
               type='number'
               min='0'
               step='0.01'
               placeholder='0'
-              onChange={(e) => onSetCurrencyQuantity(e.target.value)}
+              onChange={(e) => onSetBuySellQuantity(e.target.value)}
               onFocus={() => onSetActiveField('currency')}
             />
             <Select
@@ -127,18 +131,22 @@ const TokenInputs: React.FC = () => {
           <StyledTokenLabelWrapper>
             <StyledCurrencyLabel>Buy (estimated)</StyledCurrencyLabel>
             <StyledCurrencyLabel>
-              {uniswapData?.display?.output_value_usd}
+              ${zeroExTradeData?.buyTokenCost}
             </StyledCurrencyLabel>
           </StyledTokenLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
               ref={setTokenInputRef}
-              value={tokenQuantity}
+              value={
+                isExactInput
+                  ? zeroExTradeData?.displayBuyAmount.toFixed(6)
+                  : buySellQuantity
+              }
               type='number'
               min='0'
               step='0.01'
               placeholder='0'
-              onChange={(e) => onSetTokenQuantity(e.target.value)}
+              onChange={(e) => onSetBuySellQuantity(e.target.value)}
               onFocus={() => onSetActiveField('set')}
             />
             <StyledTargetTokenSymbol>
@@ -159,18 +167,18 @@ const TokenInputs: React.FC = () => {
         <StyledTokenLabelWrapper>
           <StyledCurrencyLabel>Sell</StyledCurrencyLabel>
           <StyledCurrencyLabel>
-            {uniswapData?.display?.input_value_usd}
+            ${zeroExTradeData?.sellTokenCost}
           </StyledCurrencyLabel>
         </StyledTokenLabelWrapper>
         <StyledCurrencySelectWrapper>
           <StyledInputField
             ref={setTokenInputRef}
-            value={tokenQuantity}
+            value={buySellQuantity}
             type='number'
             min='0'
             step='0.01'
             placeholder='0'
-            onChange={(e) => onSetTokenQuantity(e.target.value)}
+            onChange={(e) => onSetBuySellQuantity(e.target.value)}
             onFocus={() => onSetActiveField('set')}
           />
           <StyledTargetTokenSymbol>
@@ -185,7 +193,7 @@ const TokenInputs: React.FC = () => {
         <StyledCurrencyLabelWrapper>
           <StyledCurrencyLabel>Receive (estimated)</StyledCurrencyLabel>
           <StyledCurrencyLabel>
-            {uniswapData?.display?.output_value_usd}
+            ${zeroExTradeData?.buyTokenCost}
           </StyledCurrencyLabel>
         </StyledCurrencyLabelWrapper>
 
@@ -193,7 +201,7 @@ const TokenInputs: React.FC = () => {
           <StyledInputField
             readOnly
             ref={currencyInputRef}
-            value={currencyQuantity}
+            value={zeroExTradeData?.displayBuyAmount.toFixed(6)}
             type='number'
             min='0'
             step='0.01'

@@ -1,38 +1,28 @@
+import Web3 from 'web3'
 import React, { useState, useEffect, useCallback } from 'react'
 import { provider } from 'web3-core'
 
 import BigNumber from 'utils/bignumber'
 import BuySellContext from './BuySellContext'
-import { fetchTokenBuySellData } from 'utils/tokensetsApi'
 import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { useDebounce } from 'hooks/useDebounce'
-import { getUniswapTradeTransaction } from 'uniswap-sdk/uniswap'
-import {
-  getUniswapTradeType,
-  getUniswapCallData,
-  getUniswapTransactionOptions,
-} from './utils'
+import { getZeroExTradeData } from 'utils/zeroExUtils'
 import trackReferral from 'utils/referralApi'
 import { waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
-import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
 import { currencyTokens } from 'constants/currencyTokens'
-import { UniswapPriceData } from './types'
+import { ZeroExData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
+  const [buySellQuantity, setBuySellQuantity] = useState<string>('')
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
-  const [currencyQuantity, setCurrencyQuantity] = useState<string>()
-  const [tokenQuantity, setTokenQuantity] = useState<string>()
+  const [zeroExTradeData, setZeroExTradeData] = useState<ZeroExData>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
-  const [uniswapData, setUniswapData] = useState<UniswapPriceData>(
-    {} as UniswapPriceData
-  )
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
 
@@ -68,105 +58,71 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = btcfliBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'mvi') {
     spendingTokenBalance = mviBalance || new BigNumber(0)
-  } else if (selectedCurrency?.id === 'wrapped_eth') {
+  } else if (selectedCurrency?.label === 'ETH') {
     spendingTokenBalance = ethBalance || new BigNumber(0)
-  } else if (selectedCurrency?.id === 'mcd') {
+  } else if (selectedCurrency?.label === 'DAI') {
     spendingTokenBalance = daiBalance || new BigNumber(0)
-  } else if (selectedCurrency?.id === 'usdc') {
+  } else if (selectedCurrency?.label === 'USDC') {
     spendingTokenBalance = usdcBalance || new BigNumber(0)
   }
 
-  const debouncedCurrencyQuantity = useDebounce(currencyQuantity)
-  const debouncedTokenQuantity = useDebounce(tokenQuantity)
-  const targetTradeQuantity =
-    activeField === 'currency'
-      ? debouncedCurrencyQuantity
-      : debouncedTokenQuantity
-
   useEffect(() => {
-    if (!targetTradeQuantity) return
+    if (!buySellQuantity) return
 
     setIsFetchingOrderData(true)
-    fetchTokenBuySellData(
-      buySellToken,
+
+    const isExactInputTrade = !isUserBuying || activeField === 'currency'
+
+    getZeroExTradeData(
+      isExactInputTrade,
       isUserBuying,
-      targetTradeQuantity,
-      selectedCurrency?.id,
-      activeField
-    ).then((uniswapData: UniswapPriceData) => {
+      selectedCurrency.label || '',
+      buySellToken || '',
+      buySellQuantity || ''
+    ).then((data) => {
+      setZeroExTradeData(data)
       setIsFetchingOrderData(false)
-
-      if (!uniswapData) return setUniswapData({} as any)
-
-      setUniswapData(uniswapData)
-
-      // Populate the inactive field with API response
-      if (isUserBuying) {
-        if (activeField === 'currency') {
-          setTokenQuantity(uniswapData.display?.to_quantity)
-        } else {
-          setCurrencyQuantity(uniswapData.display?.from_quantity)
-        }
-      } else {
-        setCurrencyQuantity(uniswapData.display?.to_quantity)
-      }
     })
   }, [
     isUserBuying,
     selectedCurrency,
     activeField,
-    targetTradeQuantity,
     buySellToken,
+    buySellQuantity,
   ])
 
   const onExecuteBuySell = useCallback(async () => {
-    if (!account || !uniswapData?.amount_in || !selectedCurrency) return
+    if (!account || !zeroExTradeData?.sellAmount || !selectedCurrency) return
 
-    let requiredBalance = new BigNumber(uniswapData?.amount_in).dividedBy(
+    let requiredBalance = new BigNumber(zeroExTradeData?.sellAmount).dividedBy(
       new BigNumber(10).pow(18)
     )
 
-    if (selectedCurrency.id === 'usdc') {
-      requiredBalance = new BigNumber(uniswapData?.amount_in || 0).dividedBy(
-        new BigNumber(10).pow(6)
-      )
+    if (selectedCurrency === 'usdc') {
+      requiredBalance = new BigNumber(
+        zeroExTradeData?.sellAmount || 0
+      ).dividedBy(new BigNumber(10).pow(6))
     }
 
     if (spendingTokenBalance?.isLessThan(requiredBalance)) return
 
-    const uniswapTradeType = getUniswapTradeType(
-      isUserBuying,
-      selectedCurrency.id,
-      uniswapData
-    )
-    const uniswapCallData = getUniswapCallData(
-      uniswapTradeType,
-      uniswapData,
-      account
-    )
-    const transactionOptions = getUniswapTransactionOptions(
-      uniswapTradeType,
-      uniswapData,
-      account
-    )
+    const web3 = new Web3(ethereum)
 
-    if (!uniswapCallData || !transactionOptions) return
-
-    const isSushiswapTrade =
-      buySellToken === Bitcoin2xFlexibleLeverageIndex.tokensetsId
-
-    const uniswapTradeTransaction = getUniswapTradeTransaction(
-      ethereum,
-      uniswapTradeType,
-      uniswapCallData,
-      transactionOptions,
-      isSushiswapTrade
-    )
+    zeroExTradeData.from = account
+    zeroExTradeData.gas = undefined // use metamask estimated gas limit
+    const tx = web3.eth.sendTransaction(zeroExTradeData)
 
     try {
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
-      const transactionId = await uniswapTradeTransaction()
+      const transactionId: string = await new Promise((resolve, reject) => {
+        tx.on('transactionHash', (txId: string) => {
+          if (!txId) reject()
+          resolve(txId)
+        }).on('error', () => {
+          reject()
+        })
+      })
 
       onSetTransactionId(transactionId)
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
@@ -180,7 +136,7 @@ const BuySellProvider: React.FC = ({ children }) => {
           referralCode,
           transactionId as string,
           'COMPLETED',
-          selectedCurrency.id,
+          selectedCurrency,
           buySellToken,
           isUserBuying
         )
@@ -190,7 +146,7 @@ const BuySellProvider: React.FC = ({ children }) => {
           referralCode,
           transactionId as string,
           'PENDING OR FAILED',
-          selectedCurrency.id,
+          selectedCurrency,
           buySellToken,
           isUserBuying
         )
@@ -201,13 +157,13 @@ const BuySellProvider: React.FC = ({ children }) => {
   }, [
     account,
     isUserBuying,
-    uniswapData,
     selectedCurrency,
     buySellToken,
     ethereum,
     onSetTransactionId,
     onSetTransactionStatus,
     spendingTokenBalance,
+    zeroExTradeData,
   ])
 
   const onToggleIsUserBuying = () => {
@@ -217,14 +173,25 @@ const BuySellProvider: React.FC = ({ children }) => {
     }
     setIsUserBuying(!isUserBuying)
   }
-  const onSetActiveField = (field: 'currency' | 'set') => setActiveField(field)
-  const onSetCurrencyQuantity = (currencyQuantity: string) => {
-    setCurrencyQuantity(currencyQuantity)
+
+  const onSetActiveField = (field: 'currency' | 'set') => {
+    setActiveField(field)
+
+    if (!isUserBuying) return
+
+    // set BuySellQuantity to the correct value
+    if (field === 'set') {
+      setBuySellQuantity(zeroExTradeData?.displayBuyAmount.toFixed(6) || '')
+    } else {
+      setBuySellQuantity(zeroExTradeData?.displaySellAmount.toFixed(6) || '')
+    }
   }
-  const onSetTokenQuantity = (tokenQuantity: string) => {
-    setTokenQuantity(tokenQuantity)
+
+  const onSetBuySellQuantity = (amount: string) => {
+    setBuySellQuantity(amount)
   }
-  const onSetSelectedCurrency = (currency: any) => {
+
+  const onSetSelectedCurrency = (currency: string) => {
     setSelectedCurrency(currency)
   }
 
@@ -236,17 +203,15 @@ const BuySellProvider: React.FC = ({ children }) => {
         isUserBuying,
         activeField,
         selectedCurrency,
-        currencyQuantity,
-        tokenQuantity,
-        currencyOptions,
         spendingTokenBalance,
-        uniswapData,
+        zeroExTradeData,
+        currencyOptions,
+        buySellQuantity,
         onSetBuySellToken: setBuySellToken,
         onToggleIsUserBuying,
         onSetActiveField,
         onSetSelectedCurrency,
-        onSetCurrencyQuantity,
-        onSetTokenQuantity,
+        onSetBuySellQuantity,
         onExecuteBuySell,
       }}
     >

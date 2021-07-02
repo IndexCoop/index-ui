@@ -1,3 +1,5 @@
+import { ethTokenAddress } from 'constants/ethContractAddresses'
+
 const baseURL = 'https://api.coingecko.com/api/v3'
 
 export const fetchHistoricalTokenMarketData = (
@@ -26,4 +28,38 @@ export const fetchHistoricalTokenMarketData = (
       return { prices, hourlyPrices, marketcaps, volumes }
     })
     .catch((error) => console.log(error))
+}
+
+export const fetchCoingeckoTokenPrice = async (
+  address: string,
+  baseCurrency = 'usd'
+): Promise<number> => {
+  if (address === ethTokenAddress) {
+    const getPriceUrl =
+      baseURL + `/simple/price/?ids=ethereum&vs_currencies=${baseCurrency}`
+
+    const resp = await fetch(getPriceUrl)
+
+    const data = await resp.json().catch((err) => {
+      return 0
+    })
+
+    if (data === 0 || !data['ethereum']) return 0
+
+    return data['ethereum'][baseCurrency]
+  }
+
+  const getPriceUrl =
+    baseURL +
+    `/simple/token_price/ethereum/?contract_addresses=${address}&vs_currencies=${baseCurrency}`
+
+  const resp = await fetch(getPriceUrl)
+
+  const data = await resp.json().catch((err) => {
+    return 0
+  })
+
+  if (data === 0 || !data[address.toLowerCase()]) return 0
+
+  return data[address.toLowerCase()][baseCurrency]
 }

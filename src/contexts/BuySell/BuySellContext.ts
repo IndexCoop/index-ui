@@ -1,6 +1,6 @@
 import { createContext } from 'react'
-import { UniswapPriceData } from './types'
 import BigNumber from 'utils/bignumber'
+import { ZeroExData } from './types'
 
 interface BuySellContextValues {
   buySellToken: string
@@ -8,17 +8,15 @@ interface BuySellContextValues {
   isUserBuying: boolean
   activeField: 'currency' | 'set'
   selectedCurrency: any
-  currencyQuantity: string | undefined
-  tokenQuantity: string | undefined
-  currencyOptions: any[]
   spendingTokenBalance: BigNumber
-  uniswapData: UniswapPriceData | undefined
+  zeroExTradeData: ZeroExData | undefined
+  currencyOptions: any[]
+  buySellQuantity: string
   onSetBuySellToken: (tokenId: string) => void
   onToggleIsUserBuying: () => void
   onSetActiveField: (field: 'currency' | 'set') => void
   onSetSelectedCurrency: (selectedCurrency: any) => void
-  onSetCurrencyQuantity: (event: any) => void
-  onSetTokenQuantity: (event: any) => void
+  onSetBuySellQuantity: (amount: string) => void
   onExecuteBuySell: () => void
 }
 
@@ -28,17 +26,15 @@ const BuySellContext = createContext<BuySellContextValues>({
   isUserBuying: true,
   activeField: 'currency',
   selectedCurrency: undefined,
-  currencyQuantity: undefined,
-  tokenQuantity: undefined,
-  currencyOptions: [],
   spendingTokenBalance: new BigNumber(0),
-  uniswapData: undefined,
+  zeroExTradeData: undefined,
+  currencyOptions: [],
+  buySellQuantity: '0',
   onSetBuySellToken: () => {},
   onToggleIsUserBuying: () => {},
   onSetActiveField: () => {},
   onSetSelectedCurrency: () => {},
-  onSetCurrencyQuantity: () => {},
-  onSetTokenQuantity: () => {},
+  onSetBuySellQuantity: () => {},
   onExecuteBuySell: () => {},
 })
 

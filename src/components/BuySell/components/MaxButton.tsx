@@ -10,57 +10,49 @@ const MaxButton: React.FC = () => {
     buySellToken,
     isUserBuying,
     selectedCurrency,
-    uniswapData,
     spendingTokenBalance,
-    onSetCurrencyQuantity,
-    onSetTokenQuantity,
+    zeroExTradeData,
     onSetActiveField,
+    onSetBuySellQuantity,
   } = useBuySell()
 
   const { account } = useWallet()
 
   // Do not allow users to spend maximum ETH quantity due to gas cost complications
-  const isMaxSpendDisabled =
-    isUserBuying && selectedCurrency?.id === 'wrapped_eth'
+  const isMaxSpendDisabled = isUserBuying && selectedCurrency?.label === 'ETH'
 
   let spendingTokenSymbol = 'ETH'
   let buttonAction = () => {}
-  let requiredQuantity = new BigNumber(uniswapData?.amount_in || 0).dividedBy(
-    new BigNumber(10).pow(18)
-  )
+  let requiredQuantity = new BigNumber(zeroExTradeData?.maxInput || 0)
 
   if (!isUserBuying) {
     spendingTokenSymbol = buySellToken.toUpperCase()
     buttonAction = () => {
       onSetActiveField('set')
-      onSetTokenQuantity(spendingTokenBalance.toString())
+      onSetBuySellQuantity(spendingTokenBalance.toString())
     }
-  } else if (selectedCurrency?.id === 'wrapped_eth') {
+  } else if (selectedCurrency?.label === 'ETH') {
     spendingTokenSymbol = selectedCurrency.label
     buttonAction = () => {
       onSetActiveField('currency')
-      onSetCurrencyQuantity(spendingTokenBalance.toString())
+      onSetBuySellQuantity(spendingTokenBalance.toString())
     }
-  } else if (selectedCurrency?.id === 'mcd') {
+  } else if (selectedCurrency?.label === 'DAI') {
     spendingTokenSymbol = selectedCurrency.label
     buttonAction = () => {
       onSetActiveField('currency')
-      onSetCurrencyQuantity(spendingTokenBalance.toString())
+      onSetBuySellQuantity(spendingTokenBalance.toString())
     }
-  } else if (selectedCurrency?.id === 'usdc') {
+  } else if (selectedCurrency?.label === 'USDC') {
     spendingTokenSymbol = selectedCurrency.label
     buttonAction = () => {
       onSetActiveField('currency')
-      onSetCurrencyQuantity(spendingTokenBalance.toString())
+      onSetBuySellQuantity(spendingTokenBalance.toString())
     }
-    requiredQuantity = new BigNumber(uniswapData?.amount_in || 0).dividedBy(
-      new BigNumber(10).pow(6)
-    )
   }
 
-  const userHasSufficientFunds = spendingTokenBalance.isGreaterThanOrEqualTo(
-    requiredQuantity
-  )
+  const userHasSufficientFunds =
+    spendingTokenBalance.isGreaterThanOrEqualTo(requiredQuantity)
 
   if (!account) return null
 
