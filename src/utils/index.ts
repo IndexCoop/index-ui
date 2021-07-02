@@ -139,3 +139,21 @@ export const getTotalSupply = async (
     return '0'
   }
 }
+
+export const getSupplyCap = async (
+  tokenAddress: string,
+  abi: AbiItem,
+  provider: any //provider,
+): Promise<string> => {
+  const tokenContract = new ethers.Contract(
+    tokenAddress,
+    abi as unknown as string,
+    provider
+  )
+  try {
+    const cap: string = await tokenContract.supplyCap()
+    return cap
+  } catch (e) {
+    return '0'
+  }
+}

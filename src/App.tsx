@@ -21,7 +21,7 @@ import { WalletProvider } from 'contexts/Wallet'
 import { BuySellProvider } from 'contexts/BuySell'
 import { Eth2xFliTokenMarketDataProvider } from 'contexts/Eth2xFliTokenMarketData'
 import { Eth2xFliIndexPortfolioDataProvider } from 'contexts/Eth2xFliPortfolioData'
-import { Eth2xFliTokenTotalSupplyProvider } from 'contexts/Eth2xFliTokenTotalSupply'
+import { Eth2xFliTokenSupplyCapProvider } from 'contexts/Eth2xFliTokenSupplyCap'
 import { Btc2xFliTokenMarketDataProvider } from 'contexts/Btc2xFliTokenMarketData'
 import { Btc2xFliPortfolioDataProvider } from 'contexts/Btc2xFliPortfolioData'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
@@ -151,7 +151,7 @@ const Providers: React.FC = ({ children }) => {
                               <BuySellProvider>
                                 <Eth2xFliTokenMarketDataProvider>
                                   <Eth2xFliIndexPortfolioDataProvider>
-                                    <Eth2xFliTokenTotalSupplyProvider>
+                                    <Eth2xFliTokenSupplyCapProvider>
                                       <Btc2xFliTokenMarketDataProvider>
                                         <Btc2xFliPortfolioDataProvider>
                                           <DpiTokenMarketDataProvider>
@@ -169,7 +169,7 @@ const Providers: React.FC = ({ children }) => {
                                           </DpiTokenMarketDataProvider>
                                         </Btc2xFliPortfolioDataProvider>
                                       </Btc2xFliTokenMarketDataProvider>
-                                    </Eth2xFliTokenTotalSupplyProvider>
+                                    </Eth2xFliTokenSupplyCapProvider>
                                   </Eth2xFliIndexPortfolioDataProvider>
                                 </Eth2xFliTokenMarketDataProvider>
                               </BuySellProvider>
