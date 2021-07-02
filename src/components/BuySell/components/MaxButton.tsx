@@ -51,11 +51,8 @@ const MaxButton: React.FC = () => {
     }
   }
 
-  const userHasSufficientFunds = spendingTokenBalance.isGreaterThanOrEqualTo(
-    // the useBalance hook adds some rounding error when converting from precise units to human-readable units
-    // this 0.99999 factor allows for that error so as not break the use max button
-    requiredQuantity.multipliedBy(0.99999)
-  )
+  const userHasSufficientFunds =
+    spendingTokenBalance.isGreaterThanOrEqualTo(requiredQuantity)
 
   if (!account) return null
 

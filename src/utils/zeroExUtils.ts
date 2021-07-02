@@ -83,13 +83,17 @@ const processApiResult = async (
     tokenInfo[buyToken].decimals
   )
 
-  const guaranteedPrice = parseFloat(zeroExData.guaranteedPrice)
+  const guaranteedPrice = new BigNumber(zeroExData.guaranteedPrice)
   zeroExData.minOutput = isExactInput
-    ? guaranteedPrice * zeroExData.displaySellAmount
-    : parseFloat(buySellAmount)
+    ? guaranteedPrice
+        .multipliedBy(new BigNumber(zeroExData.sellAmount))
+        .dividedBy(new BigNumber('1e' + tokenInfo[sellToken].decimals))
+    : new BigNumber(buySellAmount)
   zeroExData.maxInput = isExactInput
-    ? parseFloat(buySellAmount)
-    : guaranteedPrice * zeroExData.displayBuyAmount
+    ? new BigNumber(buySellAmount)
+    : guaranteedPrice
+        .multipliedBy(new BigNumber(zeroExData.buyAmount))
+        .dividedBy(new BigNumber('1e' + tokenInfo[buyToken].decimals))
 
   zeroExData.formattedSources = formatSources(zeroExData.sources)
 

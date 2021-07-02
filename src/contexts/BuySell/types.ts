@@ -1,3 +1,5 @@
+import BigNumber from 'utils/bignumber'
+
 export type ZeroExData = {
   price: string
   guaranteedPrice: string
@@ -10,8 +12,8 @@ export type ZeroExData = {
   sources: { name: string; proportion: string }[]
   displayBuyAmount: number
   displaySellAmount: number
-  minOutput: number
-  maxInput: number
+  minOutput: BigNumber
+  maxInput: BigNumber
   gas: string | undefined
   gasPrice: string
   formattedSources: string
