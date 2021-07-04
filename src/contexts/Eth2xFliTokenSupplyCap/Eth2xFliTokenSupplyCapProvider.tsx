@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import TotalSupplyContext from './Eth2xFliTokenSupplyCapContext'
-import { getTotalSupply, getERC20Contract, getSupplyCap } from 'utils'
+import { getSupplyCap } from 'utils'
 
 import useWallet from 'hooks/useWallet'
 import SupplyCapIssuanceABI from './SupplyCapIssuanceHook.json'
 import { AbiItem } from 'web3-utils'
+import { provider } from 'web3-core'
 
 const Eth2xFliTokenSupplyCapProvider: React.FC = ({ children }) => {
   const { account, ethereum } = useWallet()
@@ -12,7 +13,11 @@ const Eth2xFliTokenSupplyCapProvider: React.FC = ({ children }) => {
 
   const [ethFliSupplyCap, setEthFliSupplyCap] = useState('123')
 
-  const fetchSupplyCap = async (address: any, abi: AbiItem, provider: any) => {
+  const fetchSupplyCap = async (
+    address: string,
+    abi: AbiItem,
+    provider: provider
+  ) => {
     const cap = await getSupplyCap(address, abi, provider)
     console.log('cap: ' + cap)
     setEthFliSupplyCap(cap)

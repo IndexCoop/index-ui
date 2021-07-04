@@ -6,21 +6,21 @@
     "configurations": [
 
         {
-            // "type": "pwa-chrome",
-            // "request": "launch",
-            // "name": "Launch Chrome against localhost",
-            // "url": "http://localhost:8080",
-            // "webRoot": "${workspaceFolder}",
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/src",
             
-            "name": "Attach to Process",
-            "type": "node",
-            "protocol": "inspector",
-            "request": "attach",
-            "stopOnEntry": false,
-            "port": 5858,
-            "localRoot": "${workspaceRoot}/src",
-            "remoteRoot": "C:/Users/Alex Svoboda/blockchain/IndexCoop/index-ui/src",
-            "sourceMaps": true           
+            // "name": "Attach to Process",
+            // "type": "node",
+            // "protocol": "inspector",
+            // "request": "attach",
+            // "stopOnEntry": false,
+            // "port": 5858,
+            // "localRoot": "${workspaceRoot}/src",
+            // "remoteRoot": "C:/Users/Alex Svoboda/blockchain/IndexCoop/index-ui/src",
+            // "sourceMaps": true           
         }
     ]
 }

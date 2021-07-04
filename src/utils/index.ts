@@ -140,20 +140,38 @@ export const getTotalSupply = async (
   }
 }
 
+// export const getSupplyCap = async (
+//   tokenAddress: string,
+//   abi: AbiItem,
+//   provider: provider,
+// ): Promise<string> => {
+//   const tokenContract = new ethers.Contract(
+//     tokenAddress,
+//     abi as unknown as string,
+//     provider as any
+//   )
+//   try {
+//     const cap: string = await tokenContract.supplyCap()
+//     return cap
+//   } catch (e) {
+//     return '0'
+//   }
+// }
+
 export const getSupplyCap = async (
   tokenAddress: string,
   abi: AbiItem,
-  provider: any //provider,
+  provider: provider
 ): Promise<string> => {
-  const tokenContract = new ethers.Contract(
-    tokenAddress,
-    abi as unknown as string,
-    provider
+  const web3 = new Web3(provider)
+  const tokenContract = new web3.eth.Contract(
+    abi as unknown as AbiItem,
+    tokenAddress
   )
   try {
-    const cap: string = await tokenContract.supplyCap()
+    const cap: string = await tokenContract.methods.supplyCap().call()
     return cap
   } catch (e) {
-    return '0'
+    return e
   }
 }
