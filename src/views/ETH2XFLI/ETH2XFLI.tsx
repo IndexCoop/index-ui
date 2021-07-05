@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import ExternalLink from 'components/ExternalLink'
-import numeral from 'numeral'
 import { toast } from 'react-toastify'
 
 import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
@@ -12,6 +11,7 @@ import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
 import useWallet from 'hooks/useWallet'
+import BigNumber from 'utils/bignumber'
 
 const Eth2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -23,8 +23,6 @@ const Eth2xFliProductPage = (props: { title: string }) => {
   const { components } = useEth2xFliIndexPortfolioData()
   const { ethfliBalance, ethfliTotalSupply } = useBalances()
   const { ethfliSupplyCap } = useEth2xFliTokenSupplyCap()
-  console.log('ETH2XFLI - ethfliSupplyCap: ' + ethfliSupplyCap)
-  //const totalSupply = process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP || 1
 
   const tokenDataProps: TokenDataProps = {
     prices: prices,
@@ -41,8 +39,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
   const { account } = useWallet()
 
   const isApproachingSupplyCap = ethfliTotalSupply
-    // ?.div(supplyCap) //fix later
-    ?.div(500000)
+    ?.div(ethfliSupplyCap as BigNumber)
     .isGreaterThan(0.95)
 
   useEffect(() => {

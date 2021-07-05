@@ -33,7 +33,7 @@ export interface TokenDataProps {
   token: ProductToken
   components: IndexComponent[] | undefined
   balance: BigNumber | undefined
-  supplyCap?: string | undefined
+  supplyCap?: BigNumber | undefined
   currentSupply?: BigNumber | undefined
 }
 

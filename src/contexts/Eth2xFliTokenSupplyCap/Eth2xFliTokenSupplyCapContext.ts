@@ -1,7 +1,8 @@
 import { createContext } from 'react'
+import BigNumber from 'utils/bignumber'
 
 interface Eth2xFliTokenSupplyCapValues {
-  ethfliSupplyCap?: string
+  ethfliSupplyCap?: BigNumber
 }
 
 const Eth2xFliTokenSupplyCap = createContext<Eth2xFliTokenSupplyCapValues>({})

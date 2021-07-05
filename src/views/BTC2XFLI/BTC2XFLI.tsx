@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import ExternalLink from 'components/ExternalLink'
 
+import useBtc2xFliTokenSupplyCap from 'hooks/useBtc2xFliTokenSupplyCap'
 import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
 import useBtc2xFliIndexPortfolioData from 'hooks/useBtc2xFliIndexPortfolioData'
 import useBalances from 'hooks/useBalances'
@@ -10,6 +11,7 @@ import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
 import useWallet from 'hooks/useWallet'
+import BigNumber from 'utils/bignumber'
 
 const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -20,7 +22,8 @@ const Btc2xFliProductPage = (props: { title: string }) => {
     useBtc2xFliTokenMarketData()
   const { components } = useBtc2xFliIndexPortfolioData()
   const { btcfliBalance, btcfliTotalSupply } = useBalances()
-  const supplyCap = process.env.REACT_APP_BTC2X_FLI_SUPPLY_CAP
+  const { btcfliSupplyCap } = useBtc2xFliTokenSupplyCap()
+
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -30,14 +33,13 @@ const Btc2xFliProductPage = (props: { title: string }) => {
     token: Bitcoin2xFlexibleLeverageIndex,
     components: components,
     balance: btcfliBalance,
-    supplyCap: supplyCap,
+    supplyCap: btcfliSupplyCap,
     currentSupply: btcfliTotalSupply,
   }
   const { account } = useWallet()
 
   const isApproachingSupplyCap = btcfliTotalSupply
-    // ?.div(supplyCap) //fix later
-    ?.div(500000)
+    ?.div(btcfliSupplyCap as BigNumber)
     .isGreaterThan(0.95)
 
   useEffect(() => {
