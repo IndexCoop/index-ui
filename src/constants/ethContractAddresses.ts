@@ -5,6 +5,10 @@ export const stakingRewardsAddress =
 export const farmTwoAddress = process.env.REACT_APP_FARM_TWO_ADDRESS
 export const mviStakingRewardsAddress =
   process.env.REACT_APP_MVI_STAKING_REWARDS_ADDRESS
+export const eth2xfliSuppyCapAddress =
+  process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP_ADDRESS
+export const btc2xfliSuppyCapAddress =
+  process.env.REACT_APP_BTC2X_FLI_SUPPLY_CAP_ADDRESS
 
 // Contributor Reward Addresses
 export const november2020RewardsAddress =

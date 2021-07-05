@@ -139,3 +139,21 @@ export const getTotalSupply = async (
     return '0'
   }
 }
+
+export const getSupplyCap = async (
+  tokenAddress: string,
+  abi: AbiItem,
+  provider: provider
+): Promise<string> => {
+  const web3 = new Web3(provider)
+  const tokenContract = new web3.eth.Contract(
+    abi as unknown as AbiItem,
+    tokenAddress
+  )
+  try {
+    const cap: string = await tokenContract.methods.supplyCap().call()
+    return cap
+  } catch (e) {
+    return '0'
+  }
+}
