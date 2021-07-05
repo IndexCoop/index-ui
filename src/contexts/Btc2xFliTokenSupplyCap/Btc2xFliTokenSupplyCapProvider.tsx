@@ -10,7 +10,7 @@ import BigNumber from 'utils/bignumber'
 
 const Btc2xFliTokenSupplyCapProvider: React.FC = ({ children }) => {
   const { account, ethereum } = useWallet()
-  const [btc2xfliSupplyCap, setBtc2xfliSupplyCap] = useState(new BigNumber(0))
+  const [btcFliSupplyCap, setBtcFliSupplyCap] = useState(new BigNumber(0))
 
   const fetchSupplyCap = async (
     address: string,
@@ -18,9 +18,7 @@ const Btc2xFliTokenSupplyCapProvider: React.FC = ({ children }) => {
     provider: provider
   ) => {
     const cap = await getSupplyCap(address, abi, provider)
-    setBtc2xfliSupplyCap(
-      new BigNumber(cap).dividedBy(new BigNumber(10).pow(18))
-    )
+    setBtcFliSupplyCap(new BigNumber(cap).dividedBy(new BigNumber(10).pow(18)))
   }
 
   useEffect(() => {
@@ -36,7 +34,7 @@ const Btc2xFliTokenSupplyCapProvider: React.FC = ({ children }) => {
   return (
     <TotalSupplyContext.Provider
       value={{
-        btcfliSupplyCap: btc2xfliSupplyCap,
+        btcfliSupplyCap: btcFliSupplyCap,
       }}
     >
       {children}
