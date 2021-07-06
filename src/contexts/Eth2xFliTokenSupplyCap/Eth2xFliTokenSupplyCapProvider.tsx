@@ -10,7 +10,7 @@ import BigNumber from 'utils/bignumber'
 
 const Eth2xFliTokenSupplyCapProvider: React.FC = ({ children }) => {
   const { account, ethereum } = useWallet()
-  const [ethFliSupplyCap, setEthFliSupplyCap] = useState(new BigNumber(0))
+  const [ethFliSupplyCap, setEthFliSupplyCap] = useState<BigNumber>()
 
   const fetchSupplyCap = async (
     address: string,
