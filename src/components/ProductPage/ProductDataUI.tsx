@@ -13,7 +13,6 @@ import {
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
 import MarketData from 'components/MarketData'
-import TransakBuySellButton from 'components/TransakBuySellButton'
 import IndexComponent from 'components/IndexComponent'
 
 import useLocalStorage from 'hooks/useLocalStorage'
@@ -76,9 +75,6 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           <MarketData tokenData={tokenData} />
           <div>
             <BuySellWrapper tokenId={tokenData.token.tokensetsId} />
-            {tokenData.token.symbol === DefiPulseIndex.symbol && (
-              <TransakBuySellButton />
-            )}
           </div>
         </ProductPageHeader>
         <ProductPageContent>
