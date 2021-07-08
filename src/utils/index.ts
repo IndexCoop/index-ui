@@ -5,6 +5,7 @@ import { provider, TransactionReceipt } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
 import ERC20ABI from 'index-sdk/abi/ERC20.json'
+import SupplyCapIssuanceABI from 'index-sdk/abi/SupplyCapIssuanceHook.json'
 
 const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -137,5 +138,22 @@ export const getTotalSupply = async (
     return balance
   } catch (e) {
     return '0'
+  }
+}
+
+export const getSupplyCap = async (
+  tokenAddress: string,
+  provider: provider
+): Promise<string> => {
+  const web3 = new Web3(provider)
+  const tokenContract = new web3.eth.Contract(
+    SupplyCapIssuanceABI as unknown as AbiItem,
+    tokenAddress
+  )
+  try {
+    const cap: string = await tokenContract.methods.supplyCap().call()
+    return cap
+  } catch (e) {
+    return '1'
   }
 }

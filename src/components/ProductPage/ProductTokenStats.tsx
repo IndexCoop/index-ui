@@ -12,7 +12,7 @@ interface ProductTokenStatsProps {
     streamingFee: string
   }
   netAssetValue: number
-  supplyCap: string | number | undefined
+  supplyCap: BigNumber | undefined
   currentSupply: BigNumber | undefined
 }
 
@@ -25,8 +25,9 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
 }) => {
   const formatMetric = (metricValue: number) =>
     numeral(metricValue).format('0.00a').toString().toUpperCase()
+
   const formattedSupplyCap = () =>
-    numeral(supplyCap).format('0,0').toString().toUpperCase()
+    supplyCap ? numeral(supplyCap?.toString() || '0').format('0,0') : '--'
 
   const streamingFee = fees?.streamingFee && (
     <StyledStat>
@@ -35,7 +36,7 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
     </StyledStat>
   )
 
-  const supplyCapStat = supplyCap != undefined && (
+  const supplyCapStat = (
     <StyledStat>
       <StyledStatTitle>Supply Cap</StyledStatTitle>
       <StyledStatMetric>{formattedSupplyCap()}</StyledStatMetric>
