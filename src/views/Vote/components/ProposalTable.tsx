@@ -56,7 +56,7 @@ const ProposalTable: React.FC = () => {
           
           const shouldDisplayProposal = proposalFilter || !searchTerm
 
-          if (passesFilter) {
+          if (shouldDisplayProposal) {
             return (
               <>
                 <StyledColumnRow>
