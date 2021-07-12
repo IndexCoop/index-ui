@@ -54,9 +54,6 @@ describe('DPI', () => {
       cy.get('.sc-dYXZXt > :nth-child(1)').should('contain', 'Buy (estimated)')
       cy.get('.sc-ckTSus').should('not.be.empty')
     })
-    it('should have Transak button', () => {
-      cy.get('.sc-FRrlG').should('not.be.empty')
-    })
   })
 
   context('Product Stats', () => {

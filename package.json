@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
-    "@transak/transak-sdk": "^1.0.28",
     "@types/canvas-confetti": "^1.4.0",
     "@types/lodash": "^4.14.169",
     "@types/numeral": "^2.0.1",
