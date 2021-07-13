@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
 
-import BigNumber from 'utils/bignumber'
 import {
   Button,
   ModalActions,
@@ -11,11 +10,9 @@ import {
 
 import Modal from 'components/CustomModal'
 import TokenInput from 'components/TokenInput'
-import useBalances from 'hooks/useBalances'
-import { getFullDisplayBalance } from 'utils'
 
 interface StakeModalProps extends ModalProps {
-  onStake: (amount: string) => void
+  onStake: (nftId: string) => void
 }
 
 const StakeModal: React.FC<StakeModalProps> = ({
@@ -24,11 +21,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
   onStake,
 }) => {
   const [val, setVal] = useState('')
-  const { uniswapEthDpiLpBalance } = useBalances()
-
-  const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(uniswapEthDpiLpBalance || new BigNumber(0), 0)
-  }, [uniswapEthDpiLpBalance])
 
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
@@ -36,10 +28,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
     },
     [setVal]
   )
-
-  const handleSelectMax = useCallback(() => {
-    setVal(fullBalance)
-  }, [fullBalance, setVal])
 
   const handleStakeClick = useCallback(() => {
     onStake(val)
@@ -51,9 +39,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
       <ModalContent>
         <TokenInput
           value={val}
-          onSelectMax={handleSelectMax}
+          onSelectMax={() => {}}
           onChange={handleChange}
-          max={fullBalance}
+          max={0}
           symbol='Uniswap ETH/DPI LP Tokens'
         />
       </ModalContent>

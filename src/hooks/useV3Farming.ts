@@ -1,19 +1,9 @@
-import {
-  getValidIds,
-  depositAndStake,
-  getAccruedRewardsAmount,
-  getAllDepositedTokens,
-  withdraw,
-  claimAccruedRewards,
-} from 'index-sdk/uniV3Farm'
+import { useContext } from 'react'
 
-export function useV3Farming() {
-  return {
-    getValidIds,
-    depositAndStake,
-    getAccruedRewardsAmount,
-    getAllDepositedTokens,
-    withdraw,
-    claimAccruedRewards,
-  }
+import { V3FarmingContext } from 'contexts/V3Farming'
+
+const useV3Farming = () => {
+  return { ...useContext(V3FarmingContext) }
 }
+
+export default useV3Farming

@@ -32,6 +32,7 @@ import { MviComponentsProvider } from 'contexts/MviComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { SnapshotProposalsProvider } from 'contexts/SnapshotProposals'
 import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
+import { V3FarmingProvider } from 'contexts/V3Farming'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -162,7 +163,9 @@ const Providers: React.FC = ({ children }) => {
                                                   <MviComponentsProvider>
                                                     <IndexTokenMarketDataProvider>
                                                       <SnapshotProposalsProvider>
-                                                        {children}
+                                                        <V3FarmingProvider>
+                                                          {children}
+                                                        </V3FarmingProvider>
                                                       </SnapshotProposalsProvider>
                                                     </IndexTokenMarketDataProvider>
                                                   </MviComponentsProvider>

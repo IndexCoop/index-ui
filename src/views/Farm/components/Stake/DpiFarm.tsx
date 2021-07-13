@@ -7,81 +7,30 @@ import useBalances from 'hooks/useBalances'
 import useFarmingTwo from 'hooks/useFarmingTwo'
 import useMediaQuery from 'hooks/useMediaQuery'
 import usePrices from 'hooks/usePrices'
+import useV3Farming from 'hooks/useV3Farming'
 import useWallet from 'hooks/useWallet'
 
 import DpiStakeModal from './components/DpiStakeModal'
 import Split from 'components/Split'
 
-// Testing imports
-import { useV3Farming } from 'hooks/useV3Farming'
-import { useEffect } from 'react'
-// End testing imports
-
 const Stake: React.FC = () => {
-  // Testing stuff
-  const { account, ethereum } = useWallet()
-
-  const {
-    getValidIds,
-    depositAndStake,
-    getAccruedRewardsAmount,
-    getAllDepositedTokens,
-    withdraw,
-    claimAccruedRewards,
-  } = useV3Farming()
-
-  useEffect(() => {
-    // getAllDepositedTokens(account || "", ethereum).then(res => {
-    //   console.log(res);
-    //   withdraw(res[0], account || "", "DPI-ETH", ethereum)
-    // })
-    // claimAccruedRewards(account || "", "0x1720668a1826c6f30a11780783b0357269b7e1ca", ethereum)
-    // getRewardsAmount(account || "", "0x1720668a1826c6f30a11780783b0357269b7e1ca", ethereum).then(res => {
-    //   console.log(res.toString())
-    // })
-    //claimRewards(account || "", "0x1720668a1826c6f30a11780783b0357269b7e1ca", ethereum)
-    // getAllDepositedTokens(0, account || "", ethereum).then(res => {
-    //   console.log(res)
-    // })
-  }, [
-    account,
-    ethereum,
-    getValidIds,
-    depositAndStake,
-    getAccruedRewardsAmount,
-    getAllDepositedTokens,
-    withdraw,
-    claimAccruedRewards,
-  ])
-
-  // Ends testing
+  const { isMobile } = useMediaQuery()
+  const { status } = useWallet()
+  const { onDeposit, onWithdraw, onClaimAccrued, getAllDepositedTokens } =
+    useV3Farming()
 
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
-
-  const { stakedFarmTwoBalance: stakedBalance, unharvestedFarmTwoBalance } =
-    useBalances()
-  const { status } = useWallet()
-  const {
-    isApproved,
-    isApproving,
-    onApprove,
-    onStake,
-    onUnstakeAndHarvest,
-    onHarvest,
-  } = useFarmingTwo()
-  const { farmTwoApy } = usePrices()
-  const { isMobile } = useMediaQuery()
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
   }, [setStakeModalIsOpen])
 
   const handleOnStake = useCallback(
-    (amount: string) => {
-      onStake(amount)
+    (nftId: string) => {
+      onDeposit(parseInt(nftId), 'DPI-ETH')
       handleDismissStakeModal()
     },
-    [handleDismissStakeModal, onStake]
+    [handleDismissStakeModal, onDeposit]
   )
 
   const handleStakeClick = useCallback(() => {
@@ -92,63 +41,47 @@ const Stake: React.FC = () => {
     if (status !== 'connected') {
       return <Button disabled full text='Stake' variant='secondary' />
     }
-    if (!isApproved) {
-      return (
-        <Button
-          disabled={isApproving}
-          full
-          onClick={onApprove}
-          text={!isApproving ? 'Approve staking' : 'Approving staking...'}
-          variant={
-            isApproving || status !== 'connected' ? 'secondary' : 'default'
-          }
-        />
-      )
-    }
+    return <Button full onClick={handleStakeClick} text='Stake' />
+  }, [status, handleStakeClick])
 
-    if (isApproved) {
-      return <Button full onClick={handleStakeClick} text='Stake' />
-    }
-  }, [isApproved, isApproving, status, handleStakeClick, onApprove])
+  // const UnstakeButton = useMemo(() => {
+  //   const hasStaked = stakedBalance && stakedBalance.toNumber() > 0
+  //   if (status !== 'connected' || !hasStaked) {
+  //     return <Button disabled full text='Unstake & Claim' variant='secondary' />
+  //   }
 
-  const UnstakeButton = useMemo(() => {
-    const hasStaked = stakedBalance && stakedBalance.toNumber() > 0
-    if (status !== 'connected' || !hasStaked) {
-      return <Button disabled full text='Unstake & Claim' variant='secondary' />
-    }
+  //   return (
+  //     <Button
+  //       full
+  //       onClick={onUnstakeAndHarvest}
+  //       text='Unstake & Claim'
+  //       variant='secondary'
+  //     />
+  //   )
+  // }, [stakedBalance, status, onUnstakeAndHarvest])
 
-    return (
-      <Button
-        full
-        onClick={onUnstakeAndHarvest}
-        text='Unstake & Claim'
-        variant='secondary'
-      />
-    )
-  }, [stakedBalance, status, onUnstakeAndHarvest])
+  // const ClaimButton = useMemo(() => {
+  //   if (status !== 'connected') {
+  //     return <Button disabled full text='Claim' variant='secondary' />
+  //   }
+  //   return <Button full onClick={onHarvest} text='Claim' />
+  // }, [status, onHarvest])
 
-  const ClaimButton = useMemo(() => {
-    if (status !== 'connected') {
-      return <Button disabled full text='Claim' variant='secondary' />
-    }
-    return <Button full onClick={onHarvest} text='Claim' />
-  }, [status, onHarvest])
+  // const formattedStakedBalance = useMemo(() => {
+  //   if (stakedBalance) {
+  //     return numeral(stakedBalance.toString()).format('0.00000a')
+  //   } else {
+  //     return '--'
+  //   }
+  // }, [stakedBalance])
 
-  const formattedStakedBalance = useMemo(() => {
-    if (stakedBalance) {
-      return numeral(stakedBalance.toString()).format('0.00000a')
-    } else {
-      return '--'
-    }
-  }, [stakedBalance])
-
-  const formattedEarnedBalance = useMemo(() => {
-    if (unharvestedFarmTwoBalance) {
-      return numeral(unharvestedFarmTwoBalance.toString()).format('0.00000a')
-    } else {
-      return '--'
-    }
-  }, [unharvestedFarmTwoBalance])
+  // const formattedEarnedBalance = useMemo(() => {
+  //   if (unharvestedFarmTwoBalance) {
+  //     return numeral(unharvestedFarmTwoBalance.toString()).format('0.00000a')
+  //   } else {
+  //     return '--'
+  //   }
+  // }, [unharvestedFarmTwoBalance])
 
   return (
     <>
@@ -174,7 +107,7 @@ const Stake: React.FC = () => {
             <Split>
               <div>
                 <StyledFarmText>
-                  {formattedStakedBalance}
+                  {/* {formattedStakedBalance} */}
                   <StyledTokenIcon
                     alt='eth dpi icon'
                     src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
@@ -186,13 +119,13 @@ const Stake: React.FC = () => {
               </div>
 
               <div>
-                <StyledFarmText>{farmTwoApy}% APR</StyledFarmText>
-                <StyledSectionLabel>(Volatile)</StyledSectionLabel>
+                {/* <StyledFarmText>{farmTwoApy}% APR</StyledFarmText> */}
+                {/* <StyledSectionLabel>(Volatile)</StyledSectionLabel> */}
               </div>
 
               <div>
                 <StyledFarmText>
-                  {formattedEarnedBalance}
+                  {/* {formattedEarnedBalance} */}
                   <StyledTokenIcon
                     alt='owl icon'
                     src='https://index-dao.s3.amazonaws.com/owl.png'
@@ -206,9 +139,9 @@ const Stake: React.FC = () => {
         <StyledCardActions isMobile={isMobile}>
           {StakeButton}
           <Spacer />
-          {ClaimButton}
+          {/* {ClaimButton} */}
           <Spacer />
-          {UnstakeButton}
+          {/* {UnstakeButton} */}
         </StyledCardActions>
       </Card>
       <DpiStakeModal
