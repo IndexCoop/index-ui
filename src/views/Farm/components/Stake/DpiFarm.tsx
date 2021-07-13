@@ -12,7 +12,50 @@ import useWallet from 'hooks/useWallet'
 import DpiStakeModal from './components/DpiStakeModal'
 import Split from 'components/Split'
 
+// Testing imports
+import { useV3Farming } from 'hooks/useV3Farming'
+import { useEffect } from 'react'
+// End testing imports
+
 const Stake: React.FC = () => {
+  // Testing stuff
+  const { account, ethereum } = useWallet()
+
+  const {
+    getValidIds,
+    depositAndStake,
+    getAccruedRewardsAmount,
+    getAllDepositedTokens,
+    withdraw,
+    claimAccruedRewards,
+  } = useV3Farming()
+
+  useEffect(() => {
+    // getAllDepositedTokens(account || "", ethereum).then(res => {
+    //   console.log(res);
+    //   withdraw(res[0], account || "", "DPI-ETH", ethereum)
+    // })
+    // claimAccruedRewards(account || "", "0x1720668a1826c6f30a11780783b0357269b7e1ca", ethereum)
+    // getRewardsAmount(account || "", "0x1720668a1826c6f30a11780783b0357269b7e1ca", ethereum).then(res => {
+    //   console.log(res.toString())
+    // })
+    //claimRewards(account || "", "0x1720668a1826c6f30a11780783b0357269b7e1ca", ethereum)
+    // getAllDepositedTokens(0, account || "", ethereum).then(res => {
+    //   console.log(res)
+    // })
+  }, [
+    account,
+    ethereum,
+    getValidIds,
+    depositAndStake,
+    getAccruedRewardsAmount,
+    getAllDepositedTokens,
+    withdraw,
+    claimAccruedRewards,
+  ])
+
+  // Ends testing
+
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
 
   const { stakedFarmTwoBalance: stakedBalance, unharvestedFarmTwoBalance } =
