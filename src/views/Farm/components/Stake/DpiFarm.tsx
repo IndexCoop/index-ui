@@ -1,7 +1,8 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import numeral from 'numeral'
 import { Button, Card, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
+import Web3 from 'web3'
 
 import useBalances from 'hooks/useBalances'
 import useFarmingTwo from 'hooks/useFarmingTwo'
@@ -15,11 +16,19 @@ import Split from 'components/Split'
 
 const Stake: React.FC = () => {
   const { isMobile } = useMediaQuery()
-  const { status } = useWallet()
-  const { onDeposit, onWithdraw, onClaimAccrued, getAllDepositedTokens } =
-    useV3Farming()
+  const { status, account } = useWallet()
+  const {
+    onDeposit,
+    onWithdraw,
+    onClaimAccrued,
+    getAllDepositedTokens,
+    getAccruedRewardsAmount,
+    getPendingRewardsAmount,
+  } = useV3Farming()
 
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
+  const [accruedRewards, setAccruedRewards] = useState('0')
+  const [pendingRewards, setPendingRewards] = useState('0')
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
@@ -36,6 +45,10 @@ const Stake: React.FC = () => {
   const handleStakeClick = useCallback(() => {
     setStakeModalIsOpen(true)
   }, [setStakeModalIsOpen])
+
+  const handleClaimAccruedClick = useCallback(() => {
+    onClaimAccrued('0x1720668a1826c6f30a11780783b0357269b7e1ca')
+  }, [onClaimAccrued])
 
   const StakeButton = useMemo(() => {
     if (status !== 'connected') {
@@ -60,12 +73,14 @@ const Stake: React.FC = () => {
   //   )
   // }, [stakedBalance, status, onUnstakeAndHarvest])
 
-  // const ClaimButton = useMemo(() => {
-  //   if (status !== 'connected') {
-  //     return <Button disabled full text='Claim' variant='secondary' />
-  //   }
-  //   return <Button full onClick={onHarvest} text='Claim' />
-  // }, [status, onHarvest])
+  const ClaimAccruedButton = useMemo(() => {
+    if (status !== 'connected' || accruedRewards === '0.00') {
+      return <Button disabled full text='Claim Accrued' variant='secondary' />
+    }
+    return (
+      <Button full onClick={handleClaimAccruedClick} text='Claim Accrued' />
+    )
+  }, [status, handleClaimAccruedClick, accruedRewards])
 
   // const formattedStakedBalance = useMemo(() => {
   //   if (stakedBalance) {
@@ -82,6 +97,24 @@ const Stake: React.FC = () => {
   //     return '--'
   //   }
   // }, [unharvestedFarmTwoBalance])
+
+  useEffect(() => {
+    getAccruedRewardsAmount('0x1720668a1826c6f30a11780783b0357269b7e1ca').then(
+      (amount) => {
+        setAccruedRewards(
+          parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(2)
+        )
+      }
+    )
+  }, [account, status])
+
+  useEffect(() => {
+    getPendingRewardsAmount('DPI-ETH').then((amount) => {
+      setPendingRewards(
+        parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(2)
+      )
+    })
+  }, [account, status])
 
   return (
     <>
@@ -125,13 +158,24 @@ const Stake: React.FC = () => {
 
               <div>
                 <StyledFarmText>
-                  {/* {formattedEarnedBalance} */}
+                  {pendingRewards}
                   <StyledTokenIcon
                     alt='owl icon'
                     src='https://index-dao.s3.amazonaws.com/owl.png'
                   />
                 </StyledFarmText>
-                <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
+                <StyledSectionLabel>Pending Rewards</StyledSectionLabel>
+              </div>
+
+              <div>
+                <StyledFarmText>
+                  {accruedRewards}
+                  <StyledTokenIcon
+                    alt='owl icon'
+                    src='https://index-dao.s3.amazonaws.com/owl.png'
+                  />
+                </StyledFarmText>
+                <StyledSectionLabel>Accrued Rewards</StyledSectionLabel>
               </div>
             </Split>
           </StyledFarmTokensAndApyWrapper>
@@ -139,7 +183,7 @@ const Stake: React.FC = () => {
         <StyledCardActions isMobile={isMobile}>
           {StakeButton}
           <Spacer />
-          {/* {ClaimButton} */}
+          {ClaimAccruedButton}
           <Spacer />
           {/* {UnstakeButton} */}
         </StyledCardActions>

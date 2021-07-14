@@ -13,6 +13,7 @@ import {
   getAllDepositedTokens,
   withdraw,
   claimAccruedRewards,
+  getPendingRewardsAmount,
   FarmName,
 } from 'index-sdk/uniV3Farm'
 import { waitTransaction } from 'utils/index'
@@ -162,6 +163,15 @@ const Provider: React.FC = ({ children }) => {
     [ethereum, account]
   )
 
+  const handleGetPendingRewardsAmount = useCallback(
+    async (farm: FarmName) => {
+      if (!ethereum || !account || !farm) return
+
+      return await getPendingRewardsAmount(account, farm, ethereum)
+    },
+    [ethereum, account]
+  )
+
   return (
     <Context.Provider
       value={{
@@ -171,6 +181,7 @@ const Provider: React.FC = ({ children }) => {
         getAccruedRewardsAmount: handleGetAccruedRewardsAmount,
         getValidIds: handleGetValidIds,
         getAllDepositedTokens: handleGetDepositedTokens,
+        getPendingRewardsAmount: handleGetPendingRewardsAmount,
       }}
     >
       {children}
