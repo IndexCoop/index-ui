@@ -1,17 +1,14 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import numeral from 'numeral'
 import { Button, Card, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 import Web3 from 'web3'
 
-import useBalances from 'hooks/useBalances'
-import useFarmingTwo from 'hooks/useFarmingTwo'
 import useMediaQuery from 'hooks/useMediaQuery'
-import usePrices from 'hooks/usePrices'
 import useV3Farming from 'hooks/useV3Farming'
 import useWallet from 'hooks/useWallet'
 
 import DpiStakeModal from './components/DpiStakeModal'
+import DpiUnstakeModal from './components/DpiUnstakeModal'
 import Split from 'components/Split'
 
 const Stake: React.FC = () => {
@@ -24,15 +21,23 @@ const Stake: React.FC = () => {
     getAllDepositedTokens,
     getAccruedRewardsAmount,
     getPendingRewardsAmount,
+    getValidIds,
   } = useV3Farming()
 
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
+  const [unstakeModalIsOpen, setUnstakeModalIsOpen] = useState(false)
   const [accruedRewards, setAccruedRewards] = useState('0')
   const [pendingRewards, setPendingRewards] = useState('0')
+  const [validNfts, setValidNfts] = useState<number[]>([])
+  const [depositedNfts, setDepositedNfts] = useState<number[]>([])
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
   }, [setStakeModalIsOpen])
+
+  const handleDismissUnstakeModal = useCallback(() => {
+    setUnstakeModalIsOpen(false)
+  }, [setUnstakeModalIsOpen])
 
   const handleOnStake = useCallback(
     (nftId: string) => {
@@ -42,9 +47,21 @@ const Stake: React.FC = () => {
     [handleDismissStakeModal, onDeposit]
   )
 
+  const handleOnUnstake = useCallback(
+    (nftId: string) => {
+      onWithdraw(parseInt(nftId), 'DPI-ETH')
+      handleDismissUnstakeModal()
+    },
+    [handleDismissUnstakeModal, onWithdraw]
+  )
+
   const handleStakeClick = useCallback(() => {
     setStakeModalIsOpen(true)
   }, [setStakeModalIsOpen])
+
+  const handleUnstakeClick = useCallback(() => {
+    setUnstakeModalIsOpen(true)
+  }, [setUnstakeModalIsOpen])
 
   const handleClaimAccruedClick = useCallback(() => {
     onClaimAccrued('0x1720668a1826c6f30a11780783b0357269b7e1ca')
@@ -57,21 +74,14 @@ const Stake: React.FC = () => {
     return <Button full onClick={handleStakeClick} text='Stake' />
   }, [status, handleStakeClick])
 
-  // const UnstakeButton = useMemo(() => {
-  //   const hasStaked = stakedBalance && stakedBalance.toNumber() > 0
-  //   if (status !== 'connected' || !hasStaked) {
-  //     return <Button disabled full text='Unstake & Claim' variant='secondary' />
-  //   }
+  const UnstakeButton = useMemo(() => {
+    const hasStaked = depositedNfts.length !== 0
+    if (status !== 'connected' || !hasStaked) {
+      return <Button disabled full text='Unstake' variant='secondary' />
+    }
 
-  //   return (
-  //     <Button
-  //       full
-  //       onClick={onUnstakeAndHarvest}
-  //       text='Unstake & Claim'
-  //       variant='secondary'
-  //     />
-  //   )
-  // }, [stakedBalance, status, onUnstakeAndHarvest])
+    return <Button full onClick={handleUnstakeClick} text='Unstake' />
+  }, [depositedNfts, status, handleUnstakeClick])
 
   const ClaimAccruedButton = useMemo(() => {
     if (status !== 'connected' || accruedRewards === '0.00') {
@@ -81,22 +91,6 @@ const Stake: React.FC = () => {
       <Button full onClick={handleClaimAccruedClick} text='Claim Accrued' />
     )
   }, [status, handleClaimAccruedClick, accruedRewards])
-
-  // const formattedStakedBalance = useMemo(() => {
-  //   if (stakedBalance) {
-  //     return numeral(stakedBalance.toString()).format('0.00000a')
-  //   } else {
-  //     return '--'
-  //   }
-  // }, [stakedBalance])
-
-  // const formattedEarnedBalance = useMemo(() => {
-  //   if (unharvestedFarmTwoBalance) {
-  //     return numeral(unharvestedFarmTwoBalance.toString()).format('0.00000a')
-  //   } else {
-  //     return '--'
-  //   }
-  // }, [unharvestedFarmTwoBalance])
 
   useEffect(() => {
     getAccruedRewardsAmount('0x1720668a1826c6f30a11780783b0357269b7e1ca').then(
@@ -113,6 +107,18 @@ const Stake: React.FC = () => {
       setPendingRewards(
         parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(2)
       )
+    })
+  }, [account, status])
+
+  useEffect(() => {
+    getValidIds('DPI-ETH').then((idList) => {
+      setValidNfts(idList || [])
+    })
+  }, [account, status])
+
+  useEffect(() => {
+    getAllDepositedTokens('DPI-ETH').then((idList) => {
+      setDepositedNfts(idList || [])
     })
   }, [account, status])
 
@@ -140,22 +146,16 @@ const Stake: React.FC = () => {
             <Split>
               <div>
                 <StyledFarmText>
-                  {/* {formattedStakedBalance} */}
+                  {depositedNfts.length}
                   <StyledTokenIcon
                     alt='eth dpi icon'
                     src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
                   />
                 </StyledFarmText>
                 <StyledSectionLabel>
-                  Staked ETH/DPI Uniswap LP Tokens
+                  Staked ETH/DPI Uniswap V3 NFTs
                 </StyledSectionLabel>
               </div>
-
-              <div>
-                {/* <StyledFarmText>{farmTwoApy}% APR</StyledFarmText> */}
-                {/* <StyledSectionLabel>(Volatile)</StyledSectionLabel> */}
-              </div>
-
               <div>
                 <StyledFarmText>
                   {pendingRewards}
@@ -185,13 +185,20 @@ const Stake: React.FC = () => {
           <Spacer />
           {ClaimAccruedButton}
           <Spacer />
-          {/* {UnstakeButton} */}
+          {UnstakeButton}
         </StyledCardActions>
       </Card>
       <DpiStakeModal
         isOpen={stakeModalIsOpen}
+        nftIds={validNfts}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
+      />
+      <DpiUnstakeModal
+        isOpen={unstakeModalIsOpen}
+        nftIds={depositedNfts}
+        onDismiss={handleDismissUnstakeModal}
+        onUnstake={handleOnUnstake}
       />
     </>
   )

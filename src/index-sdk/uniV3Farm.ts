@@ -136,18 +136,17 @@ export async function getPendingRewardsAmount(
 ): Promise<BigNumber> {
   const stakingContract = getStakingContract(provider)
   const deposits = await getAllDepositedTokens(user, farm, provider)
-  console.log('deposits: ' + deposits)
 
   const amounts = await Promise.all(
     deposits.map(async (id) => {
       const stakes = await getCurrentStakes(farm, id, provider)
-      console.log('stakes: ' + stakes)
 
       const amounts = await Promise.all(
         stakes.map(async (farmNumber) => {
           const rewardInfo = await stakingContract.methods
             .getRewardInfo(farms[farm].farms[farmNumber], id)
             .call()
+
           return new BigNumber(rewardInfo.reward)
         })
       )
@@ -222,8 +221,7 @@ export async function getAllDepositedTokens(
 
     if (
       isValidPoolToken &&
-      depositInfo.tickLower !== 0 &&
-      depositInfo.tickUpper !== 0
+      (depositInfo.tickLower !== '0' || depositInfo.tickUpper !== '0')
     ) {
       currentlyDeposited.push(parseInt(tokenIds[i]))
     }
