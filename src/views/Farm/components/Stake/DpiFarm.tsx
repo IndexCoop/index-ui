@@ -6,6 +6,7 @@ import Web3 from 'web3'
 import useMediaQuery from 'hooks/useMediaQuery'
 import useV3Farming from 'hooks/useV3Farming'
 import useWallet from 'hooks/useWallet'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 import DpiStakeModal from './components/DpiStakeModal'
 import DpiUnstakeModal from './components/DpiUnstakeModal'
@@ -23,6 +24,8 @@ const Stake: React.FC = () => {
     getPendingRewardsAmount,
     getValidIds,
   } = useV3Farming()
+
+  const { transactionStatus } = useTransactionWatcher()
 
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
   const [unstakeModalIsOpen, setUnstakeModalIsOpen] = useState(false)
@@ -100,7 +103,7 @@ const Stake: React.FC = () => {
         )
       }
     )
-  }, [account, status])
+  }, [account, status, transactionStatus])
 
   useEffect(() => {
     getPendingRewardsAmount('DPI-ETH').then((amount) => {
@@ -108,19 +111,19 @@ const Stake: React.FC = () => {
         parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(2)
       )
     })
-  }, [account, status])
+  }, [account, status, transactionStatus])
 
   useEffect(() => {
     getValidIds('DPI-ETH').then((idList) => {
       setValidNfts(idList || [])
     })
-  }, [account, status])
+  }, [account, status, transactionStatus])
 
   useEffect(() => {
     getAllDepositedTokens('DPI-ETH').then((idList) => {
       setDepositedNfts(idList || [])
     })
-  }, [account, status])
+  }, [account, status, transactionStatus])
 
   return (
     <>
