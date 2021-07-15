@@ -45,19 +45,14 @@ const ProposalTable: React.FC = () => {
           <StyledEmptyMessage>No proposals yet</StyledEmptyMessage>
         )}
         {proposalIds.map((id, i) => {
-          const payload = indexProposals[id]?.msg?.payload?
-          if (!payload) {
-            return
-          }  
+          const payload = indexProposals[id].msg.payload
           const isActive =
-            payload.start <= currentTime &&
-            currentTime <= payload.end
+            payload.start <= currentTime && currentTime <= payload.end
           const isExecuted = payload.end < currentTime
-          const proposalFilter = 
-                  payload.name
-                  .toUpperCase()
-                  .includes(searchTerm.toUpperCase())
-          
+          const proposalFilter = payload.name
+            .toUpperCase()
+            .includes(searchTerm.toUpperCase())
+
           const shouldDisplayProposal = proposalFilter || !searchTerm
 
           if (shouldDisplayProposal) {
