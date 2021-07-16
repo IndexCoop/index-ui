@@ -47,9 +47,11 @@ const ProposalTable: React.FC = () => {
         {proposalIds.map((id, i) => {
           const payload = indexProposals[id].msg.payload
           const isActive =
-            payload.start <= currentTime && currentTime <= payload.end
-          const isExecuted = payload.end < currentTime
-          const proposalFilter = payload.name
+            indexProposals[id]?.msg?.payload?.start <= currentTime &&
+            currentTime <= indexProposals[id]?.msg?.payload?.end
+          const isExecuted = indexProposals[id]?.msg?.payload?.end < currentTime
+
+          const proposalFilter = indexProposals[id].msg?.payload?.name
             .toUpperCase()
             .includes(searchTerm.toUpperCase())
 
@@ -87,6 +89,8 @@ const ProposalTable: React.FC = () => {
                 )}
               </>
             )
+          } else {
+            return null
           }
         })}
       </StyledTable>
