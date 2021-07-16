@@ -8,21 +8,20 @@ describe('Vote', () => {
 
   context('Page Header', () => {
     it('should show header text', () => {
-      cy.get('.sc-hlXxXZ').should('contain', 'Vote')
-      cy.get('.sc-gswFgi').should('contain', 'View and vote on proposals')
-      cy.get('.sc-cApVyb').should('contain', 'Proposals')
+      cy.get('.sc-gswFgi').should('contain', 'Vote')
+      cy.get('.sc-cApVyb').should('contain', 'View and vote on proposals')
+      cy.get('.sc-gpEJdM').should('contain', 'Proposals')
     })
   })
 
   context('Widget', () => {
     it('should show votes widget', () => {
-      cy.get('.sc-fJxALz > [style="width: 60%;"]').should(
+      cy.get('.sc-cSiAOC > [style="width: 60%;"]').should(
         'contain',
         'Description'
       )
-      cy.get('.sc-fJxALz > :nth-child(2)').should('contain', 'State')
-      cy.get('.sc-fJxALz > :nth-child(3)').should('contain', 'Action')
-      cy.get('.sc-cApVyb').should('not.be.empty')
+      cy.get('.sc-cSiAOC > :nth-child(2)').should('contain', 'State')
+      cy.get('.sc-cSiAOC > :nth-child(3)').should('contain', 'Action')
     })
   })
 
