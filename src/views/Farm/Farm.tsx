@@ -9,7 +9,6 @@ import DpiFarmCard from './components/Stake/DpiFarm'
 import MviFarmCard from './components/Stake/MviFarm'
 import RewardsCard from './components/Rewards'
 import Treasury from './components/Treasury'
-import MigrationNotice from './components/MigrationNotice'
 
 const Farm = (props: { title: string }) => {
   useEffect(() => {
@@ -25,7 +24,6 @@ const Farm = (props: { title: string }) => {
           Earn rewards for supplying liquidity for Index Coop products
         </StyledPageSubheader>
         <Spacer />
-        <MigrationNotice />
       </Container>
       <Treasury />
       <Spacer />
