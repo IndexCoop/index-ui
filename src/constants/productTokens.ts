@@ -1,4 +1,6 @@
 import * as tokenAddresses from 'constants/ethContractAddresses'
+import bedBorderLogo from 'assets/bed-border.png'
+//import bedLogo from 'assets/bedlogo.png'
 
 export interface ProductToken {
   name: string
@@ -72,11 +74,11 @@ export const BedIndex: ProductToken = {
   name: 'Bankless BED Index',
   symbol: 'BED',
   address: tokenAddresses.bedTokenAddress,
-  image: '/src/assets/bedlogo.png',
+  image: bedBorderLogo,
   coingeckoId: 'bed-index',
   tokensetsId: 'bed',
   fees: {
-    streamingFee: '0.95%',
+    streamingFee: '0.25%',
   },
 }
 
@@ -89,7 +91,7 @@ export const productTokensBySymbol = {
   'BED': BedIndex,
 }
 
-export default [
+const allProducts = [
   DefiPulseIndex,
   MetaverseIndex,
   Ethereum2xFlexibleLeverageIndex,
@@ -97,3 +99,5 @@ export default [
   Bitcoin2xFlexibleLeverageIndex,
   BedIndex,
 ]
+
+export default allProducts
