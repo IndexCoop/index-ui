@@ -1,17 +1,17 @@
 /// <reference types="cypress" />
 
-describe('DPI', () => {
+describe('BED', () => {
   before(() => {
     cy.wait(3000)
-    cy.visit('http://localhost:3000/dpi')
+    cy.visit('http://localhost:3000/bed')
   })
 
   context('Product Header', () => {
     it('should show product symbol', () => {
-      cy.get('.sc-cfARRi > span').should('contain', 'DPI')
+      cy.get('.sc-cfARRi > span').should('contain', 'BED')
     })
     it('should show product name', () => {
-      cy.get('.sc-havuDZ').should('contain', 'DeFi Pulse Index')
+      cy.get('.sc-havuDZ').should('contain', 'Bankless BED Index')
     })
     it('should show product price', () => {
       cy.get('.sc-jhDJEt').should('not.be.empty')
@@ -80,7 +80,7 @@ describe('DPI', () => {
 
     it('should render values', () => {
       cy.get('.sc-kJNqyW').should('not.be.empty')
-      cy.get('.sc-jYKCQm').should('contain', 'DPI')
+      cy.get('.sc-jYKCQm').should('contain', 'BED')
     })
 
     it('should contain MetaMask button', () => {
@@ -116,7 +116,6 @@ describe('DPI', () => {
       cy.get(':nth-child(4) > .sc-QxirK').should('not.be.empty')
       cy.get('.sc-jVSGNQ > :nth-child(5)').should('not.be.empty')
       cy.get('.sc-jVSGNQ > :nth-child(6)').should('not.be.empty')
-      cy.get('.sc-iuhXDa').should('contain', 'More')
     })
   })
 
