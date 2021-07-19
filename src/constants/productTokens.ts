@@ -68,12 +68,25 @@ export const Bitcoin2xFlexibleLeverageIndex: ProductToken = {
   },
 }
 
+export const BedIndex: ProductToken = {
+  name: 'Bankless BED Index',
+  symbol: 'BED',
+  address: tokenAddresses.bedTokenAddress,
+  image: '/src/assets/bedlogo.png',
+  coingeckoId: 'bed-index',
+  tokensetsId: 'bed',
+  fees: {
+    streamingFee: '0.95%',
+  },
+}
+
 export const productTokensBySymbol = {
   'DPI': DefiPulseIndex,
   'MVI': MetaverseIndex,
   'ETH2x-FLI': Ethereum2xFlexibleLeverageIndex,
   'INDEX': IndexToken,
   'BTC2x-FLI': Bitcoin2xFlexibleLeverageIndex,
+  'BED': BedIndex,
 }
 
 export default [
@@ -82,4 +95,5 @@ export default [
   Ethereum2xFlexibleLeverageIndex,
   IndexToken,
   Bitcoin2xFlexibleLeverageIndex,
+  BedIndex,
 ]
