@@ -32,140 +32,80 @@ const BedProductPage = (props: { title: string }) => {
 
   return (
     <ProductDataUI tokenDataProps={tokenDataProps}>
-      <strong>The Bankless BED Index</strong> is a capitalization-weighted index
-      that tracks the performance of decentralized financial assets across the
-      market.
-      <h2>Objective</h2>
-      The DeFi Pulse Index is a digital asset index designed to track tokens’
-      performance within the Decentralized Finance industry. The index is
-      weighted based on the value of each token’s circulating supply. The DeFi
-      Pulse Index aims to track projects in Decentralized Finance that have
-      significant usage and show a commitment to ongoing maintenance and
-      development.
-      <ExternalLink href='https://pulse.inc' target='_blank'>
-        <h4>View the official methodology here.</h4>
-      </ExternalLink>
-      <h2>Token Inclusion Criteria</h2>
-      The DeFi Pulse Index has a collection of criteria composed of four
-      dimensions. Two dimensions are used to evaluate the token’s
-      characteristics, one dimension is used to assess the project’s
-      characteristics, and one is used to evaluate the protocol’s
-      characteristics. The inclusion criteria are the basis to select what
-      tokens will be included in the index.
-      <h4>Token’s Descriptive Characteristics</h4>
-      <ul>
-        <li>The token must be available on the Ethereum blockchain.</li>
-        <li>
-          The token must be associated with a decentralized finance protocol or
-          dapp listed on DeFi Pulse.
-        </li>
-        <li>
-          The token must not be considered a security by the corresponding
-          authorities across different jurisdictions.
-        </li>
-        <li>
-          The token must be a bearer instrument. None of the following will be
-          included in the index:Wrapped tokens. Tokenized derivatives. Synthetic
-          assets. Tokens that are tied to physical assets. Tokens that represent
-          claims on other tokens.
-        </li>
-      </ul>
-      <h4>Token’s Supply Characteristics</h4>
-      It must be possible to reasonably predict the token’s supply over the next
-      five years. At least 7.5% of the five year supply must be currently
-      circulating. The token’s economics must not have locking, minting or other
-      patterns that would significantly disadvantage passive holders.
-      <h4>Project’s Traction Characteristics</h4>
-      <ul>
-        <li>
-          The project must be widely considered to be building a useful protocol
-          or product.Projects focused on competitive trading/holding, having
-          Ponzi characteristics, or projects that exist primarily for
-          entertainment, will not be included.
-        </li>
-        <li>The project’s protocol must have significant usage.</li>
-        <li>
-          The protocol or product must have been launched at least 180 days
-          before being able to qualify to be included in the index.
-        </li>
-        <li>The protocol or project must not be insolvent.</li>
-      </ul>
-      <h4>Protocol’s User Safety Characteristics</h4>
-      <ul>
-        <li>
-          Security professionals must have reviewed the protocol to determine
-          that security best practices have been followed to maintain user
-          assets safe under different circumstances.Alternatively, the protocol
-          must have been operating long enough to create a consensus about its
-          safety in the decentralized finance community.
-        </li>
-        <li>
-          In the event of a safety incident, the team must have responded
-          promptly and addressed the incident responsibly in the aftermath,
-          providing users of the protocol with a reliable solution and the
-          decentralized finance community with adequate documentation to provide
-          transparency about the incident.
-        </li>
-        <li>
-          The selected tokens must have sufficient liquidity across a variety of
-          trading platforms.
-        </li>
-      </ul>
-      <h2>Index Calculations</h2>
-      The Index value is the spot value of the index.
-      <ul>
-        <li>
-          <strong>Circulating Supply</strong> is the number of tokens
-          circulating the last time circulating supply was determined. The first
-          circulating supply was determined on September 8, 2020, using
-          CoinGecko as a reference source.
-        </li>
-
-        <li>
-          <strong>Price</strong> is the market price of the token in USD.
-        </li>
-
-        <li>
-          <strong>Index Divisor</strong> is a constant that is adjusted on each
-          rebalance. As of September 31, 2020, the Divisor was
-          <strong>44679560.64</strong>.
-        </li>
-      </ul>
-      <h2>Index Maintenance</h2>
-      The index is maintained monthly in two phases:
-      <h4>Determination Phase</h4>
-      The determination phase takes place during the third week of the month. It
-      is the phase when the changes needed for the next reconstitution are
-      determined.
-      <ul>
-        <li>
-          <strong>Circulating Supply Determination:</strong> The DeFi Pulse
-          Index currently references CoinGecko’s circulating supply number. The
-          Circulating Supply is determined during the third week of the month
-          and published before the monthly reconstitution.
-        </li>
-        <li>
-          <strong>Additions and deletions:</strong> The tokens being added and
-          deleted from the index calculation are determined during the third
-          week of the month and published before monthly reconstitution.
-        </li>
-        <li>
-          <strong>Weighting:</strong> Any token that has a weight greater than
-          25% during the determination phase will have its weight capped at 25%.
-          Any excess weight will be redistributed to the remaining components of
-          the DeFi Pulse Index on a weighted basis. This same process will be
-          repeated for every token exceeding the 25% allocation cap.
-          reconstitution.
-        </li>
-      </ul>
-      <h4>Reconstitution Phase</h4>
-      The index components are adjusted, added and deleted as per the
-      instructions published after the end of the determination phase. New index
-      weights, additions and deletions are incorporated into the index during
-      the monthly reconstitution, which will take place on the first business
-      day of the month. As assets tracked by the index grow, the reconstitution
-      window will expand to more than one day to lower the reconstitution’s
-      market impact.
+      <p>
+        Bankless proposed that the Index Coop manage a Set based on an index of
+        Crypto’s most investable assets, BTC, ETH, and DPI, in equal weight.
+        This construction — known as the BED Index or Bankless BED Index — seeks
+        to give safe, passive exposure to a vehicle that captures equal-weighted
+        upside from the most promising use cases and themes in crypto: store of
+        value, programmable money, and decentralized finance.
+        <h2>Methodology</h2>
+        The BED index is meant to track crypto’s top 3 investable assets.
+        <ol>
+          <li>
+            <strong>Scope:</strong> The index includes the top 3 investable
+            assets with real usage and large capitalizations around the theme of
+            blockchain: BTC, ETH, DeFi (DPI).
+          </li>
+          <li>
+            <strong>Weighting:</strong> Neutral construction, equal weight
+          </li>
+          <li>
+            <strong>Rebalancing:</strong> First Friday of every month
+          </li>
+        </ol>
+        The composition is:
+        <ul>
+          <li>33.3% Bitcoin</li>
+          <li>33.3% Ether</li>
+          <li>33.3% DPI</li>
+        </ul>
+        The underlying index is rebalanced after the close of trading on the
+        first Friday of each calendar month. The Fund is rebalanced in
+        accordance with its Underlying Index.
+        <h2>Component Selection</h2>
+        <h3>Market Requirements</h3>
+        <ul>
+          <li>
+            The components must have a Large cap valuation $25b+ [If an Index,
+            the corresponding token market caps must have a sum of {'>'}$25b].
+          </li>
+          <li>
+            The components must show signs of heavy usage either as a network
+            (btc, eth) or smart contract theme (DeFi).
+          </li>
+          <li>
+            The assets must have sufficient liquidity for initial inclusion and
+            rebalances.
+          </li>
+        </ul>
+        <h3>Safety Requirements</h3>
+        <ul>
+          <li>
+            Assets and themes within the Bankless BED Index should have vast,
+            well-established safety guarantees.
+          </li>
+          <li>
+            Any network/protocol must have conducted sufficient security audits
+            and/or security professionals must have reviewed the protocol to
+            determine that security best practices have been followed.
+          </li>
+        </ul>
+        <h2>Index Maintenance</h2>
+        BED is maintained monthly in two phases:
+        <h3>Determination Phase</h3>
+        <p>
+          The determination phase takes place during the fourth week of the
+          month. It is the phase when the changes needed for the next
+          reconstitution are determined.
+        </p>
+        <h3>Reconstitution Phase</h3>
+        <p>
+          Following publication of the determination phase outcome, the index
+          composition will change to the new weights on the first friday of the
+          following month. I.e components will be added or removed.
+        </p>
+      </p>
     </ProductDataUI>
   )
 }
