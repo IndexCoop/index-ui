@@ -75,7 +75,7 @@ export const BedIndex: ProductToken = {
   symbol: 'BED',
   address: tokenAddresses.bedTokenAddress,
   image: bedBorderLogo,
-  coingeckoId: 'bed-index',
+  coingeckoId: 'bankless-bed-index',
   tokensetsId: 'bed',
   fees: {
     streamingFee: '0.25%',
