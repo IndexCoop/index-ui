@@ -141,8 +141,8 @@ const formatSources = (
     : sourceNames.slice(0, -1).join(', ') + ' and ' + sourceNames.slice(-1)
 }
 
-const getDecimalAdjustedAmount = (amount: string, decimals: number): number => {
+const getDecimalAdjustedAmount = (amount: string, decimals: number): string => {
   return new BigNumber(amount)
     .multipliedBy(new BigNumber('1e' + decimals))
-    .toNumber()
+    .toString()
 }
