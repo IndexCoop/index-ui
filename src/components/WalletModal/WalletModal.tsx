@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import BigNumber from 'utils/bignumber'
 import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify'
+import bedBorderLogo from 'assets/bed-border.png'
 
 import numeral from 'numeral'
 import {
@@ -33,6 +34,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     mviBalance,
     ethfliBalance,
     btcfliBalance,
+    bedBalance,
     uniswapEthDpiLpBalance,
     uniswapEthMviLpBalance,
     stakedUniswapEthDpiLpBalance,
@@ -126,6 +128,17 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 label='Metaverse Index Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.mviTokenAddress}`}
                 value={getDisplayBalance(mviBalance)}
+              />
+            </Box>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'BED Icon',
+                  src: bedBorderLogo,
+                }}
+                label='BED Index Balance'
+                link={`https://etherscan.io/address/${tokenAddresses.bedTokenAddress}`}
+                value={getDisplayBalance(bedBalance)}
               />
             </Box>
           </Split>

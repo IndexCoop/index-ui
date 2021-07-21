@@ -21,7 +21,8 @@ const ProductsDropdown: React.FC = () => {
       pathname === '/dpi' ||
       pathname === '/index' ||
       pathname === '/ethfli' ||
-      pathname === '/btcfli'
+      pathname === '/btcfli' ||
+      pathname === '/bed'
 
     return {
       control: (styles: any) => ({
@@ -90,6 +91,10 @@ const ProductsDropdown: React.FC = () => {
         {
           value: 'btcfli',
           label: 'BTC 2x Flexible Leverage Index',
+        },
+        {
+          value: 'bed',
+          label: 'Bankless BED Index',
         },
         {
           value: 'index',

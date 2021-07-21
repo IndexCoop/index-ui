@@ -8,30 +8,14 @@ describe('Liquidity Mining', () => {
 
   context('Page Header', () => {
     it('should show header text', () => {
-      cy.get(':nth-child(1) > .sc-hYRTwp').should(
+      cy.get(':nth-child(1) > .sc-dSnXvR').should(
         'contain',
         'Liquidity Mining Programs'
       )
-      cy.get(':nth-child(1) > .sc-cGKJhA').should(
+      cy.get(':nth-child(1) > .sc-hYRTwp').should(
         'contain',
         'Earn rewards for supplying liquidity for Index Coop products'
       )
-    })
-  })
-
-  context('Alert', () => {
-    it('should show', () => {
-      cy.get('.uoEta').should('not.be.empty')
-      cy.get('.sc-fFSPTT > span').should('not.be.empty')
-      cy.get('.sc-dSnXvR').should(
-        'contain',
-        'Metaverse Index Liquidity Mining Rewards'
-      )
-      cy.get('.sc-iqAclL').should('not.be.empty')
-    })
-    it('should be able to be clicked away', () => {
-      cy.get('.sc-iqAclL').click()
-      cy.get('.uoEta').should('not.exist')
     })
   })
 
@@ -145,8 +129,8 @@ describe('Liquidity Mining', () => {
 
   context('Index Airdrop', () => {
     it('should show header', () => {
-      cy.get(':nth-child(4) > .sc-hYRTwp').should('contain', 'Index Airdrop')
-      cy.get(':nth-child(4) > .sc-cGKJhA').should(
+      cy.get(':nth-child(4) > .sc-dSnXvR').should('contain', 'Index Airdrop')
+      cy.get(':nth-child(4) > .sc-hYRTwp').should(
         'contain',
         'See if you qualified for the Index Airdrop'
       )
