@@ -249,7 +249,7 @@ const Provider: React.FC = ({ children }) => {
       )
       return () => clearInterval(refreshInterval)
     }
-  }, [account, ethereum, fetchBalances])
+  }, [account, ethereum, fetchBalances, fetchTotalSupplies])
 
   return (
     <Context.Provider

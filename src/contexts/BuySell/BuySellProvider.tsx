@@ -48,6 +48,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     setSelectedCurrency(currencyTokens[0])
   }, [])
 
+  // eslint-disable-next-line
   let spendingTokenBalance = new BigNumber(0)
   if (!isUserBuying && buySellToken === 'index') {
     spendingTokenBalance = indexBalance || new BigNumber(0)

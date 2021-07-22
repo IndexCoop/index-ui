@@ -91,7 +91,8 @@ export const productTokensBySymbol = {
   'BED': BedIndex,
 }
 
-const allProducts = [
+
+const indexNames = [
   DefiPulseIndex,
   MetaverseIndex,
   Ethereum2xFlexibleLeverageIndex,
@@ -100,4 +101,4 @@ const allProducts = [
   BedIndex,
 ]
 
-export default allProducts
+export default indexNames
