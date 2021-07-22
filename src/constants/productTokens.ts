@@ -76,10 +76,12 @@ export const productTokensBySymbol = {
   'BTC2x-FLI': Bitcoin2xFlexibleLeverageIndex,
 }
 
-export default [
+const indexNames = [
   DefiPulseIndex,
   MetaverseIndex,
   Ethereum2xFlexibleLeverageIndex,
   IndexToken,
   Bitcoin2xFlexibleLeverageIndex,
 ]
+
+export default indexNames
