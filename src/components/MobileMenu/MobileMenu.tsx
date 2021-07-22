@@ -52,6 +52,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink
             exact
             activeClassName='active'
+            to='/bed'
+            onClick={onDismiss}
+          >
+            Bankless BED Index
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
             to='/index'
             onClick={onDismiss}
           >
