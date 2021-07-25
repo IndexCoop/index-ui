@@ -135,7 +135,7 @@ Below you will find links for some useful resources to utilize as you develop pr
 
 &nbsp;
 
-### **Installing Depencies**
+### **Installing Dependencies**
 
 Since `index-ui` is the front-end we use to interact with Index, you will also need to install the necessary dependencies for your project to function correctly. The intallation steps can be found [here][18].
 
