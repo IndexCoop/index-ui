@@ -5,8 +5,8 @@
 ###### *Select a category that relates to the content of your pull request (choose all that apply).*
 
 - [ ] Bug Fix
+- [ ] Content
 - [ ] New Feature
-- [ ] Visual Update
 - [ ] Documentation
 - [ ] Code Refactoring
 
