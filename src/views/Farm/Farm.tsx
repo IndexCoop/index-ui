@@ -9,6 +9,7 @@ import DpiFarmCard from './components/Stake/DpiFarm'
 import MviFarmCard from './components/Stake/MviFarm'
 import RewardsCard from './components/Rewards'
 import Treasury from './components/Treasury'
+import V3FarmCard from './components/Stake/V3Farm'
 
 const Farm = (props: { title: string }) => {
   useEffect(() => {
@@ -28,6 +29,8 @@ const Farm = (props: { title: string }) => {
       <Treasury />
       <Spacer />
       <Container>
+        <V3FarmCard />
+        <Spacer />
         <DpiFarmCard />
         <Spacer />
         <MviFarmCard />
