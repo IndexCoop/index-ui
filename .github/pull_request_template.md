@@ -14,7 +14,7 @@
 
 ## **Summary of Changes**
 
-###### *Provide a brief summary of the changes you made and their purpose as they relate to the Index UI. If applicable, please link the corresponding issue number.*
+###### *Provide a brief summary of the changes you made and their purpose as they relate to Index UI. <br/>If applicable, please link the corresponding issue number.*
 
 &nbsp;
 
