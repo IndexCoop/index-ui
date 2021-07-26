@@ -2,7 +2,9 @@
 
 ## **Type of Change**
 
-*Select a category that relates to the content of your pull request (choose all that apply).*
+###### *Select a category that relates to the content of your pull request (choose all that apply).*
+
+&nbsp;
 
 - [ ] Bug Fix
 - [ ] New Feature
@@ -14,9 +16,7 @@
 
 ## **Summary of Changes**
 
-*Provide a brief summary of the changes you made and their purpose as they relate to the Index UI.*
-
-*If applicable, please link the corresponding issue number.*
+###### *Provide a brief summary of the changes you made and their purpose as they relate to the Index UI. If applicable, please link the corresponding issue number.*
 
 &nbsp;
 
@@ -26,13 +26,13 @@
 
 ## **Test Data or Screenshots**
 
-*Include proof that your changes function properly and resolve the linked issue.*
+###### *Include proof that your changes function properly and resolve the linked issue.*
 
 &nbsp;
 
 ## **Submission Reminders**
 
-*By submitting this pull request, you are confirming the following to be true:*
+###### *By submitting this pull request, you are confirming the following to be true:*
 
 - I have reviewed the [Contribution Guidelines](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md).
 - I have performed a self-review of my own code.
