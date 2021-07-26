@@ -4,8 +4,6 @@
 
 ###### *Select a category that relates to the content of your pull request (choose all that apply).*
 
-&nbsp;
-
 - [ ] Bug Fix
 - [ ] New Feature
 - [ ] Visual Update
