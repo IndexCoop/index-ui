@@ -16,8 +16,11 @@ const Context = createContext<ContextValues>({
   getAllDepositedTokens: async () => {
     return []
   },
-  getPendingRewardsAmount: async () => {
+  getAllPendingRewardsAmount: async () => {
     return new BigNumber(0)
+  },
+  getIndividualPendingRewardsAmount: async () => {
+    return []
   },
 })
 

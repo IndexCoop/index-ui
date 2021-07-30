@@ -12,6 +12,7 @@ import {
   uniswapV3StakerAddress,
 } from 'constants/ethContractAddresses'
 import farms from 'index-sdk/farms.json'
+import Farm from 'views/Farm'
 
 export type FarmName = 'DPI-ETH'
 
@@ -129,7 +130,7 @@ export async function getAccruedRewardsAmount(
   return await stakingContract.methods.rewards(rewardToken, user).call()
 }
 
-export async function getPendingRewardsAmount(
+export async function getAllPendingRewardsAmount(
   user: string,
   farm: FarmName,
   provider: provider
@@ -160,6 +161,39 @@ export async function getPendingRewardsAmount(
   return amounts.reduce((a, b) => {
     return a.plus(b)
   }, new BigNumber(0))
+}
+
+export type FarmReward = {
+  farm: number
+  rewards: BigNumber
+}
+
+export async function getIndividualPendingRewardsAmount(
+  user: string,
+  farm: FarmName,
+  provider: provider
+): Promise<BigNumber[]> {
+  const stakingContract = getStakingContract(provider)
+  const deposits = await getAllDepositedTokens(user, farm, provider)
+  let amounts: BigNumber[] = []
+
+  await Promise.all(
+    deposits.map(async (id) => {
+      const stakes = await getCurrentStakes(farm, id, provider)
+
+      await Promise.all(
+        stakes.map(async (farmNumber) => {
+          const rewardInfo = await stakingContract.methods
+            .getRewardInfo(farms[farm].farms[farmNumber], id)
+            .call()
+
+          amounts[farmNumber] = new BigNumber(rewardInfo.reward)
+        })
+      )
+    })
+  )
+
+  return amounts
 }
 
 export async function claimAccruedRewards(

@@ -11,5 +11,8 @@ export interface ContextValues {
     rewardToken: string
   ) => Promise<BigNumber | undefined>
   getAllDepositedTokens: (farm: FarmName) => Promise<number[] | undefined>
-  getPendingRewardsAmount: (farm: FarmName) => Promise<BigNumber | undefined>
+  getAllPendingRewardsAmount: (farm: FarmName) => Promise<BigNumber | undefined>
+  getIndividualPendingRewardsAmount: (
+    farm: FarmName
+  ) => Promise<BigNumber[] | undefined>
 }

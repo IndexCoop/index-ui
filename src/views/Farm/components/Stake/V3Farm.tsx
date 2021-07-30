@@ -9,8 +9,9 @@ import useWallet from 'hooks/useWallet'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 import V3StakeModal from './components/V3StakeModal'
-import V3UnstakeModal from './components/DpiUnstakeModal'
+import V3UnstakeModal from './components/V3UnstakeModal'
 import Split from 'components/Split'
+import BigNumber from 'utils/bignumber'
 
 const Stake: React.FC = () => {
   const { isMobile } = useMediaQuery()
@@ -21,7 +22,8 @@ const Stake: React.FC = () => {
     onClaimAccrued,
     getAllDepositedTokens,
     getAccruedRewardsAmount,
-    getPendingRewardsAmount,
+    getAllPendingRewardsAmount,
+    getIndividualPendingRewardsAmount,
     getValidIds,
   } = useV3Farming()
 
@@ -30,7 +32,10 @@ const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
   const [unstakeModalIsOpen, setUnstakeModalIsOpen] = useState(false)
   const [accruedRewards, setAccruedRewards] = useState('0')
-  const [pendingRewards, setPendingRewards] = useState('0')
+  const [allPendingRewards, setAllPendingRewards] = useState('0')
+  const [individualPendingRewards, setIndividualPendingRewards] = useState<
+    string[]
+  >([])
   const [validNfts, setValidNfts] = useState<number[]>([])
   const [depositedNfts, setDepositedNfts] = useState<number[]>([])
 
@@ -106,12 +111,26 @@ const Stake: React.FC = () => {
   }, [account, status, transactionStatus, getAccruedRewardsAmount])
 
   useEffect(() => {
-    getPendingRewardsAmount('DPI-ETH').then((amount) => {
-      setPendingRewards(
+    getAllPendingRewardsAmount('DPI-ETH').then((amount) => {
+      setAllPendingRewards(
         parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(2)
       )
     })
-  }, [account, status, transactionStatus, getPendingRewardsAmount])
+  }, [account, status, transactionStatus, getAllPendingRewardsAmount])
+
+  useEffect(() => {
+    getIndividualPendingRewardsAmount('DPI-ETH').then((amounts) => {
+      setIndividualPendingRewards(
+        amounts
+          ? amounts.map((reward) => {
+              return parseFloat(
+                Web3.utils.fromWei(reward?.toString() || '0')
+              ).toFixed(2)
+            })
+          : []
+      )
+    })
+  }, [account, status, transactionStatus, getIndividualPendingRewardsAmount])
 
   useEffect(() => {
     getValidIds('DPI-ETH').then((idList) => {
@@ -144,7 +163,7 @@ const Stake: React.FC = () => {
               </div>
               <div>
                 <StyledFarmText>
-                  {pendingRewards}
+                  {allPendingRewards}
                   <StyledTokenIcon
                     alt='owl icon'
                     src='https://index-dao.s3.amazonaws.com/owl.png'
@@ -166,13 +185,7 @@ const Stake: React.FC = () => {
             </Split>
           </StyledFarmTokensAndApyWrapper>
         </CardContent>
-        <StyledCardActions isMobile={isMobile}>
-          {StakeButton}
-          <Spacer />
-          {ClaimAccruedButton}
-          <Spacer />
-          {UnstakeButton}
-        </StyledCardActions>
+        <StyledCardActions isMobile={isMobile}>{StakeButton}</StyledCardActions>
       </Card>
       <V3StakeModal
         isOpen={stakeModalIsOpen}
