@@ -9,6 +9,8 @@ export const eth2xfliSuppyCapAddress =
   process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP_ADDRESS
 export const btc2xfliSuppyCapAddress =
   process.env.REACT_APP_BTC2X_FLI_SUPPLY_CAP_ADDRESS
+export const flexibleLeverageStrategyExtension =
+  process.env.REACT_APP_FLEXIBLE_LEVERAGE_STRATEGY_EXTENSION
 
 // Contributor Reward Addresses
 export const november2020RewardsAddress =

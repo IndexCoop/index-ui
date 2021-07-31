@@ -10,10 +10,15 @@ import {
   WalletBalance,
   Description,
   IndexComponentsTable,
+  Ripcord,
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
 import MarketData from 'components/MarketData'
 import IndexComponent from 'components/IndexComponent'
+import {
+  Bitcoin2xFlexibleLeverageIndex,
+  Ethereum2xFlexibleLeverageIndex,
+} from 'constants/productTokens'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 import {
@@ -47,6 +52,10 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
   const tokenData = tokenDataProps
 
   const [, setReferral] = useLocalStorage('referral', '')
+
+  const isFLI =
+    tokenData.token.symbol === Ethereum2xFlexibleLeverageIndex.symbol ||
+    tokenData.token.symbol === Bitcoin2xFlexibleLeverageIndex.symbol
 
   const history = useHistory()
   const params = new URLSearchParams(history.location.search)
@@ -93,6 +102,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
             latestPrice={tokenData.latestPrice}
             currentBalance={tokenData.balance}
           />
+          {isFLI && <Ripcord tokenData={tokenData} />}
           <PriceChanges
             prices={tokenData.prices}
             hourlyPrices={tokenData.hourlyPrices}

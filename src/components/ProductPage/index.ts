@@ -5,4 +5,6 @@ export { default as WalletBalance } from './ProductWalletBalance'
 export { default as Description } from './ProductDescription'
 export { default as IndexComponentsTable } from './ProductIndexComponentsTable'
 export { default as ProductDataUI } from './ProductDataUI'
+export { default as Ripcord } from './ProductRipcord'
+
 export * from './ProductPageLayouts'
