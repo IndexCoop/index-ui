@@ -22,8 +22,8 @@ const IndexMarketDataProvider: React.FC = ({ children }) => {
       value={{
         ...indexMarketData,
         latestMarketCap: selectLatestMarketData(indexMarketData?.marketcaps),
-        latestPrice: selectLatestMarketData(indexMarketData.hourlyPrices),
-        latestVolume: selectLatestMarketData(indexMarketData.volumes),
+        latestPrice: selectLatestMarketData(indexMarketData?.hourlyPrices),
+        latestVolume: selectLatestMarketData(indexMarketData?.volumes),
       }}
     >
       {children}
