@@ -184,7 +184,6 @@ const Provider: React.FC = ({ children }) => {
 
   const fetchTotalSupplies = useCallback(
     async (provider: provider) => {
-      console.info("invoked fetchTotalSupplies")
       const totalSupplies = await Promise.all([
         getTotalSupply(provider, eth2xfliTokenAddress as string),
         getTotalSupply(provider, btc2xfliTokenAddress as string),
@@ -193,7 +192,6 @@ const Provider: React.FC = ({ children }) => {
         getTotalSupply(provider, bedTokenAddress as string),
       ])
 
-      console.info(`DPI totaly supply ${new BigNumber(totalSupplies[2]).dividedBy(new BigNumber(10).pow(18))}`)
       setEthFliTotalSupply(
         new BigNumber(totalSupplies[0]).dividedBy(new BigNumber(10).pow(18))
       )
@@ -244,7 +242,6 @@ const Provider: React.FC = ({ children }) => {
   useEffect(() => {
     if (account && ethereum) {
       fetchBalances(account, ethereum)
-      console.log("invoking fetchTotalSupplies")
       fetchTotalSupplies(ethereum)
       let refreshInterval = setInterval(
         () => fetchBalances(account, ethereum),
