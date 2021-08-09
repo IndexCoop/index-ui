@@ -12,6 +12,10 @@ interface ProductTokenStatsProps {
     streamingFee: string
   }
   netAssetValue: number
+  /**
+   * The total supply cap of this product. If no supply cap is provided, supply
+   * cap is not displayed.
+   */
   supplyCap: BigNumber | undefined
   currentSupply: BigNumber | undefined
 }
@@ -36,7 +40,7 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
     </StyledStat>
   )
 
-  const supplyCapStat = (
+  const supplyCapStat = supplyCap && (
     <StyledStat>
       <StyledStatTitle>Supply Cap</StyledStatTitle>
       <StyledStatMetric>{formattedSupplyCap()}</StyledStatMetric>
