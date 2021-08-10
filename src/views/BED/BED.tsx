@@ -32,7 +32,7 @@ const BedProductPage = (props: { title: string }) => {
 
   return (
     <ProductDataUI tokenDataProps={tokenDataProps}>
-      <p>
+      <div>
         Bankless proposed that the Index Coop manage a Set based on an index of
         Crypto’s most investable assets, BTC, ETH, and DPI, in equal weight.
         This construction — known as the BED Index or Bankless BED Index — seeks
@@ -105,7 +105,7 @@ const BedProductPage = (props: { title: string }) => {
           composition will change to the new weights on the first friday of the
           following month. I.e components will be added or removed.
         </p>
-      </p>
+      </div>
     </ProductDataUI>
   )
 }
