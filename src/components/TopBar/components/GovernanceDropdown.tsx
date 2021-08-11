@@ -32,16 +32,14 @@ const GovernanceDropdown: React.FC = () => {
 
   const dropdownSelectStyles = useMemo(() => {
     const isResourcesRouteActive =
-      pathname === '/about' ||
-      pathname === '/news' ||
-      pathname === '/rewards' ||
-      pathname === '/how-to-buy' ||
-      pathname === '/vote'
+      pathname === '/index' ||
+      pathname === '/vote' ||
+      pathname === '/rewards'
 
     return {
       control: (styles: any) => ({
         ...styles,
-        width: 130,
+        width: 140,
         background: 'none',
         border: 'none',
       }),
@@ -60,6 +58,7 @@ const GovernanceDropdown: React.FC = () => {
       }),
       menu: (styles: any) => ({
         ...styles,
+        width: 200,
         color: 'black',
       }),
       dropdownIndicator: (styles: any) => ({
@@ -86,38 +85,26 @@ const GovernanceDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'Resources' } as any}
+      value={{ label: 'Governance' }}
       options={[
         {
-          value: 'about',
-          label: 'About',
+          value: 'index',
+          label: 'Index Coop Token',
         },
         {
-          value: 'news',
-          label: 'News',
+          value: 'vote',
+          label: 'Vote',
+          link: 'https://snapshot.org/#/index-coop.eth'
         },
         {
-          value: 'docs',
-          label: 'Docs',
+          value: 'handbook',
+          label: 'Handbook',
           link: 'https://docs.indexcoop.com/',
         },
         {
           value: 'rewards',
           label: 'Rewards',
-        },
-        {
-          value: 'vote',
-          label: 'Vote',
-        },
-        {
-          value: 'how-to-buy',
-          label: 'How to Buy',
-        },
-        {
-          value: 'institutions',
-          label: 'Institutions',
-          link: 'https://institutions.indexcoop.com/',
-        },
+        }
       ]}
       components={{
         Option: CustomOption,
@@ -128,8 +115,9 @@ const GovernanceDropdown: React.FC = () => {
 }
 
 const CustomDropdownOption = styled.div`
-  width: 120px;
+  width: 190px;
   margin: 10px;
+  overflow: hidden;
 `
 
 const StyledLink = styled(NavLink)`

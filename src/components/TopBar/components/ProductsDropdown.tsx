@@ -19,7 +19,7 @@ const ProductsDropdown: React.FC = () => {
   const dropdownSelectStyles = useMemo(() => {
     const isProductRouteActive =
       pathname === '/dpi' ||
-      pathname === '/index' ||
+      pathname === '/mvi' ||
       pathname === '/ethfli' ||
       pathname === '/btcfli' ||
       pathname === '/bed'
@@ -95,11 +95,7 @@ const ProductsDropdown: React.FC = () => {
         {
           value: 'bed',
           label: 'Bankless BED Index',
-        },
-        {
-          value: 'index',
-          label: 'Index Coop Token',
-        },
+        }
       ]}
       components={{
         Option: CustomOption,
