@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardActions, CardContent, CardIcon } from 'react-neu'
 import styled, { keyframes } from 'styled-components'
 
-import rainbowWalletLogo from 'assets/wallet-connect.svg'
+import rainbowWalletLogo from 'assets/rainbow-logo.png'
 
 interface RainbowWalletProviderCardProps {
   isDisabled?: boolean
@@ -20,7 +20,7 @@ const RainbowWalletProviderCard: React.FC<RainbowWalletProviderCardProps> = ({
           <img
             alt='rainbowWalletLogo'
             src={rainbowWalletLogo}
-            style={{ height: 32 }}
+            style={{ borderRadius: 9, height: 32 }}
           />
         </CardIcon>
         <CardContent>
