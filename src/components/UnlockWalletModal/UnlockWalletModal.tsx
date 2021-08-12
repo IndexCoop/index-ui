@@ -17,6 +17,7 @@ import walletConnectLogo from 'assets/wallet-connect.svg'
 import coinbaseWalletLogo from 'assets/coinbase-wallet.svg'
 
 import Modal from 'components/CustomModal'
+import RainbowWalletProviderCard from './components/RainbowWalletProviderCard'
 import WalletProviderCard from './components/WalletProviderCard'
 
 const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
@@ -91,7 +92,11 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               />
             </Box>
             <Spacer />
-            <Box flex={1}></Box>
+            <Box flex={1}>
+              <RainbowWalletProviderCard
+                onSelect={handleConnectWalletConnect}
+              />
+            </Box>
           </StyledWalletsWrapper>
         </ModalContent>
         <ModalActions>
@@ -103,6 +108,7 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     </Modal>
   )
 }
+
 const StyledModalBody = styled.div`
   @media (max-width: 600px) {
     height: 100vh;
