@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardActions, CardContent, CardIcon } from 'react-neu'
+import { Card, CardActions, CardContent, CardIcon, useTheme } from 'react-neu'
 import styled, { keyframes } from 'styled-components'
 
 import rainbowWalletLogo from 'assets/rainbow-logo.png'
@@ -10,29 +10,40 @@ interface RainbowWalletProviderCardProps {
   onSelect: () => void
 }
 
+interface StyledButtonProps {
+  readonly isDarkMode: boolean
+}
+
 const RainbowWalletProviderCard: React.FC<RainbowWalletProviderCardProps> = ({
   onSelect,
-}) => (
-  <ProviderContainer onClick={onSelect}>
-    <ButtonInner>
-      <Card>
-        <CardIcon>
-          <img
-            alt='rainbowWalletLogo'
-            src={rainbowWalletLogo}
-            style={{ borderRadius: 9, height: 32 }}
-          />
-        </CardIcon>
-        <CardContent>
-          <StyledName>{'Rainbow'}</StyledName>
-        </CardContent>
-        <CardActions>
-          <StyledButton>Connect with Rainbow</StyledButton>
-        </CardActions>
-      </Card>
-    </ButtonInner>
-  </ProviderContainer>
-)
+}) => {
+  const { darkMode } = useTheme()
+  const isDarkMode = darkMode === true
+
+  return (
+    <ProviderContainer onClick={onSelect}>
+      <ButtonInner>
+        <Card>
+          <CardIcon>
+            <img
+              alt='rainbowWalletLogo'
+              src={rainbowWalletLogo}
+              style={{ borderRadius: 9, height: 32 }}
+            />
+          </CardIcon>
+          <CardContent>
+            <StyledName>{'Rainbow'}</StyledName>
+          </CardContent>
+          <CardActions>
+            <StyledButton isDarkMode={isDarkMode}>
+              Connect with Rainbow
+            </StyledButton>
+          </CardActions>
+        </Card>
+      </ButtonInner>
+    </ProviderContainer>
+  )
+}
 
 export const animatedgradient = keyframes`
     0% {
@@ -102,11 +113,12 @@ export const ButtonInner = styled.div`
   }
 `
 
-const StyledButton = styled.div`
+const StyledButton = styled.div<StyledButtonProps>`
   align-items: center;
-  background-color: white;
+  background-color: ${(props) => (props.isDarkMode ? 'white' : 'black')};
+  border-color: white;
   border-radius: 15px;
-  color: black;
+  color: ${(props) => (props.isDarkMode ? 'black' : 'white')};
   cursor: pointer;
   display: flex;
   font-size: 16px;
