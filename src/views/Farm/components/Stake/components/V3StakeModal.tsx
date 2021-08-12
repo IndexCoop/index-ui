@@ -29,6 +29,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const [currentId, setCurrentId] = useState<string>('Select Uniswap V3 NFT ID')
   availableNftIds = [123, 321, 123123, 123123123, 12312312123123]
 
+  const [isShowingConfirmationScreen, setIsShowingConfirmationScreen] =
+    useState(false)
+  const [stakingNft, setStakingNft] = useState<number>(-1)
+
   const handleStakeClick = useCallback(() => {
     onStake(currentId)
   }, [onStake, currentId])
@@ -36,8 +40,15 @@ const StakeModal: React.FC<StakeModalProps> = ({
     onStake(currentId)
   }, [onStake, currentId])
 
-  const openStakingModal = (nftId: number) => {
+  const openStakingConfirmation = (nftId: number) => {
     //open the modal
+    setStakingNft(nftId)
+    setIsShowingConfirmationScreen(true)
+  }
+  const closeStakingConfirmation = () => {
+    //open the modal
+    setStakingNft(-1)
+    setIsShowingConfirmationScreen(false)
   }
 
   const theme = useTheme()
@@ -99,19 +110,24 @@ const StakeModal: React.FC<StakeModalProps> = ({
     <Modal isOpen={isOpen}>
       <ModalTitle text='Uniswap V3 Staking' />
       <ModalContent>
-        {availableNftIds.map((nft) => (
-          <Button
-            onClick={() => openStakingModal(nft)}
-            text={nft?.toString()}
-          />
-        ))}
-        <Button onClick={onDismiss} text='Cancel' variant='secondary' />
-        <Button
-          disabled={!currentId || !Number(currentId)}
-          onClick={handleStakeClick}
-          text='Stake'
-          variant={!currentId || !Number(currentId) ? 'secondary' : 'default'}
-        />
+        {isShowingConfirmationScreen && (
+          //stuff here
+          <div>
+            confirming stake {stakingNft}
+            <Button
+              onClick={closeStakingConfirmation}
+              text='Cancel'
+              variant='secondary'
+            />
+          </div>
+        )}
+        {!isShowingConfirmationScreen &&
+          availableNftIds.map((nft) => (
+            <Button
+              onClick={() => openStakingConfirmation(nft)}
+              text={nft?.toString()}
+            />
+          ))}
       </ModalContent>
       <ModalActions></ModalActions>
     </Modal>
