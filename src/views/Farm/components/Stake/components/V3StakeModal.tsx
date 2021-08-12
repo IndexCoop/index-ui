@@ -15,20 +15,30 @@ import Modal from 'components/CustomModal'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: string) => void
-  nftIds: number[]
+  availableNftIds: number[]
+  depositedNftIds: number[]
 }
 
 const StakeModal: React.FC<StakeModalProps> = ({
   isOpen,
-  nftIds,
+  availableNftIds,
+  depositedNftIds,
   onDismiss,
   onStake,
 }) => {
   const [currentId, setCurrentId] = useState<string>('Select Uniswap V3 NFT ID')
+  availableNftIds = [123, 321, 123123, 123123123, 12312312123123]
 
   const handleStakeClick = useCallback(() => {
     onStake(currentId)
   }, [onStake, currentId])
+  const handleUnstakeClick = useCallback(() => {
+    onStake(currentId)
+  }, [onStake, currentId])
+
+  const openStakingModal = (nftId: number) => {
+    //open the modal
+  }
 
   const theme = useTheme()
 
@@ -87,21 +97,14 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text='Stake' />
+      <ModalTitle text='Uniswap V3 Staking' />
       <ModalContent>
-        <Select
-          isSearchable={false}
-          value={{ label: currentId } as any}
-          styles={dropdownSelectStyles}
-          options={nftIds.map((id) => {
-            return { label: id }
-          })}
-          components={{
-            Option: CustomOption,
-          }}
-        />
-      </ModalContent>
-      <ModalActions>
+        {availableNftIds.map((nft) => (
+          <Button
+            onClick={() => openStakingModal(nft)}
+            text={nft?.toString()}
+          />
+        ))}
         <Button onClick={onDismiss} text='Cancel' variant='secondary' />
         <Button
           disabled={!currentId || !Number(currentId)}
@@ -109,7 +112,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
           text='Stake'
           variant={!currentId || !Number(currentId) ? 'secondary' : 'default'}
         />
-      </ModalActions>
+      </ModalContent>
+      <ModalActions></ModalActions>
     </Modal>
   )
 }

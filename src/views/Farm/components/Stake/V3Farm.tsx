@@ -43,10 +43,6 @@ const Stake: React.FC = () => {
     setStakeModalIsOpen(false)
   }, [setStakeModalIsOpen])
 
-  const handleDismissUnstakeModal = useCallback(() => {
-    setUnstakeModalIsOpen(false)
-  }, [setUnstakeModalIsOpen])
-
   const handleOnStake = useCallback(
     (nftId: string) => {
       onDeposit(parseInt(nftId), 'DPI-ETH')
@@ -58,9 +54,8 @@ const Stake: React.FC = () => {
   const handleOnUnstake = useCallback(
     (nftId: string) => {
       onWithdraw(parseInt(nftId), 'DPI-ETH')
-      handleDismissUnstakeModal()
     },
-    [handleDismissUnstakeModal, onWithdraw]
+    [onWithdraw]
   )
 
   const handleStakeClick = useCallback(() => {
@@ -189,14 +184,14 @@ const Stake: React.FC = () => {
       </Card>
       <V3StakeModal
         isOpen={stakeModalIsOpen}
-        nftIds={validNfts}
+        availableNftIds={validNfts}
+        depositedNftIds={depositedNfts}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
       />
       <V3UnstakeModal
         isOpen={unstakeModalIsOpen}
         nftIds={depositedNfts}
-        onDismiss={handleDismissUnstakeModal}
         onUnstake={handleOnUnstake}
       />
     </>
