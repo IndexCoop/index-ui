@@ -14,6 +14,7 @@ import styled from 'styled-components'
 import Modal from 'components/CustomModal'
 import { FarmPlot, V3Farm } from 'constants/v3Farms'
 import { getMostRecentFarmNumber } from 'index-sdk/uniV3Farm'
+import NftFarmPlot from './NftFarmPlot'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: string, farm: V3Farm) => void
@@ -127,16 +128,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
             {stakingNft}
             <p>some copy here lorem ipsum idk bro whatever</p>
             <h3>Available Farm</h3>
-            <Button //TODO this should be a prettier text block, not a button
-              text={
-                farm.farmName +
-                ': ' +
-                activeFarmPlot?.startTime +
-                ' -> ' +
-                activeFarmPlot?.endTime
-              }
-            />
-            )
+            <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
+
             <Button onClick={handleStakeClick} text='Deposit & Stake' />
           </div>
         )}
