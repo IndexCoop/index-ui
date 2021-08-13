@@ -153,6 +153,16 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <Button onClick={handleStakeClick} text='Deposit & Stake' />
           </div>
         )}
+        {isShowingUnstakingConfirmationScreen && (
+          <div>
+            {selectedNft}
+            <p>some copy here lorem ipsum idk bro whatever</p>
+            <h3>Available Farm</h3>
+            <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
+
+            <Button onClick={handleStakeClick} text='Deposit & Stake' />
+          </div>
+        )}
         {!isShowingStakingConfirmationScreen &&
           !isShowingUnstakingConfirmationScreen && (
             <div>
@@ -178,11 +188,12 @@ const StakeModal: React.FC<StakeModalProps> = ({
               )}
               <div>Claimable Rewards</div>
               <div>{/** TODO add claimable rewards amt here */} INDEX</div>
-              <Button onClick={handleClaimRewards} text='Claim Rewards' />
             </div>
           )}
       </ModalContent>
-      <ModalActions></ModalActions>
+      <ModalActions>
+        <Button onClick={handleClaimRewards} text='Claim Rewards' />
+      </ModalActions>
     </Modal>
   )
 }
