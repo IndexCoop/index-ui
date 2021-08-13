@@ -18,6 +18,7 @@ import NftFarmPlot from './NftFarmPlot'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: string, farm: V3Farm) => void
+  onUnstake: (nftId: string) => void
   availableNftIds: number[]
   depositedNftIds: number[]
   farm: V3Farm
@@ -30,33 +31,53 @@ const StakeModal: React.FC<StakeModalProps> = ({
   farm,
   onDismiss,
   onStake,
+  onUnstake,
 }) => {
   const [currentId, setCurrentId] = useState<string>('Select Uniswap V3 NFT ID')
   const [activeFarmPlot, setActiveFarmPlot] = useState<FarmPlot>()
   availableNftIds = [123, 321, 123123, 123123123, 12312312123123]
+  depositedNftIds = [11111, 22222, 33333, 44444, 55555]
 
-  const [isShowingConfirmationScreen, setIsShowingConfirmationScreen] =
-    useState(false)
-  const [stakingNft, setStakingNft] = useState<number>(-1)
+  const [
+    isShowingStakingConfirmationScreen,
+    setIsShowingStakingConfirmationScreen,
+  ] = useState(false)
+  const [
+    isShowingUnstakingConfirmationScreen,
+    setIsShowingUnstakingConfirmationScreen,
+  ] = useState(false)
+  const [selectedNft, setSelectedNft] = useState<number>(-1)
 
   const handleStakeClick = useCallback(() => {
     onStake(currentId, farm)
     closeStakingConfirmation()
-  }, [onStake, currentId])
+  }, [onStake, currentId, farm])
 
   const handleUnstakeClick = useCallback(() => {
-    onStake(currentId, farm)
-  }, [onStake, currentId])
+    onUnstake(currentId)
+    closeUnstakingConfirmation()
+  }, [onUnstake, currentId])
+
+  const handleClaimRewards = useCallback(() => {
+    // TODO perform rewards claim here
+  }, [])
 
   const openStakingConfirmation = (nftId: number) => {
-    //open the modal
-    setStakingNft(nftId)
-    setIsShowingConfirmationScreen(true)
+    setSelectedNft(nftId)
+    setIsShowingStakingConfirmationScreen(true)
   }
   const closeStakingConfirmation = () => {
-    //open the modal
-    setStakingNft(-1)
-    setIsShowingConfirmationScreen(false)
+    setSelectedNft(-1)
+    setIsShowingUnstakingConfirmationScreen(false)
+  }
+
+  const openUnstakingConfirmation = (nftId: number) => {
+    setSelectedNft(nftId)
+    setIsShowingUnstakingConfirmationScreen(true)
+  }
+  const closeUnstakingConfirmation = () => {
+    setSelectedNft(-1)
+    setIsShowingUnstakingConfirmationScreen(false)
   }
 
   useEffect(() => {
@@ -122,10 +143,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
     <Modal isOpen={isOpen}>
       <ModalTitle text='Uniswap V3 Staking' />
       <ModalContent>
-        {isShowingConfirmationScreen && (
-          //stuff here
+        {isShowingStakingConfirmationScreen && (
           <div>
-            {stakingNft}
+            {selectedNft}
             <p>some copy here lorem ipsum idk bro whatever</p>
             <h3>Available Farm</h3>
             <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
@@ -133,13 +153,34 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <Button onClick={handleStakeClick} text='Deposit & Stake' />
           </div>
         )}
-        {!isShowingConfirmationScreen &&
-          availableNftIds.map((nft) => (
-            <Button
-              onClick={() => openStakingConfirmation(nft)}
-              text={nft?.toString()}
-            />
-          ))}
+        {!isShowingStakingConfirmationScreen &&
+          !isShowingUnstakingConfirmationScreen && (
+            <div>
+              {availableNftIds.length > 0 && (
+                <div>
+                  <h3>Unstaked {farm.farmName} LP NFTs</h3>
+                  {availableNftIds.map((nft) => (
+                    <div onClick={() => openStakingConfirmation(nft)}>
+                      {nft?.toString()}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {depositedNftIds.length > 0 && (
+                <div>
+                  <h3>Staked {farm.farmName} LP NFTs</h3>
+                  {depositedNftIds.map((nft) => (
+                    <div onClick={() => openUnstakingConfirmation(nft)}>
+                      {nft?.toString()}
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div>Claimable Rewards</div>
+              <div>{/** TODO add claimable rewards amt here */} INDEX</div>
+              <Button onClick={handleClaimRewards} text='Claim Rewards' />
+            </div>
+          )}
       </ModalContent>
       <ModalActions></ModalActions>
     </Modal>

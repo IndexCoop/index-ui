@@ -189,10 +189,6 @@ const Stake: React.FC = () => {
         farm={DPIETH}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
-      />
-      <V3UnstakeModal
-        isOpen={unstakeModalIsOpen}
-        nftIds={depositedNfts}
         onUnstake={handleOnUnstake}
       />
     </>
