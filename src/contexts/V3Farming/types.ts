@@ -1,18 +1,17 @@
+import { V3Farm } from 'constants/v3Farms'
 import BigNumber from 'utils/bignumber'
 
-import { FarmName } from 'index-sdk/uniV3Farm'
-
 export interface ContextValues {
-  onDeposit: (id: number, farm: FarmName) => void
-  onWithdraw: (id: number, farm: FarmName) => void
+  onDeposit: (id: number, farm: V3Farm) => void
+  onWithdraw: (id: number, farm: V3Farm) => void
   onClaimAccrued: (rewardToken: string) => void
-  getValidIds: (farm: FarmName) => Promise<number[] | undefined>
+  getValidIds: (farm: V3Farm) => Promise<number[] | undefined>
   getAccruedRewardsAmount: (
     rewardToken: string
   ) => Promise<BigNumber | undefined>
-  getAllDepositedTokens: (farm: FarmName) => Promise<number[] | undefined>
-  getAllPendingRewardsAmount: (farm: FarmName) => Promise<BigNumber | undefined>
+  getAllDepositedTokens: (farm: V3Farm) => Promise<number[] | undefined>
+  getAllPendingRewardsAmount: (farm: V3Farm) => Promise<BigNumber | undefined>
   getIndividualPendingRewardsAmount: (
-    farm: FarmName
+    farm: V3Farm
   ) => Promise<BigNumber[] | undefined>
 }

@@ -11,8 +11,7 @@ import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import V3StakeModal from './components/V3StakeModal'
 import V3UnstakeModal from './components/V3UnstakeModal'
 import Split from 'components/Split'
-import BigNumber from 'utils/bignumber'
-import { FarmName } from 'index-sdk/uniV3Farm'
+import { DPIETH, farmsByFarmName, V3Farm } from 'constants/v3Farms'
 
 const Stake: React.FC = () => {
   const { isMobile } = useMediaQuery()
@@ -45,8 +44,8 @@ const Stake: React.FC = () => {
   }, [setStakeModalIsOpen])
 
   const handleOnStake = useCallback(
-    (nftId: string) => {
-      onDeposit(parseInt(nftId), 'DPI-ETH')
+    (nftId: string, farm: V3Farm) => {
+      onDeposit(parseInt(nftId), farm)
       handleDismissStakeModal()
     },
     [handleDismissStakeModal, onDeposit]
@@ -54,7 +53,7 @@ const Stake: React.FC = () => {
 
   const handleOnUnstake = useCallback(
     (nftId: string) => {
-      onWithdraw(parseInt(nftId), 'DPI-ETH')
+      onWithdraw(parseInt(nftId), DPIETH)
     },
     [onWithdraw]
   )
@@ -107,7 +106,7 @@ const Stake: React.FC = () => {
   }, [account, status, transactionStatus, getAccruedRewardsAmount])
 
   useEffect(() => {
-    getAllPendingRewardsAmount('DPI-ETH').then((amount) => {
+    getAllPendingRewardsAmount(DPIETH).then((amount) => {
       setAllPendingRewards(
         parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(2)
       )
@@ -115,7 +114,7 @@ const Stake: React.FC = () => {
   }, [account, status, transactionStatus, getAllPendingRewardsAmount])
 
   useEffect(() => {
-    getIndividualPendingRewardsAmount('DPI-ETH').then((amounts) => {
+    getIndividualPendingRewardsAmount(DPIETH).then((amounts) => {
       setIndividualPendingRewards(
         amounts
           ? amounts.map((reward) => {
@@ -129,13 +128,13 @@ const Stake: React.FC = () => {
   }, [account, status, transactionStatus, getIndividualPendingRewardsAmount])
 
   useEffect(() => {
-    getValidIds('DPI-ETH').then((idList) => {
+    getValidIds(DPIETH).then((idList) => {
       setValidNfts(idList || [])
     })
   }, [account, status, transactionStatus, getValidIds])
 
   useEffect(() => {
-    getAllDepositedTokens('DPI-ETH').then((idList) => {
+    getAllDepositedTokens(DPIETH).then((idList) => {
       setDepositedNfts(idList || [])
     })
   }, [account, status, transactionStatus, getAllDepositedTokens])
@@ -187,7 +186,7 @@ const Stake: React.FC = () => {
         isOpen={stakeModalIsOpen}
         availableNftIds={validNfts}
         depositedNftIds={depositedNfts}
-        farm={FarmName}
+        farm={DPIETH}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
       />

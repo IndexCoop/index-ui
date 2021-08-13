@@ -11,13 +11,11 @@ import {
   uniswapV3FactoryAddress,
   uniswapV3StakerAddress,
 } from 'constants/ethContractAddresses'
-import farms from 'index-sdk/farms.json'
 import Farm from 'views/Farm'
-
-export type FarmName = 'DPI-ETH'
+import { V3Farm } from 'constants/v3Farms'
 
 export async function getValidIds(
-  farm: FarmName,
+  farm: V3Farm,
   user: string,
   provider: provider
 ): Promise<number[]> {
@@ -43,7 +41,7 @@ export async function getValidIds(
 
 export async function depositAndStake(
   nftId: number,
-  farm: FarmName,
+  farm: V3Farm,
   user: string,
   provider: provider
 ): Promise<string | null> {
@@ -63,7 +61,7 @@ export async function depositAndStake(
 
   const data = new Web3(provider).eth.abi.encodeParameters(
     [stakeTokenType],
-    [farms[farm].farms[currentFarmNumber]]
+    [farm.farms[currentFarmNumber]]
   )
 
   // add initially staked farms in transfer data
@@ -86,7 +84,7 @@ export async function depositAndStake(
 export async function withdraw(
   nftId: number,
   user: string,
-  farm: FarmName,
+  farm: V3Farm,
   provider: provider
 ): Promise<string | null> {
   const stakingContract = getStakingContract(provider)
@@ -96,7 +94,7 @@ export async function withdraw(
   const data: string[] = await Promise.all(
     stakedFarmIds.map(async (farmId) => {
       return stakingContract.methods
-        .unstakeToken(farms[farm].farms[farmId], nftId)
+        .unstakeToken(farm.farms[farmId], nftId)
         .encodeABI()
     })
   )
@@ -132,7 +130,7 @@ export async function getAccruedRewardsAmount(
 
 export async function getAllPendingRewardsAmount(
   user: string,
-  farm: FarmName,
+  farm: V3Farm,
   provider: provider
 ): Promise<BigNumber> {
   const stakingContract = getStakingContract(provider)
@@ -145,7 +143,7 @@ export async function getAllPendingRewardsAmount(
       const amounts = await Promise.all(
         stakes.map(async (farmNumber) => {
           const rewardInfo = await stakingContract.methods
-            .getRewardInfo(farms[farm].farms[farmNumber], id)
+            .getRewardInfo(farm.farms[farmNumber], id)
             .call()
 
           return new BigNumber(rewardInfo.reward)
@@ -170,7 +168,7 @@ export type FarmReward = {
 
 export async function getIndividualPendingRewardsAmount(
   user: string,
-  farm: FarmName,
+  farm: V3Farm,
   provider: provider
 ): Promise<BigNumber[]> {
   const stakingContract = getStakingContract(provider)
@@ -184,7 +182,7 @@ export async function getIndividualPendingRewardsAmount(
       await Promise.all(
         stakes.map(async (farmNumber) => {
           const rewardInfo = await stakingContract.methods
-            .getRewardInfo(farms[farm].farms[farmNumber], id)
+            .getRewardInfo(farm.farms[farmNumber], id)
             .call()
 
           amounts[farmNumber] = new BigNumber(rewardInfo.reward)
@@ -220,7 +218,7 @@ export async function claimAccruedRewards(
 
 export async function getAllDepositedTokens(
   user: string,
-  farm: FarmName,
+  farm: V3Farm,
   provider: provider
 ): Promise<number[]> {
   const options = {
@@ -266,22 +264,20 @@ export async function getAllDepositedTokens(
 
 // Helper functions
 
-function getMostRecentFarmNumber(farm: FarmName): number {
-  return farms[farm].farms.length - 1
+export function getMostRecentFarmNumber(farm: V3Farm): number {
+  return farm.farms.length - 1
 }
 
 async function getCurrentStakes(
-  farm: FarmName,
+  farm: V3Farm,
   nftId: number,
   provider: provider
 ): Promise<number[]> {
   const stakingContract = getStakingContract(provider)
   const currentStakes = []
 
-  for (let i = 0; i < farms[farm].farms.length; i++) {
-    const incentiveId = Web3.utils.keccak256(
-      JSON.stringify(farms[farm].farms[i])
-    )
+  for (let i = 0; i < farm.farms.length; i++) {
+    const incentiveId = Web3.utils.keccak256(JSON.stringify(farm.farms[i]))
     const stakeInfo = await stakingContract.methods
       .stakes(nftId, incentiveId)
       .call()
@@ -322,7 +318,7 @@ function getStakingContract(provider: provider) {
 
 async function isTokenFromValidPool(
   tokenId: number,
-  farm: FarmName,
+  farm: V3Farm,
   nftPositionManager: any,
   factory: any
 ): Promise<boolean> {
@@ -331,5 +327,5 @@ async function isTokenFromValidPool(
     .getPool(position.token0, position.token1, position.fee)
     .call()
 
-  return farms[farm].pool === nftPoolAddress
+  return farm.pool === nftPoolAddress
 }

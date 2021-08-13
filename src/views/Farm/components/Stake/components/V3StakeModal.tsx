@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import {
   Button,
@@ -12,25 +12,26 @@ import Select from 'react-select'
 import styled from 'styled-components'
 
 import Modal from 'components/CustomModal'
-import { FarmName } from 'index-sdk/uniV3Farm'
-import farms from 'index-sdk/farms.json'
+import { FarmPlot, V3Farm } from 'constants/v3Farms'
+import { getMostRecentFarmNumber } from 'index-sdk/uniV3Farm'
 
 interface StakeModalProps extends ModalProps {
-  onStake: (nftId: string) => void
+  onStake: (nftId: string, farm: V3Farm) => void
   availableNftIds: number[]
   depositedNftIds: number[]
-  farm: FarmName
+  farm: V3Farm
 }
 
 const StakeModal: React.FC<StakeModalProps> = ({
   isOpen,
   availableNftIds,
   depositedNftIds,
-  farm: FarmName,
+  farm,
   onDismiss,
   onStake,
 }) => {
   const [currentId, setCurrentId] = useState<string>('Select Uniswap V3 NFT ID')
+  const [activeFarmPlot, setActiveFarmPlot] = useState<FarmPlot>()
   availableNftIds = [123, 321, 123123, 123123123, 12312312123123]
 
   const [isShowingConfirmationScreen, setIsShowingConfirmationScreen] =
@@ -38,10 +39,12 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const [stakingNft, setStakingNft] = useState<number>(-1)
 
   const handleStakeClick = useCallback(() => {
-    onStake(currentId)
+    onStake(currentId, farm)
+    closeStakingConfirmation()
   }, [onStake, currentId])
+
   const handleUnstakeClick = useCallback(() => {
-    onStake(currentId)
+    onStake(currentId, farm)
   }, [onStake, currentId])
 
   const openStakingConfirmation = (nftId: number) => {
@@ -54,6 +57,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
     setStakingNft(-1)
     setIsShowingConfirmationScreen(false)
   }
+
+  useEffect(() => {
+    setActiveFarmPlot(farm.farms[getMostRecentFarmNumber(farm)])
+  }, [farm])
 
   const theme = useTheme()
 
@@ -120,17 +127,17 @@ const StakeModal: React.FC<StakeModalProps> = ({
             {stakingNft}
             <p>some copy here lorem ipsum idk bro whatever</p>
             <h3>Available Farm</h3>
-            {farms[FarmName].farms.map((farm) => (
-              <Button
-                //onClick={() => openStakingConfirmation(nft)}
-                text={farm?.pool}
-              />
-            ))}
-            <Button
-              onClick={closeStakingConfirmation}
-              text='Cancel'
-              variant='secondary'
+            <Button //TODO this should be a prettier text block, not a button
+              text={
+                farm.farmName +
+                ': ' +
+                activeFarmPlot?.startTime +
+                ' -> ' +
+                activeFarmPlot?.endTime
+              }
             />
+            )
+            <Button onClick={handleStakeClick} text='Deposit & Stake' />
           </div>
         )}
         {!isShowingConfirmationScreen &&

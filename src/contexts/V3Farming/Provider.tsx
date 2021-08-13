@@ -15,9 +15,9 @@ import {
   claimAccruedRewards,
   getAllPendingRewardsAmount,
   getIndividualPendingRewardsAmount,
-  FarmName,
 } from 'index-sdk/uniV3Farm'
 import { waitTransaction } from 'utils/index'
+import { V3Farm } from 'constants/v3Farms'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -32,7 +32,7 @@ const Provider: React.FC = ({ children }) => {
   const { account, ethereum } = useWallet()
 
   const handleDeposit = useCallback(
-    async (id: number, farm: FarmName) => {
+    async (id: number, farm: V3Farm) => {
       if (!ethereum || !account || !id) return
 
       setConfirmTxModalIsOpen(true)
@@ -66,7 +66,7 @@ const Provider: React.FC = ({ children }) => {
   )
 
   const handleWithdraw = useCallback(
-    async (id: number, farm: FarmName) => {
+    async (id: number, farm: V3Farm) => {
       if (!ethereum || !account || !id) return
 
       setConfirmTxModalIsOpen(true)
@@ -147,7 +147,7 @@ const Provider: React.FC = ({ children }) => {
   )
 
   const handleGetValidIds = useCallback(
-    async (farm: FarmName) => {
+    async (farm: V3Farm) => {
       if (!ethereum || !account || !farm) return
 
       return await getValidIds(farm, account, ethereum)
@@ -156,7 +156,7 @@ const Provider: React.FC = ({ children }) => {
   )
 
   const handleGetDepositedTokens = useCallback(
-    async (farm: FarmName) => {
+    async (farm: V3Farm) => {
       if (!ethereum || !account || !farm) return
 
       return await getAllDepositedTokens(account, farm, ethereum)
@@ -165,7 +165,7 @@ const Provider: React.FC = ({ children }) => {
   )
 
   const handleGetAllPendingRewardsAmount = useCallback(
-    async (farm: FarmName) => {
+    async (farm: V3Farm) => {
       if (!ethereum || !account || !farm) return
 
       return await getAllPendingRewardsAmount(account, farm, ethereum)
@@ -174,7 +174,7 @@ const Provider: React.FC = ({ children }) => {
   )
 
   const handleGetIndividualPendingRewardsAmount = useCallback(
-    async (farm: FarmName) => {
+    async (farm: V3Farm) => {
       if (!ethereum || !account || !farm) return
 
       return await getIndividualPendingRewardsAmount(account, farm, ethereum)
