@@ -43,7 +43,7 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   }, [account, onDismiss])
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <StyledModalBody>
         <ModalTitle text='Select a wallet provider.' />
         <ModalContent>
