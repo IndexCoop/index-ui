@@ -15,9 +15,9 @@ import { toast } from 'react-toastify'
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
 import coinbaseWalletLogo from 'assets/coinbase-wallet.svg'
+import rainbowWalletLogo from 'assets/rainbow-logo.png'
 
 import Modal from 'components/CustomModal'
-import RainbowWalletProviderCard from './components/RainbowWalletProviderCard'
 import WalletProviderCard from './components/WalletProviderCard'
 
 const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
@@ -93,7 +93,15 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             </Box>
             <Spacer />
             <Box flex={1}>
-              <RainbowWalletProviderCard
+              <WalletProviderCard
+                icon={
+                  <img
+                    alt='rainbowWalletLogo'
+                    src={rainbowWalletLogo}
+                    style={{ borderRadius: 11, height: 32 }}
+                  />
+                }
+                name='Rainbow'
                 onSelect={handleConnectWalletConnect}
               />
             </Box>
