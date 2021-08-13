@@ -12,17 +12,21 @@ import Select from 'react-select'
 import styled from 'styled-components'
 
 import Modal from 'components/CustomModal'
+import { FarmName } from 'index-sdk/uniV3Farm'
+import farms from 'index-sdk/farms.json'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: string) => void
   availableNftIds: number[]
   depositedNftIds: number[]
+  farm: FarmName
 }
 
 const StakeModal: React.FC<StakeModalProps> = ({
   isOpen,
   availableNftIds,
   depositedNftIds,
+  farm: FarmName,
   onDismiss,
   onStake,
 }) => {
@@ -113,7 +117,15 @@ const StakeModal: React.FC<StakeModalProps> = ({
         {isShowingConfirmationScreen && (
           //stuff here
           <div>
-            confirming stake {stakingNft}
+            {stakingNft}
+            <p>some copy here lorem ipsum idk bro whatever</p>
+            <h3>Available Farm</h3>
+            {farms[FarmName].farms.map((farm) => (
+              <Button
+                //onClick={() => openStakingConfirmation(nft)}
+                text={farm?.pool}
+              />
+            ))}
             <Button
               onClick={closeStakingConfirmation}
               text='Cancel'

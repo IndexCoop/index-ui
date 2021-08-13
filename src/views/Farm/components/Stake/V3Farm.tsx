@@ -12,6 +12,7 @@ import V3StakeModal from './components/V3StakeModal'
 import V3UnstakeModal from './components/V3UnstakeModal'
 import Split from 'components/Split'
 import BigNumber from 'utils/bignumber'
+import { FarmName } from 'index-sdk/uniV3Farm'
 
 const Stake: React.FC = () => {
   const { isMobile } = useMediaQuery()
@@ -186,6 +187,7 @@ const Stake: React.FC = () => {
         isOpen={stakeModalIsOpen}
         availableNftIds={validNfts}
         depositedNftIds={depositedNfts}
+        farm={FarmName}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
       />
