@@ -7,7 +7,7 @@ const Explanation: React.FC = () => (
     <StyledExplanationTitle>What is the Index Coop?</StyledExplanationTitle>
     <StyledExplanationContainer>
       <StyledCardContainer>
-        <Surface fill>
+        <Surface>
           <StyledCardContent>
             <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_1.svg' />
             <StyledCardTitle>Diversified Risk Products</StyledCardTitle>
@@ -25,7 +25,7 @@ const Explanation: React.FC = () => (
       <Spacer />
 
       <StyledCardContainer>
-        <Surface fill>
+        <Surface>
           <StyledCardContent>
             <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_2.svg' />
             <StyledCardTitle>Decentralized & Autonomous</StyledCardTitle>
@@ -40,7 +40,7 @@ const Explanation: React.FC = () => (
       <Spacer />
 
       <StyledCardContainer>
-        <Surface fill>
+        <Surface>
           <StyledCardContent>
             <StyledCardIcon src='https://index-dao.s3.amazonaws.com/about_icon_3.svg' />
             <StyledCardTitle>Built with DeFi Leaders</StyledCardTitle>
