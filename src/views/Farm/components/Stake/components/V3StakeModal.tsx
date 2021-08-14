@@ -85,6 +85,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
         <ModalTitle text='Uniswap V3 DPI-ETH Staking' />
         <ModalContent>
           <div>
+            {/* TODO: add DPI/ETH Icon */}
             {selectedNft}
             <p>
               This token is currently unstaked and undeposited in any active LM
@@ -94,12 +95,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
             </p>
             <h3>Available Farm</h3>
             <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
-
-            <Button onClick={handleStakeClick} text='Deposit & Stake' />
           </div>
         </ModalContent>
         <ModalActions>
-          <Button onClick={handleClaimRewards} text='Claim Rewards' />
+          <Button onClick={handleStakeClick} text='Deposit & Stake' />
         </ModalActions>
       </Modal>
     )

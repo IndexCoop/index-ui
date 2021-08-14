@@ -1,13 +1,5 @@
 import React from 'react'
 
-import { RoundedButton } from 'components/RoundedButton'
-import useBuySell from 'hooks/useBuySell'
-import useWallet from 'hooks/useWallet'
-import useApproval from 'hooks/useApproval'
-import {
-  ethTokenAddress,
-  zeroExRouterAddress,
-} from 'constants/ethContractAddresses'
 import { FarmPlot } from 'constants/v3Farms'
 
 interface NftFarmPlotProps {
@@ -18,12 +10,21 @@ interface NftFarmPlotProps {
  * NftFarmPlot - Displays NFT farm information
  */
 const NftFarmPlot: React.FC<NftFarmPlotProps> = ({ farmName, farmPlot }) => {
+  const { pool, startTime, endTime } = farmPlot || {}
+
+  const farmStartTime = startTime
+    ? new Date(startTime * 1000).toDateString()
+    : 'Unknown Start Time'
+  const farmEndTime = endTime
+    ? new Date(endTime * 1000).toDateString()
+    : 'Unknown End Time'
+
   return (
     <div>
       <div>Farm: {farmName}</div>
-      <div>Pool: {farmPlot?.pool}</div>
+      <div>Pool: {pool}</div>
       <div>
-        {farmPlot?.startTime} - {farmPlot?.endTime}
+        {farmStartTime} - {farmEndTime}
       </div>
     </div>
   )
