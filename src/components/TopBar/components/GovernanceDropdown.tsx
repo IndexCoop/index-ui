@@ -26,21 +26,20 @@ const CustomOption = (props: any) => {
   )
 }
 
-const ProductsDropdown: React.FC = () => {
+const GovernanceDropdown: React.FC = () => {
   const theme = useTheme()
   const { pathname } = useLocation()
 
   const dropdownSelectStyles = useMemo(() => {
     const isResourcesRouteActive =
-      pathname === '/about' ||
-      pathname === '/how-to-buy' ||
-      pathname === '/news' ||
-      pathname === '/liquidity-mining'
+      pathname === '/index' ||
+      pathname === '/vote' ||
+      pathname === '/rewards'
 
     return {
       control: (styles: any) => ({
         ...styles,
-        width: 130,
+        width: 140,
         background: 'none',
         border: 'none',
       }),
@@ -86,29 +85,26 @@ const ProductsDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'Resources' }}
+      value={{ label: 'Governance' }}
       options={[
         {
-          value: 'about',
-          label: 'About',
+          value: 'index',
+          label: 'Index Coop Token',
         },
         {
-          value: 'how-to-buy',
-          label: 'How to Buy',
+          value: 'vote',
+          label: 'Vote',
+          link: 'https://snapshot.org/#/index-coop.eth'
         },
         {
-          value: 'news',
-          label: 'News',
+          value: 'handbook',
+          label: 'Handbook',
+          link: 'https://docs.indexcoop.com/',
         },
         {
-          value: 'liquidity-mining',
-          label: 'Liquidity Mining',
-        },
-        {
-          value: 'institutions',
-          label: 'Institutions',
-          link: 'https://institutions.indexcoop.com/'
-        },
+          value: 'rewards',
+          label: 'Rewards',
+        }
       ]}
       components={{
         Option: CustomOption,
@@ -121,6 +117,7 @@ const ProductsDropdown: React.FC = () => {
 const CustomDropdownOption = styled.div`
   width: 190px;
   margin: 10px;
+  overflow: hidden;
 `
 
 const StyledLink = styled(NavLink)`
@@ -151,4 +148,4 @@ const StyledOutboundLink = styled.a`
   }
 `
 
-export default ProductsDropdown
+export default GovernanceDropdown
