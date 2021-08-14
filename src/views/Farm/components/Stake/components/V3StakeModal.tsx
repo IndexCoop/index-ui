@@ -33,57 +33,53 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const [currentId, setCurrentId] = useState<string | undefined>(undefined)
   const [activeFarmPlot, setActiveFarmPlot] = useState<FarmPlot>()
 
-  const [
-    isShowingStakingConfirmationScreen,
-    setIsShowingStakingConfirmationScreen,
-  ] = useState(false)
-  const [
-    isShowingUnstakingConfirmationScreen,
-    setIsShowingUnstakingConfirmationScreen,
-  ] = useState(false)
+  const [isShowingStakingDetailScreen, setIsShowingStakingDetailScreen] =
+    useState(false)
+  const [isShowingUnstakingDetailScreen, setIsShowingUnstakingDetailScreen] =
+    useState(false)
   const [selectedNft, setSelectedNft] = useState<number>(-1)
 
   const handleStakeClick = useCallback(() => {
     if (!currentId) return
 
     onStake(currentId, farm)
-    closeStakingConfirmation()
+    closeStakingDetail()
   }, [onStake, currentId, farm])
 
   const handleUnstakeClick = useCallback(() => {
     if (!currentId) return
 
     onUnstake(currentId)
-    closeUnstakingConfirmation()
+    closeUnstakingDetail()
   }, [onUnstake, currentId])
 
   const handleClaimRewards = useCallback(() => {
     // TODO perform rewards claim here
   }, [])
 
-  const openStakingConfirmation = (nftId: number) => {
+  const openStakingDetail = (nftId: number) => {
     setSelectedNft(nftId)
-    setIsShowingStakingConfirmationScreen(true)
+    setIsShowingStakingDetailScreen(true)
   }
-  const closeStakingConfirmation = () => {
+  const closeStakingDetail = () => {
     setSelectedNft(-1)
-    setIsShowingUnstakingConfirmationScreen(false)
+    setIsShowingUnstakingDetailScreen(false)
   }
 
-  const openUnstakingConfirmation = (nftId: number) => {
+  const openUnstakingDetail = (nftId: number) => {
     setSelectedNft(nftId)
-    setIsShowingUnstakingConfirmationScreen(true)
+    setIsShowingUnstakingDetailScreen(true)
   }
-  const closeUnstakingConfirmation = () => {
+  const closeUnstakingDetail = () => {
     setSelectedNft(-1)
-    setIsShowingUnstakingConfirmationScreen(false)
+    setIsShowingUnstakingDetailScreen(false)
   }
 
   useEffect(() => {
     setActiveFarmPlot(farm.farms[getMostRecentFarmNumber(farm)])
   }, [farm])
 
-  if (isShowingStakingConfirmationScreen) {
+  if (isShowingStakingDetailScreen) {
     return (
       <Modal isOpen={isOpen} onDismiss={onDismiss}>
         <ModalTitle text='Uniswap V3 DPI-ETH Staking' />
@@ -121,7 +117,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <div>
               <h3>Unstaked {farm.farmName} LP NFTs</h3>
               {availableNftIds.map((nft) => (
-                <div onClick={() => openStakingConfirmation(nft)}>
+                <div onClick={() => openStakingDetail(nft)}>
                   {nft?.toString()}
                 </div>
               ))}
@@ -131,7 +127,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <div>
               <h3>Staked {farm.farmName} LP NFTs</h3>
               {depositedNftIds.map((nft) => (
-                <div onClick={() => openUnstakingConfirmation(nft)}>
+                <div onClick={() => openUnstakingDetail(nft)}>
                   {nft?.toString()}
                 </div>
               ))}
