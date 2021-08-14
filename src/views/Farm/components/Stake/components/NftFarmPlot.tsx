@@ -10,7 +10,7 @@ interface NftFarmPlotProps {
  * NftFarmPlot - Displays NFT farm information
  */
 const NftFarmPlot: React.FC<NftFarmPlotProps> = ({ farmName, farmPlot }) => {
-  const { pool, startTime, endTime } = farmPlot || {}
+  const { name, pool, startTime, endTime } = farmPlot || {}
 
   const farmStartTime = startTime
     ? new Date(startTime * 1000).toDateString()
@@ -21,7 +21,7 @@ const NftFarmPlot: React.FC<NftFarmPlotProps> = ({ farmName, farmPlot }) => {
 
   return (
     <div>
-      <div>Farm: {farmName}</div>
+      <div>{name}</div>
       <div>Pool: {pool}</div>
       <div>
         {farmStartTime} - {farmEndTime}

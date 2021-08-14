@@ -5,6 +5,7 @@ export interface V3Farm {
 }
 
 export interface FarmPlot {
+  name: string
   rewardToken: string
   pool: string
   startTime: number
@@ -17,6 +18,7 @@ export const DPIETH: V3Farm = {
   pool: '0x1cC56b205109A832Fd0F7062FD64bb6813BeF443',
   farms: [
     {
+      name: 'DPI-ETH UNI V3 Farm #1',
       rewardToken: '0x1720668a1826c6f30a11780783b0357269b7e1ca',
       pool: '0x1cC56b205109A832Fd0F7062FD64bb6813BeF443',
       startTime: 1626120926,
