@@ -10,7 +10,10 @@ import styled from 'styled-components'
 
 import Modal from 'components/CustomModal'
 import { FarmPlot, V3Farm } from 'constants/v3Farms'
-import { getMostRecentFarmNumber } from 'index-sdk/uniV3Farm'
+import {
+  getExpiredFarmsInUse,
+  getMostRecentFarmNumber,
+} from 'index-sdk/uniV3Farm'
 import NftFarmPlot from './NftFarmPlot'
 
 interface StakeModalProps extends ModalProps {
@@ -19,6 +22,7 @@ interface StakeModalProps extends ModalProps {
   availableNftIds: number[]
   depositedNftIds: number[]
   farm: V3Farm
+  provider: any
 }
 
 const StakeModal: React.FC<StakeModalProps> = ({
@@ -26,12 +30,14 @@ const StakeModal: React.FC<StakeModalProps> = ({
   availableNftIds,
   depositedNftIds,
   farm,
+  provider,
   onDismiss,
   onStake,
   onUnstake,
 }) => {
   const [currentId, setCurrentId] = useState<number | undefined>(undefined)
   const [activeFarmPlot, setActiveFarmPlot] = useState<FarmPlot>()
+  const [expiredFarmPlots, setExpiredFarmPlots] = useState<FarmPlot[]>()
 
   const [isShowingStakingDetailScreen, setIsShowingStakingDetailScreen] =
     useState(false)
@@ -56,18 +62,25 @@ const StakeModal: React.FC<StakeModalProps> = ({
     // TODO perform rewards claim here
   }, [])
 
-  const openStakingDetail = (nftId: number) => {
+  const openStakingDetail = async (nftId: number) => {
     setCurrentId(nftId)
     setIsShowingStakingDetailScreen(true)
+    // TODO: is this the best way to do this?
+    /* TODO: this is broken -> setExpiredFarmPlots(
+      await getExpiredFarmsInUse(farm, currentId || -1, provider)
+    )*/
   }
   const closeStakingDetail = () => {
     setCurrentId(undefined)
     setIsShowingStakingDetailScreen(false)
   }
 
-  const openUnstakingDetail = (nftId: number) => {
+  const openUnstakingDetail = async (nftId: number) => {
     setCurrentId(nftId)
     setIsShowingUnstakingDetailScreen(true)
+    /* TODO: this is broken -> setExpiredFarmPlots(
+      await getExpiredFarmsInUse(farm, currentId || -1, provider)
+    )*/
   }
   const closeUnstakingDetail = () => {
     setCurrentId(undefined)
@@ -121,6 +134,13 @@ const StakeModal: React.FC<StakeModalProps> = ({
               contract. The active farms below are farms currently accruing you
               rewards:
             </p>
+            <h3>Expired Farms</h3>
+            {/* TODO: this needs to be a list of expired farmplots from expiredFarmPlots */}
+            {expiredFarmPlots &&
+              expiredFarmPlots.length > 0 &&
+              expiredFarmPlots.map((expiredPlot) => (
+                <NftFarmPlot farmName={farm.farmName} farmPlot={expiredPlot} />
+              ))}
             <h3>Active Farms</h3>
             <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
           </div>

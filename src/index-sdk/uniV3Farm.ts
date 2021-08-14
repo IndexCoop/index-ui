@@ -12,7 +12,7 @@ import {
   uniswapV3StakerAddress,
 } from 'constants/ethContractAddresses'
 import Farm from 'views/Farm'
-import { V3Farm } from 'constants/v3Farms'
+import { FarmPlot, V3Farm } from 'constants/v3Farms'
 
 export async function getValidIds(
   farm: V3Farm,
@@ -328,4 +328,26 @@ async function isTokenFromValidPool(
     .call()
 
   return farm.pool === nftPoolAddress
+}
+
+export async function getExpiredFarmsInUse(
+  farm: V3Farm,
+  nftId: number,
+  provider: provider
+): Promise<FarmPlot[]> {
+  // TODO: make this return expired stakes that the user currently has an NFT in
+  const stakingContract = getStakingContract(provider)
+  const expiredFarmPlots: FarmPlot[] = []
+
+  for (let i = 0; i < farm.farms.length; i++) {
+    const incentiveId = Web3.utils.keccak256(JSON.stringify(farm.farms[i]))
+    const stakeInfo = await stakingContract.methods
+      .stakes(nftId, incentiveId)
+      .call()
+    if (stakeInfo.liquidity !== 0 && i !== getMostRecentFarmNumber(farm)) {
+      expiredFarmPlots.push(farm.farms[i])
+    }
+  }
+
+  return expiredFarmPlots
 }

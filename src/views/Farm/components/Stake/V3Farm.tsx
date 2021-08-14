@@ -15,7 +15,7 @@ import { DPIETH, farmsByFarmName, V3Farm } from 'constants/v3Farms'
 
 const Stake: React.FC = () => {
   const { isMobile } = useMediaQuery()
-  const { status, account } = useWallet()
+  const { status, account, ethereum } = useWallet()
   const {
     onDeposit,
     onWithdraw,
@@ -187,6 +187,7 @@ const Stake: React.FC = () => {
         availableNftIds={validNfts}
         depositedNftIds={depositedNfts}
         farm={DPIETH}
+        provider={ethereum}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
         onUnstake={handleOnUnstake}

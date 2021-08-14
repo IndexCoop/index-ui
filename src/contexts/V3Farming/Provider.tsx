@@ -184,6 +184,40 @@ const Provider: React.FC = ({ children }) => {
     [ethereum, account]
   )
 
+  const handleGetCurrentExpiredFarms = useCallback(
+    async (id: number, farm: V3Farm) => {
+      if (!ethereum || !account || !id) return
+
+      setConfirmTxModalIsOpen(true)
+      onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
+
+      const transactionId = await withdraw(id, account, farm, ethereum)
+
+      if (!transactionId) {
+        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
+        return
+      }
+
+      onSetTransactionId(transactionId)
+      onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+
+      const success = await waitTransaction(ethereum, transactionId)
+
+      if (success) {
+        onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
+      } else {
+        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
+      }
+    },
+    [
+      ethereum,
+      account,
+      setConfirmTxModalIsOpen,
+      onSetTransactionId,
+      onSetTransactionStatus,
+    ]
+  )
+
   return (
     <Context.Provider
       value={{
