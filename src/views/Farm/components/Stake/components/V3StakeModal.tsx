@@ -1,14 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-
 import {
   Button,
   ModalActions,
   ModalContent,
   ModalProps,
   ModalTitle,
-  useTheme,
 } from 'react-neu'
-import Select from 'react-select'
 import styled from 'styled-components'
 
 import Modal from 'components/CustomModal'
@@ -35,7 +32,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
 }) => {
   const [currentId, setCurrentId] = useState<string>('Select Uniswap V3 NFT ID')
   const [activeFarmPlot, setActiveFarmPlot] = useState<FarmPlot>()
-  availableNftIds = [123, 321, 123123, 123123123, 12312312123123]
   depositedNftIds = [11111, 22222, 33333, 44444, 55555]
 
   const [
@@ -83,61 +79,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
   useEffect(() => {
     setActiveFarmPlot(farm.farms[getMostRecentFarmNumber(farm)])
   }, [farm])
-
-  const theme = useTheme()
-
-  const CustomOption = (props: any) => {
-    const { innerProps, label } = props
-    return (
-      <DropdownOption {...innerProps}>
-        <StyledMonth onClick={() => setCurrentId(label)}>{label}</StyledMonth>
-      </DropdownOption>
-    )
-  }
-
-  const dropdownSelectStyles = useMemo(() => {
-    return {
-      control: (styles: any) => ({
-        ...styles,
-        background: 'none',
-        border: 'none',
-      }),
-      singleValue: (styles: any) => ({
-        ...styles,
-        'font-weight': 600,
-        'font-size': '24px',
-        'color': theme.colors.white[500],
-        'cursor': 'pointer',
-        '&:hover': {
-          color: theme.colors.grey[500],
-        },
-      }),
-      menu: (styles: any) => ({
-        ...styles,
-        color: 'black',
-      }),
-      dropdownIndicator: (styles: any) => ({
-        ...styles,
-        'font-weight': 600,
-        'font-size': '28px',
-        'color': theme.colors.white[500],
-        'cursor': 'pointer',
-        '&:hover': {
-          color: theme.colors.grey[500],
-        },
-      }),
-      valueContainer: (styles: any) => ({
-        ...styles,
-        overflow: 'initial',
-      }),
-      indicatorSeparator: () => ({}),
-      indicatorContainer: (styles: any) => ({
-        ...styles,
-        marginLeft: 0,
-        padding: 0,
-      }),
-    }
-  }, [theme])
 
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
