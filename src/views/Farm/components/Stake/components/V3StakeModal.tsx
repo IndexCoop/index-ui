@@ -103,6 +103,30 @@ const StakeModal: React.FC<StakeModalProps> = ({
     )
   }
 
+  if (isShowingUnstakingDetailScreen) {
+    return (
+      <Modal isOpen={isOpen} onDismiss={onDismiss}>
+        <ModalTitle text='Uniswap V3 DPI-ETH Staking' />
+        <ModalContent>
+          <div>
+            {/* TODO: add DPI/ETH Icon */}
+            {currentId}
+            <p>
+              This token is currently deposited in the Uniswap V3 staking
+              contract. The active farms below are farms currently accruing you
+              rewards:
+            </p>
+            <h3>Active Farms</h3>
+            <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
+          </div>
+        </ModalContent>
+        <ModalActions>
+          <Button onClick={handleUnstakeClick} text='Unstake & Withdraw' />
+        </ModalActions>
+      </Modal>
+    )
+  }
+
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <ModalTitle text='Uniswap V3 DPI-ETH Staking' />
