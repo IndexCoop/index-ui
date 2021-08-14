@@ -83,57 +83,63 @@ const StakeModal: React.FC<StakeModalProps> = ({
     setActiveFarmPlot(farm.farms[getMostRecentFarmNumber(farm)])
   }, [farm])
 
+  if (isShowingStakingConfirmationScreen) {
+    return (
+      <Modal isOpen={isOpen} onDismiss={onDismiss}>
+        <ModalTitle text='Uniswap V3 DPI-ETH Staking' />
+        <ModalContent>
+          <div>
+            {selectedNft}
+            <p>some copy here lorem ipsum idk bro whatever</p>
+            <h3>Available Farm</h3>
+            <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
+
+            <Button onClick={handleStakeClick} text='Deposit & Stake' />
+          </div>
+          <div>
+            {selectedNft}
+            <p>some copy here lorem ipsum idk bro whatever</p>
+            <h3>Available Farm</h3>
+            <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
+
+            <Button onClick={handleStakeClick} text='Deposit & Stake' />
+          </div>
+        </ModalContent>
+        <ModalActions>
+          <Button onClick={handleClaimRewards} text='Claim Rewards' />
+        </ModalActions>
+      </Modal>
+    )
+  }
+
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
-      <ModalTitle text='Uniswap V3 Staking' />
+      <ModalTitle text='Uniswap V3 DPI-ETH Staking' />
       <ModalContent>
-        {isShowingStakingConfirmationScreen && (
-          <div>
-            {selectedNft}
-            <p>some copy here lorem ipsum idk bro whatever</p>
-            <h3>Available Farm</h3>
-            <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
-
-            <Button onClick={handleStakeClick} text='Deposit & Stake' />
-          </div>
-        )}
-        {isShowingUnstakingConfirmationScreen && (
-          <div>
-            {selectedNft}
-            <p>some copy here lorem ipsum idk bro whatever</p>
-            <h3>Available Farm</h3>
-            <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
-
-            <Button onClick={handleStakeClick} text='Deposit & Stake' />
-          </div>
-        )}
-        {!isShowingStakingConfirmationScreen &&
-          !isShowingUnstakingConfirmationScreen && (
+        <div>
+          {availableNftIds.length > 0 && (
             <div>
-              {availableNftIds.length > 0 && (
-                <div>
-                  <h3>Unstaked {farm.farmName} LP NFTs</h3>
-                  {availableNftIds.map((nft) => (
-                    <div onClick={() => openStakingConfirmation(nft)}>
-                      {nft?.toString()}
-                    </div>
-                  ))}
+              <h3>Unstaked {farm.farmName} LP NFTs</h3>
+              {availableNftIds.map((nft) => (
+                <div onClick={() => openStakingConfirmation(nft)}>
+                  {nft?.toString()}
                 </div>
-              )}
-              {depositedNftIds.length > 0 && (
-                <div>
-                  <h3>Staked {farm.farmName} LP NFTs</h3>
-                  {depositedNftIds.map((nft) => (
-                    <div onClick={() => openUnstakingConfirmation(nft)}>
-                      {nft?.toString()}
-                    </div>
-                  ))}
-                </div>
-              )}
-              <div>Claimable Rewards</div>
-              <div>{/** TODO add claimable rewards amt here */} INDEX</div>
+              ))}
             </div>
           )}
+          {depositedNftIds.length > 0 && (
+            <div>
+              <h3>Staked {farm.farmName} LP NFTs</h3>
+              {depositedNftIds.map((nft) => (
+                <div onClick={() => openUnstakingConfirmation(nft)}>
+                  {nft?.toString()}
+                </div>
+              ))}
+            </div>
+          )}
+          <div>Claimable Rewards</div>
+          <div>{/** TODO add claimable rewards amt here */} INDEX</div>
+        </div>
       </ModalContent>
       <ModalActions>
         <Button onClick={handleClaimRewards} text='Claim Rewards' />
