@@ -62,7 +62,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   }
   const closeStakingDetail = () => {
     setCurrentId(undefined)
-    setIsShowingUnstakingDetailScreen(false)
+    setIsShowingStakingDetailScreen(false)
   }
 
   const openUnstakingDetail = (nftId: number) => {
@@ -97,6 +97,11 @@ const StakeModal: React.FC<StakeModalProps> = ({
           </div>
         </ModalContent>
         <ModalActions>
+          <Button
+            onClick={closeStakingDetail}
+            variant='secondary'
+            text='Cancel'
+          />
           <Button onClick={handleStakeClick} text='Deposit & Stake' />
         </ModalActions>
       </Modal>
@@ -121,6 +126,11 @@ const StakeModal: React.FC<StakeModalProps> = ({
           </div>
         </ModalContent>
         <ModalActions>
+          <Button
+            onClick={closeUnstakingDetail}
+            variant='secondary'
+            text='Cancel'
+          />
           <Button onClick={handleUnstakeClick} text='Unstake & Withdraw' />
         </ModalActions>
       </Modal>
@@ -135,27 +145,31 @@ const StakeModal: React.FC<StakeModalProps> = ({
           {availableNftIds.length > 0 && (
             <div>
               <h3>Unstaked {farm.farmName} LP NFTs</h3>
-              {availableNftIds.map((nft) => (
-                <div
-                  key={nft.toString()}
-                  onClick={() => openStakingDetail(nft)}
-                >
-                  {nft?.toString()}
-                </div>
-              ))}
+              <StyledList>
+                {availableNftIds.map((nft) => (
+                  <StyledNftItem
+                    key={nft.toString()}
+                    onClick={() => openStakingDetail(nft)}
+                  >
+                    {nft?.toString()}
+                  </StyledNftItem>
+                ))}
+              </StyledList>
             </div>
           )}
           {depositedNftIds.length > 0 && (
             <div>
               <h3>Staked {farm.farmName} LP NFTs</h3>
-              {depositedNftIds.map((nft) => (
-                <div
-                  key={nft.toString()}
-                  onClick={() => openUnstakingDetail(nft)}
-                >
-                  {nft?.toString()}
-                </div>
-              ))}
+              <StyledList>
+                {depositedNftIds.map((nft) => (
+                  <StyledNftItem
+                    key={nft.toString()}
+                    onClick={() => openUnstakingDetail(nft)}
+                  >
+                    {nft?.toString()}
+                  </StyledNftItem>
+                ))}
+              </StyledList>
             </div>
           )}
           <h3>Claimable Rewards</h3>
@@ -163,6 +177,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
         </div>
       </ModalContent>
       <ModalActions>
+        <Button onClick={onDismiss} variant='secondary' text='Cancel' />
         <Button onClick={handleClaimRewards} text='Claim Rewards' />
       </ModalActions>
     </Modal>
@@ -171,6 +186,19 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
 const DropdownOption = styled.div`
   margin: 10px;
+`
+
+const StyledList = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  background-color: #1a1a26;
+  padding: 15px;
+`
+
+const StyledNftItem = styled.div`
+  padding: 2px 0 2px 0;
 `
 
 export default StakeModal
