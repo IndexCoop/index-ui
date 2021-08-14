@@ -86,15 +86,12 @@ const StakeModal: React.FC<StakeModalProps> = ({
         <ModalContent>
           <div>
             {selectedNft}
-            <p>some copy here lorem ipsum idk bro whatever</p>
-            <h3>Available Farm</h3>
-            <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
-
-            <Button onClick={handleStakeClick} text='Deposit & Stake' />
-          </div>
-          <div>
-            {selectedNft}
-            <p>some copy here lorem ipsum idk bro whatever</p>
+            <p>
+              This token is currently unstaked and undeposited in any active LM
+              farms. In order to earn Uniswap V3 LM rewards you must deposit
+              this NFT to the Uniswap V3 Staking contract, and stake it in the
+              following farms:
+            </p>
             <h3>Available Farm</h3>
             <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
 
