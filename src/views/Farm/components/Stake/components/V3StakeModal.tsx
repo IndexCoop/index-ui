@@ -30,9 +30,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
   onStake,
   onUnstake,
 }) => {
-  const [currentId, setCurrentId] = useState<string>('Select Uniswap V3 NFT ID')
+  const [currentId, setCurrentId] = useState<string | undefined>(undefined)
   const [activeFarmPlot, setActiveFarmPlot] = useState<FarmPlot>()
-  depositedNftIds = [11111, 22222, 33333, 44444, 55555]
 
   const [
     isShowingStakingConfirmationScreen,
@@ -45,11 +44,15 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const [selectedNft, setSelectedNft] = useState<number>(-1)
 
   const handleStakeClick = useCallback(() => {
+    if (!currentId) return
+
     onStake(currentId, farm)
     closeStakingConfirmation()
   }, [onStake, currentId, farm])
 
   const handleUnstakeClick = useCallback(() => {
+    if (!currentId) return
+
     onUnstake(currentId)
     closeUnstakingConfirmation()
   }, [onUnstake, currentId])
@@ -141,21 +144,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
 const DropdownOption = styled.div`
   margin: 10px;
-`
-
-const StyledMonth = styled.div`
-  color: ${(props) => props.theme.colors.grey[500]};
-  font-weight: 700;
-  padding-left: ${(props) => props.theme.spacing[3]}px;
-  padding-right: ${(props) => props.theme.spacing[3]}px;
-  text-decoration: none;
-  cursor: pointer;
-  &:hover {
-    color: ${(props) => props.theme.colors.grey[600]};
-  }
-  &.active {
-    color: ${(props) => props.theme.colors.primary.light};
-  }
 `
 
 export default StakeModal
