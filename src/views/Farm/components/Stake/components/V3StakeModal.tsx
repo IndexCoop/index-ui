@@ -134,7 +134,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               ))}
             </div>
           )}
-          <div>Claimable Rewards</div>
+          <h3>Claimable Rewards</h3>
           <div>{/** TODO add claimable rewards amt here */} INDEX</div>
         </div>
       </ModalContent>
