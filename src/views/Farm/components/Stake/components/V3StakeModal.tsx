@@ -140,7 +140,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   }, [theme])
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <ModalTitle text='Uniswap V3 Staking' />
       <ModalContent>
         {isShowingStakingConfirmationScreen && (
