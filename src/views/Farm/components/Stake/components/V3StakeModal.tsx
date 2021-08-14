@@ -14,8 +14,8 @@ import { getMostRecentFarmNumber } from 'index-sdk/uniV3Farm'
 import NftFarmPlot from './NftFarmPlot'
 
 interface StakeModalProps extends ModalProps {
-  onStake: (nftId: string, farm: V3Farm) => void
-  onUnstake: (nftId: string) => void
+  onStake: (nftId: number, farm: V3Farm) => void
+  onUnstake: (nftId: number) => void
   availableNftIds: number[]
   depositedNftIds: number[]
   farm: V3Farm
@@ -30,14 +30,13 @@ const StakeModal: React.FC<StakeModalProps> = ({
   onStake,
   onUnstake,
 }) => {
-  const [currentId, setCurrentId] = useState<string | undefined>(undefined)
+  const [currentId, setCurrentId] = useState<number | undefined>(undefined)
   const [activeFarmPlot, setActiveFarmPlot] = useState<FarmPlot>()
 
   const [isShowingStakingDetailScreen, setIsShowingStakingDetailScreen] =
     useState(false)
   const [isShowingUnstakingDetailScreen, setIsShowingUnstakingDetailScreen] =
     useState(false)
-  const [selectedNft, setSelectedNft] = useState<number>(-1)
 
   const handleStakeClick = useCallback(() => {
     if (!currentId) return
@@ -58,20 +57,20 @@ const StakeModal: React.FC<StakeModalProps> = ({
   }, [])
 
   const openStakingDetail = (nftId: number) => {
-    setSelectedNft(nftId)
+    setCurrentId(nftId)
     setIsShowingStakingDetailScreen(true)
   }
   const closeStakingDetail = () => {
-    setSelectedNft(-1)
+    setCurrentId(undefined)
     setIsShowingUnstakingDetailScreen(false)
   }
 
   const openUnstakingDetail = (nftId: number) => {
-    setSelectedNft(nftId)
+    setCurrentId(nftId)
     setIsShowingUnstakingDetailScreen(true)
   }
   const closeUnstakingDetail = () => {
-    setSelectedNft(-1)
+    setCurrentId(undefined)
     setIsShowingUnstakingDetailScreen(false)
   }
 
@@ -86,7 +85,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
         <ModalContent>
           <div>
             {/* TODO: add DPI/ETH Icon */}
-            {selectedNft}
+            {currentId}
             <p>
               This token is currently unstaked and undeposited in any active LM
               farms. In order to earn Uniswap V3 LM rewards you must deposit
@@ -113,7 +112,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <div>
               <h3>Unstaked {farm.farmName} LP NFTs</h3>
               {availableNftIds.map((nft) => (
-                <div onClick={() => openStakingDetail(nft)}>
+                <div
+                  key={nft.toString()}
+                  onClick={() => openStakingDetail(nft)}
+                >
                   {nft?.toString()}
                 </div>
               ))}
@@ -123,7 +125,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <div>
               <h3>Staked {farm.farmName} LP NFTs</h3>
               {depositedNftIds.map((nft) => (
-                <div onClick={() => openUnstakingDetail(nft)}>
+                <div
+                  key={nft.toString()}
+                  onClick={() => openUnstakingDetail(nft)}
+                >
                   {nft?.toString()}
                 </div>
               ))}

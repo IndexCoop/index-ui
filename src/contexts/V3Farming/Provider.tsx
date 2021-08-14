@@ -38,6 +38,8 @@ const Provider: React.FC = ({ children }) => {
       setConfirmTxModalIsOpen(true)
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
+      console.log('id is', id, 'farm is', farm)
+
       const transactionId = await depositAndStake(id, farm, account, ethereum)
 
       if (!transactionId) {
@@ -188,10 +190,12 @@ const Provider: React.FC = ({ children }) => {
         onDeposit: handleDeposit,
         onWithdraw: handleWithdraw,
         onClaimAccrued: handleClaimAccrued,
-        getAccruedRewardsAmount: handleGetAccruedRewardsAmount,
-        getValidIds: handleGetValidIds,
-        getAllDepositedTokens: handleGetDepositedTokens,
-        getAllPendingRewardsAmount: handleGetAllPendingRewardsAmount,
+        getAccruedRewardsAmount: handleGetAccruedRewardsAmount, // returns accrued rewards for user
+        getValidIds: handleGetValidIds, // returns ids for all nfts eligible for currently active pools
+        getAllDepositedTokens: handleGetDepositedTokens, // returns all tokens that have been staked
+        // does this return tokens in expired pools?
+        getAllPendingRewardsAmount: handleGetAllPendingRewardsAmount, // returns all pending rewards
+        // returns pending rewards per nft showing
         getIndividualPendingRewardsAmount:
           handleGetIndividualPendingRewardsAmount,
       }}

@@ -44,16 +44,16 @@ const Stake: React.FC = () => {
   }, [setStakeModalIsOpen])
 
   const handleOnStake = useCallback(
-    (nftId: string, farm: V3Farm) => {
-      onDeposit(parseInt(nftId), farm)
+    (nftId: number, farm: V3Farm) => {
+      onDeposit(nftId, farm)
       handleDismissStakeModal()
     },
     [handleDismissStakeModal, onDeposit]
   )
 
   const handleOnUnstake = useCallback(
-    (nftId: string) => {
-      onWithdraw(parseInt(nftId), DPIETH)
+    (nftId: number) => {
+      onWithdraw(nftId, DPIETH)
     },
     [onWithdraw]
   )
