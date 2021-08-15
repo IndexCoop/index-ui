@@ -8,10 +8,10 @@ describe('BTC2x-FLI', () => {
 
   context('Product Header', () => {
     it('should show product symbol', () => {
-      cy.get('.sc-jCPRHX > span').should('contain', 'BTC2x-FLI')
+      cy.get('.sc-cfARRi > span').should('contain', 'BTC2x-FLI')
     })
     it('should show product name', () => {
-      cy.get('.sc-cfARRi').should(
+      cy.get('.sc-havuDZ').should(
         'contain',
         'Bitcoin 2x Flexible Leverage Index'
       )
@@ -20,30 +20,30 @@ describe('BTC2x-FLI', () => {
       cy.get('.sc-jhDJEt').should('not.be.empty')
     })
     it('should show product percent change', () => {
-      cy.get('.sc-enrZtP').should('not.be.empty')
+      cy.get('.sc-jhDJEt').should('not.be.empty')
     })
   })
 
   context('Product Metadata', () => {
     it('should show real leverage', () => {
-      cy.get(':nth-child(1) > .sc-geBCVM').should('contain', 'Real Leverage')
-      cy.get(':nth-child(1) > .sc-clGGWX').should('contain', 'x')
+      cy.get(':nth-child(1) > .sc-hndLF').should('contain', 'Real Leverage')
+      cy.get(':nth-child(1) > .sc-geBCVM').should('contain', 'x')
     })
     it('should show target leverage', () => {
-      cy.get(':nth-child(2) > .sc-geBCVM').should('contain', 'Target Leverage')
-      cy.get(':nth-child(2) > .sc-clGGWX').should('contain', '2x')
+      cy.get(':nth-child(2) > .sc-hndLF').should('contain', 'Target Leverage')
+      cy.get(':nth-child(2) > .sc-geBCVM').should('contain', '2x')
     })
     it('should show current supply', () => {
-      cy.get(':nth-child(3) > .sc-geBCVM').should('contain', 'Current Supply')
-      cy.get(':nth-child(3) > .sc-clGGWX').should('not.be.empty')
+      cy.get(':nth-child(3) > .sc-hndLF').should('contain', 'Current Supply')
+      cy.get(':nth-child(3) > .sc-geBCVM').should('not.be.empty')
     })
     it('should show NAV', () => {
-      cy.get(':nth-child(4) > .sc-geBCVM').should('contain', 'Net Asset Value')
-      cy.get(':nth-child(4) > .sc-clGGWX').should('not.be.empty')
+      cy.get(':nth-child(4) > .sc-hndLF').should('contain', 'Net Asset Value')
+      cy.get(':nth-child(4) > .sc-geBCVM').should('not.be.empty')
     })
     it('should show prem/discount', () => {
+      cy.get(':nth-child(5) > .sc-hndLF').should('not.be.empty')
       cy.get(':nth-child(5) > .sc-geBCVM').should('not.be.empty')
-      cy.get(':nth-child(5) > .sc-clGGWX').should('not.be.empty')
     })
   })
 
@@ -52,24 +52,24 @@ describe('BTC2x-FLI', () => {
       cy.get('.recharts-surface').should('not.be.empty')
     })
     it('should have all date range selectors', () => {
-      cy.get('.sc-eiQWpL').children().should('have.length', 9) //accounts for spacers
+      cy.get('.sc-exqIPC').children().should('have.length', 9) //accounts for spacers
     })
   })
 
   context('Buy/Sell Widget', () => {
     it('should render', () => {
       cy.get('.sc-havuDZ').should('not.be.empty')
-      cy.get('.sc-kBqmDu').should('contain', 'Buy')
-      cy.get('.sc-ezjrSx').should('contain', 'Sell')
-      cy.get('.sc-iiBnNu > :nth-child(1)').should('contain', 'Pay with')
-      cy.get('.sc-dYXZXt > :nth-child(1)').should('contain', 'Buy (estimated)')
+      cy.get('.sc-ezjrSx').should('contain', 'Buy')
+      cy.get('.sc-irqbAE').should('contain', 'Sell')
+      cy.get('.sc-hmvkKb > :nth-child(1)').should('contain', 'Pay with')
+      cy.get('.sc-iiBnNu > :nth-child(1)').should('contain', 'Buy (estimated)')
       cy.get('.sc-ckTSus').should('not.be.empty')
     })
   })
 
   context('Product Stats', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(1) > .sc-liAPKD').should('contain', 'Stats')
+      cy.get(':nth-child(1) > .sc-hJFzke').should('contain', 'Stats')
     })
 
     it('should render values', () => {
@@ -88,12 +88,12 @@ describe('BTC2x-FLI', () => {
 
   context('My Assets', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(2) > .sc-liAPKD').should('contain', 'My Assets')
+      cy.get(':nth-child(2) > .sc-hJFzke').should('contain', 'My Assets')
     })
 
     it('should render values', () => {
       cy.get('.sc-kJNqyW').should('not.be.empty')
-      cy.get('.sc-bxLXlR').should('contain', 'BTC2x-FLI')
+      cy.get('.sc-jYKCQm').should('contain', 'BTC2x-FLI')
     })
 
     it('should contain MetaMask button', () => {
@@ -103,7 +103,7 @@ describe('BTC2x-FLI', () => {
 
   context('Product Changes', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(3) > .sc-liAPKD').should('contain', 'Changes')
+      cy.get(':nth-child(3) > .sc-hJFzke').should('contain', 'Changes')
     })
 
     it('should render values', () => {
@@ -120,7 +120,7 @@ describe('BTC2x-FLI', () => {
 
   context('Product Allocations', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(4) > .sc-liAPKD').should('contain', 'Allocations')
+      cy.get(':nth-child(4) > .sc-hJFzke').should('contain', 'Allocations')
     })
 
     it('should render allocations', () => {

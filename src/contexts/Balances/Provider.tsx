@@ -21,6 +21,7 @@ import {
   stakingRewardsAddress,
   farmTwoAddress,
   mviStakingRewardsAddress,
+  bedTokenAddress,
 } from 'constants/ethContractAddresses'
 
 const Provider: React.FC = ({ children }) => {
@@ -36,6 +37,8 @@ const Provider: React.FC = ({ children }) => {
   const [mviTotalSupply, setMviTotalSupply] = useState<BigNumber>()
   const [daiBalance, setDaiBalance] = useState<BigNumber>()
   const [usdcBalance, setUsdcBalance] = useState<BigNumber>()
+  const [bedBalance, setBedBalance] = useState<BigNumber>()
+  const [bedTotalSupply, setBedTotalSupply] = useState<BigNumber>()
 
   // LP Tokens Balances
   const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] =
@@ -81,6 +84,7 @@ const Provider: React.FC = ({ children }) => {
         getBalance(provider, mviTokenAddress as string, userAddress),
         getBalance(provider, daiTokenAddress as string, userAddress),
         getBalance(provider, usdcTokenAddress as string, userAddress),
+        getBalance(provider, bedTokenAddress as string, userAddress),
 
         // LP Token Balances
         getBalance(
@@ -131,29 +135,32 @@ const Provider: React.FC = ({ children }) => {
       setUsdcBalance(
         new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(6))
       )
-      setUniswapEthDpiLpBalance(
+      setBedBalance(
         new BigNumber(balances[8]).dividedBy(new BigNumber(10).pow(18))
       )
-      setUniswapEthMviLpBalance(
+      setUniswapEthDpiLpBalance(
         new BigNumber(balances[9]).dividedBy(new BigNumber(10).pow(18))
       )
-      setStakedUniswapEthDpiLpBalance(
+      setUniswapEthMviLpBalance(
         new BigNumber(balances[10]).dividedBy(new BigNumber(10).pow(18))
       )
-      setUnharvestedIndexBalance(
+      setStakedUniswapEthDpiLpBalance(
         new BigNumber(balances[11]).dividedBy(new BigNumber(10).pow(18))
       )
-      setStakedFarmTwoBalance(
+      setUnharvestedIndexBalance(
         new BigNumber(balances[12]).dividedBy(new BigNumber(10).pow(18))
       )
-      setUnharvestedFarmTwoBalance(
+      setStakedFarmTwoBalance(
         new BigNumber(balances[13]).dividedBy(new BigNumber(10).pow(18))
       )
-      setStakedUniswapEthMviLpBalance(
+      setUnharvestedFarmTwoBalance(
         new BigNumber(balances[14]).dividedBy(new BigNumber(10).pow(18))
       )
-      setUnharvestedMviRewardsBalance(
+      setStakedUniswapEthMviLpBalance(
         new BigNumber(balances[15]).dividedBy(new BigNumber(10).pow(18))
+      )
+      setUnharvestedMviRewardsBalance(
+        new BigNumber(balances[16]).dividedBy(new BigNumber(10).pow(18))
       )
     },
     [
@@ -162,6 +169,8 @@ const Provider: React.FC = ({ children }) => {
       setDpiBalance,
       setEthFliBalance,
       setBtcFliBalance,
+      setMviBalance,
+      setBedBalance,
       setUniswapEthDpiLpBalance,
       setUniswapEthMviLpBalance,
       setStakedUniswapEthDpiLpBalance,
@@ -180,6 +189,7 @@ const Provider: React.FC = ({ children }) => {
         getTotalSupply(provider, btc2xfliTokenAddress as string),
         getTotalSupply(provider, dpiTokenAddress as string),
         getTotalSupply(provider, mviTokenAddress as string),
+        getTotalSupply(provider, bedTokenAddress as string),
       ])
 
       setEthFliTotalSupply(
@@ -194,12 +204,16 @@ const Provider: React.FC = ({ children }) => {
       setMviTotalSupply(
         new BigNumber(totalSupplies[3]).dividedBy(new BigNumber(10).pow(18))
       )
+      setBedTotalSupply(
+        new BigNumber(totalSupplies[4]).dividedBy(new BigNumber(10).pow(18))
+      )
     },
     [
       setEthFliTotalSupply,
       setBtcFliTotalSupply,
       setDpiTotalSupply,
       setMviTotalSupply,
+      setBedTotalSupply,
     ]
   )
 
@@ -211,6 +225,7 @@ const Provider: React.FC = ({ children }) => {
       setEthFliBalance(new BigNumber(0))
       setBtcFliBalance(new BigNumber(0))
       setMviBalance(new BigNumber(0))
+      setBedBalance(new BigNumber(0))
       setDaiBalance(new BigNumber(0))
       setUsdcBalance(new BigNumber(0))
       setUniswapEthDpiLpBalance(new BigNumber(0))
@@ -234,7 +249,7 @@ const Provider: React.FC = ({ children }) => {
       )
       return () => clearInterval(refreshInterval)
     }
-  }, [account, ethereum, fetchBalances])
+  }, [account, ethereum, fetchBalances, fetchTotalSupplies])
 
   return (
     <Context.Provider
@@ -247,6 +262,7 @@ const Provider: React.FC = ({ children }) => {
         mviBalance,
         daiBalance,
         usdcBalance,
+        bedBalance,
         uniswapEthDpiLpBalance,
         uniswapEthMviLpBalance,
         stakedUniswapEthDpiLpBalance,
@@ -259,6 +275,7 @@ const Provider: React.FC = ({ children }) => {
         ethfliTotalSupply,
         btcfliTotalSupply,
         mviTotalSupply,
+        bedTotalSupply,
       }}
     >
       {children}

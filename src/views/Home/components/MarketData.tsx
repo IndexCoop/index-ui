@@ -74,6 +74,16 @@ const MarketData: React.FC = () => {
       url: '/btcfli',
     })
   }
+
+  const handleBedButton = () => {
+    setIndexSelector(4)
+    setProductMetaData({
+      name: productTokensBySymbol['BED'].name,
+      symbol: productTokensBySymbol['BED'].symbol,
+      image: productTokensBySymbol['BED'].image,
+      url: '/bed',
+    })
+  }
   return (
     <>
       <StyledMarketDataTitle>Products</StyledMarketDataTitle>
@@ -108,6 +118,14 @@ const MarketData: React.FC = () => {
           text='BTC2x-FLI'
           variant={indexSelector === 3 ? 'default' : 'secondary'}
           onClick={handleBtcFliButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='BED'
+          variant={indexSelector === 4 ? 'default' : 'secondary'}
+          onClick={handleBedButton}
         />
       </ButtonWrapper>
       <Card>

@@ -1,11 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { useTheme } from 'react-neu'
+
+import indexLogoFullBlack from '../../assets/index-logo-full-black.png'
+import indexLogoFullWhite from '../../assets/index-logo-full-white.png'
 
 const Logo: React.FC = () => {
+  const { darkMode } = useTheme()
+  const logo = darkMode ? indexLogoFullWhite : indexLogoFullBlack
+
   return (
     <StyledLogo to="/">
-      <StyledEmoji src='https://index-dao.s3.amazonaws.com/owl.png' alt="Owl" />
+      <StyledImage src={logo} alt="index-logo" />
     </StyledLogo>
   )
 }
@@ -21,9 +28,8 @@ const StyledLogo = styled(Link)`
   text-decoration: none;
 `
 
-const StyledEmoji = styled.img`
+const StyledImage = styled.img`
   height: 24px;
-  text-align: center;
   min-width: 24px;
 `
 

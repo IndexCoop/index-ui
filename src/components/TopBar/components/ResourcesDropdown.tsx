@@ -33,10 +33,9 @@ const ProductsDropdown: React.FC = () => {
   const dropdownSelectStyles = useMemo(() => {
     const isResourcesRouteActive =
       pathname === '/about' ||
-      pathname === '/news' ||
-      pathname === '/rewards' ||
       pathname === '/how-to-buy' ||
-      pathname === '/vote'
+      pathname === '/news' ||
+      pathname === '/liquidity-mining'
 
     return {
       control: (styles: any) => ({
@@ -60,6 +59,7 @@ const ProductsDropdown: React.FC = () => {
       }),
       menu: (styles: any) => ({
         ...styles,
+        width: 200,
         color: 'black',
       }),
       dropdownIndicator: (styles: any) => ({
@@ -86,32 +86,28 @@ const ProductsDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'Resources' } as any}
+      value={{ label: 'Resources' }}
       options={[
         {
           value: 'about',
           label: 'About',
         },
         {
+          value: 'how-to-buy',
+          label: 'How to Buy',
+        },
+        {
           value: 'news',
           label: 'News',
         },
         {
-          value: 'docs',
-          label: 'Docs',
-          link: 'https://docs.indexcoop.com/',
+          value: 'liquidity-mining',
+          label: 'Liquidity Mining',
         },
         {
-          value: 'rewards',
-          label: 'Rewards',
-        },
-        {
-          value: 'vote',
-          label: 'Vote',
-        },
-        {
-          value: 'how-to-buy',
-          label: 'How to Buy',
+          value: 'institutions',
+          label: 'Institutions',
+          link: 'https://institutions.indexcoop.com/'
         },
       ]}
       components={{
@@ -123,7 +119,7 @@ const ProductsDropdown: React.FC = () => {
 }
 
 const CustomDropdownOption = styled.div`
-  width: 120px;
+  width: 190px;
   margin: 10px;
 `
 

@@ -47,7 +47,12 @@ If you wish to write a test, or debug yours, you can do so with the help of the 
 
 This will allow you to see and select items on page, more easily obtaining their IDs, selectors, etc. More information on this can be found at [the Cypress website](https://docs.cypress.io/)
 
-&nbsp;
+### Helful Commands
+
+This project uses [browserslist](https://github.com/browserslist/browserslist). We need to [regularly update browser data](https://github.com/browserslist/browserslist#browsers-data-updating) via
+```bash
+npx browserslist --update-db
+```
 
 ## Contributing
 

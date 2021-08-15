@@ -19,9 +19,10 @@ const ProductsDropdown: React.FC = () => {
   const dropdownSelectStyles = useMemo(() => {
     const isProductRouteActive =
       pathname === '/dpi' ||
-      pathname === '/index' ||
+      pathname === '/mvi' ||
       pathname === '/ethfli' ||
-      pathname === '/btcfli'
+      pathname === '/btcfli' ||
+      pathname === '/bed'
 
     return {
       control: (styles: any) => ({
@@ -92,9 +93,9 @@ const ProductsDropdown: React.FC = () => {
           label: 'BTC 2x Flexible Leverage Index',
         },
         {
-          value: 'index',
-          label: 'Index Coop Token',
-        },
+          value: 'bed',
+          label: 'Bankless BED Index',
+        }
       ]}
       components={{
         Option: CustomOption,

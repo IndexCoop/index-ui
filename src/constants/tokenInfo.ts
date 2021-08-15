@@ -6,6 +6,7 @@ import {
   indexTokenAddress,
   mviTokenAddress,
   usdcTokenAddress,
+  bedTokenAddress,
 } from './ethContractAddresses'
 
 export const tokenInfo: any = {
@@ -23,6 +24,10 @@ export const tokenInfo: any = {
   },
   mvi: {
     address: mviTokenAddress,
+    decimals: 18,
+  },
+  bed: {
+    address: bedTokenAddress,
     decimals: 18,
   },
   index: {

@@ -8,16 +8,16 @@ describe('INDEX', () => {
 
   context('Product Header', () => {
     it('should show product symbol', () => {
-      cy.get('.sc-jCPRHX > span').should('contain', 'INDEX')
+      cy.get('.sc-cfARRi > span').should('contain', 'INDEX')
     })
     it('should show product name', () => {
-      cy.get('.sc-cfARRi').should('contain', 'Index Token')
+      cy.get('.sc-havuDZ').should('contain', 'Index Token')
     })
     it('should show product price', () => {
       cy.get('.sc-jhDJEt').should('not.be.empty')
     })
     it('should show product percent change', () => {
-      cy.get('.sc-enrZtP').should('not.be.empty')
+      cy.get('.sc-jhDJEt').should('not.be.empty')
     })
   })
 
@@ -26,29 +26,29 @@ describe('INDEX', () => {
       cy.get('.recharts-surface').should('not.be.empty')
     })
     it('should have all date range selectors', () => {
-      cy.get('.sc-eiQWpL').children().should('have.length', 9) //accounts for spacers
+      cy.get('.sc-exqIPC').children().should('have.length', 9) //accounts for spacers
     })
   })
 
   context('Buy/Sell Widget', () => {
     it('should render', () => {
       cy.get('.sc-havuDZ').should('not.be.empty')
-      cy.get('.sc-kBqmDu').should('contain', 'Buy')
-      cy.get('.sc-ezjrSx').should('contain', 'Sell')
-      cy.get('.sc-iiBnNu > :nth-child(1)').should('contain', 'Pay with')
-      cy.get('.sc-dYXZXt > :nth-child(1)').should('contain', 'Buy (estimated)')
+      cy.get('.sc-ezjrSx').should('contain', 'Buy')
+      cy.get('.sc-irqbAE').should('contain', 'Sell')
+      cy.get('.sc-hmvkKb > :nth-child(1)').should('contain', 'Pay with')
+      cy.get('.sc-iiBnNu > :nth-child(1)').should('contain', 'Buy (estimated)')
       cy.get('.sc-ckTSus').should('not.be.empty')
     })
   })
 
   context('My Assets', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(1) > .sc-liAPKD').should('contain', 'My Assets')
+      cy.get(':nth-child(1) > .sc-hJFzke').should('contain', 'My Assets')
     })
 
     it('should render values', () => {
       cy.get('.sc-kJNqyW').should('not.be.empty')
-      cy.get('.sc-bxLXlR').should('contain', 'INDEX')
+      cy.get('.sc-jYKCQm').should('contain', 'INDEX')
     })
 
     it('should contain MetaMask button', () => {
@@ -58,7 +58,7 @@ describe('INDEX', () => {
 
   context('Product Changes', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(2) > .sc-liAPKD').should('contain', 'Changes')
+      cy.get(':nth-child(2) > .sc-hJFzke').should('contain', 'Changes')
     })
 
     it('should render values', () => {
