@@ -9,6 +9,7 @@ export interface ContextValues {
   mviBalance?: BigNumber
   daiBalance?: BigNumber
   usdcBalance?: BigNumber
+  bedBalance?: BigNumber
 
   // LP Tokens
   uniswapEthDpiLpBalance?: BigNumber
@@ -30,4 +31,5 @@ export interface ContextValues {
   ethfliTotalSupply?: BigNumber
   btcfliTotalSupply?: BigNumber
   mviTotalSupply?: BigNumber
+  bedTotalSupply?: BigNumber
 }

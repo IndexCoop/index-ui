@@ -21,9 +21,9 @@ const IndexMarketDataProvider: React.FC = ({ children }) => {
     <MarketDataContext.Provider
       value={{
         ...indexMarketData,
-        latestMarketCap: selectLatestMarketData(indexMarketData.marketcaps),
-        latestPrice: selectLatestMarketData(indexMarketData.hourlyPrices),
-        latestVolume: selectLatestMarketData(indexMarketData.volumes),
+        latestMarketCap: selectLatestMarketData(indexMarketData?.marketcaps),
+        latestPrice: selectLatestMarketData(indexMarketData?.hourlyPrices),
+        latestVolume: selectLatestMarketData(indexMarketData?.volumes),
       }}
     >
       {children}

@@ -30,6 +30,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     ethBalance,
     dpiBalance,
     mviBalance,
+    bedBalance,
     ethfliBalance,
     btcfliBalance,
     indexBalance,
@@ -47,6 +48,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     setSelectedCurrency(currencyTokens[0])
   }, [])
 
+  // eslint-disable-next-line
   let spendingTokenBalance = new BigNumber(0)
   if (!isUserBuying && buySellToken === 'index') {
     spendingTokenBalance = indexBalance || new BigNumber(0)
@@ -58,6 +60,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = btcfliBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'mvi') {
     spendingTokenBalance = mviBalance || new BigNumber(0)
+  } else if (!isUserBuying && buySellToken === 'bed') {
+    spendingTokenBalance = bedBalance || new BigNumber(0)
   } else if (selectedCurrency?.label === 'ETH') {
     spendingTokenBalance = ethBalance || new BigNumber(0)
   } else if (selectedCurrency?.label === 'DAI') {

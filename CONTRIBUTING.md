@@ -27,7 +27,7 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
 
 - ### [**Technical Resources**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#-technical-resources)
 
-  - [**Installing Depencies**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#installing-depencies)
+  - [**Installing Dependencies**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#installing-dependencies)
   - [**Coding Conventions**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#coding-conventions)
   - [**Coding Comments**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#coding-comments)
   - [**Coding Documentation**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#coding-documentation)
@@ -135,7 +135,7 @@ Below you will find links for some useful resources to utilize as you develop pr
 
 &nbsp;
 
-### **Installing Depencies**
+### **Installing Dependencies**
 
 Since `index-ui` is the front-end we use to interact with Index, you will also need to install the necessary dependencies for your project to function correctly. The intallation steps can be found [here][18].
 

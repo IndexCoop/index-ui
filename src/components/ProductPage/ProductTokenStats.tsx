@@ -12,6 +12,10 @@ interface ProductTokenStatsProps {
     streamingFee: string
   }
   netAssetValue: number
+  /**
+   * The total supply cap of this product. If no supply cap is provided, supply
+   * cap is not displayed.
+   */
   supplyCap: BigNumber | undefined
   currentSupply: BigNumber | undefined
 }
@@ -22,12 +26,24 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
   fees,
   supplyCap,
   currentSupply,
+  netAssetValue,
 }) => {
   const formatMetric = (metricValue: number) =>
     numeral(metricValue).format('0.00a').toString().toUpperCase()
 
   const formattedSupplyCap = () =>
     supplyCap ? numeral(supplyCap?.toString() || '0').format('0,0') : '--'
+
+  const formattedMarketCap = () => {
+    if (latestMarketCap) {
+      return "$" + formatMetric(latestMarketCap)
+    } else if (currentSupply) {
+      const approxMarketCap = Number(currentSupply) * netAssetValue
+      return "$" + formatMetric(approxMarketCap)
+    } else {
+      return '--'
+    }
+  }
 
   const streamingFee = fees?.streamingFee && (
     <StyledStat>
@@ -36,7 +52,7 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
     </StyledStat>
   )
 
-  const supplyCapStat = (
+  const supplyCapStat = supplyCap && (
     <StyledStat>
       <StyledStatTitle>Supply Cap</StyledStatTitle>
       <StyledStatMetric>{formattedSupplyCap()}</StyledStatMetric>
@@ -53,7 +69,7 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
         <StyledStat>
           <StyledStatTitle>Market Cap</StyledStatTitle>
           <StyledStatMetric>
-            ${formatMetric(latestMarketCap || 0)}
+            {formattedMarketCap()}
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>

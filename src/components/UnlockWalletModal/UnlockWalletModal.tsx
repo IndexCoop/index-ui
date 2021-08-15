@@ -15,6 +15,7 @@ import { toast } from 'react-toastify'
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
 import coinbaseWalletLogo from 'assets/coinbase-wallet.svg'
+import rainbowWalletLogo from 'assets/rainbow-logo.png'
 
 import Modal from 'components/CustomModal'
 import WalletProviderCard from './components/WalletProviderCard'
@@ -42,7 +43,7 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   }, [account, onDismiss])
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <StyledModalBody>
         <ModalTitle text='Select a wallet provider.' />
         <ModalContent>
@@ -91,7 +92,19 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               />
             </Box>
             <Spacer />
-            <Box flex={1}></Box>
+            <Box flex={1}>
+              <WalletProviderCard
+                icon={
+                  <img
+                    alt='rainbowWalletLogo'
+                    src={rainbowWalletLogo}
+                    style={{ borderRadius: 11, height: 32 }}
+                  />
+                }
+                name='Rainbow'
+                onSelect={handleConnectWalletConnect}
+              />
+            </Box>
           </StyledWalletsWrapper>
         </ModalContent>
         <ModalActions>
@@ -103,6 +116,7 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     </Modal>
   )
 }
+
 const StyledModalBody = styled.div`
   @media (max-width: 600px) {
     height: 100vh;

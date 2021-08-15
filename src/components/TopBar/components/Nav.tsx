@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import ProductsDropdown from './ProductsDropdown'
+import GovernanceDropdown from './GovernanceDropdown'
 import ResourcesDropdown from './ResourcesDropdown'
 
 const Nav: React.FC = () => {
@@ -11,16 +12,8 @@ const Nav: React.FC = () => {
         Home
       </StyledLink>
       <ProductsDropdown />
+      <GovernanceDropdown />
       <ResourcesDropdown />
-      <StyledLink exact activeClassName='active' to='/liquidity-mining'>
-        Liquidity Mining
-      </StyledLink>
-      <StyledOutboundLink
-        href='https://institutions.indexcoop.com/'
-        target='_blank'
-      >
-        Institutions
-      </StyledOutboundLink>
     </StyledNav>
   )
 }
