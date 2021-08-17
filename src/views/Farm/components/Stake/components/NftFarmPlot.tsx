@@ -1,7 +1,9 @@
 import React from 'react'
+import dateformat from 'dateformat'
 
 import { FarmData } from 'constants/v3Farms'
 import styled from 'styled-components'
+import { makeEtherscanAddressLink } from 'utils/index'
 
 interface NftFarmPlotProps {
   farmName: string
@@ -13,12 +15,11 @@ interface NftFarmPlotProps {
 const NftFarmPlot: React.FC<NftFarmPlotProps> = ({ farmName, farmPlot }) => {
   const { pool, startTime, endTime } = farmPlot || {}
 
-  const farmStartTime = startTime
-    ? new Date(startTime * 1000).toDateString()
-    : 'Unknown Start Time'
-  const farmEndTime = endTime
-    ? new Date(endTime * 1000).toDateString()
-    : 'Unknown End Time'
+  const farmStartTime = new Date((startTime || 0) * 1000).toDateString()
+  const formattedStartTime = dateformat(farmStartTime, 'mmm dd')
+
+  const farmEndTime = new Date((endTime || 0) * 1000).toDateString()
+  const formattedEndTime = dateformat(farmEndTime, 'mmm dd')
 
   const ethDpiTokenIcon = (
     <StyledLpTokenWrapper>
@@ -34,30 +35,43 @@ const NftFarmPlot: React.FC<NftFarmPlotProps> = ({ farmName, farmPlot }) => {
   )
 
   return (
-    <StyledCard>
-      <StyledFarmTitle>
-        {ethDpiTokenIcon} {farmName}
-      </StyledFarmTitle>
-      <div>Pool ID: {pool}</div>
-      <div>
-        Active: {farmStartTime} - {farmEndTime}
-      </div>
+    <StyledCard href={makeEtherscanAddressLink(pool || '')} target='_blank'>
+      {ethDpiTokenIcon}
+      <StyledCardBody>
+        <StyledFarmTitle>{farmName}</StyledFarmTitle>
+        <StyledFarmText>
+          Active: {formattedStartTime} - {formattedEndTime}
+        </StyledFarmText>
+      </StyledCardBody>
     </StyledCard>
   )
 }
 
-const StyledCard = styled.div`
+const StyledCard = styled.a`
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  align-items: center;
   border-radius: 5px;
   background-color: #1a1a26;
-  padding: 0 20px 20px;
+  text-decoration: none;
+  padding: 20px;
+`
+
+const StyledCardBody = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 
 const StyledFarmTitle = styled.h3`
   display: flex;
   align-items: center;
+  margin: 0px;
+  color: ${(props) => props.theme.colors.primary.light};
+`
+
+const StyledFarmText = styled.p`
+  margin: 0;
+  padding: 0;
+  color: ${(props) => props.theme.textColor};
 `
 
 const StyledLpTokenWrapper = styled.div`
@@ -66,7 +80,7 @@ const StyledLpTokenWrapper = styled.div`
 `
 
 const StyledLpTokenImage = styled.img`
-  height: 35px;
+  height: 44px;
   margin-left: -10px;
 `
 
