@@ -39,8 +39,6 @@ const Provider: React.FC = ({ children }) => {
       setConfirmTxModalIsOpen(true)
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
-      console.log('id is', id, 'farm is', farm)
-
       const transactionId = await depositAndStake(id, farm, account, ethereum)
 
       if (!transactionId) {

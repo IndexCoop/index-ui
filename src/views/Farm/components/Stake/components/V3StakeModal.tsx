@@ -24,6 +24,7 @@ interface StakeModalProps extends ModalProps {
   availableNftIds: number[]
   depositedNftIds: number[]
   farm: V3Farm
+  accruedRewards: string
   provider: any
 }
 
@@ -32,6 +33,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   availableNftIds,
   depositedNftIds,
   farm,
+  accruedRewards,
   provider,
   onDismiss,
   onStake,
@@ -222,13 +224,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
               </StyledList>
             </div>
           )}
-          <h3>Claimable Rewards</h3>
-          <div>{/** TODO add claimable rewards amt here */} INDEX</div>
         </div>
       </ModalContent>
       <ModalActions>
-        <Button onClick={onDismiss} variant='secondary' text='Cancel' />
-        <Button onClick={handleClaimRewards} text='Claim Rewards' />
+        <Button onClick={onDismiss} variant='secondary' text='Close' />
       </ModalActions>
     </Modal>
   )

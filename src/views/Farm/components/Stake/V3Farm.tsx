@@ -64,7 +64,13 @@ const Stake: React.FC = () => {
     if (status !== 'connected') {
       return <Button disabled full text='Stake' variant='secondary' />
     }
-    return <Button full onClick={handleStakeClick} text='Stake' />
+    return (
+      <Button
+        full
+        onClick={handleStakeClick}
+        text='Stake & Unstake LP Tokens'
+      />
+    )
   }, [status, handleStakeClick])
 
   const ClaimAccruedButton = useMemo(() => {
@@ -72,7 +78,12 @@ const Stake: React.FC = () => {
       return <Button disabled full text='Claim Accrued' variant='secondary' />
     }
     return (
-      <Button full onClick={handleClaimAccruedClick} text='Claim Accrued' />
+      <Button
+        full
+        onClick={handleClaimAccruedClick}
+        text='Claim Accrued Rewards'
+        variant='secondary'
+      />
     )
   }, [status, handleClaimAccruedClick, accruedRewards])
 
@@ -147,7 +158,11 @@ const Stake: React.FC = () => {
             </Split>
           </StyledFarmTokensAndApyWrapper>
         </CardContent>
-        <StyledCardActions isMobile={isMobile}>{StakeButton}</StyledCardActions>
+        <StyledCardActions isMobile={isMobile}>
+          {StakeButton}
+          <Spacer />
+          {ClaimAccruedButton}
+        </StyledCardActions>
       </Card>
       <V3StakeModal
         isOpen={stakeModalIsOpen}
@@ -155,6 +170,7 @@ const Stake: React.FC = () => {
         depositedNftIds={depositedNfts}
         farm={DPIETH}
         provider={ethereum}
+        accruedRewards={accruedRewards}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
         onUnstake={handleOnUnstake}
