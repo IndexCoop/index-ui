@@ -10,7 +10,7 @@ import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 import V3StakeModal from './components/V3StakeModal'
 import Split from 'components/Split'
-import { DPIETH, farmsByFarmName, V3Farm } from 'constants/v3Farms'
+import { DPIETH, V3Farm } from 'constants/v3Farms'
 
 const Stake: React.FC = () => {
   const { isMobile } = useMediaQuery()

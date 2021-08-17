@@ -1,5 +1,5 @@
 export interface V3Farm {
-  farmName: string
+  tokenPair: string
   pool: string
   farms: FarmPlot[]
 }
@@ -13,7 +13,7 @@ export interface FarmPlot {
 }
 
 export const DPIETH: V3Farm = {
-  farmName: 'DPI-ETH',
+  tokenPair: 'DPI/ETH',
   pool: '0x1cC56b205109A832Fd0F7062FD64bb6813BeF443',
   farms: [
     {

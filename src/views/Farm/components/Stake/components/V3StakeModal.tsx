@@ -18,6 +18,7 @@ import NftFarmPlot from './NftFarmPlot'
 import useV3Farming from 'hooks/useV3Farming'
 import Web3 from 'web3'
 import { deriveRGBColorFromString } from '../../../../../utils/colorUtils'
+import { Spacer } from 'react-neu'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: number, farm: V3Farm) => void
@@ -115,14 +116,32 @@ const StakeModal: React.FC<StakeModalProps> = ({
     setActiveFarmPlot(farm.farms[getMostRecentFarmNumber(farm)])
   }, [farm])
 
+  const ethDpiTokenIcon = (
+    <StyledLpTokenWrapper>
+      <StyledLpTokenImage
+        alt='ETH Icon'
+        src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
+      />
+      <StyledLpTokenImage
+        alt='DPI Icon'
+        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
+      />
+    </StyledLpTokenWrapper>
+  )
+
   if (isShowingStakingDetailScreen) {
     return (
       <Modal isOpen={isOpen} onDismiss={onDismiss}>
-        <ModalTitle text='Uniswap V3 DPI-ETH Staking' />
         <ModalContent>
           <div>
-            {/* TODO: add DPI/ETH Icon */}
-            {selectedNftId}
+            <StyledNftCardTitle>
+              <StyledBigNftColor
+                nftColor={deriveRGBColorFromString(
+                  selectedNftId?.toString() || ''
+                )}
+              />
+              {selectedNftId}
+            </StyledNftCardTitle>
             <p>
               This token is currently unstaked and undeposited in any active LM
               farms. In order to earn Uniswap V3 LM rewards you must deposit
@@ -130,7 +149,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               following farms:
             </p>
             <h3>Available Farm</h3>
-            <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
+            <NftFarmPlot farmName={farm.tokenPair} farmPlot={activeFarmPlot} />
           </div>
         </ModalContent>
         <ModalActions>
@@ -148,11 +167,16 @@ const StakeModal: React.FC<StakeModalProps> = ({
   if (isShowingUnstakingDetailScreen) {
     return (
       <Modal isOpen={isOpen} onDismiss={onDismiss}>
-        <ModalTitle text='Uniswap V3 DPI-ETH Staking' />
         <ModalContent>
           <div>
-            {/* TODO: add DPI/ETH Icon */}
-            {selectedNftId}
+            <StyledNftCardTitle>
+              <StyledBigNftColor
+                nftColor={deriveRGBColorFromString(
+                  selectedNftId?.toString() || ''
+                )}
+              />
+              {selectedNftId}
+            </StyledNftCardTitle>
             <p>
               This token is currently deposited in the Uniswap V3 staking
               contract. The active farms below are farms currently accruing you
@@ -164,10 +188,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
             {expiredFarmPlots &&
               expiredFarmPlots.length > 0 &&
               expiredFarmPlots.map((expiredPlot) => (
-                <NftFarmPlot farmName={farm.farmName} farmPlot={expiredPlot} />
+                <NftFarmPlot farmName={farm.tokenPair} farmPlot={expiredPlot} />
               ))}
             <h3>Active Farms</h3>
-            <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
+            <NftFarmPlot farmName={farm.tokenPair} farmPlot={activeFarmPlot} />
 
             <h3>Active Farms</h3>
             <p>Pending Rewards: {pendingRewardsForSelectedNft} INDEX</p>
@@ -189,16 +213,18 @@ const StakeModal: React.FC<StakeModalProps> = ({
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <ModalContent>
         <div>
-          <h1>Uniswap V3 DPI-ETH Staking</h1>
-
+          <StyledNftCardTitle>
+            {ethDpiTokenIcon}
+            Uniswap V3 Staking
+          </StyledNftCardTitle>
           <p>
-            Uniswap V3 uses NFT tokens to represent LP positions. Your Uniswap
-            V3 LP tokens eligible eligible for Index Coop rewards are listed
+            Uniswap V3 uses NFT tokens to represent LP positions. <br /> Your
+            Uniswap V3 LP tokens eligible for Index Coop rewards are listed
             below.
           </p>
           {availableNftIds.length > 0 && (
             <div>
-              <h3>Your Unstaked {farm.farmName} LP NFTs</h3>
+              <h3>Your Unstaked {farm.tokenPair} LP NFTs</h3>
               <StyledList>
                 {availableNftIds.map((nft) => (
                   <StyledNftItem
@@ -214,9 +240,12 @@ const StakeModal: React.FC<StakeModalProps> = ({
               </StyledList>
             </div>
           )}
+
+          <Spacer />
+
           {depositedNftIds.length > 0 && (
             <div>
-              <h3>Your Staked {farm.farmName} LP NFTs</h3>
+              <h3>Your Staked {farm.tokenPair} LP NFTs</h3>
               <StyledList>
                 {depositedNftIds.map((nft) => (
                   <StyledNftItem
@@ -252,6 +281,22 @@ const StyledNftColor = styled.div`
     `}
 `
 
+const StyledBigNftColor = styled.div`
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+  border-radius: 20px;
+  ${(props: { nftColor: string }) =>
+    `
+      background-color: #${props.nftColor};
+    `}
+`
+
+const StyledNftCardTitle = styled.h2`
+  display: flex;
+  align-items: center;
+`
+
 const StyledList = styled.div`
   display: flex;
   flex-direction: column;
@@ -269,6 +314,16 @@ const StyledNftItem = styled.div`
   color: ${(props) => props.theme.colors.grey[400]};
   &:hover {
     color: white;
+`
+
+const StyledLpTokenWrapper = styled.div`
+  margin-left: 10px;
+  margin-right: 10px;
+`
+
+const StyledLpTokenImage = styled.img`
+  height: 35px;
+  margin-left: -10px;
 `
 
 export default StakeModal
