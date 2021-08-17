@@ -15,6 +15,7 @@ import {
   getMostRecentFarmNumber,
 } from 'index-sdk/uniV3Farm'
 import NftFarmPlot from './NftFarmPlot'
+import useV3Farming from 'hooks/useV3Farming'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: number, farm: V3Farm) => void
@@ -39,10 +40,35 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const [activeFarmPlot, setActiveFarmPlot] = useState<FarmPlot>()
   const [expiredFarmPlots, setExpiredFarmPlots] = useState<FarmPlot[]>()
 
+  const [pendingRewardsForSelectedNft, setPendingRewardsForSelectedNft] =
+    useState<number>(0)
   const [isShowingStakingDetailScreen, setIsShowingStakingDetailScreen] =
     useState(false)
   const [isShowingUnstakingDetailScreen, setIsShowingUnstakingDetailScreen] =
     useState(false)
+
+  const { getIndividualPendingRewardsAmount } = useV3Farming()
+
+  const fetchPendingRewardsForSelectedNft = useCallback(async () => {
+    if (!currentId) {
+      setPendingRewardsForSelectedNft(0)
+      return
+    }
+
+    const pendingRewards = await getIndividualPendingRewardsAmount(
+      farm,
+      currentId
+    )
+    setPendingRewardsForSelectedNft(pendingRewards?.toNumber())
+  }, [currentId, getIndividualPendingRewardsAmount])
+
+  useEffect(() => {
+    fetchPendingRewardsForSelectedNft()
+  }, [
+    currentId,
+    fetchPendingRewardsForSelectedNft,
+    getIndividualPendingRewardsAmount,
+  ])
 
   const handleStakeClick = useCallback(() => {
     if (!currentId) return
@@ -65,10 +91,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const openStakingDetail = async (nftId: number) => {
     setCurrentId(nftId)
     setIsShowingStakingDetailScreen(true)
-    // TODO: is this the best way to do this?
-    /* TODO: this is broken -> setExpiredFarmPlots(
-      await getExpiredFarmsInUse(farm, currentId || -1, provider)
-    )*/
   }
   const closeStakingDetail = () => {
     setCurrentId(undefined)

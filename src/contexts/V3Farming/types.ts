@@ -14,5 +14,5 @@ export interface ContextValues {
   getIndividualPendingRewardsAmount: (
     farm: V3Farm,
     nftId: number
-  ) => Promise<BigNumber | undefined>
+  ) => Promise<BigNumber>
 }

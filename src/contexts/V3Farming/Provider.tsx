@@ -18,6 +18,7 @@ import {
 } from 'index-sdk/uniV3Farm'
 import { waitTransaction } from 'utils/index'
 import { V3Farm } from 'constants/v3Farms'
+import BigNumber from 'utils/bignumber'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -177,7 +178,7 @@ const Provider: React.FC = ({ children }) => {
 
   const handleGetIndividualPendingRewardsAmount = useCallback(
     async (farm: V3Farm, nftId: number) => {
-      if (!ethereum || !account || !farm) return
+      if (!ethereum || !account || !farm) return new BigNumber(0)
 
       return await getIndividualPendingRewardsAmount(
         account,
