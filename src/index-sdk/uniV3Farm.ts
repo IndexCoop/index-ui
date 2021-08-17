@@ -11,7 +11,7 @@ import {
   uniswapV3FactoryAddress,
   uniswapV3StakerAddress,
 } from 'constants/ethContractAddresses'
-import { FarmPlot, V3Farm } from 'constants/v3Farms'
+import { FarmData, V3Farm } from 'constants/v3Farms'
 
 export async function getValidIds(
   farm: V3Farm,
@@ -314,7 +314,7 @@ function getStakingContract(provider: provider) {
   )
 }
 
-function deriveIncentiveId(provider: provider, farmPlot: FarmPlot) {
+function deriveIncentiveId(provider: provider, farmPlot: FarmData) {
   const stakeTokenType = {
     IncentiveKey: {
       rewardToken: 'address',
@@ -351,10 +351,10 @@ export async function getExpiredFarmsInUse(
   farm: V3Farm,
   nftId: number,
   provider: provider
-): Promise<FarmPlot[]> {
+): Promise<FarmData[]> {
   // TODO: make this return expired stakes that the user currently has an NFT in
   const stakingContract = getStakingContract(provider)
-  const expiredFarmPlots: FarmPlot[] = []
+  const expiredFarmPlots: FarmData[] = []
 
   for (let i = 0; i < farm.farms.length; i++) {
     const incentiveId = deriveIncentiveId(provider, farm.farms[i])

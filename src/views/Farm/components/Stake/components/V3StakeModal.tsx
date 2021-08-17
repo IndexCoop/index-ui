@@ -4,12 +4,12 @@ import {
   ModalActions,
   ModalContent,
   ModalProps,
-  ModalTitle,
+  Spacer,
 } from 'react-neu'
 import styled from 'styled-components'
 
 import Modal from 'components/CustomModal'
-import { FarmPlot, V3Farm } from 'constants/v3Farms'
+import { FarmData, V3Farm } from 'constants/v3Farms'
 import {
   getExpiredFarmsInUse,
   getMostRecentFarmNumber,
@@ -17,8 +17,7 @@ import {
 import NftFarmPlot from './NftFarmPlot'
 import useV3Farming from 'hooks/useV3Farming'
 import Web3 from 'web3'
-import { deriveRGBColorFromString } from '../../../../../utils/colorUtils'
-import { Spacer } from 'react-neu'
+import { deriveRGBColorFromString } from 'utils/colorUtils'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: number, farm: V3Farm) => void
@@ -41,8 +40,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
 }) => {
   const [selectedNftId, setSelectedNftId] =
     useState<number | undefined>(undefined)
-  const [activeFarmPlot, setActiveFarmPlot] = useState<FarmPlot>()
-  const [expiredFarmPlots, setExpiredFarmPlots] = useState<FarmPlot[]>()
+  const [activeFarmPlot, setActiveFarmPlot] = useState<FarmData>()
+  const [expiredFarmPlots, setExpiredFarmPlots] = useState<FarmData[]>()
 
   const [pendingRewardsForSelectedNft, setPendingRewardsForSelectedNft] =
     useState<number>(0)

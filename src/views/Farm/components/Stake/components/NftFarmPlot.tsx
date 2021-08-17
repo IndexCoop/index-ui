@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { FarmPlot } from 'constants/v3Farms'
+import { FarmData } from 'constants/v3Farms'
 import styled from 'styled-components'
 
 interface NftFarmPlotProps {
   farmName: string
-  farmPlot: FarmPlot | undefined
+  farmPlot: FarmData | undefined
 }
 /**
  * NftFarmPlot - Displays NFT farm information

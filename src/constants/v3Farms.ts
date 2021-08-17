@@ -1,10 +1,10 @@
 export interface V3Farm {
   tokenPair: string
   pool: string
-  farms: FarmPlot[]
+  farms: FarmData[]
 }
 
-export interface FarmPlot {
+export interface FarmData {
   rewardToken: string
   pool: string
   startTime: number
