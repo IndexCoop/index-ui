@@ -357,11 +357,12 @@ export async function getExpiredFarmsInUse(
   const expiredFarmPlots: FarmPlot[] = []
 
   for (let i = 0; i < farm.farms.length; i++) {
-    const incentiveId = Web3.utils.keccak256(JSON.stringify(farm.farms[i]))
+    const incentiveId = deriveIncentiveId(provider, farm.farms[i])
     const stakeInfo = await stakingContract.methods
       .stakes(nftId, incentiveId)
       .call()
-    if (stakeInfo.liquidity !== 0 && i !== getMostRecentFarmNumber(farm)) {
+
+    if (stakeInfo.liquidity !== '0' && i !== getMostRecentFarmNumber(farm)) {
       expiredFarmPlots.push(farm.farms[i])
     }
   }
