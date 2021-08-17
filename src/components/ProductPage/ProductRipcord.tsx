@@ -67,7 +67,7 @@ const ProductRipcord: React.FC<ProductRipcordProps> = ({ tokenData }) => {
             isDisabled={!isMetamaskConnected || realLeverage < maxLeverage}
             onClick={() => handleRipcord()}
           />
-          <div>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <StyledLink
               href='https://docs.indexcoop.com/our-products/flexible-leverage-indices/fli-technical-documentation/fli-product-parameters#ripcord-parameters'
               target='_blank'
@@ -106,7 +106,6 @@ const StyledStatMetric = styled.div`
 
 const StyledLink = styled.a`
   font-size: 10px;
-  font-weight: 600;
   color: white;
 `
 
