@@ -17,6 +17,7 @@ import {
 import NftFarmPlot from './NftFarmPlot'
 import useV3Farming from 'hooks/useV3Farming'
 import Web3 from 'web3'
+import { deriveRGBColorFromString } from '../../../../../utils/colorUtils'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: number, farm: V3Farm) => void
@@ -204,6 +205,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
                     key={nft.toString()}
                     onClick={() => openStakingDetail(nft)}
                   >
+                    <StyledNftColor
+                      nftColor={deriveRGBColorFromString(nft?.toString())}
+                    />
                     {nft?.toString()}
                   </StyledNftItem>
                 ))}
@@ -219,7 +223,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
                     key={nft.toString()}
                     onClick={() => openUnstakingDetail(nft)}
                   >
-                    <StyledNftColor />
+                    <StyledNftColor
+                      nftColor={deriveRGBColorFromString(nft?.toString())}
+                    />
                     {nft?.toString()}
                   </StyledNftItem>
                 ))}
@@ -239,7 +245,11 @@ const StyledNftColor = styled.div`
   height: 20px;
   width: 20px;
   margin-right: 10px;
-  background-color: blue;
+  border-radius: 20px;
+  ${(props: { nftColor: string }) =>
+    `
+      background-color: #${props.nftColor};
+    `}
 `
 
 const StyledList = styled.div`
