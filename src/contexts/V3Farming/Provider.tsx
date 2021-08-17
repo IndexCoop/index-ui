@@ -176,10 +176,15 @@ const Provider: React.FC = ({ children }) => {
   )
 
   const handleGetIndividualPendingRewardsAmount = useCallback(
-    async (farm: V3Farm) => {
+    async (farm: V3Farm, nftId: number) => {
       if (!ethereum || !account || !farm) return
 
-      return await getIndividualPendingRewardsAmount(account, farm, ethereum)
+      return await getIndividualPendingRewardsAmount(
+        account,
+        farm,
+        nftId,
+        ethereum
+      )
     },
     [ethereum, account]
   )

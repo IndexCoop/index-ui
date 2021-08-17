@@ -12,6 +12,7 @@ export interface ContextValues {
   getAllDepositedTokens: (farm: V3Farm) => Promise<number[] | undefined>
   getAllPendingRewardsAmount: (farm: V3Farm) => Promise<BigNumber | undefined>
   getIndividualPendingRewardsAmount: (
-    farm: V3Farm
-  ) => Promise<BigNumber[] | undefined>
+    farm: V3Farm,
+    nftId: number
+  ) => Promise<BigNumber | undefined>
 }

@@ -9,7 +9,6 @@ import useWallet from 'hooks/useWallet'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 import V3StakeModal from './components/V3StakeModal'
-import V3UnstakeModal from './components/V3UnstakeModal'
 import Split from 'components/Split'
 import { DPIETH, farmsByFarmName, V3Farm } from 'constants/v3Farms'
 
@@ -23,19 +22,14 @@ const Stake: React.FC = () => {
     getAllDepositedTokens,
     getAccruedRewardsAmount,
     getAllPendingRewardsAmount,
-    getIndividualPendingRewardsAmount,
     getValidIds,
   } = useV3Farming()
 
   const { transactionStatus } = useTransactionWatcher()
 
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
-  const [unstakeModalIsOpen, setUnstakeModalIsOpen] = useState(false)
   const [accruedRewards, setAccruedRewards] = useState('0')
   const [allPendingRewards, setAllPendingRewards] = useState('0')
-  const [individualPendingRewards, setIndividualPendingRewards] = useState<
-    string[]
-  >([])
   const [validNfts, setValidNfts] = useState<number[]>([])
   const [depositedNfts, setDepositedNfts] = useState<number[]>([])
 
@@ -62,10 +56,6 @@ const Stake: React.FC = () => {
     setStakeModalIsOpen(true)
   }, [setStakeModalIsOpen])
 
-  const handleUnstakeClick = useCallback(() => {
-    setUnstakeModalIsOpen(true)
-  }, [setUnstakeModalIsOpen])
-
   const handleClaimAccruedClick = useCallback(() => {
     onClaimAccrued('0x1720668a1826c6f30a11780783b0357269b7e1ca')
   }, [onClaimAccrued])
@@ -76,15 +66,6 @@ const Stake: React.FC = () => {
     }
     return <Button full onClick={handleStakeClick} text='Stake' />
   }, [status, handleStakeClick])
-
-  const UnstakeButton = useMemo(() => {
-    const hasStaked = depositedNfts.length !== 0
-    if (status !== 'connected' || !hasStaked) {
-      return <Button disabled full text='Unstake' variant='secondary' />
-    }
-
-    return <Button full onClick={handleUnstakeClick} text='Unstake' />
-  }, [depositedNfts, status, handleUnstakeClick])
 
   const ClaimAccruedButton = useMemo(() => {
     if (status !== 'connected' || accruedRewards === '0.00') {
@@ -112,20 +93,6 @@ const Stake: React.FC = () => {
       )
     })
   }, [account, status, transactionStatus, getAllPendingRewardsAmount])
-
-  useEffect(() => {
-    getIndividualPendingRewardsAmount(DPIETH).then((amounts) => {
-      setIndividualPendingRewards(
-        amounts
-          ? amounts.map((reward) => {
-              return parseFloat(
-                Web3.utils.fromWei(reward?.toString() || '0')
-              ).toFixed(2)
-            })
-          : []
-      )
-    })
-  }, [account, status, transactionStatus, getIndividualPendingRewardsAmount])
 
   useEffect(() => {
     getValidIds(DPIETH).then((idList) => {

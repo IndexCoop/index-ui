@@ -20,7 +20,7 @@ const Context = createContext<ContextValues>({
     return new BigNumber(0)
   },
   getIndividualPendingRewardsAmount: async () => {
-    return []
+    return new BigNumber(0)
   },
 })
 

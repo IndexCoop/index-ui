@@ -11,7 +11,6 @@ import {
   uniswapV3FactoryAddress,
   uniswapV3StakerAddress,
 } from 'constants/ethContractAddresses'
-import Farm from 'views/Farm'
 import { FarmPlot, V3Farm } from 'constants/v3Farms'
 
 export async function getValidIds(
@@ -119,6 +118,7 @@ export async function withdraw(
   })
 }
 
+// Does this include pending rewards?
 export async function getAccruedRewardsAmount(
   user: string,
   rewardToken: string,
@@ -169,29 +169,26 @@ export type FarmReward = {
 export async function getIndividualPendingRewardsAmount(
   user: string,
   farm: V3Farm,
+  nftId: number,
   provider: provider
-): Promise<BigNumber[]> {
+): Promise<BigNumber> {
   const stakingContract = getStakingContract(provider)
-  const deposits = await getAllDepositedTokens(user, farm, provider)
-  let amounts: BigNumber[] = []
 
-  await Promise.all(
-    deposits.map(async (id) => {
-      const stakes = await getCurrentStakes(farm, id, provider)
+  const stakes = await getCurrentStakes(farm, nftId, provider)
 
-      await Promise.all(
-        stakes.map(async (farmNumber) => {
-          const rewardInfo = await stakingContract.methods
-            .getRewardInfo(farm.farms[farmNumber], id)
-            .call()
+  const pendingRewards = await Promise.all(
+    stakes.map(async (farmNumber) => {
+      const rewardInfo = await stakingContract.methods
+        .getRewardInfo(farm.farms[farmNumber], nftId)
+        .call()
 
-          amounts[farmNumber] = new BigNumber(rewardInfo.reward)
-        })
-      )
+      return new BigNumber(rewardInfo.reward)
     })
   )
 
-  return amounts
+  return pendingRewards.reduce((a, b) => {
+    return a.plus(b)
+  }, new BigNumber(0))
 }
 
 export async function claimAccruedRewards(
