@@ -117,13 +117,34 @@ const Stake: React.FC = () => {
     })
   }, [account, status, transactionStatus, getAllDepositedTokens])
 
+  const ethDpiTokenIcon = (
+    <StyledLpTokenWrapper>
+      <StyledLpTokenImage
+        alt='ETH Icon'
+        src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
+      />
+      <StyledLpTokenImage
+        alt='DPI Icon'
+        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
+      />
+    </StyledLpTokenWrapper>
+  )
+
   return (
     <>
       <Card>
         <CardContent>
           <StyledCardTitleWrapper>
+            {ethDpiTokenIcon}
+            <Spacer size='md' />
             <StyledLmTitle>
-              <StyledCardTitle>Uniswap V3 Liquidity Program</StyledCardTitle>
+              <StyledCardTitle>
+                Uniswap V3 DPI-ETH Liquidity Program
+              </StyledCardTitle>
+              <Spacer size='sm' />
+              <StyledCardSubtitle>
+                Active Augest 20th - September 10th
+              </StyledCardSubtitle>
             </StyledLmTitle>
           </StyledCardTitleWrapper>
           <Spacer />
@@ -204,6 +225,7 @@ const StyledCardSubtitle = styled.span`
 const StyledCardTitleWrapper = styled.div`
   display: flex;
   align-items: center;
+
   flex-wrap: wrap;
   font-weight: 600;
   font-size: 24px;
@@ -242,6 +264,15 @@ const StyledCardActions = styled.div<StyledCardActionProps>`
   flex-wrap: ${(props) => (props.isMobile ? 'wrap' : 'no-wrap')};
   padding: 30px;
   padding-top: 0px;
+`
+
+const StyledLpTokenWrapper = styled.div`
+  margin-left: 10px;
+`
+
+const StyledLpTokenImage = styled.img`
+  height: 50px;
+  margin-left: -10px;
 `
 
 export default Stake
