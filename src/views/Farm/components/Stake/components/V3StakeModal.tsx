@@ -16,6 +16,7 @@ import {
 } from 'index-sdk/uniV3Farm'
 import NftFarmPlot from './NftFarmPlot'
 import useV3Farming from 'hooks/useV3Farming'
+import Web3 from 'web3'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: number, farm: V3Farm) => void
@@ -59,7 +60,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
       farm,
       currentId
     )
-    setPendingRewardsForSelectedNft(pendingRewards?.toNumber())
+
+    const normalizedRewards = Web3.utils.fromWei(pendingRewards.toString())
+
+    setPendingRewardsForSelectedNft(Number(normalizedRewards))
   }, [currentId, getIndividualPendingRewardsAmount])
 
   useEffect(() => {
@@ -156,6 +160,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               contract. The active farms below are farms currently accruing you
               rewards:
             </p>
+
             <h3>Expired Farms</h3>
             {/* TODO: this needs to be a list of expired farmplots from expiredFarmPlots */}
             {expiredFarmPlots &&
@@ -165,6 +170,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
               ))}
             <h3>Active Farms</h3>
             <NftFarmPlot farmName={farm.farmName} farmPlot={activeFarmPlot} />
+
+            <h3>Active Farms</h3>
+            <p>Pending Rewards: {pendingRewardsForSelectedNft} INDEX</p>
           </div>
         </ModalContent>
         <ModalActions>
