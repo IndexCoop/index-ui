@@ -32,6 +32,7 @@ import { MviComponentsProvider } from 'contexts/MviComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { SnapshotProposalsProvider } from 'contexts/SnapshotProposals'
 import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
+import { V3FarmingProvider } from 'contexts/V3Farming'
 import { BedTokenMarketDataProvider } from 'contexts/BedTokenMarketData'
 import { BedIndexComponentsProvider } from 'contexts/BedIndexComponents'
 
@@ -170,7 +171,9 @@ const Providers: React.FC = ({ children }) => {
                                                       <BedIndexComponentsProvider>
                                                         <IndexTokenMarketDataProvider>
                                                           <SnapshotProposalsProvider>
-                                                            {children}
+                                                            <V3FarmingProvider>
+                                                              {children}
+                                                            </V3FarmingProvider>
                                                           </SnapshotProposalsProvider>
                                                         </IndexTokenMarketDataProvider>
                                                       </BedIndexComponentsProvider>

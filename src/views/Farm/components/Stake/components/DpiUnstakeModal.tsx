@@ -13,22 +13,24 @@ import styled from 'styled-components'
 
 import Modal from 'components/CustomModal'
 
-interface StakeModalProps extends ModalProps {
-  onStake: (nftId: string) => void
+interface UnstakeModalProps extends ModalProps {
+  onUnstake: (nftId: string) => void
   nftIds: number[]
 }
 
-const StakeModal: React.FC<StakeModalProps> = ({
+const StakeModal: React.FC<UnstakeModalProps> = ({
   isOpen,
   nftIds,
   onDismiss,
-  onStake,
+  onUnstake,
 }) => {
-  const [currentId, setCurrentId] = useState<string>('Select Uniswap V3 NFT ID')
+  const [currentId, setCurrentId] = useState<string>(
+    'Select Uniswap V3 NFT ID to Withdraw'
+  )
 
   const handleStakeClick = useCallback(() => {
-    onStake(currentId)
-  }, [onStake, currentId])
+    onUnstake(currentId)
+  }, [onUnstake, currentId])
 
   const theme = useTheme()
 
@@ -87,7 +89,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalTitle text='Stake' />
+      <ModalTitle text='Unstake' />
       <ModalContent>
         <Select
           isSearchable={false}
@@ -106,7 +108,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
         <Button
           disabled={!currentId || !Number(currentId)}
           onClick={handleStakeClick}
-          text='Stake'
+          text='Unstake'
           variant={!currentId || !Number(currentId) ? 'secondary' : 'default'}
         />
       </ModalActions>

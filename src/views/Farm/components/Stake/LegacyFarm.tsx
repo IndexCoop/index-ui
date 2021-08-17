@@ -151,6 +151,7 @@ const Stake: React.FC = () => {
       </Card>
       <DpiStakeModal
         isOpen={stakeModalIsOpen}
+        nftIds={[]}
         onDismiss={handleDismissStakeModal}
         onStake={handleOnStake}
       />
