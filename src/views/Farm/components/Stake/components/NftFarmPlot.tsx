@@ -20,12 +20,27 @@ const NftFarmPlot: React.FC<NftFarmPlotProps> = ({ farmName, farmPlot }) => {
     ? new Date(endTime * 1000).toDateString()
     : 'Unknown End Time'
 
+  const ethDpiTokenIcon = (
+    <StyledLpTokenWrapper>
+      <StyledLpTokenImage
+        alt='ETH Icon'
+        src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
+      />
+      <StyledLpTokenImage
+        alt='DPI Icon'
+        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
+      />
+    </StyledLpTokenWrapper>
+  )
+
   return (
     <StyledCard>
-      <div>TBD</div>
-      <div>Pool: {pool}</div>
+      <StyledFarmTitle>
+        {ethDpiTokenIcon} {farmName}
+      </StyledFarmTitle>
+      <div>Pool ID: {pool}</div>
       <div>
-        {farmStartTime} - {farmEndTime}
+        Active: {farmStartTime} - {farmEndTime}
       </div>
     </StyledCard>
   )
@@ -37,7 +52,22 @@ const StyledCard = styled.div`
   flex-wrap: wrap;
   border-radius: 5px;
   background-color: #1a1a26;
-  padding: 15px;
+  padding: 0 20px 20px;
+`
+
+const StyledFarmTitle = styled.h3`
+  display: flex;
+  align-items: center;
+`
+
+const StyledLpTokenWrapper = styled.div`
+  margin-left: 10px;
+  margin-right: 10px;
+`
+
+const StyledLpTokenImage = styled.img`
+  height: 35px;
+  margin-left: -10px;
 `
 
 export default NftFarmPlot

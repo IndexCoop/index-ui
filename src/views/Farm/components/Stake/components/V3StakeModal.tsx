@@ -148,7 +148,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
               following farms:
             </p>
             <h3>Available Farm</h3>
-            <NftFarmPlot farmName={farm.tokenPair} farmPlot={activeFarmPlot} />
+            <NftFarmPlot
+              farmName={'Uniswap V3 DPI-ETH LM #1'}
+              farmPlot={activeFarmPlot}
+            />
           </div>
         </ModalContent>
         <ModalActions>
@@ -190,7 +193,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 <NftFarmPlot farmName={farm.tokenPair} farmPlot={expiredPlot} />
               ))}
             <h3>Active Farms</h3>
-            <NftFarmPlot farmName={farm.tokenPair} farmPlot={activeFarmPlot} />
+            <NftFarmPlot
+              farmName={'Uniswap V3 DPI-ETH LM #1'}
+              farmPlot={activeFarmPlot}
+            />
 
             <h3>Active Farms</h3>
             <p>Pending Rewards: {pendingRewardsForSelectedNft} INDEX</p>
