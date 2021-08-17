@@ -277,11 +277,12 @@ async function getCurrentStakes(
   const currentStakes = []
 
   for (let i = 0; i < farm.farms.length; i++) {
-    const incentiveId = Web3.utils.keccak256(JSON.stringify(farm.farms[i]))
+    const incentiveId = deriveIncentiveId(provider, farm.farms[i])
     const stakeInfo = await stakingContract.methods
       .stakes(nftId, incentiveId)
       .call()
-    if (stakeInfo.liquidity !== 0) {
+
+    if (stakeInfo.liquidity !== '0') {
       currentStakes.push(i)
     }
   }
@@ -314,6 +315,25 @@ function getStakingContract(provider: provider) {
     uniswapV3StakerAbi as unknown as AbiItem,
     uniswapV3StakerAddress
   )
+}
+
+function deriveIncentiveId(provider: provider, farmPlot: FarmPlot) {
+  const stakeTokenType = {
+    IncentiveKey: {
+      rewardToken: 'address',
+      pool: 'address',
+      startTime: 'uint256',
+      endTime: 'uint256',
+      refundee: 'address',
+    },
+  }
+
+  const data = new Web3(provider).eth.abi.encodeParameters(
+    [stakeTokenType],
+    [farmPlot]
+  )
+
+  return Web3.utils.keccak256(data)
 }
 
 async function isTokenFromValidPool(
