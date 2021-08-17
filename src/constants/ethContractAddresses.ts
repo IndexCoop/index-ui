@@ -37,6 +37,7 @@ export const usdcTokenAddress = process.env.REACT_APP_USDC_TOKEN_ADDRESS
 export const btc2xfliTokenAddress =
   process.env.REACT_APP_BTC2X_FLI_TOKEN_ADDRESS
 export const ethTokenAddress = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+export const bedTokenAddress = process.env.REACT_APP_BED_TOKEN_ADDRESS
 
 // Uniswap V2 Addresses
 export const uniswapEthDpiLpTokenAddress =

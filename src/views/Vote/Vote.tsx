@@ -11,7 +11,7 @@ const Vote = (props: { title: string }) => {
 
   return (
     <Page>
-      <Container size='sm'>
+      <Container size='md'>
         <StyledPageHeader>Vote</StyledPageHeader>
         <Spacer size='sm' />
         <StyledPageSubheader>View and vote on proposals</StyledPageSubheader>

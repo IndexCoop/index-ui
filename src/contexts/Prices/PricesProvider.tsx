@@ -91,7 +91,7 @@ const PricesProvider: React.FC = ({ children }) => {
     )
       return
 
-    const totalTokenEmissionsPerDay = 567
+    const totalTokenEmissionsPerDay = 425
     const totalUSDEmissionPerDay =
       totalTokenEmissionsPerDay * Number(indexPrice)
 
@@ -130,7 +130,7 @@ const PricesProvider: React.FC = ({ children }) => {
     )
       return
 
-    const totalTokenEmissionsPerDay = 109
+    const totalTokenEmissionsPerDay = 110
     const totalUSDEmissionPerDay =
       totalTokenEmissionsPerDay * Number(indexPrice)
 

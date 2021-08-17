@@ -33,6 +33,8 @@ import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { SnapshotProposalsProvider } from 'contexts/SnapshotProposals'
 import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
 import { V3FarmingProvider } from 'contexts/V3Farming'
+import { BedTokenMarketDataProvider } from 'contexts/BedTokenMarketData'
+import { BedIndexComponentsProvider } from 'contexts/BedIndexComponents'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -43,6 +45,7 @@ import DPI from 'views/DPI'
 import ETH2XFLI from 'views/ETH2XFLI'
 import BTC2XFLI from 'views/BTC2XFLI'
 import MVI from 'views/MVI'
+import BED from 'views/BED'
 import INDEX from 'views/INDEX'
 import Vote from 'views/Vote'
 import News from 'views/News'
@@ -89,6 +92,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path='/btcfli'>
               <BTC2XFLI title={'Index - BTC2xFLI'} />
+            </Route>
+            <Route exact path='/bed'>
+              <BED title={'Index - BED'} />
             </Route>
             <Route exact path='/index'>
               <INDEX title={'Index - Index'} />
@@ -161,13 +167,17 @@ const Providers: React.FC = ({ children }) => {
                                               <DpiIndexComponentsProvider>
                                                 <MviTokenMarketDataProvider>
                                                   <MviComponentsProvider>
-                                                    <IndexTokenMarketDataProvider>
-                                                      <SnapshotProposalsProvider>
-                                                        <V3FarmingProvider>
-                                                          {children}
-                                                        </V3FarmingProvider>
-                                                      </SnapshotProposalsProvider>
-                                                    </IndexTokenMarketDataProvider>
+                                                    <BedTokenMarketDataProvider>
+                                                      <BedIndexComponentsProvider>
+                                                        <IndexTokenMarketDataProvider>
+                                                          <SnapshotProposalsProvider>
+                                                            <V3FarmingProvider>
+                                                              {children}
+                                                            </V3FarmingProvider>
+                                                          </SnapshotProposalsProvider>
+                                                        </IndexTokenMarketDataProvider>
+                                                      </BedIndexComponentsProvider>
+                                                    </BedTokenMarketDataProvider>
                                                   </MviComponentsProvider>
                                                 </MviTokenMarketDataProvider>
                                               </DpiIndexComponentsProvider>

@@ -8,7 +8,7 @@ describe('Rewards', () => {
 
   context('Page Header', () => {
     it('should show header text', () => {
-      cy.get('.sc-dPzuq').should('contain', 'Rewards')
+      cy.get('.sc-hBezlf').should('contain', 'Rewards')
     })
     it('should show content', () => {
       cy.get('.sc-crzoAE > :nth-child(3)').should(
