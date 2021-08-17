@@ -33,13 +33,12 @@ const StakeModal: React.FC<StakeModalProps> = ({
   availableNftIds,
   depositedNftIds,
   farm,
-  accruedRewards,
-  provider,
   onDismiss,
   onStake,
   onUnstake,
 }) => {
-  const [currentId, setCurrentId] = useState<number | undefined>(undefined)
+  const [selectedNftId, setSelectedNftId] =
+    useState<number | undefined>(undefined)
   const [activeFarmPlot, setActiveFarmPlot] = useState<FarmPlot>()
   const [expiredFarmPlots, setExpiredFarmPlots] = useState<FarmPlot[]>()
 
@@ -53,61 +52,61 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const { getIndividualPendingRewardsAmount } = useV3Farming()
 
   const fetchPendingRewardsForSelectedNft = useCallback(async () => {
-    if (!currentId) {
+    if (!selectedNftId) {
       setPendingRewardsForSelectedNft(0)
       return
     }
 
     const pendingRewards = await getIndividualPendingRewardsAmount(
       farm,
-      currentId
+      selectedNftId
     )
 
     const normalizedRewards = Web3.utils.fromWei(pendingRewards.toString())
 
     setPendingRewardsForSelectedNft(Number(normalizedRewards))
-  }, [currentId, getIndividualPendingRewardsAmount])
+  }, [selectedNftId, getIndividualPendingRewardsAmount])
 
   useEffect(() => {
     fetchPendingRewardsForSelectedNft()
   }, [
-    currentId,
+    selectedNftId,
     fetchPendingRewardsForSelectedNft,
     getIndividualPendingRewardsAmount,
   ])
 
   const handleStakeClick = useCallback(() => {
-    if (!currentId) return
+    if (!selectedNftId) return
 
-    onStake(currentId, farm)
+    onStake(selectedNftId, farm)
     closeStakingDetail()
-  }, [onStake, currentId, farm])
+  }, [onStake, selectedNftId, farm])
 
   const handleUnstakeClick = useCallback(() => {
-    if (!currentId) return
+    if (!selectedNftId) return
 
-    onUnstake(currentId)
+    onUnstake(selectedNftId)
     closeUnstakingDetail()
-  }, [onUnstake, currentId])
+  }, [onUnstake, selectedNftId])
 
   const openStakingDetail = async (nftId: number) => {
-    setCurrentId(nftId)
+    setSelectedNftId(nftId)
     setIsShowingStakingDetailScreen(true)
   }
   const closeStakingDetail = () => {
-    setCurrentId(undefined)
+    setSelectedNftId(undefined)
     setIsShowingStakingDetailScreen(false)
   }
 
   const openUnstakingDetail = async (nftId: number) => {
-    setCurrentId(nftId)
+    setSelectedNftId(nftId)
     setIsShowingUnstakingDetailScreen(true)
     /* TODO: this is broken -> setExpiredFarmPlots(
-      await getExpiredFarmsInUse(farm, currentId || -1, provider)
+      await getExpiredFarmsInUse(farm, selectedNftId || -1, provider)
     )*/
   }
   const closeUnstakingDetail = () => {
-    setCurrentId(undefined)
+    setSelectedNftId(undefined)
     setIsShowingUnstakingDetailScreen(false)
   }
 
@@ -122,7 +121,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
         <ModalContent>
           <div>
             {/* TODO: add DPI/ETH Icon */}
-            {currentId}
+            {selectedNftId}
             <p>
               This token is currently unstaked and undeposited in any active LM
               farms. In order to earn Uniswap V3 LM rewards you must deposit
@@ -152,7 +151,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
         <ModalContent>
           <div>
             {/* TODO: add DPI/ETH Icon */}
-            {currentId}
+            {selectedNftId}
             <p>
               This token is currently deposited in the Uniswap V3 staking
               contract. The active farms below are farms currently accruing you
@@ -220,6 +219,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
                     key={nft.toString()}
                     onClick={() => openUnstakingDetail(nft)}
                   >
+                    <StyledNftColor />
                     {nft?.toString()}
                   </StyledNftItem>
                 ))}
@@ -235,8 +235,11 @@ const StakeModal: React.FC<StakeModalProps> = ({
   )
 }
 
-const DropdownOption = styled.div`
-  margin: 10px;
+const StyledNftColor = styled.div`
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+  background-color: blue;
 `
 
 const StyledList = styled.div`
@@ -249,6 +252,8 @@ const StyledList = styled.div`
 `
 
 const StyledNftItem = styled.div`
+  display: flex;
+  align-items: center;
   padding: 5px 2px;
   cursor: pointer;
   color: ${(props) => props.theme.colors.grey[400]};
