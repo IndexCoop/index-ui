@@ -90,10 +90,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
     closeUnstakingDetail()
   }, [onUnstake, currentId])
 
-  const handleClaimRewards = useCallback(() => {
-    // TODO perform rewards claim here
-  }, [])
-
   const openStakingDetail = async (nftId: number) => {
     setCurrentId(nftId)
     setIsShowingStakingDetailScreen(true)
@@ -183,7 +179,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             variant='secondary'
             text='Cancel'
           />
-          <Button onClick={handleUnstakeClick} text='Unstake & Withdraw' />
+          <Button onClick={handleUnstakeClick} text='Unstake' />
         </ModalActions>
       </Modal>
     )
@@ -242,12 +238,16 @@ const StyledList = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   border-radius: 5px;
-  background-color: #1a1a26;
+  background-color: ${(props) => props.theme.colors.transparentColors.grey};
   padding: 15px;
 `
 
 const StyledNftItem = styled.div`
-  padding: 2px 0 2px 0;
+  padding: 5px 2px;
+  cursor: pointer;
+  color: ${(props) => props.theme.colors.grey[400]};
+  &:hover {
+    color: white;
 `
 
 export default StakeModal
