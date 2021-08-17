@@ -187,12 +187,18 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
-      <ModalTitle text='Uniswap V3 DPI-ETH Staking' />
       <ModalContent>
         <div>
+          <h1>Uniswap V3 DPI-ETH Staking</h1>
+
+          <p>
+            Uniswap V3 uses NFT tokens to represent LP positions. Your Uniswap
+            V3 LP tokens eligible eligible for Index Coop rewards are listed
+            below.
+          </p>
           {availableNftIds.length > 0 && (
             <div>
-              <h3>Unstaked {farm.farmName} LP NFTs</h3>
+              <h3>Your Unstaked {farm.farmName} LP NFTs</h3>
               <StyledList>
                 {availableNftIds.map((nft) => (
                   <StyledNftItem
@@ -207,7 +213,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
           )}
           {depositedNftIds.length > 0 && (
             <div>
-              <h3>Staked {farm.farmName} LP NFTs</h3>
+              <h3>Your Staked {farm.farmName} LP NFTs</h3>
               <StyledList>
                 {depositedNftIds.map((nft) => (
                   <StyledNftItem
