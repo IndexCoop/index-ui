@@ -8,10 +8,7 @@ import { ProductPageSection } from './ProductPageLayouts'
 import useWallet from 'hooks/useWallet'
 import { useRipcord } from 'hooks/useRipcord'
 import { TokenDataProps } from './ProductDataUI'
-import {
-  Bitcoin2xFlexibleLeverageIndex,
-  Ethereum2xFlexibleLeverageIndex,
-} from 'constants/productTokens'
+import { Ethereum2xFlexibleLeverageIndex } from 'constants/productTokens'
 
 interface ProductRipcordProps extends InputProps {
   tokenData: TokenDataProps
@@ -29,7 +26,12 @@ const ProductRipcord: React.FC<ProductRipcordProps> = ({ tokenData }) => {
       ? Number(tokenData.components[0].percentOfSet || 0) / 100
       : 2
 
-  const maxLeverage = Ethereum2xFlexibleLeverageIndex.symbol ? 2.3 : 2.2
+  const ETH2xMaxLeverageRatio = 2.7
+  const BTC2xMaxLeverageRatio = 2.4
+
+  const maxLeverage = Ethereum2xFlexibleLeverageIndex.symbol
+    ? ETH2xMaxLeverageRatio
+    : BTC2xMaxLeverageRatio
 
   const renderRealLeverage = (leverage: number) => {
     if (leverage < maxLeverage) {
@@ -65,6 +67,14 @@ const ProductRipcord: React.FC<ProductRipcordProps> = ({ tokenData }) => {
             isDisabled={!isMetamaskConnected || realLeverage < maxLeverage}
             onClick={() => handleRipcord()}
           />
+          <div>
+            <StyledLink
+              href='https://docs.indexcoop.com/our-products/flexible-leverage-indices/fli-technical-documentation/fli-product-parameters#ripcord-parameters'
+              target='_blank'
+            >
+              Learn More...
+            </StyledLink>
+          </div>
         </div>
       </StyledTokenWrapper>
     </ProductPageSection>
@@ -93,11 +103,13 @@ const StyledStatMetric = styled.div`
   }
   color: ${({ color }) => color};
 `
-const StyledIcon = styled.div`
-  font-size: 16px;
+
+const StyledLink = styled.a`
+  font-size: 10px;
   font-weight: 600;
-  color: grey;
+  color: white;
 `
+
 const StyledNegativeChange = styled.div`
   color: ${({ theme }) => theme.colors.red};
 `
