@@ -12,7 +12,16 @@ import {
   uniswapV3StakerAddress,
 } from 'constants/ethContractAddresses'
 import { FarmData, V3Farm } from 'constants/v3Farms'
+import { DPIETH } from '../constants/v3Farms'
 
+/**
+ * Returns all NFTs eligible for the target farm for the target user account.
+ * These are effectively all unstaked NFT IDs.
+ * @param farm - Target farm to check NFTs against
+ * @param user - User's ethereum account
+ * @param provider - Ethereum network provider
+ * @returns - A list of NFT IDs
+ */
 export async function getValidIds(
   farm: V3Farm,
   user: string,
@@ -35,6 +44,7 @@ export async function getValidIds(
       validIds.push(tokenId)
     }
   }
+
   return validIds
 }
 
@@ -118,7 +128,6 @@ export async function withdraw(
   })
 }
 
-// Does this include pending rewards?
 export async function getAccruedRewardsAmount(
   user: string,
   rewardToken: string,
@@ -353,6 +362,9 @@ export async function getExpiredFarmsInUse(
   provider: provider
 ): Promise<FarmData[]> {
   // TODO: make this return expired stakes that the user currently has an NFT in
+  // Check that the farm is past expiry
+  console.log('geting expired farms', nftId)
+
   const stakingContract = getStakingContract(provider)
   const expiredFarmPlots: FarmData[] = []
 
@@ -362,10 +374,40 @@ export async function getExpiredFarmsInUse(
       .stakes(nftId, incentiveId)
       .call()
 
+    console.log('stake info is', stakeInfo)
+
     if (stakeInfo.liquidity !== '0' && i !== getMostRecentFarmNumber(farm)) {
       expiredFarmPlots.push(farm.farms[i])
     }
   }
 
   return expiredFarmPlots
+}
+
+export const getUpcomingFarms = () => {
+  return DPIETH.farms.filter((farm: FarmData) => {
+    const now = Date.now()
+    const formattedStartTime = farm.startTime * 1000
+
+    return now < formattedStartTime
+  })
+}
+
+export const getActiveFarms = () => {
+  return DPIETH.farms.filter((farm: FarmData) => {
+    const now = Date.now()
+    const formattedStartTime = farm.startTime * 1000
+    const formattedEndTime = farm.endTime * 1000
+
+    return now > formattedStartTime && now < formattedEndTime
+  })
+}
+
+export const getExpiredFarms = () => {
+  return DPIETH.farms.filter((farm: FarmData) => {
+    const now = Date.now()
+    const formattedEndTime = farm.endTime * 1000
+
+    return now > formattedEndTime
+  })
 }
