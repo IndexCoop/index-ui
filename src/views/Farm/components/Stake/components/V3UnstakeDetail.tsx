@@ -39,6 +39,42 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const hasUpcomingFarm = getUpcomingFarms().length > 0
   const hasActiveFarm = getActiveFarms().length > 0
 
+  if (hasUpcomingFarm) {
+    return (
+      <>
+        <ModalContent>
+          <div>
+            <StyledNftCardTitle>
+              <StyledBigNftColor
+                nftColor={deriveRGBColorFromString(
+                  selectedNftId?.toString() || ''
+                )}
+              />
+              {selectedNftId}
+            </StyledNftCardTitle>
+            <p>
+              This token is currently deposited in the Uniswap V3 staking
+              contract. <br /> It will begin accruing rewards once the upcoming
+              farm listed below becomes active.
+            </p>
+
+            <h3>Upcoming Farm</h3>
+            <NftFarmPlot
+              farmName={'Uniswap V3 DPI-ETH LM #1'}
+              farmPlot={activeFarmPlot}
+            />
+
+            <p>Pending Rewards: {pendingRewardsForSelectedNft} INDEX</p>
+          </div>
+        </ModalContent>
+        <ModalActions>
+          <Button onClick={onClose} variant='secondary' text='Cancel' />
+          <Button onClick={handleUnstakeClick} text='Unstake' />
+        </ModalActions>
+      </>
+    )
+  }
+
   return (
     <>
       <ModalContent>

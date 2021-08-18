@@ -16,15 +16,9 @@ import {
   getExpiredFarmsInUse,
   getMostRecentFarmNumber,
 } from 'index-sdk/uniV3Farm'
-import NftFarmPlot from './NftFarmPlot'
 import useV3Farming from 'hooks/useV3Farming'
 import Web3 from 'web3'
 import { deriveRGBColorFromString } from 'utils/colorUtils'
-import {
-  getUpcomingFarms,
-  getActiveFarms,
-  getExpiredFarms,
-} from 'index-sdk/uniV3Farm'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: number, farm: V3Farm) => void
@@ -152,14 +146,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
     </StyledLpTokenWrapper>
   )
 
-  const hasUpcomingFarm = getUpcomingFarms().length > 0
-  const hasActiveFarm = getActiveFarms().length > 0
-  const hasExpiredFarm = getExpiredFarms().length > 0
-
-  console.log('upcoming farms', hasUpcomingFarm)
-  console.log('active farms', hasActiveFarm)
-  console.log('expired farms', hasExpiredFarm)
-
   if (isShowingStakingDetailScreen) {
     return (
       <Modal isOpen={isOpen} onDismiss={onDismiss}>
@@ -251,17 +237,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
 const StyledNftColor = styled.div`
   height: 20px;
   width: 20px;
-  margin-right: 10px;
-  border-radius: 20px;
-  ${(props: { nftColor: string }) =>
-    `
-      background-color: #${props.nftColor};
-    `}
-`
-
-const StyledBigNftColor = styled.div`
-  height: 30px;
-  width: 30px;
   margin-right: 10px;
   border-radius: 20px;
   ${(props: { nftColor: string }) =>
