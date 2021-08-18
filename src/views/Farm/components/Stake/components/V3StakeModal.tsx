@@ -61,7 +61,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
     const normalizedRewards = Web3.utils.fromWei(pendingRewards.toString())
 
     setPendingRewardsForSelectedNft(Number(normalizedRewards))
-  }, [selectedNftId, getIndividualPendingRewardsAmount])
+  }, [selectedNftId, getIndividualPendingRewardsAmount, farm])
 
   useEffect(() => {
     fetchPendingRewardsForSelectedNft()

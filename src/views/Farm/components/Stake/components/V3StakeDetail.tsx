@@ -36,7 +36,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
     onStake(selectedNftId, farm)
     onClose && onClose()
-  }, [onStake, selectedNftId, farm])
+  }, [selectedNftId, onStake, farm, onClose])
 
   useEffect(() => {
     setActiveFarmPlot(farm.farms[getMostRecentFarmNumber(farm)])
