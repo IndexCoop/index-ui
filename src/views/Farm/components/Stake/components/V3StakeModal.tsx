@@ -9,6 +9,7 @@ import {
 import styled from 'styled-components'
 
 import V3StakeDetail from './V3StakeDetail'
+import V3UnstakeDetail from './V3UnstakeDetail'
 import Modal from 'components/CustomModal'
 import { FarmData, V3Farm } from 'constants/v3Farms'
 import {
@@ -175,41 +176,13 @@ const StakeModal: React.FC<StakeModalProps> = ({
   if (isShowingUnstakingDetailScreen) {
     return (
       <Modal isOpen={isOpen} onDismiss={onDismiss}>
-        <ModalContent>
-          <div>
-            <StyledNftCardTitle>
-              <StyledBigNftColor
-                nftColor={deriveRGBColorFromString(
-                  selectedNftId?.toString() || ''
-                )}
-              />
-              {selectedNftId}
-            </StyledNftCardTitle>
-            <p>
-              This token is currently deposited in the Uniswap V3 staking
-              contract. The active farms below are farms currently accruing you
-              rewards:
-            </p>
-
-            {hasUpcomingFarm && <h3>Upcoming Farm</h3>}
-            {hasActiveFarm && <h3>Active Farm</h3>}
-            {hasExpiredFarm && <h3>Expired Farm</h3>}
-            <NftFarmPlot
-              farmName={'Uniswap V3 DPI-ETH LM #1'}
-              farmPlot={activeFarmPlot}
-            />
-
-            <p>Pending Rewards: {pendingRewardsForSelectedNft} INDEX</p>
-          </div>
-        </ModalContent>
-        <ModalActions>
-          <Button
-            onClick={closeUnstakingDetail}
-            variant='secondary'
-            text='Cancel'
-          />
-          <Button onClick={handleUnstakeClick} text='Unstake' />
-        </ModalActions>
+        <V3UnstakeDetail
+          farm={farm}
+          selectedNftId={selectedNftId}
+          pendingRewardsForSelectedNft={pendingRewardsForSelectedNft}
+          onUnstake={handleStakeClick}
+          onClose={closeUnstakingDetail}
+        />
       </Modal>
     )
   }
