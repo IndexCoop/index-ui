@@ -188,52 +188,16 @@ const Provider: React.FC = ({ children }) => {
     [ethereum, account]
   )
 
-  const handleGetCurrentExpiredFarms = useCallback(
-    async (id: number, farm: V3Farm) => {
-      if (!ethereum || !account || !id) return
-
-      setConfirmTxModalIsOpen(true)
-      onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
-
-      const transactionId = await withdraw(id, account, farm, ethereum)
-
-      if (!transactionId) {
-        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
-        return
-      }
-
-      onSetTransactionId(transactionId)
-      onSetTransactionStatus(TransactionStatusType.IS_PENDING)
-
-      const success = await waitTransaction(ethereum, transactionId)
-
-      if (success) {
-        onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
-      } else {
-        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
-      }
-    },
-    [
-      ethereum,
-      account,
-      setConfirmTxModalIsOpen,
-      onSetTransactionId,
-      onSetTransactionStatus,
-    ]
-  )
-
   return (
     <Context.Provider
       value={{
         onDeposit: handleDeposit,
         onWithdraw: handleWithdraw,
         onClaimAccrued: handleClaimAccrued,
-        getAccruedRewardsAmount: handleGetAccruedRewardsAmount, // returns accrued rewards for user
-        getValidIds: handleGetValidIds, // returns ids for all nfts eligible for currently active pools
-        getAllDepositedTokens: handleGetDepositedTokens, // returns all tokens that have been staked
-        // does this return tokens in expired pools?
-        getAllPendingRewardsAmount: handleGetAllPendingRewardsAmount, // returns all pending rewards
-        // returns pending rewards per nft showing
+        getAccruedRewardsAmount: handleGetAccruedRewardsAmount,
+        getValidIds: handleGetValidIds,
+        getAllDepositedTokens: handleGetDepositedTokens,
+        getAllPendingRewardsAmount: handleGetAllPendingRewardsAmount,
         getIndividualPendingRewardsAmount:
           handleGetIndividualPendingRewardsAmount,
       }}
