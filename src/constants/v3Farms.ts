@@ -12,7 +12,7 @@ export interface FarmData {
   refundee: string
 }
 
-export const DPIETH: V3Farm = {
+export const DpiEthRewards: V3Farm = {
   tokenPair: 'DPI/ETH',
   pool: '0x1cC56b205109A832Fd0F7062FD64bb6813BeF443',
   farms: [
@@ -51,10 +51,6 @@ export const DPIETH: V3Farm = {
   ],
 }
 
-export const farmsByFarmName = {
-  'DPI-ETH': DPIETH,
-}
-
-const farms = [DPIETH]
+const farms = [DpiEthRewards]
 
 export default farms

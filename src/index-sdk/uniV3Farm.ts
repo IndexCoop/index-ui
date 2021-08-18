@@ -12,7 +12,7 @@ import {
   uniswapV3StakerAddress,
 } from 'constants/ethContractAddresses'
 import { FarmData, V3Farm } from 'constants/v3Farms'
-import { DPIETH } from '../constants/v3Farms'
+import { DpiEthRewards } from 'constants/v3Farms'
 
 /**
  * Returns all NFTs eligible for the target farm for the target user account.
@@ -385,7 +385,7 @@ export async function getExpiredFarmsInUse(
 }
 
 export const getUpcomingFarms = () => {
-  return DPIETH.farms.filter((farm: FarmData) => {
+  return DpiEthRewards.farms.filter((farm: FarmData) => {
     const now = Date.now()
     const formattedStartTime = farm.startTime * 1000
 
@@ -394,7 +394,7 @@ export const getUpcomingFarms = () => {
 }
 
 export const getActiveFarms = () => {
-  return DPIETH.farms.filter((farm: FarmData) => {
+  return DpiEthRewards.farms.filter((farm: FarmData) => {
     const now = Date.now()
     const formattedStartTime = farm.startTime * 1000
     const formattedEndTime = farm.endTime * 1000
@@ -404,7 +404,7 @@ export const getActiveFarms = () => {
 }
 
 export const getExpiredFarms = () => {
-  return DPIETH.farms.filter((farm: FarmData) => {
+  return DpiEthRewards.farms.filter((farm: FarmData) => {
     const now = Date.now()
     const formattedEndTime = farm.endTime * 1000
 

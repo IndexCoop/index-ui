@@ -10,7 +10,7 @@ import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 import V3StakeModal from './components/V3StakeModal'
 import Split from 'components/Split'
-import { DPIETH, V3Farm } from 'constants/v3Farms'
+import { DpiEthRewards, V3Farm } from 'constants/v3Farms'
 
 const Stake: React.FC = () => {
   const { isMobile } = useMediaQuery()
@@ -47,7 +47,7 @@ const Stake: React.FC = () => {
 
   const handleOnUnstake = useCallback(
     (nftId: number) => {
-      onWithdraw(nftId, DPIETH)
+      onWithdraw(nftId, DpiEthRewards)
     },
     [onWithdraw]
   )
@@ -98,7 +98,7 @@ const Stake: React.FC = () => {
   }, [account, status, transactionStatus, getAccruedRewardsAmount])
 
   useEffect(() => {
-    getAllPendingRewardsAmount(DPIETH).then((amount) => {
+    getAllPendingRewardsAmount(DpiEthRewards).then((amount) => {
       setAllPendingRewards(
         parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(2)
       )
@@ -106,13 +106,13 @@ const Stake: React.FC = () => {
   }, [account, status, transactionStatus, getAllPendingRewardsAmount])
 
   useEffect(() => {
-    getValidIds(DPIETH).then((idList) => {
+    getValidIds(DpiEthRewards).then((idList) => {
       setValidNfts(idList || [])
     })
   }, [account, status, transactionStatus, getValidIds])
 
   useEffect(() => {
-    getAllDepositedTokens(DPIETH).then((idList) => {
+    getAllDepositedTokens(DpiEthRewards).then((idList) => {
       setDepositedNfts(idList || [])
     })
   }, [account, status, transactionStatus, getAllDepositedTokens])
@@ -189,7 +189,7 @@ const Stake: React.FC = () => {
         isOpen={stakeModalIsOpen}
         availableNftIds={validNfts}
         depositedNftIds={depositedNfts}
-        farm={DPIETH}
+        farm={DpiEthRewards}
         provider={ethereum}
         accruedRewards={accruedRewards}
         onDismiss={handleDismissStakeModal}
