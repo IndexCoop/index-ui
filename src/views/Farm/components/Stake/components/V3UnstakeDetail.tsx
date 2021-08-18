@@ -39,6 +39,42 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const hasUpcomingFarm = getUpcomingFarms().length > 0
   const hasActiveFarm = getActiveFarms().length > 0
 
+  if (!hasActiveFarm && !hasUpcomingFarm) {
+    return (
+      <>
+        <ModalContent>
+          <div>
+            <StyledNftCardTitle>
+              <StyledBigNftColor
+                nftColor={deriveRGBColorFromString(
+                  selectedNftId?.toString() || ''
+                )}
+              />
+              {selectedNftId}
+            </StyledNftCardTitle>
+            <p>
+              This token is currently deposited in the Uniswap V3 staking
+              contract. <br /> You are not accruing any additional rewards for
+              staking this token
+            </p>
+
+            <h3>Expired Farm</h3>
+            <NftFarmPlot
+              farmName={'Uniswap V3 DPI-ETH LM #1'}
+              farmPlot={activeFarmPlot}
+            />
+
+            <p>Pending Rewards: {pendingRewardsForSelectedNft} INDEX</p>
+          </div>
+        </ModalContent>
+        <ModalActions>
+          <Button onClick={onClose} variant='secondary' text='Cancel' />
+          <Button onClick={handleUnstakeClick} text='Unstake' />
+        </ModalActions>
+      </>
+    )
+  }
+
   if (hasUpcomingFarm) {
     return (
       <>
@@ -89,10 +125,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
           </StyledNftCardTitle>
           <p>
             This token is currently deposited in the Uniswap V3 staking
-            contract. The active farms below are farms currently accruing you
-            rewards:
+            contract. <br /> The active farm below is accruing you rewards:
           </p>
 
+          <h3>Active Farm</h3>
           <NftFarmPlot
             farmName={'Uniswap V3 DPI-ETH LM #1'}
             farmPlot={activeFarmPlot}
