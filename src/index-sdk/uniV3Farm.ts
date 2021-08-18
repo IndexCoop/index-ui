@@ -356,34 +356,6 @@ async function isTokenFromValidPool(
   return farm.pool === nftPoolAddress
 }
 
-export async function getExpiredFarmsInUse(
-  farm: V3Farm,
-  nftId: number,
-  provider: provider
-): Promise<FarmData[]> {
-  // TODO: make this return expired stakes that the user currently has an NFT in
-  // Check that the farm is past expiry
-  console.log('geting expired farms', nftId)
-
-  const stakingContract = getStakingContract(provider)
-  const expiredFarmPlots: FarmData[] = []
-
-  for (let i = 0; i < farm.farms.length; i++) {
-    const incentiveId = deriveIncentiveId(provider, farm.farms[i])
-    const stakeInfo = await stakingContract.methods
-      .stakes(nftId, incentiveId)
-      .call()
-
-    console.log('stake info is', stakeInfo)
-
-    if (stakeInfo.liquidity !== '0' && i !== getMostRecentFarmNumber(farm)) {
-      expiredFarmPlots.push(farm.farms[i])
-    }
-  }
-
-  return expiredFarmPlots
-}
-
 export const getUpcomingFarms = () => {
   return DpiEthRewards.farms.filter((farm: FarmData) => {
     const now = Date.now()

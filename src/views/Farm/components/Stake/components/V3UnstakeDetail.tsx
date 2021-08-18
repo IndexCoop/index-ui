@@ -3,9 +3,12 @@ import { Button, ModalActions, ModalContent, ModalProps } from 'react-neu'
 import styled from 'styled-components'
 
 import NftFarmPlot from './NftFarmPlot'
-import { getMostRecentFarmNumber } from 'index-sdk/uniV3Farm'
+import {
+  getMostRecentFarmNumber,
+  getUpcomingFarms,
+  getActiveFarms,
+} from 'index-sdk/uniV3Farm'
 import { deriveRGBColorFromString } from 'utils/colorUtils'
-import { getUpcomingFarms, getActiveFarms } from 'index-sdk/uniV3Farm'
 import { FarmData, V3Farm } from 'constants/v3Farms'
 
 interface StakeModalProps extends ModalProps {
@@ -16,6 +19,11 @@ interface StakeModalProps extends ModalProps {
   onClose: () => void
 }
 
+/**
+ * V3UntakingDetail
+ * Content for the V3Staking Modal. Displays different information & copy depending
+ * on whether there are upcoming/active farms, or only expired farms.
+ */
 const StakeModal: React.FC<StakeModalProps> = ({
   farm,
   selectedNftId,
@@ -150,10 +158,7 @@ const StyledBigNftColor = styled.div`
   width: 30px;
   margin-right: 10px;
   border-radius: 20px;
-  ${(props: { nftColor: string }) =>
-    `
-      background-color: #${props.nftColor};
-    `}
+  ${(props: { nftColor: string }) => `background-color: #${props.nftColor};`}
 `
 
 const StyledNftCardTitle = styled.h2`

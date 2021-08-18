@@ -1,16 +1,16 @@
 import React from 'react'
 import dateformat from 'dateformat'
-
-import { FarmData } from 'constants/v3Farms'
 import styled from 'styled-components'
+
 import { makeEtherscanAddressLink } from 'utils/index'
+import { FarmData } from 'constants/v3Farms'
 
 interface NftFarmPlotProps {
   farmName: string
   farmPlot: FarmData | undefined
 }
 /**
- * NftFarmPlot - Displays NFT farm information
+ * NftFarmPlot - Displays farm information for Uniswap V3 Staking.
  */
 const NftFarmPlot: React.FC<NftFarmPlotProps> = ({ farmName, farmPlot }) => {
   const { pool, startTime, endTime } = farmPlot || {}
