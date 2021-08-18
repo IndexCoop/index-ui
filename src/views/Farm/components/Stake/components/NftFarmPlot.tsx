@@ -80,7 +80,7 @@ const StyledLpTokenWrapper = styled.div`
 `
 
 const StyledLpTokenImage = styled.img`
-  height: 44px;
+  height: 40px;
   margin-left: -10px;
 `
 

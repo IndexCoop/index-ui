@@ -8,6 +8,7 @@ import {
 } from 'react-neu'
 import styled from 'styled-components'
 
+import V3StakeDetail from './V3StakeDetail'
 import Modal from 'components/CustomModal'
 import { FarmData, V3Farm } from 'constants/v3Farms'
 import {
@@ -18,6 +19,11 @@ import NftFarmPlot from './NftFarmPlot'
 import useV3Farming from 'hooks/useV3Farming'
 import Web3 from 'web3'
 import { deriveRGBColorFromString } from 'utils/colorUtils'
+import {
+  getUpcomingFarms,
+  getActiveFarms,
+  getExpiredFarms,
+} from 'index-sdk/uniV3Farm'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: number, farm: V3Farm) => void
@@ -34,6 +40,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   availableNftIds,
   depositedNftIds,
   farm,
+  provider,
   onDismiss,
   onStake,
   onUnstake,
@@ -68,8 +75,24 @@ const StakeModal: React.FC<StakeModalProps> = ({
     setPendingRewardsForSelectedNft(Number(normalizedRewards))
   }, [selectedNftId, getIndividualPendingRewardsAmount])
 
+  const getExpiredFarmsForSelectedNft = useCallback(async () => {
+    if (!selectedNftId) {
+      setExpiredFarmPlots([])
+      return
+    }
+
+    const expiredFarms = await getExpiredFarmsInUse(
+      farm,
+      selectedNftId,
+      provider
+    )
+
+    setExpiredFarmPlots(expiredFarms)
+  }, [selectedNftId, getExpiredFarmsInUse])
+
   useEffect(() => {
     fetchPendingRewardsForSelectedNft()
+    getExpiredFarmsForSelectedNft()
   }, [
     selectedNftId,
     fetchPendingRewardsForSelectedNft,
@@ -128,40 +151,23 @@ const StakeModal: React.FC<StakeModalProps> = ({
     </StyledLpTokenWrapper>
   )
 
+  const hasUpcomingFarm = getUpcomingFarms().length > 0
+  const hasActiveFarm = getActiveFarms().length > 0
+  const hasExpiredFarm = getExpiredFarms().length > 0
+
+  console.log('upcoming farms', hasUpcomingFarm)
+  console.log('active farms', hasActiveFarm)
+  console.log('expired farms', hasExpiredFarm)
+
   if (isShowingStakingDetailScreen) {
     return (
       <Modal isOpen={isOpen} onDismiss={onDismiss}>
-        <ModalContent>
-          <div>
-            <StyledNftCardTitle>
-              <StyledBigNftColor
-                nftColor={deriveRGBColorFromString(
-                  selectedNftId?.toString() || ''
-                )}
-              />
-              {selectedNftId}
-            </StyledNftCardTitle>
-            <p>
-              This token is currently unstaked and undeposited in any active LM
-              farms. In order to earn Uniswap V3 LM rewards you must deposit
-              this NFT to the Uniswap V3 Staking contract, and stake it in the
-              following farms:
-            </p>
-            <h3>Available Farm</h3>
-            <NftFarmPlot
-              farmName={'Uniswap V3 DPI-ETH LM #1'}
-              farmPlot={activeFarmPlot}
-            />
-          </div>
-        </ModalContent>
-        <ModalActions>
-          <Button
-            onClick={closeStakingDetail}
-            variant='secondary'
-            text='Cancel'
-          />
-          <Button onClick={handleStakeClick} text='Deposit & Stake' />
-        </ModalActions>
+        <V3StakeDetail
+          farm={farm}
+          selectedNftId={selectedNftId}
+          onStake={handleStakeClick}
+          onClose={onDismiss}
+        />
       </Modal>
     )
   }
@@ -185,20 +191,14 @@ const StakeModal: React.FC<StakeModalProps> = ({
               rewards:
             </p>
 
-            <h3>Expired Farms</h3>
-            {/* TODO: this needs to be a list of expired farmplots from expiredFarmPlots */}
-            {expiredFarmPlots &&
-              expiredFarmPlots.length > 0 &&
-              expiredFarmPlots.map((expiredPlot) => (
-                <NftFarmPlot farmName={farm.tokenPair} farmPlot={expiredPlot} />
-              ))}
-            <h3>Active Farms</h3>
+            {hasUpcomingFarm && <h3>Upcoming Farm</h3>}
+            {hasActiveFarm && <h3>Active Farm</h3>}
+            {hasExpiredFarm && <h3>Expired Farm</h3>}
             <NftFarmPlot
               farmName={'Uniswap V3 DPI-ETH LM #1'}
               farmPlot={activeFarmPlot}
             />
 
-            <h3>Active Farms</h3>
             <p>Pending Rewards: {pendingRewardsForSelectedNft} INDEX</p>
           </div>
         </ModalContent>
