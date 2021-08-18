@@ -166,7 +166,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
           farm={farm}
           selectedNftId={selectedNftId}
           onStake={handleStakeClick}
-          onClose={onDismiss}
+          onClose={closeStakingDetail}
         />
       </Modal>
     )
