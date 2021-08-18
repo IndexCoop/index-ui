@@ -12,7 +12,7 @@ interface StakeModalProps extends ModalProps {
   farm: V3Farm
   selectedNftId: number | undefined
   onStake: (nftId: number, farm: V3Farm) => void
-  onClose: (() => void) | undefined
+  onClose: () => void
 }
 
 const StakeModal: React.FC<StakeModalProps> = ({

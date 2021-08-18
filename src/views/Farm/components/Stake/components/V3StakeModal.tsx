@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Button,
   ModalActions,
@@ -11,11 +11,7 @@ import styled from 'styled-components'
 import V3StakeDetail from './V3StakeDetail'
 import V3UnstakeDetail from './V3UnstakeDetail'
 import Modal from 'components/CustomModal'
-import { FarmData, V3Farm } from 'constants/v3Farms'
-import {
-  getExpiredFarmsInUse,
-  getMostRecentFarmNumber,
-} from 'index-sdk/uniV3Farm'
+import { V3Farm } from 'constants/v3Farms'
 import useV3Farming from 'hooks/useV3Farming'
 import Web3 from 'web3'
 import { deriveRGBColorFromString } from 'utils/colorUtils'
@@ -35,15 +31,12 @@ const StakeModal: React.FC<StakeModalProps> = ({
   availableNftIds,
   depositedNftIds,
   farm,
-  provider,
   onDismiss,
   onStake,
   onUnstake,
 }) => {
   const [selectedNftId, setSelectedNftId] =
     useState<number | undefined>(undefined)
-  const [activeFarmPlot, setActiveFarmPlot] = useState<FarmData>()
-  const [expiredFarmPlots, setExpiredFarmPlots] = useState<FarmData[]>()
 
   const [pendingRewardsForSelectedNft, setPendingRewardsForSelectedNft] =
     useState<number>(0)
@@ -70,24 +63,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
     setPendingRewardsForSelectedNft(Number(normalizedRewards))
   }, [selectedNftId, getIndividualPendingRewardsAmount])
 
-  const getExpiredFarmsForSelectedNft = useCallback(async () => {
-    if (!selectedNftId) {
-      setExpiredFarmPlots([])
-      return
-    }
-
-    const expiredFarms = await getExpiredFarmsInUse(
-      farm,
-      selectedNftId,
-      provider
-    )
-
-    setExpiredFarmPlots(expiredFarms)
-  }, [selectedNftId, getExpiredFarmsInUse])
-
   useEffect(() => {
     fetchPendingRewardsForSelectedNft()
-    getExpiredFarmsForSelectedNft()
   }, [
     selectedNftId,
     fetchPendingRewardsForSelectedNft,
@@ -120,18 +97,11 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const openUnstakingDetail = async (nftId: number) => {
     setSelectedNftId(nftId)
     setIsShowingUnstakingDetailScreen(true)
-    /* TODO: this is broken -> setExpiredFarmPlots(
-      await getExpiredFarmsInUse(farm, selectedNftId || -1, provider)
-    )*/
   }
   const closeUnstakingDetail = () => {
     setSelectedNftId(undefined)
     setIsShowingUnstakingDetailScreen(false)
   }
-
-  useEffect(() => {
-    setActiveFarmPlot(farm.farms[getMostRecentFarmNumber(farm)])
-  }, [farm])
 
   const ethDpiTokenIcon = (
     <StyledLpTokenWrapper>
@@ -166,7 +136,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
           farm={farm}
           selectedNftId={selectedNftId}
           pendingRewardsForSelectedNft={pendingRewardsForSelectedNft}
-          onUnstake={handleStakeClick}
+          onUnstake={handleUnstakeClick}
           onClose={closeUnstakingDetail}
         />
       </Modal>

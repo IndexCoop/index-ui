@@ -2,18 +2,18 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Button, ModalActions, ModalContent, ModalProps } from 'react-neu'
 import styled from 'styled-components'
 
-import { FarmData, V3Farm } from 'constants/v3Farms'
-import { getMostRecentFarmNumber } from 'index-sdk/uniV3Farm'
 import NftFarmPlot from './NftFarmPlot'
+import { getMostRecentFarmNumber } from 'index-sdk/uniV3Farm'
 import { deriveRGBColorFromString } from 'utils/colorUtils'
 import { getUpcomingFarms, getActiveFarms } from 'index-sdk/uniV3Farm'
+import { FarmData, V3Farm } from 'constants/v3Farms'
 
 interface StakeModalProps extends ModalProps {
   farm: V3Farm
   selectedNftId: number | undefined
   pendingRewardsForSelectedNft: number
   onUnstake: (nftId: number, farm: V3Farm) => void
-  onClose: (() => void) | undefined
+  onClose: () => void
 }
 
 const StakeModal: React.FC<StakeModalProps> = ({
