@@ -114,9 +114,10 @@ const Stake: React.FC = () => {
   }, [status, handleStakeClick])
 
   const ClaimAccruedButton = useMemo(() => {
-    if (status !== 'connected' || accruedRewards === '0.00') {
+    if (status !== 'connected' || accruedRewards === '0.00000') {
       return <Button disabled full text='Claim Accrued' variant='secondary' />
     }
+
     return (
       <Button
         full
