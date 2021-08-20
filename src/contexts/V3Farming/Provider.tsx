@@ -13,10 +13,12 @@ import {
   getAllDepositedTokens,
   withdraw,
   claimAccruedRewards,
-  getPendingRewardsAmount,
-  FarmName,
+  getAllPendingRewardsAmount,
+  getIndividualPendingRewardsAmount,
 } from 'index-sdk/uniV3Farm'
 import { waitTransaction } from 'utils/index'
+import { V3Farm } from 'constants/v3Farms'
+import BigNumber from 'utils/bignumber'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)
@@ -31,7 +33,7 @@ const Provider: React.FC = ({ children }) => {
   const { account, ethereum } = useWallet()
 
   const handleDeposit = useCallback(
-    async (id: number, farm: FarmName) => {
+    async (id: number, farm: V3Farm) => {
       if (!ethereum || !account || !id) return
 
       setConfirmTxModalIsOpen(true)
@@ -65,7 +67,7 @@ const Provider: React.FC = ({ children }) => {
   )
 
   const handleWithdraw = useCallback(
-    async (id: number, farm: FarmName) => {
+    async (id: number, farm: V3Farm) => {
       if (!ethereum || !account || !id) return
 
       setConfirmTxModalIsOpen(true)
@@ -146,7 +148,7 @@ const Provider: React.FC = ({ children }) => {
   )
 
   const handleGetValidIds = useCallback(
-    async (farm: FarmName) => {
+    async (farm: V3Farm) => {
       if (!ethereum || !account || !farm) return
 
       return await getValidIds(farm, account, ethereum)
@@ -155,7 +157,7 @@ const Provider: React.FC = ({ children }) => {
   )
 
   const handleGetDepositedTokens = useCallback(
-    async (farm: FarmName) => {
+    async (farm: V3Farm) => {
       if (!ethereum || !account || !farm) return
 
       return await getAllDepositedTokens(account, farm, ethereum)
@@ -163,11 +165,25 @@ const Provider: React.FC = ({ children }) => {
     [ethereum, account]
   )
 
-  const handleGetPendingRewardsAmount = useCallback(
-    async (farm: FarmName) => {
+  const handleGetAllPendingRewardsAmount = useCallback(
+    async (farm: V3Farm) => {
       if (!ethereum || !account || !farm) return
 
-      return await getPendingRewardsAmount(account, farm, ethereum)
+      return await getAllPendingRewardsAmount(account, farm, ethereum)
+    },
+    [ethereum, account]
+  )
+
+  const handleGetIndividualPendingRewardsAmount = useCallback(
+    async (farm: V3Farm, nftId: number) => {
+      if (!ethereum || !account || !farm) return new BigNumber(0)
+
+      return await getIndividualPendingRewardsAmount(
+        account,
+        farm,
+        nftId,
+        ethereum
+      )
     },
     [ethereum, account]
   )
@@ -181,7 +197,9 @@ const Provider: React.FC = ({ children }) => {
         getAccruedRewardsAmount: handleGetAccruedRewardsAmount,
         getValidIds: handleGetValidIds,
         getAllDepositedTokens: handleGetDepositedTokens,
-        getPendingRewardsAmount: handleGetPendingRewardsAmount,
+        getAllPendingRewardsAmount: handleGetAllPendingRewardsAmount,
+        getIndividualPendingRewardsAmount:
+          handleGetIndividualPendingRewardsAmount,
       }}
     >
       {children}

@@ -128,6 +128,10 @@ export const makeEtherscanLink = (transactionHash: string) => {
   return `https://etherscan.io/tx/${transactionHash}`
 }
 
+export const makeEtherscanAddressLink = (transactionHash: string) => {
+  return `https://etherscan.io/address/${transactionHash}`
+}
+
 export const getTotalSupply = async (
   provider: provider,
   tokenAddress: string
