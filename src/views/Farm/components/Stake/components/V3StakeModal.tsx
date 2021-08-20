@@ -143,6 +143,63 @@ const StakeModal: React.FC<StakeModalProps> = ({
     )
   }
 
+  const stakedTokens =
+    availableNftIds.length === 0 && depositedNftIds.length === 0 ? (
+      <StyledList>
+        You do not have any Uniswap V3 tokens eligible for INDEX rewards.
+      </StyledList>
+    ) : (
+      <>
+        <h3>Your Unstaked {farm.tokenPair} LP NFTs</h3>
+        {availableNftIds.length > 0 ? (
+          <div>
+            <StyledList>
+              {availableNftIds.map((nft) => (
+                <StyledNftItem
+                  key={nft.toString()}
+                  onClick={() => openStakingDetail(nft)}
+                >
+                  <StyledNftColor
+                    nftColor={deriveRGBColorFromString(nft?.toString())}
+                  />
+                  {nft?.toString()}
+                </StyledNftItem>
+              ))}
+            </StyledList>
+          </div>
+        ) : (
+          <StyledList>
+            You do not have any unstaked DPI-ETH Uniswap V3 tokens.
+          </StyledList>
+        )}
+
+        <Spacer />
+
+        <h3>Your Staked {farm.tokenPair} LP NFTs</h3>
+        {depositedNftIds.length > 0 ? (
+          <div>
+            <StyledList>
+              {depositedNftIds.map((nft) => (
+                <StyledNftItem
+                  key={nft.toString()}
+                  onClick={() => openUnstakingDetail(nft)}
+                >
+                  <StyledNftColor
+                    nftColor={deriveRGBColorFromString(nft?.toString())}
+                  />
+                  {nft?.toString()}
+                </StyledNftItem>
+              ))}
+            </StyledList>
+          </div>
+        ) : (
+          <StyledList>
+            You do not have any staked DPI-ETH Uniswap V3 tokens.
+          </StyledList>
+        )}
+      </>
+    )
+
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <ModalContent>
@@ -157,51 +214,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             below.
           </p>
 
-          {availableNftIds.length > 0 && (
-            <div>
-              <h3>Your Unstaked {farm.tokenPair} LP NFTs</h3>
-              <StyledList>
-                {availableNftIds.map((nft) => (
-                  <StyledNftItem
-                    key={nft.toString()}
-                    onClick={() => openStakingDetail(nft)}
-                  >
-                    <StyledNftColor
-                      nftColor={deriveRGBColorFromString(nft?.toString())}
-                    />
-                    {nft?.toString()}
-                  </StyledNftItem>
-                ))}
-              </StyledList>
-            </div>
-          )}
-
-          <Spacer />
-
-          {depositedNftIds.length > 0 && (
-            <div>
-              <h3>Your Staked {farm.tokenPair} LP NFTs</h3>
-              <StyledList>
-                {depositedNftIds.map((nft) => (
-                  <StyledNftItem
-                    key={nft.toString()}
-                    onClick={() => openUnstakingDetail(nft)}
-                  >
-                    <StyledNftColor
-                      nftColor={deriveRGBColorFromString(nft?.toString())}
-                    />
-                    {nft?.toString()}
-                  </StyledNftItem>
-                ))}
-              </StyledList>
-            </div>
-          )}
-
-          {availableNftIds.length === 0 && depositedNftIds.length === 0 && (
-            <StyledList>
-              You do not have any Uniswap V3 tokens eligible for INDEX rewards.
-            </StyledList>
-          )}
+          {stakedTokens}
         </div>
       </ModalContent>
       <ModalActions>
