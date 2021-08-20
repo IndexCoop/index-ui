@@ -353,7 +353,7 @@ async function isTokenFromValidPool(
     .getPool(position.token0, position.token1, position.fee)
     .call()
 
-  return farm.pool === nftPoolAddress
+  return farm.pool?.toLowerCase() === nftPoolAddress?.toLowerCase()
 }
 
 export const getUpcomingFarms = () => {
