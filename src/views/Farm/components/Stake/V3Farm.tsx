@@ -12,6 +12,7 @@ import useWallet from 'hooks/useWallet'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 import { DpiEthRewards, V3Farm } from 'constants/v3Farms'
+import { indexTokenAddress } from 'constants/ethContractAddresses'
 
 const Stake: React.FC = () => {
   const { isMobile } = useMediaQuery()
@@ -58,19 +59,26 @@ const Stake: React.FC = () => {
   }, [setStakeModalIsOpen])
 
   const handleClaimAccruedClick = useCallback(() => {
-    onClaimAccrued('0x1720668a1826c6f30a11780783b0357269b7e1ca')
-  }, [onClaimAccrued])
+    if (!indexTokenAddress) return
+
+    onClaimAccrued(indexTokenAddress)
+  }, [indexTokenAddress, onClaimAccrued])
 
   useEffect(() => {
-    // TODO: replace this with the reward token address (INDEX) on production deploy
-    getAccruedRewardsAmount('0x1720668a1826c6f30a11780783b0357269b7e1ca').then(
-      (amount) => {
-        setAccruedRewards(
-          parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(5)
-        )
-      }
-    )
-  }, [account, status, transactionStatus, getAccruedRewardsAmount])
+    if (!indexTokenAddress) return
+
+    getAccruedRewardsAmount(indexTokenAddress).then((amount) => {
+      setAccruedRewards(
+        parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(5)
+      )
+    })
+  }, [
+    indexTokenAddress,
+    account,
+    status,
+    transactionStatus,
+    getAccruedRewardsAmount,
+  ])
 
   useEffect(() => {
     getAllPendingRewardsAmount(DpiEthRewards).then((amount) => {
