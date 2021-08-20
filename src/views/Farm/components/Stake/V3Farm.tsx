@@ -102,7 +102,14 @@ const Stake: React.FC = () => {
 
   const StakeButton = useMemo(() => {
     if (status !== 'connected') {
-      return <Button disabled full text='Stake' variant='secondary' />
+      return (
+        <Button
+          disabled
+          full
+          text='Stake & Unstake LP Tokens'
+          variant='secondary'
+        />
+      )
     }
     return (
       <Button
@@ -115,7 +122,14 @@ const Stake: React.FC = () => {
 
   const ClaimAccruedButton = useMemo(() => {
     if (status !== 'connected' || accruedRewards === '0.00000') {
-      return <Button disabled full text='Claim Accrued' variant='secondary' />
+      return (
+        <Button
+          disabled
+          full
+          text='Claim Accrued Rewards'
+          variant='secondary'
+        />
+      )
     }
 
     return (
