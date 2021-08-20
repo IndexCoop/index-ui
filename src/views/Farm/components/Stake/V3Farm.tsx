@@ -145,7 +145,7 @@ const Stake: React.FC = () => {
               </StyledCardTitle>
               <Spacer size='sm' />
               <StyledCardSubtitle>
-                Active Augest 20th - September 10th
+                Active August 20th - September 4th
               </StyledCardSubtitle>
             </StyledLmTitle>
           </StyledCardTitleWrapper>
