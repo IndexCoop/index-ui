@@ -100,7 +100,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
         </ModalContent>
         <ModalActions>
           <Button onClick={onClose} variant='secondary' text='Cancel' />
-          <Button onClick={handleStakeClick} text='Deposit & Stake' />
+          <Button disabled text='Staking Not Yet Available' />
         </ModalActions>
       </>
     )
