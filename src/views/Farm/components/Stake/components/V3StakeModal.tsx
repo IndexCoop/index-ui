@@ -156,6 +156,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             Uniswap V3 LP tokens eligible for Index Coop rewards are listed
             below.
           </p>
+
           {availableNftIds.length > 0 && (
             <div>
               <h3>Your Unstaked {farm.tokenPair} LP NFTs</h3>
@@ -194,6 +195,12 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 ))}
               </StyledList>
             </div>
+          )}
+
+          {availableNftIds.length === 0 && depositedNftIds.length === 0 && (
+            <StyledList>
+              You do not have any Uniswap V3 tokens eligible for INDEX rewards.
+            </StyledList>
           )}
         </div>
       </ModalContent>
