@@ -15,11 +15,11 @@ interface NftFarmPlotProps {
 const NftFarmPlot: React.FC<NftFarmPlotProps> = ({ farmName, farmPlot }) => {
   const { pool, startTime, endTime } = farmPlot || {}
 
-  const farmStartTime = new Date((startTime || 0) * 1000).toDateString()
-  const formattedStartTime = dateformat(farmStartTime, 'mmm dd')
+  const farmStartTime = new Date((startTime || 0) * 1000).toString()
+  const formattedStartTime = dateformat(farmStartTime, 'mmm dd h:MM TT')
 
-  const farmEndTime = new Date((endTime || 0) * 1000).toDateString()
-  const formattedEndTime = dateformat(farmEndTime, 'mmm dd')
+  const farmEndTime = new Date((endTime || 0) * 1000).toString()
+  const formattedEndTime = dateformat(farmEndTime, 'mmm dd h:MM TT')
 
   const ethDpiTokenIcon = (
     <StyledLpTokenWrapper>
