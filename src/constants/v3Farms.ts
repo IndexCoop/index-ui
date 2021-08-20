@@ -14,40 +14,16 @@ export interface FarmData {
 
 export const DpiEthRewards: V3Farm = {
   tokenPair: 'DPI/ETH',
-  pool: '0x1cC56b205109A832Fd0F7062FD64bb6813BeF443',
+  pool: '0x9359c87B38DD25192c5f2b07b351ac91C90E6ca7',
   farms: [
-    // upcoming 3am tomorrow
-    // {
-    //   rewardToken: '0x1720668a1826c6f30a11780783b0357269b7e1ca',
-    //   pool: '0x1cC56b205109A832Fd0F7062FD64bb6813BeF443',
-    //   startTime: 1629281495,
-    //   endTime: 1629285095,
-    //   refundee: '0xf6401adc23Faa6B9AD83eA8604CA7254CB7F53e7',
-    // },
-    // // acitve until mid august
+    // August 20th - September 4th
     {
-      rewardToken: '0x1720668a1826c6f30a11780783b0357269b7e1ca',
-      pool: '0x1cC56b205109A832Fd0F7062FD64bb6813BeF443',
-      startTime: 1628813546,
-      endTime: 1629849941,
-      refundee: '0xf6401adc23Faa6B9AD83eA8604CA7254CB7F53e7',
+      rewardToken: '0x0954906da0Bf32d5479e25f46056d22f08464cab',
+      pool: '0x9359c87B38DD25192c5f2b07b351ac91C90E6ca7',
+      startTime: 1629493200,
+      endTime: 1630789200,
+      refundee: '0x9467cfADC9DE245010dF95Ec6a585A506A8ad5FC',
     },
-    // // active until later tonight
-    // {
-    //   rewardToken: '0x1720668a1826c6f30a11780783b0357269b7e1ca',
-    //   pool: '0x1cC56b205109A832Fd0F7062FD64bb6813BeF443',
-    //   startTime: 1629233990,
-    //   endTime: 1629259531,
-    //   refundee: '0xf6401adc23Faa6B9AD83eA8604CA7254CB7F53e7',
-    // },
-    // // expired earlier this afternoon 4pm
-    // {
-    //   rewardToken: '0x1720668a1826c6f30a11780783b0357269b7e1ca',
-    //   pool: '0x1cC56b205109A832Fd0F7062FD64bb6813BeF443',
-    //   startTime: 1629236400,
-    //   endTime: 1629236700,
-    //   refundee: '0xf6401adc23Faa6B9AD83eA8604CA7254CB7F53e7',
-    // },
   ],
 }
 
