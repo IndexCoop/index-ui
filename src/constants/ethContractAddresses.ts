@@ -39,13 +39,19 @@ export const btc2xfliTokenAddress =
 export const ethTokenAddress = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
 export const bedTokenAddress = process.env.REACT_APP_BED_TOKEN_ADDRESS
 
-// Uniswap Addresses
+// Uniswap V2 Addresses
 export const uniswapEthDpiLpTokenAddress =
   process.env.REACT_APP_UNISWAP_ETH_DPI_LP_TOKEN_ADDRESS
 export const uniswapEthMviLpTokenAddress =
   process.env.REACT_APP_UNISWAP_ETH_MVI_LP_TOKEN_ADDRESS
 export const uniswapRouterAddress = process.env.REACT_APP_UNISWAP_ROUTER_ADDRESS
 export const zeroExRouterAddress = process.env.REACT_APP_ZERO_EX_ROUTER_ADDRESS
+
+// Uniswap V3 Addresses
+export const nftPositionManagerAddress =
+  process.env.REACT_APP_NFT_POSITION_MANAGER
+export const uniswapV3FactoryAddress = process.env.REACT_APP_UNI_V3_FACTORY
+export const uniswapV3StakerAddress = process.env.REACT_APP_UNI_V3_STAKER
 
 // Sushiswap Addresses
 export const sushiswapRouterAddress =
