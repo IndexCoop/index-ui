@@ -13,6 +13,7 @@ import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify'
 
 import argentLogo from 'assets/argent-wallet.svg'
+import ontoLogo from 'assets/onto-wallet.png'
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
 import coinbaseWalletLogo from 'assets/coinbase-wallet.svg'
@@ -128,12 +129,12 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 <WalletProviderCard
                   icon={
                     <img
-                      alt='rainbowWalletLogo'
-                      src={rainbowWalletLogo}
+                      alt='ontoLogo'
+                      src={ontoLogo}
                       style={{ borderRadius: 11, height: 32 }}
                     />
                   }
-                  name='Rainbow'
+                  name='ONTO Wallet'
                   onSelect={handleConnectWalletConnect}
                 />
               </Box>
