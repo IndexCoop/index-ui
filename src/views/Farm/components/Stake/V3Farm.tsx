@@ -62,7 +62,7 @@ const Stake: React.FC = () => {
     if (!indexTokenAddress) return
 
     onClaimAccrued(indexTokenAddress)
-  }, [indexTokenAddress, onClaimAccrued])
+  }, [onClaimAccrued])
 
   useEffect(() => {
     if (!indexTokenAddress) return
@@ -73,7 +73,6 @@ const Stake: React.FC = () => {
       )
     })
   }, [
-    indexTokenAddress,
     account,
     status,
     transactionStatus,
