@@ -52,6 +52,7 @@ import News from 'views/News'
 import ContributorRewards from 'views/ContributorRewards'
 import HowToBuy from 'views/HowToBuy'
 import { discordLink } from 'constants/externalLinks'
+import { voteLink } from 'constants/externalLinks'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
@@ -99,9 +100,11 @@ const App: React.FC = () => {
             <Route exact path='/index'>
               <INDEX title={'Index - Index'} />
             </Route>
-            <Route exact path='/vote'>
-              <Vote title={'Index - Vote'} />
-            </Route>
+            <Route
+              exact
+              path='/vote'
+              render={() => (window.location.href = voteLink)}
+            />
             <Route exact path='/about'>
               <About title={'Index - About'} />
             </Route>
@@ -170,11 +173,9 @@ const Providers: React.FC = ({ children }) => {
                                                     <BedTokenMarketDataProvider>
                                                       <BedIndexComponentsProvider>
                                                         <IndexTokenMarketDataProvider>
-                                                          <SnapshotProposalsProvider>
                                                             <V3FarmingProvider>
                                                               {children}
                                                             </V3FarmingProvider>
-                                                          </SnapshotProposalsProvider>
                                                         </IndexTokenMarketDataProvider>
                                                       </BedIndexComponentsProvider>
                                                     </BedTokenMarketDataProvider>
