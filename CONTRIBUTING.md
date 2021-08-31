@@ -47,6 +47,7 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
   - [**Step 1: Creating a Pull Request**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#step-1-creating-a-pull-request)
   - [**Step 2: Reviewing a Pull Request**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#step-2-reviewing-a-pull-request)
   - [**Step 3: Merging a Pull Request**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#step-3-merging-a-pull-request)
+
 - ### [**Troubleshooting**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#-troubleshooting)
 
 &nbsp;
