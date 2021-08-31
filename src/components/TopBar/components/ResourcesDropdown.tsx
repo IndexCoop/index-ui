@@ -107,7 +107,12 @@ const ProductsDropdown: React.FC = () => {
         {
           value: 'institutions',
           label: 'Institutions',
-          link: 'https://institutions.indexcoop.com/'
+          link: 'https://institutions.indexcoop.com/',
+        },
+        {
+          value: 'careers',
+          label: 'Careers',
+          link: 'https://apply.workable.com/index-coop/',
         },
       ]}
       components={{

@@ -117,6 +117,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           >
             Institutions
           </StyledOutboundLink>
+          <StyledOutboundLink
+            href='https://apply.workable.com/index-coop/'
+            target='_blank'
+          >
+            Careers
+          </StyledOutboundLink>
         </StyledMobileMenu>
       </StyledMobileMenuWrapper>
     )
