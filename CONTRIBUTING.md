@@ -3,6 +3,9 @@
 [//]: # (NOTE: Link reference chart can be found at the bottom of this document)
 
 ![Banner](https://github.com/SetProtocol/index-ui/blob/master/public/Index_Branding_Logo_full_white.png?raw=true)
+
+&nbsp;
+  
 # **Contribution Guidelines**
 
 Welcome to the Index Coop! We are excited that you are looking to contribute in the DeFi world and help others achieve financial freedom. Here at Index, there are a variety of avenues for you to consider depending on your knowledge and experience in the world. Below you will find a collection of guidelines that the Coop uses to help everyone find their niche within our growing community.
