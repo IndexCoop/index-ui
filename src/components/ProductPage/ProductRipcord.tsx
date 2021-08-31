@@ -16,7 +16,11 @@ interface ProductRipcordProps extends InputProps {
 
 const ProductRipcord: React.FC<ProductRipcordProps> = ({ tokenData }) => {
   const { isMetamaskConnected } = useWallet()
-  const handleRipcord = useRipcord()
+  const Eth2xOrBtc2x = Ethereum2xFlexibleLeverageIndex.symbol
+    ? 'eth2x'
+    : 'btc2x'
+
+  const handleRipcord = useRipcord(Eth2xOrBtc2x)
 
   const formatLeverageMetric = (metricValue: number) =>
     numeral(metricValue).format('0.00').toString().toUpperCase()
@@ -26,12 +30,11 @@ const ProductRipcord: React.FC<ProductRipcordProps> = ({ tokenData }) => {
       ? Number(tokenData.components[0].percentOfSet || 0) / 100
       : 2
 
-  const ETH2xMaxLeverageRatio = 2.7
-  const BTC2xMaxLeverageRatio = 2.4
+  const eth2xMaxLeverageRatio = 2.7
+  const btc2xMaxLeverageRatio = 2.4
 
-  const maxLeverage = Ethereum2xFlexibleLeverageIndex.symbol
-    ? ETH2xMaxLeverageRatio
-    : BTC2xMaxLeverageRatio
+  const maxLeverage =
+    Eth2xOrBtc2x === 'eth2x' ? eth2xMaxLeverageRatio : btc2xMaxLeverageRatio
 
   const renderRealLeverage = (leverage: number) => {
     if (leverage < maxLeverage) {
@@ -51,30 +54,30 @@ const ProductRipcord: React.FC<ProductRipcordProps> = ({ tokenData }) => {
   return (
     <ProductPageSection title='Ripcord'>
       <StyledTokenWrapper>
-        <div>
+        <StyledStat>
           <StyledStatTitle>Real Leverage</StyledStatTitle>
           <StyledStatMetric>
             {renderRealLeverage(realLeverage)}
           </StyledStatMetric>
-        </div>
-        <div>
+        </StyledStat>
+        <StyledStat>
           <StyledStatTitle>Max Leverage</StyledStatTitle>
           <StyledStatMetric>{maxLeverage.toString()}x</StyledStatMetric>
-        </div>
+        </StyledStat>
         <div>
           <SimpleButton
             text='Pull Ripcord'
-            isDisabled={!isMetamaskConnected || realLeverage < maxLeverage}
+            isDisabled={!isMetamaskConnected}
             onClick={() => handleRipcord()}
           />
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <StyledLinkContainer>
             <StyledLink
               href='https://docs.indexcoop.com/our-products/flexible-leverage-indices/fli-technical-documentation/fli-product-parameters#ripcord-parameters'
               target='_blank'
             >
               Learn More...
             </StyledLink>
-          </div>
+          </StyledLinkContainer>
         </div>
       </StyledTokenWrapper>
     </ProductPageSection>
@@ -87,26 +90,38 @@ const StyledTokenWrapper = styled.div`
   justify-content: space-between;
 `
 
+const StyledStat = styled.div`
+  flex: 1;
+  @media (max-width: 480px) {
+    align-items: center;
+  }
+`
+
 const StyledStatTitle = styled.div`
   font-size: 16px;
-  font-weight: 600;
-  @media (max-width: 767px) {
-    font-size: 22px;
+  @media (max-width: 480px) {
+    font-size: 14px;
   }
 `
 
 const StyledStatMetric = styled.div`
-  font-size: 16px;
-  @media (max-width: 767px) {
-    font-size: 20px;
-    padding-bottom: 10px;
+  font-size: 24px;
+  @media (max-width: 480px) {
+    font-size: 16px;
   }
-  color: ${({ color }) => color};
 `
 
 const StyledLink = styled.a`
   font-size: 10px;
   color: white;
+  @media (max-width: 480px) {
+    font-size: 8px;
+  }
+`
+
+const StyledLinkContainer = styled.a`
+  display: flex;
+  justify-content: flex-end;
 `
 
 const StyledNegativeChange = styled.div`
