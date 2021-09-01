@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import { NavLink } from 'react-router-dom'
+import { voteLink } from 'constants/externalLinks'
 
 interface MobileMenuProps {
   onDismiss: () => void
@@ -14,7 +15,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
       <StyledMobileMenuWrapper>
         <StyledBackdrop onClick={onDismiss} />
         <StyledMobileMenu>
-          <StyledLink exact activeClassName='active' to='/' onClick={onDismiss}>
+          <StyledLink
+          exact
+          activeClassName='active'
+          to='/'
+          onClick={onDismiss}
+          >
             Home
           </StyledLink>
           <StyledLink
@@ -73,14 +79,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           >
             About
           </StyledLink>
-          <StyledLink
-            exact
-            activeClassName='active'
-            to='/vote'
-            onClick={onDismiss}
+          <StyledOutboundLink
+            href={voteLink}
+            target='_blank'
           >
             Vote
-          </StyledLink>
+          </StyledOutboundLink>
           <StyledLink
             exact
             activeClassName='active'

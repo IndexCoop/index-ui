@@ -2,8 +2,10 @@
 
 [//]: # (NOTE: Link reference chart can be found at the bottom of this document)
 
-![Banner](https://github.com/SetProtocol/index-ui/blob/master/public/index_owl_banner.png?raw=true)
+![Banner](https://github.com/SetProtocol/index-ui/blob/master/public/Index_Branding_Logo_full_white.png?raw=true)
 
+&nbsp;
+  
 # **Contribution Guidelines**
 
 Welcome to the Index Coop! We are excited that you are looking to contribute in the DeFi world and help others achieve financial freedom. Here at Index, there are a variety of avenues for you to consider depending on your knowledge and experience in the world. Below you will find a collection of guidelines that the Coop uses to help everyone find their niche within our growing community.
@@ -37,7 +39,7 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
   - [**Filing an Issue**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#filing-an-issue)
   - [**Bug Reports**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#bug-reports)
   - [**Feature Requests**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#feature-requests)
-  - [**A Note on Issues**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#a-note-on-issues)
+  - [**Labeling Issues**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#labeling-issues)
   - [**Resolving Issues**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#resolving-an-issue)
 
 - ### [**Pull Requests**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#-pull-requests)
@@ -45,7 +47,7 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
   - [**Step 1: Creating a Pull Request**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#step-1-creating-a-pull-request)
   - [**Step 2: Reviewing a Pull Request**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#step-2-reviewing-a-pull-request)
   - [**Step 3: Merging a Pull Request**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#step-3-merging-a-pull-request)
-  
+
 - ### [**Troubleshooting**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#-troubleshooting)
 
 &nbsp;
@@ -64,11 +66,18 @@ If you are looking for more information or need help getting answers, we have mu
 
 - [Discord][4] - Join our Discord for community discussions, questions, ideas, or involvement in the Index Coop.
 
+  - The `#bronze_owl_quest` channel exists to get new joiners plugged in and familiarized with how we do things as a community.
+  - The `#wizardry` channel is a great place for experienced newcomers to continue learning while they complete bounties.
+  - The `#dev` channel is home to the Engineering Working Group. The majority of development discussions take place here.
+
+###### &nbsp;
+
 - [Index Website][5] - Visit our homepage to browse the products we offer and [learn more][6] about who we are. You can also:
 
   - [Read][7] about new and exciting developments at Index.
   - [Participate][8] in liquidity mining.
   - [Vote][9] on proposals.
+###### &nbsp;
 
 - [Forum][10] - Contribute to the ongoing growth of our collective through governance discussions concerning tokenomics, upcoming proposals, and community organization.
 
@@ -76,13 +85,15 @@ If you are looking for more information or need help getting answers, we have mu
 
 - [Podcast][12] - Listen to our podcast to stay up to date on all recent happenings in the community.
 
+###### &nbsp;
+
 Plus, don't forget to subscribe to us on [Reddit][13] and follow us on [Twitter][14]!
 
 &nbsp;
 
 ### **Your Contribution to the Index Coop**
 
-The primary purpose of these guidelines is aimed at providing our developers with an overview of how work on the Index UI is processed. If you are a developer, then welcome! We need your experience and expertise to help us refine and enhance our products for all of our users around the world. Go ahead and join our [Discord][4] and navigate to the `#introductions` channel to introduce yourself.
+The primary purpose of these guidelines is aimed at providing our developers with an overview of how work on the Index UI is processed. If you are a developer, then welcome! We need your experience and expertise to help us refine and enhance our products for all of our users around the world. Go ahead and join our [Discord][4] and navigate to the `#bronze_owl_quests` channel to introduce yourself.
 
 If you are not a developer, then **we still need you!** The Index Coop is a massive project containing a multitude of developmetal sectors. Whether you are a coding expert, an analytics guru, a talented artist, a creative visionary, an intelligent designer, an exceptional influencer, or a glorified memelord, we can guarantee that you have a part to play in our communitee. For more information on how to [get involved][56], check out the crash course on our [working groups][29] and say hello to everyone in the `#introductions` channel on our [Discord][4].
 
@@ -137,7 +148,7 @@ Below you will find links for some useful resources to utilize as you develop pr
 
 ### **Installing Dependencies**
 
-Since `index-ui` is the front-end we use to interact with Index, you will also need to install the necessary dependencies for your project to function correctly. The intallation steps can be found [here][18].
+Since `index-ui` is the front-end we use to interact with Index, you will also need to install the necessary dependencies for your project to function correctly. In order to run the commands, make sure that you have already installed [Node.js][59] on your machine. After installing Node.js, you can simply run `npm install -g yarn` to install yarn, and follow [these steps][18] to set up your own local version of `index-ui` .
 
 &nbsp;
 
@@ -213,11 +224,11 @@ There are two primary templates used when filing an issue, so be sure to disting
 
 &nbsp;
 
-### **\*\*A Note on Issues**\*\*
+### **Labeling Issues**
 
-A great way for the Index Coop to continue growing is by granting newcomers with the ability to perform basic tasks to establish a footprint within our community. Providing these opportunities for newcomers is crucial to the ongoing development of our product and makes our DeFi movement even more sustainable and future-proof.
+A great way for the Index Coop to continue growing is by granting newcomers with the ability to perform basic tasks to establish a footprint within our community. Providing these opportunities for newcomers is crucial to the ongoing development of our product and makes our DeFi movement even more sustainable and future-proof. If a project has a need for some simple work to be done that could be performed by a newcomer, then we encourage you to create a separate issue with the `bronze-task` label attached.
 
-If a project has a need for some simple work to be done that could be performed by a newcomer, then we encourage you to create a separate issue with the `good first issue` label attached. Given your circumstances, this may not always be ideal, but our desire at Index is to cultivate an atmosphere of unity by inviting others to climb aboard and join in on the work we are doing as we revolutionize the global financial system. Every small step leads to even greater leaps!
+You will also notice a variety of other labels available for tagging Issues, but the ones that tend to be the most common are the `bug` and `enhancement` labels.
 
 &nbsp;
 
@@ -338,3 +349,4 @@ Some general troubleshooting guidelines to consider:
 [56]:   https://docs.indexcoop.com/learn-more/20+-ways-to-get-involved                                                                                                                      "index get involved"
 [57]:   https://docs.indexcoop.com/resources-beta/shared-docs                                                                                                                               "index community docs"
 [58]:   https://docs.indexcoop.com/resources-beta/press-kit                                                                                                                                 "index press kit"
+[59]:   https://nodejs.org/en/download/                                                                                                                                                     "node.js installation"
