@@ -226,7 +226,7 @@ There are two primary templates used when filing an issue, so be sure to disting
 
 ### **Labeling Issues**
 
-A great way for the Index Coop to continue growing is by granting newcomers with the ability to perform basic tasks to establish a footprint within our community. Providing these opportunities for newcomers is crucial to the ongoing development of our product and makes our DeFi movement even more sustainable and future-proof. If a project has a need for some simple work to be done that could be performed by a newcomer, then we encourage you to create a separate issue with either the `good first issue` or `bronze-task` label attached.
+A great way for the Index Coop to continue growing is by granting newcomers with the ability to perform basic tasks to establish a footprint within our community. Providing these opportunities for newcomers is crucial to the ongoing development of our product and makes our DeFi movement even more sustainable and future-proof. If a project has a need for some simple work to be done that could be performed by a newcomer, then we encourage you to create a separate issue with the `bronze-task` label attached.
 
 You will also notice a variety of other labels available for tagging Issues, but the ones that tend to be the most common are the `bug` and `enhancement` labels.
 
