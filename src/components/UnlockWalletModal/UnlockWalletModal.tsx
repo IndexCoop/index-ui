@@ -18,6 +18,7 @@ import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
 import coinbaseWalletLogo from 'assets/coinbase-wallet.svg'
 import rainbowWalletLogo from 'assets/rainbow-logo.png'
+import trustWalletLogo from 'assets/trust-wallet.svg'
 
 import Modal from 'components/CustomModal'
 import WalletProviderCard from './components/WalletProviderCard'
@@ -138,6 +139,23 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                   onSelect={handleConnectWalletConnect}
                 />
               </Box>
+            </StyledWalletsWrapper>
+            <Spacer />
+            <StyledWalletsWrapper>
+              <Box flex={1}>
+                <WalletProviderCard
+                  icon={
+                    <img
+                      alt='trustWalletLogo'
+                      src={trustWalletLogo}
+                      style={{ height: 32 }}
+                    />
+                  }
+                  name='Trust Wallet'
+                  onSelect={handleConnectWalletConnect}
+                />
+              </Box>
+              <Box flex={1}></Box>
             </StyledWalletsWrapper>
           </ScrollableContent>
         </ModalContent>
