@@ -19,6 +19,7 @@ import walletConnectLogo from 'assets/wallet-connect.svg'
 import coinbaseWalletLogo from 'assets/coinbase-wallet.svg'
 import rainbowWalletLogo from 'assets/rainbow-logo.png'
 import trustWalletLogo from 'assets/trust-wallet.svg'
+import ledgerLogo from 'assets/ledger-logo.svg'
 
 import Modal from 'components/CustomModal'
 import WalletProviderCard from './components/WalletProviderCard'
@@ -36,6 +37,10 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
 
   const handleConnectWalletLink = useCallback(() => {
     connect('walletlink')
+  }, [connect])
+
+  const handleConnectLedger = useCallback(() => {
+    connect('ledger')
   }, [connect])
 
   useEffect(() => {
@@ -155,7 +160,20 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                   onSelect={handleConnectWalletConnect}
                 />
               </Box>
-              <Box flex={1}></Box>
+              <Spacer />
+              <Box flex={1}>
+                <WalletProviderCard
+                  icon={
+                    <img
+                      alt='ledger logo'
+                      src={ledgerLogo}
+                      style={{ height: 32 }}
+                    />
+                  }
+                  name='Ledger'
+                  onSelect={handleConnectLedger}
+                />
+              </Box>
             </StyledWalletsWrapper>
           </ScrollableContent>
         </ModalContent>
