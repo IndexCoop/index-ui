@@ -1,8 +1,10 @@
 # Index UI
 
+[![License](https://img.shields.io/:license-mit-blue.svg)](https://opensource.org/licenses/MIT)
+
 Index UI is a simple front-end used to interact with Index. This front-end describes Index and consolidates relevant links to onboard users onto the protocol's basic functionalities. It also allows users to stake, unstake, and claim INDEX tokens during the initial distribution + liquidity mining phase of the protocol's launch.
 
-## Installation
+## Local development
 
 Make a copy of the prod env file
 
@@ -14,7 +16,7 @@ Then install all the dependencies with
 
 ---
 
-This project was created with `create-react-app`.
+This project was created with [create-react-app](https://create-react-app.dev/).
 
 `yarn start`
 Runs the app in development mode on localhost:3000
@@ -47,7 +49,7 @@ If you wish to write a test, or debug yours, you can do so with the help of the 
 
 This will allow you to see and select items on page, more easily obtaining their IDs, selectors, etc. More information on this can be found at [the Cypress website](https://docs.cypress.io/)
 
-### Helful Commands
+### Helpful Commands
 
 This project uses [browserslist](https://github.com/browserslist/browserslist). We need to [regularly update browser data](https://github.com/browserslist/browserslist#browsers-data-updating) via
 ```bash
