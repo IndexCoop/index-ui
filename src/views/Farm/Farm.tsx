@@ -19,9 +19,9 @@ const Farm = (props: { title: string }) => {
   return (
     <Page>
       <Container>
-        <StyledPageHeader>Liquidity Mining Programs</StyledPageHeader>
+        <StyledPageHeader data-cy='liquidity-mining-title'>Liquidity Mining Programs</StyledPageHeader>
         <Spacer size='sm' />
-        <StyledPageSubheader>
+        <StyledPageSubheader data-cy='liquidity-mining-subtitle'>
           Earn rewards for supplying liquidity for Index Coop products
         </StyledPageSubheader>
         <Spacer />

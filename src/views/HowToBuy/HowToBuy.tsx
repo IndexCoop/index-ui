@@ -124,7 +124,7 @@ const HowToBuy = (props: { title: string }) => {
     <Page>
       <Container size='lg'>
         <Section>
-          <div>
+          <div data-cy='how-to-buy-header'>
             <AboutTitle>
               How To Buy The{' '}
               <HighlightedHeader> DeFi Pulse Index </HighlightedHeader>
@@ -134,8 +134,8 @@ const HowToBuy = (props: { title: string }) => {
           </div>
         </Section>
         <Section>
-          <div>
-            <SectionTitle>Introduction</SectionTitle>
+          <div data-cy='how-to-buy-intro'>
+            <SectionTitle >Introduction</SectionTitle>
             <Description>
               This is to help an investor who is new to cryptocurrency and
               Decentralized Finance (DeFi) buy the DeFi Pulse Index, known as

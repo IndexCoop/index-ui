@@ -8,23 +8,20 @@ describe('How To Buy', () => {
 
   context('Page Header', () => {
     it('should show header text', () => {
-      cy.get('.sc-ljpcbl').should('contain', 'How To Buy The')
-      cy.get('.sc-jxFFCz').should('contain', 'DeFi Pulse Index')
-    })
-    it('should show header image', () => {
-      cy.get('.sc-iMCRTP').should('be.visible')
+      cy.get('[data-cy=how-to-buy-header]').should('contain', 'How To Buy The')
+      cy.get('[data-cy=how-to-buy-header]').should('contain', 'DeFi Pulse Index')
     })
   })
 
   context('Introduction', () => {
     it('should have header', () => {
-      cy.get(':nth-child(2) > div > .sc-juNJA-d').should(
+      cy.get('[data-cy=how-to-buy-intro]').should(
         'contain',
         'Introduction'
       )
     })
     it('should have content', () => {
-      cy.get(':nth-child(2) > div > .sc-iJKVRt').should(
+      cy.get('[data-cy=how-to-buy-intro]').should(
         'contain',
         'If this is your first time buying digital assets'
       )
@@ -33,7 +30,7 @@ describe('How To Buy', () => {
 
   context('Footer Links', () => {
     it('should contain all links', () => {
-      cy.get('.sc-jQAxuV > .sc-dsXzNU').children().should('have.length', 4)
+      cy.get('[data-cy=footer-links]').children().should('have.length', 4)
     })
   })
 })

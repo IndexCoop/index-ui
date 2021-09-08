@@ -9,7 +9,7 @@ import HowToBuyLink from './components/HowToBuyLink'
 
 const BuySellWidget: React.FC = () => {
   return (
-    <StyledBuySellCard>
+    <StyledBuySellCard data-cy="buy-sell-selector">
       <StyledBuySellCardContent>
         <BuySellSelector />
         <TokenInputs />

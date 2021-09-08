@@ -24,7 +24,7 @@ const Treasury: React.FC = () => {
   return (
     <Container>
       <Split>
-        <Card>
+        <Card >
           <CardContent>
             <FancyValue
               icon={{
@@ -38,7 +38,7 @@ const Treasury: React.FC = () => {
         </Card>
 
         <Card>
-          <CardContent>
+          <CardContent data-cy='treasury-index-price'>
             <FancyValue
               icon={{
                 src: 'https://index-dao.s3.amazonaws.com/owl.png',

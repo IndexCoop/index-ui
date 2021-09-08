@@ -27,6 +27,7 @@ const About = (props: { title: string }) => {
               src='https://index-dao.s3.amazonaws.com/stock_exchange.png'
               alt='New York Stock Exchange'
               style={{ minWidth: '350px' }}
+              data-cy='new-york-stock-exchange-img'
             />
           </ImageContainerRight>
         </Section>
@@ -35,9 +36,10 @@ const About = (props: { title: string }) => {
             <Image
               src='https://index-dao.s3.amazonaws.com/benjamin_franklin.png'
               alt='$100 bill zoomed in'
+              data-cy='100-bill-zoomed-in-img'
             />
           </ImageContainerLeft>
-          <div>
+          <div data-cy='vision-section'>
             <SectionSubTitle>The Vision</SectionSubTitle>
             <SectionTitle>
               The Potential Of Next-gen Asset Management
@@ -57,7 +59,7 @@ const About = (props: { title: string }) => {
             </Description>
           </div>
         </Section>
-        <CenteredSection style={{ marginBottom: '0' }}>
+        <CenteredSection data-cy='getting-started-section' style={{ marginBottom: '0' }}>
           <SectionSubTitle>Getting Started</SectionSubTitle>
           <SectionTitle>Creating The New Index Standard</SectionTitle>
           <LargeDescription>
@@ -75,7 +77,7 @@ const About = (props: { title: string }) => {
         </CenteredSection>
         <Section>
           <div></div>
-          <div>
+          <div data-cy='who-we-are-section'>
             <SectionSubTitle>Who We Are</SectionSubTitle>
             <SectionTitle>
               Thinkers, Writers, Builders, and Do-ers.
@@ -95,14 +97,14 @@ const About = (props: { title: string }) => {
             />
           </ImageContainerRight>
         </Section>
-        <CenteredSection>
+        <CenteredSection data-cy='join-us-section'>
           <SectionSubTitle>Join Us</SectionSubTitle>
           <SectionTitle>Come Join The Community</SectionTitle>
           <LargeDescription>
             Say hi on the Discord and forum, and join our passionate community
             building the future of finance.
           </LargeDescription>
-          <ButtonContainer>
+          <ButtonContainer data-cy='join-us-buttons'>
             <ButtonLink
               href='https://discord.gg/XNMVW4Egdr'
               target='_blank'

@@ -8,10 +8,13 @@ describe('DPI', () => {
 
   context('Product Header', () => {
     it('should show product symbol', () => {
-      cy.get('.sc-cfARRi > span').should('contain', 'DPI')
+      cy.get('[data-cy=token-symbol]').should('contain', 'DPI')
     })
     it('should show product name', () => {
-      cy.get('.sc-havuDZ').should('contain', 'DeFi Pulse Index')
+      cy.get('[data-cy=token-name]').should(
+        'contain',
+        'DeFi Pulse Index'
+      )
     })
     it('should show product price', () => {
       cy.get('.sc-jhDJEt').should('not.be.empty')
@@ -23,12 +26,12 @@ describe('DPI', () => {
 
   context('Product Metadata', () => {
     it('should show market cap', () => {
-      cy.get(':nth-child(1) > .sc-hndLF').should('contain', 'Market Cap')
-      cy.get(':nth-child(1) > .sc-clGGWX').should('not.be.empty')
+      cy.get('[data-cy=market-cap-label]').should('contain', 'Market Cap')
+      cy.get('[data-cy=market-cap-value]').should('not.be.empty')
     })
     it('should show NAV', () => {
-      cy.get(':nth-child(2) > .sc-hndLF').should('contain', 'Net Asset Value')
-      cy.get(':nth-child(2) > .sc-clGGWX').should('not.be.empty')
+      cy.get('[data-cy=net-asset-value-label]').should('contain', 'Net Asset Value')
+      cy.get('[data-cy=net-asset-value-value]').should('not.be.empty')
     })
     it('should show prem/discount', () => {
       cy.get(':nth-child(3) > .sc-hndLF').should('not.be.empty')
@@ -41,24 +44,23 @@ describe('DPI', () => {
       cy.get('.recharts-surface').should('not.be.empty')
     })
     it('should have all date range selectors', () => {
-      cy.get('.sc-exqIPC').children().should('have.length', 9) //accounts for spacers
+      // 5 date range selectors and 4 spacers between. 5 + 4 = 9
+      cy.get('[data-cy=date-range-selector]').children().should('have.length', 9)
     })
   })
 
   context('Buy/Sell Widget', () => {
     it('should render', () => {
-      cy.get('.sc-havuDZ').should('not.be.empty')
-      cy.get('.sc-ezjrSx').should('contain', 'Buy')
-      cy.get('.sc-irqbAE').should('contain', 'Sell')
-      cy.get('.sc-hmvkKb > :nth-child(1)').should('contain', 'Pay with')
-      cy.get('.sc-iiBnNu > :nth-child(1)').should('contain', 'Buy (estimated)')
-      cy.get('.sc-ckTSus').should('not.be.empty')
+      cy.get('[data-cy=buy-sell-selector]').should('contain', 'Buy')
+      cy.get('[data-cy=buy-sell-selector]').should('contain', 'Sell')
+      cy.get('[data-cy=buy-sell-selector]').should('contain', 'Pay with')
+      cy.get('[data-cy=buy-sell-selector]').should('contain', 'Buy (estimated)')
     })
   })
 
   context('Product Stats', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(1) > .sc-hJFzke').should('contain', 'Stats')
+      cy.get('[data-cy=stats]').should('contain', 'Stats')
     })
 
     it('should render values', () => {
@@ -75,12 +77,12 @@ describe('DPI', () => {
 
   context('My Assets', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(2) > .sc-hJFzke').should('contain', 'My Assets')
+      cy.get('[data-cy=my-assets]').should('contain', 'My Assets')
     })
 
     it('should render values', () => {
-      cy.get('.sc-kJNqyW').should('not.be.empty')
-      cy.get('.sc-jYKCQm').should('contain', 'DPI')
+      cy.get('[data-cy=my-assets-token-balance]').should('not.be.empty')
+      cy.get('[data-cy=my-assets-token-balance]').should('contain', 'DPI')
     })
 
     it('should contain MetaMask button', () => {
@@ -90,7 +92,7 @@ describe('DPI', () => {
 
   context('Product Changes', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(3) > .sc-hJFzke').should('contain', 'Changes')
+      cy.get('[data-cy=changes]').should('contain', 'Changes')
     })
 
     it('should render values', () => {
@@ -107,7 +109,7 @@ describe('DPI', () => {
 
   context('Product Allocations', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(4) > .sc-hJFzke').should('contain', 'Allocations')
+      cy.get('[data-cy=allocations]').should('contain', 'Allocations')
     })
 
     it('should render allocations', () => {
@@ -116,7 +118,6 @@ describe('DPI', () => {
       cy.get(':nth-child(4) > .sc-QxirK').should('not.be.empty')
       cy.get('.sc-jVSGNQ > :nth-child(5)').should('not.be.empty')
       cy.get('.sc-jVSGNQ > :nth-child(6)').should('not.be.empty')
-      cy.get('.sc-iuhXDa').should('contain', 'More')
     })
   })
 
@@ -128,7 +129,7 @@ describe('DPI', () => {
 
   context('Footer Links', () => {
     it('should contain all links', () => {
-      cy.get('.sc-jQAxuV > .sc-dsXzNU').children().should('have.length', 4)
+      cy.get('[data-cy=footer-links]').children().should('have.length', 4)
     })
   })
 })
