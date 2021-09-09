@@ -2803,10 +2803,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/canvas-confetti@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@types/canvas-confetti/-/canvas-confetti-1.4.0.tgz#22127a1a9ed9d456e626d6e2b9a4d3b0a240e18b"
-  integrity sha512-Neq4mvVecrHmTdyo98EY5bnKCjkZGQ6Ma7VyOrxIcMHEZPmt4kfquccqfBMrpNrdryMHgk3oGQi7XtpZacltnw==
+"@types/canvas-confetti@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@types/canvas-confetti/-/canvas-confetti-1.4.2.tgz#35c99fc904492fdcc6515c742509e04f3527211c"
+  integrity sha512-t45KUDHlwrD9PJVRHc5z1SlXhO82BQEgMKUXGEV1KnWLFMPA6Y5LfUsLTHHzH9KcKDHZLEiYYH5nIDcjRKWNTg==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
