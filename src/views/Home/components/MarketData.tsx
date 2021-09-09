@@ -87,7 +87,7 @@ const MarketData: React.FC = () => {
   return (
     <>
       <StyledMarketDataTitle>Products</StyledMarketDataTitle>
-      <ButtonWrapper>
+      <ButtonWrapper data-cy="products-button-group">
         <Button
           full
           size={'sm'}

@@ -26,7 +26,7 @@ const Farm = (props: { title: string }) => {
         </StyledPageSubheader>
         <Spacer />
       </Container>
-      <Treasury />
+      <Treasury data-cy="treasury"/>
       <Spacer />
       <Container>
         <V3FarmCard />

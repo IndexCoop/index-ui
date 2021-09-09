@@ -2,7 +2,7 @@
 
 describe('Liquidity Mining', () => {
   before(() => {
-    cy.wait(3000)
+    cy.wait(5000)
     cy.visit('http://localhost:3000/liquidity-mining')
   })
 
