@@ -22,11 +22,12 @@ const Treasury: React.FC = () => {
       : '--'
 
   return (
-    <Container>
-      <Split>
-        <Card>
-          <CardContent>
+    <Container data-cy="container">
+      <Split data-cy="split">
+        <Card data-cy="capital-in-farms">
+          <CardContent data-cy="card-content">
             <FancyValue
+              data-cy="fancy-value"
               icon={{
                 src: 'https://index-dao.s3.amazonaws.com/money.png',
                 alt: 'Money',
@@ -38,7 +39,7 @@ const Treasury: React.FC = () => {
         </Card>
 
         <Card>
-          <CardContent>
+          <CardContent data-cy='treasury-index-price'>
             <FancyValue
               icon={{
                 src: 'https://index-dao.s3.amazonaws.com/owl.png',

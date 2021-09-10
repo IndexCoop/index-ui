@@ -13,7 +13,7 @@ const ContributorRewards = (props: { title: string }) => {
   return (
     <Page>
       <Container>
-        <StyledPageHeader>Rewards</StyledPageHeader>
+        <StyledPageHeader data-cy="styled-page-header">Rewards</StyledPageHeader>
         <Spacer size='sm' />
         <StyledPageSubheader>
           Monthly contributor rewards distributor

@@ -8,7 +8,7 @@ describe('Rewards', () => {
 
   context('Page Header', () => {
     it('should show header text', () => {
-      cy.get('.sc-hBezlf').should('contain', 'Rewards')
+      cy.get('[data-cy=styled-page-header]').should('contain', 'Rewards')
     })
     it('should show content', () => {
       cy.get('.sc-crzoAE > :nth-child(3)').should(
@@ -34,7 +34,7 @@ describe('Rewards', () => {
 
   context('Footer Links', () => {
     it('should contain all links', () => {
-      cy.get('.sc-jQAxuV > .sc-dsXzNU').children().should('have.length', 4)
+      cy.get('[data-cy=footer-links]').children().should('have.length', 4)
     })
   })
 })

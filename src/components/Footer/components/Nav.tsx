@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Nav: React.FC = () => {
   return (
-    <StyledNav>
+    <StyledNav data-cy="footer-links">
       <StyledLink href="https://twitter.com/indexcoop">Twitter</StyledLink>
       <StyledLink href="https://gov.indexcoop.com">Forum</StyledLink>
       <StyledLink href="https://discord.gg/RKZ4S3b">Discord</StyledLink>

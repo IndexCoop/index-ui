@@ -29,3 +29,4 @@ serviceAccount.json
 
 # cypress
 /cypress/videos
+/cypress/screenshots
