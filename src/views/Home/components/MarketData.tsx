@@ -84,6 +84,16 @@ const MarketData: React.FC = () => {
       url: '/bed',
     })
   }
+
+  const handleDataButton = () => {
+    setIndexSelector(5)
+    setProductMetaData({
+      name: productTokensBySymbol['DATA'].name,
+      symbol: productTokensBySymbol['DATA'].symbol,
+      image: productTokensBySymbol['DATA'].image,
+      url: '/data',
+    })
+  }
   return (
     <>
       <StyledMarketDataTitle>Products</StyledMarketDataTitle>
@@ -126,6 +136,14 @@ const MarketData: React.FC = () => {
           text='BED'
           variant={indexSelector === 4 ? 'default' : 'secondary'}
           onClick={handleBedButton}
+        />
+        <Spacer size={'sm'} />
+        <Button
+          full
+          size={'sm'}
+          text='DATA'
+          variant={indexSelector === 4 ? 'default' : 'secondary'}
+          onClick={handleDataButton}
         />
       </ButtonWrapper>
       <Card>

@@ -35,6 +35,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     ethfliBalance,
     btcfliBalance,
     bedBalance,
+    dataBalance,
     uniswapEthDpiLpBalance,
     uniswapEthMviLpBalance,
     stakedUniswapEthDpiLpBalance,
@@ -116,9 +117,18 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             </Box>
           </Split>
           <Spacer />
-          <Separator />
-          <Spacer />
           <Split>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'BED Icon',
+                  src: bedBorderLogo,
+                }}
+                label='BED Index Balance'
+                link={`https://etherscan.io/address/${tokenAddresses.bedTokenAddress}`}
+                value={getDisplayBalance(bedBalance)}
+              />
+            </Box>
             <Box row>
               <FancyValue
                 icon={{
@@ -130,15 +140,18 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 value={getDisplayBalance(mviBalance)}
               />
             </Box>
+          </Split>
+          <Spacer />
+          <Split>
             <Box row>
               <FancyValue
                 icon={{
-                  alt: 'BED Icon',
-                  src: bedBorderLogo,
+                  alt: 'DATA Icon',
+                  src: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
                 }}
-                label='BED Index Balance'
-                link={`https://etherscan.io/address/${tokenAddresses.bedTokenAddress}`}
-                value={getDisplayBalance(bedBalance)}
+                label='DATA Index Balance'
+                link={`https://etherscan.io/address/${tokenAddresses.dataTokenAddress}`}
+                value={getDisplayBalance(dataBalance)}
               />
             </Box>
           </Split>
@@ -195,8 +208,6 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               />
             </Box>
           </Split>
-          <Spacer />
-          <Separator />
           <Spacer />
 
           <Split>

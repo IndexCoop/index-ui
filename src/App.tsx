@@ -34,6 +34,8 @@ import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
 import { V3FarmingProvider } from 'contexts/V3Farming'
 import { BedTokenMarketDataProvider } from 'contexts/BedTokenMarketData'
 import { BedIndexComponentsProvider } from 'contexts/BedIndexComponents'
+import { DataTokenMarketDataProvider } from 'contexts/DataTokenMarketData'
+import { DataComponentsProvider } from 'contexts/DataComponents'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -45,6 +47,7 @@ import ETH2XFLI from 'views/ETH2XFLI'
 import BTC2XFLI from 'views/BTC2XFLI'
 import MVI from 'views/MVI'
 import BED from 'views/BED'
+import DATA from 'views/DATA'
 import INDEX from 'views/INDEX'
 import News from 'views/News'
 import ContributorRewards from 'views/ContributorRewards'
@@ -94,6 +97,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path='/bed'>
               <BED title={'Index - BED'} />
+            </Route>
+            <Route exact path='/data'>
+              <DATA title={'Index - DATA'} />
             </Route>
             <Route exact path='/index'>
               <INDEX title={'Index - Index'} />
@@ -170,11 +176,15 @@ const Providers: React.FC = ({ children }) => {
                                                   <MviComponentsProvider>
                                                     <BedTokenMarketDataProvider>
                                                       <BedIndexComponentsProvider>
-                                                        <IndexTokenMarketDataProvider>
-                                                            <V3FarmingProvider>
-                                                              {children}
-                                                            </V3FarmingProvider>
-                                                        </IndexTokenMarketDataProvider>
+                                                        <DataTokenMarketDataProvider>
+                                                          <DataComponentsProvider>
+                                                            <IndexTokenMarketDataProvider>
+                                                              <V3FarmingProvider>
+                                                                {children}
+                                                              </V3FarmingProvider>
+                                                            </IndexTokenMarketDataProvider>
+                                                          </DataComponentsProvider>
+                                                        </DataTokenMarketDataProvider>
                                                       </BedIndexComponentsProvider>
                                                     </BedTokenMarketDataProvider>
                                                   </MviComponentsProvider>

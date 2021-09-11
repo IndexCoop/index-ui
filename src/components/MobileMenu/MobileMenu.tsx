@@ -15,12 +15,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
       <StyledMobileMenuWrapper>
         <StyledBackdrop onClick={onDismiss} />
         <StyledMobileMenu>
-          <StyledLink
-          exact
-          activeClassName='active'
-          to='/'
-          onClick={onDismiss}
-          >
+          <StyledLink exact activeClassName='active' to='/' onClick={onDismiss}>
             Home
           </StyledLink>
           <StyledLink
@@ -61,7 +56,15 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
             to='/bed'
             onClick={onDismiss}
           >
-            Bankless BED Index
+            Bankless Index
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/data'
+            onClick={onDismiss}
+          >
+            Data Economy Index
           </StyledLink>
           <StyledLink
             exact
@@ -79,10 +82,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           >
             About
           </StyledLink>
-          <StyledOutboundLink
-            href={voteLink}
-            target='_blank'
-          >
+          <StyledOutboundLink href={voteLink} target='_blank'>
             Vote
           </StyledOutboundLink>
           <StyledLink

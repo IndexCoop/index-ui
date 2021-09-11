@@ -22,7 +22,8 @@ const ProductsDropdown: React.FC = () => {
       pathname === '/mvi' ||
       pathname === '/ethfli' ||
       pathname === '/btcfli' ||
-      pathname === '/bed'
+      pathname === '/bed' ||
+      pathname === '/data'
 
     return {
       control: (styles: any) => ({
@@ -95,7 +96,11 @@ const ProductsDropdown: React.FC = () => {
         {
           value: 'bed',
           label: 'Bankless BED Index',
-        }
+        },
+        {
+          value: 'data',
+          label: 'Data Economy Index',
+        },
       ]}
       components={{
         Option: CustomOption,
