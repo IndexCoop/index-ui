@@ -6,38 +6,53 @@ Index UI is a simple front-end used to interact with Index. This front-end descr
 
 ## Local development
 
-Make a copy of the prod env file
+This project was created with [create-react-app](https://create-react-app.dev/). Refer to their docs for advanced usage.
 
-`cp .env.prod .env`
+### Prerequisites
+1. Install [Node](https://nodejs.org/en/) 14+
+1. Install [yarn](https://yarnpkg.com/getting-started/install)
+1. Fork this repo
+1. Clone your fork locally
 
-Then install all the dependencies with
-
-`yarn install`
+### Steps
+1. Make a copy of the prod env file
+    ```bash
+    cp .env.prod .env
+    ```
+1. Install all the dependencies
+    ```bash
+    yarn install
+    ```
+1. Start the app in development mode on localhost:3000
+    ```bash
+    yarn start
+    ```
+1. Navigate to [http://localhost:3000/](http://localhost:3000/). The changes you make locally should live-reload in the app.
 
 ---
 
-This project was created with [create-react-app](https://create-react-app.dev/).
-
-`yarn start`
-Runs the app in development mode on localhost:3000
-
-`yarn build`
-Builds the app for production in the `build` folder.
-
-`yarn eject`
-Ejects the app from `create-react-app` rails.
 
 ## Testing
 
-### Performing E2E Tests with Cypress
+### Unit tests
+
+Run unit tests in watch mode
+```bash
+yarn test
+```
+
+### Run E2E Tests with Cypress
 
 To run e2e test with Cypress, first you must serve a local instance
-
-`yarn start`
+```bash
+yarn start
+```
 
 Once that is served, in another terminal, navigate to the repo and run
 
-`yarn run e2e`
+```bash
+yarn run e2e
+```
 
 This will kick off Cypress to run headlessly.
 
@@ -45,11 +60,23 @@ This will kick off Cypress to run headlessly.
 
 If you wish to write a test, or debug yours, you can do so with the help of the Cypress tool by running
 
-`yarn run cypress:open`
+```bash
+yarn run cypress:open
+```
 
-This will allow you to see and select items on page, more easily obtaining their IDs, selectors, etc. More information on this can be found at [the Cypress website](https://docs.cypress.io/)
+This will allow you to see and select items on page, more easily obtaining their IDs, selectors, etc. More information on this can be found on the [Cypress docs](https://docs.cypress.io/)
 
 ### Helpful Commands
+
+Build the app for production in the `build` folder.
+```
+yarn build
+```
+
+Eject the app from `create-react-app` rails.
+```
+yarn eject
+```
 
 This project uses [browserslist](https://github.com/browserslist/browserslist). We need to [regularly update browser data](https://github.com/browserslist/browserslist#browsers-data-updating) via
 ```bash
