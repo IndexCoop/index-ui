@@ -172,7 +172,7 @@ const Providers: React.FC = ({ children }) => {
                                                       <BedIndexComponentsProvider>
                                                         <IndexTokenMarketDataProvider>
                                                             <V3FarmingProvider>
-                                                                {children}
+                                                              {children}
                                                             </V3FarmingProvider>
                                                         </IndexTokenMarketDataProvider>
                                                       </BedIndexComponentsProvider>
