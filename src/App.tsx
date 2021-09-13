@@ -55,7 +55,6 @@ import { voteLink } from 'constants/externalLinks'
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
 import { RewardsProvider } from 'contexts/Rewards'
-import SetProvider from "./contexts/Set/SetProvider"
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -173,9 +172,7 @@ const Providers: React.FC = ({ children }) => {
                                                       <BedIndexComponentsProvider>
                                                         <IndexTokenMarketDataProvider>
                                                             <V3FarmingProvider>
-                                                              <SetProvider>
                                                                 {children}
-                                                              </SetProvider>
                                                             </V3FarmingProvider>
                                                         </IndexTokenMarketDataProvider>
                                                       </BedIndexComponentsProvider>

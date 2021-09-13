@@ -14,7 +14,6 @@ import styled from 'styled-components'
 import ExternalLink from 'components/ExternalLink'
 import Label from 'components/Label'
 
-
 const Home: React.FC = () => {
   return (
     <Container>

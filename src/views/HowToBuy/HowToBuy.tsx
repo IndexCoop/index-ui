@@ -4,17 +4,11 @@ import { Container } from 'react-neu'
 
 import Page from 'components/Page'
 import useMediaQuery from '../../hooks/useMediaQuery'
-import useSet from "../../hooks/useSet"
 
 const HowToBuy = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
-
-  const {onLogSetFees} = useSet()
-  useEffect(() => {
-    onLogSetFees()
-  }, [props.title, onLogSetFees])
 
   const { isMobile } = useMediaQuery()
 
