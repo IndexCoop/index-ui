@@ -1,6 +1,6 @@
 import * as tokenAddresses from 'constants/ethContractAddresses'
 import bedBorderLogo from 'assets/bed-border.png'
-import dataLogo from 'assets/bed-border.png'
+import dataLogo from 'assets/datalogo.png'
 
 export interface ProductToken {
   name: string
