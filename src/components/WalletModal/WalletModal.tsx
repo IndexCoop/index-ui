@@ -5,6 +5,7 @@ import BigNumber from 'utils/bignumber'
 import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify'
 import bedBorderLogo from 'assets/bed-border.png'
+import dataLogo from 'assets/datalogo.png'
 
 import numeral from 'numeral'
 import {
@@ -147,7 +148,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               <FancyValue
                 icon={{
                   alt: 'DATA Icon',
-                  src: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
+                  src: dataLogo,
                 }}
                 label='DATA Index Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.dataTokenAddress}`}
