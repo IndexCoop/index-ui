@@ -83,7 +83,7 @@ export const BedIndex: ProductToken = {
 }
 
 export const DataIndex: ProductToken = {
-  name: 'DATA Economy Index',
+  name: 'Data Economy Index',
   symbol: 'DATA',
   address: tokenAddresses.dataTokenAddress,
   image: dataLogo,
