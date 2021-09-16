@@ -16,6 +16,7 @@ export async function getSetDetails(web3Provider: provider, productAddress: stri
       debtIssuanceModuleAddress === undefined) {
       throw new Error("A set JS address is not defined. Please check your .env file")
   }
+
   const set = new Set({
     web3Provider: web3Provider,
     basicIssuanceModuleAddress: basicIssuanceModuleAddress,
@@ -30,5 +31,12 @@ export async function getSetDetails(web3Provider: provider, productAddress: stri
     debtIssuanceModuleAddress: debtIssuanceModuleAddress,
   });
 
-  return set.setToken.batchFetchSetDetailsAsync([productAddress], []);
+  const moduleAddresses = [
+    basicIssuanceModuleAddress,
+    streamingFeeModuleAddress,
+    tradeModuleAddress,
+    debtIssuanceModuleAddress,
+  ];
+
+  return set.setToken.batchFetchSetDetailsAsync([productAddress], moduleAddresses);
 }
