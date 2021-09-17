@@ -5,6 +5,7 @@ import { provider } from "web3-core"
 import useWallet from "../../hooks/useWallet"
 import { bedTokenAddress, btc2xfliTokenAddress, dpiTokenAddress, eth2xfliTokenAddress, mviTokenAddress } from "../../constants/ethContractAddresses"
 import { convertToPercentage } from "../../utils/ethersBigNumber"
+import StreamingFeeContext from "./StreamingFeeContext"
 
 const StreamingFeeProvider: React.FC = ({ children }) => {
   const { ethereum }: { ethereum: provider } = useWallet()
@@ -13,7 +14,6 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
   const [bedStreamingFee, setBedStreamingFee] = useState<string>()
   const [eth2xFliStreamingFee, setEth2xFliStreamingFee] = useState<string>()
   const [btc2xFliStreamingFee, setBtc2xFliStreamingFee] = useState<string>()
-
 
   useEffect(() => {
     if (ethereum && dpiTokenAddress && mviTokenAddress && bedTokenAddress && eth2xfliTokenAddress && btc2xfliTokenAddress) {
@@ -31,7 +31,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
   }, [ethereum])
 
   return (
-    <MviIndexComponentsContext.Provider
+    <StreamingFeeContext.Provider
       value={{
         dpiStreamingFee: dpiStreamingFee,
         mviStreamingFee: mviStreamingFee,
@@ -41,7 +41,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
        }}
     >
       {children}
-    </MviIndexComponentsContext.Provider>
+    </StreamingFeeContext.Provider>
   )
 }
 
