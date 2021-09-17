@@ -4,7 +4,7 @@ import { getStreamingFees } from "../../utils/setjsApi"
 import { provider } from "web3-core"
 import useWallet from "../../hooks/useWallet"
 import { dpiTokenAddress, mviTokenAddress } from "../../constants/ethContractAddresses"
-import { utils } from "ethers"
+import { convertToPercentage } from "../../utils/ethersBigNumber"
 
 const StreamingFeeProvider: React.FC = ({ children }) => {
   const { ethereum }: { ethereum: provider } = useWallet()
@@ -16,9 +16,9 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
     if (ethereum && dpiTokenAddress && mviTokenAddress) {
       getStreamingFees(ethereum, [dpiTokenAddress, mviTokenAddress])
         .then(result => {
-          console.log(result)
-          setDpiStreamingFee(utils.formatUnits(result[0].streamingFeePercentage))
-          setDpiStreamingFee(utils.formatUnits(result[1].streamingFeePercentage))
+          const [dpiResult, mviResult] = result
+          setDpiStreamingFee(convertToPercentage(dpiResult.streamingFeePercentage))
+          setMviStreamingFee(convertToPercentage(mviResult.streamingFeePercentage))
         })
         .catch((error: any) => console.error(error))
     }
