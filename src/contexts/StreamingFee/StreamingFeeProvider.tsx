@@ -3,22 +3,28 @@ import MviIndexComponentsContext from './StreamingFeeContext'
 import { getStreamingFees } from "../../utils/setjsApi"
 import { provider } from "web3-core"
 import useWallet from "../../hooks/useWallet"
-import { dpiTokenAddress, mviTokenAddress } from "../../constants/ethContractAddresses"
+import { bedTokenAddress, btc2xfliTokenAddress, dpiTokenAddress, eth2xfliTokenAddress, mviTokenAddress } from "../../constants/ethContractAddresses"
 import { convertToPercentage } from "../../utils/ethersBigNumber"
 
 const StreamingFeeProvider: React.FC = ({ children }) => {
   const { ethereum }: { ethereum: provider } = useWallet()
   const [dpiStreamingFee, setDpiStreamingFee] = useState<string>()
   const [mviStreamingFee, setMviStreamingFee] = useState<string>()
+  const [bedStreamingFee, setBedStreamingFee] = useState<string>()
+  const [eth2xFliStreamingFee, setEth2xFliStreamingFee] = useState<string>()
+  const [btc2xFliStreamingFee, setBtc2xFliStreamingFee] = useState<string>()
 
 
   useEffect(() => {
-    if (ethereum && dpiTokenAddress && mviTokenAddress) {
-      getStreamingFees(ethereum, [dpiTokenAddress, mviTokenAddress])
+    if (ethereum && dpiTokenAddress && mviTokenAddress && bedTokenAddress && eth2xfliTokenAddress && btc2xfliTokenAddress) {
+      getStreamingFees(ethereum, [dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress])
         .then(result => {
-          const [dpiResult, mviResult] = result
+          const [dpiResult, mviResult, bedResult, eth2xFliResult, btc2xFliResult] = result
           setDpiStreamingFee(convertToPercentage(dpiResult.streamingFeePercentage))
           setMviStreamingFee(convertToPercentage(mviResult.streamingFeePercentage))
+          setBedStreamingFee(convertToPercentage(bedResult.streamingFeePercentage))
+          setEth2xFliStreamingFee(convertToPercentage(eth2xFliResult.streamingFeePercentage))
+          setBtc2xFliStreamingFee(convertToPercentage(btc2xFliResult.streamingFeePercentage))
         })
         .catch((error: any) => console.error(error))
     }
@@ -29,6 +35,9 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
       value={{
         dpiStreamingFee: dpiStreamingFee,
         mviStreamingFee: mviStreamingFee,
+        bedStreamingFee: bedStreamingFee,
+        eth2xFliStreamingFee: eth2xFliStreamingFee,
+        btc2xFliStreamingFee: btc2xFliStreamingFee,
        }}
     >
       {children}

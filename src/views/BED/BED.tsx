@@ -4,10 +4,11 @@ import ExternalLink from 'components/ExternalLink'
 import useBedTokenMarketData from 'hooks/useBedTokenMarketData'
 import useBedIndexComponents from 'hooks/useBedIndexComponents'
 import useBalances from 'hooks/useBalances'
-import { BedIndex } from 'constants/productTokens'
+import { BedIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
+import useStreamingFee from "../../hooks/useStreamingFee"
 
 const BedProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -18,13 +19,16 @@ const BedProductPage = (props: { title: string }) => {
     useBedTokenMarketData()
   const { components } = useBedIndexComponents()
   const { bedBalance, bedTotalSupply } = useBalances()
+  const { bedStreamingFee } = useStreamingFee();
+
+  const token: ProductToken = { ...BedIndex, fees: bedStreamingFee ? {streamingFee: bedStreamingFee } : undefined}
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
     latestPrice: latestPrice,
     latestMarketCap: latestMarketCap,
     latestVolume: latestVolume,
-    token: BedIndex,
+    token: token,
     components: components,
     balance: bedBalance,
     currentSupply: bedTotalSupply,

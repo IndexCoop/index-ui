@@ -1,5 +1,5 @@
 import { BigNumber } from "@ethersproject/bignumber"
-import { convertToPercentage } from "./ethersBignumber"
+import { convertToPercentage } from "./ethersBigNumber"
 
 describe("convertBigNumberToPercentage", () => {
     it("should convert 9500000000000000 to 0.95%", () => {
