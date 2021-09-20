@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { BedIndex, Bitcoin2xFlexibleLeverageIndex, DefiPulseIndex, Ethereum2xFlexibleLeverageIndex, MetaverseIndex } from "../../constants/productTokens"
+import { BedIndex, Bitcoin2xFlexibleLeverageIndex, DefiPulseIndex, Ethereum2xFlexibleLeverageIndex, MetaverseIndex } from "constants/productTokens"
 
 interface StreamingFeeProps {
   dpiStreamingFee?: string;
