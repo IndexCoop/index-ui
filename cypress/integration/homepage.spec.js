@@ -2,17 +2,20 @@
 
 describe('Homepage', () => {
   before(() => {
-    cy.wait(3000)
+    cy.wait(10000)
     cy.visit('http://localhost:3000/', {
       headers: {
-        "Accept-Encoding": "gzip, deflate"
-      }
+        'Accept-Encoding': 'gzip, deflate',
+      },
     })
   })
 
   context('HomeHeader', () => {
     it('should exist', () => {
-      cy.get('[data-cy=home-header]').should('contain', 'The Index Coop currently has')
+      cy.get('[data-cy=home-header]').should(
+        'contain',
+        'The Index Coop currently has'
+      )
     })
   })
 
@@ -35,7 +38,9 @@ describe('Homepage', () => {
 
   context('View Defi Pulse Button', () => {
     it('should navigate to the DPI page', () => {
-      cy.get('[data-cy=view-dpi-link]').should('have.attr', 'href').and('include', '/dpi')
+      cy.get('[data-cy=view-dpi-link]')
+        .should('have.attr', 'href')
+        .and('include', '/dpi')
     })
   })
 
