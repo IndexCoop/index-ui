@@ -1,7 +1,8 @@
 import { provider } from 'web3-core'
 import Set from "set.js"
-import { basicIssuanceModuleAddress, controllerAddress, debtIssuanceModuleAddress, navIssuanceModuleAddress, protocolViewerAddress, streamingFeeModuleAddress, setTokenCreatorAddress, tradeModuleAddress, masterOracleAddress, governanceModuleAddress } from "constants/ethContractAddresses";
 import { StreamingFeeInfo } from "set.js/dist/types/src/types";
+
+import { basicIssuanceModuleAddress, controllerAddress, debtIssuanceModuleAddress, navIssuanceModuleAddress, protocolViewerAddress, streamingFeeModuleAddress, setTokenCreatorAddress, tradeModuleAddress, masterOracleAddress, governanceModuleAddress } from "constants/ethContractAddresses";
 
 export async function getStreamingFees(web3Provider: provider, productAddresses: string[]): Promise<StreamingFeeInfo[]> {
   const set = getSet(web3Provider);

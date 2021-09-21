@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import ExternalLink from 'components/ExternalLink'
 import useBedTokenMarketData from 'hooks/useBedTokenMarketData'
 import useBedIndexComponents from 'hooks/useBedIndexComponents'
 import useBalances from 'hooks/useBalances'
@@ -8,7 +7,7 @@ import { BedIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
-import useStreamingFee from "../../hooks/useStreamingFee"
+import useStreamingFee from "hooks/useStreamingFee"
 
 const BedProductPage = (props: { title: string }) => {
   useEffect(() => {

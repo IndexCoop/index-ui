@@ -12,7 +12,7 @@ import ProductDataUI, {
 } from 'components/ProductPage/ProductDataUI'
 import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
-import useStreamingFee from "../../hooks/useStreamingFee"
+import useStreamingFee from "hooks/useStreamingFee"
 
 const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {

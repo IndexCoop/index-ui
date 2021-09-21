@@ -6,7 +6,7 @@ import { MetaverseIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
-import useStreamingFee from "../../hooks/useStreamingFee"
+import useStreamingFee from "hooks/useStreamingFee"
 
 const MviProductPage = (props: { title: string }) => {
   useEffect(() => {

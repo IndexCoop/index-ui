@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { getStreamingFees } from "../../utils/setjsApi"
 import { provider } from "web3-core"
-import useWallet from "../../hooks/useWallet"
+
+import { getStreamingFees } from "utils/setjsApi"
+import useWallet from "hooks/useWallet"
 import { bedTokenAddress, btc2xfliTokenAddress, dpiTokenAddress, eth2xfliTokenAddress, mviTokenAddress } from "constants/ethContractAddresses"
-import { convertToPercentage } from "../../utils/ethersBigNumber"
+import { convertToPercentage } from "utils/ethersBigNumber"
 import StreamingFeeContext from "./StreamingFeeContext"
 
 const StreamingFeeProvider: React.FC = ({ children }) => {

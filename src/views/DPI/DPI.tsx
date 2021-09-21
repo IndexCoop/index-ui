@@ -11,7 +11,7 @@ import { DefiPulseIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
-import useStreamingFee from "../../hooks/useStreamingFee"
+import useStreamingFee from "hooks/useStreamingFee"
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
