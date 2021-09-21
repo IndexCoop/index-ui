@@ -12,7 +12,7 @@ import {
 import Modal from 'components/CustomModal'
 import TokenInput from 'components/TokenInput'
 import useBalances from 'hooks/useBalances'
-import { getFullDisplayBalance } from 'utils'
+import { fromWei, getFullDisplayBalance } from 'utils'
 
 interface StakeModalProps extends ModalProps {
   onStake: (amount: string) => void
@@ -27,7 +27,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const { uniswapEthDpiLpBalance } = useBalances()
 
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(uniswapEthDpiLpBalance || new BigNumber(0), 0)
+    return getFullDisplayBalance(fromWei(uniswapEthDpiLpBalance), 0)
   }, [uniswapEthDpiLpBalance])
 
   const handleChange = useCallback(
