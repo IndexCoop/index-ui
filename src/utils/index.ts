@@ -161,3 +161,7 @@ export const getSupplyCap = async (
     return '1'
   }
 }
+
+export const fromWei = (balance: string, power: number) => {
+  return new BigNumber(balance).dividedBy(new BigNumber(10).pow(power))
+}
