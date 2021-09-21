@@ -7,10 +7,11 @@ import useDpiIndexComponents from 'hooks/useDpiIndexComponents'
 import useBalances from 'hooks/useBalances'
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 import useLocalStorage from 'hooks/useLocalStorage'
-import { DefiPulseIndex } from 'constants/productTokens'
+import { DefiPulseIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
+import useStreamingFee from "hooks/useStreamingFee"
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -21,13 +22,16 @@ const DpiProductPage = (props: { title: string }) => {
     useDpiTokenMarketData()
   const { components } = useDpiIndexComponents()
   const { dpiBalance, dpiTotalSupply } = useBalances()
+  const { dpiStreamingFee } = useStreamingFee();
+
+  const token: ProductToken = { ...DefiPulseIndex, fees: dpiStreamingFee ? {streamingFee: dpiStreamingFee } : undefined}
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
     latestPrice: latestPrice,
     latestMarketCap: latestMarketCap,
     latestVolume: latestVolume,
-    token: DefiPulseIndex,
+    token: token,
     components: components,
     balance: dpiBalance,
     currentSupply: dpiTotalSupply,
