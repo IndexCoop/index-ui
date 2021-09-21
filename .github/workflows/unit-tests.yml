@@ -1,18 +1,16 @@
-name: Cypress Tests
+name: Unit Tests
 
 # Triggers the workflow on push or pull request events
 on: [push, pull_request]
 
 jobs:
-  cypress-run:
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Copy .env vars
         run: cp .env.prod .env
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
+      - name: Run unit tests
         with:
-          build: yarn run build
-          start: yarn start
+          test: yarn test

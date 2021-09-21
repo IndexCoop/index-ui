@@ -3,7 +3,11 @@
 describe('Homepage', () => {
   before(() => {
     cy.wait(3000)
-    cy.visit('http://localhost:3000/')
+    cy.visit('http://localhost:3000/', {
+      headers: {
+        "Accept-Encoding": "gzip, deflate"
+      }
+    })
   })
 
   context('HomeHeader', () => {
