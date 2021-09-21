@@ -115,60 +115,24 @@ const Provider: React.FC = ({ children }) => {
         getMviRewardsBalance(provider, userAddress),
       ])
 
-      setEthBalance(
-        new BigNumber(balances[0]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setIndexBalance(
-        new BigNumber(balances[1]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setDpiBalance(
-        new BigNumber(balances[2]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setEthFliBalance(
-        new BigNumber(balances[3]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setBtcFliBalance(
-        new BigNumber(balances[4]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setMviBalance(
-        new BigNumber(balances[5]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setDaiBalance(
-        new BigNumber(balances[6]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setUsdcBalance(
-        new BigNumber(balances[7]).dividedBy(new BigNumber(10).pow(6))
-      )
-      setBedBalance(
-        new BigNumber(balances[8]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setDataBalance(
-        new BigNumber(balances[9]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setUniswapEthDpiLpBalance(
-        new BigNumber(balances[10]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setUniswapEthMviLpBalance(
-        new BigNumber(balances[11]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setStakedUniswapEthDpiLpBalance(
-        new BigNumber(balances[12]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setUnharvestedIndexBalance(
-        new BigNumber(balances[13]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setStakedFarmTwoBalance(
-        new BigNumber(balances[14]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setUnharvestedFarmTwoBalance(
-        new BigNumber(balances[15]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setStakedUniswapEthMviLpBalance(
-        new BigNumber(balances[16]).dividedBy(new BigNumber(10).pow(18))
-      )
-      setUnharvestedMviRewardsBalance(
-        new BigNumber(balances[17]).dividedBy(new BigNumber(10).pow(18))
-      )
+      setEthBalance(new BigNumber(balances[0]))
+      setIndexBalance(new BigNumber(balances[1]))
+      setDpiBalance(new BigNumber(balances[2]))
+      setEthFliBalance(new BigNumber(balances[3]))
+      setBtcFliBalance(new BigNumber(balances[4]))
+      setMviBalance(new BigNumber(balances[5]))
+      setDaiBalance(new BigNumber(balances[6]))
+      setUsdcBalance(new BigNumber(balances[7])) // .dividedBy(10).pow(6))
+      setBedBalance(new BigNumber(balances[8]))
+      setDataBalance(new BigNumber(balances[9]))
+      setUniswapEthDpiLpBalance(new BigNumber(balances[10]))
+      setUniswapEthMviLpBalance(new BigNumber(balances[11]))
+      setStakedUniswapEthDpiLpBalance(new BigNumber(balances[12]))
+      setUnharvestedIndexBalance(new BigNumber(balances[13]))
+      setStakedFarmTwoBalance(new BigNumber(balances[14]))
+      setUnharvestedFarmTwoBalance(new BigNumber(balances[15]))
+      setStakedUniswapEthMviLpBalance(new BigNumber(balances[16]))
+      setUnharvestedMviRewardsBalance(new BigNumber(balances[17]))
     },
     [
       setEthBalance,
