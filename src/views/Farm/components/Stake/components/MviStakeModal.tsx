@@ -12,7 +12,7 @@ import {
 import Modal from 'components/CustomModal'
 import TokenInput from 'components/TokenInput'
 import useBalances from 'hooks/useBalances'
-import { getFullDisplayBalance } from 'utils'
+import { fromWei, getFullDisplayBalance } from 'utils'
 
 interface MviStakeModalProps extends ModalProps {
   onStake: (amount: string) => void
@@ -27,7 +27,7 @@ const MviStakeModal: React.FC<MviStakeModalProps> = ({
   const { uniswapEthMviLpBalance } = useBalances()
 
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(uniswapEthMviLpBalance || new BigNumber(0), 0)
+    return getFullDisplayBalance(fromWei(uniswapEthMviLpBalance), 0)
   }, [uniswapEthMviLpBalance])
 
   const handleChange = useCallback(
