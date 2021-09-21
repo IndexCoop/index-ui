@@ -13,13 +13,13 @@ import { ProductToken } from 'constants/productTokens'
 interface ProductWalletBalanceProps {
   token: ProductToken
   latestPrice?: number
-  currentBalance?: BigNumber | number
+  currentBalance?: BigNumber
 }
 
 const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
   token,
   latestPrice = 0,
-  currentBalance = 0,
+  currentBalance = new BigNumber(0),
 }) => {
   const { isMetamaskConnected } = useWallet()
   const handleAddToMetamask = useAddToMetamask()
