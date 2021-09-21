@@ -5,7 +5,7 @@ import BigNumber from 'utils/bignumber'
 import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify'
 import bedBorderLogo from 'assets/bed-border.png'
-import dataLogo from 'assets/datalogo.png'
+import dataLogo from 'assets/data-logo.png'
 
 import numeral from 'numeral'
 import {

@@ -142,7 +142,7 @@ const MarketData: React.FC = () => {
           full
           size={'sm'}
           text='DATA'
-          variant={indexSelector === 4 ? 'default' : 'secondary'}
+          variant={indexSelector === 5 ? 'default' : 'secondary'}
           onClick={handleDataButton}
         />
       </ButtonWrapper>

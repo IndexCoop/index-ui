@@ -7,7 +7,7 @@ import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
 
-import dataEsotericMath from 'assets/dataesotericmath.png'
+import dataEsotericMath from 'assets/data-esoteric-math.png'
 
 const DataProductPage = (props: { title: string }) => {
   useEffect(() => {

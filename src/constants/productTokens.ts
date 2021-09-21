@@ -1,6 +1,6 @@
 import * as tokenAddresses from 'constants/ethContractAddresses'
 import bedBorderLogo from 'assets/bed-border.png'
-import dataLogo from 'assets/datalogo.png'
+import dataLogo from 'assets/data-logo.png'
 
 export interface ProductToken {
   name: string
@@ -90,7 +90,7 @@ export const DataIndex: ProductToken = {
   coingeckoId: 'data-economy-index',
   tokensetsId: 'data',
   fees: {
-    streamingFee: '0.25%',
+    streamingFee: '0.95%',
   },
 }
 
