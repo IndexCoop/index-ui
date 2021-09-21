@@ -63,6 +63,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = fromWei(mviBalance)
   } else if (!isUserBuying && buySellToken === 'bed') {
     spendingTokenBalance = fromWei(bedBalance)
+  } else if (!isUserBuying && buySellToken === 'data') {
+    spendingTokenBalance = fromWei(dataBalance)
   } else if (selectedCurrency?.label === 'ETH') {
     spendingTokenBalance = fromWei(ethBalance)
   } else if (selectedCurrency?.label === 'DAI') {
