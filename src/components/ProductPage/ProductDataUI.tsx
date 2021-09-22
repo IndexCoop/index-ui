@@ -22,7 +22,6 @@ import {
   ProductToken,
 } from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
-import { fromWei } from 'utils'
 
 export interface TokenDataProps {
   prices: number[][] | undefined
@@ -92,7 +91,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           <WalletBalance
             token={tokenData.token}
             latestPrice={tokenData.latestPrice}
-            currentBalance={fromWei(tokenData.balance)}
+            currentBalance={tokenData.balance}
           />
           <PriceChanges
             prices={tokenData.prices}

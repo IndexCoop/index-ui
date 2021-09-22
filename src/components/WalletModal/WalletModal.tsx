@@ -120,7 +120,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 }}
                 label='BED Index Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.bedTokenAddress}`}
-                value={getDisplayBalance(bedBalance)}
+                value={displayFromWei(bedBalance)}
               />
             </Box>
             <Box row>
@@ -143,9 +143,9 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                   alt: 'DATA Icon',
                   src: dataLogo,
                 }}
-                label='BED Index Balance'
-                link={`https://etherscan.io/address/${tokenAddresses.bedTokenAddress}`}
-                value={displayFromWei(bedBalance)}
+                label='DATA Economy Index Balance'
+                link={`https://etherscan.io/address/${tokenAddresses.dataTokenAddress}`}
+                value={displayFromWei(dataBalance)}
               />
             </Box>
           </Split>

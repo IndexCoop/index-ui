@@ -189,3 +189,7 @@ export const fromWei = (number: BigNumber | undefined, power: number = 18) => {
 export const displayFromWei = (number: BigNumber | undefined) => {
   return fromWei(number).toFormat(2)
 }
+
+export const displayFromWei = (balance: BigNumber | undefined) => {
+  return balance ? fromWei(balance).toFormat(2) : '--'
+}
