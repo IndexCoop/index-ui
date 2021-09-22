@@ -6,7 +6,8 @@ describe('Homepage', () => {
     cy.visit('http://localhost:3000/', {
       headers: {
         "Accept-Encoding": "gzip, deflate"
-      }
+      },
+      responseTimeout: 31000
     })
   })
 
