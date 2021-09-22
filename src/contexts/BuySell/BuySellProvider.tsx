@@ -101,11 +101,10 @@ const BuySellProvider: React.FC = ({ children }) => {
   const onExecuteBuySell = useCallback(async () => {
     if (!account || !zeroExTradeData?.sellAmount || !selectedCurrency) return
 
-    let requiredBalance = fromWei(new BigNumber(zeroExTradeData?.sellAmount))
-
-    if (selectedCurrency === 'usdc') {
-      requiredBalance = fromWei(new BigNumber(zeroExTradeData?.sellAmount, 6))
-    }
+    let requiredBalance =
+      selectedCurrency === 'usdc'
+        ? fromWei(zeroExTradeData?.sellAmount, 6)
+        : fromWei(zeroExTradeData?.sellAmount)
 
     if (spendingTokenBalance.lt(requiredBalance)) return
 

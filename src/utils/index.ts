@@ -167,3 +167,7 @@ export const fromWei = (balance: BigNumber | undefined, power: number = 18) => {
     ? new BigNumber(balance).dividedBy(new BigNumber(10).pow(power))
     : new BigNumber(0)
 }
+
+export const displayFromWei = (balance: BigNumber | undefined) => {
+  return balance ? fromWei(balance).toFormat(2) : '--'
+}
