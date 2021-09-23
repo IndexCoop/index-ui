@@ -110,7 +110,7 @@ const Stake: React.FC = () => {
   return (
     <>
       <Card>
-        <CardContent>
+        <CardContent data-cy='dpi-farm-card'>
           <StyledCardTitleWrapper>
             <StyledHeaderIcon
               src='https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'

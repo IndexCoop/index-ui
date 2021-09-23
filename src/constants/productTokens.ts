@@ -9,7 +9,7 @@ export interface ProductToken {
   image: string
   coingeckoId: string
   tokensetsId: string
-  fees: any | undefined
+  fees: { streamingFee: string } | undefined
 }
 
 export const DefiPulseIndex: ProductToken = {
@@ -31,7 +31,7 @@ export const IndexToken: ProductToken = {
   image: 'https://index-dao.s3.amazonaws.com/owl.png',
   coingeckoId: 'index-cooperative',
   tokensetsId: 'index',
-  fees: null,
+  fees: undefined,
 }
 
 export const Ethereum2xFlexibleLeverageIndex: ProductToken = {

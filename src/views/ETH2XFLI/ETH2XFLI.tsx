@@ -6,12 +6,13 @@ import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
 import useEth2xFliIndexPortfolioData from 'hooks/useEth2xFliIndexPortfolioData'
 import useEth2xFliTokenSupplyCap from 'hooks/useEth2xFliTokenSupplyCap'
 import useBalances from 'hooks/useBalances'
-import { Ethereum2xFlexibleLeverageIndex } from 'constants/productTokens'
+import { Ethereum2xFlexibleLeverageIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
 import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
+import useStreamingFee from "hooks/useStreamingFee"
 
 const Eth2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -23,14 +24,16 @@ const Eth2xFliProductPage = (props: { title: string }) => {
   const { components } = useEth2xFliIndexPortfolioData()
   const { ethfliBalance, ethfliTotalSupply } = useBalances()
   const { ethfliSupplyCap } = useEth2xFliTokenSupplyCap()
+  const { eth2xFliStreamingFee } = useStreamingFee();
 
+  const token: ProductToken = { ...Ethereum2xFlexibleLeverageIndex, fees: eth2xFliStreamingFee ? {streamingFee: eth2xFliStreamingFee } : undefined}
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
     latestPrice: latestPrice,
     latestMarketCap: latestMarketCap,
     latestVolume: latestVolume,
-    token: Ethereum2xFlexibleLeverageIndex,
+    token: token,
     components: components,
     balance: ethfliBalance,
     supplyCap: ethfliSupplyCap,
