@@ -5,6 +5,7 @@ import BigNumber from 'utils/bignumber'
 import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify'
 import bedBorderLogo from 'assets/bed-border.png'
+import dataLogo from 'assets/data-logo.png'
 
 import numeral from 'numeral'
 import {
@@ -35,6 +36,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     ethfliBalance,
     btcfliBalance,
     bedBalance,
+    dataBalance,
     uniswapEthDpiLpBalance,
     uniswapEthMviLpBalance,
     stakedUniswapEthDpiLpBalance,
@@ -116,9 +118,18 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             </Box>
           </Split>
           <Spacer />
-          <Separator />
-          <Spacer />
           <Split>
+            <Box row>
+              <FancyValue
+                icon={{
+                  alt: 'BED Icon',
+                  src: bedBorderLogo,
+                }}
+                label='BED Index Balance'
+                link={`https://etherscan.io/address/${tokenAddresses.bedTokenAddress}`}
+                value={getDisplayBalance(bedBalance)}
+              />
+            </Box>
             <Box row>
               <FancyValue
                 icon={{
@@ -130,15 +141,18 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 value={getDisplayBalance(mviBalance)}
               />
             </Box>
+          </Split>
+          <Spacer />
+          <Split>
             <Box row>
               <FancyValue
                 icon={{
-                  alt: 'BED Icon',
-                  src: bedBorderLogo,
+                  alt: 'DATA Icon',
+                  src: dataLogo,
                 }}
-                label='BED Index Balance'
-                link={`https://etherscan.io/address/${tokenAddresses.bedTokenAddress}`}
-                value={getDisplayBalance(bedBalance)}
+                label='DATA Index Balance'
+                link={`https://etherscan.io/address/${tokenAddresses.dataTokenAddress}`}
+                value={getDisplayBalance(dataBalance)}
               />
             </Box>
           </Split>
@@ -195,8 +209,6 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               />
             </Box>
           </Split>
-          <Spacer />
-          <Separator />
           <Spacer />
 
           <Split>
