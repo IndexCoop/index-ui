@@ -13,6 +13,7 @@ import ProductDataUI, {
 import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
 import useStreamingFee from "hooks/useStreamingFee"
+import useTokenSupply from "../../hooks/useTokenSupply"
 
 const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -25,6 +26,7 @@ const Btc2xFliProductPage = (props: { title: string }) => {
   const { btcfliBalance, btcfliTotalSupply } = useBalances()
   const { btcfliSupplyCap } = useBtc2xFliTokenSupplyCap()
   const { btc2xFliStreamingFee } = useStreamingFee();
+  const { btc2xfliTotalSupply } = useTokenSupply();
 
   const token: ProductToken = { ...Bitcoin2xFlexibleLeverageIndex, fees: btc2xFliStreamingFee ? {streamingFee: btc2xFliStreamingFee } : undefined}
   const tokenDataProps: TokenDataProps = {
@@ -37,7 +39,7 @@ const Btc2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: btcfliBalance,
     supplyCap: btcfliSupplyCap,
-    currentSupply: btcfliTotalSupply,
+    currentSupply: btc2xfliTotalSupply ?? btcfliTotalSupply,
   }
   const { account } = useWallet()
 

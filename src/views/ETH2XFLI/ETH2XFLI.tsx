@@ -13,6 +13,7 @@ import ProductDataUI, {
 import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
 import useStreamingFee from "hooks/useStreamingFee"
+import useTokenSupply from "../../hooks/useTokenSupply"
 
 const Eth2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -25,6 +26,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
   const { ethfliBalance, ethfliTotalSupply } = useBalances()
   const { ethfliSupplyCap } = useEth2xFliTokenSupplyCap()
   const { eth2xFliStreamingFee } = useStreamingFee();
+  const { eth2xfliTotalSupply } = useTokenSupply();
 
   const token: ProductToken = { ...Ethereum2xFlexibleLeverageIndex, fees: eth2xFliStreamingFee ? {streamingFee: eth2xFliStreamingFee } : undefined}
   const tokenDataProps: TokenDataProps = {
@@ -37,7 +39,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: ethfliBalance,
     supplyCap: ethfliSupplyCap,
-    currentSupply: ethfliTotalSupply,
+    currentSupply: eth2xfliTotalSupply ?? ethfliTotalSupply,
   }
   const { account } = useWallet()
 

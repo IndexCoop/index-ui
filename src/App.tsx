@@ -34,6 +34,8 @@ import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
 import { V3FarmingProvider } from 'contexts/V3Farming'
 import { BedTokenMarketDataProvider } from 'contexts/BedTokenMarketData'
 import { BedIndexComponentsProvider } from 'contexts/BedIndexComponents'
+import { StreamingFeeProvider } from "contexts/StreamingFee"
+import { TokenSupplyProvider } from "contexts/TokenSupply"
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -55,7 +57,6 @@ import { voteLink } from 'constants/externalLinks'
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
 import { RewardsProvider } from 'contexts/Rewards'
-import { StreamingFeeProvider } from "./contexts/StreamingFee"
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -174,7 +175,9 @@ const Providers: React.FC = ({ children }) => {
                                                         <IndexTokenMarketDataProvider>
                                                             <V3FarmingProvider>
                                                               <StreamingFeeProvider>
-                                                                {children}
+                                                                <TokenSupplyProvider>
+                                                                  {children}
+                                                                </TokenSupplyProvider>
                                                               </StreamingFeeProvider>
                                                             </V3FarmingProvider>
                                                         </IndexTokenMarketDataProvider>

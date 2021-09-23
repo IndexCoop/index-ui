@@ -1,8 +1,26 @@
 import { provider } from 'web3-core'
 import Set from "set.js"
-import { StreamingFeeInfo } from "set.js/dist/types/src/types";
+import { SetDetails, StreamingFeeInfo } from "set.js/dist/types/src/types";
 
 import { basicIssuanceModuleAddress, controllerAddress, debtIssuanceModuleAddress, navIssuanceModuleAddress, protocolViewerAddress, streamingFeeModuleAddress, setTokenCreatorAddress, tradeModuleAddress, masterOracleAddress, governanceModuleAddress } from "constants/ethContractAddresses";
+
+export async function getTokenSupply(web3Provider: provider, productAddresses: string[]): Promise<SetDetails[]> {
+  if (basicIssuanceModuleAddress === undefined ||
+    streamingFeeModuleAddress === undefined ||
+    tradeModuleAddress === undefined ||
+    debtIssuanceModuleAddress === undefined) {
+    throw new Error("A set JS module address is not defined. Please check your .env file")
+  }
+
+  const set = getSet(web3Provider);
+  const moduleAddresses = [
+    basicIssuanceModuleAddress,
+    streamingFeeModuleAddress,
+    tradeModuleAddress,
+    debtIssuanceModuleAddress,
+  ];
+  return await set.setToken.batchFetchSetDetailsAsync(productAddresses, moduleAddresses);
+}
 
 export async function getStreamingFees(web3Provider: provider, productAddresses: string[]): Promise<StreamingFeeInfo[]> {
   const set = getSet(web3Provider);
