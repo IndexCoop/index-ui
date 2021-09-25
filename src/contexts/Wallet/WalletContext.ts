@@ -1,5 +1,7 @@
 import { createContext } from 'react'
 
+type WalletType = 'injected' | 'walletconnect' | 'walletlink' | 'ledgerwallet'
+
 interface WalletContextValues {
   account: string | null | undefined
   ethereum: any
@@ -7,7 +9,7 @@ interface WalletContextValues {
   isShowingWalletModal: boolean
   isMetamaskConnected: boolean
   triedEagerConnect: boolean
-  connect: any
+  connect: (walletType: WalletType) => void
   connector: any
   reset: any
   onOpenWalletModal: (...args: any[]) => any
