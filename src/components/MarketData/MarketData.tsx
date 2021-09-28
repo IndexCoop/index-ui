@@ -84,9 +84,9 @@ const MarketData: React.FC<MarketDataProps> = ({ tokenData }) => {
           src={tokenData.token.image}
           alt={tokenData.token.symbol + ' Logo'}
         />
-        <span>{tokenData.token.symbol}</span>
+        <span data-cy="token-symbol">{tokenData.token.symbol}</span>
       </StyledIconLabel>
-      <StyledTitle>{tokenData.token.name}</StyledTitle>
+      <StyledTitle data-cy="token-name">{tokenData.token.name}</StyledTitle>
       {tokenData.token.symbol !== IndexToken.symbol && (
         <MetaData tokenData={tokenData} />
       )}

@@ -6,12 +6,13 @@ import useBtc2xFliTokenSupplyCap from 'hooks/useBtc2xFliTokenSupplyCap'
 import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
 import useBtc2xFliIndexPortfolioData from 'hooks/useBtc2xFliIndexPortfolioData'
 import useBalances from 'hooks/useBalances'
-import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
+import { Bitcoin2xFlexibleLeverageIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
 import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
+import useStreamingFee from "hooks/useStreamingFee"
 
 const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -23,14 +24,16 @@ const Btc2xFliProductPage = (props: { title: string }) => {
   const { components } = useBtc2xFliIndexPortfolioData()
   const { btcfliBalance, btcfliTotalSupply } = useBalances()
   const { btcfliSupplyCap } = useBtc2xFliTokenSupplyCap()
+  const { btc2xFliStreamingFee } = useStreamingFee();
 
+  const token: ProductToken = { ...Bitcoin2xFlexibleLeverageIndex, fees: btc2xFliStreamingFee ? {streamingFee: btc2xFliStreamingFee } : undefined}
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
     latestPrice: latestPrice,
     latestMarketCap: latestMarketCap,
     latestVolume: latestVolume,
-    token: Bitcoin2xFlexibleLeverageIndex,
+    token: token,
     components: components,
     balance: btcfliBalance,
     supplyCap: btcfliSupplyCap,

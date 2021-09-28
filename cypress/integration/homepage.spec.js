@@ -1,29 +1,32 @@
 /// <reference types="cypress" />
 
-xdescribe('Homepage', () => {
+describe('Homepage', () => {
   before(() => {
-    cy.wait(10000)
-    cy.visit('http://localhost:3000/')
+    cy.wait(3000)
+    cy.visit('http://localhost:3000/', {
+      headers: {
+        "Accept-Encoding": "gzip, deflate"
+      }
+    })
   })
 
   context('HomeHeader', () => {
     it('should exist', () => {
-      cy.get('.sc-ecQkzk').should('contain', 'The Index Coop currently has')
+      cy.get('[data-cy=home-header]').should('contain', 'The Index Coop currently has')
     })
   })
 
   context('What is the Index Coop', () => {
     it('should render the correct tiles', () => {
-      cy.get('.sc-JsfZP').children().should('have.length', 5)
-      cy.get(':nth-child(1) > .sc-jSFjdj > .sc-jhGUec > .sc-hkoqWr').should(
+      cy.get('[data-cy=explanation]').should(
         'contain',
         'Diversified Risk Products'
       )
-      cy.get(':nth-child(3) > .sc-jSFjdj > .sc-jhGUec > .sc-hkoqWr').should(
+      cy.get('[data-cy=explanation]').should(
         'contain',
         'Decentralized & Autonomous'
       )
-      cy.get(':nth-child(5) > .sc-jSFjdj > .sc-jhGUec > .sc-hkoqWr').should(
+      cy.get('[data-cy=explanation]').should(
         'contain',
         'Built with DeFi Leaders'
       )
@@ -32,29 +35,24 @@ xdescribe('Homepage', () => {
 
   context('View Defi Pulse Button', () => {
     it('should navigate to the DPI page', () => {
-      cy.get('.sc-iXquSf').should('have.attr', 'href').and('include', '/dpi')
+      cy.get('[data-cy=view-dpi-link]').should('have.attr', 'href').and('include', '/dpi')
     })
   })
 
   context('Products', () => {
     it('should have the right product buttons', () => {
-      cy.get('.sc-fxFQKN').children().should('have.length', 7)
-      cy.get('.sc-fxFQKN').children('.beTizY').should('contain', 'DPI')
+      cy.get('[data-cy=products-button-group').should('contain', 'DPI')
+      cy.get('[data-cy=products-button-group').should('contain', 'ETH2x-FLI')
+      cy.get('[data-cy=products-button-group').should('contain', 'MVI')
+      cy.get('[data-cy=products-button-group').should('contain', 'BTC2x-FLI')
+      cy.get('[data-cy=products-button-group').should('contain', 'BED')
     })
 
     it('should show the correct product charts', () => {
-      cy.get('.sc-kHVIJG').should('contain', 'DeFi Pulse Index')
-      cy.get('.sc-fxFQKN > :nth-child(3)').click()
-      cy.get('.sc-kHVIJG').should(
+      cy.get('[data-cy=products-button-group] > :nth-child(3)').click()
+      cy.get('.sc-hndLF').should(
         'contain',
         'Ethereum 2x Flexible Leverage Index'
-      )
-      cy.get('.sc-fxFQKN > :nth-child(5)').click()
-      cy.get('.sc-kHVIJG').should('contain', 'Metaverse Index')
-      cy.get('.sc-fxFQKN > :nth-child(7)').click()
-      cy.get('.sc-kHVIJG').should(
-        'contain',
-        'Bitcoin 2x Flexible Leverage Index'
       )
     })
   })
@@ -63,13 +61,13 @@ xdescribe('Homepage', () => {
     context('Index Coop', () => {
       it('should contain Index Coop tile', () => {
         cy.get(
-          ':nth-child(2) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(2) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Index Coop')
       })
 
       it('should link to LM page', () => {
         cy.get(
-          ':nth-child(2) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(2) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'liquidity-mining')
@@ -79,13 +77,13 @@ xdescribe('Homepage', () => {
     context('Alpha Homora', () => {
       it('should contain Alpha Homora tile', () => {
         cy.get(
-          ':nth-child(2) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(2) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Alpha Homora')
       })
 
       it('should link to Alpha Homora page', () => {
         cy.get(
-          ':nth-child(2) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(2) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'alphafinance.io')
@@ -95,13 +93,13 @@ xdescribe('Homepage', () => {
     context('Moonswap', () => {
       it('should contain Moonswap tile', () => {
         cy.get(
-          ':nth-child(2) > :nth-child(5) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(2) > :nth-child(5) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Moonswap')
       })
 
       it('should link to Moonswap page', () => {
         cy.get(
-          ':nth-child(2) > :nth-child(5) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(2) > :nth-child(5) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'moonswap.fi')
@@ -111,13 +109,13 @@ xdescribe('Homepage', () => {
     context('Zerion', () => {
       it('should contain Zerion tile', () => {
         cy.get(
-          ':nth-child(5) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(5) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Zerion')
       })
 
       it('should link to Zerion page', () => {
         cy.get(
-          ':nth-child(5) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(5) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'zerion.io')
@@ -127,13 +125,13 @@ xdescribe('Homepage', () => {
     context('Argent', () => {
       it('should contain Argent tile', () => {
         cy.get(
-          ':nth-child(5) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(5) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Argent')
       })
 
       it('should link to Argent page', () => {
         cy.get(
-          ':nth-child(5) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(5) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'argent.xyz')
@@ -143,13 +141,13 @@ xdescribe('Homepage', () => {
     context('Dharma', () => {
       it('should contain Dharma tile', () => {
         cy.get(
-          ':nth-child(5) > :nth-child(5) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(5) > :nth-child(5) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Dharma')
       })
 
       it('should link to Dharma page', () => {
         cy.get(
-          ':nth-child(5) > :nth-child(5) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(5) > :nth-child(5) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'dharma.io')
@@ -159,13 +157,13 @@ xdescribe('Homepage', () => {
     context('Opyn', () => {
       it('should contain Opyn tile', () => {
         cy.get(
-          ':nth-child(7) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(10) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Opyn')
       })
 
       it('should link to Opyn page', () => {
         cy.get(
-          ':nth-child(7) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(10) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'opyn.co')
@@ -175,13 +173,13 @@ xdescribe('Homepage', () => {
     context('CREAM Finance', () => {
       it('should contain CREAM Finance tile', () => {
         cy.get(
-          ':nth-child(7) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(8) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'CREAM Finance')
       })
 
       it('should link to CREAM Finance page', () => {
         cy.get(
-          ':nth-child(7) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(8) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'cream.finance')
@@ -191,13 +189,13 @@ xdescribe('Homepage', () => {
     context('Nexus Mutual', () => {
       it('should contain Nexus Mutual tile', () => {
         cy.get(
-          ':nth-child(7) > :nth-child(5) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(10) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Nexus Mutual')
       })
 
       it('should link to Nexus Mutual page', () => {
         cy.get(
-          ':nth-child(7) > :nth-child(5) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(10) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'nexusmutual.io')
@@ -207,7 +205,7 @@ xdescribe('Homepage', () => {
     context('Uniswap', () => {
       it('should contain Uniswap tile', () => {
         cy.get(
-          ':nth-child(10) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(13) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Uniswap')
       })
     })
@@ -215,7 +213,7 @@ xdescribe('Homepage', () => {
     context('1inch', () => {
       it('should contain 1inch tile', () => {
         cy.get(
-          ':nth-child(10) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(13) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', '1inch')
       })
     })
@@ -223,7 +221,7 @@ xdescribe('Homepage', () => {
     context('Sushiswap', () => {
       it('should contain Sushiswap tile', () => {
         cy.get(
-          ':nth-child(11) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(14) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'SushiSwap')
       })
     })
@@ -231,7 +229,7 @@ xdescribe('Homepage', () => {
     context('Balancer', () => {
       it('should contain Balancer tile', () => {
         cy.get(
-          ':nth-child(11) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(14) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Balancer')
       })
     })
@@ -239,13 +237,13 @@ xdescribe('Homepage', () => {
     context('Dune Analytics', () => {
       it('should contain Dune Analytics tile', () => {
         cy.get(
-          ':nth-child(13) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(16) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Dune Analytics')
       })
 
       it('should link to Dune Analytics page', () => {
         cy.get(
-          ':nth-child(13) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(16) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'duneanalytics')
@@ -255,13 +253,13 @@ xdescribe('Homepage', () => {
     context('DeFi Pulse', () => {
       it('should contain DeFi Pulse tile', () => {
         cy.get(
-          ':nth-child(13) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(16) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'DeFi Pulse')
       })
 
       it('should link to DeFi Pulse page', () => {
         cy.get(
-          ':nth-child(13) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(16) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'defipulse')
@@ -271,13 +269,13 @@ xdescribe('Homepage', () => {
     context('Coin Gecko', () => {
       it('should contain CoinGecko tile', () => {
         cy.get(
-          ':nth-child(14) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(17) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'Coin Gecko')
       })
 
       it('should link to CoinGecko page', () => {
         cy.get(
-          ':nth-child(14) > :nth-child(1) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(17) > :nth-child(1) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'coingecko')
@@ -287,13 +285,13 @@ xdescribe('Homepage', () => {
     context('CoinMarketCap', () => {
       it('should contain CoinMarketCap tile', () => {
         cy.get(
-          ':nth-child(14) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-ehALMs'
+          ':nth-child(17) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-jfkLlK'
         ).should('contain', 'CoinMarketCap')
       })
 
       it('should link to CoinMarketCap page', () => {
         cy.get(
-          ':nth-child(14) > :nth-child(3) > .sc-jSFjdj > .sc-iueNdr > .sc-EhTUr'
+          ':nth-child(17) > :nth-child(3) > .sc-jSFjdj > .sc-dHMioH > .sc-fkmfBh'
         )
           .should('have.attr', 'href')
           .and('include', 'coinmarketcap')
@@ -302,7 +300,7 @@ xdescribe('Homepage', () => {
 
     context('Footer Links', () => {
       it('should contain all links', () => {
-        cy.get('.sc-jQAxuV > .sc-dsXzNU').children().should('have.length', 4)
+        cy.get('[data-cy=footer-links]').children().should('have.length', 4)
       })
     })
   })

@@ -12,10 +12,13 @@ import styled from 'styled-components'
 import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify'
 
+import argentLogo from 'assets/argent-wallet.svg'
+import ontoLogo from 'assets/onto-wallet.png'
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
 import coinbaseWalletLogo from 'assets/coinbase-wallet.svg'
 import rainbowWalletLogo from 'assets/rainbow-logo.png'
+import trustWalletLogo from 'assets/trust-wallet.svg'
 
 import Modal from 'components/CustomModal'
 import WalletProviderCard from './components/WalletProviderCard'
@@ -47,65 +50,114 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
       <StyledModalBody>
         <ModalTitle text='Select a wallet provider.' />
         <ModalContent>
-          <StyledWalletsWrapper>
-            <Box flex={1}>
-              <WalletProviderCard
-                icon={
-                  <img
-                    alt='metamaskLogo'
-                    src={metamaskLogo}
-                    style={{ height: 32 }}
-                  />
-                }
-                name='Metamask'
-                onSelect={handleConnectMetamask}
-              />
-            </Box>
+          <ScrollableContent>
+            <StyledWalletsWrapper>
+              <Box flex={1}>
+                <WalletProviderCard
+                  icon={
+                    <img
+                      alt='metamaskLogo'
+                      src={metamaskLogo}
+                      style={{ height: 32 }}
+                    />
+                  }
+                  name='Metamask'
+                  onSelect={handleConnectMetamask}
+                />
+              </Box>
+              <Spacer />
+              <Box flex={1}>
+                <WalletProviderCard
+                  icon={
+                    <img
+                      alt='walletConnectLogo'
+                      src={walletConnectLogo}
+                      style={{ height: 24, marginTop: '8px' }}
+                    />
+                  }
+                  name='WalletConnect'
+                  onSelect={handleConnectWalletConnect}
+                />
+              </Box>
+            </StyledWalletsWrapper>
             <Spacer />
-            <Box flex={1}>
-              <WalletProviderCard
-                icon={
-                  <img
-                    alt='walletConnectLogo'
-                    src={walletConnectLogo}
-                    style={{ height: 24, marginTop: '8px' }}
-                  />
-                }
-                name='WalletConnect'
-                onSelect={handleConnectWalletConnect}
-              />
-            </Box>
-          </StyledWalletsWrapper>
-          <Spacer />
-          <StyledWalletsWrapper>
-            <Box flex={1}>
-              <WalletProviderCard
-                icon={
-                  <img
-                    alt='coinbaseWalletLogo'
-                    src={coinbaseWalletLogo}
-                    style={{ height: 32 }}
-                  />
-                }
-                name='Coinbase Wallet'
-                onSelect={handleConnectWalletLink}
-              />
-            </Box>
+            <StyledWalletsWrapper>
+              <Box flex={1}>
+                <WalletProviderCard
+                  icon={
+                    <img
+                      alt='coinbaseWalletLogo'
+                      src={coinbaseWalletLogo}
+                      style={{ height: 32 }}
+                    />
+                  }
+                  name='Coinbase Wallet'
+                  onSelect={handleConnectWalletLink}
+                />
+              </Box>
+              <Spacer />
+              <Box flex={1}>
+                <WalletProviderCard
+                  icon={
+                    <img
+                      alt='rainbowWalletLogo'
+                      src={rainbowWalletLogo}
+                      style={{ borderRadius: 11, height: 32 }}
+                    />
+                  }
+                  name='Rainbow'
+                  onSelect={handleConnectWalletConnect}
+                />
+              </Box>
+            </StyledWalletsWrapper>
             <Spacer />
-            <Box flex={1}>
-              <WalletProviderCard
-                icon={
-                  <img
-                    alt='rainbowWalletLogo'
-                    src={rainbowWalletLogo}
-                    style={{ borderRadius: 11, height: 32 }}
-                  />
-                }
-                name='Rainbow'
-                onSelect={handleConnectWalletConnect}
-              />
-            </Box>
-          </StyledWalletsWrapper>
+            <StyledWalletsWrapper>
+              <Box flex={1}>
+                <WalletProviderCard
+                  icon={
+                    <img
+                      alt='argentLogo'
+                      src={argentLogo}
+                      style={{ height: 32 }}
+                    />
+                  }
+                  name='Argent'
+                  onSelect={handleConnectWalletConnect}
+                />
+              </Box>
+              <Spacer />
+              <Box flex={1}>
+                <WalletProviderCard
+                  icon={
+                    <img
+                      alt='ontoLogo'
+                      src={ontoLogo}
+                      style={{ borderRadius: 11, height: 32 }}
+                    />
+                  }
+                  name='ONTO Wallet'
+                  onSelect={handleConnectWalletConnect}
+                />
+              </Box>
+            </StyledWalletsWrapper>
+            <Spacer />
+            <StyledWalletsWrapper>
+              <Box flex={1}>
+                <WalletProviderCard
+                  icon={
+                    <img
+                      alt='trustWalletLogo'
+                      src={trustWalletLogo}
+                      style={{ height: 32 }}
+                    />
+                  }
+                  name='Trust Wallet'
+                  onSelect={handleConnectWalletConnect}
+                />
+              </Box>
+              <Box flex={1}></Box>
+            </StyledWalletsWrapper>
+          </ScrollableContent>
         </ModalContent>
         <ModalActions>
           <Box flex={1} row justifyContent='center'>
@@ -116,6 +168,13 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     </Modal>
   )
 }
+
+const ScrollableContent = styled.div`
+  @media (min-width: 600px) {
+    max-height: 50vh;
+    overflow-y: scroll;
+  }
+`
 
 const StyledModalBody = styled.div`
   @media (max-width: 600px) {

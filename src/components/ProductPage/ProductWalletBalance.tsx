@@ -31,7 +31,7 @@ const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
           <StyledTokenValuation>
             ${numeral(latestPrice * Number(currentBalance)).format('0.00a')}
           </StyledTokenValuation>
-          <StyledTokenBalance>
+          <StyledTokenBalance data-cy='my-assets-token-balance'>
             {numeral(currentBalance).format('0.000a')} {token.symbol}
           </StyledTokenBalance>
         </div>

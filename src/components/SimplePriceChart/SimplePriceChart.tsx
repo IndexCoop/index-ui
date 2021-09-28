@@ -182,7 +182,7 @@ const MarketDataChart: React.FC<SimplePriceChartProps> = ({
         </LineChart>
       </ChartContainer>
       <DurationWrapper>
-        <ButtonWrapper>
+        <ButtonWrapper data-cy="date-range-selector">
           <Button
             full
             size={'sm'}

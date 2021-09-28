@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import { NavLink } from 'react-router-dom'
+import { voteLink } from 'constants/externalLinks'
 
 interface MobileMenuProps {
   onDismiss: () => void
@@ -55,7 +56,15 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
             to='/bed'
             onClick={onDismiss}
           >
-            Bankless BED Index
+            Bankless Index
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/data'
+            onClick={onDismiss}
+          >
+            Data Economy Index
           </StyledLink>
           <StyledLink
             exact
@@ -73,14 +82,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           >
             About
           </StyledLink>
-          <StyledLink
-            exact
-            activeClassName='active'
-            to='/vote'
-            onClick={onDismiss}
-          >
+          <StyledOutboundLink href={voteLink} target='_blank'>
             Vote
-          </StyledLink>
+          </StyledOutboundLink>
           <StyledLink
             exact
             activeClassName='active'
@@ -116,6 +120,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
             target='_blank'
           >
             Institutions
+          </StyledOutboundLink>
+          <StyledOutboundLink
+            href='https://apply.workable.com/index-coop/'
+            target='_blank'
+          >
+            Careers
           </StyledOutboundLink>
         </StyledMobileMenu>
       </StyledMobileMenuWrapper>

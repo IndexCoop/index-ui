@@ -1,6 +1,6 @@
 import * as tokenAddresses from 'constants/ethContractAddresses'
 import bedBorderLogo from 'assets/bed-border.png'
-//import bedLogo from 'assets/bedlogo.png'
+import dataLogo from 'assets/data-logo.png'
 
 export interface ProductToken {
   name: string
@@ -9,7 +9,7 @@ export interface ProductToken {
   image: string
   coingeckoId: string
   tokensetsId: string
-  fees: any | undefined
+  fees: { streamingFee: string } | undefined
 }
 
 export const DefiPulseIndex: ProductToken = {
@@ -31,7 +31,7 @@ export const IndexToken: ProductToken = {
   image: 'https://index-dao.s3.amazonaws.com/owl.png',
   coingeckoId: 'index-cooperative',
   tokensetsId: 'index',
-  fees: null,
+  fees: undefined,
 }
 
 export const Ethereum2xFlexibleLeverageIndex: ProductToken = {
@@ -82,6 +82,18 @@ export const BedIndex: ProductToken = {
   },
 }
 
+export const DataIndex: ProductToken = {
+  name: 'Data Economy Index',
+  symbol: 'DATA',
+  address: tokenAddresses.dataTokenAddress,
+  image: dataLogo,
+  coingeckoId: 'data-economy-index',
+  tokensetsId: 'data',
+  fees: {
+    streamingFee: '0.95%',
+  },
+}
+
 export const productTokensBySymbol = {
   'DPI': DefiPulseIndex,
   'MVI': MetaverseIndex,
@@ -89,8 +101,8 @@ export const productTokensBySymbol = {
   'INDEX': IndexToken,
   'BTC2x-FLI': Bitcoin2xFlexibleLeverageIndex,
   'BED': BedIndex,
+  'DATA': DataIndex,
 }
-
 
 const indexNames = [
   DefiPulseIndex,
@@ -99,6 +111,7 @@ const indexNames = [
   IndexToken,
   Bitcoin2xFlexibleLeverageIndex,
   BedIndex,
+  DataIndex,
 ]
 
 export default indexNames

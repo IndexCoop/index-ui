@@ -31,6 +31,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     dpiBalance,
     mviBalance,
     bedBalance,
+    dataBalance,
     ethfliBalance,
     btcfliBalance,
     indexBalance,
@@ -62,6 +63,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = mviBalance || new BigNumber(0)
   } else if (!isUserBuying && buySellToken === 'bed') {
     spendingTokenBalance = bedBalance || new BigNumber(0)
+  } else if (!isUserBuying && buySellToken === 'data') {
+    spendingTokenBalance = dataBalance || new BigNumber(0)
   } else if (selectedCurrency?.label === 'ETH') {
     spendingTokenBalance = ethBalance || new BigNumber(0)
   } else if (selectedCurrency?.label === 'DAI') {

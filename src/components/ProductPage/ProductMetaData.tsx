@@ -58,24 +58,24 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
     return (
       <PriceStatsContainer>
         <StyledStat>
-          <StyledStatTitle>Real Leverage</StyledStatTitle>
-          <StyledStatMetric>
+          <StyledStatTitle data-cy='real-leverage-label'>Real Leverage</StyledStatTitle>
+          <StyledStatMetric data-cy='real-leverage-value'>
             {formatLeverageMetric(realLeverage)}x
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>
-          <StyledStatTitle>Target Leverage</StyledStatTitle>
-          <StyledStatMetric>2x</StyledStatMetric>
+          <StyledStatTitle data-cy='target-leverage-label'>Target Leverage</StyledStatTitle>
+          <StyledStatMetric data-cy='target-leverage-value'>2x</StyledStatMetric>
         </StyledStat>
         <StyledStat>
-          <StyledStatTitle>Current Supply</StyledStatTitle>
-          <StyledStatMetric>
+          <StyledStatTitle data-cy='current-supply-label'>Current Supply</StyledStatTitle>
+          <StyledStatMetric data-cy='current-supply-value'>
             {formatCurrentSupply(tokenData.currentSupply)}
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>
-          <StyledStatTitle>Net Asset Value</StyledStatTitle>
-          <StyledStatMetric>
+          <StyledStatTitle data-cy='net-asset-value-label'>Net Asset Value</StyledStatTitle>
+          <StyledStatMetric data-cy='net-asset-value-value'>
             ${formatMetric(getNetAssetValue())}
           </StyledStatMetric>
         </StyledStat>
@@ -90,14 +90,14 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
   return (
     <PriceStatsContainer>
       <StyledStat>
-        <StyledStatTitle>Market Cap</StyledStatTitle>
-        <StyledStatMetric>
+        <StyledStatTitle data-cy="market-cap-label">Market Cap</StyledStatTitle>
+        <StyledStatMetric data-cy="market-cap-value">
           ${formatMetric(tokenData.latestMarketCap || 0)}
         </StyledStatMetric>
       </StyledStat>
       <StyledStat>
-        <StyledStatTitle>Net Asset Value</StyledStatTitle>
-        <StyledStatMetric>${formatMetric(getNetAssetValue())}</StyledStatMetric>
+        <StyledStatTitle data-cy="net-asset-value-label">Net Asset Value</StyledStatTitle>
+        <StyledStatMetric data-cy="net-asset-value-value">${formatMetric(getNetAssetValue())}</StyledStatMetric>
       </StyledStat>
       <StyledStat>
         <StyledStatTitle>{divergenceLabel}</StyledStatTitle>

@@ -8,10 +8,10 @@ describe('INDEX', () => {
 
   context('Product Header', () => {
     it('should show product symbol', () => {
-      cy.get('.sc-cfARRi > span').should('contain', 'INDEX')
+      cy.get('[data-cy=token-symbol]').should('contain', 'INDEX')
     })
     it('should show product name', () => {
-      cy.get('.sc-havuDZ').should('contain', 'Index Token')
+      cy.get('[data-cy=token-name]').should('contain', 'Index Token')
     })
     it('should show product price', () => {
       cy.get('.sc-jhDJEt').should('not.be.empty')
@@ -26,29 +26,28 @@ describe('INDEX', () => {
       cy.get('.recharts-surface').should('not.be.empty')
     })
     it('should have all date range selectors', () => {
-      cy.get('.sc-exqIPC').children().should('have.length', 9) //accounts for spacers
+      // 5 date range selectors and 4 spacers between. 5 + 4 = 9
+      cy.get('[data-cy=date-range-selector]').children().should('have.length', 9)
     })
   })
 
   context('Buy/Sell Widget', () => {
     it('should render', () => {
-      cy.get('.sc-havuDZ').should('not.be.empty')
-      cy.get('.sc-ezjrSx').should('contain', 'Buy')
-      cy.get('.sc-irqbAE').should('contain', 'Sell')
-      cy.get('.sc-hmvkKb > :nth-child(1)').should('contain', 'Pay with')
-      cy.get('.sc-iiBnNu > :nth-child(1)').should('contain', 'Buy (estimated)')
-      cy.get('.sc-ckTSus').should('not.be.empty')
+      cy.get('[data-cy=buy-sell-selector]').should('contain', 'Buy')
+      cy.get('[data-cy=buy-sell-selector]').should('contain', 'Sell')
+      cy.get('[data-cy=buy-sell-selector]').should('contain', 'Pay with')
+      cy.get('[data-cy=buy-sell-selector]').should('contain', 'Buy (estimated)')
     })
   })
 
   context('My Assets', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(1) > .sc-hJFzke').should('contain', 'My Assets')
+      cy.get('[data-cy=my-assets]').should('contain', 'My Assets')
     })
 
     it('should render values', () => {
-      cy.get('.sc-kJNqyW').should('not.be.empty')
-      cy.get('.sc-jYKCQm').should('contain', 'INDEX')
+      cy.get('[data-cy=my-assets-token-balance]').should('not.be.empty')
+      cy.get('[data-cy=my-assets-token-balance]').should('contain', 'INDEX')
     })
 
     it('should contain MetaMask button', () => {
@@ -58,7 +57,7 @@ describe('INDEX', () => {
 
   context('Product Changes', () => {
     it('should have a title', () => {
-      cy.get(':nth-child(2) > .sc-hJFzke').should('contain', 'Changes')
+      cy.get('[data-cy=changes]').should('contain', 'Changes')
     })
 
     it('should render values', () => {
@@ -81,7 +80,7 @@ describe('INDEX', () => {
 
   context('Footer Links', () => {
     it('should contain all links', () => {
-      cy.get('.sc-jQAxuV > .sc-dsXzNU').children().should('have.length', 4)
+      cy.get('[data-cy=footer-links]').children().should('have.length', 4)
     })
   })
 })

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { formatCypressId } from "../../utils/cypressUtils"
 
 export const ProductPageHeader = styled.div`
   @media (min-width: 768px) {
@@ -24,7 +25,7 @@ export const ProductPageSection: React.FC<ProductPageSectionProps> = ({
 }) => {
   return (
     <SectionContainer>
-      <SectionTitle>{title}</SectionTitle>
+      <SectionTitle data-cy={formatCypressId(title)}>{title}</SectionTitle>
       {children}
     </SectionContainer>
   )
