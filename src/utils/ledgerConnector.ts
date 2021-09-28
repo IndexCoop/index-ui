@@ -1,6 +1,7 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
-import { RPCSubprovider, Web3ProviderEngine } from '@0x/subproviders'
+import Web3ProviderEngine from 'web3-provider-engine'
+import { RPCSubprovider } from '@0x/subproviders'
 import { LedgerSubprovider } from './ledgerSubprovider'
 
 export type LedgerConnectorArguments = {
@@ -53,8 +54,7 @@ export class LedgerConnector extends AbstractConnector {
 
     this.provider.start()
 
-    const account = await this.getAccount()
-    return { provider: this.provider, chainId: this.chainId, account }
+    return { provider: this.provider, chainId: this.chainId }
   }
 
   public async getProvider(): Promise<Web3ProviderEngine> {
