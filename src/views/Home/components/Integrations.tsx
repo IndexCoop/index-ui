@@ -284,14 +284,14 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://info.uniswap.org/token/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
+                href='https://info.uniswap.org/#/tokens/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
                 target='_blank'
               >
                 Trade DeFi Pulse Index
               </StyledOutboundLink>
 
               <StyledOutboundLink
-                href='https://uniswap.info/token/0x0954906da0Bf32d5479e25f46056d22f08464cab'
+                href='https://info.uniswap.org/#/tokens/0x0954906da0bf32d5479e25f46056d22f08464cab'
                 target='_blank'
               >
                 Trade INDEX
@@ -313,13 +313,13 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://1inch.exchange/#/ETH/DPI'
+                href='https://app.1inch.io/#/1/swap/ETH/DPI'
                 target='_blank'
               >
                 Trade DeFi Pulse Index
               </StyledOutboundLink>
               <StyledOutboundLink
-                href='https://1inch.exchange/#/ETH/INDEX'
+                href='https://app.1inch.io/#/1/swap/ETH/INDEX'
                 target='_blank'
               >
                 Trade INDEX
@@ -341,14 +341,14 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://app.sushi.com/token/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
+                href='https://analytics.sushi.com/tokens/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
                 target='_blank'
               >
                 Trade DeFi Pulse Index
               </StyledOutboundLink>
 
               <StyledOutboundLink
-                href='https://app.sushi.com/token/0x0954906da0bf32d5479e25f46056d22f08464cab'
+                href='https://analytics.sushi.com/tokens/0x0954906da0bf32d5479e25f46056d22f08464cab'
                 target='_blank'
               >
                 Trade INDEX
