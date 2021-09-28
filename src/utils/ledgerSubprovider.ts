@@ -1,5 +1,11 @@
-import { PartialTxParams } from '@0x/subproviders'
-import { BaseWalletSubprovider } from '@0x/subproviders/lib/src/subproviders/base_wallet_subprovider'
+import {
+  Callback,
+  ErrorCallback,
+  JSONRPCRequestPayload,
+  PartialTxParams,
+  Subprovider,
+  JSONRPCResponsePayload,
+} from '@0x/subproviders'
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
 import Eth from '@ledgerhq/hw-app-eth'
 
@@ -14,7 +20,7 @@ type LedgerConfig = {
   shouldAskForConfirmation?: boolean
 }
 
-export class LedgerSubprovider extends BaseWalletSubprovider {
+export class LedgerSubprovider extends Subprovider {
   private readonly networkId: number
   private readonly baseDerivationPath: string
   private readonly shouldAskForConfirmation: boolean
@@ -53,7 +59,6 @@ export class LedgerSubprovider extends BaseWalletSubprovider {
   }
 
   async signTransactionAsync(txParams: PartialTxParams): Promise<string> {
-    BaseWalletSubprovider._validateTxParams(txParams)
     // TODO: (Richard) to implement
     // Convert txParams to raw transaction and sign using provider.
     throw new Error('Method not implemented.')
@@ -78,7 +83,6 @@ export class LedgerSubprovider extends BaseWalletSubprovider {
   async _getEthClient(): Promise<Eth> {
     if (!this.eth) {
       const transport = await TransportWebUSB.create()
-      transport.setExchangeUnresponsiveTimeout(5000)
       this.eth = new Eth(transport)
     }
     return this.eth
@@ -89,5 +93,136 @@ export class LedgerSubprovider extends BaseWalletSubprovider {
       this.eth.transport.close()
       this.eth = undefined
     }
+  }
+
+  async handleRequest(
+    payload: JSONRPCRequestPayload,
+    next: Callback,
+    end: ErrorCallback
+  ): Promise<void> {
+    let accounts
+    let txParams
+    let address
+    let typedData
+    switch (payload.method) {
+      case 'eth_chainId':
+        end(null, this.networkId)
+        return
+      case 'eth_coinbase':
+        try {
+          accounts = await this.getAccountsAsync()
+          end(null, accounts[0])
+        } catch (e) {
+          end(e as Error)
+        }
+        return
+      case 'eth_requestAccounts':
+      case 'eth_accounts':
+        try {
+          accounts = await this.getAccountsAsync()
+          end(null, accounts)
+        } catch (e) {
+          end(e as Error)
+        }
+        return
+      case 'eth_sendTransaction':
+        txParams = payload.params[0]
+        try {
+          // BaseWalletSubprovider._validateSender(txParams.from);
+          const filledParams = await this._populateMissingTxParamsAsync(
+            txParams
+          )
+          const signedTx = await this.signTransactionAsync(filledParams)
+          const response = await this._emitSendTransactionAsync(signedTx)
+          end(null, response.result)
+        } catch (err) {
+          end(err as Error)
+        }
+        return
+      case 'eth_signTransaction':
+        txParams = payload.params[0]
+        try {
+          const filledParams = await this._populateMissingTxParamsAsync(
+            txParams
+          )
+          const signedTx = await this.signTransactionAsync(filledParams)
+          const result = {
+            raw: signedTx,
+            tx: txParams,
+          }
+          end(null, result)
+        } catch (err) {
+          end(err as Error)
+        }
+        return
+      case 'eth_sign':
+      case 'personal_sign':
+        const data =
+          payload.method === 'eth_sign' ? payload.params[1] : payload.params[0]
+        address =
+          payload.method === 'eth_sign' ? payload.params[0] : payload.params[1]
+        try {
+          const ecSignatureHex = await this.signPersonalMessageAsync(
+            data,
+            address
+          )
+          end(null, ecSignatureHex)
+        } catch (err) {
+          end(err as Error)
+        }
+        return
+      case 'eth_signTypedData':
+        ;[address, typedData] = payload.params
+        try {
+          const signature = await this.signTypedDataAsync(address, typedData)
+          end(null, signature)
+        } catch (err) {
+          end(err as Error)
+        }
+        return
+      default:
+        next()
+        return
+    }
+  }
+  private async _emitSendTransactionAsync(
+    signedTx: string
+  ): Promise<JSONRPCResponsePayload> {
+    const payload = {
+      method: 'eth_sendRawTransaction',
+      params: [signedTx],
+    }
+    const result = await this.emitPayloadAsync(payload)
+    return result
+  }
+  private async _populateMissingTxParamsAsync(
+    partialTxParams: PartialTxParams
+  ): Promise<PartialTxParams> {
+    let txParams = partialTxParams
+    if (partialTxParams.gasPrice === undefined) {
+      const gasPriceResult = await this.emitPayloadAsync({
+        method: 'eth_gasPrice',
+        params: [],
+      })
+      const gasPrice = gasPriceResult.result.toString()
+      txParams = { ...txParams, gasPrice }
+    }
+    if (partialTxParams.nonce === undefined) {
+      const nonceResult = await this.emitPayloadAsync({
+        method: 'eth_getTransactionCount',
+        params: [partialTxParams.from, 'pending'],
+      })
+      const nonce = nonceResult.result
+      txParams = { ...txParams, nonce }
+    }
+    if (partialTxParams.gas === undefined) {
+      const gasResult = await this.emitPayloadAsync({
+        method: 'eth_estimateGas',
+        params: [partialTxParams],
+      })
+      const gas = gasResult.result.toString()
+      txParams = { ...txParams, gas }
+    }
+    return txParams
   }
 }
