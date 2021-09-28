@@ -47,7 +47,9 @@ export class LedgerConnector extends AbstractConnector {
       )
       engine.addProvider(new RPCSubprovider(this.url, this.requestTimeoutMs))
       this.provider = engine
+      console.log(engine)
     }
+    console.log(this.provider)
 
     this.provider.start()
     return { provider: this.provider, chainId: this.chainId }
@@ -72,6 +74,7 @@ export class LedgerConnector extends AbstractConnector {
     if (accounts.length === 0) {
       throw new Error('No accounts found')
     }
+    console.log(accounts)
     return accounts[0]
   }
 

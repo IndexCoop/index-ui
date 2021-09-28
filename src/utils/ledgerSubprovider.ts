@@ -3,7 +3,8 @@ import { BaseWalletSubprovider } from '@0x/subproviders/lib/src/subproviders/bas
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
 import Eth from '@ledgerhq/hw-app-eth'
 
-const DEFAULT_BASE_DERIVATION_PATH = "44'/60'/0'/0/0" // First wallet address of ethereum ledger live
+// First wallet address of ethereum ledger live
+const DEFAULT_BASE_DERIVATION_PATH = "44'/60'/0'/0/0"
 const ASK_FOR_ON_DEVICE_CONFIRMATION = false
 const SHOULD_GET_CHAIN_CODE = false
 
@@ -45,6 +46,7 @@ export class LedgerSubprovider extends BaseWalletSubprovider {
         this.shouldAskForConfirmation,
         SHOULD_GET_CHAIN_CODE
       )
+      console.log(response)
       return [response.address]
     } finally {
       await this._destroyEthClient()

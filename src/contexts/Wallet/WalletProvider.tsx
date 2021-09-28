@@ -8,7 +8,6 @@ import {
 } from 'utils/connectors'
 
 import WalletContext from './WalletContext'
-import { toast } from 'react-toastify'
 
 const WalletProvider: React.FC = ({ children }) => {
   const [connector, setConnector] = useState<string>('')
@@ -19,7 +18,9 @@ const WalletProvider: React.FC = ({ children }) => {
   const { account, activate, active, deactivate } = useWeb3React()
 
   const reset = useCallback(() => {
-    if (active) deactivate()
+    if (active) {
+      deactivate()
+    }
 
     setConnector('')
     setStatus('disconnected')
