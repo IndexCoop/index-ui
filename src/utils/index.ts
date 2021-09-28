@@ -78,10 +78,10 @@ export const getEthBalance = async (
   provider: provider,
   userAddress: string
 ): Promise<string> => {
+  console.log(provider)
   const web3 = new Web3(provider)
   try {
-    const balance: string = await web3.eth.getBalance(userAddress)
-    return balance
+    return await web3.eth.getBalance(userAddress)
   } catch (e) {
     return '0'
   }
@@ -99,6 +99,7 @@ export const getBalance = async (
       .call()
     return balance
   } catch (e) {
+    console.log(e)
     return '0'
   }
 }

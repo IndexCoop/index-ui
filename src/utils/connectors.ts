@@ -35,5 +35,6 @@ export const walletlink = new WalletLinkConnector({
 export const ledgerwallet = new LedgerConnector({
   chainId: NETWORK_CHAIN_ID,
   url: NETWORK_URL,
+  pollingInterval: 15000,
   requestTimeoutMs: 10000,
 })

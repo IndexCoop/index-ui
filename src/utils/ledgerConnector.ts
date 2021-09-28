@@ -1,7 +1,6 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
-import Web3ProviderEngine from 'web3-provider-engine'
-import { RPCSubprovider } from '@0x/subproviders'
+import { RPCSubprovider, Web3ProviderEngine } from '@0x/subproviders'
 import { LedgerSubprovider } from './ledgerSubprovider'
 
 export type LedgerConnectorArguments = {
@@ -19,7 +18,8 @@ export class LedgerConnector extends AbstractConnector {
   private readonly requestTimeoutMs?: number
   private readonly baseDerivationPath?: string
 
-  private provider?: any
+  private ledgerProvider?: LedgerSubprovider
+  private provider?: Web3ProviderEngine
 
   constructor({
     chainId,
@@ -36,45 +36,47 @@ export class LedgerConnector extends AbstractConnector {
     this.baseDerivationPath = baseDerivationPath
   }
 
-  async activate(): Promise<ConnectorUpdate<string | number>> {
+  public async activate(): Promise<ConnectorUpdate> {
     if (!this.provider) {
-      const engine = new Web3ProviderEngine()
-      engine.addProvider(
-        new LedgerSubprovider({
-          networkId: this.chainId,
-          baseDerivationPath: this.baseDerivationPath,
-        })
-      )
+      const engine = new Web3ProviderEngine({
+        pollingInterval: this.pollingInterval,
+      })
+      const ledgerSubprovider = new LedgerSubprovider({
+        networkId: this.chainId,
+        baseDerivationPath: this.baseDerivationPath,
+      })
+      this.ledgerProvider = ledgerSubprovider
+      engine.addProvider(ledgerSubprovider)
       engine.addProvider(new RPCSubprovider(this.url, this.requestTimeoutMs))
       this.provider = engine
-      console.log(engine)
     }
-    console.log(this.provider)
 
     this.provider.start()
-    return { provider: this.provider, chainId: this.chainId }
+
+    const account = await this.getAccount()
+    return { provider: this.provider, chainId: this.chainId, account }
   }
 
-  async getProvider(): Promise<any> {
-    return this.provider
-  }
-
-  async getChainId(): Promise<string | number> {
-    return this.chainId
-  }
-
-  async getAccount(): Promise<string> {
+  public async getProvider(): Promise<Web3ProviderEngine> {
     if (!this.provider) {
       await this.activate()
     }
-    // Implicitly take the first provider which is the LedgerSubprovider
-    // The LedgerSubprovider has function getAccountsAsync()
-    const accounts: string[] =
-      await this.provider?._providers[0].getAccountsAsync()
-    if (accounts.length === 0) {
+    return this.provider!!
+  }
+
+  public async getChainId(): Promise<number> {
+    return this.chainId
+  }
+
+  public async getAccount(): Promise<string> {
+    if (!this.provider) {
+      await this.activate()
+    }
+
+    const accounts = await this.ledgerProvider?.getAccountsAsync()
+    if (accounts == null || accounts.length === 0) {
       throw new Error('No accounts found')
     }
-    console.log(accounts)
     return accounts[0]
   }
 

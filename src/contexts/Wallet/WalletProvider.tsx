@@ -15,7 +15,13 @@ const WalletProvider: React.FC = ({ children }) => {
   const [isShowingWalletModal, setIsShowingWalletModal] =
     useState<boolean>(false)
   const [isMetamaskConnected, setIsMetamaskConnected] = useState<boolean>(false)
-  const { account, activate, active, deactivate } = useWeb3React()
+  const {
+    account,
+    activate,
+    active,
+    deactivate,
+    library: ethereum,
+  } = useWeb3React()
 
   const reset = useCallback(() => {
     if (active) {
@@ -60,8 +66,6 @@ const WalletProvider: React.FC = ({ children }) => {
     },
     [activate, reset]
   )
-
-  const { library: ethereum } = useWeb3React()
 
   const onOpenWalletModal = useCallback(() => {
     setIsShowingWalletModal(true)

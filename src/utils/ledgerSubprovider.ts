@@ -46,14 +46,14 @@ export class LedgerSubprovider extends BaseWalletSubprovider {
         this.shouldAskForConfirmation,
         SHOULD_GET_CHAIN_CODE
       )
-      console.log(response)
       return [response.address]
     } finally {
-      await this._destroyEthClient()
+      this._destroyEthClient()
     }
   }
 
   async signTransactionAsync(txParams: PartialTxParams): Promise<string> {
+    BaseWalletSubprovider._validateTxParams(txParams)
     // TODO: (Richard) to implement
     // Convert txParams to raw transaction and sign using provider.
     throw new Error('Method not implemented.')
@@ -71,9 +71,14 @@ export class LedgerSubprovider extends BaseWalletSubprovider {
     throw new Error('Method not implemented.')
   }
 
+  async stop() {
+    await this._destroyEthClient()
+  }
+
   async _getEthClient(): Promise<Eth> {
     if (!this.eth) {
       const transport = await TransportWebUSB.create()
+      transport.setExchangeUnresponsiveTimeout(5000)
       this.eth = new Eth(transport)
     }
     return this.eth

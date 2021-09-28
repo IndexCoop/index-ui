@@ -231,6 +231,7 @@ const Provider: React.FC = ({ children }) => {
   )
 
   useEffect(() => {
+    console.log(status)
     if (status !== 'connected') {
       setEthBalance(new BigNumber(0))
       setIndexBalance(new BigNumber(0))
