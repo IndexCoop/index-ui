@@ -71,24 +71,22 @@ const Integrations: React.FC = () => (
           </Surface>
         </StyledCardContainer>
 
-      <Spacer />
+        <Spacer />
 
-      <StyledCardContainer>
+        <StyledCardContainer>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src={sushiSwapLogo} />
               <StyledCardTitle>SushiSwap</StyledCardTitle>
               <StyledCardDescription>
-              Earn yield and Lend your DPI on SushiSwap
+                Earn yield and Lend your DPI on SushiSwap
               </StyledCardDescription>
 
               <StyledOutboundLink
                 href='https://app.sushi.com/farm'
                 target='_blank'
               >
-
                 <Spacer />
-
                 View the Pool
               </StyledOutboundLink>
             </StyledCardContent>
@@ -174,7 +172,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/cream.png' />
               <StyledCardTitle>CREAM Finance</StyledCardTitle>
               <StyledCardDescription>
-              Lend your DPI for yield, or borrow DPI to hedge your DeFi exposure.
+                Lend your DPI for yield, or borrow DPI to hedge your DeFi
+                exposure.
               </StyledCardDescription>
 
               <StyledOutboundLink
@@ -195,23 +194,19 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src={sushiSwapLogo} />
               <StyledCardTitle>SushiSwap</StyledCardTitle>
               <StyledCardDescription>
-              Lend or Borrow against your DPI on SushiSwap's Kashi
+                Lend or Borrow against your DPI on SushiSwap's Kashi
               </StyledCardDescription>
 
               <StyledOutboundLink
                 href='https://app.sushi.com/lend'
                 target='_blank'
               >
-
                 <Spacer />
-
                 View Lend & Borrow Rates
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledFixedCardContainer>
-
-
       </StyledCardRow>
 
       <Spacer />
@@ -284,14 +279,14 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://info.uniswap.org/token/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
+                href='https://info.uniswap.org/#/tokens/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
                 target='_blank'
               >
                 Trade DeFi Pulse Index
               </StyledOutboundLink>
 
               <StyledOutboundLink
-                href='https://uniswap.info/token/0x0954906da0Bf32d5479e25f46056d22f08464cab'
+                href='https://info.uniswap.org/#/tokens/0x0954906da0bf32d5479e25f46056d22f08464cab'
                 target='_blank'
               >
                 Trade INDEX
@@ -313,13 +308,13 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://1inch.exchange/#/ETH/DPI'
+                href='https://app.1inch.io/#/1/swap/ETH/DPI'
                 target='_blank'
               >
                 Trade DeFi Pulse Index
               </StyledOutboundLink>
               <StyledOutboundLink
-                href='https://1inch.exchange/#/ETH/INDEX'
+                href='https://app.1inch.io/#/1/swap/ETH/INDEX'
                 target='_blank'
               >
                 Trade INDEX
@@ -341,14 +336,14 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink
-                href='https://app.sushi.com/token/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
+                href='https://analytics.sushi.com/tokens/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
                 target='_blank'
               >
                 Trade DeFi Pulse Index
               </StyledOutboundLink>
 
               <StyledOutboundLink
-                href='https://app.sushi.com/token/0x0954906da0bf32d5479e25f46056d22f08464cab'
+                href='https://analytics.sushi.com/tokens/0x0954906da0bf32d5479e25f46056d22f08464cab'
                 target='_blank'
               >
                 Trade INDEX
@@ -422,9 +417,7 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink href='https://defipulse.com/' target='_blank'>
-
                 <Spacer />
-
                 Learn more
               </StyledOutboundLink>
             </StyledCardContent>
