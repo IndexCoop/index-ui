@@ -97,7 +97,7 @@ interface UseWalletProviderWrapperPropTypes {
 
 function UseWalletProviderWrapper(props: UseWalletProviderWrapperPropTypes) {
   return (
-    <Web3ReactProvider getLibrary={(ethereum) => ethereum}>
+    <Web3ReactProvider getLibrary={(provider) => provider}>
       <WalletProvider {...props} />
     </Web3ReactProvider>
   )

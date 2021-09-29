@@ -78,7 +78,6 @@ export const getEthBalance = async (
   provider: provider,
   userAddress: string
 ): Promise<string> => {
-  console.log(provider)
   const web3 = new Web3(provider)
   try {
     return await web3.eth.getBalance(userAddress)
