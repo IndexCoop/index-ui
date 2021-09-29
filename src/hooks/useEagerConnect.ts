@@ -3,23 +3,24 @@ import { useEffect, useState } from 'react'
 import { injected } from 'utils/connectors'
 import useMediaQuery from './useMediaQuery'
 
-export default function useEagerConnect() {
-  const { activate, active } = useWeb3React()
+export default function useEagerConnect(
+  connect: (walletType: string) => Promise<void>
+) {
+  const { active } = useWeb3React()
   const [tried, setTried] = useState(false)
   const { isMobile } = useMediaQuery()
 
   // then, if that fails, try connecting to an injected connector
   useEffect(() => {
     if (!active && !tried) {
-      alert('Connecting eagerly')
       injected.isAuthorized().then((isAuthorized) => {
         if (isAuthorized) {
-          activate(injected, undefined, true).catch(() => {
+          connect('injected').catch(() => {
             setTried(true)
           })
         } else {
           if (isMobile) {
-            activate(injected, undefined, true).catch(() => {
+            connect('injected').catch(() => {
               setTried(true)
             })
           } else {
@@ -28,7 +29,7 @@ export default function useEagerConnect() {
         }
       })
     }
-  }, [activate, active, tried])
+  }, [connect, active, tried])
 
   // wait until we get confirmation of a connection to flip the flag
   useEffect(() => {
