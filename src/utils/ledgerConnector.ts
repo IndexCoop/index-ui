@@ -1,7 +1,8 @@
+import { RPCSubprovider } from '@0x/subproviders'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
+import { provider } from 'web3-core'
 import Web3ProviderEngine from 'web3-provider-engine'
-import { RPCSubprovider } from '@0x/subproviders'
 import { LedgerSubprovider } from './ledgerSubprovider'
 
 export type LedgerConnectorArguments = {
@@ -12,6 +13,8 @@ export type LedgerConnectorArguments = {
   baseDerivationPath?: string
 }
 
+type Provider = provider & Web3ProviderEngine
+
 export class LedgerConnector extends AbstractConnector {
   private readonly chainId: number
   private readonly url: string
@@ -20,7 +23,7 @@ export class LedgerConnector extends AbstractConnector {
   private readonly baseDerivationPath?: string
 
   private ledgerProvider?: LedgerSubprovider
-  private provider?: Web3ProviderEngine
+  private provider?: Provider
 
   constructor({
     chainId,
@@ -57,11 +60,12 @@ export class LedgerConnector extends AbstractConnector {
     return { provider: this.provider, chainId: this.chainId }
   }
 
-  public async getProvider(): Promise<Web3ProviderEngine> {
+  public async getProvider(): Promise<provider> {
     if (!this.provider) {
-      await this.activate()
+      const update = await this.activate()
+      return update.provider
     }
-    return this.provider!!
+    return this.provider
   }
 
   public async getChainId(): Promise<number> {
