@@ -1,32 +1,17 @@
 import { useWeb3React } from '@web3-react/core'
 import { useEffect, useState } from 'react'
-import { injected } from 'utils/connectors'
-import useMediaQuery from './useMediaQuery'
 
 export default function useEagerConnect(
   connect: (walletType: string) => Promise<void>
 ) {
   const { active } = useWeb3React()
   const [tried, setTried] = useState(false)
-  const { isMobile } = useMediaQuery()
 
-  // then, if that fails, try connecting to an injected connector
+  // Connect to existing injected provider if app was opened from ONTO mobile wallet
   useEffect(() => {
-    if (!active && !tried) {
-      injected.isAuthorized().then((isAuthorized) => {
-        if (isAuthorized) {
-          connect('injected').catch(() => {
-            setTried(true)
-          })
-        } else {
-          if (isMobile) {
-            connect('injected').catch(() => {
-              setTried(true)
-            })
-          } else {
-            setTried(true)
-          }
-        }
+    if (!active && !tried && (window as any).ethereum.isONTO) {
+      connect('injected').catch(() => {
+        setTried(true)
       })
     }
   }, [connect, active, tried])
