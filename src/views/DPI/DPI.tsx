@@ -12,6 +12,7 @@ import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
 import useStreamingFee from "hooks/useStreamingFee"
+import useTokenSupply from "hooks/useTokenSupply"
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -21,8 +22,9 @@ const DpiProductPage = (props: { title: string }) => {
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
     useDpiTokenMarketData()
   const { components } = useDpiIndexComponents()
-  const { dpiBalance, dpiTotalSupply } = useBalances()
+  const { dpiBalance, dpiTotalSupply: dpiTotalSupplyFromBalances } = useBalances()
   const { dpiStreamingFee } = useStreamingFee();
+  const { dpiTotalSupply } = useTokenSupply();
 
   const token: ProductToken = { ...DefiPulseIndex, fees: dpiStreamingFee ? {streamingFee: dpiStreamingFee } : undefined}
   const tokenDataProps: TokenDataProps = {
@@ -34,7 +36,7 @@ const DpiProductPage = (props: { title: string }) => {
     token: token,
     components: components,
     balance: dpiBalance,
-    currentSupply: dpiTotalSupply,
+    currentSupply: dpiTotalSupply ?? dpiTotalSupplyFromBalances,
   }
 
   const [, setReferral] = useLocalStorage('referral', '')

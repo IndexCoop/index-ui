@@ -7,6 +7,7 @@ import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
 import useStreamingFee from "hooks/useStreamingFee"
+import useTokenSupply from "hooks/useTokenSupply"
 
 const MviProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -16,8 +17,9 @@ const MviProductPage = (props: { title: string }) => {
   const { latestPrice, prices, hourlyPrices, latestMarketCap, latestVolume } =
     useMviTokenMarketData()
   const { components } = useMviComponents()
-  const { mviBalance, mviTotalSupply } = useBalances()
+  const { mviBalance, mviTotalSupply: mviTotalSupplyFromBalances } = useBalances()
   const { mviStreamingFee } = useStreamingFee();
+  const { mviTotalSupply } = useTokenSupply();
 
   const token: ProductToken = { ...MetaverseIndex, fees: mviStreamingFee ? {streamingFee: mviStreamingFee } : undefined}
   const tokenDataProps: TokenDataProps = {
@@ -29,7 +31,7 @@ const MviProductPage = (props: { title: string }) => {
     token: token,
     components: components,
     balance: mviBalance,
-    currentSupply: mviTotalSupply,
+    currentSupply: mviTotalSupply ?? mviTotalSupplyFromBalances,
   }
 
   return (

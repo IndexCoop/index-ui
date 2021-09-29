@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import useDataTokenMarketData from 'hooks/useDataTokenMarketData'
 import useDataComponents from 'hooks/useDataComponents'
 import useBalances from 'hooks/useBalances'
+import useTokenSupply from 'hooks/useTokenSupply'
 import { DataIndex } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
@@ -17,7 +18,9 @@ const DataProductPage = (props: { title: string }) => {
   const { latestPrice, prices, hourlyPrices, latestMarketCap, latestVolume } =
     useDataTokenMarketData()
   const { components } = useDataComponents()
-  const { dataBalance, dataTotalSupply } = useBalances()
+  const { dataBalance, dataTotalSupply: dataTotalSupplyFromBalances } = useBalances()
+  const { dataTotalSupply } = useTokenSupply();
+
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -27,7 +30,7 @@ const DataProductPage = (props: { title: string }) => {
     token: DataIndex,
     components: components,
     balance: dataBalance,
-    currentSupply: dataTotalSupply,
+    currentSupply: dataTotalSupply ?? dataTotalSupplyFromBalances,
   }
 
   return (
