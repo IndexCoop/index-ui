@@ -6,6 +6,7 @@ interface WalletContextValues {
   status: string
   isShowingWalletModal: boolean
   isMetamaskConnected: boolean
+  triedEagerConnect: boolean
   connect: any
   connector: any
   reset: any
@@ -19,6 +20,7 @@ const WalletContext = createContext<WalletContextValues>({
   status: '',
   isShowingWalletModal: false,
   isMetamaskConnected: false,
+  triedEagerConnect: false,
   connect: () => {},
   connector: () => {},
   reset: () => {},

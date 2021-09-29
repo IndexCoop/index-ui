@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
 import { injected, walletconnect, walletlink } from 'utils/connectors'
+import useEagerConnect from '../../hooks/useEagerConnect'
 
 import WalletContext from './WalletContext'
 
 const WalletProvider: React.FC = ({ children }) => {
   const [connector, setConnector] = useState<string>('')
   const [status, setStatus] = useState('disconnected')
-  const [isShowingWalletModal, setIsShowingWalletModal] = useState<boolean>(
-    false
-  )
+  const [isShowingWalletModal, setIsShowingWalletModal] =
+    useState<boolean>(false)
   const [isMetamaskConnected, setIsMetamaskConnected] = useState<boolean>(false)
   const { account, activate, active, deactivate } = useWeb3React()
 
@@ -48,6 +48,8 @@ const WalletProvider: React.FC = ({ children }) => {
 
   const { library: ethereum } = useWeb3React()
 
+  const triedEagerConnect = useEagerConnect(connect)
+
   const onOpenWalletModal = useCallback(() => {
     setIsShowingWalletModal(true)
   }, [setIsShowingWalletModal])
@@ -65,6 +67,7 @@ const WalletProvider: React.FC = ({ children }) => {
         status,
         isShowingWalletModal,
         isMetamaskConnected,
+        triedEagerConnect,
         connect,
         reset,
         onOpenWalletModal,
