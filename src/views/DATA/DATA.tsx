@@ -107,7 +107,7 @@ const DataProductPage = (props: { title: string }) => {
           weight of each token included in the index. The weight of each token
           within the index will be as follows:
         </p>
-        <img src={dataEsotericMath} />
+        <img src={dataEsotericMath} alt="Data esoteric math" />
         <p>
           The Data Economy Index caps each token’s respective weight at 25%.
           Excess weight for a given token will be redistributed to the remaining
