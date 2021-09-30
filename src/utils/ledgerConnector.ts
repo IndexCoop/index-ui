@@ -1,4 +1,8 @@
-import { Web3ProviderEngine, RPCSubprovider } from '@0x/subproviders'
+import {
+  Web3ProviderEngine,
+  RPCSubprovider,
+  DebugSubprovider,
+} from '@0x/subproviders'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
 import { provider } from 'web3-core'
@@ -49,6 +53,7 @@ export class LedgerConnector extends AbstractConnector {
         baseDerivationPath: this.baseDerivationPath,
       })
       this.ledgerProvider = ledgerSubprovider
+      engine.addProvider(new DebugSubprovider(console.log))
       engine.addProvider(ledgerSubprovider)
       engine.addProvider(new RPCSubprovider(this.url, this.requestTimeoutMs))
       this.provider = engine
