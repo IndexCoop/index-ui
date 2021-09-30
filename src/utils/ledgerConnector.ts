@@ -3,8 +3,10 @@ import {
   Web3ProviderEngine,
   RPCSubprovider,
   DebugSubprovider,
+  LedgerEthereumClient,
 } from '@0x/subproviders'
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
+import Transport from '@ledgerhq/hw-transport'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
 import { provider } from 'web3-core'
@@ -50,9 +52,11 @@ export class LedgerConnector extends AbstractConnector {
       const engine = new Web3ProviderEngine({
         pollingInterval: this.pollingInterval,
       })
+      const transport = await TransportWebUSB.create()
       const ledgerSubprovider = new LedgerSubprovider({
         networkId: this.chainId,
-        ledgerEthereumClientFactoryAsync: () => this.getLedgerEthereumClient(),
+        ledgerEthereumClientFactoryAsync: () =>
+          this.getLedgerEthereumClient(transport),
         baseDerivationPath: this.baseDerivationPath,
         accountFetchingConfigs: {
           shouldAskForOnDeviceConfirmation: true,
@@ -100,8 +104,9 @@ export class LedgerConnector extends AbstractConnector {
     }
   }
 
-  private async getLedgerEthereumClient(): Promise<LedgerClient> {
-    const transport = (await TransportWebUSB.create()) as TransportWebUSB
+  private async getLedgerEthereumClient(
+    transport: Transport
+  ): Promise<LedgerEthereumClient> {
     return new LedgerClient(transport)
   }
 }

@@ -5,18 +5,17 @@ import {
   LedgerEthereumClient,
   LedgerGetAddressResult,
 } from '@0x/subproviders'
-import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
+import Transport from '@ledgerhq/hw-transport'
 import Eth from '@ledgerhq/hw-app-eth'
 
 export class LedgerClient implements LedgerEthereumClient {
-  private readonly usb: TransportWebUSB
   private readonly eth: Eth
 
-  transport = this.getTransport()
+  transport: LedgerCommunicationClient
 
-  constructor(usb: TransportWebUSB) {
-    this.usb = usb
-    this.eth = new Eth(usb)
+  constructor(transport: Transport) {
+    this.eth = new Eth(transport)
+    this.transport = transport
   }
 
   async getAddress(
@@ -51,9 +50,5 @@ export class LedgerClient implements LedgerEthereumClient {
     messageHex: string
   ): Promise<ECSignature> {
     return this.eth.signPersonalMessage(derivationPath, messageHex)
-  }
-
-  getTransport(): TransportWebUSB {
-    return this.usb
   }
 }
