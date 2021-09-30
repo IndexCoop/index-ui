@@ -1,12 +1,10 @@
 import {
-  LedgerSubprovider,
   Web3ProviderEngine,
+  LedgerSubprovider,
   RPCSubprovider,
   LedgerEthereumClient,
-  RedundantSubprovider,
 } from '@0x/subproviders'
-import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
-import Transport from '@ledgerhq/hw-transport'
+import Transport from '@ledgerhq/hw-transport-webusb'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
 import { provider } from 'web3-core'
@@ -20,8 +18,7 @@ export type LedgerConnectorArguments = {
   baseDerivationPath?: string
 }
 
-type Provider = provider & Web3ProviderEngine
-
+const DEFAULT_DERIVATION_PATH = "44'/60'/0'/0"
 export class LedgerConnector extends AbstractConnector {
   private readonly chainId: number
   private readonly url: string
@@ -29,8 +26,7 @@ export class LedgerConnector extends AbstractConnector {
   private readonly requestTimeoutMs?: number
   private readonly baseDerivationPath?: string
 
-  private ledgerProvider?: LedgerSubprovider
-  private provider?: Provider
+  private provider?: any
 
   constructor({
     chainId,
@@ -48,28 +44,21 @@ export class LedgerConnector extends AbstractConnector {
   }
 
   public async activate(): Promise<ConnectorUpdate> {
-    if (!this.provider) {
-      const engine = new Web3ProviderEngine({
-        pollingInterval: this.pollingInterval,
-      })
-      const ledgerSubprovider = new LedgerSubprovider({
-        networkId: this.chainId,
-        ledgerEthereumClientFactoryAsync: () => this.getLedgerEthereumClient(),
-        baseDerivationPath: this.baseDerivationPath,
-        accountFetchingConfigs: {
-          numAddressesToReturn: 1,
-          addressSearchLimit: 1,
-          shouldAskForOnDeviceConfirmation: true,
-        },
-      })
-      this.ledgerProvider = ledgerSubprovider
-      const providers = [
-        ledgerSubprovider,
-        new RPCSubprovider(this.url, this.requestTimeoutMs),
-      ]
-      engine.addProvider(new RedundantSubprovider(providers))
-      this.provider = engine
-    }
+    this.provider = new Web3ProviderEngine({
+      pollingInterval: this.pollingInterval,
+    })
+    const ledgerSubprovider = new LedgerSubprovider({
+      networkId: this.chainId,
+      ledgerEthereumClientFactoryAsync: () => this._getLedgerEthereumClient(),
+      baseDerivationPath: this.baseDerivationPath || DEFAULT_DERIVATION_PATH,
+      accountFetchingConfigs: {
+        shouldAskForOnDeviceConfirmation: true,
+      },
+    })
+    this.provider.addProvider(ledgerSubprovider)
+    this.provider.addProvider(
+      new RPCSubprovider(this.url, this.requestTimeoutMs)
+    )
 
     this.provider.start()
 
@@ -93,7 +82,7 @@ export class LedgerConnector extends AbstractConnector {
       await this.activate()
     }
 
-    const accounts = await this.ledgerProvider?.getAccountsAsync()
+    const accounts = await this.provider?._providers[0].getAccountsAsync()
     if (accounts == null || accounts.length === 0) {
       throw new Error('No accounts found')
     }
@@ -106,8 +95,8 @@ export class LedgerConnector extends AbstractConnector {
     }
   }
 
-  private async getLedgerEthereumClient(): Promise<LedgerEthereumClient> {
-    const transport = await TransportWebUSB.create()
+  private async _getLedgerEthereumClient(): Promise<LedgerEthereumClient> {
+    const transport = await Transport.create()
     return new LedgerClient(transport)
   }
 }
