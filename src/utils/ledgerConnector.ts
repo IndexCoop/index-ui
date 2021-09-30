@@ -1,8 +1,7 @@
-import { RPCSubprovider } from '@0x/subproviders'
+import { Web3ProviderEngine, RPCSubprovider } from '@0x/subproviders'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
 import { provider } from 'web3-core'
-import Web3ProviderEngine from 'web3-provider-engine'
 import { LedgerSubprovider } from './ledgerSubprovider'
 
 export type LedgerConnectorArguments = {
