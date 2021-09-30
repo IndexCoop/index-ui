@@ -2,6 +2,8 @@ import React from 'react'
 import { Surface, Spacer } from 'react-neu'
 import styled from 'styled-components'
 import sushiSwapLogo from 'assets/sushiswap-logo.png'
+import raricapitalLogo from 'assets/raricapital.png'
+import aaveLogo from 'assets/aave.png'
 
 const Integrations: React.FC = () => (
   <div>
@@ -71,24 +73,22 @@ const Integrations: React.FC = () => (
           </Surface>
         </StyledCardContainer>
 
-      <Spacer />
+        <Spacer />
 
-      <StyledCardContainer>
+        <StyledCardContainer>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src={sushiSwapLogo} />
               <StyledCardTitle>SushiSwap</StyledCardTitle>
               <StyledCardDescription>
-              Earn yield and Lend your DPI on SushiSwap
+                Earn yield and Lend your DPI on SushiSwap
               </StyledCardDescription>
 
               <StyledOutboundLink
                 href='https://app.sushi.com/farm'
                 target='_blank'
               >
-
                 <Spacer />
-
                 View the Pool
               </StyledOutboundLink>
             </StyledCardContent>
@@ -174,7 +174,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/cream.png' />
               <StyledCardTitle>CREAM Finance</StyledCardTitle>
               <StyledCardDescription>
-              Lend your DPI for yield, or borrow DPI to hedge your DeFi exposure.
+                Lend your DPI for yield, or borrow DPI to hedge your DeFi
+                exposure.
               </StyledCardDescription>
 
               <StyledOutboundLink
@@ -195,23 +196,60 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src={sushiSwapLogo} />
               <StyledCardTitle>SushiSwap</StyledCardTitle>
               <StyledCardDescription>
-              Lend or Borrow against your DPI on SushiSwap's Kashi
+                Lend or Borrow against your DPI on SushiSwap's Kashi
               </StyledCardDescription>
 
               <StyledOutboundLink
                 href='https://app.sushi.com/lend'
                 target='_blank'
               >
-
-                <Spacer />
-
                 View Lend & Borrow Rates
               </StyledOutboundLink>
             </StyledCardContent>
           </Surface>
         </StyledFixedCardContainer>
 
+        <Spacer />
 
+        <StyledFixedCardContainer>
+          <Surface>
+            <StyledCardContent>
+              <StyledCardIcon src={raricapitalLogo} />
+              <StyledCardTitle>Rari Capital</StyledCardTitle>
+              <StyledCardDescription>
+                Lend or borrow DPI on Rari Capital's Index Coop Pool.
+              </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://app.rari.capital/fuse/pool/19'
+                target='_blank'
+              >
+                View Lend & Borrow Rates
+              </StyledOutboundLink>
+            </StyledCardContent>
+          </Surface>
+        </StyledFixedCardContainer>
+
+        <Spacer />
+
+        <StyledFixedCardContainer>
+          <Surface>
+            <StyledCardContent>
+              <StyledCardIcon src={aaveLogo} />
+              <StyledCardTitle>Aave</StyledCardTitle>
+              <StyledCardDescription>
+                Lend DPI to earn interest, or use it as a collateral on Aave.
+              </StyledCardDescription>
+
+              <StyledOutboundLink
+                href='https://app.aave.com/reserve-overview/DPI-0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b0xb53c1a33016b2dc2ff3653530bff1848a515c8c5'
+                target='_blank'
+              >
+                View Lend & Borrow Rates
+              </StyledOutboundLink>
+            </StyledCardContent>
+          </Surface>
+        </StyledFixedCardContainer>
       </StyledCardRow>
 
       <Spacer />
@@ -422,9 +460,7 @@ const Integrations: React.FC = () => (
               </StyledCardDescription>
 
               <StyledOutboundLink href='https://defipulse.com/' target='_blank'>
-
                 <Spacer />
-
                 Learn more
               </StyledOutboundLink>
             </StyledCardContent>
