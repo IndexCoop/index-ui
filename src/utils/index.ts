@@ -80,13 +80,9 @@ export const getEthBalance = async (
 ): Promise<string> => {
   const web3 = new Web3(provider)
   try {
-    console.log(`Retrieving balance of ${userAddress}`)
-    console.log(web3.eth)
     const balance = await web3.eth.getBalance(userAddress)
-    console.log(balance)
     return balance
   } catch (e) {
-    console.log(e)
     return '0'
   }
 }

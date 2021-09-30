@@ -5,6 +5,7 @@
   "dependencies": {
     "@0x/subproviders": "^6.6.1",
     "@apollo/react-hooks": "^4.0.0",
+    "@ledgerhq/errors": "^6.2.0",
     "@ledgerhq/hw-app-eth": "^6.8.1",
     "@ledgerhq/hw-transport": "^6.7.0",
     "@ledgerhq/hw-transport-webusb": "^6.7.0",

@@ -3,12 +3,15 @@ import {
   LedgerSubprovider,
   RPCSubprovider,
   LedgerEthereumClient,
+  ECSignature,
+  ECSignatureString,
+  LedgerGetAddressResult,
 } from '@0x/subproviders'
-import Transport from '@ledgerhq/hw-transport-webusb'
+import Eth from '@ledgerhq/hw-app-eth'
+import Transport from '@ledgerhq/hw-transport'
+import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
-import { provider } from 'web3-core'
-import { LedgerClient } from './ledgerClient'
 
 export type LedgerConnectorArguments = {
   chainId: number
@@ -16,6 +19,49 @@ export type LedgerConnectorArguments = {
   pollingInterval?: number
   requestTimeoutMs?: number
   baseDerivationPath?: string
+}
+
+class LedgerClient implements LedgerEthereumClient {
+  transport: Transport
+
+  constructor(transport: Transport) {
+    this.transport = transport
+  }
+
+  async getAddress(
+    derivationPath: string,
+    askForDeviceConfirmation: boolean,
+    shouldGetChainCode: true
+  ): Promise<LedgerGetAddressResult> {
+    const eth = new Eth(this.transport)
+    const res = await eth.getAddress(
+      derivationPath,
+      askForDeviceConfirmation,
+      shouldGetChainCode
+    )
+    if (!res.chainCode) {
+      throw new Error('No chain code returned')
+    }
+    return {
+      address: res.address,
+      publicKey: res.publicKey,
+      chainCode: res.chainCode!!,
+    }
+  }
+  async signTransaction(
+    derivationPath: string,
+    rawTxHex: string
+  ): Promise<ECSignatureString> {
+    const eth = new Eth(this.transport)
+    return eth.signTransaction(derivationPath, rawTxHex)
+  }
+  async signPersonalMessage(
+    derivationPath: string,
+    messageHex: string
+  ): Promise<ECSignature> {
+    const eth = new Eth(this.transport)
+    return eth.signPersonalMessage(derivationPath, messageHex)
+  }
 }
 
 const DEFAULT_DERIVATION_PATH = "44'/60'/0'/0"
@@ -47,25 +93,27 @@ export class LedgerConnector extends AbstractConnector {
     this.provider = new Web3ProviderEngine({
       pollingInterval: this.pollingInterval,
     })
-    const ledgerSubprovider = new LedgerSubprovider({
-      networkId: this.chainId,
-      ledgerEthereumClientFactoryAsync: () => this._getLedgerEthereumClient(),
-      baseDerivationPath: this.baseDerivationPath || DEFAULT_DERIVATION_PATH,
-      accountFetchingConfigs: {
-        shouldAskForOnDeviceConfirmation: true,
-      },
-    })
-    this.provider.addProvider(ledgerSubprovider)
+    this.provider.addProvider(
+      new LedgerSubprovider({
+        networkId: this.chainId,
+        ledgerEthereumClientFactoryAsync: async () =>
+          new LedgerClient(await TransportWebUSB.create()),
+        baseDerivationPath: this.baseDerivationPath || DEFAULT_DERIVATION_PATH,
+        accountFetchingConfigs: {
+          addressSearchLimit: 1,
+          numAddressesToReturn: 1,
+          shouldAskForOnDeviceConfirmation: false,
+        },
+      })
+    )
     this.provider.addProvider(
       new RPCSubprovider(this.url, this.requestTimeoutMs)
     )
-
     this.provider.start()
-
     return { provider: this.provider, chainId: this.chainId }
   }
 
-  public async getProvider(): Promise<provider> {
+  public async getProvider(): Promise<any> {
     if (!this.provider) {
       const update = await this.activate()
       return update.provider
@@ -78,14 +126,8 @@ export class LedgerConnector extends AbstractConnector {
   }
 
   public async getAccount(): Promise<string> {
-    if (!this.provider) {
-      await this.activate()
-    }
-
-    const accounts = await this.provider?._providers[0].getAccountsAsync()
-    if (accounts == null || accounts.length === 0) {
-      throw new Error('No accounts found')
-    }
+    const provider = await this.getProvider()
+    const accounts = await provider._providers[0].getAccountsAsync()
     return accounts[0]
   }
 
@@ -93,10 +135,5 @@ export class LedgerConnector extends AbstractConnector {
     if (this.provider) {
       this.provider.stop()
     }
-  }
-
-  private async _getLedgerEthereumClient(): Promise<LedgerEthereumClient> {
-    const transport = await Transport.create()
-    return new LedgerClient(transport)
   }
 }
