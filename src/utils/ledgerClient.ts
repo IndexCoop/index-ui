@@ -9,8 +9,14 @@ import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
 import Eth from '@ledgerhq/hw-app-eth'
 
 export class LedgerClient implements LedgerEthereumClient {
-  constructor(transport: TransportWebUSB) {
-    this.transport = transport
+  private readonly usb: TransportWebUSB
+  private readonly eth: Eth
+
+  transport = this.getTransport()
+
+  constructor(usb: TransportWebUSB) {
+    this.usb = usb
+    this.eth = new Eth(usb)
   }
 
   async getAddress(
@@ -18,20 +24,36 @@ export class LedgerClient implements LedgerEthereumClient {
     askForDeviceConfirmation: boolean,
     shouldGetChainCode: true
   ): Promise<LedgerGetAddressResult> {
-    throw new Error('Not implemented')
+    const response = await this.eth.getAddress(
+      derivationPath,
+      askForDeviceConfirmation,
+      shouldGetChainCode
+    )
+    if (!response.chainCode) {
+      throw new Error('Chain code required')
+    }
+    return {
+      address: response.address,
+      publicKey: response.publicKey,
+      chainCode: response.chainCode,
+    }
   }
 
   async signTransaction(
     derivationPath: string,
     rawTxHex: string
   ): Promise<ECSignatureString> {
-    throw new Error('Not yet implemented')
+    return this.eth.signTransaction(derivationPath, rawTxHex)
   }
 
   async signPersonalMessage(
     derivationPath: string,
     messageHex: string
   ): Promise<ECSignature> {
-    throw new Error('Not yet implemted')
+    return this.eth.signPersonalMessage(derivationPath, messageHex)
+  }
+
+  getTransport(): TransportWebUSB {
+    return this.usb
   }
 }
