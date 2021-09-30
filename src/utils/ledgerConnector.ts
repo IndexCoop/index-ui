@@ -2,8 +2,8 @@ import {
   LedgerSubprovider,
   Web3ProviderEngine,
   RPCSubprovider,
-  DebugSubprovider,
   LedgerEthereumClient,
+  RedundantSubprovider,
 } from '@0x/subproviders'
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
 import Transport from '@ledgerhq/hw-transport'
@@ -52,20 +52,22 @@ export class LedgerConnector extends AbstractConnector {
       const engine = new Web3ProviderEngine({
         pollingInterval: this.pollingInterval,
       })
-      const transport = await TransportWebUSB.create()
       const ledgerSubprovider = new LedgerSubprovider({
         networkId: this.chainId,
-        ledgerEthereumClientFactoryAsync: () =>
-          this.getLedgerEthereumClient(transport),
+        ledgerEthereumClientFactoryAsync: () => this.getLedgerEthereumClient(),
         baseDerivationPath: this.baseDerivationPath,
         accountFetchingConfigs: {
+          numAddressesToReturn: 1,
+          addressSearchLimit: 1,
           shouldAskForOnDeviceConfirmation: true,
         },
       })
       this.ledgerProvider = ledgerSubprovider
-      engine.addProvider(new DebugSubprovider(console.log))
-      engine.addProvider(ledgerSubprovider)
-      engine.addProvider(new RPCSubprovider(this.url, this.requestTimeoutMs))
+      const providers = [
+        ledgerSubprovider,
+        new RPCSubprovider(this.url, this.requestTimeoutMs),
+      ]
+      engine.addProvider(new RedundantSubprovider(providers))
       this.provider = engine
     }
 
@@ -104,9 +106,8 @@ export class LedgerConnector extends AbstractConnector {
     }
   }
 
-  private async getLedgerEthereumClient(
-    transport: Transport
-  ): Promise<LedgerEthereumClient> {
+  private async getLedgerEthereumClient(): Promise<LedgerEthereumClient> {
+    const transport = await TransportWebUSB.create()
     return new LedgerClient(transport)
   }
 }
