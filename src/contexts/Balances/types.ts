@@ -1,31 +1,31 @@
 import BigNumber from 'utils/bignumber'
 
 export interface ContextValues {
-  ethBalance?: string
-  indexBalance?: string
-  dpiBalance?: string
-  ethfliBalance?: string
-  btcfliBalance?: string
-  mviBalance?: string
-  daiBalance?: string
-  usdcBalance?: string
-  bedBalance?: string
+  ethBalance?: BigNumber
+  indexBalance?: BigNumber
+  dpiBalance?: BigNumber
+  ethfliBalance?: BigNumber
+  btcfliBalance?: BigNumber
+  mviBalance?: BigNumber
+  daiBalance?: BigNumber
+  usdcBalance?: BigNumber
+  bedBalance?: BigNumber
 
   // LP Tokens
-  uniswapEthDpiLpBalance?: string
-  uniswapEthMviLpBalance?: string
+  uniswapEthDpiLpBalance?: BigNumber
+  uniswapEthMviLpBalance?: BigNumber
 
   // For Legacy DPI LM Program
-  stakedUniswapEthDpiLpBalance?: string
-  unharvestedIndexBalance?: string
+  stakedUniswapEthDpiLpBalance?: BigNumber
+  unharvestedIndexBalance?: BigNumber
 
   // For Current DPI LM Program
-  stakedFarmTwoBalance?: string
-  unharvestedFarmTwoBalance?: string
+  stakedFarmTwoBalance?: BigNumber
+  unharvestedFarmTwoBalance?: BigNumber
 
   // For Current MVI LM Program
-  stakedUniswapEthMviLpBalance?: string
-  unharvestedMviRewardsBalance?: string
+  stakedUniswapEthMviLpBalance?: BigNumber
+  unharvestedMviRewardsBalance?: BigNumber
 
   dpiTotalSupply?: BigNumber
   ethfliTotalSupply?: BigNumber

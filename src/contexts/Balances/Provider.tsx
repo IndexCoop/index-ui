@@ -25,41 +25,43 @@ import {
 } from 'constants/ethContractAddresses'
 
 const Provider: React.FC = ({ children }) => {
-  const [ethBalance, setEthBalance] = useState<string>()
-  const [indexBalance, setIndexBalance] = useState<string>()
-  const [dpiBalance, setDpiBalance] = useState<string>()
+  const [ethBalance, setEthBalance] = useState<BigNumber>()
+  const [indexBalance, setIndexBalance] = useState<BigNumber>()
+  const [dpiBalance, setDpiBalance] = useState<BigNumber>()
   const [dpiTotalSupply, setDpiTotalSupply] = useState<BigNumber>()
-  const [ethfliBalance, setEthFliBalance] = useState<string>()
+  const [ethfliBalance, setEthFliBalance] = useState<BigNumber>()
   const [ethfliTotalSupply, setEthFliTotalSupply] = useState<BigNumber>()
-  const [btcfliBalance, setBtcFliBalance] = useState<string>()
+  const [btcfliBalance, setBtcFliBalance] = useState<BigNumber>()
   const [btcfliTotalSupply, setBtcFliTotalSupply] = useState<BigNumber>()
-  const [mviBalance, setMviBalance] = useState<string>()
+  const [mviBalance, setMviBalance] = useState<BigNumber>()
   const [mviTotalSupply, setMviTotalSupply] = useState<BigNumber>()
-  const [daiBalance, setDaiBalance] = useState<string>()
-  const [usdcBalance, setUsdcBalance] = useState<string>()
-  const [bedBalance, setBedBalance] = useState<string>()
+  const [daiBalance, setDaiBalance] = useState<BigNumber>()
+  const [usdcBalance, setUsdcBalance] = useState<BigNumber>()
+  const [bedBalance, setBedBalance] = useState<BigNumber>()
   const [bedTotalSupply, setBedTotalSupply] = useState<BigNumber>()
 
   // LP Tokens Balances
-  const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] = useState<string>()
-  const [uniswapEthMviLpBalance, setUniswapEthMviLpBalance] = useState<string>()
+  const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] =
+    useState<BigNumber>()
+  const [uniswapEthMviLpBalance, setUniswapEthMviLpBalance] =
+    useState<BigNumber>()
 
   // Legacy DPI LM Program
   const [stakedUniswapEthDpiLpBalance, setStakedUniswapEthDpiLpBalance] =
-    useState<string>()
+    useState<BigNumber>()
   const [unharvestedIndexBalance, setUnharvestedIndexBalance] =
-    useState<string>()
+    useState<BigNumber>()
 
   // Current DPI LM Program
-  const [stakedFarmTwoBalance, setStakedFarmTwoBalance] = useState<string>()
+  const [stakedFarmTwoBalance, setStakedFarmTwoBalance] = useState<BigNumber>()
   const [unharvestedFarmTwoBalance, setUnharvestedFarmTwoBalance] =
-    useState<string>()
+    useState<BigNumber>()
 
   // Current MVI LM Program
   const [stakedUniswapEthMviLpBalance, setStakedUniswapEthMviLpBalance] =
-    useState<string>()
+    useState<BigNumber>()
   const [unharvestedMviRewardsBalance, setUnharvestedMviRewardsBalance] =
-    useState<string>()
+    useState<BigNumber>()
 
   const {
     account,
@@ -109,23 +111,23 @@ const Provider: React.FC = ({ children }) => {
         getMviRewardsBalance(provider, userAddress),
       ])
 
-      setEthBalance(balances[0])
-      setIndexBalance(balances[1])
-      setDpiBalance(balances[2])
-      setEthFliBalance(balances[3])
-      setBtcFliBalance(balances[4])
-      setMviBalance(balances[5])
-      setDaiBalance(balances[6])
-      setUsdcBalance(balances[7]) // .dividedBy(10).pow(6))
-      setBedBalance(balances[8])
-      setUniswapEthDpiLpBalance(balances[9])
-      setUniswapEthMviLpBalance(balances[10])
-      setStakedUniswapEthDpiLpBalance(balances[11])
-      setUnharvestedIndexBalance(balances[12])
-      setStakedFarmTwoBalance(balances[13])
-      setUnharvestedFarmTwoBalance(balances[14])
-      setStakedUniswapEthMviLpBalance(balances[15])
-      setUnharvestedMviRewardsBalance(balances[16])
+      setEthBalance(new BigNumber(balances[0]))
+      setIndexBalance(new BigNumber(balances[1]))
+      setDpiBalance(new BigNumber(balances[2]))
+      setEthFliBalance(new BigNumber(balances[3]))
+      setBtcFliBalance(new BigNumber(balances[4]))
+      setMviBalance(new BigNumber(balances[5]))
+      setDaiBalance(new BigNumber(balances[6]))
+      setUsdcBalance(new BigNumber(balances[7])) // .dividedBy(10).pow(6)))
+      setBedBalance(new BigNumber(balances[8]))
+      setUniswapEthDpiLpBalance(new BigNumber(balances[9]))
+      setUniswapEthMviLpBalance(new BigNumber(balances[10]))
+      setStakedUniswapEthDpiLpBalance(new BigNumber(balances[11]))
+      setUnharvestedIndexBalance(new BigNumber(balances[12]))
+      setStakedFarmTwoBalance(new BigNumber(balances[13]))
+      setUnharvestedFarmTwoBalance(new BigNumber(balances[14]))
+      setStakedUniswapEthMviLpBalance(new BigNumber(balances[15]))
+      setUnharvestedMviRewardsBalance(new BigNumber(balances[16]))
     },
     [
       setEthBalance,
@@ -183,23 +185,23 @@ const Provider: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (status !== 'connected') {
-      setEthBalance('0')
-      setIndexBalance('0')
-      setDpiBalance('0')
-      setEthFliBalance('0')
-      setBtcFliBalance('0')
-      setMviBalance('0')
-      setBedBalance('0')
-      setDaiBalance('0')
-      setUsdcBalance('0')
-      setUniswapEthDpiLpBalance('0')
-      setUniswapEthMviLpBalance('0')
-      setStakedUniswapEthDpiLpBalance('0')
-      setUnharvestedIndexBalance('0')
-      setStakedFarmTwoBalance('0')
-      setUnharvestedFarmTwoBalance('0')
-      setStakedUniswapEthMviLpBalance('0')
-      setUnharvestedMviRewardsBalance('0')
+      setEthBalance(new BigNumber(0))
+      setIndexBalance(new BigNumber(0))
+      setDpiBalance(new BigNumber(0))
+      setEthFliBalance(new BigNumber(0))
+      setBtcFliBalance(new BigNumber(0))
+      setMviBalance(new BigNumber(0))
+      setBedBalance(new BigNumber(0))
+      setDaiBalance(new BigNumber(0))
+      setUsdcBalance(new BigNumber(0))
+      setUniswapEthDpiLpBalance(new BigNumber(0))
+      setUniswapEthMviLpBalance(new BigNumber(0))
+      setStakedUniswapEthDpiLpBalance(new BigNumber(0))
+      setUnharvestedIndexBalance(new BigNumber(0))
+      setStakedFarmTwoBalance(new BigNumber(0))
+      setUnharvestedFarmTwoBalance(new BigNumber(0))
+      setStakedUniswapEthMviLpBalance(new BigNumber(0))
+      setUnharvestedMviRewardsBalance(new BigNumber(0))
     }
   }, [status])
 

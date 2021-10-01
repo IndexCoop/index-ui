@@ -14,13 +14,13 @@ import { displayFromWei } from 'utils'
 interface ProductWalletBalanceProps {
   token: ProductToken
   latestPrice?: number
-  currentBalance?: string
+  currentBalance?: BigNumber
 }
 
 const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
   token,
   latestPrice = 0,
-  currentBalance = '0',
+  currentBalance = new BigNumber(0),
 }) => {
   const { isMetamaskConnected } = useWallet()
   const handleAddToMetamask = useAddToMetamask()
@@ -30,10 +30,7 @@ const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
       <StyledTokenWrapper>
         <div>
           <StyledTokenValuation>
-            $
-            {displayFromWei(
-              new BigNumber(currentBalance).times(latestPrice).toString()
-            )}
+            ${displayFromWei(currentBalance.times(latestPrice))}
           </StyledTokenValuation>
           <StyledTokenBalance data-cy='my-assets-token-balance'>
             {displayFromWei(currentBalance)} {token.symbol}

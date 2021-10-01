@@ -25,7 +25,7 @@ import Split from 'components/Split'
 import useBalances from 'hooks/useBalances'
 
 import * as tokenAddresses from 'constants/ethContractAddresses'
-import { displayFromWei, fromWei } from 'utils'
+import { displayFromWei, getBigNumber } from 'utils'
 
 const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const { reset } = useWallet()
@@ -43,9 +43,9 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     stakedUniswapEthMviLpBalance,
   } = useBalances()
 
-  const totalStakedEthDpiLpBalance = fromWei(stakedUniswapEthDpiLpBalance)
-    .plus(fromWei(stakedFarmTwoBalance))
-    .toString()
+  const totalStakedEthDpiLpBalance = getBigNumber(
+    stakedUniswapEthDpiLpBalance
+  ).plus(getBigNumber(stakedFarmTwoBalance))
 
   const handleSignOut = useCallback(() => {
     reset()
