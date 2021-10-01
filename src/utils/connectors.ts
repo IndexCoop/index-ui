@@ -32,8 +32,4 @@ export const walletlink = new WalletLinkConnector({
   appLogoUrl: 'https://index-dao.s3.amazonaws.com/index_owl.png',
 })
 
-export const ledgerwallet = new LedgerConnector({
-  chainId: NETWORK_CHAIN_ID,
-  url: NETWORK_URL,
-  requestTimeoutMs: 10000,
-})
+export const ledgerwallet = new LedgerConnector(NETWORK_CHAIN_ID, NETWORK_URL)

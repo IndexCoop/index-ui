@@ -1,8 +1,15 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
+import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
 import Web3ProviderEngine from 'web3-provider-engine'
-import { RPCSubprovider } from '@0x/subproviders'
-import { LedgerSubprovider } from './ledgerSubprovider'
+import { createLedgerSubprovider } from './ledgerSubprovider'
+import HookedWalletSubprovider from 'web3-provider-engine/subproviders/hooked-wallet'
+
+const RpcSubprovider = require('web3-provider-engine/subproviders/rpc.js')
+const CacheSubprovider = require('web3-provider-engine/subproviders/cache')
+const FiltersSubprovider = require('web3-provider-engine/subproviders/filters.js')
+const NonceSubprovider = require('web3-provider-engine/subproviders/nonce-tracker.js')
+const WsSubprovider = require('web3-provider-engine/subproviders/websocket')
 
 export type LedgerConnectorArguments = {
   chainId: number
@@ -13,47 +20,37 @@ export type LedgerConnectorArguments = {
 }
 
 export class LedgerConnector extends AbstractConnector {
-  private readonly chainId: number
-  private readonly url: string
-  private readonly pollingInterval?: number
-  private readonly requestTimeoutMs?: number
-  private readonly baseDerivationPath?: string
+  private readonly provider: Web3ProviderEngine
+  private readonly ledger: HookedWalletSubprovider
 
-  private provider?: any
-
-  constructor({
-    chainId,
-    url,
-    pollingInterval,
-    requestTimeoutMs,
-    baseDerivationPath,
-  }: LedgerConnectorArguments) {
+  constructor(
+    private readonly chainId: number,
+    url: string,
+    baseDerivationPath: string = "44'/60'/0'/0/0"
+  ) {
     super({ supportedChainIds: [chainId] })
-    this.chainId = chainId
-    this.url = url
-    this.pollingInterval = pollingInterval
-    this.requestTimeoutMs = requestTimeoutMs
-    this.baseDerivationPath = baseDerivationPath
+    this.provider = new Web3ProviderEngine()
+    this.provider.addProvider(new FiltersSubprovider())
+    this.provider.addProvider(new NonceSubprovider())
+    this.provider.addProvider(new CacheSubprovider())
+    const transport = () => TransportWebUSB.create()
+    this.ledger = createLedgerSubprovider(transport, {
+      networkId: chainId,
+      paths: [baseDerivationPath],
+    })
+    this.provider.addProvider(this.ledger)
+    this.provider.addProvider(
+      new WsSubprovider({ rpcUrl: 'wss://main-light.eth.linkpool.io/ws' })
+    )
+    this.provider.addProvider(new RpcSubprovider({ rpcUrl: url }))
   }
 
   async activate(): Promise<ConnectorUpdate<string | number>> {
-    if (!this.provider) {
-      const engine = new Web3ProviderEngine()
-      engine.addProvider(
-        new LedgerSubprovider({
-          networkId: this.chainId,
-          baseDerivationPath: this.baseDerivationPath,
-        })
-      )
-      engine.addProvider(new RPCSubprovider(this.url, this.requestTimeoutMs))
-      this.provider = engine
-    }
-
     this.provider.start()
     return { provider: this.provider, chainId: this.chainId }
   }
 
-  async getProvider(): Promise<any> {
+  async getProvider(): Promise<Web3ProviderEngine> {
     return this.provider
   }
 
@@ -62,22 +59,18 @@ export class LedgerConnector extends AbstractConnector {
   }
 
   async getAccount(): Promise<string> {
-    if (!this.provider) {
-      await this.activate()
-    }
-    // Implicitly take the first provider which is the LedgerSubprovider
-    // The LedgerSubprovider has function getAccountsAsync()
-    const accounts: string[] =
-      await this.provider?._providers[0].getAccountsAsync()
-    if (accounts.length === 0) {
-      throw new Error('No accounts found')
-    }
-    return accounts[0]
+    return new Promise((resolve, reject) => {
+      this.ledger.getAccounts((err: Error, res: string[]) => {
+        if (err != null) {
+          reject(err)
+        } else {
+          resolve(res[0])
+        }
+      })
+    })
   }
 
   deactivate(): void {
-    if (this.provider) {
-      this.provider.stop()
-    }
+    this.provider.stop()
   }
 }
