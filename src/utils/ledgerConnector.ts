@@ -22,19 +22,18 @@ export type LedgerConnectorArguments = {
 }
 
 class LedgerClient implements LedgerEthereumClient {
-  transport: Transport
+  private readonly eth: Eth
 
-  constructor(transport: Transport) {
-    this.transport = transport
+  constructor(public readonly transport: Transport) {
+    this.eth = new Eth(this.transport)
   }
 
-  async getAddress(
+  getAddress = async (
     derivationPath: string,
     askForDeviceConfirmation: boolean,
     shouldGetChainCode: true
-  ): Promise<LedgerGetAddressResult> {
-    const eth = new Eth(this.transport)
-    const res = await eth.getAddress(
+  ): Promise<LedgerGetAddressResult> => {
+    const res = await this.eth.getAddress(
       derivationPath,
       askForDeviceConfirmation,
       shouldGetChainCode
@@ -48,19 +47,19 @@ class LedgerClient implements LedgerEthereumClient {
       chainCode: res.chainCode!!,
     }
   }
-  async signTransaction(
+
+  signTransaction = async (
     derivationPath: string,
     rawTxHex: string
-  ): Promise<ECSignatureString> {
-    const eth = new Eth(this.transport)
-    return eth.signTransaction(derivationPath, rawTxHex)
+  ): Promise<ECSignatureString> => {
+    return this.eth.signTransaction(derivationPath, rawTxHex)
   }
-  async signPersonalMessage(
+
+  signPersonalMessage = async (
     derivationPath: string,
     messageHex: string
-  ): Promise<ECSignature> {
-    const eth = new Eth(this.transport)
-    return eth.signPersonalMessage(derivationPath, messageHex)
+  ): Promise<ECSignature> => {
+    return this.eth.signPersonalMessage(derivationPath, messageHex)
   }
 }
 
@@ -68,11 +67,11 @@ const DEFAULT_DERIVATION_PATH = "44'/60'/0'/0"
 export class LedgerConnector extends AbstractConnector {
   private readonly chainId: number
   private readonly url: string
-  private readonly pollingInterval?: number
   private readonly requestTimeoutMs?: number
   private readonly baseDerivationPath?: string
 
-  private provider?: any
+  private readonly ledger: LedgerSubprovider
+  private readonly provider: Web3ProviderEngine
 
   constructor({
     chainId,
@@ -84,40 +83,38 @@ export class LedgerConnector extends AbstractConnector {
     super({ supportedChainIds: [chainId] })
     this.chainId = chainId
     this.url = url
-    this.pollingInterval = pollingInterval
     this.requestTimeoutMs = requestTimeoutMs
     this.baseDerivationPath = baseDerivationPath
-  }
-
-  public async activate(): Promise<ConnectorUpdate> {
     this.provider = new Web3ProviderEngine({
-      pollingInterval: this.pollingInterval,
+      pollingInterval,
     })
-    this.provider.addProvider(
-      new LedgerSubprovider({
-        networkId: this.chainId,
-        ledgerEthereumClientFactoryAsync: async () =>
-          new LedgerClient(await TransportWebUSB.create()),
-        baseDerivationPath: this.baseDerivationPath || DEFAULT_DERIVATION_PATH,
-        accountFetchingConfigs: {
-          addressSearchLimit: 1,
-          numAddressesToReturn: 1,
-          shouldAskForOnDeviceConfirmation: false,
-        },
-      })
-    )
+    this.ledger = new LedgerSubprovider({
+      networkId: this.chainId,
+      ledgerEthereumClientFactoryAsync: async () =>
+        new LedgerClient(await TransportWebUSB.create()),
+      baseDerivationPath: this.baseDerivationPath || DEFAULT_DERIVATION_PATH,
+      accountFetchingConfigs: {
+        addressSearchLimit: 1,
+        numAddressesToReturn: 1,
+        shouldAskForOnDeviceConfirmation: false,
+      },
+    })
+    this.provider.addProvider(this.ledger)
     this.provider.addProvider(
       new RPCSubprovider(this.url, this.requestTimeoutMs)
     )
+  }
+
+  public async activate(): Promise<ConnectorUpdate> {
     this.provider.start()
-    return { provider: this.provider, chainId: this.chainId }
+    return {
+      provider: this.provider,
+      chainId: this.chainId,
+      account: await this.getAccount(),
+    }
   }
 
   public async getProvider(): Promise<any> {
-    if (!this.provider) {
-      const update = await this.activate()
-      return update.provider
-    }
     return this.provider
   }
 
@@ -126,14 +123,11 @@ export class LedgerConnector extends AbstractConnector {
   }
 
   public async getAccount(): Promise<string> {
-    const provider = await this.getProvider()
-    const accounts = await provider._providers[0].getAccountsAsync()
+    const accounts = await this.ledger.getAccountsAsync()
     return accounts[0]
   }
 
   deactivate(): void {
-    if (this.provider) {
-      this.provider.stop()
-    }
+    this.provider.stop()
   }
 }
