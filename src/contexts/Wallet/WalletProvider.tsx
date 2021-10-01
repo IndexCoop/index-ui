@@ -9,7 +9,6 @@ import {
 } from 'utils/connectors'
 
 import WalletContext from './WalletContext'
-import { toast } from 'react-toastify'
 
 const WalletProvider: React.FC = ({ children }) => {
   const [connector, setConnector] = useState<string>('')
@@ -17,7 +16,13 @@ const WalletProvider: React.FC = ({ children }) => {
   const [isShowingWalletModal, setIsShowingWalletModal] =
     useState<boolean>(false)
   const [isMetamaskConnected, setIsMetamaskConnected] = useState<boolean>(false)
-  const { account, activate, active, deactivate } = useWeb3React()
+  const {
+    account,
+    activate,
+    active,
+    deactivate,
+    library: ethereum,
+  } = useWeb3React()
 
   const reset = useCallback(() => {
     if (active) deactivate()
