@@ -34,10 +34,11 @@ const defaultOptions = {
   accountsOffset: 0,
 }
 
-export function createLedgerSubprovider(
+// 'Inspired' by https://gitlab.com/jarvis-network/base/libraries/js/ledger-web3-provider/-/tree/master
+export const createLedgerSubprovider = (
   getTransport: () => Promise<Transport>,
   options?: SubproviderOptions
-): HookedWalletSubprovider {
+): HookedWalletSubprovider => {
   const { networkId, paths, askConfirm, accountsLength, accountsOffset } = {
     ...defaultOptions,
     ...options,
@@ -47,15 +48,13 @@ export function createLedgerSubprovider(
     throw new Error('paths must not be empty')
   }
 
-  type StringMap = { [key: string]: string }
-
-  const addressToPathMap: StringMap = {}
+  const addressToPathMap: Record<string, string> = {}
 
   const getAccounts = async () => {
     const transport = await getTransport()
     try {
       const eth = new AppEth(transport)
-      const addresses: StringMap = {}
+      const addresses: Record<string, string> = {}
       for (let i = accountsOffset; i < accountsOffset + accountsLength; i++) {
         const x = Math.floor(i / paths.length)
         const pathIndex = i - paths.length * x

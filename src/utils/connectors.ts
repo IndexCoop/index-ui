@@ -3,15 +3,22 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { LedgerConnector } from './ledgerConnector'
 
-const NETWORK_URL = process.env.REACT_APP_ETHEREUM_RPC_URL
+const RPC_URL = process.env.REACT_APP_ETHEREUM_RPC_URL
+const WS_URL = process.env.REACT_APP_ETHEREUM_WS_URL
 
 export const NETWORK_CHAIN_ID: number = parseInt(
   process.env.REACT_APP_ETHEREUM_NETWORK_ID ?? '1'
 )
 
-if (typeof NETWORK_URL === 'undefined') {
+if (!RPC_URL) {
   throw new Error(
     `REACT_APP_ETHEREUM_RPC_URL must be a defined environment variable`
+  )
+}
+
+if (!WS_URL) {
+  throw new Error(
+    `REACT_APP_ETHEREUM_WS_URL must be a defined environment variable`
   )
 }
 
@@ -20,16 +27,20 @@ export const injected = new InjectedConnector({
 })
 
 export const walletconnect = new WalletConnectConnector({
-  rpc: { 1: NETWORK_URL },
+  rpc: { 1: RPC_URL },
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000,
 })
 
 export const walletlink = new WalletLinkConnector({
-  url: NETWORK_URL,
+  url: RPC_URL,
   appName: 'Index',
   appLogoUrl: 'https://index-dao.s3.amazonaws.com/index_owl.png',
 })
 
-export const ledgerwallet = new LedgerConnector(NETWORK_CHAIN_ID, NETWORK_URL)
+export const ledgerwallet = new LedgerConnector(
+  NETWORK_CHAIN_ID,
+  RPC_URL,
+  WS_URL
+)
