@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import sushiSwapLogo from 'assets/sushiswap-logo.png'
 import raricapitalLogo from 'assets/raricapital.png'
 import aaveLogo from 'assets/aave.png'
+import rainbowWalletLogo from 'assets/rainbow-logo.png'
 
 const Integrations: React.FC = () => (
   <div>
@@ -107,8 +108,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/zerion.svg' />
               <StyledCardTitle>Zerion</StyledCardTitle>
               <StyledCardDescription>
-                Track your portfolio performance and buy DeFi Pulse Index in the
-                Zerion app for Desktop, Android & iOS.
+                Track your portfolio and buy DeFi Pulse Index in the Zerion app
+                for Desktop, Android & iOS.
               </StyledCardDescription>
 
               <StyledOutboundLink
@@ -137,6 +138,25 @@ const Integrations: React.FC = () => (
                 href='https://www.argent.xyz/'
                 target='_blank'
               >
+                Learn more
+              </StyledOutboundLink>
+            </StyledCardContent>
+          </Surface>
+        </StyledCardContainer>
+
+        <Spacer />
+
+        <StyledCardContainer>
+          <Surface>
+            <StyledCardContent>
+              <StyledCardIcon src={rainbowWalletLogo} />
+              <StyledCardTitle>Rainbow</StyledCardTitle>
+              <StyledCardDescription>
+                Trade the DeFi Pulse Index directly from this fun, simple, and
+                secure wallet for iOS.
+              </StyledCardDescription>
+
+              <StyledOutboundLink href='https://rainbow.me/' target='_blank'>
                 Learn more
               </StyledOutboundLink>
             </StyledCardContent>
