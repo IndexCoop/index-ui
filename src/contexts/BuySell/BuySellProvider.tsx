@@ -101,8 +101,8 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     let requiredBalance =
       selectedCurrency === 'usdc'
-        ? fromWei(zeroExTradeData?.sellAmount, 6)
-        : fromWei(zeroExTradeData?.sellAmount)
+        ? fromWei(new BigNumber(zeroExTradeData.sellAmount), 6)
+        : fromWei(new BigNumber(zeroExTradeData?.sellAmount))
 
     if (spendingTokenBalance.lt(requiredBalance)) return
 

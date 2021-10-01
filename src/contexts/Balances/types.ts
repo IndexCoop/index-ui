@@ -1,7 +1,6 @@
 import BigNumber from 'utils/bignumber'
 
 export interface ContextValues {
-<<<<<<< HEAD
   ethBalance?: BigNumber
   indexBalance?: BigNumber
   dpiBalance?: BigNumber
@@ -12,33 +11,22 @@ export interface ContextValues {
   usdcBalance?: BigNumber
   bedBalance?: BigNumber
   dataBalance?: BigNumber
-=======
-  ethBalance?: string
-  indexBalance?: string
-  dpiBalance?: string
-  ethfliBalance?: string
-  btcfliBalance?: string
-  mviBalance?: string
-  daiBalance?: string
-  usdcBalance?: string
-  bedBalance?: string
->>>>>>> 45d3343... updating balances context/provider
 
   // LP Tokens
-  uniswapEthDpiLpBalance?: string
-  uniswapEthMviLpBalance?: string
+  uniswapEthDpiLpBalance?: BigNumber
+  uniswapEthMviLpBalance?: BigNumber
 
   // For Legacy DPI LM Program
-  stakedUniswapEthDpiLpBalance?: string
-  unharvestedIndexBalance?: string
+  stakedUniswapEthDpiLpBalance?: BigNumber
+  unharvestedIndexBalance?: BigNumber
 
   // For Current DPI LM Program
-  stakedFarmTwoBalance?: string
-  unharvestedFarmTwoBalance?: string
+  stakedFarmTwoBalance?: BigNumber
+  unharvestedFarmTwoBalance?: BigNumber
 
   // For Current MVI LM Program
-  stakedUniswapEthMviLpBalance?: string
-  unharvestedMviRewardsBalance?: string
+  stakedUniswapEthMviLpBalance?: BigNumber
+  unharvestedMviRewardsBalance?: BigNumber
 
   dpiTotalSupply?: BigNumber
   ethfliTotalSupply?: BigNumber

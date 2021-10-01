@@ -31,7 +31,7 @@ export interface TokenDataProps {
   latestVolume: number | undefined
   token: ProductToken
   components: IndexComponent[] | undefined
-  balance: string | undefined
+  balance: BigNumber | undefined
   supplyCap?: BigNumber | undefined
   currentSupply?: BigNumber | undefined
 }
