@@ -10,15 +10,6 @@ const CacheSubprovider = require('web3-provider-engine/subproviders/cache')
 const FiltersSubprovider = require('web3-provider-engine/subproviders/filters.js')
 const NonceSubprovider = require('web3-provider-engine/subproviders/nonce-tracker.js')
 const WsSubprovider = require('web3-provider-engine/subproviders/websocket')
-
-export type LedgerConnectorArguments = {
-  chainId: number
-  url: string
-  pollingInterval?: number
-  requestTimeoutMs?: number
-  baseDerivationPath?: string
-}
-
 export class LedgerConnector extends AbstractConnector {
   private readonly provider: Web3ProviderEngine
   private readonly ledger: HookedWalletSubprovider
@@ -39,6 +30,8 @@ export class LedgerConnector extends AbstractConnector {
       paths: [baseDerivationPath],
     })
     this.provider.addProvider(this.ledger)
+    // TODO: standardised ws endpoint?
+    // WS is required to retrieve balances
     this.provider.addProvider(
       new WsSubprovider({ rpcUrl: 'wss://main-light.eth.linkpool.io/ws' })
     )

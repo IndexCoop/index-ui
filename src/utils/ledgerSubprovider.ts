@@ -38,11 +38,6 @@ export function createLedgerSubprovider(
   getTransport: () => Promise<Transport>,
   options?: SubproviderOptions
 ): HookedWalletSubprovider {
-  if (options && 'path' in options) {
-    throw new Error(
-      "path options was replaced by paths. example: paths: [\"44'/60'/x'/0/0\"]"
-    )
-  }
   const { networkId, paths, askConfirm, accountsLength, accountsOffset } = {
     ...defaultOptions,
     ...options,
