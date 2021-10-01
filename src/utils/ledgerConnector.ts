@@ -16,7 +16,8 @@ export class LedgerConnector extends AbstractConnector {
 
   constructor(
     private readonly chainId: number,
-    url: string,
+    rpcUrl: string,
+    wsUrl: string,
     baseDerivationPath: string = "44'/60'/0'/0/0"
   ) {
     super({ supportedChainIds: [chainId] })
@@ -32,10 +33,8 @@ export class LedgerConnector extends AbstractConnector {
     this.provider.addProvider(this.ledger)
     // TODO: standardised ws endpoint?
     // WS is required to retrieve balances
-    this.provider.addProvider(
-      new WsSubprovider({ rpcUrl: 'wss://main-light.eth.linkpool.io/ws' })
-    )
-    this.provider.addProvider(new RpcSubprovider({ rpcUrl: url }))
+    this.provider.addProvider(new WsSubprovider({ rpcUrl: wsUrl }))
+    this.provider.addProvider(new RpcSubprovider({ rpcUrl }))
   }
 
   async activate(): Promise<ConnectorUpdate<string | number>> {
