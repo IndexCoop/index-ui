@@ -108,8 +108,8 @@ const Integrations: React.FC = () => (
               <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/zerion.svg' />
               <StyledCardTitle>Zerion</StyledCardTitle>
               <StyledCardDescription>
-                Track your portfolio performance and buy DeFi Pulse Index in the
-                Zerion app for Desktop, Android & iOS.
+                Track your portfolio and buy DeFi Pulse Index in the Zerion app
+                for Desktop, Android & iOS.
               </StyledCardDescription>
 
               <StyledOutboundLink
