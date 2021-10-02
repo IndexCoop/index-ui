@@ -60,6 +60,9 @@ export class LedgerConnector extends AbstractConnector {
         if (err != null) {
           reject(err)
         } else {
+          if (!res.length) {
+            reject('no accounts found')
+          }
           resolve(res[0])
         }
       })

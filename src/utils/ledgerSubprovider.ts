@@ -50,7 +50,7 @@ export const createLedgerSubprovider = (
 
   const addressToPathMap: Record<string, string> = {}
 
-  const getAccounts = async () => {
+  const getAccountsAsync = async (): Promise<Record<string, string>> => {
     const transport = await getTransport()
     try {
       const eth = new AppEth(transport)
@@ -71,16 +71,16 @@ export const createLedgerSubprovider = (
 
   type TxParams = { from: string; data: string }
 
-  const signPersonalMessage = async (msgData: TxParams) => {
-    const path = addressToPathMap[msgData.from.toLowerCase()]
-    if (!path) throw new Error("address unknown '" + msgData.from + "'")
+  const signPersonalMessageAsync = async ({
+    from,
+    data,
+  }: TxParams): Promise<string> => {
+    const path = addressToPathMap[from.toLowerCase()]
+    if (!path) throw new Error("address unknown '" + from + "'")
     const transport = await getTransport()
     try {
       const eth = new AppEth(transport)
-      const result = await eth.signPersonalMessage(
-        path,
-        stripHexPrefix(msgData.data)
-      )
+      const result = await eth.signPersonalMessage(path, stripHexPrefix(data))
       const v = parseInt(result.v.toString(), 10) - 27
       let vHex = v.toString(16)
       if (vHex.length < 2) {
@@ -92,12 +92,13 @@ export const createLedgerSubprovider = (
     }
   }
 
-  const signTransaction = async (txData: TxParams) => {
+  const signTransactionAsync = async (txData: TxParams): Promise<string> => {
     const path = addressToPathMap[txData.from.toLowerCase()]
-    if (!path) throw new Error("address unknown '" + txData.from + "'")
+    if (!path) {
+      throw new Error("address unknown '" + txData.from + "'")
+    }
     const transport = await getTransport()
     try {
-      debugger
       const eth = new AppEth(transport)
       const tx = new EthereumTx(txData, { chain: networkId })
 
@@ -106,7 +107,6 @@ export const createLedgerSubprovider = (
       tx.raw[7] = Buffer.from([]) // r
       tx.raw[8] = Buffer.from([]) // s
 
-      debugger
       // Pass hex-rlp to ledger for signing
       const result = await eth.signTransaction(
         path,
@@ -139,23 +139,21 @@ export const createLedgerSubprovider = (
 
   type Callback = (error?: Error, result?: any) => any
 
-  const subprovider = new HookedWalletSubprovider({
-    getAccounts: (callback: Callback) => {
-      getAccounts()
-        .then((res) => callback(undefined, Object.values(res)))
-        .catch((err) => callback(err, null))
+  return new HookedWalletSubprovider({
+    getAccounts: (cb: Callback) => {
+      getAccountsAsync()
+        .then((res) => cb(undefined, Object.values(res)))
+        .catch((err) => cb(err, null))
     },
-    signPersonalMessage: (txData: TxParams, callback: Callback) => {
-      signPersonalMessage(txData)
-        .then((res) => callback(undefined, res))
-        .catch((err) => callback(err, null))
+    signTransaction: (txData: TxParams, cb: Callback) => {
+      signTransactionAsync(txData)
+        .then((res) => cb(undefined, res))
+        .catch((err) => cb(err, null))
     },
-    signTransaction: (txData: TxParams, callback: Callback) => {
-      signTransaction(txData)
-        .then((res) => callback(undefined, res))
-        .catch((err) => callback(err, null))
+    signPersonalMessage: (txData: TxParams, cb: Callback) => {
+      signPersonalMessageAsync(txData)
+        .then((res) => cb(undefined, res))
+        .catch((err) => cb(err, null))
     },
   })
-
-  return subprovider
 }
