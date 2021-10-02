@@ -118,30 +118,25 @@ const BuySellProvider: React.FC = ({ children }) => {
     zeroExTradeData.from = account
     zeroExTradeData.gas = undefined // use metamask estimated gas limit
     const tx = web3.eth.sendTransaction(zeroExTradeData)
-
     try {
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
-      const transactionId: string = await new Promise((resolve, reject) => {
-        tx.on('transactionHash', (txId: string) => {
-          if (!txId) reject()
-          resolve(txId)
-        }).on('error', () => {
-          reject()
-        })
-      })
+      const response = await tx
 
-      onSetTransactionId(transactionId)
+      onSetTransactionId(response.transactionHash)
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
 
-      const isSuccessful = await waitTransaction(ethereum, transactionId)
+      const isSuccessful = await waitTransaction(
+        ethereum,
+        response.transactionHash
+      )
       const referralCode = window?.localStorage?.getItem('referral') || ''
 
       if (isSuccessful) {
         onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
         trackReferral(
           referralCode,
-          transactionId as string,
+          response.transactionHash,
           'COMPLETED',
           selectedCurrency,
           buySellToken,
@@ -151,7 +146,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         onSetTransactionStatus(TransactionStatusType.IS_FAILED)
         trackReferral(
           referralCode,
-          transactionId as string,
+          response.transactionHash,
           'PENDING OR FAILED',
           selectedCurrency,
           buySellToken,
@@ -159,6 +154,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         )
       }
     } catch (e) {
+      console.log(e)
       onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
   }, [

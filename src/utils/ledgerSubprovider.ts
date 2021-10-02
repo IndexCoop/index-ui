@@ -97,6 +97,7 @@ export const createLedgerSubprovider = (
     if (!path) throw new Error("address unknown '" + txData.from + "'")
     const transport = await getTransport()
     try {
+      debugger
       const eth = new AppEth(transport)
       const tx = new EthereumTx(txData, { chain: networkId })
 
@@ -105,6 +106,7 @@ export const createLedgerSubprovider = (
       tx.raw[7] = Buffer.from([]) // r
       tx.raw[8] = Buffer.from([]) // s
 
+      debugger
       // Pass hex-rlp to ledger for signing
       const result = await eth.signTransaction(
         path,

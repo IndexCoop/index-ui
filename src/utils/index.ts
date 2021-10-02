@@ -14,9 +14,8 @@ const sleep = (ms: number) => {
 export const waitTransaction = async (provider: provider, txHash: string) => {
   const web3 = new Web3(provider)
   let txReceipt: TransactionReceipt | null = null
-  while (txReceipt === null) {
-    const r = await web3.eth.getTransactionReceipt(txHash)
-    txReceipt = r
+  while (txReceipt == null) {
+    txReceipt = await web3.eth.getTransactionReceipt(txHash)
     await sleep(2000)
   }
   return txReceipt.status
