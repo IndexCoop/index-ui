@@ -117,8 +117,8 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     zeroExTradeData.from = account
     zeroExTradeData.gas = undefined // use metamask estimated gas limit
-    const tx = web3.eth.sendTransaction(zeroExTradeData)
     try {
+      const tx = web3.eth.sendTransaction(zeroExTradeData)
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
       const response = await tx
@@ -154,7 +154,10 @@ const BuySellProvider: React.FC = ({ children }) => {
         )
       }
     } catch (e) {
-      console.log(e)
+      // There is a problem here where any error that gets triggered will make it seem like
+      // the transaction failed. For example, the wallet continually polls the chain but fails
+      // to make the network request. The transaction may not have failed, but it would have
+      // triggered this error state.
       onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
   }, [
