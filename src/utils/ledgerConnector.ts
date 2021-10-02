@@ -38,6 +38,8 @@ export class LedgerConnector extends AbstractConnector {
   }
 
   async activate(): Promise<ConnectorUpdate<string | number>> {
+    // Only start the provider on activation. The engine will start
+    // polling the blockchain.
     this.provider.start()
     return { provider: this.provider, chainId: this.chainId }
   }
@@ -51,6 +53,8 @@ export class LedgerConnector extends AbstractConnector {
   }
 
   async getAccount(): Promise<string> {
+    // getAccounts is a callback. See HookedWalletSubprovider from
+    // metamask. We wrap the callback in a promise and return it.
     return new Promise((resolve, reject) => {
       this.ledger.getAccounts((err: Error, res: string[]) => {
         if (err != null) {
