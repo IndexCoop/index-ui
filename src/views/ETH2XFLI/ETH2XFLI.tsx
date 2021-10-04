@@ -6,14 +6,17 @@ import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
 import useEth2xFliIndexPortfolioData from 'hooks/useEth2xFliIndexPortfolioData'
 import useEth2xFliTokenSupplyCap from 'hooks/useEth2xFliTokenSupplyCap'
 import useBalances from 'hooks/useBalances'
-import { Ethereum2xFlexibleLeverageIndex, ProductToken } from 'constants/productTokens'
+import {
+  Ethereum2xFlexibleLeverageIndex,
+  ProductToken,
+} from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
 import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
-import useStreamingFee from "hooks/useStreamingFee"
-import useTokenSupply from "hooks/useTokenSupply"
+import useStreamingFee from 'hooks/useStreamingFee'
+import useTokenSupply from 'hooks/useTokenSupply'
 
 const Eth2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -23,12 +26,17 @@ const Eth2xFliProductPage = (props: { title: string }) => {
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
     useEth2xFliTokenMarketData()
   const { components } = useEth2xFliIndexPortfolioData()
-  const { ethfliBalance, ethfliTotalSupply } = useBalances()
+  const { ethfliBalance } = useBalances()
   const { ethfliSupplyCap } = useEth2xFliTokenSupplyCap()
-  const { eth2xFliStreamingFee } = useStreamingFee();
-  const { eth2xfliTotalSupply } = useTokenSupply();
+  const { eth2xFliStreamingFee } = useStreamingFee()
+  const { eth2xfliTotalSupply } = useTokenSupply()
 
-  const token: ProductToken = { ...Ethereum2xFlexibleLeverageIndex, fees: eth2xFliStreamingFee ? {streamingFee: eth2xFliStreamingFee } : undefined}
+  const token: ProductToken = {
+    ...Ethereum2xFlexibleLeverageIndex,
+    fees: eth2xFliStreamingFee
+      ? { streamingFee: eth2xFliStreamingFee }
+      : undefined,
+  }
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -39,11 +47,11 @@ const Eth2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: ethfliBalance,
     supplyCap: ethfliSupplyCap,
-    currentSupply: eth2xfliTotalSupply ?? ethfliTotalSupply,
+    currentSupply: eth2xfliTotalSupply,
   }
   const { account } = useWallet()
 
-  const isApproachingSupplyCap = ethfliTotalSupply
+  const isApproachingSupplyCap = eth2xfliTotalSupply
     ?.div(ethfliSupplyCap as BigNumber)
     .isGreaterThan(0.95)
 

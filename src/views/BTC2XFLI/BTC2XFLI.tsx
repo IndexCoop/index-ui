@@ -6,14 +6,17 @@ import useBtc2xFliTokenSupplyCap from 'hooks/useBtc2xFliTokenSupplyCap'
 import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
 import useBtc2xFliIndexPortfolioData from 'hooks/useBtc2xFliIndexPortfolioData'
 import useBalances from 'hooks/useBalances'
-import { Bitcoin2xFlexibleLeverageIndex, ProductToken } from 'constants/productTokens'
+import {
+  Bitcoin2xFlexibleLeverageIndex,
+  ProductToken,
+} from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
 import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
-import useStreamingFee from "hooks/useStreamingFee"
-import useTokenSupply from "hooks/useTokenSupply"
+import useStreamingFee from 'hooks/useStreamingFee'
+import useTokenSupply from 'hooks/useTokenSupply'
 
 const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -23,12 +26,17 @@ const Btc2xFliProductPage = (props: { title: string }) => {
   const { prices, hourlyPrices, latestPrice, latestVolume, latestMarketCap } =
     useBtc2xFliTokenMarketData()
   const { components } = useBtc2xFliIndexPortfolioData()
-  const { btcfliBalance, btcfliTotalSupply } = useBalances()
+  const { btcfliBalance } = useBalances()
   const { btcfliSupplyCap } = useBtc2xFliTokenSupplyCap()
-  const { btc2xFliStreamingFee } = useStreamingFee();
-  const { btc2xfliTotalSupply } = useTokenSupply();
+  const { btc2xFliStreamingFee } = useStreamingFee()
+  const { btc2xfliTotalSupply } = useTokenSupply()
 
-  const token: ProductToken = { ...Bitcoin2xFlexibleLeverageIndex, fees: btc2xFliStreamingFee ? {streamingFee: btc2xFliStreamingFee } : undefined}
+  const token: ProductToken = {
+    ...Bitcoin2xFlexibleLeverageIndex,
+    fees: btc2xFliStreamingFee
+      ? { streamingFee: btc2xFliStreamingFee }
+      : undefined,
+  }
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -39,11 +47,11 @@ const Btc2xFliProductPage = (props: { title: string }) => {
     components: components,
     balance: btcfliBalance,
     supplyCap: btcfliSupplyCap,
-    currentSupply: btc2xfliTotalSupply ?? btcfliTotalSupply,
+    currentSupply: btc2xfliTotalSupply,
   }
   const { account } = useWallet()
 
-  const isApproachingSupplyCap = btcfliTotalSupply
+  const isApproachingSupplyCap = btc2xfliTotalSupply
     ?.div(btcfliSupplyCap as BigNumber)
     .isGreaterThan(0.95)
 
