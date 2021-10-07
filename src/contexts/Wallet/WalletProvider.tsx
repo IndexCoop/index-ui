@@ -66,8 +66,6 @@ const WalletProvider: React.FC = ({ children }) => {
     [activate, reset]
   )
 
-  const { library: ethereum } = useWeb3React()
-
   const triedEagerConnect = useEagerConnect(connect)
 
   const onOpenWalletModal = useCallback(() => {
