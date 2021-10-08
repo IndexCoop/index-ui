@@ -9,7 +9,7 @@ export default function useEagerConnect(
 
   // Connect to existing injected provider if app was opened from ONTO mobile wallet
   useEffect(() => {
-    if (!active && !tried && (window as any).ethereum.isONTO) {
+    if (!active && !tried && (window as any).ethereum?.isONTO) {
       connect('injected').catch(() => {
         setTried(true)
       })
