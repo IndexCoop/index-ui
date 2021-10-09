@@ -15,5 +15,5 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           build: yarn run build
-          start: CHOKIDAR_USEPOLLING=1 yarn start
+          start: yarn start:ci
           wait-on: 'http://localhost:3000'
