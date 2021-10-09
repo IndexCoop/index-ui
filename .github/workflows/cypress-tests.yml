@@ -6,6 +6,8 @@ on: [push, pull_request]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    env:
+      CHOKIDAR_USEPOLLING: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v2
