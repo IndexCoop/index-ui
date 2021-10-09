@@ -7,7 +7,7 @@ import aaveLogo from 'assets/aave.png'
 import rainbowWalletLogo from 'assets/rainbow-logo.png'
 
 const Integrations: React.FC = () => (
-  <div>
+  <div data-cy='integrated-products-and-tools'>
     <StyledIntegrationsTitle>
       Integrated Products & Tools
     </StyledIntegrationsTitle>
@@ -15,7 +15,7 @@ const Integrations: React.FC = () => (
     <StyledIntegrationsContainer>
       <StyledIntegrationTypeText>Earn Yield</StyledIntegrationTypeText>
       <StyledCardRow>
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='index-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/owl.png' />
@@ -33,7 +33,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='alpha-homora-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/alphafinance.png' />
@@ -54,7 +54,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='moonswap-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/moonswap.png' />
@@ -76,7 +76,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='sushiswap-yield-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src={sushiSwapLogo} />
@@ -102,7 +102,7 @@ const Integrations: React.FC = () => (
       <StyledIntegrationTypeText>Wallets</StyledIntegrationTypeText>
 
       <StyledCardRow>
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='zerion-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/zerion.svg' />
@@ -124,7 +124,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='argent-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/argent.svg' />
@@ -146,7 +146,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='rainbow-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src={rainbowWalletLogo} />
@@ -165,7 +165,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='dharma-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/dharma.png' />
@@ -187,7 +187,7 @@ const Integrations: React.FC = () => (
 
       <StyledIntegrationTypeText>Lend & Borrow</StyledIntegrationTypeText>
 
-      <StyledCardRow>
+      <StyledCardRow data-cy='cream-tile'>
         <StyledFixedCardContainer>
           <Surface>
             <StyledCardContent>
@@ -210,7 +210,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledFixedCardContainer>
+        <StyledFixedCardContainer data-cy='sushiswap-lend-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src={sushiSwapLogo} />
@@ -231,7 +231,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledFixedCardContainer>
+        <StyledFixedCardContainer data-cy='rari-capital-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src={raricapitalLogo} />
@@ -252,7 +252,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledFixedCardContainer>
+        <StyledFixedCardContainer data-cy='aave-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src={aaveLogo} />
@@ -281,7 +281,7 @@ const Integrations: React.FC = () => (
           </StyledIntegrationTypeText>
 
           <Surface>
-            <StyledCardContent>
+            <StyledCardContent data-cy='opyn-tile'>
               <StyledCardIcon src='https://cdn-images-1.medium.com/max/184/1*yae7p4NvOo5cD-CzYDt3eQ@2x.png' />
               <StyledCardTitle>Opyn</StyledCardTitle>
               <StyledCardDescription>
@@ -307,7 +307,7 @@ const Integrations: React.FC = () => (
           </StyledIntegrationTypeText>
 
           <Surface>
-            <StyledCardContent>
+            <StyledCardContent data-cy='nexus-mutual-tile'>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/nexusmutual.png' />
               <StyledCardTitle>Nexus Mutual</StyledCardTitle>
               <StyledCardDescription>
@@ -333,7 +333,7 @@ const Integrations: React.FC = () => (
       <StyledCardRow>
         <StyledCardContainer>
           <Surface>
-            <StyledCardContent>
+            <StyledCardContent data-cy='uniswap-tile'>
               <StyledCardIcon src='https://pbs.twimg.com/profile_images/1242184851152928769/wG2eTAfD_400x400.jpg' />
               <StyledCardTitle>Uniswap</StyledCardTitle>
               <StyledCardDescription>
@@ -360,7 +360,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='1inch-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/1inch.png' />
@@ -388,7 +388,7 @@ const Integrations: React.FC = () => (
       </StyledCardRow>
 
       <StyledCardRow>
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='sushiswap-exchange-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src={sushiSwapLogo} />
@@ -417,7 +417,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='balancer-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/balancer.png' />
@@ -448,7 +448,7 @@ const Integrations: React.FC = () => (
       <StyledIntegrationTypeText>Prices & Analytics</StyledIntegrationTypeText>
 
       <StyledCardRow>
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='dune-analytics-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/duneanalytics.png' />
@@ -470,7 +470,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='defi-pulse-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/defipulse.png' />
@@ -489,7 +489,7 @@ const Integrations: React.FC = () => (
       </StyledCardRow>
 
       <StyledCardRow>
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='coin-gecko-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://set-core.s3.amazonaws.com/img/integrations/coingecko.png' />
@@ -510,7 +510,7 @@ const Integrations: React.FC = () => (
 
         <Spacer />
 
-        <StyledCardContainer>
+        <StyledCardContainer data-cy='coin-market-cap-tile'>
           <Surface>
             <StyledCardContent>
               <StyledCardIcon src='https://index-dao.s3.amazonaws.com/coinmarketcap.png' />
