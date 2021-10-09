@@ -42,7 +42,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:ci": "CHOKIDAR_USEPOLLING=1 yarn start",
     "build": "CI= GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
