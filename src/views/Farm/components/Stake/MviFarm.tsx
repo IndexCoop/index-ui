@@ -112,71 +112,75 @@ const Stake: React.FC = () => {
   return (
     <>
       <Card>
-        <CardContent>
-          <StyledCardTitleWrapper>
-            <StyledHeaderIcon
-              alt='MVI Icon'
-              src='https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg'
-            />
-            <Spacer size='md' />
-            <StyledLmTitle>
-              <StyledCardTitle>MVI Liquidity Program</StyledCardTitle>
-              <Spacer size='sm' />
-              <StyledCardSubtitle>
-                Active August 20th - September 19th
-              </StyledCardSubtitle>
-            </StyledLmTitle>
-          </StyledCardTitleWrapper>
-          <Spacer />
+        <div data-cy='mvi-farm-widget'>
+          <CardContent>
+            <StyledCardTitleWrapper>
+              <StyledHeaderIcon
+                alt='MVI Icon'
+                src='https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg'
+              />
+              <Spacer size='md' />
+              <StyledLmTitle>
+                <StyledCardTitle>MVI Liquidity Program</StyledCardTitle>
+                <Spacer size='sm' />
+                <StyledCardSubtitle>
+                  Active August 20th - September 19th
+                </StyledCardSubtitle>
+              </StyledLmTitle>
+            </StyledCardTitleWrapper>
+            <Spacer />
 
-          <StyledFarmTokensAndApyWrapper>
-            <Split>
-              <div>
-                <StyledFarmText>
-                  {formattedStakedBalance}
-                  <StyledTokenIconWrapper>
-                    <StyledTokenIcon
-                      alt='ETH Icon'
-                      src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
-                    />
-                    <StyledTokenIcon
-                      alt='MVI Icon'
-                      src='https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg'
-                    />
-                  </StyledTokenIconWrapper>
-                </StyledFarmText>
-                <StyledSectionLabel>
-                  Staked ETH/MVI Uniswap LP Tokens
-                </StyledSectionLabel>
-              </div>
+            <StyledFarmTokensAndApyWrapper>
+              <Split>
+                <div>
+                  <StyledFarmText>
+                    {formattedStakedBalance}
+                    <StyledTokenIconWrapper>
+                      <StyledTokenIcon
+                        alt='ETH Icon'
+                        src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
+                      />
+                      <StyledTokenIcon
+                        alt='MVI Icon'
+                        src='https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg'
+                      />
+                    </StyledTokenIconWrapper>
+                  </StyledFarmText>
+                  <StyledSectionLabel>
+                    Staked ETH/MVI Uniswap LP Tokens
+                  </StyledSectionLabel>
+                </div>
 
-              <div>
-                <StyledFarmText>{mviRewardsApy}% APR</StyledFarmText>
-                <StyledSectionLabel>(Volatile)</StyledSectionLabel>
-              </div>
+                <div>
+                  <StyledFarmText>{mviRewardsApy}% APR</StyledFarmText>
+                  <StyledSectionLabel>(Volatile)</StyledSectionLabel>
+                </div>
 
-              <div>
-                <StyledFarmText>
-                  {formattedEarnedBalance}
-                  <StyledTokenIconWrapper>
-                    <StyledTokenIcon
-                      alt='owl icon'
-                      src='https://index-dao.s3.amazonaws.com/owl.png'
-                    />
-                  </StyledTokenIconWrapper>
-                </StyledFarmText>
-                <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
-              </div>
-            </Split>
-          </StyledFarmTokensAndApyWrapper>
-        </CardContent>
-        <StyledCardActions isMobile={isMobile}>
-          {StakeButton}
-          <Spacer />
-          {ClaimButton}
-          <Spacer />
-          {UnstakeButton}
-        </StyledCardActions>
+                <div>
+                  <StyledFarmText>
+                    {formattedEarnedBalance}
+                    <StyledTokenIconWrapper>
+                      <StyledTokenIcon
+                        alt='owl icon'
+                        src='https://index-dao.s3.amazonaws.com/owl.png'
+                      />
+                    </StyledTokenIconWrapper>
+                  </StyledFarmText>
+                  <StyledSectionLabel>
+                    Unclaimed INDEX in pool
+                  </StyledSectionLabel>
+                </div>
+              </Split>
+            </StyledFarmTokensAndApyWrapper>
+          </CardContent>
+          <StyledCardActions isMobile={isMobile}>
+            {StakeButton}
+            <Spacer />
+            {ClaimButton}
+            <Spacer />
+            {UnstakeButton}
+          </StyledCardActions>
+        </div>
       </Card>
       <MviStakeModal
         isOpen={stakeModalIsOpen}

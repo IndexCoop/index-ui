@@ -21,9 +21,8 @@ import useWallet from 'hooks/useWallet'
 
 const Rewards: React.FC = () => {
   const [claimModalIsOpen, setClaimModalIsOpen] = useState(false)
-  const [externalClaimModalIsOpen, setExternalClaimModalIsOpen] = useState(
-    false
-  )
+  const [externalClaimModalIsOpen, setExternalClaimModalIsOpen] =
+    useState(false)
 
   const { claimableQuantity, isClaimable } = useAirdrop()
 
@@ -50,34 +49,34 @@ const Rewards: React.FC = () => {
   return (
     <>
       <Card>
-        <CardIcon>
-          <StyledIcon
-            alt="Present icon"
-            src="https://index-dao.s3.amazonaws.com/present.png"
-          />
-        </CardIcon>
-        <CardContent>
-          <Box alignItems='center' column>
-            <Value value={claimableQuantity?.toString() || '--'} />
-            <Label text='Claim Your INDEX Rewards' />
-          </Box>
-        </CardContent>
-        <CardActions>
-          <Button
-            disabled={!isWalletConnected || !isClaimable}
-            onClick={isWalletConnected ? handleClaimClick : () => {}}
-            text='Claim INDEX'
-            variant='secondary'
-          />
-          <Button
-            disabled={!isWalletConnected}
-            onClick={
-              isWalletConnected ? handleExternalClaimClick : () => {}
-            }
-            text='Claim Externally'
-            variant='secondary'
-          />
-        </CardActions>
+        <div data-cy='rewards-card'>
+          <CardIcon>
+            <StyledIcon
+              alt='Present icon'
+              src='https://index-dao.s3.amazonaws.com/present.png'
+            />
+          </CardIcon>
+          <CardContent>
+            <Box alignItems='center' column>
+              <Value value={claimableQuantity?.toString() || '--'} />
+              <Label text='Claim Your INDEX Rewards' />
+            </Box>
+          </CardContent>
+          <CardActions>
+            <Button
+              disabled={!isWalletConnected || !isClaimable}
+              onClick={isWalletConnected ? handleClaimClick : () => {}}
+              text='Claim INDEX'
+              variant='secondary'
+            />
+            <Button
+              disabled={!isWalletConnected}
+              onClick={isWalletConnected ? handleExternalClaimClick : () => {}}
+              text='Claim Externally'
+              variant='secondary'
+            />
+          </CardActions>
+        </div>
       </Card>
       <RewardsModal
         isOpen={claimModalIsOpen}
