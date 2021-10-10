@@ -2,7 +2,6 @@
 
 describe('ETH2x-FLI', () => {
   before(() => {
-    cy.wait(3000)
     cy.visit('http://localhost:3000/ethfli')
   })
 
