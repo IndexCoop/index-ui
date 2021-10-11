@@ -6,8 +6,8 @@ import { MetaverseIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
-import useStreamingFee from "hooks/useStreamingFee"
-import useTokenSupply from "hooks/useTokenSupply"
+import useStreamingFee from 'hooks/useStreamingFee'
+import useTokenSupply from 'hooks/useTokenSupply'
 
 const MviProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -17,11 +17,15 @@ const MviProductPage = (props: { title: string }) => {
   const { latestPrice, prices, hourlyPrices, latestMarketCap, latestVolume } =
     useMviTokenMarketData()
   const { components } = useMviComponents()
-  const { mviBalance, mviTotalSupply: mviTotalSupplyFromBalances } = useBalances()
-  const { mviStreamingFee } = useStreamingFee();
-  const { mviTotalSupply } = useTokenSupply();
+  const { mviBalance, mviTotalSupply: mviTotalSupplyFromBalances } =
+    useBalances()
+  const { mviStreamingFee } = useStreamingFee()
+  const { mviTotalSupply } = useTokenSupply()
 
-  const token: ProductToken = { ...MetaverseIndex, fees: mviStreamingFee ? {streamingFee: mviStreamingFee } : undefined}
+  const token: ProductToken = {
+    ...MetaverseIndex,
+    fees: mviStreamingFee ? { streamingFee: mviStreamingFee } : undefined,
+  }
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -50,7 +54,7 @@ const MviProductPage = (props: { title: string }) => {
             Augmented Reality and Music. More categories will be added in the
             future as the market matures.
           </li>
-          <li>Total market cap must be over $30m.</li>
+          <li>Total market cap must be over $50m.</li>
           <li>
             Protocol must have at least 3 months history of operation and its
             token must have at least 3 months of price and liquidity history.
