@@ -17,8 +17,7 @@ const MviProductPage = (props: { title: string }) => {
   const { latestPrice, prices, hourlyPrices, latestMarketCap, latestVolume } =
     useMviTokenMarketData()
   const { components } = useMviComponents()
-  const { mviBalance, mviTotalSupply: mviTotalSupplyFromBalances } =
-    useBalances()
+  const { mviBalance } = useBalances()
   const { mviStreamingFee } = useStreamingFee()
   const { mviTotalSupply } = useTokenSupply()
 
@@ -35,7 +34,7 @@ const MviProductPage = (props: { title: string }) => {
     token: token,
     components: components,
     balance: mviBalance,
-    currentSupply: mviTotalSupply ?? mviTotalSupplyFromBalances,
+    currentSupply: mviTotalSupply,
   }
 
   return (

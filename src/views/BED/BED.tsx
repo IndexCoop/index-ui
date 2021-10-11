@@ -7,8 +7,8 @@ import { BedIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
-import useStreamingFee from "hooks/useStreamingFee"
-import useTokenSupply from "hooks/useTokenSupply"
+import useStreamingFee from 'hooks/useStreamingFee'
+import useTokenSupply from 'hooks/useTokenSupply'
 
 const BedProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -18,11 +18,14 @@ const BedProductPage = (props: { title: string }) => {
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
     useBedTokenMarketData()
   const { components } = useBedIndexComponents()
-  const { bedBalance, bedTotalSupply: bedTotalSupplyFromBalances } = useBalances()
-  const { bedStreamingFee } = useStreamingFee();
-  const { bedTotalSupply } = useTokenSupply();
+  const { bedBalance } = useBalances()
+  const { bedStreamingFee } = useStreamingFee()
+  const { bedTotalSupply } = useTokenSupply()
 
-  const token: ProductToken = { ...BedIndex, fees: bedStreamingFee ? {streamingFee: bedStreamingFee } : undefined}
+  const token: ProductToken = {
+    ...BedIndex,
+    fees: bedStreamingFee ? { streamingFee: bedStreamingFee } : undefined,
+  }
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -32,7 +35,7 @@ const BedProductPage = (props: { title: string }) => {
     token: token,
     components: components,
     balance: bedBalance,
-    currentSupply: bedTotalSupply ?? bedTotalSupplyFromBalances,
+    currentSupply: bedTotalSupply,
   }
 
   return (

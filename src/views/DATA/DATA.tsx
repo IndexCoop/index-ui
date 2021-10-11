@@ -18,8 +18,8 @@ const DataProductPage = (props: { title: string }) => {
   const { latestPrice, prices, hourlyPrices, latestMarketCap, latestVolume } =
     useDataTokenMarketData()
   const { components } = useDataComponents()
-  const { dataBalance, dataTotalSupply: dataTotalSupplyFromBalances } = useBalances()
-  const { dataTotalSupply } = useTokenSupply();
+  const { dataBalance } = useBalances()
+  const { dataTotalSupply } = useTokenSupply()
 
   const tokenDataProps: TokenDataProps = {
     prices: prices,
@@ -30,7 +30,7 @@ const DataProductPage = (props: { title: string }) => {
     token: DataIndex,
     components: components,
     balance: dataBalance,
-    currentSupply: dataTotalSupply ?? dataTotalSupplyFromBalances,
+    currentSupply: dataTotalSupply,
   }
 
   return (
@@ -110,7 +110,7 @@ const DataProductPage = (props: { title: string }) => {
           weight of each token included in the index. The weight of each token
           within the index will be as follows:
         </p>
-        <img src={dataEsotericMath} alt="Data esoteric math" />
+        <img src={dataEsotericMath} alt='Data esoteric math' />
         <p>
           The Data Economy Index caps each token’s respective weight at 25%.
           Excess weight for a given token will be redistributed to the remaining
