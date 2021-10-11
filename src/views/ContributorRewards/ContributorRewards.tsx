@@ -13,21 +13,25 @@ const ContributorRewards = (props: { title: string }) => {
   return (
     <Page>
       <Container>
-        <StyledPageHeader data-cy="styled-page-header">Rewards</StyledPageHeader>
-        <Spacer size='sm' />
-        <StyledPageSubheader>
-          Monthly contributor rewards distributor
-        </StyledPageSubheader>
-        <Spacer size='sm' />
-        <StyledPageSubheader>
-          <b>Note:</b> Use a web3 wallet only, not a centralized exchange
-          account
-        </StyledPageSubheader>
-        <Spacer size='sm' />
-        <StyledPageSubheader>
-          If you have further questions, please ask on{' '}
-          <StyledLink to='/join'>Discord</StyledLink>
-        </StyledPageSubheader>
+        <div data-cy='contributor-rewards-header'>
+          <StyledPageHeader data-cy='styled-page-header'>
+            Rewards
+          </StyledPageHeader>
+          <Spacer size='sm' />
+          <StyledPageSubheader>
+            Monthly contributor rewards distributor
+          </StyledPageSubheader>
+          <Spacer size='sm' />
+          <StyledPageSubheader>
+            <b>Note:</b> Use a web3 wallet only, not a centralized exchange
+            account
+          </StyledPageSubheader>
+          <Spacer size='sm' />
+          <StyledPageSubheader>
+            If you have further questions, please ask on{' '}
+            <StyledLink to='/join'>Discord</StyledLink>
+          </StyledPageSubheader>
+        </div>
         <Spacer />
         <MonthlyClaim />
       </Container>

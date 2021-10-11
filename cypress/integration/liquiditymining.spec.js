@@ -2,7 +2,6 @@
 
 describe('Liquidity Mining', () => {
   before(() => {
-    cy.wait(5000)
     cy.visit('http://localhost:3000/liquidity-mining')
   })
 
@@ -21,115 +20,67 @@ describe('Liquidity Mining', () => {
 
   context('Widgets', () => {
     it('should show capital in farms', () => {
-      cy.get(
-        ':nth-child(1) > .sc-jSFjdj > .SFMFb'
-      ).should('contain', 'Capital in Farms')
+      cy.contains('Capital in Farms')
     })
     it('should show $INDEX price', () => {
-      cy.get(
-        ':nth-child(3) > .sc-jSFjdj > .SFMFb'
-      ).should('contain', '$INDEX Price')
+      cy.contains('$INDEX Price')
     })
   })
 
   context('Farms', () => {
     it('should show DPI Farm widget', () => {
-      cy.get(':nth-child(3) > .SFMFb').should('be.visible')
-      cy.get(':nth-child(3) > .SFMFb').should('contain', 'DPI Liquidity Program')
-      cy.get(':nth-child(3) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(3) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(3) > .SFMFb').should(
-        'contain',
-        'Staked ETH/DPI Uniswap LP Tokens'
-      )
-      cy.get(':nth-child(3) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(3) > .SFMFb').should('contain', '(Volatile)')
-      cy.get(':nth-child(3) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(3) > .SFMFb').should(
-        'contain',
-        'Unclaimed INDEX in pool'
-      )
-      cy.get(':nth-child(3) > .SFMFb').should(
-        'contain',
-        'Stake'
-      )
-      cy.get(':nth-child(3) > .SFMFb').should(
-        'contain',
-        'Claim'
-      )
-      cy.get(':nth-child(3) > .SFMFb').should(
-        'contain',
-        'Unstake & Claim'
-      )
+      const selector = '[data-cy=dpi-farm-widget]'
+      cy.get(selector).should('be.visible')
+      cy.get(selector).should('contain', 'DPI Liquidity Program')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('contain', 'Staked ETH/DPI Uniswap LP Tokens')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('contain', '(Volatile)')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('contain', 'Unclaimed INDEX in pool')
+      cy.get(selector).should('contain', 'Stake')
+      cy.get(selector).should('contain', 'Claim')
+      cy.get(selector).should('contain', 'Unstake & Claim')
     })
     it('should show MVI Farm widget', () => {
-      cy.get(':nth-child(5) > .SFMFb').should('be.visible')
-      cy.get(':nth-child(5) > .SFMFb').should('contain', 'MVI Liquidity Program')
-      cy.get(':nth-child(5) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(5) > .SFMFb').should('not.be.empty')
-      cy.get(
-        ':nth-child(5) > .SFMFb'
-      ).should('contain', 'Staked ETH/MVI Uniswap LP Tokens')
-      cy.get(':nth-child(5) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(5) > .SFMFb').should('contain', '(Volatile)')
-      cy.get(':nth-child(5) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(5) > .SFMFb').should(
-        'contain',
-        'Unclaimed INDEX in pool'
-      )
-      cy.get(':nth-child(5) > .SFMFb').should(
-        'contain',
-        'Stake'
-      )
-      cy.get(':nth-child(5) > .SFMFb').should(
-        'contain',
-        'Claim'
-      )
-      cy.get(':nth-child(5) > .SFMFb').should(
-        'contain',
-        'Unstake & Claim'
-      )
+      const selector = '[data-cy=mvi-farm-widget]'
+      cy.get(selector).should('be.visible')
+      cy.get(selector).should('contain', 'MVI Liquidity Program')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('contain', 'Staked ETH/MVI Uniswap LP Tokens')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('contain', '(Volatile)')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('contain', 'Unclaimed INDEX in pool')
+      cy.get(selector).should('contain', 'Stake')
+      cy.get(selector).should('contain', 'Claim')
+      cy.get(selector).should('contain', 'Unstake & Claim')
     })
     it('should show Expired Farm widget', () => {
-      cy.get(':nth-child(7) > .SFMFb').should('be.visible')
-      cy.get(':nth-child(7) > .SFMFb').should('contain', 'Expired Liquidity Program')
-      cy.get(':nth-child(7) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(7) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(7) > .SFMFb').should(
-        'contain',
-        'Staked ETH/DPI Uniswap LP Tokens'
-      )
-      cy.get(':nth-child(7) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(7) > .SFMFb').should('contain', '(Volatile)')
-      cy.get(':nth-child(7) > .SFMFb').should('not.be.empty')
-      cy.get(':nth-child(7) > .SFMFb').should(
-        'contain',
-        'Unclaimed INDEX in pool'
-      )
-      cy.get(':nth-child(7) > .SFMFb').should(
-        'contain',
-        'Unstake & Claim'
-      )
+      const selector = '[data-cy=expired-farm-widget]'
+      cy.get(selector).should('be.visible')
+      cy.get(selector).should('contain', 'Expired Liquidity Program')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('contain', 'Staked ETH/DPI Uniswap LP Tokens')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('contain', '(Volatile)')
+      cy.get(selector).should('not.be.empty')
+      cy.get(selector).should('contain', 'Unclaimed INDEX in pool')
+      cy.get(selector).should('contain', 'Unstake & Claim')
     })
   })
 
   context('Index Airdrop', () => {
     it('should show header', () => {
-      cy.get(':nth-child(4) > .sc-ehALMs').should('contain', 'Index Airdrop')
-      cy.get(':nth-child(4) > .sc-hGwcmR').should(
-        'contain',
-        'See if you qualified for the Index Airdrop'
-      )
-      cy.get('.jZyOmc > .sc-jSFjdj > .SFMFb').should(
-        'contain',
-        'Claim Your INDEX Rewards'
-      )
-      cy.get(
-        '.jZyOmc > .sc-jSFjdj > .SFMFb'
-      ).should('contain', 'Claim INDEX')
-      cy.get(
-        '.jZyOmc > .sc-jSFjdj > .SFMFb'
-      ).should('contain', 'Claim Externally')
+      const selector = '[data-cy=rewards-card]'
+      cy.contains('Index Airdrop')
+      cy.contains('See if you qualified for the Index Airdrop')
+      cy.get(selector).should('contain', 'Claim Your INDEX Rewards')
+      cy.get(selector).should('contain', 'Claim INDEX')
+      cy.get(selector).should('contain', 'Claim Externally')
     })
   })
 

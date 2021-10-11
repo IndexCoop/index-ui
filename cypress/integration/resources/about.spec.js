@@ -2,14 +2,13 @@
 
 describe('About', () => {
   before(() => {
-    cy.wait(3000)
     cy.visit('http://localhost:3000/about')
   })
 
   context('Page Header', () => {
     it('should show header text', () => {
-      cy.get('.sc-bXexck').should('contain', 'Creating The Next Generation Of')
-      cy.get('.sc-eGJWMs').should('contain', 'Indexes')
+      cy.get('[data-cy=about-title]').should('contain', 'Creating The Next Generation Of')
+      cy.get('[data-cy=about-title]').should('contain', 'Indexes')
     })
     it('should show header image', () => {
       cy.get('[data-cy=new-york-stock-exchange-img]').should('be.visible')

@@ -97,57 +97,61 @@ const Stake: React.FC = () => {
   return (
     <>
       <Card>
-        <CardContent>
-          <StyledCardTitleWrapper>
-            <StyledHeaderIcon
-              alt='expiring icon'
-              src='https://index-dao.s3.amazonaws.com/down-arrow.svg'
-            />
-            <Spacer size='md' />
-            <StyledLmTitle>
-              <StyledCardTitle>Expired Liquidity Program</StyledCardTitle>
-              <Spacer size='sm' />
-              <StyledCardSubtitle>
-                Active Oct. 7th - Dec. 6th
-              </StyledCardSubtitle>
-            </StyledLmTitle>
-          </StyledCardTitleWrapper>
-          <Spacer />
+        <div data-cy='expired-farm-widget'>
+          <CardContent>
+            <StyledCardTitleWrapper>
+              <StyledHeaderIcon
+                alt='expiring icon'
+                src='https://index-dao.s3.amazonaws.com/down-arrow.svg'
+              />
+              <Spacer size='md' />
+              <StyledLmTitle>
+                <StyledCardTitle>Expired Liquidity Program</StyledCardTitle>
+                <Spacer size='sm' />
+                <StyledCardSubtitle>
+                  Active Oct. 7th - Dec. 6th
+                </StyledCardSubtitle>
+              </StyledLmTitle>
+            </StyledCardTitleWrapper>
+            <Spacer />
 
-          <StyledFarmTokensAndApyWrapper>
-            <Split>
-              <div>
-                <StyledFarmText>
-                  {formattedStakedBalance}
-                  <StyledTokenIcon
-                    alt='eth dpi icon'
-                    src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
-                  />
-                </StyledFarmText>
-                <StyledSectionLabel>
-                  Staked ETH/DPI Uniswap LP Tokens
-                </StyledSectionLabel>
-              </div>
+            <StyledFarmTokensAndApyWrapper>
+              <Split>
+                <div>
+                  <StyledFarmText>
+                    {formattedStakedBalance}
+                    <StyledTokenIcon
+                      alt='eth dpi icon'
+                      src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
+                    />
+                  </StyledFarmText>
+                  <StyledSectionLabel>
+                    Staked ETH/DPI Uniswap LP Tokens
+                  </StyledSectionLabel>
+                </div>
 
-              <div>
-                <StyledFarmText>0.00% APR</StyledFarmText>
-                <StyledSectionLabel>(Volatile)</StyledSectionLabel>
-              </div>
+                <div>
+                  <StyledFarmText>0.00% APR</StyledFarmText>
+                  <StyledSectionLabel>(Volatile)</StyledSectionLabel>
+                </div>
 
-              <div>
-                <StyledFarmText>
-                  {formattedEarnedBalance}
-                  <StyledTokenIcon
-                    alt='owl icon'
-                    src='https://index-dao.s3.amazonaws.com/owl.png'
-                  />
-                </StyledFarmText>
-                <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
-              </div>
-            </Split>
-          </StyledFarmTokensAndApyWrapper>
-        </CardContent>
-        <CardActions>{UnstakeButton}</CardActions>
+                <div>
+                  <StyledFarmText>
+                    {formattedEarnedBalance}
+                    <StyledTokenIcon
+                      alt='owl icon'
+                      src='https://index-dao.s3.amazonaws.com/owl.png'
+                    />
+                  </StyledFarmText>
+                  <StyledSectionLabel>
+                    Unclaimed INDEX in pool
+                  </StyledSectionLabel>
+                </div>
+              </Split>
+            </StyledFarmTokensAndApyWrapper>
+          </CardContent>
+          <CardActions>{UnstakeButton}</CardActions>
+        </div>
       </Card>
       <DpiStakeModal
         isOpen={stakeModalIsOpen}

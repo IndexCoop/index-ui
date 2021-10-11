@@ -110,63 +110,67 @@ const Stake: React.FC = () => {
   return (
     <>
       <Card>
-        <CardContent data-cy='dpi-farm-card'>
-          <StyledCardTitleWrapper>
-            <StyledHeaderIcon
-              src='https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'
-              alt='DefiPulse Index Logo'
-            />
-            <Spacer size='md' />
-            <StyledLmTitle>
-              <StyledCardTitle>DPI Liquidity Program</StyledCardTitle>
-              <Spacer size='sm' />
-              <StyledCardSubtitle>
-                Active July 13th - August 12th
-              </StyledCardSubtitle>
-            </StyledLmTitle>
-          </StyledCardTitleWrapper>
-          <Spacer />
+        <div data-cy='dpi-farm-widget'>
+          <CardContent>
+            <StyledCardTitleWrapper>
+              <StyledHeaderIcon
+                src='https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'
+                alt='DefiPulse Index Logo'
+              />
+              <Spacer size='md' />
+              <StyledLmTitle>
+                <StyledCardTitle>DPI Liquidity Program</StyledCardTitle>
+                <Spacer size='sm' />
+                <StyledCardSubtitle>
+                  Active July 13th - August 12th
+                </StyledCardSubtitle>
+              </StyledLmTitle>
+            </StyledCardTitleWrapper>
+            <Spacer />
 
-          <StyledFarmTokensAndApyWrapper>
-            <Split>
-              <div>
-                <StyledFarmText>
-                  {formattedStakedBalance}
-                  <StyledTokenIcon
-                    alt='eth dpi icon'
-                    src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
-                  />
-                </StyledFarmText>
-                <StyledSectionLabel>
-                  Staked ETH/DPI Uniswap LP Tokens
-                </StyledSectionLabel>
-              </div>
+            <StyledFarmTokensAndApyWrapper>
+              <Split>
+                <div>
+                  <StyledFarmText>
+                    {formattedStakedBalance}
+                    <StyledTokenIcon
+                      alt='eth dpi icon'
+                      src='https://index-dao.s3.amazonaws.com/eth-dpi.svg'
+                    />
+                  </StyledFarmText>
+                  <StyledSectionLabel>
+                    Staked ETH/DPI Uniswap LP Tokens
+                  </StyledSectionLabel>
+                </div>
 
-              <div>
-                <StyledFarmText>{farmTwoApy}% APR</StyledFarmText>
-                <StyledSectionLabel>(Volatile)</StyledSectionLabel>
-              </div>
+                <div>
+                  <StyledFarmText>{farmTwoApy}% APR</StyledFarmText>
+                  <StyledSectionLabel>(Volatile)</StyledSectionLabel>
+                </div>
 
-              <div>
-                <StyledFarmText>
-                  {formattedEarnedBalance}
-                  <StyledTokenIcon
-                    alt='owl icon'
-                    src='https://index-dao.s3.amazonaws.com/owl.png'
-                  />
-                </StyledFarmText>
-                <StyledSectionLabel>Unclaimed INDEX in pool</StyledSectionLabel>
-              </div>
-            </Split>
-          </StyledFarmTokensAndApyWrapper>
-        </CardContent>
-        <StyledCardActions isMobile={isMobile}>
-          {StakeButton}
-          <Spacer />
-          {ClaimButton}
-          <Spacer />
-          {UnstakeButton}
-        </StyledCardActions>
+                <div>
+                  <StyledFarmText>
+                    {formattedEarnedBalance}
+                    <StyledTokenIcon
+                      alt='owl icon'
+                      src='https://index-dao.s3.amazonaws.com/owl.png'
+                    />
+                  </StyledFarmText>
+                  <StyledSectionLabel>
+                    Unclaimed INDEX in pool
+                  </StyledSectionLabel>
+                </div>
+              </Split>
+            </StyledFarmTokensAndApyWrapper>
+          </CardContent>
+          <StyledCardActions isMobile={isMobile}>
+            {StakeButton}
+            <Spacer />
+            {ClaimButton}
+            <Spacer />
+            {UnstakeButton}
+          </StyledCardActions>
+        </div>
       </Card>
       <DpiStakeModal
         isOpen={stakeModalIsOpen}

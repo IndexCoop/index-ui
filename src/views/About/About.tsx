@@ -16,7 +16,7 @@ const About = (props: { title: string }) => {
     <Page>
       <Container size='lg'>
         <Section>
-          <div>
+          <div data-cy='about-title'>
             <AboutTitle>
               Creating The Next Generation Of
               <HighlightedHeader> Indexes</HighlightedHeader>
@@ -59,7 +59,10 @@ const About = (props: { title: string }) => {
             </Description>
           </div>
         </Section>
-        <CenteredSection data-cy='getting-started-section' style={{ marginBottom: '0' }}>
+        <CenteredSection
+          data-cy='getting-started-section'
+          style={{ marginBottom: '0' }}
+        >
           <SectionSubTitle>Getting Started</SectionSubTitle>
           <SectionTitle>Creating The New Index Standard</SectionTitle>
           <LargeDescription>
