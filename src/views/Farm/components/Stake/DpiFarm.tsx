@@ -11,6 +11,7 @@ import useWallet from 'hooks/useWallet'
 
 import DpiStakeModal from './components/DpiStakeModal'
 import Split from 'components/Split'
+import { fromWei } from 'utils'
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
@@ -69,7 +70,7 @@ const Stake: React.FC = () => {
   }, [isApproved, isApproving, status, handleStakeClick, onApprove])
 
   const UnstakeButton = useMemo(() => {
-    const hasStaked = stakedBalance && stakedBalance.toNumber() > 0
+    const hasStaked = stakedBalance && fromWei(stakedBalance).gt(0)
     if (status !== 'connected' || !hasStaked) {
       return <Button disabled full text='Unstake & Claim' variant='secondary' />
     }

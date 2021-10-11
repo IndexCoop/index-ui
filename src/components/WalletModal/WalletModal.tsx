@@ -26,6 +26,7 @@ import Split from 'components/Split'
 import useBalances from 'hooks/useBalances'
 
 import * as tokenAddresses from 'constants/ethContractAddresses'
+import { displayFromWei, getBigNumber } from 'utils'
 
 const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const { reset } = useWallet()
@@ -44,17 +45,9 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     stakedUniswapEthMviLpBalance,
   } = useBalances()
 
-  const totalStakedEthDpiLpBalance = (
-    stakedUniswapEthDpiLpBalance || new BigNumber(0)
-  ).plus(stakedFarmTwoBalance || 0)
-
-  const getDisplayBalance = useCallback((value?: BigNumber) => {
-    if (value) {
-      return numeral(value).format('0.00a')
-    } else {
-      return '--'
-    }
-  }, [])
+  const totalStakedEthDpiLpBalance = getBigNumber(
+    stakedUniswapEthDpiLpBalance
+  ).plus(getBigNumber(stakedFarmTwoBalance))
 
   const handleSignOut = useCallback(() => {
     reset()
@@ -102,7 +95,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 }}
                 link={`https://etherscan.io/address/${tokenAddresses.indexTokenAddress}`}
                 label='INDEX balance'
-                value={getDisplayBalance(indexBalance)}
+                value={displayFromWei(indexBalance)}
               />
             </Box>
             <Box row>
@@ -113,7 +106,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 }}
                 label='DPI balance'
                 link={`https://etherscan.io/address/${tokenAddresses.dpiTokenAddress}`}
-                value={getDisplayBalance(dpiBalance)}
+                value={displayFromWei(dpiBalance)}
               />
             </Box>
           </Split>
@@ -127,7 +120,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 }}
                 label='BED Index Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.bedTokenAddress}`}
-                value={getDisplayBalance(bedBalance)}
+                value={displayFromWei(bedBalance)}
               />
             </Box>
             <Box row>
@@ -138,7 +131,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 }}
                 label='Metaverse Index Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.mviTokenAddress}`}
-                value={getDisplayBalance(mviBalance)}
+                value={displayFromWei(mviBalance)}
               />
             </Box>
           </Split>
@@ -150,9 +143,9 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                   alt: 'DATA Icon',
                   src: dataLogo,
                 }}
-                label='DATA Index Balance'
+                label='DATA Economy Index Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.dataTokenAddress}`}
-                value={getDisplayBalance(dataBalance)}
+                value={displayFromWei(dataBalance)}
               />
             </Box>
           </Split>
@@ -169,7 +162,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 }}
                 label='ETH 2x FLI Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.eth2xfliTokenAddress}`}
-                value={getDisplayBalance(ethfliBalance)}
+                value={displayFromWei(ethfliBalance)}
               />
             </Box>
             <Box row>
@@ -180,7 +173,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 }}
                 label='BTC 2x FLI Balance'
                 link={`https://etherscan.io/address/${tokenAddresses.btc2xfliTokenAddress}`}
-                value={getDisplayBalance(btcfliBalance)}
+                value={displayFromWei(btcfliBalance)}
               />
             </Box>
           </Split>
@@ -194,7 +187,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 iconComponent={ethDpiTokenIcon}
                 label='Uniswap ETH/DPI LP balance'
                 link={`https://etherscan.io/address/${tokenAddresses.uniswapEthDpiLpTokenAddress}`}
-                value={getDisplayBalance(uniswapEthDpiLpBalance)}
+                value={displayFromWei(uniswapEthDpiLpBalance)}
               />
             </Box>
             <Box row>
@@ -205,7 +198,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 }}
                 label='Staked Uniswap ETH/DPI LP'
                 link={`https://etherscan.io/address/${tokenAddresses.farmTwoAddress}`}
-                value={getDisplayBalance(totalStakedEthDpiLpBalance)}
+                value={displayFromWei(totalStakedEthDpiLpBalance)}
               />
             </Box>
           </Split>
@@ -217,7 +210,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 iconComponent={ethMviTokenIcon}
                 label='Uniswap ETH/MVI LP balance'
                 link={`https://etherscan.io/address/${tokenAddresses.uniswapEthMviLpTokenAddress}`}
-                value={getDisplayBalance(uniswapEthMviLpBalance)}
+                value={displayFromWei(uniswapEthMviLpBalance)}
               />
             </Box>
             <Box row>
@@ -228,7 +221,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 }}
                 label='Staked Uniswap ETH/MVI LP'
                 link={`https://etherscan.io/address/${tokenAddresses.mviStakingRewardsAddress}`}
-                value={getDisplayBalance(stakedUniswapEthMviLpBalance)}
+                value={displayFromWei(stakedUniswapEthMviLpBalance)}
               />
             </Box>
           </Split>

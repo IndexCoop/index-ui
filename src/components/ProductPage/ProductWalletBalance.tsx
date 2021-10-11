@@ -9,17 +9,18 @@ import SimpleButton from 'components/SimpleButton'
 import useWallet from 'hooks/useWallet'
 import { useAddToMetamask } from 'hooks/useAddToMetamask'
 import { ProductToken } from 'constants/productTokens'
+import { displayFromWei } from 'utils'
 
 interface ProductWalletBalanceProps {
   token: ProductToken
   latestPrice?: number
-  currentBalance?: BigNumber | number
+  currentBalance?: BigNumber
 }
 
 const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
   token,
   latestPrice = 0,
-  currentBalance = 0,
+  currentBalance = new BigNumber(0),
 }) => {
   const { isMetamaskConnected } = useWallet()
   const handleAddToMetamask = useAddToMetamask()
@@ -29,10 +30,10 @@ const ProductWalletBalance: React.FC<ProductWalletBalanceProps> = ({
       <StyledTokenWrapper>
         <div>
           <StyledTokenValuation>
-            ${numeral(latestPrice * Number(currentBalance)).format('0.00a')}
+            ${displayFromWei(currentBalance.times(latestPrice))}
           </StyledTokenValuation>
           <StyledTokenBalance data-cy='my-assets-token-balance'>
-            {numeral(currentBalance).format('0.000a')} {token.symbol}
+            {displayFromWei(currentBalance)} {token.symbol}
           </StyledTokenBalance>
         </div>
         <div>

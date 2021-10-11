@@ -160,3 +160,31 @@ export const getSupplyCap = async (
     return '1'
   }
 }
+
+/**
+ * returns an undefined safe BigNumber
+ * @param number
+ * @returns
+ */
+export const getBigNumber = (number: BigNumber | undefined) => {
+  return number ? number : new BigNumber(0)
+}
+
+/**
+ * Converts a number from Wei to another denomination of Eth
+ * @param number
+ * @param power
+ * @returns
+ */
+export const fromWei = (number: BigNumber | undefined, power: number = 18) => {
+  return getBigNumber(number).dividedBy(new BigNumber(10).pow(power))
+}
+
+/**
+ * Formats a BigNumber to 2 decimals from Wei
+ * @param number
+ * @returns
+ */
+export const displayFromWei = (number: BigNumber | undefined) => {
+  return fromWei(number).toFormat(2)
+}

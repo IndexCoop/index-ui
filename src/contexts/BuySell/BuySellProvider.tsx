@@ -9,7 +9,7 @@ import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { getZeroExTradeData } from 'utils/zeroExUtils'
 import trackReferral from 'utils/referralApi'
-import { waitTransaction } from 'utils/index'
+import { fromWei, waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
 import { ZeroExData } from './types'
@@ -52,25 +52,25 @@ const BuySellProvider: React.FC = ({ children }) => {
   // eslint-disable-next-line
   let spendingTokenBalance = new BigNumber(0)
   if (!isUserBuying && buySellToken === 'index') {
-    spendingTokenBalance = indexBalance || new BigNumber(0)
+    spendingTokenBalance = fromWei(indexBalance)
   } else if (!isUserBuying && buySellToken === 'dpi') {
-    spendingTokenBalance = dpiBalance || new BigNumber(0)
+    spendingTokenBalance = fromWei(dpiBalance)
   } else if (!isUserBuying && buySellToken === 'ethfli') {
-    spendingTokenBalance = ethfliBalance || new BigNumber(0)
+    spendingTokenBalance = fromWei(ethfliBalance)
   } else if (!isUserBuying && buySellToken === 'btcfli') {
-    spendingTokenBalance = btcfliBalance || new BigNumber(0)
+    spendingTokenBalance = fromWei(btcfliBalance)
   } else if (!isUserBuying && buySellToken === 'mvi') {
-    spendingTokenBalance = mviBalance || new BigNumber(0)
+    spendingTokenBalance = fromWei(mviBalance)
   } else if (!isUserBuying && buySellToken === 'bed') {
-    spendingTokenBalance = bedBalance || new BigNumber(0)
+    spendingTokenBalance = fromWei(bedBalance)
   } else if (!isUserBuying && buySellToken === 'data') {
-    spendingTokenBalance = dataBalance || new BigNumber(0)
+    spendingTokenBalance = fromWei(dataBalance)
   } else if (selectedCurrency?.label === 'ETH') {
-    spendingTokenBalance = ethBalance || new BigNumber(0)
+    spendingTokenBalance = fromWei(ethBalance)
   } else if (selectedCurrency?.label === 'DAI') {
-    spendingTokenBalance = daiBalance || new BigNumber(0)
+    spendingTokenBalance = fromWei(daiBalance)
   } else if (selectedCurrency?.label === 'USDC') {
-    spendingTokenBalance = usdcBalance || new BigNumber(0)
+    spendingTokenBalance = fromWei(usdcBalance, 6)
   }
 
   useEffect(() => {
@@ -101,17 +101,12 @@ const BuySellProvider: React.FC = ({ children }) => {
   const onExecuteBuySell = useCallback(async () => {
     if (!account || !zeroExTradeData?.sellAmount || !selectedCurrency) return
 
-    let requiredBalance = new BigNumber(zeroExTradeData?.sellAmount).dividedBy(
-      new BigNumber(10).pow(18)
-    )
+    let requiredBalance =
+      selectedCurrency === 'usdc'
+        ? fromWei(new BigNumber(zeroExTradeData.sellAmount), 6)
+        : fromWei(new BigNumber(zeroExTradeData?.sellAmount))
 
-    if (selectedCurrency === 'usdc') {
-      requiredBalance = new BigNumber(
-        zeroExTradeData?.sellAmount || 0
-      ).dividedBy(new BigNumber(10).pow(6))
-    }
-
-    if (spendingTokenBalance?.isLessThan(requiredBalance)) return
+    if (spendingTokenBalance.lt(requiredBalance)) return
 
     const web3 = new Web3(ethereum)
 
