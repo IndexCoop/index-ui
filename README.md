@@ -89,6 +89,39 @@ The main purpose of this repository is to continually serve the needs of Index, 
 
 We greatly encourage any community contribution that may help Index reach more users and promote greater adoption, so be sure to check out our [Contribution Guidelines](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md) for ways to get involved with our project.
 
+## Style Guide
+
+### Absolute imports
+Prefer absolute imports over relative imports because this is a loose codebase convention. Refer to [Configuring React Absolute Imports For TypeScript](https://justinnoel.dev/2019/06/18/configuring-react-absolute-imports-for-typescript/) if your editor isn't picking up absolute imports.
+
+```typescript
+// Good
+import Page from 'components/Page'
+
+// Bad
+import Page from '../../components/Page'
+```
+
+### Import ordering
+Order library imports at the top of the file, then a newline separator, then imports for exported members that are defined in this package.
+
+```typescript
+// Good
+import React, { useEffect } from 'react'
+import { Container, Spacer } from 'react-neu'
+
+import Page from 'components/Page'
+import Explanation from 'components/Explanation'
+```
+
+```typescript
+// Bad
+import React, { useEffect } from 'react'
+import Page from 'components/Page'
+import { Container, Spacer } from 'react-neu'
+import Explanation from 'components/Explanation'
+```
+
 ## License
 
 Index UI is MIT licensed.
