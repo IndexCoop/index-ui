@@ -111,14 +111,6 @@ export const getERC20Contract = (provider: provider, address: string) => {
   return contract
 }
 
-export const bnToDec = (bn: BigNumber, decimals = 18) => {
-  return bn.dividedBy(new BigNumber(10).pow(decimals)).toNumber()
-}
-
-export const decToBn = (dec: number, decimals = 18) => {
-  return new BigNumber(dec).multipliedBy(new BigNumber(10).pow(decimals))
-}
-
 export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
   return balance.dividedBy(new BigNumber(10).pow(decimals)).toFixed()
 }
@@ -129,19 +121,6 @@ export const makeEtherscanLink = (transactionHash: string) => {
 
 export const makeEtherscanAddressLink = (transactionHash: string) => {
   return `https://etherscan.io/address/${transactionHash}`
-}
-
-export const getTotalSupply = async (
-  provider: provider,
-  tokenAddress: string
-): Promise<string> => {
-  const tokenContract = getERC20Contract(provider, tokenAddress)
-  try {
-    const balance: string = await tokenContract.methods.totalSupply().call()
-    return balance
-  } catch (e) {
-    return '0'
-  }
 }
 
 export const getSupplyCap = async (
