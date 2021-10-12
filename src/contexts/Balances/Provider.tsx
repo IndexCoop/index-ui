@@ -72,40 +72,56 @@ const Provider: React.FC = ({ children }) => {
 
   const fetchBalances = useCallback(
     async (userAddress: string, provider: provider) => {
+      if (!indexTokenAddress ||
+        !dpiTokenAddress ||
+        !eth2xfliTokenAddress ||
+        !btc2xfliTokenAddress ||
+        !mviTokenAddress ||
+        !daiTokenAddress ||
+        !usdcTokenAddress ||
+        !bedTokenAddress ||
+        !dataTokenAddress ||
+        !uniswapEthDpiLpTokenAddress ||
+        !uniswapEthMviLpTokenAddress ||
+        !stakingRewardsAddress ||
+        !farmTwoAddress ||
+        !mviStakingRewardsAddress) {
+        throw new Error("A token address is not defined. Please check your .env to confirm all token addresses are defined.")
+      }
       const balances = await Promise.all([
         getEthBalance(provider, userAddress),
-        getBalance(provider, indexTokenAddress as string, userAddress),
-        getBalance(provider, dpiTokenAddress as string, userAddress),
-        getBalance(provider, eth2xfliTokenAddress as string, userAddress),
-        getBalance(provider, btc2xfliTokenAddress as string, userAddress),
-        getBalance(provider, mviTokenAddress as string, userAddress),
-        getBalance(provider, daiTokenAddress as string, userAddress),
-        getBalance(provider, usdcTokenAddress as string, userAddress),
-        getBalance(provider, bedTokenAddress as string, userAddress),
-        getBalance(provider, dataTokenAddress as string, userAddress),
+        getBalance(provider, indexTokenAddress, userAddress),
+        getBalance(provider, dpiTokenAddress, userAddress),
+        getBalance(provider, eth2xfliTokenAddress, userAddress),
+        getBalance(provider, btc2xfliTokenAddress, userAddress),
+        getBalance(provider, mviTokenAddress, userAddress),
+        getBalance(provider, daiTokenAddress, userAddress),
+        getBalance(provider, usdcTokenAddress, userAddress),
+        getBalance(provider, bedTokenAddress, userAddress),
+        getBalance(provider, dataTokenAddress, userAddress),
 
         // LP Token Balances
         getBalance(
           provider,
-          uniswapEthDpiLpTokenAddress as string,
+          uniswapEthDpiLpTokenAddress,
           userAddress
         ),
         getBalance(
           provider,
-          uniswapEthMviLpTokenAddress as string,
+          uniswapEthMviLpTokenAddress,
           userAddress
         ),
 
         // Legacy DPI LM Program Balances
-        getBalance(provider, stakingRewardsAddress as string, userAddress),
+        getBalance(provider, stakingRewardsAddress, userAddress),
         getEarnedIndexTokenQuantity(provider, userAddress),
 
         // Current DPI LM Program Balances
-        getBalance(provider, farmTwoAddress as string, userAddress),
+        getBalance(provider, farmTwoAddress, userAddress),
         getEarnedFarmTwoBalance(provider, userAddress),
 
         // Current MVI LM Program Balances
-        getBalance(provider, mviStakingRewardsAddress as string, userAddress),
+        getBalance(provider, mviStakingRewardsAddress, userAddress),
         getMviRewardsBalance(provider, userAddress),
       ])
 
