@@ -466,7 +466,6 @@ const SectionTitle = styled.p`
 
 const SectionSubTitle = styled.p`
   font-size: 24px;
-  display: inline;
   line-height: 1.1;
   padding-bottom: 5px;
   border-bottom: 3px solid #a9a7ff;
@@ -499,7 +498,7 @@ const HeaderImage = styled.img`
   }
 `
 
-const Description = styled.p`
+const Description = styled.div`
   font-size: 24px;
   line-height: 1.4;
   @media (max-width: 768px) {
