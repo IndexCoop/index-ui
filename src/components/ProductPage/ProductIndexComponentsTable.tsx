@@ -4,14 +4,33 @@ import numeral from 'numeral'
 
 import { ProductPageSection } from './ProductPageLayouts'
 import IndexComponent from 'components/IndexComponent'
+import { SetComponent } from "../../contexts/SetComponents/SetComponent"
 
 interface ProductIndexComponentsProps {
-  components?: IndexComponent[]
+  indexComponents?: IndexComponent[]
+  /**
+   * setComponents is a subset of information in components. If provided, it
+   * will be used to populate the index token allocation table. If undefined,
+   * components will be used instead.
+   */
+  setComponents?: SetComponent[]
 }
 
 const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
-  components,
+  indexComponents,
+  setComponents
 }) => {
+  const components = indexComponents?.map(indexComponent => {
+    if (!setComponents || setComponents.length === 0) {
+      return indexComponent
+    }
+    const matchingSetComponents = setComponents.filter(setComponent => setComponent.address === indexComponent.address)
+    if (matchingSetComponents.length !== 1) {
+      console.warn(`Found more than one matching set component for address ${indexComponent.address}. matchingSetComponents ${matchingSetComponents}`)
+      return indexComponent
+    }
+    return {...indexComponent, quantity: matchingSetComponents[0].quantity}
+  })
   const [amountToDisplay, setAmountToDisplay] = useState<number>(5)
   const showAllComponents = () =>
     setAmountToDisplay(components?.length || amountToDisplay)

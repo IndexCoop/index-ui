@@ -22,6 +22,7 @@ import {
   ProductToken,
 } from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
+import { SetComponent } from "../../contexts/SetComponents/SetComponent"
 
 export interface TokenDataProps {
   prices: number[][] | undefined
@@ -31,6 +32,12 @@ export interface TokenDataProps {
   latestVolume: number | undefined
   token: ProductToken
   components: IndexComponent[] | undefined
+  /**
+   * setComponents is a subset of information in components. If provided, it
+   * will be used to populate the index token allocation table. If undefined,
+   * components will be used instead.
+   */
+  setComponents?: SetComponent[]
   balance: BigNumber | undefined
   supplyCap?: BigNumber | undefined
   currentSupply?: BigNumber | undefined
@@ -98,7 +105,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
             hourlyPrices={tokenData.hourlyPrices}
           />
           {tokenData.components && (
-            <IndexComponentsTable components={tokenData.components} />
+            <IndexComponentsTable indexComponents={tokenData.components} setComponents={tokenData.setComponents}/>
           )}
           <Description>{children}</Description>
         </ProductPageContent>

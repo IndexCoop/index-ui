@@ -59,6 +59,7 @@ import { discordLink, voteLink } from 'constants/externalLinks'
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
 import { RewardsProvider } from 'contexts/Rewards'
+import { SetComponentsProvider } from "./contexts/SetComponents"
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -178,7 +179,9 @@ const Providers: React.FC = ({ children }) => {
                                                               <V3FarmingProvider>
                                                                 <StreamingFeeProvider>
                                                                   <TokenSupplyProvider>
-                                                                    {children}
+                                                                    <SetComponentsProvider>
+                                                                      {children}
+                                                                    </SetComponentsProvider>
                                                                   </TokenSupplyProvider>
                                                                 </StreamingFeeProvider>
                                                               </V3FarmingProvider>
