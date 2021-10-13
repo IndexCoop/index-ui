@@ -1545,7 +1545,7 @@
     "@emotion/weak-memoize" "^0.2.5"
     hoist-non-react-statics "^3.3.1"
 
-"@emotion/serialize@^1.0.0", "@emotion/serialize@^1.0.2":
+"@emotion/serialize@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@emotion/serialize/-/serialize-1.0.2.tgz"
   integrity sha512-95MgNJ9+/ajxU7QIAruiOAdYNjxZX7G2mhgrtDWswA21VviYIRP1R5QilZ/bDY42xiKsaktP4egJb3QdYQZi1A==
@@ -3034,13 +3034,6 @@
   resolved "https://registry.npmjs.org/@types/q/-/q-1.5.5.tgz"
   integrity sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==
 
-"@types/react-dom@*":
-  version "17.0.9"
-  resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-17.0.9.tgz"
-  integrity sha512-wIvGxLfgpVDSAMH5utdL9Ngm5Owu0VsGmldro3ORLXV8CShrL8awVj06NuEXFQ5xyaYfdca7Sgbk/50Ri1GdPg==
-  dependencies:
-    "@types/react" "*"
-
 "@types/react-gtm-module@^2.0.0":
   version "2.0.1"
   resolved "https://registry.npmjs.org/@types/react-gtm-module/-/react-gtm-module-2.0.1.tgz"
@@ -3063,20 +3056,17 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-select@^4.0.15":
-  version "4.0.17"
-  resolved "https://registry.npmjs.org/@types/react-select/-/react-select-4.0.17.tgz"
-  integrity sha512-ZK5wcBhJaqC8ntQl0CJvK2KXNNsk1k5flM7jO+vNPPlceRzdJQazA6zTtQUyNr6exp5yrAiwiudtYxgGlgGHLg==
+"@types/react-select@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-select/-/react-select-5.0.1.tgz#04fc85edd34a72675a0ab56ad4c30428aab0e444"
+  integrity sha512-h5Im0AP0dr4AVeHtrcvQrLV+gmPa7SA0AGdxl2jOhtwiE6KgXBFSogWw8az32/nusE6AQHlCOHQWjP1S/+oMWA==
   dependencies:
-    "@emotion/serialize" "^1.0.0"
-    "@types/react" "*"
-    "@types/react-dom" "*"
-    "@types/react-transition-group" "*"
+    react-select "*"
 
-"@types/react-transition-group@*":
-  version "4.4.2"
-  resolved "https://registry.npmjs.org/@types/react-transition-group/-/react-transition-group-4.4.2.tgz"
-  integrity sha512-KibDWL6nshuOJ0fu8ll7QnV/LVTo3PzQ9aCPnRUYPfX7eZohHwLIdNHj7pftanREzHNP4/nJa8oeM73uSiavMQ==
+"@types/react-transition-group@^4.4.0":
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.3.tgz#b0994da0a7023d67dbb4a8910a62112bc00d5688"
+  integrity sha512-fUx5muOWSYP8Bw2BUQ9M9RK9+W1XBK/7FLJ8PTQpnpTEkn0ccyMffyEQvan4C3h53gHdx7KE5Qrxi/LnUGQtdg==
   dependencies:
     "@types/react" "*"
 
@@ -9788,10 +9778,10 @@ graphql-tag@^2.12.3, graphql-tag@^2.12.4:
   dependencies:
     tslib "^2.1.0"
 
-graphql@^15.5.0:
-  version "15.5.3"
-  resolved "https://registry.npmjs.org/graphql/-/graphql-15.5.3.tgz"
-  integrity sha512-sM+jXaO5KinTui6lbK/7b7H/Knj9BpjGxZ+Ki35v7YbUJxxdBCUqNM0h3CRVU1ZF9t5lNiBzvBCSYPvIwxPOQA==
+graphql@^15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.6.1.tgz#9125bdf057553525da251e19e96dab3d3855ddfc"
+  integrity sha512-3i5lu0z6dRvJ48QP9kFxBkJ7h4Kso7PS8eahyTFz5Jm6CvQfLtNIE8LX9N6JLnXTuwR+sIYnXzaWp6anOg0QQw==
 
 growly@^1.3.0:
   version "1.3.0"
@@ -15190,6 +15180,19 @@ react-scripts@4.0.3:
     workbox-webpack-plugin "5.1.4"
   optionalDependencies:
     fsevents "^2.1.3"
+
+react-select@*:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.1.0.tgz#ac384c8e25ba6f03126026192b2bdad0f53fbf50"
+  integrity sha512-SkEBD1AYsSXrIdNj5HBt7+Ehe+jxdiB448J0atJqR6lE3l/GcFlRf4JYB3NlHe/02jrW4AnIQLo1t0IqWrxXOw==
+  dependencies:
+    "@babel/runtime" "^7.12.0"
+    "@emotion/cache" "^11.4.0"
+    "@emotion/react" "^11.1.1"
+    "@types/react-transition-group" "^4.4.0"
+    memoize-one "^5.0.0"
+    prop-types "^15.6.0"
+    react-transition-group "^4.3.0"
 
 react-select@^4.3.1:
   version "4.3.1"
