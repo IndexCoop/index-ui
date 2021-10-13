@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import styled from 'styled-components'
 
 import { Button } from 'react-neu'
@@ -13,7 +13,18 @@ const WalletButton: React.FC = () => {
     isShowingWalletModal,
     onCloseWalletModal,
     onOpenWalletModal,
+    status,
+    connect,
   } = useWallet()
+
+  const onClick = useCallback(() => {
+    // If the user comes from the onto app it should directly connect without opening the web3 modal
+    if (status != 'connected' && (window as any).ethereum?.isONTO) {
+      connect('injected')
+    } else {
+      onOpenWalletModal()
+    }
+  }, [status, connect])
 
   const openWalletText = !!account ? 'View Balances' : 'Unlock Wallet'
   const variant = !!account ? 'tertiary' : 'default'
@@ -22,7 +33,7 @@ const WalletButton: React.FC = () => {
     <>
       <StyledWalletButton>
         <Button
-          onClick={onOpenWalletModal}
+          onClick={onClick}
           size='sm'
           text={openWalletText}
           variant={variant}
