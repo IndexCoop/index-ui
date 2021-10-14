@@ -1,8 +1,7 @@
-/// <reference types="cypress" />
-//
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
   // failing the test
+  // TODO: Check why there are exceptions being thrown in these tests by the MockProvider
   return false
 })
 
@@ -28,7 +27,7 @@ describe('Wallet Connection', () => {
     })
   })
 
-  context('ONTO', () => {
+  context('ONTO (visiting from App)', () => {
     before(() => {
       cy.injectWeb3Provider(true)
       cy.reload(true)
