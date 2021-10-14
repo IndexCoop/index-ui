@@ -2214,10 +2214,10 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@ledgerhq/cryptoassets@^6.8.0":
-  version "6.8.0"
-  resolved "https://registry.npmjs.org/@ledgerhq/cryptoassets/-/cryptoassets-6.8.0.tgz"
-  integrity sha512-0YUdUYgE5JcIsofZ5yvD11bg+ndKs8Ct/iHQzapdeRTS8GZ2EpIwBjfiOXE4cljQYgK8E1yAuo7LG1Pgvo1DEw==
+"@ledgerhq/cryptoassets@^6.9.0":
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/cryptoassets/-/cryptoassets-6.9.0.tgz#08bd041e390574878aa7441358a12df52fd16fae"
+  integrity sha512-NwGFky11PnRCFi2uSiVJvMbeTLSb0qVM0Xw24ovaYi36LO2SDI/iuTsa/rRSebdGUf8nuiHJFw45Z8D5ylVG5A==
   dependencies:
     invariant "2"
 
@@ -2258,18 +2258,18 @@
     "@ledgerhq/errors" "^4.78.0"
     "@ledgerhq/hw-transport" "^4.78.0"
 
-"@ledgerhq/hw-app-eth@^6.8.0":
-  version "6.8.0"
-  resolved "https://registry.npmjs.org/@ledgerhq/hw-app-eth/-/hw-app-eth-6.8.0.tgz"
-  integrity sha512-v57djyhdAvqkcv9NPrRLfMKUfNl6Ss3YOGby5xA28eHLrScriI/nDQMPChqgnMh3m9zM5wPJTxUqD7R2Rmw40Q==
+"@ledgerhq/hw-app-eth@^6.9.0":
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/hw-app-eth/-/hw-app-eth-6.9.0.tgz#a7444f55b8e523bb762d32a78eec6969d16dda06"
+  integrity sha512-sGQSuW3dXViuU3rPLBk2liUYil5zI2ZTco8IuXsJnoLMX7AbcUb1EaHGJdZKf8vrERNk3M4uf8aJdX5SiOEvYg==
   dependencies:
-    "@ledgerhq/cryptoassets" "^6.8.0"
+    "@ledgerhq/cryptoassets" "^6.9.0"
     "@ledgerhq/errors" "^6.2.0"
     "@ledgerhq/hw-transport" "^6.7.0"
     "@ledgerhq/logs" "^6.2.0"
     axios "^0.21.4"
     bignumber.js "^9.0.1"
-    ethers "^5.4.6"
+    ethers "^5.4.7"
 
 "@ledgerhq/hw-transport-node-hid-noevents@^4.78.0":
   version "4.78.0"
@@ -8690,7 +8690,7 @@ ethers@4.0.0-beta.14:
     uuid "2.0.1"
     xmlhttprequest "1.8.0"
 
-ethers@5.4.6, ethers@^5.4.6:
+ethers@5.4.6:
   version "5.4.6"
   resolved "https://registry.npmjs.org/ethers/-/ethers-5.4.6.tgz"
   integrity sha512-F7LXARyB/Px3AQC6/QKedWZ8eqCkgOLORqL4B/F0Mag/K+qJSFGqsR36EaOZ6fKg3ZonI+pdbhb4A8Knt/43jQ==
@@ -8726,7 +8726,7 @@ ethers@5.4.6, ethers@^5.4.6:
     "@ethersproject/web" "5.4.0"
     "@ethersproject/wordlists" "5.4.0"
 
-ethers@^5.4.0:
+ethers@^5.4.0, ethers@^5.4.6, ethers@^5.4.7:
   version "5.4.7"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.4.7.tgz#0fd491a5da7c9793de2d6058d76b41b1e7efba8f"
   integrity sha512-iZc5p2nqfWK1sj8RabwsPM28cr37Bpq7ehTQ5rWExBr2Y09Sn1lDKZOED26n+TsZMye7Y6mIgQ/1cwpSD8XZew==
