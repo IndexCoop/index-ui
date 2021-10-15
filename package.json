@@ -36,7 +36,7 @@
     "set.js": "^0.3.0",
     "styled-components": "^5.3.0",
     "use-wallet": "^0.11.0",
-    "web3": "^1.5.2",
+    "web3": "^1.5.3",
     "web3-core": "^1.5.2",
     "web3-provider-engine": "^16.0.3"
   },
