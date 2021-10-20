@@ -2477,10 +2477,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@setprotocol/set-protocol-v2@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/@setprotocol/set-protocol-v2/-/set-protocol-v2-0.1.0.tgz"
-  integrity sha512-t8F8kXK9I5KvzD4FW+LWoBVD6YwX7cgvpAHXsNgMgJ3fxySodWdNXyTUWceXWVqlxFF+ld5WbhiC8zLcJ3yrOA==
+"@setprotocol/set-protocol-v2@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@setprotocol/set-protocol-v2/-/set-protocol-v2-0.1.1.tgz#26eb788f9ff1a2fe98e36951c21778b6f261d0cd"
+  integrity sha512-ZXCDdJjIP1/kqFbcKOESU4vu7SnF5mZVR4/7S61zN/NMRsnmo/6Udzno63igHVbFxpXuScYMQ3+PqtawJ0bm1g==
   dependencies:
     ethers "^5.4.6"
     fs-extra "^5.0.0"
@@ -16293,15 +16293,15 @@ set-value@^3.0.0:
   dependencies:
     is-plain-object "^2.0.4"
 
-set.js@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/set.js/-/set.js-0.3.0.tgz"
-  integrity sha512-1iNrEH5JvisIFMcv6NeJiSTxv8If3iDgwgdlgFs350BUMriiQKLm9omBsjSzanr84ZjavYYtNw5BcR6JTs9j7A==
+set.js@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/set.js/-/set.js-0.3.2.tgz#6e10ad29669c92efac3e040c8018fc88ff13c6f0"
+  integrity sha512-/I19Q7xGi+JSywxrTfX4GNDoVIRTvH98ivdrlnQ9cm6/dh/DQo3wpxIiRFaGr7wBJUerrrYozIG9xodFxXlBeA==
   dependencies:
     "@0xproject/types" "^1.1.4"
     "@0xproject/typescript-typings" "^3.0.2"
     "@0xproject/utils" "^2.0.2"
-    "@setprotocol/set-protocol-v2" "^0.1.0"
+    "@setprotocol/set-protocol-v2" "^0.1.1"
     "@types/chai-as-promised" "^7.1.3"
     "@types/jest" "^26.0.5"
     "@types/web3" "^1.2.2"
