@@ -2230,13 +2230,13 @@
     "@ledgerhq/logs" "^4.72.0"
     rxjs "^6.5.3"
 
-"@ledgerhq/devices@^6.7.0":
-  version "6.7.0"
-  resolved "https://registry.npmjs.org/@ledgerhq/devices/-/devices-6.7.0.tgz"
-  integrity sha512-FWJfmdl8V300++OXLgBLpIi+IJoR/srWvxpXrWkc9hd3cNMxgeCl9opm84Y0oJDLBQL9AaERMrb+Cb1nZZR9Tw==
+"@ledgerhq/devices@^6.10.0", "@ledgerhq/devices@^6.7.0":
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/devices/-/devices-6.10.0.tgz#34d536caa0c426ba7e7b1fc0169d285b2ce2c1c2"
+  integrity sha512-rmSTpAwhf37FrVMuOGWdXfH7J+NFHDmXwu9OoefI50pfvuFnWe2lkRIQ4trQFh6uByOLF81t2ENw6BxgW++tVw==
   dependencies:
-    "@ledgerhq/errors" "^6.2.0"
-    "@ledgerhq/logs" "^6.2.0"
+    "@ledgerhq/errors" "^6.10.0"
+    "@ledgerhq/logs" "^6.10.0"
     rxjs "6"
     semver "^7.3.5"
 
@@ -2245,10 +2245,10 @@
   resolved "https://registry.npmjs.org/@ledgerhq/errors/-/errors-4.78.0.tgz"
   integrity sha512-FX6zHZeiNtegBvXabK6M5dJ+8OV8kQGGaGtuXDeK/Ss5EmG4Ltxc6Lnhe8hiHpm9pCHtktOsnUVL7IFBdHhYUg==
 
-"@ledgerhq/errors@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.npmjs.org/@ledgerhq/errors/-/errors-6.2.0.tgz"
-  integrity sha512-eO03x8HJmG60WtlrMuahigW/rwywFdcGzCnihta/MjkM8BD9A660cKVkyIuheCcpaB7UV/r+QsRl9abHbjjaag==
+"@ledgerhq/errors@^6.10.0", "@ledgerhq/errors@^6.2.0":
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/errors/-/errors-6.10.0.tgz#dda9127b65f653fbb2f74a55e8f0e550d69de6e4"
+  integrity sha512-fQFnl2VIXh9Yd41lGjReCeK+Q2hwxQJvLZfqHnKqWapTz68NHOv5QcI0OHuZVNEbv0xhgdLhi5b65kgYeQSUVg==
 
 "@ledgerhq/hw-app-eth@^4.3.0":
   version "4.78.0"
@@ -2323,19 +2323,24 @@
     "@ledgerhq/errors" "^4.78.0"
     events "^3.0.0"
 
-"@ledgerhq/hw-transport@^6.7.0":
-  version "6.7.0"
-  resolved "https://registry.npmjs.org/@ledgerhq/hw-transport/-/hw-transport-6.7.0.tgz"
-  integrity sha512-w+PhW6Y4KXYdoCykkE1zt0VL6Ryf72RP8sZP8OH1O90hX/R/q9BMYKl8VNqTbqlrOrORgATlKkbmIJBjbngZew==
+"@ledgerhq/hw-transport@^6.10.0", "@ledgerhq/hw-transport@^6.7.0":
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/hw-transport/-/hw-transport-6.10.0.tgz#fb07670c6b1455417e0f0fb14369db86e3d6c5b9"
+  integrity sha512-e8OvmDn2zs+stVJDdgyCDveMw3KWoCu2/sVw8bqsHQ8pJVNC2ee5KBPb0gxg7oaf8I5Qdv8jzjv3kJFpolNu5A==
   dependencies:
-    "@ledgerhq/devices" "^6.7.0"
-    "@ledgerhq/errors" "^6.2.0"
+    "@ledgerhq/devices" "^6.10.0"
+    "@ledgerhq/errors" "^6.10.0"
     events "^3.3.0"
 
 "@ledgerhq/logs@^4.72.0":
   version "4.72.0"
   resolved "https://registry.npmjs.org/@ledgerhq/logs/-/logs-4.72.0.tgz"
   integrity sha512-o+TYF8vBcyySRsb2kqBDv/KMeme8a2nwWoG+lAWzbDmWfb2/MrVWYCVYDYvjXdSoI/Cujqy1i0gIDrkdxa9chA==
+
+"@ledgerhq/logs@^6.10.0":
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/logs/-/logs-6.10.0.tgz#c012c1ecc1a0e53d50e6af381618dca5268461c1"
+  integrity sha512-lLseUPEhSFUXYTKj6q7s2O3s2vW2ebgA11vMAlKodXGf5AFw4zUoEbTz9CoFOC9jS6xY4Qr8BmRnxP/odT4Uuw==
 
 "@ledgerhq/logs@^6.2.0":
   version "6.2.0"
@@ -2477,10 +2482,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@setprotocol/set-protocol-v2@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/@setprotocol/set-protocol-v2/-/set-protocol-v2-0.1.0.tgz"
-  integrity sha512-t8F8kXK9I5KvzD4FW+LWoBVD6YwX7cgvpAHXsNgMgJ3fxySodWdNXyTUWceXWVqlxFF+ld5WbhiC8zLcJ3yrOA==
+"@setprotocol/set-protocol-v2@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@setprotocol/set-protocol-v2/-/set-protocol-v2-0.1.1.tgz#26eb788f9ff1a2fe98e36951c21778b6f261d0cd"
+  integrity sha512-ZXCDdJjIP1/kqFbcKOESU4vu7SnF5mZVR4/7S61zN/NMRsnmo/6Udzno63igHVbFxpXuScYMQ3+PqtawJ0bm1g==
   dependencies:
     ethers "^5.4.6"
     fs-extra "^5.0.0"
@@ -16293,15 +16298,15 @@ set-value@^3.0.0:
   dependencies:
     is-plain-object "^2.0.4"
 
-set.js@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/set.js/-/set.js-0.3.0.tgz"
-  integrity sha512-1iNrEH5JvisIFMcv6NeJiSTxv8If3iDgwgdlgFs350BUMriiQKLm9omBsjSzanr84ZjavYYtNw5BcR6JTs9j7A==
+set.js@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/set.js/-/set.js-0.3.2.tgz#6e10ad29669c92efac3e040c8018fc88ff13c6f0"
+  integrity sha512-/I19Q7xGi+JSywxrTfX4GNDoVIRTvH98ivdrlnQ9cm6/dh/DQo3wpxIiRFaGr7wBJUerrrYozIG9xodFxXlBeA==
   dependencies:
     "@0xproject/types" "^1.1.4"
     "@0xproject/typescript-typings" "^3.0.2"
     "@0xproject/utils" "^2.0.2"
-    "@setprotocol/set-protocol-v2" "^0.1.0"
+    "@setprotocol/set-protocol-v2" "^0.1.1"
     "@types/chai-as-promised" "^7.1.3"
     "@types/jest" "^26.0.5"
     "@types/web3" "^1.2.2"
