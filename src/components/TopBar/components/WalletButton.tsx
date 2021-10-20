@@ -19,12 +19,12 @@ const WalletButton: React.FC = () => {
 
   const onClick = useCallback(() => {
     // If the user comes from the onto app it should directly connect without opening the web3 modal
-    if (status != 'connected' && (window as any).ethereum?.isONTO) {
+    if (status !== 'connected' && (window as any).ethereum?.isONTO) {
       connect('injected')
     } else {
       onOpenWalletModal()
     }
-  }, [status, connect])
+  }, [status, connect, onOpenWalletModal])
 
   const openWalletText = !!account ? 'View Balances' : 'Unlock Wallet'
   const variant = !!account ? 'tertiary' : 'default'
