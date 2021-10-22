@@ -32,9 +32,7 @@ const GovernanceDropdown: React.FC = () => {
 
   const dropdownSelectStyles = useMemo(() => {
     const isResourcesRouteActive =
-      pathname === '/index' ||
-      pathname === '/vote' ||
-      pathname === '/rewards'
+      pathname === '/index' || pathname === '/vote' || pathname === '/rewards'
 
     return {
       control: (styles: any) => ({
@@ -89,12 +87,12 @@ const GovernanceDropdown: React.FC = () => {
       options={[
         {
           value: 'index',
-          label: 'Index Coop Token',
+          label: 'Index Token',
         },
         {
           value: 'vote',
           label: 'Vote',
-          link: 'https://snapshot.org/#/index-coop.eth'
+          link: 'https://snapshot.org/#/index-coop.eth',
         },
         {
           value: 'handbook',
@@ -104,7 +102,7 @@ const GovernanceDropdown: React.FC = () => {
         {
           value: 'rewards',
           label: 'Rewards',
-        }
+        },
       ]}
       components={{
         Option: CustomOption,
