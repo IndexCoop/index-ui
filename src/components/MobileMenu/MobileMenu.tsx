@@ -72,7 +72,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
             to='/index'
             onClick={onDismiss}
           >
-            Index Coop Token
+            Index Token
           </StyledLink>
           <StyledLink
             exact

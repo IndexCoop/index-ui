@@ -1,6 +1,7 @@
 import * as tokenAddresses from 'constants/ethContractAddresses'
 import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
+import indexLogo from 'assets/index-logo.png'
 
 export interface ProductToken {
   name: string
@@ -28,7 +29,7 @@ export const IndexToken: ProductToken = {
   name: 'Index Token',
   symbol: 'INDEX',
   address: tokenAddresses.indexTokenAddress,
-  image: 'https://index-dao.s3.amazonaws.com/owl.png',
+  image: indexLogo,
   coingeckoId: 'index-cooperative',
   tokensetsId: 'index',
   fees: undefined,
