@@ -80,7 +80,7 @@
     "@ethersproject/experimental": "^5.4.0",
     "@types/canvas-confetti": "^1.4.0",
     "@types/dateformat": "^3.0.1",
-    "@types/lodash": "^4.14.175",
+    "@types/lodash": "^4.14.176",
     "@types/numeral": "^2.0.2",
     "@types/react-gtm-module": "^2.0.0",
     "@types/react-router-dom": "^5.3.1",
