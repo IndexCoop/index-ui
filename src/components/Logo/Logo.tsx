@@ -5,7 +5,7 @@ import { useTheme } from 'react-neu'
 
 import indexLogoFullBlack from 'assets/index-logo-full-black.png'
 import indexLogoFullWhite from 'assets/index-logo-full-white.png'
-import indexLogoBlack from 'assets/index-logo-full-black.png'
+import indexLogoBlack from 'assets/index-logo-black.png'
 import indexLogoWhite from 'assets/index-logo-white.png'
 
 const Logo: React.FC = () => {
