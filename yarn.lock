@@ -3027,10 +3027,10 @@
   resolved "https://registry.npmjs.org/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz"
   integrity sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==
 
-"@types/numeral@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@types/numeral/-/numeral-2.0.1.tgz"
-  integrity sha512-f0LSiBOMnSGILpylIZzYXtnHbhosjPI916W9AkB171MnY+7IVuXHfb7Ohv3AkaDeOieiq74f6vy9ROMxRhfZ1Q==
+"@types/numeral@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/numeral/-/numeral-2.0.2.tgz#8ea2c4f4e64c0cc948ad7da375f6f827778a7912"
+  integrity sha512-A8F30k2gYJ/6e07spSCPpkuZu79LCnkPTvqmIWQzNGcrzwFKpVOydG41lNt5wZXjSI149qjyzC2L1+F2PD/NUA==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -3543,9 +3543,9 @@
   dependencies:
     "@web3-react/types" "^6.0.7"
 
-"@web3-react/core@^6.1.1":
+"@web3-react/core@6.1.9":
   version "6.1.9"
-  resolved "https://registry.npmjs.org/@web3-react/core/-/core-6.1.9.tgz"
+  resolved "https://registry.yarnpkg.com/@web3-react/core/-/core-6.1.9.tgz#5f5daa0545a8ea07770a699580ced552583afc97"
   integrity sha512-P877DslsbAkWIlMANpWiK7pCvNwlz0kJC0EGckuVh0wlA23J4UnFxq6xyOaxkxaDCu14rA/tAO0NbwjcXTQgSA==
   dependencies:
     "@ethersproject/keccak256" "^5.0.0-beta.130"
@@ -3554,9 +3554,9 @@
     tiny-invariant "^1.0.6"
     tiny-warning "^1.0.3"
 
-"@web3-react/fortmatic-connector@^6.1.6":
+"@web3-react/fortmatic-connector@6.1.6":
   version "6.1.6"
-  resolved "https://registry.npmjs.org/@web3-react/fortmatic-connector/-/fortmatic-connector-6.1.6.tgz"
+  resolved "https://registry.yarnpkg.com/@web3-react/fortmatic-connector/-/fortmatic-connector-6.1.6.tgz#99836c4ff4428432e34ed859b55c5842b02726a5"
   integrity sha512-AKiEVvKlZPpRj5pADXyucl2FBt3ymf7PSsRhraHeI8hJCfCEACQ2+bq7okvJq9sNqaeUKukzwUYJmgBYn0qkYQ==
   dependencies:
     "@web3-react/abstract-connector" "^6.0.7"
@@ -3564,9 +3564,9 @@
     fortmatic "^1.0.0"
     tiny-invariant "^1.0.6"
 
-"@web3-react/frame-connector@^6.0.9":
+"@web3-react/frame-connector@6.0.9":
   version "6.0.9"
-  resolved "https://registry.npmjs.org/@web3-react/frame-connector/-/frame-connector-6.0.9.tgz"
+  resolved "https://registry.yarnpkg.com/@web3-react/frame-connector/-/frame-connector-6.0.9.tgz#9e7659480a554944e0ecf08f00fe0c946a565d35"
   integrity sha512-SyEveo8XckEw+aIhT7A58OFtUgAVWM85PmJegoIaTAWBVTVlvXClTAnOUrDzH2Nu6nCoj2swNKHS2dePnux9Pw==
   dependencies:
     "@web3-react/abstract-connector" "^6.0.7"
@@ -3574,38 +3574,38 @@
     eth-provider "^0.2.5"
     tiny-invariant "^1.0.6"
 
-"@web3-react/injected-connector@^6.0.7":
+"@web3-react/injected-connector@6.0.7":
   version "6.0.7"
-  resolved "https://registry.npmjs.org/@web3-react/injected-connector/-/injected-connector-6.0.7.tgz"
+  resolved "https://registry.yarnpkg.com/@web3-react/injected-connector/-/injected-connector-6.0.7.tgz#1e0be23f51fa07fe6547fe986768a46b74c3a426"
   integrity sha512-Y7aJSz6pg+MWKtvdyuqyy6LWuH+4Tqtph1LWfiyVms9II9ar/9B/de4R8wh4wjg91wmHkU+D75yP09E/Soh2RA==
   dependencies:
     "@web3-react/abstract-connector" "^6.0.7"
     "@web3-react/types" "^6.0.7"
     tiny-warning "^1.0.3"
 
-"@web3-react/ledger-connector@^6.1.9":
+"@web3-react/ledger-connector@6.1.9":
   version "6.1.9"
-  resolved "https://registry.npmjs.org/@web3-react/ledger-connector/-/ledger-connector-6.1.9.tgz"
+  resolved "https://registry.yarnpkg.com/@web3-react/ledger-connector/-/ledger-connector-6.1.9.tgz#10e522a49e3c0f1cf21dd576d0e498b74818487d"
   integrity sha512-hcDif/TWIRhCbTU1kRfsqeSYmECpCx2Z42X1dA4opSx7DqO271HP6xRMEHQomxwEJiqzEy9oMcESU4Sfri+FGg==
   dependencies:
     "@0x/subproviders" "^5.0.4"
     "@web3-react/abstract-connector" "^6.0.7"
     "@web3-react/types" "^6.0.7"
 
-"@web3-react/portis-connector@^6.1.6":
-  version "6.1.9"
-  resolved "https://registry.npmjs.org/@web3-react/portis-connector/-/portis-connector-6.1.9.tgz"
-  integrity sha512-dYP1b6a1Y91t9xEu1NrlGvLwuAqYEuVfAerZtVkVf3JZ3O5TiQyVt7O7KWPPg4WsqQ8JEqOrZcE/2bmozP47mA==
+"@web3-react/portis-connector@6.1.6":
+  version "6.1.6"
+  resolved "https://registry.yarnpkg.com/@web3-react/portis-connector/-/portis-connector-6.1.6.tgz#e98847864c05a35e06e593e3aea0358749aae162"
+  integrity sha512-c9qyPoGVG+wLKcIJGzVTDP6oZ/Wn+EbE2cVjeCDTR2opzOO6kJoG7SOZMLXIX1F9v/N6bB8NI6XWlDjROK8zMw==
   dependencies:
     "@portis/web3" "^2.0.0-beta.54"
     "@web3-react/abstract-connector" "^6.0.7"
     "@web3-react/types" "^6.0.7"
     tiny-invariant "^1.0.6"
 
-"@web3-react/torus-connector@^6.1.7":
-  version "6.1.9"
-  resolved "https://registry.npmjs.org/@web3-react/torus-connector/-/torus-connector-6.1.9.tgz"
-  integrity sha512-HOEGbs1XMWncUs/KKBf+8OQaWHxlI3vXRMpXU7UJF404WvawgklEK5yljmFBA0YjwFUwanx0uL36HRYgijVfwA==
+"@web3-react/torus-connector@6.1.7":
+  version "6.1.7"
+  resolved "https://registry.yarnpkg.com/@web3-react/torus-connector/-/torus-connector-6.1.7.tgz#5ce7829a5669efdaa2e39abe2989a490b87dad1a"
+  integrity sha512-zuirHlkcUuwkAyhCz1zBHbxiQ3627Zvw/MJyXGFVX5BSr9ywulFzEi2f+DOyDMMBZAxtSPs3VHB4xMTetUCkOg==
   dependencies:
     "@toruslabs/torus-embed" "^1.8.0"
     "@web3-react/abstract-connector" "^6.0.7"
@@ -3616,7 +3616,7 @@
   resolved "https://registry.npmjs.org/@web3-react/types/-/types-6.0.7.tgz"
   integrity sha512-ofGmfDhxmNT1/P/MgVa8IKSkCStFiyvXe+U5tyZurKdrtTDFU+wJ/LxClPDtFerWpczNFPUSrKcuhfPX1sI6+A==
 
-"@web3-react/walletconnect-connector@^6.2.4":
+"@web3-react/walletconnect-connector@6.2.4":
   version "6.2.4"
   resolved "https://registry.yarnpkg.com/@web3-react/walletconnect-connector/-/walletconnect-connector-6.2.4.tgz#0a128699fc93ddac885935f4aeca32925f6285f0"
   integrity sha512-IEVjCXrlcfVa6ggUBEyKtLRaLQuZGtT2lGuzOFtdbJJkN84u1++pzzeDrcsVhKAoS5wq33zyJT9baEbG1Aed8g==
@@ -3626,14 +3626,14 @@
     "@web3-react/types" "^6.0.7"
     tiny-invariant "^1.0.6"
 
-"@web3-react/walletlink-connector@^6.1.6":
-  version "6.2.3"
-  resolved "https://registry.npmjs.org/@web3-react/walletlink-connector/-/walletlink-connector-6.2.3.tgz"
-  integrity sha512-vJsXyC2NWpVrlnfgwsssDuFo3P/xCoKOjvkEjbQyQEig2aucPijwuxc58BG/YzDx4FyeeyzpnkDMLfcXFuI1pg==
+"@web3-react/walletlink-connector@6.2.5":
+  version "6.2.5"
+  resolved "https://registry.yarnpkg.com/@web3-react/walletlink-connector/-/walletlink-connector-6.2.5.tgz#103231432555496c73d07019a0ab0bb08c5ccfe8"
+  integrity sha512-8Wx+4TqMPZw5kGzraxRLbsLA9mUOYxLJk8QvNzuuFQ8/YpHhL58mQGnHx30KReXTJpMG4TZGE4yCLp3Bd+jVfQ==
   dependencies:
     "@web3-react/abstract-connector" "^6.0.7"
     "@web3-react/types" "^6.0.7"
-    walletlink "^2.1.6"
+    walletlink "^2.1.10"
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
@@ -17939,22 +17939,22 @@ usb@^1.6.0:
     node-addon-api "3.0.2"
     prebuild-install "^5.3.3"
 
-use-wallet@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/use-wallet/-/use-wallet-0.11.0.tgz#ab0d8c7d1b804ba53b29e5c83e30a10e935307bd"
-  integrity sha512-+Teau5CiX4ig5xtWgPL4YoXIEXTjzNk7jEsfHR9cbw2GwtbZbs6nYgTmE6KoRNIPbFon5zdIf0pBsZJK0QgxNA==
+use-wallet@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/use-wallet/-/use-wallet-0.12.2.tgz#72209c62edbf0092cd9aadb1178dfc2cb542e9d4"
+  integrity sha512-GSvRUanGoPe0k23J0GBoGAiB/Xw6r/rWWObmookiwz7THfpA4Lq+gVMG5X7FFuvppwvhC+p1psajEQ9HmW67Tg==
   dependencies:
     "@aragon/provided-connector" "^6.0.8"
     "@typescript-eslint/parser" "^4.1.0"
-    "@web3-react/core" "^6.1.1"
-    "@web3-react/fortmatic-connector" "^6.1.6"
-    "@web3-react/frame-connector" "^6.0.9"
-    "@web3-react/injected-connector" "^6.0.7"
-    "@web3-react/ledger-connector" "^6.1.9"
-    "@web3-react/portis-connector" "^6.1.6"
-    "@web3-react/torus-connector" "^6.1.7"
-    "@web3-react/walletconnect-connector" "^6.2.4"
-    "@web3-react/walletlink-connector" "^6.1.6"
+    "@web3-react/core" "6.1.9"
+    "@web3-react/fortmatic-connector" "6.1.6"
+    "@web3-react/frame-connector" "6.0.9"
+    "@web3-react/injected-connector" "6.0.7"
+    "@web3-react/ledger-connector" "6.1.9"
+    "@web3-react/portis-connector" "6.1.6"
+    "@web3-react/torus-connector" "6.1.7"
+    "@web3-react/walletconnect-connector" "6.2.4"
+    "@web3-react/walletlink-connector" "6.2.5"
     jsbi "^3.1.4"
     prop-types "^15.7.2"
     regenerator-runtime "^0.13.7"
@@ -18149,10 +18149,10 @@ walker@^1.0.7, walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
-walletlink@^2.1.6:
-  version "2.1.10"
-  resolved "https://registry.npmjs.org/walletlink/-/walletlink-2.1.10.tgz"
-  integrity sha512-ndX2yaa8KDzlxiuiLmrA4pJlD4CXjyCoxm4FqaeGqv/ez3WfwIRa+ZjSDpi7odHiz6sTgi/L6zy16fiocWfHJA==
+walletlink@^2.1.10:
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/walletlink/-/walletlink-2.1.11.tgz#4ed5d53066f4fae8cc43169475e4f9d1f6b8735a"
+  integrity sha512-DdnQ2jnVHAdKgQ1IgxPKn3GvVEUbrGCgvgqKqQ7eanxUnyWgRm5T8Ib6NqPDuQ6SNFk6St54uN+uxV7GP6AyZg==
   dependencies:
     "@metamask/safe-event-emitter" "2.0.0"
     bind-decorator "^1.0.11"
