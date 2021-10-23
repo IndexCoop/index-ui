@@ -3,16 +3,23 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useTheme } from 'react-neu'
 
-import indexLogoFullBlack from '../../assets/index-logo-full-black.png'
-import indexLogoFullWhite from '../../assets/index-logo-full-white.png'
+import indexLogoFullBlack from 'assets/index-logo-full-black.png'
+import indexLogoFullWhite from 'assets/index-logo-full-white.png'
+import indexLogoBlack from 'assets/index-logo-full-black.png'
+import indexLogoWhite from 'assets/index-logo-white.png'
 
 const Logo: React.FC = () => {
   const { darkMode } = useTheme()
-  const logo = darkMode ? indexLogoFullWhite : indexLogoFullBlack
+  let logo
+  if (window.innerWidth > 450)
+    logo = darkMode ? indexLogoFullWhite : indexLogoFullBlack
+  else logo = darkMode ? indexLogoWhite : indexLogoBlack
+
+  console.log(window.innerWidth)
 
   return (
-    <StyledLogo to="/">
-      <StyledImage src={logo} alt="index-logo" />
+    <StyledLogo to='/'>
+      <StyledImage src={logo} alt='index-logo' />
     </StyledLogo>
   )
 }

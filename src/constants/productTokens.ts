@@ -1,7 +1,7 @@
 import * as tokenAddresses from 'constants/ethContractAddresses'
 import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
-import indexLogo from 'assets/index-logo.png'
+import indexLogo from 'assets/index-logo-white.png'
 
 export interface ProductToken {
   name: string
