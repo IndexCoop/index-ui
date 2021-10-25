@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Container } from 'react-neu'
 import { useTheme } from 'react-neu'
 
+import { discordLink } from 'constants/externalLinks'
 import Page from 'components/Page'
 
 const About = (props: { title: string }) => {
@@ -109,7 +110,7 @@ const About = (props: { title: string }) => {
           </LargeDescription>
           <ButtonContainer data-cy='join-us-buttons'>
             <ButtonLink
-              href='https://discord.gg/XNMVW4Egdr'
+              href={discordLink}
               target='_blank'
               rel='noopener'
               style={{ marginRight: '30px' }}
