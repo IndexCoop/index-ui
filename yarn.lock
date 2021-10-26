@@ -2241,10 +2241,10 @@
     "@ledgerhq/logs" "^4.72.0"
     rxjs "^6.5.3"
 
-"@ledgerhq/devices@^6.10.0", "@ledgerhq/devices@^6.7.0":
-  version "6.10.0"
-  resolved "https://registry.yarnpkg.com/@ledgerhq/devices/-/devices-6.10.0.tgz#34d536caa0c426ba7e7b1fc0169d285b2ce2c1c2"
-  integrity sha512-rmSTpAwhf37FrVMuOGWdXfH7J+NFHDmXwu9OoefI50pfvuFnWe2lkRIQ4trQFh6uByOLF81t2ENw6BxgW++tVw==
+"@ledgerhq/devices@^6.11.0":
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/devices/-/devices-6.11.0.tgz#cadad10acf385071aa6400a8980db1828123030d"
+  integrity sha512-egCCQbdbVoF8mkCu+mbmDm4YdaJnt3rVmvQqKWHkl+oe/UWUALVwujYnSmOZUV93SoQcVWg34pFIA+fzNb4mPg==
   dependencies:
     "@ledgerhq/errors" "^6.10.0"
     "@ledgerhq/logs" "^6.10.0"
@@ -2315,15 +2315,15 @@
     "@ledgerhq/hw-transport" "^4.24.0"
     u2f-api "0.2.7"
 
-"@ledgerhq/hw-transport-webusb@^6.7.0":
-  version "6.7.0"
-  resolved "https://registry.npmjs.org/@ledgerhq/hw-transport-webusb/-/hw-transport-webusb-6.7.0.tgz"
-  integrity sha512-IyUOAkXd2g5YG/DaRUer/7hZQnecxJDZK2MKFwpafpUbyJQNdkW09CcodinB3e/Y+pjk6O0XuGzUKLgk3dc2vQ==
+"@ledgerhq/hw-transport-webusb@^6.11.0":
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/hw-transport-webusb/-/hw-transport-webusb-6.11.0.tgz#49677a338e5f31f05e4fe93faa04800b83923483"
+  integrity sha512-f18NjpI0xusQyrCgv7T5JM6O3/mVzhm7GSELvpYSnocntoKlY9V5y+dvw+Hs0PmNhSoGYhBwSSaGSdwXIGT0UQ==
   dependencies:
-    "@ledgerhq/devices" "^6.7.0"
-    "@ledgerhq/errors" "^6.2.0"
-    "@ledgerhq/hw-transport" "^6.7.0"
-    "@ledgerhq/logs" "^6.2.0"
+    "@ledgerhq/devices" "^6.11.0"
+    "@ledgerhq/errors" "^6.10.0"
+    "@ledgerhq/hw-transport" "^6.11.0"
+    "@ledgerhq/logs" "^6.10.0"
 
 "@ledgerhq/hw-transport@^4.24.0", "@ledgerhq/hw-transport@^4.78.0":
   version "4.78.0"
@@ -2334,12 +2334,12 @@
     "@ledgerhq/errors" "^4.78.0"
     events "^3.0.0"
 
-"@ledgerhq/hw-transport@^6.10.0", "@ledgerhq/hw-transport@^6.7.0":
-  version "6.10.0"
-  resolved "https://registry.yarnpkg.com/@ledgerhq/hw-transport/-/hw-transport-6.10.0.tgz#fb07670c6b1455417e0f0fb14369db86e3d6c5b9"
-  integrity sha512-e8OvmDn2zs+stVJDdgyCDveMw3KWoCu2/sVw8bqsHQ8pJVNC2ee5KBPb0gxg7oaf8I5Qdv8jzjv3kJFpolNu5A==
+"@ledgerhq/hw-transport@^6.10.0", "@ledgerhq/hw-transport@^6.11.0", "@ledgerhq/hw-transport@^6.7.0":
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/hw-transport/-/hw-transport-6.11.0.tgz#5a67ce267a7051070deae803b7d70eaac9b521aa"
+  integrity sha512-xA9DagkZwZZkpqd9VdSPM5sBeMuV5/KKWul+dRVzwFrjYa3r2j8LY9ZiHS9IYbg23Klofi7Z1Z4CM1R0ZE/5Fw==
   dependencies:
-    "@ledgerhq/devices" "^6.10.0"
+    "@ledgerhq/devices" "^6.11.0"
     "@ledgerhq/errors" "^6.10.0"
     events "^3.3.0"
 
@@ -2348,15 +2348,10 @@
   resolved "https://registry.npmjs.org/@ledgerhq/logs/-/logs-4.72.0.tgz"
   integrity sha512-o+TYF8vBcyySRsb2kqBDv/KMeme8a2nwWoG+lAWzbDmWfb2/MrVWYCVYDYvjXdSoI/Cujqy1i0gIDrkdxa9chA==
 
-"@ledgerhq/logs@^6.10.0":
+"@ledgerhq/logs@^6.10.0", "@ledgerhq/logs@^6.2.0":
   version "6.10.0"
   resolved "https://registry.yarnpkg.com/@ledgerhq/logs/-/logs-6.10.0.tgz#c012c1ecc1a0e53d50e6af381618dca5268461c1"
   integrity sha512-lLseUPEhSFUXYTKj6q7s2O3s2vW2ebgA11vMAlKodXGf5AFw4zUoEbTz9CoFOC9jS6xY4Qr8BmRnxP/odT4Uuw==
-
-"@ledgerhq/logs@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.npmjs.org/@ledgerhq/logs/-/logs-6.2.0.tgz"
-  integrity sha512-SLyFyD7ElMhgKWPYedFGCT/ilcbGPgL5hXXYHxOM79Fs5fWi0zaUpt5oGqGMsOAAFaMa9/rbun0pokzPhEFz8A==
 
 "@metamask/obs-store@^7.0.0":
   version "7.0.0"
@@ -3166,10 +3161,10 @@
   resolved "https://registry.npmjs.org/@types/stack-utils/-/stack-utils-2.0.1.tgz"
   integrity sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==
 
-"@types/styled-components@^5.1.9":
-  version "5.1.14"
-  resolved "https://registry.npmjs.org/@types/styled-components/-/styled-components-5.1.14.tgz"
-  integrity sha512-d6P1/tyNytqKwam3cQXq7a9uPtovc/mdAs7dBiz1YbDdNIT3X4WmuFU78YdSYh84TXVuhOwezZ3EeKuNBhwsHQ==
+"@types/styled-components@^5.1.15":
+  version "5.1.15"
+  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-5.1.15.tgz#30855b40aa80b3b4e4c0e43a4af366e7c246d148"
+  integrity sha512-4evch8BRI3AKgb0GAZ/sn+mSeB+Dq7meYtMi7J/0Mg98Dt1+r8fySOek7Sjw1W+Wskyjc93565o5xWAT/FdY0Q==
   dependencies:
     "@types/hoist-non-react-statics" "*"
     "@types/react" "*"
@@ -7159,10 +7154,10 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-dateformat@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-5.0.1.tgz#60a27a2deb339f888ba4532f533e25ac73ca3d19"
-  integrity sha512-DrcKxOW2am3mtqoJwBTK3OlWcF0QSk1p8diEWwpu3Mf//VdURD7XVaeOV738JvcaBiFfm9o2fisoMhiJH0aYxg==
+dateformat@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-5.0.2.tgz#0f275609b02e3306ff76d6a2067a6ebb98e6114b"
+  integrity sha512-h9vywpuz+ReixnJTwFx5JLtZpS8eLCbRm8shwwKkCKOZA547N6yoMtD3W91Z6+NFZ8wOaZlcaCcK/w+kELhSVg==
 
 dayjs@^1.10.4:
   version "1.10.6"
