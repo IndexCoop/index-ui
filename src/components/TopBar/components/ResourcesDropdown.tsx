@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { NavLink, useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import { useTheme } from 'react-neu'
+import { careersLink } from 'constants/externalLinks'
 
 const CustomOption = (props: any) => {
   const { innerProps, value, label, data } = props
@@ -10,7 +11,7 @@ const CustomOption = (props: any) => {
   if (data?.link) {
     return (
       <CustomDropdownOption {...innerProps}>
-        <StyledOutboundLink href={data.link} target='_blank'>
+        <StyledOutboundLink href={data.link} target='_blank' rel='noopener'>
           {label}
         </StyledOutboundLink>
       </CustomDropdownOption>
@@ -104,15 +105,15 @@ const ProductsDropdown: React.FC = () => {
           value: 'liquidity-mining',
           label: 'Liquidity Mining',
         },
-        {
-          value: 'institutions',
-          label: 'Institutions',
-          link: 'https://institutions.indexcoop.com/',
-        },
+        // {
+        //   value: 'institutions',
+        //   label: 'Institutions',
+        //   link: 'https://institutions.indexcoop.com/',
+        // },
         {
           value: 'careers',
           label: 'Careers',
-          link: 'https://apply.workable.com/index-coop/',
+          link: careersLink,
         },
       ]}
       components={{
