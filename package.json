@@ -34,7 +34,7 @@
     "react-toastify": "^8.0.3",
     "recharts": "^2.1.4",
     "set.js": "^0.3.2",
-    "styled-components": "^5.3.0",
+    "styled-components": "^5.3.3",
     "use-wallet": "^0.11.0",
     "web3": "^1.5.2",
     "web3-core": "^1.5.2",
