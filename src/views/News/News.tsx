@@ -3,6 +3,7 @@ import { Container, Spacer } from 'react-neu'
 import Page from 'components/Page'
 import styled from 'styled-components'
 import HeaderNewsCard from './components/HeaderNewsCard'
+import HeaderNewsNotFound from './components/HeaderNewsNotFound'
 import NewsCard from './components/NewsCard'
 import fetchNews from 'utils/newsApi'
 import NewsCardPlaceholder from './components/NewsCardPlaceholder'
@@ -29,7 +30,14 @@ const Vote = (props: { title: string }) => {
   }, [])
 
   let header =
-    headerArticle.title === '' ? null : (
+    !headerArticle || !headerArticle.title ? (
+      <>
+        <HeaderNewsNotFound />
+        {process.env.NODE_ENV !== 'production' ? (
+          <p>{headerArticle.toString()}</p>
+        ) : null}
+      </>
+    ) : (
       <HeaderNewsCard
         image={headerArticle.image}
         title={headerArticle.title}
