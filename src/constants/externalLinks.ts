@@ -1,2 +1,7 @@
-export const discordLink = 'https://discord.com/invite/74xXr57XHT'
+export const careersLink = 'https://apply.workable.com/index-coop/'
+export const discordLink = 'https://discord.com/invite/vTegM5XzvY'
+export const forumLink = 'https://gov.indexcoop.com'
+export const handbookLink = 'https://docs.indexcoop.com/'
+export const pressKitLink = 'https://docs.indexcoop.com/resources/press-kit'
+export const twitterLink = 'https://twitter.com/indexcoop'
 export const voteLink = 'https://snapshot.org/#/index-coop.eth'

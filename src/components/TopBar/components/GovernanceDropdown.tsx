@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { NavLink, useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import { useTheme } from 'react-neu'
+import { handbookLink, voteLink } from 'constants/externalLinks'
 
 const CustomOption = (props: any) => {
   const { innerProps, value, label, data } = props
@@ -10,7 +11,7 @@ const CustomOption = (props: any) => {
   if (data?.link) {
     return (
       <CustomDropdownOption {...innerProps}>
-        <StyledOutboundLink href={data.link} target='_blank'>
+        <StyledOutboundLink href={data.link} target='_blank' rel='noopener'>
           {label}
         </StyledOutboundLink>
       </CustomDropdownOption>
@@ -92,12 +93,12 @@ const GovernanceDropdown: React.FC = () => {
         {
           value: 'vote',
           label: 'Vote',
-          link: 'https://snapshot.org/#/index-coop.eth',
+          link: voteLink,
         },
         {
           value: 'handbook',
           label: 'Handbook',
-          link: 'https://docs.indexcoop.com/',
+          link: handbookLink,
         },
         {
           value: 'rewards',

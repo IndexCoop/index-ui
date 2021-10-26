@@ -54,8 +54,7 @@ import INDEX from 'views/INDEX'
 import News from 'views/News'
 import ContributorRewards from 'views/ContributorRewards'
 import HowToBuy from 'views/HowToBuy'
-import { discordLink } from 'constants/externalLinks'
-import { voteLink } from 'constants/externalLinks'
+import { discordLink, voteLink } from 'constants/externalLinks'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
@@ -106,11 +105,8 @@ const App: React.FC = () => {
             <Route exact path='/index'>
               <INDEX title={'Index - Index'} />
             </Route>
-            <Route
-              exact
-              path='/vote'
-              render={() => (window.location.href = voteLink)}
-            />
+            <Route exact path='/vote'
+              render={() => (window.location.href = voteLink)}/>
             <Route exact path='/about'>
               <About title={'Index - About'} />
             </Route>
@@ -120,18 +116,16 @@ const App: React.FC = () => {
             <Route exact path='/rewards'>
               <ContributorRewards title={'Index - Rewards'} />
             </Route>
-            <Route path='/news'>
+            <Route exact path='/news'>
               <News title={'Index - News'} />
             </Route>
             <Route path='/how-to-buy'>
               <HowToBuy title={'Index - How to Buy'} />
             </Route>
-            <Route
-              path='/join'
+            <Route exact path='/join'
               render={() => (window.location.href = discordLink)}
             />
-            <Route
-              path='/discord'
+            <Route exact path='/discord'
               render={() => (window.location.href = discordLink)}
             />
           </Switch>
