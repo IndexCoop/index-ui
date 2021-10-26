@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Container } from 'react-neu'
 import { useTheme } from 'react-neu'
+import { discordLink, forumLink } from 'constants/externalLinks'
 
-import { discordLink } from 'constants/externalLinks'
 import Page from 'components/Page'
 
 const About = (props: { title: string }) => {
@@ -128,7 +128,7 @@ const About = (props: { title: string }) => {
               </Button>
             </ButtonLink>
             <ButtonLink
-              href='https://gov.indexcoop.com/'
+              href={forumLink}
               target='_blank'
               rel='noopener'
             >
