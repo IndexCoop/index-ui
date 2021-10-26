@@ -31,13 +31,7 @@ export interface TokenDataProps {
   latestMarketCap: number | undefined
   latestVolume: number | undefined
   token: ProductToken
-  components: IndexComponent[] | undefined
-  /**
-   * setComponents is a subset of information in components. If provided, it
-   * will be used to populate the index token allocation table. If undefined,
-   * components will be used instead.
-   */
-  setComponents?: SetComponent[]
+  components: SetComponent[] | undefined
   balance: BigNumber | undefined
   supplyCap?: BigNumber | undefined
   currentSupply?: BigNumber | undefined
@@ -64,7 +58,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
 
   const netAssetValueReducer = (
     netAssetValue: number,
-    component: IndexComponent
+    component: SetComponent
   ): number => {
     return netAssetValue + (parseFloat(component.totalPriceUsd) || 0)
   }
@@ -105,7 +99,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
             hourlyPrices={tokenData.hourlyPrices}
           />
           {tokenData.components && (
-            <IndexComponentsTable indexComponents={tokenData.components} setComponents={tokenData.setComponents}/>
+            <IndexComponentsTable components={tokenData.components} />
           )}
           <Description>{children}</Description>
         </ProductPageContent>
