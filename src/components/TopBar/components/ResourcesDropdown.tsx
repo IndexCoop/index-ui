@@ -105,11 +105,6 @@ const ProductsDropdown: React.FC = () => {
           value: 'liquidity-mining',
           label: 'Liquidity Mining',
         },
-        // {
-        //   value: 'institutions',
-        //   label: 'Institutions',
-        //   link: 'https://institutions.indexcoop.com/',
-        // },
         {
           value: 'careers',
           label: 'Careers',
