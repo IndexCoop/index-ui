@@ -13,6 +13,12 @@ const fetchNews = async () => {
     rows = await sheet.getRows()
   } catch (err) {
     console.error(err)
+    if (process.env.NODE_ENV !== 'production') {
+      return [err]
+    }
+  }
+  if (rows.length === 0 && process.env.NODE_ENV !== 'production') {
+    return ['No data in sheet']
   }
 
   let news = rows.map((row: any) => {
