@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
+
 import numeral from 'numeral'
 import { Button, Card, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
@@ -9,8 +10,10 @@ import useMediaQuery from 'hooks/useMediaQuery'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
-import DpiStakeModal from './components/DpiStakeModal'
 import Split from 'components/Split'
+
+import DpiStakeModal from './components/DpiStakeModal'
+
 import { fromWei } from 'utils'
 
 const Stake: React.FC = () => {
@@ -123,7 +126,7 @@ const Stake: React.FC = () => {
                 <StyledCardTitle>DPI Liquidity Program</StyledCardTitle>
                 <Spacer size='sm' />
                 <StyledCardSubtitle>
-                  Active July 13th - August 12th
+                  Active July 13th, 2021 - August 12th, 2021
                 </StyledCardSubtitle>
               </StyledLmTitle>
             </StyledCardTitleWrapper>

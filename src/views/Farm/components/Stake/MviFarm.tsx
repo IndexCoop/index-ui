@@ -1,16 +1,19 @@
 import React, { useCallback, useMemo, useState } from 'react'
+
 import numeral from 'numeral'
 import { Button, Card, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 import useBalances from 'hooks/useBalances'
-import useMviStakingRewards from 'hooks/useMviStakingRewards'
 import useMediaQuery from 'hooks/useMediaQuery'
+import useMviStakingRewards from 'hooks/useMviStakingRewards'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
-import MviStakeModal from './components/MviStakeModal'
 import Split from 'components/Split'
+
+import MviStakeModal from './components/MviStakeModal'
+
 import { fromWei } from 'utils'
 
 const Stake: React.FC = () => {
@@ -125,7 +128,7 @@ const Stake: React.FC = () => {
                 <StyledCardTitle>MVI Liquidity Program</StyledCardTitle>
                 <Spacer size='sm' />
                 <StyledCardSubtitle>
-                  Active August 20th - September 19th
+                  Active August 20th, 2021 - September 19th, 2021
                 </StyledCardSubtitle>
               </StyledLmTitle>
             </StyledCardTitleWrapper>

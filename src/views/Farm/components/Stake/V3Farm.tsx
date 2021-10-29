@@ -1,18 +1,20 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
+
 import { Button, Card, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
 import Web3 from 'web3'
 
 import Split from 'components/Split'
+
+import { indexTokenAddress } from 'constants/ethContractAddresses'
+import { DpiEthRewards, V3Farm } from 'constants/v3Farms'
+
 import V3StakeModal from './components/V3StakeModal'
 
 import useMediaQuery from 'hooks/useMediaQuery'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import useV3Farming from 'hooks/useV3Farming'
 import useWallet from 'hooks/useWallet'
-import useTransactionWatcher from 'hooks/useTransactionWatcher'
-
-import { DpiEthRewards, V3Farm } from 'constants/v3Farms'
-import { indexTokenAddress } from 'constants/ethContractAddresses'
 
 const Stake: React.FC = () => {
   const { isMobile } = useMediaQuery()
@@ -167,7 +169,7 @@ const Stake: React.FC = () => {
               </StyledCardTitle>
               <Spacer size='sm' />
               <StyledCardSubtitle>
-                Active August 20th - September 4th
+                Active August 20th, 2021 - September 4th, 2021
               </StyledCardSubtitle>
             </StyledLmTitle>
           </StyledCardTitleWrapper>

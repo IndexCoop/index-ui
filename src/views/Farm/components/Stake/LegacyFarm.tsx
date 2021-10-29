@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
+
 import numeral from 'numeral'
 import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
 import styled from 'styled-components'
@@ -8,8 +9,10 @@ import useFarming from 'hooks/useFarming'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
 
-import DpiStakeModal from './components/DpiStakeModal'
 import Split from 'components/Split'
+
+import DpiStakeModal from './components/DpiStakeModal'
+
 import { fromWei } from 'utils'
 
 const Stake: React.FC = () => {
@@ -110,7 +113,7 @@ const Stake: React.FC = () => {
                 <StyledCardTitle>Expired Liquidity Program</StyledCardTitle>
                 <Spacer size='sm' />
                 <StyledCardSubtitle>
-                  Active Oct. 7th - Dec. 6th
+                  Active Oct. 7th, 2020 - Dec. 6th, 2020
                 </StyledCardSubtitle>
               </StyledLmTitle>
             </StyledCardTitleWrapper>
