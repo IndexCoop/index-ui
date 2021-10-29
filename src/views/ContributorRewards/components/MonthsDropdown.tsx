@@ -26,8 +26,8 @@ const MonthsDropdown = () => {
       }),
       singleValue: (styles: any) => ({
         ...styles,
-        'font-weight': 600,
-        'font-size': '24px',
+        'fontWeight': 600,
+        'fontSize': '24px',
         'color': theme.colors.white[500],
         'cursor': 'pointer',
         '&:hover': {
@@ -40,8 +40,8 @@ const MonthsDropdown = () => {
       }),
       dropdownIndicator: (styles: any) => ({
         ...styles,
-        'font-weight': 600,
-        'font-size': '28px',
+        'fontWeight': 600,
+        'fontSize': '28px',
         'color': theme.colors.white[500],
         'cursor': 'pointer',
         '&:hover': {

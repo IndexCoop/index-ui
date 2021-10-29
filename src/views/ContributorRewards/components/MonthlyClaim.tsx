@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
+import { Box, Button, CardActions, Spacer, Surface } from 'react-neu'
 import styled from 'styled-components'
 import useWallet from 'hooks/useWallet'
 import MonthsDropdown from './MonthsDropdown'
@@ -17,12 +17,11 @@ const MonthlyClaim: React.FC = () => {
   }, [status, onClaimRewards, claimableQuantity])
 
   return (
-    <>
-      <Card>
-        <CardContent>
-          <Spacer size='sm' />
+    <Surface elevation='N1'>
+      <Box padding={1}>
+        <Spacer size='sm' />
+        <StyledRewardCardClaim>
           <MonthsDropdown />
-          <Spacer />
           <StyledSectionTitle>
             {status === 'connected' ? claimableQuantity?.toString() || 0 : '--'}
             <StyledTokenIcon
@@ -31,10 +30,10 @@ const MonthlyClaim: React.FC = () => {
             />
           </StyledSectionTitle>
           <StyledSectionLabel>Unclaimed INDEX</StyledSectionLabel>
-        </CardContent>
+        </StyledRewardCardClaim>
         <CardActions>{ClaimButton}</CardActions>
-      </Card>
-    </>
+      </Box>
+    </Surface>
   )
 }
 
@@ -54,6 +53,9 @@ const StyledSectionLabel = styled.span`
   color: ${(props) => props.theme.colors.grey[500]};
   font-size: 16px;
   padding-left: 8px;
+`
+const StyledRewardCardClaim = styled.div`
+  margin: 24px;
 `
 
 export default MonthlyClaim
