@@ -135,7 +135,7 @@ const HowToBuy = (props: { title: string }) => {
         </Section>
         <Section>
           <div data-cy='how-to-buy-intro'>
-            <SectionTitle >Introduction</SectionTitle>
+            <SectionTitle>Introduction</SectionTitle>
             <Description>
               This is to help an investor who is new to cryptocurrency and
               Decentralized Finance (DeFi) buy the DeFi Pulse Index, known as
@@ -179,6 +179,7 @@ const HowToBuy = (props: { title: string }) => {
                   Check the contract address matches what is shown on&nbsp;
                   <Link
                     href={'https://www.coingecko.com/en/coins/defipulse-index'}
+                    target='_blank'
                   >
                     Coingecko
                   </Link>
@@ -187,6 +188,7 @@ const HowToBuy = (props: { title: string }) => {
                     href={
                       'https://etherscan.io/token/0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
                     }
+                    target='_blank'
                   >
                     Etherscan.
                   </Link>
@@ -230,13 +232,18 @@ const HowToBuy = (props: { title: string }) => {
                 href={
                   'https://www.google.com/search?sxsrf=ALeKk01NxL7nslidvV4ay2Tc1wZjgwZfWQ%3A1611627619709&ei=Y3wPYMmyKtfl5NoP65WNGA&q=what+is+a+web3+crypto+wallet&oq=what+is+a+web3+crypto+wallet&gs_lcp=CgZwc3ktYWIQAzoECAAQRzoHCCMQsAIQJ1DVJVjwLmCiMGgAcAJ4AIABS4gBggWSAQIxMJgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=psy-ab&ved=0ahUKEwiJ8KDexLjuAhXXMlkFHetKAwMQ4dUDCA0&uact=5'
                 }
+                target='_blank'
               >
                 Web3 wallet,
               </Link>
               such as&nbsp;
-              <Link href={'https://metamask.io/'}>MetaMask</Link>
+              <Link href={'https://metamask.io/'} target='_blank'>
+                MetaMask
+              </Link>
               or&nbsp;
-              <Link href={'https://walletconnect.org/'}>WalletConnect,</Link>
+              <Link href={'https://walletconnect.org/'} target='_blank'>
+                WalletConnect,
+              </Link>
               that allows you to buy tokens such as DPI. Once your assets are in
               the Web3 wallet you are just one small step away from buying DPI.
             </Description>
@@ -255,12 +262,22 @@ const HowToBuy = (props: { title: string }) => {
               <ol>
                 <li>
                   Open an account at a centralized exchange such as&nbsp;
-                  <Link href-={'https://www.binance.com/en'}>Binance,</Link>
-                  <Link href={'https://www.bitstamp.net/'}>Bitstamp,</Link>
-                  <Link href={'https://www.coinbase.com/'}>Coinbase,</Link>
-                  <Link href={'https://www.gemini.com/'}>Gemini,</Link>
+                  <Link href={'https://www.binance.com/en'} target='_blank'>
+                    Binance,
+                  </Link>
+                  <Link href={'https://www.bitstamp.net/'} target='_blank'>
+                    Bitstamp,
+                  </Link>
+                  <Link href={'https://www.coinbase.com/'} target='_blank'>
+                    Coinbase,
+                  </Link>
+                  <Link href={'https://www.gemini.com/'} target='_blank'>
+                    Gemini,
+                  </Link>
                   or&nbsp;
-                  <Link href={'https://www.kraken.com/'}>Kraken.</Link>
+                  <Link href={'https://www.kraken.com/'} target='_blank'>
+                    Kraken.
+                  </Link>
                 </li>
                 <br />
                 <li>
@@ -277,14 +294,19 @@ const HowToBuy = (props: { title: string }) => {
                   To buy DPI on the Web using indexcoop.com or a decentralized
                   exchange you’ll need to create an account with a Web3 wallet
                   such as&nbsp;
-                  <Link href={'https://metamask.io/'}>MetaMask</Link>
+                  <Link href={'https://metamask.io/'} target='_blank'>
+                    MetaMask
+                  </Link>
                   or&nbsp;
-                  <Link href={'https://walletconnect.org/'}>
+                  <Link href={'https://walletconnect.org/'} target='_blank'>
                     WalletConnect,
                   </Link>
                   then send DAI, ETH, or USDC from your centralized exchange to
                   your Metamask or WalletConnect address.&nbsp;
-                  <Link href={'https://boxmining.com/metamask-tutorial/'}>
+                  <Link
+                    href={'https://boxmining.com/metamask-tutorial/'}
+                    target='_blank'
+                  >
                     Here’s a great tutorial on setting up a Metamask account and
                     also depositing funds into the wallet.
                   </Link>
@@ -305,6 +327,7 @@ const HowToBuy = (props: { title: string }) => {
                 href={
                   'https://info.uniswap.org/pair/0x4d5ef58aac27d99935e5b6b4a6778ff292059991'
                 }
+                target='_blank'
               >
                 Uniswap,
               </Link>
@@ -314,6 +337,7 @@ const HowToBuy = (props: { title: string }) => {
                 href={
                   'https://www.google.com/search?sxsrf=ALeKk01kP0CozxN-ffaZeIb5-V7FXFTCJA%3A1611627627153&ei=a3wPYLHiCIir5NoPrqOM4AM&q=what+is+a+decentralied+anonyouns+organization&oq=what+is+a+decentralied+anonyouns+orga&gs_lcp=CgZwc3ktYWIQAxgAMgUIIRCgAToECAAQRzoFCAAQyQM6AggAOgQIIxAnOggIABDJAxCRAjoFCAAQkQI6CAgAELEDEIMBOgUIABCxAzoECAAQCjoHCAAQFBCHAjoHCAAQyQMQDToECAAQDToGCAAQFhAeOggIIRAWEB0QHjoHCCEQChCgAToECCEQCjoHCCEQChCrAjoKCCEQFhAKEB0QHlD6jAhYo9wIYPbsCGgAcAJ4AIABeYgBiRKSAQQyNi4zmAEAoAEBqgEHZ3dzLXdpesgBCMABAQ&sclient=psy-ab'
                 }
+                target='_blank'
               >
                 Decentralized Anonymous Organization (DAO)
               </Link>
@@ -322,9 +346,13 @@ const HowToBuy = (props: { title: string }) => {
               <ol>
                 <li>
                   Visit&nbsp;
-                  <Link href={'https://www.indexcoop.com'}>indexcoop.com</Link>
+                  <Link href={'https://www.indexcoop.com'} target='_blank'>
+                    indexcoop.com
+                  </Link>
                   and using the navigation head to the&nbsp;
-                  <Link href={'https://www.indexcoop.com/dpi'}>DPI</Link>
+                  <Link href={'https://www.indexcoop.com/dpi'} target='_blank'>
+                    DPI
+                  </Link>
                   page
                 </li>
                 <br />
@@ -390,6 +418,7 @@ const HowToBuy = (props: { title: string }) => {
                 href={
                   'https://explore.duneanalytics.com/dashboard/index-coop-community'
                 }
+                target='_blank'
               >
                 a growing community of holders.
               </Link>
@@ -400,9 +429,13 @@ const HowToBuy = (props: { title: string }) => {
               Now that you hold DPI in your Web3 wallet you may find it easier
               to manage DPI and any other assets through a portfolio tracker
               like&nbsp;
-              <Link href={'https://gnosis-safe.io/'}>Gnosis</Link>
+              <Link href={'https://gnosis-safe.io/'} target='_blank'>
+                Gnosis
+              </Link>
               or&nbsp;
-              <Link href={'https://app.zerion.io/'}>Zerion.</Link>
+              <Link href={'https://app.zerion.io/'} target='_blank'>
+                Zerion.
+              </Link>
               These applications let you simply track or connect a wallet and
               view gain/loss, portfolio allocations and you can even buy or sell
               through them You may also wish to transfer your DPI holdings from
@@ -411,6 +444,7 @@ const HowToBuy = (props: { title: string }) => {
                 href={
                   'https://www.google.com/search?sxsrf=ALeKk00iRF14cd4kv_qjdR7cO2KyPMka5w%3A1611027755026&ei=K1UGYKiXAajt5gLy9I_wDw&q=best+cold+wallet+cryptocurrency&oq=best+cold+wallet+cryptocurrency&gs_lcp=CgZwc3ktYWIQAzIJCAAQyQMQFhAeMgYIABAWEB46BAgAEEc6CggjELACEMkDECc6CAgAEAgQDRAeUOgEWJ0MYKQOaABwAngAgAHfAYgBhwiSAQUxLjUuMZgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=psy-ab&ved=0ahUKEwjo2L6IiqfuAhWotlkKHXL6A_4Q4dUDCA0&uact=5'
                 }
+                target='_blank'
               >
                 "cold" wallet.
               </Link>
