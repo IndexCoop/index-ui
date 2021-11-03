@@ -57,6 +57,7 @@ const ProductsDropdown: React.FC = () => {
             ? theme.colors.primary.light
             : theme.colors.grey[600],
         },
+        'overflow': 'visible',
       }),
       menu: (styles: any) => ({
         ...styles,
@@ -87,7 +88,7 @@ const ProductsDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'Resources' }}
+      value={{ label: 'Resources' } as any}
       options={[
         {
           value: 'about',

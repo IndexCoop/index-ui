@@ -54,6 +54,7 @@ const GovernanceDropdown: React.FC = () => {
             ? theme.colors.primary.light
             : theme.colors.grey[600],
         },
+        'overflow': 'visible',
       }),
       menu: (styles: any) => ({
         ...styles,
@@ -84,7 +85,7 @@ const GovernanceDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'Governance' }}
+      value={{ label: 'Governance' } as any}
       options={[
         {
           value: 'index',

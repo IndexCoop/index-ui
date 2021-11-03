@@ -44,6 +44,7 @@ const ProductsDropdown: React.FC = () => {
             ? theme.colors.primary.light
             : theme.colors.grey[600],
         },
+        'overflow': 'visible',
       }),
       menu: (styles: any) => ({
         ...styles,
