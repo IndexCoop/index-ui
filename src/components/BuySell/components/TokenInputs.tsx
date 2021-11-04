@@ -40,11 +40,7 @@ const TokenInputs: React.FC = () => {
         fontWeight: 600,
         fontSize: 20,
         width: 100,
-        textAlign: 'right',
-      }),
-      valueContainer: (styles: any) => ({
-        ...styles,
-        overflow: 'visible',
+        textAlign: 'left',
       }),
       menu: (styles: any) => ({
         ...styles,

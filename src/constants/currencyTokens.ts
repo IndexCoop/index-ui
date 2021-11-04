@@ -1,5 +1,3 @@
-import { daiTokenAddress, usdcTokenAddress } from './ethContractAddresses'
-
 export const currencyTokens = [
   {
     name: 'Ether',
