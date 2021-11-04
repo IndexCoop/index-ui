@@ -79,7 +79,7 @@
   "devDependencies": {
     "@ethersproject/experimental": "^5.5.0",
     "@types/canvas-confetti": "^1.4.0",
-    "@types/dateformat": "^3.0.1",
+    "@types/dateformat": "^5.0.0",
     "@types/lodash": "^4.14.176",
     "@types/numeral": "^2.0.2",
     "@types/react-gtm-module": "^2.0.0",
