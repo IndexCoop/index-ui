@@ -294,7 +294,7 @@ Some general troubleshooting guidelines to consider:
 [1]:    https://docs.google.com/forms/d/e/1FAIpQLSfzG2faWGFkaNuwJMwFaFKHAIgSSRCbtyKGwsmgJhefYoTHbQ/viewform                                                                                 "index welcome form"
 [2]:    https://docs.indexcoop.com/                                                                                                                                                         "index handbook"
 [3]:    https://github.com/SetProtocol/index-ui/blob/master/CODE_OF_CONDUCT.md/                                                                                                             "code of conduct"
-[4]:    https://discord.com/invite/74xXr57XHT                                                                                                                                                 "index discord"
+[4]:    https://discord.gg/indexcoop                                                                                                                                                 "index discord"
 [5]:    https://www.indexcoop.com/                                                                                                                                                          "index website"
 [6]:    https://www.indexcoop.com/about                                                                                                                                                     "index about"
 [7]:    https://www.indexcoop.com/news                                                                                                                                                      "index news"
