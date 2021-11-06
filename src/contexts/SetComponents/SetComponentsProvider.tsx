@@ -13,26 +13,32 @@ import { fetchCoingeckoTokenPrice } from "../../utils/coingeckoApi"
 
 const SetComponentsProvider: React.FC = ({ children }) => {
   const { ethereum }: { ethereum: provider } = useWallet()
-  const [dpiSetComponents, setDpiSetComponents] = useState<SetComponent[]>([])
   const {tokenList} = useTokenList();
+  const [dpiSetComponents, setDpiSetComponents] = useState<SetComponent[]>([])
+  const [mviComponents, setMviComponents] = useState<SetComponent[]>([])
 
   useEffect(() => {
     if (ethereum && dpiTokenAddress && mviTokenAddress && bedTokenAddress && eth2xfliTokenAddress && btc2xfliTokenAddress && dataTokenAddress && tokenList) {
       getSetDetails(ethereum, [dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress]).then(result => {
-        const promises = result[0].positions.map(async position => {
+        const dpi = result[0].positions.map(async position => {
           return await convertPositionToSetComponent(dpiTokenAddress as string, position, tokenList)
         })
-
-        Promise.all(promises).then(results => {
-          setDpiSetComponents(results)
+        const mvi = result[1].positions.map(async position => {
+          return await convertPositionToSetComponent(mviTokenAddress as string, position, tokenList)
         })
+
+        Promise.all(dpi).then(setDpiSetComponents)
+        Promise.all(mvi).then(setMviComponents)
       })
     }
   }, [ethereum, tokenList])
 
   return (
     <SetComponentsContext.Provider
-      value={{ dpiSetComponents: dpiSetComponents }}
+      value={{
+        dpiSetComponents: dpiSetComponents,
+        mviComponents: mviComponents
+      }}
     >
       {children}
     </SetComponentsContext.Provider>
@@ -60,7 +66,7 @@ async function convertPositionToSetComponent(setAddress: string, position: Posit
 }
 
 function getTokenForPosition(tokenList: Token[], position: Position): Token {
-  const matchingTokens = tokenList.filter(t => t.address === position.component)
+  const matchingTokens = tokenList.filter(t => t.address.toLowerCase() === position.component.toLowerCase())
   if (matchingTokens.length === 0) {
     console.warn(`No token for position ${position.component} exists in token lists`)
   } else if (matchingTokens.length > 1) {

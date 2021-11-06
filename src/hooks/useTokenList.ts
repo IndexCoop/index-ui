@@ -19,7 +19,7 @@ export interface TokenList {
  */
  export const fetchTokens = async (): Promise<Token[]> => {
   const res = await fetch(
-      "https://wispy-bird-88a7.uniswap.workers.dev/?url=http://tokens.1inch.eth.link",
+      "https://tokens.coingecko.com/uniswap/all.json",
   );
   const data: TokenList = await res.json();
   return data?.tokens;

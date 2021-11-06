@@ -5,6 +5,7 @@ import { SetComponent } from "./SetComponent"
 
 interface SetComponentsProps {
   dpiSetComponents?: SetComponent[]
+  mviComponents?: SetComponent[]
 }
 
 const SetComponentsContext = createContext<SetComponentsProps>({})
