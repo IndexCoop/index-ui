@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import numeral from 'numeral'
 
 import { ProductPageSection } from './ProductPageLayouts'
-import IndexComponent from 'components/IndexComponent'
 import { SetComponent } from "../../contexts/SetComponents/SetComponent"
 
 interface ProductIndexComponentsProps {
@@ -53,6 +52,8 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
         </DisplayOnDesktopOnly>
 
         <StyledTableHeader>Allocation</StyledTableHeader>
+        <StyledTableHeader>24hr Change</StyledTableHeader>
+
 
         {components?.slice(0, amountToDisplay).map((data) => (
           <ComponentRow key={data.name} component={data} />
@@ -74,9 +75,14 @@ const ComponentRow: React.FC<ComponentRowProps> = ({ component }) => {
     quantity,
     percentOfSet,
     totalPriceUsd,
+    dailyPercentChange,
     image,
     name,
   } = component
+  // use math.abs so numeral formats negative numbers without '-' for design spec
+  const percentChange = numeral(
+    Math.abs(parseFloat(dailyPercentChange))
+  ).format('0.00')
   const formattedPriceUSD = numeral(totalPriceUsd).format('$0,0.00')
 
   return (
@@ -96,6 +102,11 @@ const ComponentRow: React.FC<ComponentRowProps> = ({ component }) => {
       </DisplayOnDesktopOnly>
 
       <StyledTableData>{percentOfSet}%</StyledTableData>
+      {parseFloat(dailyPercentChange) < 0 ? (
+        <NegativeChange>{percentChange}%</NegativeChange>
+      ) : (
+        <PositiveChange>{percentChange}%</PositiveChange>
+      )}
     </>
   )
 }

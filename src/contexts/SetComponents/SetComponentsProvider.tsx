@@ -9,6 +9,7 @@ import BigNumber from "bignumber.js"
 import { SetComponent } from "./SetComponent"
 import { Position } from "set.js/dist/types/src/types"
 import { Token, useTokenList } from "../../hooks/useTokenList"
+import { fetchCoingeckoTokenPrice } from "../../utils/coingeckoApi"
 
 const SetComponentsProvider: React.FC = ({ children }) => {
   const { ethereum }: { ethereum: provider } = useWallet()
@@ -18,8 +19,13 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (ethereum && dpiTokenAddress && mviTokenAddress && bedTokenAddress && eth2xfliTokenAddress && btc2xfliTokenAddress && dataTokenAddress && tokenList) {
       getSetDetails(ethereum, [dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress]).then(result => {
-        console.log(result[0])
-        setDpiSetComponents(result[0].positions.map(position => convertPositionToSetComponent(position, tokenList)))
+        const promises = result[0].positions.map(async position => {
+          return await convertPositionToSetComponent(dpiTokenAddress as string, position, tokenList)
+        })
+
+        Promise.all(promises).then(results => {
+          setDpiSetComponents(results)
+        })
       })
     }
   }, [ethereum, tokenList])
@@ -33,19 +39,23 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   )
 }
 
-function convertPositionToSetComponent(position: Position, tokenList: Token[]): SetComponent {
+async function convertPositionToSetComponent(setAddress: string, position: Position, tokenList: Token[]): Promise<SetComponent> {
   const token = getTokenForPosition(tokenList, position)
+  const quantity = new BigNumber(position.unit.toString()).div(new BigNumber(10).pow(18));
+  const totalPriceUsd = quantity.multipliedBy(await fetchCoingeckoTokenPrice(position.component, 'usd'));
+  const setPriceUsd = await fetchCoingeckoTokenPrice(setAddress, 'usd');
+  const percentOfSet = totalPriceUsd.dividedBy(setPriceUsd).multipliedBy(100).toPrecision(3)
 
   return {
     address: position.component,
-    quantity: new BigNumber(position.unit.toString()).div(new BigNumber(10).pow(18)).toString(),
+    id: token.name.toLowerCase(),
+    quantity: quantity.toString(),
     symbol: token.symbol,
     name: token.name,
     image: token.logoURI,
-    // TODO @rootulp figure out where to fetch these values
-    id: 'id',
-    totalPriceUsd: 'totalPriceUsd',
-    percentOfSet: 'percentOfSet',
+    totalPriceUsd: totalPriceUsd.toString(),
+    percentOfSet: percentOfSet.toString(),
+    dailyPercentChange: '10',
   }
 }
 
