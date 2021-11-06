@@ -3,7 +3,6 @@ import ExternalLink from 'components/ExternalLink'
 import { toast } from 'react-toastify'
 
 import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
-import useEth2xFliIndexPortfolioData from 'hooks/useEth2xFliIndexPortfolioData'
 import useEth2xFliTokenSupplyCap from 'hooks/useEth2xFliTokenSupplyCap'
 import useBalances from 'hooks/useBalances'
 import {
@@ -17,6 +16,7 @@ import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
+import useSetComponents from 'hooks/useSetComponents'
 
 const Eth2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -25,7 +25,7 @@ const Eth2xFliProductPage = (props: { title: string }) => {
 
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
     useEth2xFliTokenMarketData()
-  const { components } = useEth2xFliIndexPortfolioData()
+  const { eth2xfliComponents: components } = useSetComponents()
   const { ethfliBalance } = useBalances()
   const { ethfliSupplyCap } = useEth2xFliTokenSupplyCap()
   const { eth2xFliStreamingFee } = useStreamingFee()

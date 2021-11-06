@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import IndexComponent from "components/IndexComponent"
 import SetComponentsContext from "./SetComponentsContext"
 import { getSetDetails } from "utils/setjsApi"
 import useWallet from "hooks/useWallet"
@@ -14,8 +13,12 @@ import { fetchCoingeckoTokenPrice } from "../../utils/coingeckoApi"
 const SetComponentsProvider: React.FC = ({ children }) => {
   const { ethereum }: { ethereum: provider } = useWallet()
   const {tokenList} = useTokenList();
-  const [dpiSetComponents, setDpiSetComponents] = useState<SetComponent[]>([])
+  const [dpiComponents, setDpiComponents] = useState<SetComponent[]>([])
   const [mviComponents, setMviComponents] = useState<SetComponent[]>([])
+  const [bedComponents, setBedComponents] = useState<SetComponent[]>([])
+  const [eth2xfliComponents, setEth2xfliComponents] = useState<SetComponent[]>([])
+  const [btc2xfliComponents, setBtc2xfliComponents] = useState<SetComponent[]>([])
+  const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
 
   useEffect(() => {
     if (ethereum && dpiTokenAddress && mviTokenAddress && bedTokenAddress && eth2xfliTokenAddress && btc2xfliTokenAddress && dataTokenAddress && tokenList) {
@@ -26,9 +29,25 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         const mvi = result[1].positions.map(async position => {
           return await convertPositionToSetComponent(mviTokenAddress as string, position, tokenList)
         })
+        const bed = result[2].positions.map(async position => {
+          return await convertPositionToSetComponent(bedTokenAddress as string, position, tokenList)
+        })
+        const eth2xfli = result[3].positions.map(async position => {
+          return await convertPositionToSetComponent(eth2xfliTokenAddress as string, position, tokenList)
+        })
+        const btc2xfli = result[4].positions.map(async position => {
+          return await convertPositionToSetComponent(btc2xfliTokenAddress as string, position, tokenList)
+        })
+        const data = result[5].positions.map(async position => {
+          return await convertPositionToSetComponent(dataTokenAddress as string, position, tokenList)
+        })
 
-        Promise.all(dpi).then(setDpiSetComponents)
+        Promise.all(dpi).then(setDpiComponents)
         Promise.all(mvi).then(setMviComponents)
+        Promise.all(bed).then(setBedComponents)
+        Promise.all(eth2xfli).then(setEth2xfliComponents)
+        Promise.all(btc2xfli).then(setBtc2xfliComponents)
+        Promise.all(data).then(setDataComponents)
       })
     }
   }, [ethereum, tokenList])
@@ -36,8 +55,12 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   return (
     <SetComponentsContext.Provider
       value={{
-        dpiSetComponents: dpiSetComponents,
-        mviComponents: mviComponents
+        dpiComponents: dpiComponents,
+        mviComponents: mviComponents,
+        bedComponents: bedComponents,
+        eth2xfliComponents: eth2xfliComponents,
+        btc2xfliComponents: btc2xfliComponents,
+        dataComponents: dataComponents,
       }}
     >
       {children}
