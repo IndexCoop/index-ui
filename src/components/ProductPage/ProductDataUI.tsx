@@ -13,7 +13,6 @@ import {
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
 import MarketData from 'components/MarketData'
-import IndexComponent from 'components/IndexComponent'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 import {

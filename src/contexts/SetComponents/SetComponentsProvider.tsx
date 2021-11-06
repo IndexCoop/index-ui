@@ -42,12 +42,12 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           return await convertPositionToSetComponent(dataTokenAddress as string, position, tokenList)
         })
 
-        Promise.all(dpi).then(setDpiComponents)
-        Promise.all(mvi).then(setMviComponents)
-        Promise.all(bed).then(setBedComponents)
-        Promise.all(eth2xfli).then(setEth2xfliComponents)
-        Promise.all(btc2xfli).then(setBtc2xfliComponents)
-        Promise.all(data).then(setDataComponents)
+        Promise.all(dpi).then(sortPositionsByPercentOfSet).then(setDpiComponents)
+        Promise.all(mvi).then(sortPositionsByPercentOfSet).then(setMviComponents)
+        Promise.all(bed).then(sortPositionsByPercentOfSet).then(setBedComponents)
+        Promise.all(eth2xfli).then(sortPositionsByPercentOfSet).then(setEth2xfliComponents)
+        Promise.all(btc2xfli).then(sortPositionsByPercentOfSet).then(setBtc2xfliComponents)
+        Promise.all(data).then(sortPositionsByPercentOfSet).then(setDataComponents)
       })
     }
   }, [ethereum, tokenList])
@@ -73,7 +73,7 @@ async function convertPositionToSetComponent(setAddress: string, position: Posit
   const quantity = new BigNumber(position.unit.toString()).div(new BigNumber(10).pow(18));
   const totalPriceUsd = quantity.multipliedBy(await fetchCoingeckoTokenPrice(position.component, 'usd'));
   const setPriceUsd = await fetchCoingeckoTokenPrice(setAddress, 'usd');
-  const percentOfSet = totalPriceUsd.dividedBy(setPriceUsd).multipliedBy(100).toPrecision(3)
+  const percentOfSet = totalPriceUsd.dividedBy(setPriceUsd).multipliedBy(100)
 
   return {
     address: position.component,
@@ -83,8 +83,8 @@ async function convertPositionToSetComponent(setAddress: string, position: Posit
     name: token.name,
     image: token.logoURI,
     totalPriceUsd: totalPriceUsd.toString(),
-    percentOfSet: percentOfSet.toString(),
-    dailyPercentChange: '10',
+    percentOfSet: percentOfSet.toPrecision(3).toString(),
+    percentOfSetNumber: percentOfSet,
   }
 }
 
@@ -96,6 +96,10 @@ function getTokenForPosition(tokenList: Token[], position: Position): Token {
     console.warn(`Multiple tokens for position ${position.component} exist in token lists`)
   }
   return matchingTokens[0]
+}
+
+function sortPositionsByPercentOfSet(components: SetComponent[]): SetComponent[] {
+  return components.sort((a, b) => b.percentOfSetNumber.comparedTo(a.percentOfSetNumber))
 }
 
 export default SetComponentsProvider

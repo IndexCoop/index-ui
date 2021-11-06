@@ -1,6 +1,7 @@
+import { BigNumber } from "bignumber.js";
+
 export interface SetComponent {
     address: string
-    dailyPercentChange: string
 
     /**
      * Token id
@@ -19,6 +20,11 @@ export interface SetComponent {
      * Equivalant to totalPriceUsd / total price of set in USD
      */
     percentOfSet: string
+    /**
+     * The percent of USD this component makes up in the Set.
+     * Equivalant to totalPriceUsd / total price of set in USD
+     */
+    percentOfSetNumber: BigNumber
     /**
      * Quantity of component in the Set
      */
