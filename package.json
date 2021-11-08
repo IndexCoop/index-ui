@@ -29,7 +29,7 @@
     "react-neu": "^1.0.20",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "react-select": "^5.2.0",
+    "react-select": "^5.2.1",
     "react-spinners": "^0.11.0",
     "react-toastify": "^8.1.0",
     "recharts": "^2.1.6",
