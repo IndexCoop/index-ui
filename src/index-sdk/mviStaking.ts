@@ -9,7 +9,7 @@ import BigNumber from 'utils/bignumber'
 export const getStakingRewardsContract = (provider: provider) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
-    (StakeABI as unknown) as AbiItem,
+    StakeABI as unknown as AbiItem,
     mviStakingRewardsAddress
   )
   return contract
@@ -64,19 +64,17 @@ export const unstakeUniswapEthMviLpTokens = (
 export const getEarnedIndexTokenQuantity = async (
   provider: provider,
   account: string
-): Promise<string> => {
+): Promise<BigNumber> => {
   const stakingContract = getStakingRewardsContract(provider)
 
   try {
-    const earnedTokenQuantity: string = stakingContract.methods
-      .earned(account)
-      .call()
+    const earnedTokenQuantity = stakingContract.methods.earned(account).call()
 
-    return earnedTokenQuantity
+    return new BigNumber(earnedTokenQuantity)
   } catch (e) {
     console.log(e)
 
-    return '0'
+    return new BigNumber(0)
   }
 }
 
