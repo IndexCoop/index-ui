@@ -99,7 +99,7 @@ const Stake: React.FC = () => {
 
   const formattedStakedBalance = useMemo(() => {
     if (stakedBalance) {
-      return numeral(stakedBalance).format('0.00000a')
+      return numeral(fromWei(stakedBalance)).format('0.00000a')
     } else {
       return '--'
     }
@@ -107,7 +107,7 @@ const Stake: React.FC = () => {
 
   const formattedEarnedBalance = useMemo(() => {
     if (unharvestedMviRewardsBalance) {
-      return numeral(unharvestedMviRewardsBalance.toString()).format('0.00000a')
+      return numeral(fromWei(unharvestedMviRewardsBalance)).format('0.00000a')
     } else {
       return '--'
     }

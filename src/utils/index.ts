@@ -102,6 +102,20 @@ export const getBalance = async (
   }
 }
 
+export const getBigNumBalance = async (
+  provider: provider,
+  tokenAddress: string,
+  userAddress: string
+): Promise<BigNumber> => {
+  const tokenContract = getERC20Contract(provider, tokenAddress)
+  try {
+    const balance = await tokenContract.methods.balanceOf(userAddress).call()
+    return new BigNumber(balance)
+  } catch (e) {
+    return new BigNumber(0)
+  }
+}
+
 export const getERC20Contract = (provider: provider, address: string) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
