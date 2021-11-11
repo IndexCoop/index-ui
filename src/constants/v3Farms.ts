@@ -59,7 +59,7 @@ export const MviEthRewards: V3Farm = {
     // August 20th - September 4th
     {
       rewardToken: '0x0954906da0Bf32d5479e25f46056d22f08464cab', //INDEX
-      pool: '0x9359c87B38DD25192c5f2b07b351ac91C90E6ca7',
+      pool: '0x06ada8f74d99c6c200672b02e5c3341866ca3bfb',
       startTime: 1629493200,
       endTime: 1630789200,
       refundee: '0x9467cfADC9DE245010dF95Ec6a585A506A8ad5FC', //Treasury
