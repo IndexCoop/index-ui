@@ -65,7 +65,7 @@ export const MviEthRewards: V3Farm = {
       refundee: '0x9467cfADC9DE245010dF95Ec6a585A506A8ad5FC', //Treasury
       dateText: 'November 1st, 2021 - January 1st, 2022',
       img: {
-        alt: 'DPI Icon',
+        alt: 'MVI Icon',
         src: 'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
       },
     },
