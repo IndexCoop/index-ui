@@ -49,7 +49,7 @@ export const DpiEthRewards: V3Farm = {
 
 export const MviEthRewards: V3Farm = {
   tokenPair: 'MVI/ETH',
-  pool: '0x9359c87B38DD25192c5f2b07b351ac91C90E6ca7',
+  pool: '0x06ada8f74d99c6c200672b02e5c3341866ca3bfb',
   poolLabel: 'MVI-ETH',
   img: {
     alt: 'MVI Icon',
