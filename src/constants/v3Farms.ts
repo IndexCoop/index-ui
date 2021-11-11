@@ -53,7 +53,7 @@ export const MviEthRewards: V3Farm = {
   poolLabel: 'MVI-ETH',
   img: {
     alt: 'MVI Icon',
-    src: 'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
+    src: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
   },
   farms: [
     // August 20th - September 4th
