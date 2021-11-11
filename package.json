@@ -88,7 +88,7 @@
     "@types/recharts": "^1.8.16",
     "@types/styled-components": "^5.1.15",
     "@types/web3": "^1.2.2",
-    "cypress": "^8.7.0",
+    "cypress": "^9.0.0",
     "husky": "^4.3.0",
     "lint-staged": "^11.2.6",
     "prettier": "2.4.1",
