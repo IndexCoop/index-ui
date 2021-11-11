@@ -3,16 +3,21 @@ import SetComponentsContext from "./SetComponentsContext"
 import { getSetDetails } from "utils/setjsApi"
 import useWallet from "hooks/useWallet"
 import { provider } from "web3-core"
-import { dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress } from "../../constants/ethContractAddresses"
+import { dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress } from "constants/ethContractAddresses"
 import BigNumber from "bignumber.js"
 import { SetComponent } from "./SetComponent"
 import { Position } from "set.js/dist/types/src/types"
-import { Token, useTokenList } from "../../hooks/useTokenList"
-import { fetchCoingeckoTokenPrice } from "../../utils/coingeckoApi"
+import { Token, useTokenList } from "hooks/useTokenList"
+import { fetchCoingeckoTokenPrice } from "utils/coingeckoApi"
+import { CoinGeckoCoin, useCoinGeckoCoins } from "../../hooks/useCoinGeckoCoins"
+
+const ASSET_PLATFORM = 'ethereum'
+const VS_CURRENCY = 'usd'
 
 const SetComponentsProvider: React.FC = ({ children }) => {
   const { ethereum }: { ethereum: provider } = useWallet()
-  const {tokenList} = useTokenList();
+  const { tokenList } = useTokenList();
+  const { coinList } = useCoinGeckoCoins();
   const [dpiComponents, setDpiComponents] = useState<SetComponent[]>([])
   const [mviComponents, setMviComponents] = useState<SetComponent[]>([])
   const [bedComponents, setBedComponents] = useState<SetComponent[]>([])
@@ -21,8 +26,19 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
 
   useEffect(() => {
-    if (ethereum && dpiTokenAddress && mviTokenAddress && bedTokenAddress && eth2xfliTokenAddress && btc2xfliTokenAddress && dataTokenAddress && tokenList) {
-      getSetDetails(ethereum, [dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress]).then(result => {
+    if (ethereum && dpiTokenAddress && mviTokenAddress && bedTokenAddress && eth2xfliTokenAddress && btc2xfliTokenAddress && dataTokenAddress && tokenList && coinList) {
+      getSetDetails(ethereum, [dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress]).then(async result => {
+
+        const dpiResult = result[0]
+        console.log(dpiResult.positions.map(d => d.component))
+        const contractAddresses = dpiResult.positions.map(d => d.component).join(" ")
+        fetch(`https://api.coingecko.com/api/v3/simple/token_price/${ASSET_PLATFORM}?vs_currencies=${VS_CURRENCY}&contract_addresses=${encodeURIComponent(contractAddresses)}`).then(result => console.log(`result: `, result))
+
+        // const dpiCoins = dpi.positions.map(p => getTokenForPosition(tokenList, p)).map(t => getCoinForToken(coinList, t))
+        // console.log(`dpiCoins: `, dpiCoins)
+        // const dpiPositionTokens =
+        // const dpiPositionPrices = await CoinGeckoClient.simple.price({ids: ), vs_currencies: 'usd'})
+        // console.log(dpiPositions);
         const dpi = result[0].positions.map(async position => {
           return await convertPositionToSetComponent(dpiTokenAddress as string, position, tokenList)
         })
@@ -50,7 +66,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         Promise.all(data).then(sortPositionsByPercentOfSet).then(setDataComponents)
       })
     }
-  }, [ethereum, tokenList])
+  }, [ethereum, tokenList, coinList])
 
   return (
     <SetComponentsContext.Provider
@@ -96,6 +112,16 @@ function getTokenForPosition(tokenList: Token[], position: Position): Token {
     console.warn(`Multiple tokens for position ${position.component} exist in token lists`)
   }
   return matchingTokens[0]
+}
+
+function getCoinForToken(coinList: CoinGeckoCoin[], token: Token) {
+  const matchingCoins = coinList.filter(c => c.name.toLowerCase() === token.name.toLowerCase())
+  if (matchingCoins.length === 0) {
+    console.warn(`No coins for token ${token.name} exists in coin list`)
+  } else if (matchingCoins.length > 1) {
+    console.warn(`Multiple coins for token ${token.name} exist in coin list`)
+  }
+  return matchingCoins[0]
 }
 
 function sortPositionsByPercentOfSet(components: SetComponent[]): SetComponent[] {
