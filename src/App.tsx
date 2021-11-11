@@ -20,22 +20,17 @@ import { PricesProvider } from 'contexts/Prices'
 import { WalletProvider } from 'contexts/Wallet'
 import { BuySellProvider } from 'contexts/BuySell'
 import { Eth2xFliTokenMarketDataProvider } from 'contexts/Eth2xFliTokenMarketData'
-import { Eth2xFliIndexPortfolioDataProvider } from 'contexts/Eth2xFliPortfolioData'
 import { Eth2xFliTokenSupplyCapProvider } from 'contexts/Eth2xFliTokenSupplyCap'
 import { Btc2xFliTokenMarketDataProvider } from 'contexts/Btc2xFliTokenMarketData'
-import { Btc2xFliPortfolioDataProvider } from 'contexts/Btc2xFliPortfolioData'
 import { Btc2xFliTokenSupplyCapProvider } from 'contexts/Btc2xFliTokenSupplyCap'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
-import { DpiIndexComponentsProvider } from 'contexts/DpiIndexComponents'
 import { MviTokenMarketDataProvider } from 'contexts/MviTokenMarketData'
-import { MviComponentsProvider } from 'contexts/MviComponents'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
 import { V3FarmingProvider } from 'contexts/V3Farming'
 import { BedTokenMarketDataProvider } from 'contexts/BedTokenMarketData'
-import { BedIndexComponentsProvider } from 'contexts/BedIndexComponents'
-import { StreamingFeeProvider } from "contexts/StreamingFee"
-import { TokenSupplyProvider } from "contexts/TokenSupply"
+import { StreamingFeeProvider } from 'contexts/StreamingFee'
+import { TokenSupplyProvider } from 'contexts/TokenSupply'
 import { DataTokenMarketDataProvider } from 'contexts/DataTokenMarketData'
 import { DataComponentsProvider } from 'contexts/DataComponents'
 
@@ -59,7 +54,7 @@ import { discordLink, voteLink } from 'constants/externalLinks'
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
 import { RewardsProvider } from 'contexts/Rewards'
-import { SetComponentsProvider } from "./contexts/SetComponents"
+import { SetComponentsProvider } from './contexts/SetComponents'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -106,8 +101,11 @@ const App: React.FC = () => {
             <Route exact path='/index'>
               <INDEX title={'Index - Index'} />
             </Route>
-            <Route exact path='/vote'
-              render={() => (window.location.href = voteLink)}/>
+            <Route
+              exact
+              path='/vote'
+              render={() => (window.location.href = voteLink)}
+            />
             <Route exact path='/about'>
               <About title={'Index - About'} />
             </Route>
@@ -123,10 +121,14 @@ const App: React.FC = () => {
             <Route path='/how-to-buy'>
               <HowToBuy title={'Index - How to Buy'} />
             </Route>
-            <Route exact path='/join'
+            <Route
+              exact
+              path='/join'
               render={() => (window.location.href = discordLink)}
             />
-            <Route exact path='/discord'
+            <Route
+              exact
+              path='/discord'
               render={() => (window.location.href = discordLink)}
             />
           </Switch>
@@ -162,43 +164,33 @@ const Providers: React.FC = ({ children }) => {
                             <PricesProvider>
                               <BuySellProvider>
                                 <Eth2xFliTokenMarketDataProvider>
-                                  <Eth2xFliIndexPortfolioDataProvider>
-                                    <Eth2xFliTokenSupplyCapProvider>
-                                      <Btc2xFliTokenMarketDataProvider>
-                                        <Btc2xFliPortfolioDataProvider>
-                                          <Btc2xFliTokenSupplyCapProvider>
-                                            <DpiTokenMarketDataProvider>
-                                              <DpiIndexComponentsProvider>
-                                                <MviTokenMarketDataProvider>
-                                                  <MviComponentsProvider>
-                                                    <BedTokenMarketDataProvider>
-                                                      <BedIndexComponentsProvider>
-                                                        <DataTokenMarketDataProvider>
-                                                          <DataComponentsProvider>
-                                                            <IndexTokenMarketDataProvider>
-                                                              <V3FarmingProvider>
-                                                                <StreamingFeeProvider>
-                                                                  <TokenSupplyProvider>
-                                                                    <SetComponentsProvider>
-                                                                      {children}
-                                                                    </SetComponentsProvider>
-                                                                  </TokenSupplyProvider>
-                                                                </StreamingFeeProvider>
-                                                              </V3FarmingProvider>
-                                                            </IndexTokenMarketDataProvider>
-                                                          </DataComponentsProvider>
-                                                        </DataTokenMarketDataProvider>
-                                                      </BedIndexComponentsProvider>
-                                                    </BedTokenMarketDataProvider>
-                                                  </MviComponentsProvider>
-                                                </MviTokenMarketDataProvider>
-                                              </DpiIndexComponentsProvider>
-                                            </DpiTokenMarketDataProvider>
-                                          </Btc2xFliTokenSupplyCapProvider>
-                                        </Btc2xFliPortfolioDataProvider>
-                                      </Btc2xFliTokenMarketDataProvider>
-                                    </Eth2xFliTokenSupplyCapProvider>
-                                  </Eth2xFliIndexPortfolioDataProvider>
+                                  <Eth2xFliTokenSupplyCapProvider>
+                                    <Btc2xFliTokenMarketDataProvider>
+                                      <Btc2xFliTokenSupplyCapProvider>
+                                        <DpiTokenMarketDataProvider>
+                                          <MviTokenMarketDataProvider>
+                                            <BedTokenMarketDataProvider>
+                                              <DataTokenMarketDataProvider>
+                                                <DataComponentsProvider>
+                                                  <IndexTokenMarketDataProvider>
+                                                    <V3FarmingProvider>
+                                                      <StreamingFeeProvider>
+                                                        <TokenSupplyProvider>
+                                                          <SetComponentsProvider>
+                                                            {children}
+                                                          </SetComponentsProvider>
+                                                        </TokenSupplyProvider>
+                                                      </StreamingFeeProvider>
+                                                    </V3FarmingProvider>
+                                                  </IndexTokenMarketDataProvider>
+                                                </DataComponentsProvider>
+                                              </DataTokenMarketDataProvider>
+                                            </BedTokenMarketDataProvider>
+                                          </MviTokenMarketDataProvider>
+                                        </DpiTokenMarketDataProvider>
+                                      </Btc2xFliTokenSupplyCapProvider>
+                                    </Btc2xFliTokenMarketDataProvider>
+                                  </Eth2xFliTokenSupplyCapProvider>
                                 </Eth2xFliTokenMarketDataProvider>
                               </BuySellProvider>
                             </PricesProvider>

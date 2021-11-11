@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import useBedTokenMarketData from 'hooks/useBedTokenMarketData'
-import useBedIndexComponents from 'hooks/useBedIndexComponents'
 import useBalances from 'hooks/useBalances'
 import { BedIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
