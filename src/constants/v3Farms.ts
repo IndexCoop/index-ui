@@ -66,7 +66,7 @@ export const MviEthRewards: V3Farm = {
       dateText: 'November 1st, 2021 - January 1st, 2022',
       img: {
         alt: 'MVI Icon',
-        src: 'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
+        src: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
       },
     },
   ],
