@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import BigNumber from 'utils/bignumber'
 import { useQuery } from '@apollo/react-hooks'
+import { dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress } from "constants/ethContractAddresses"
 
 import PricesContext from './PricesContext'
 
@@ -15,6 +16,7 @@ import useWallet from 'hooks/useWallet'
 
 const PricesProvider: React.FC = ({ children }) => {
   const [indexPrice, setIndexPrice] = useState<string>('0')
+  const [dpiPrice, setDpiPrice] = useState<number>(0)
   const [ethereumPrice, setEthereumPrice] = useState<string>('0')
   const [usdInEthDpiPool, setUsdInEthDpiPool] = useState<number>()
   const [totalSupplyInEthDpiPool, setTotalSupplyInEthDpiPool] =
@@ -79,6 +81,18 @@ const PricesProvider: React.FC = ({ children }) => {
       })
       .catch((error) => console.log(error))
   }, [])
+
+  useEffect(() => {
+    const productAddresses = [dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress]
+    const coinGeckoPriceUrl = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${productAddresses}&vs_currencies=usd`
+
+    fetch(coinGeckoPriceUrl)
+      .then((response) => response.json())
+      .then((response) => {
+        setDpiPrice(response[dpiTokenAddress?.toLowerCase() as string].usd)
+      })
+      .catch((error) => console.error(error))
+  }, [dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress])
 
   // DPI LM Emissions
   useEffect(() => {
@@ -165,6 +179,7 @@ const PricesProvider: React.FC = ({ children }) => {
     <PricesContext.Provider
       value={{
         indexPrice,
+        dpiPrice,
         ethereumPrice,
         totalUSDInFarms,
         apy,

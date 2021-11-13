@@ -1,6 +1,7 @@
 import { createContext } from 'react'
 
 interface PricesContextValues {
+  dpiPrice: number
   indexPrice?: string
   ethereumPrice?: string
   totalUSDInFarms?: number
@@ -9,6 +10,6 @@ interface PricesContextValues {
   mviRewardsApy?: string
 }
 
-const PricesContext = createContext<PricesContextValues>({})
+const PricesContext = createContext<PricesContextValues>({dpiPrice: 0})
 
 export default PricesContext
