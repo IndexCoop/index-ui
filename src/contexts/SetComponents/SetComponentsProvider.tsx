@@ -6,7 +6,7 @@ import { provider } from "web3-core"
 import { dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress } from "constants/ethContractAddresses"
 import BigNumber from "bignumber.js"
 import { SetComponent } from "./SetComponent"
-import { Position } from "set.js/dist/types/src/types"
+import { Position, SetDetails } from "set.js/dist/types/src/types"
 import { Token, useTokenList } from "hooks/useTokenList"
 import { CoinGeckoCoin, useCoinGeckoCoins } from "../../hooks/useCoinGeckoCoins"
 import usePrices from "hooks/usePrices"
@@ -17,8 +17,7 @@ const VS_CURRENCY = 'usd'
 const SetComponentsProvider: React.FC = ({ children }) => {
   const { ethereum }: { ethereum: provider } = useWallet()
   const { tokenList } = useTokenList();
-  const { coinList } = useCoinGeckoCoins();
-  const { dpiPrice } = usePrices();
+  const { dpiPrice, mviPrice, bedPrice, eth2xfliPrice, btc2xfliPrice, dataPrice } = usePrices();
   const [dpiComponents, setDpiComponents] = useState<SetComponent[]>([])
   const [mviComponents, setMviComponents] = useState<SetComponent[]>([])
   const [bedComponents, setBedComponents] = useState<SetComponent[]>([])
@@ -27,23 +26,22 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
 
   useEffect(() => {
-    if (ethereum && dpiTokenAddress && mviTokenAddress && bedTokenAddress && eth2xfliTokenAddress && btc2xfliTokenAddress && dataTokenAddress && tokenList && coinList && dpiPrice) {
+    if (ethereum && dpiTokenAddress && mviTokenAddress && bedTokenAddress && eth2xfliTokenAddress && btc2xfliTokenAddress && dataTokenAddress && tokenList && dpiPrice) {
       getSetDetails(ethereum, [dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress]).then(async result => {
+        const [dpi, mvi, bed, eth2xfli, btc2xfli, data] = result;
 
-        const dpiResult = result[0]
-        const dpiComponentAddresses = dpiResult.positions.map(d => d.component)
-        fetch(`https://api.coingecko.com/api/v3/simple/token_price/${ASSET_PLATFORM}?vs_currencies=${VS_CURRENCY}&contract_addresses=${dpiComponentAddresses}`)
-          .then(response => response.json())
-          .then(dpiComponentPrices => {
-            const dpi = result[0].positions.map(async position => {
-              return await convertPositionToSetComponent(dpiTokenAddress as string, position, tokenList, dpiComponentPrices[position.component.toLowerCase()]?.usd, dpiPrice)
-            })
+        const dpiComponentPrices = await getPositionPrices(dpi)
+        const dpiPositions = dpi.positions.map(async position => {
+          return await convertPositionToSetComponent(position, tokenList, dpiComponentPrices[position.component.toLowerCase()]?.usd, dpiPrice)
+        })
+        Promise.all(dpiPositions).then(sortPositionsByPercentOfSet).then(setDpiComponents)
 
-            Promise.all(dpi).then(sortPositionsByPercentOfSet).then(setDpiComponents)
-          })
-        // const mvi = result[1].positions.map(async position => {
-        //   return await convertPositionToSetComponent(mviTokenAddress as string, position, tokenList)
-        // })
+        const mviComponentPrices = await getPositionPrices(mvi)
+        const mviPositions = mvi.positions.map(async position => {
+          return await convertPositionToSetComponent(position, tokenList, mviComponentPrices[position.component.toLowerCase()]?.usd, mviPrice)
+        })
+        Promise.all(mviPositions).then(sortPositionsByPercentOfSet).then(setMviComponents)
+
         // const bed = result[2].positions.map(async position => {
         //   return await convertPositionToSetComponent(bedTokenAddress as string, position, tokenList)
         // })
@@ -64,7 +62,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         // Promise.all(data).then(sortPositionsByPercentOfSet).then(setDataComponents)
       })
     }
-  }, [ethereum, tokenList, coinList])
+  }, [ethereum, tokenList, dpiPrice])
 
   return (
     <SetComponentsContext.Provider
@@ -82,9 +80,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   )
 }
 
-async function convertPositionToSetComponent(setAddress: string, position: Position, tokenList: Token[], componentPriceUsd: number, setPriceUsd: number): Promise<SetComponent> {
-  console.log(`componentPriceUsd`, componentPriceUsd)
-  console.log(`setPriceUsd`, setPriceUsd)
+async function convertPositionToSetComponent(position: Position, tokenList: Token[], componentPriceUsd: number, setPriceUsd: number): Promise<SetComponent> {
   const token = getTokenForPosition(tokenList, position)
   const quantity = new BigNumber(position.unit.toString()).div(new BigNumber(10).pow(18));
   const totalPriceUsd = quantity.multipliedBy(componentPriceUsd);
@@ -113,18 +109,18 @@ function getTokenForPosition(tokenList: Token[], position: Position): Token {
   return matchingTokens[0]
 }
 
-function getCoinForToken(coinList: CoinGeckoCoin[], token: Token) {
-  const matchingCoins = coinList.filter(c => c.name.toLowerCase() === token.name.toLowerCase())
-  if (matchingCoins.length === 0) {
-    console.warn(`No coins for token ${token.name} exists in coin list`)
-  } else if (matchingCoins.length > 1) {
-    console.warn(`Multiple coins for token ${token.name} exist in coin list`)
-  }
-  return matchingCoins[0]
-}
-
 function sortPositionsByPercentOfSet(components: SetComponent[]): SetComponent[] {
   return components.sort((a, b) => b.percentOfSetNumber.comparedTo(a.percentOfSetNumber))
 }
+
+function getPositionPrices(setDetails: SetDetails): Promise<any> {
+  const componentAddresses = setDetails.positions.map(p => p.component)
+  return fetch(`https://api.coingecko.com/api/v3/simple/token_price/${ASSET_PLATFORM}?vs_currencies=${VS_CURRENCY}&contract_addresses=${componentAddresses}`)
+    .then(response => response.json())
+    .catch(e => console.error(e))
+}
+
+
+
 
 export default SetComponentsProvider

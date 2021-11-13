@@ -23,7 +23,7 @@ export interface TokenList {
  */
  export const fetchTokens = async (): Promise<Token[]> => {
    try {
-     const res = await fetch(ONE_INCH_LIST);
+     const res = await fetch(COIN_GECKO_LIST);
      const data: TokenList = await res.json();
      return data?.tokens;
    } catch (e) {
