@@ -124,7 +124,4 @@ function getPositionPrices(setDetails: SetDetails): Promise<any> {
     .catch(e => console.error(e))
 }
 
-
-
-
 export default SetComponentsProvider

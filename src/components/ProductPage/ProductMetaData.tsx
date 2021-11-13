@@ -9,7 +9,7 @@ import {
   Bitcoin2xFlexibleLeverageIndex,
   Ethereum2xFlexibleLeverageIndex,
 } from 'constants/productTokens'
-import { SetComponent } from "../../contexts/SetComponents/SetComponent"
+import { SetComponent } from 'contexts/SetComponents/SetComponent'
 
 interface ProductMetaDataProps extends InputProps {
   tokenData: TokenDataProps

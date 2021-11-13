@@ -8,7 +8,7 @@ import ProductDataUI, {
 } from 'components/ProductPage/ProductDataUI'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
-import useSetComponents from "../../hooks/useSetComponents"
+import useSetComponents from 'hooks/useSetComponents'
 
 const BedProductPage = (props: { title: string }) => {
   useEffect(() => {

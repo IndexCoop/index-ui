@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
-// CoinGecko throws 429s
+// CoinGecko ocassionaly throws 429s. We can temporarily mitigate by using
+// ONE_INCH_LIST instead however that doesn't contain some recent MVI additions
+// (e.g. WHALE)
 const COIN_GECKO_LIST = "https://tokens.coingecko.com/uniswap/all.json"
 const ONE_INCH_LIST = "https://wispy-bird-88a7.uniswap.workers.dev/?url=http://tokens.1inch.eth.link"
 

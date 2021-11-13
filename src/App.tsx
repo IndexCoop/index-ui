@@ -32,7 +32,7 @@ import { BedTokenMarketDataProvider } from 'contexts/BedTokenMarketData'
 import { StreamingFeeProvider } from 'contexts/StreamingFee'
 import { TokenSupplyProvider } from 'contexts/TokenSupply'
 import { DataTokenMarketDataProvider } from 'contexts/DataTokenMarketData'
-import { DataComponentsProvider } from 'contexts/DataComponents'
+import { SetComponentsProvider } from 'contexts/SetComponents'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -54,7 +54,6 @@ import { discordLink, voteLink } from 'constants/externalLinks'
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
 import { RewardsProvider } from 'contexts/Rewards'
-import { SetComponentsProvider } from './contexts/SetComponents'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -171,19 +170,17 @@ const Providers: React.FC = ({ children }) => {
                                           <MviTokenMarketDataProvider>
                                             <BedTokenMarketDataProvider>
                                               <DataTokenMarketDataProvider>
-                                                <DataComponentsProvider>
-                                                  <IndexTokenMarketDataProvider>
-                                                    <V3FarmingProvider>
-                                                      <StreamingFeeProvider>
-                                                        <TokenSupplyProvider>
-                                                          <SetComponentsProvider>
-                                                            {children}
-                                                          </SetComponentsProvider>
-                                                        </TokenSupplyProvider>
-                                                      </StreamingFeeProvider>
-                                                    </V3FarmingProvider>
-                                                  </IndexTokenMarketDataProvider>
-                                                </DataComponentsProvider>
+                                                <IndexTokenMarketDataProvider>
+                                                  <V3FarmingProvider>
+                                                    <StreamingFeeProvider>
+                                                      <TokenSupplyProvider>
+                                                        <SetComponentsProvider>
+                                                          {children}
+                                                        </SetComponentsProvider>
+                                                      </TokenSupplyProvider>
+                                                    </StreamingFeeProvider>
+                                                  </V3FarmingProvider>
+                                                </IndexTokenMarketDataProvider>
                                               </DataTokenMarketDataProvider>
                                             </BedTokenMarketDataProvider>
                                           </MviTokenMarketDataProvider>

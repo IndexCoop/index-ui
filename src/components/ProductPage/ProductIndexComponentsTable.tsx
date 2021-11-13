@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import numeral from 'numeral'
 
 import { ProductPageSection } from './ProductPageLayouts'
-import { SetComponent } from "../../contexts/SetComponents/SetComponent"
+import { SetComponent } from 'contexts/SetComponents/SetComponent'
 
 interface ProductIndexComponentsProps {
   components?: SetComponent[]
