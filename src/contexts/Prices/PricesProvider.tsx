@@ -103,7 +103,7 @@ const PricesProvider: React.FC = ({ children }) => {
         setDataPrice(response[dataTokenAddress?.toLowerCase() as string].usd)
       })
       .catch((error) => console.error(error))
-  }, [dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress, dataTokenAddress])
+  }, [])
 
   // DPI LM Emissions
   useEffect(() => {

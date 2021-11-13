@@ -8,7 +8,6 @@ import BigNumber from "bignumber.js"
 import { SetComponent } from "./SetComponent"
 import { Position, SetDetails } from "set.js/dist/types/src/types"
 import { Token, useTokenList } from "hooks/useTokenList"
-import { CoinGeckoCoin, useCoinGeckoCoins } from "../../hooks/useCoinGeckoCoins"
 import usePrices from "hooks/usePrices"
 
 const ASSET_PLATFORM = 'ethereum'
@@ -42,27 +41,32 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         })
         Promise.all(mviPositions).then(sortPositionsByPercentOfSet).then(setMviComponents)
 
-        // const bed = result[2].positions.map(async position => {
-        //   return await convertPositionToSetComponent(bedTokenAddress as string, position, tokenList)
-        // })
-        // const eth2xfli = result[3].positions.map(async position => {
-        //   return await convertPositionToSetComponent(eth2xfliTokenAddress as string, position, tokenList)
-        // })
-        // const btc2xfli = result[4].positions.map(async position => {
-        //   return await convertPositionToSetComponent(btc2xfliTokenAddress as string, position, tokenList)
-        // })
-        // const data = result[5].positions.map(async position => {
-        //   return await convertPositionToSetComponent(dataTokenAddress as string, position, tokenList)
-        // })
+        const bedComponentPrices = await getPositionPrices(bed)
+        const bedPositions = bed.positions.map(async position => {
+          return await convertPositionToSetComponent(position, tokenList, bedComponentPrices[position.component.toLowerCase()]?.usd, bedPrice)
+        })
+        Promise.all(bedPositions).then(sortPositionsByPercentOfSet).then(setBedComponents)
 
-        // Promise.all(mvi).then(sortPositionsByPercentOfSet).then(setMviComponents)
-        // Promise.all(bed).then(sortPositionsByPercentOfSet).then(setBedComponents)
-        // Promise.all(eth2xfli).then(sortPositionsByPercentOfSet).then(setEth2xfliComponents)
-        // Promise.all(btc2xfli).then(sortPositionsByPercentOfSet).then(setBtc2xfliComponents)
-        // Promise.all(data).then(sortPositionsByPercentOfSet).then(setDataComponents)
+        const eth2xfliComponentPrices = await getPositionPrices(eth2xfli)
+        const eth2xfliPositions = eth2xfli.positions.map(async position => {
+          return await convertPositionToSetComponent(position, tokenList, eth2xfliComponentPrices[position.component.toLowerCase()]?.usd, eth2xfliPrice)
+        })
+        Promise.all(eth2xfliPositions).then(sortPositionsByPercentOfSet).then(setEth2xfliComponents)
+
+        const btc2xfliComponentPrices = await getPositionPrices(btc2xfli)
+        const btc2xfliPositions = btc2xfli.positions.map(async position => {
+          return await convertPositionToSetComponent(position, tokenList, btc2xfliComponentPrices[position.component.toLowerCase()]?.usd, btc2xfliPrice)
+        })
+        Promise.all(btc2xfliPositions).then(sortPositionsByPercentOfSet).then(setBtc2xfliComponents)
+
+        const dataComponentPrices = await getPositionPrices(data)
+        const dataPositions = data.positions.map(async position => {
+          return await convertPositionToSetComponent(position, tokenList, dataComponentPrices[position.component.toLowerCase()]?.usd, dataPrice)
+        })
+        Promise.all(dataPositions).then(sortPositionsByPercentOfSet).then(setDataComponents)
       })
     }
-  }, [ethereum, tokenList, dpiPrice])
+  }, [ethereum, tokenList, dpiPrice, mviPrice, bedPrice, eth2xfliPrice, btc2xfliPrice, dataPrice])
 
   return (
     <SetComponentsContext.Provider
