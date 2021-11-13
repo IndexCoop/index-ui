@@ -86,9 +86,16 @@ const SetComponentsProvider: React.FC = ({ children }) => {
 
 async function convertPositionToSetComponent(position: Position, tokenList: Token[], componentPriceUsd: number, setPriceUsd: number): Promise<SetComponent> {
   const token = getTokenForPosition(tokenList, position)
-  const quantity = new BigNumber(position.unit.toString()).div(new BigNumber(10).pow(18));
+  const quantity = new BigNumber(position.unit.toString()).div(new BigNumber(10).pow(getDecimalPlaces(token.symbol)));
   const totalPriceUsd = quantity.multipliedBy(componentPriceUsd);
   const percentOfSet = totalPriceUsd.dividedBy(setPriceUsd).multipliedBy(100)
+
+  if (token.symbol.toLowerCase() === "ceth" || token.symbol.toLowerCase() === 'usdc') {
+    // console.log(`componentPriceUsd`, componentPriceUsd)
+    // console.log(`quantity`, quantity.toString())
+    console.log(`${token.symbol.toLowerCase()} position.unit`, position.unit.toString())
+    console.log(`quantity`, quantity.toString())
+  }
 
   return {
     address: position.component,
@@ -122,6 +129,18 @@ function getPositionPrices(setDetails: SetDetails): Promise<any> {
   return fetch(`https://api.coingecko.com/api/v3/simple/token_price/${ASSET_PLATFORM}?vs_currencies=${VS_CURRENCY}&contract_addresses=${componentAddresses}`)
     .then(response => response.json())
     .catch(e => console.error(e))
+}
+
+// HACKHACK is there a safer way to fetch decimal places for these components?
+function getDecimalPlaces(symbol: string): number {
+  if (['whale'].includes(symbol.toLowerCase())) {
+    return 4
+  } else if (['usdc'].includes(symbol.toLowerCase())) {
+    return 6
+  } else if (['wbtc', 'waxe', 'ceth', 'cwbtc'].includes(symbol.toLowerCase())) {
+    return 8
+  }
+  return 18
 }
 
 export default SetComponentsProvider
