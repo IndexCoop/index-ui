@@ -2,11 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import ProductsDropdown from './ProductsDropdown'
+import LeverageProductsDropdown from './LeverageProductsDropdown'
 
 const Nav: React.FC = () => {
   return (
     <StyledNav>
       <ProductsDropdown />
+      <LeverageProductsDropdown />
       <StyledLink exact activeClassName='active' to='/index'>
         $INDEX
       </StyledLink>

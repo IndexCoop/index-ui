@@ -18,15 +18,12 @@ const ProductsDropdown: React.FC = () => {
 
   const dropdownSelectStyles = useMemo(() => {
     const isProductRouteActive =
-      pathname === '/dpi' ||
-      pathname === '/mvi' ||
-      pathname === '/bed' ||
-      pathname === '/data'
+      pathname === '/ethfli' || pathname === '/btcfli'
 
     return {
       control: (styles: any) => ({
         ...styles,
-        width: 160,
+        width: 190,
         background: 'none',
         border: 'none',
       }),
@@ -74,23 +71,15 @@ const ProductsDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'Index Products' } as any}
+      value={{ label: 'Leverage Products' } as any}
       options={[
         {
-          value: 'dpi',
-          label: 'DeFi Pulse Index',
+          value: 'ethfli',
+          label: 'ETH 2x Flexible Leverage Index',
         },
         {
-          value: 'mvi',
-          label: 'Metaverse Index',
-        },
-        {
-          value: 'bed',
-          label: 'Bankless BED Index',
-        },
-        {
-          value: 'data',
-          label: 'Data Economy Index',
+          value: 'btcfli',
+          label: 'BTC 2x Flexible Leverage Index',
         },
       ]}
       components={{
