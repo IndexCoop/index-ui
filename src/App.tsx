@@ -34,8 +34,8 @@ import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
 import { V3FarmingProvider } from 'contexts/V3Farming'
 import { BedTokenMarketDataProvider } from 'contexts/BedTokenMarketData'
 import { BedIndexComponentsProvider } from 'contexts/BedIndexComponents'
-import { StreamingFeeProvider } from "contexts/StreamingFee"
-import { TokenSupplyProvider } from "contexts/TokenSupply"
+import { StreamingFeeProvider } from 'contexts/StreamingFee'
+import { TokenSupplyProvider } from 'contexts/TokenSupply'
 import { DataTokenMarketDataProvider } from 'contexts/DataTokenMarketData'
 import { DataComponentsProvider } from 'contexts/DataComponents'
 
@@ -105,8 +105,11 @@ const App: React.FC = () => {
             <Route exact path='/index'>
               <INDEX title={'Index - Index'} />
             </Route>
-            <Route exact path='/vote'
-              render={() => (window.location.href = voteLink)}/>
+            <Route
+              exact
+              path='/vote'
+              render={() => (window.location.href = voteLink)}
+            />
             <Route exact path='/about'>
               <About title={'Index - About'} />
             </Route>
@@ -122,10 +125,14 @@ const App: React.FC = () => {
             <Route path='/how-to-buy'>
               <HowToBuy title={'Index - How to Buy'} />
             </Route>
-            <Route exact path='/join'
+            <Route
+              exact
+              path='/join'
               render={() => (window.location.href = discordLink)}
             />
-            <Route exact path='/discord'
+            <Route
+              exact
+              path='/discord'
               render={() => (window.location.href = discordLink)}
             />
           </Switch>

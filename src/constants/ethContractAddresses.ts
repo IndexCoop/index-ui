@@ -12,15 +12,22 @@ export const btc2xfliSuppyCapAddress =
 
 // Set JS Contract Addresses
 export const controllerAddress = process.env.REACT_APP_SETJS_CONTROLLER
-export const setTokenCreatorAddress = process.env.REACT_APP_SETJS_SET_TOKEN_CREATOR_ADDRESS
-export const basicIssuanceModuleAddress = process.env.REACT_APP_SETJS_BASIC_ISSUANCE_MODULE
-export const debtIssuanceModuleAddress = process.env.REACT_APP_SETJS_DEBT_ISSUANCE_MODULE
-export const streamingFeeModuleAddress = process.env.REACT_APP_SETJS_STREAMING_FEE_MODULE
+export const setTokenCreatorAddress =
+  process.env.REACT_APP_SETJS_SET_TOKEN_CREATOR_ADDRESS
+export const basicIssuanceModuleAddress =
+  process.env.REACT_APP_SETJS_BASIC_ISSUANCE_MODULE
+export const debtIssuanceModuleAddress =
+  process.env.REACT_APP_SETJS_DEBT_ISSUANCE_MODULE
+export const streamingFeeModuleAddress =
+  process.env.REACT_APP_SETJS_STREAMING_FEE_MODULE
 export const tradeModuleAddress = process.env.REACT_APP_SETJS_TRADE_MODULE
-export const navIssuanceModuleAddress = process.env.REACT_APP_SETJS_NAV_ISSUANCE_MODULE
+export const navIssuanceModuleAddress =
+  process.env.REACT_APP_SETJS_NAV_ISSUANCE_MODULE
 export const protocolViewerAddress = process.env.REACT_APP_SETJS_PROTOCOL_VIEWER
-export const masterOracleAddress = process.env.REACT_APP_SETJS_MASTER_ORACLE_ADDRESS
-export const governanceModuleAddress = process.env.REACT_APP_SETJS_GOVERNANCE_MODULE
+export const masterOracleAddress =
+  process.env.REACT_APP_SETJS_MASTER_ORACLE_ADDRESS
+export const governanceModuleAddress =
+  process.env.REACT_APP_SETJS_GOVERNANCE_MODULE
 
 // Contributor Reward Addresses
 export const november2020RewardsAddress =

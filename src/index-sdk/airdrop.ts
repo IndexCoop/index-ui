@@ -9,7 +9,7 @@ import rewardsMerkleRoot from './rewardsMerkleRoot.json'
 export const getAirdropContract = (provider: provider, address: string) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
-    (AirdropABI as unknown) as AbiItem,
+    AirdropABI as unknown as AbiItem,
     address
   )
   return contract

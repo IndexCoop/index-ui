@@ -1,11 +1,11 @@
 <body id="top">
 
-[//]: # (NOTE: Link reference chart can be found at the bottom of this document)
+[//]: # 'NOTE: Link reference chart can be found at the bottom of this document'
 
 ![Banner](https://github.com/SetProtocol/index-ui/blob/master/public/Index_Branding_Logo_full_white.png?raw=true)
 
 &nbsp;
-  
+
 # **Contribution Guidelines**
 
 Welcome to the Index Coop! We are excited that you are looking to contribute in the DeFi world and help others achieve financial freedom. Here at Index, there are a variety of avenues for you to consider depending on your knowledge and experience in the world. Below you will find a collection of guidelines that the Coop uses to help everyone find their niche within our growing community.
@@ -19,6 +19,7 @@ A great start would be to check out the [Index Coop Community Handbook][2] and f
 - ### [**Code of Conduct**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#-code-of-conduct)
 
 - ### [**General Information**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#-general-information)
+
   - [**Your Contribution to the Index Coop**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#your-contribution-to-the-index-coop)
 
 - ### [**Getting Started**](https://github.com/SetProtocol/index-ui/blob/master/CONTRIBUTING.md#-getting-started)
@@ -77,6 +78,7 @@ If you are looking for more information or need help getting answers, we have mu
   - [Read][7] about new and exciting developments at Index.
   - [Participate][8] in liquidity mining.
   - [Vote][9] on proposals.
+
 ###### &nbsp;
 
 - [Forum][10] - Contribute to the ongoing growth of our collective through governance discussions concerning tokenomics, upcoming proposals, and community organization.
@@ -119,8 +121,9 @@ Creating your own fork allows you to make a copy of the original repository that
 
 &nbsp;
 
->### `yourName/index-ui`
->##### forked from `SetProtocol/index-ui`
+> ### `yourName/index-ui`
+>
+> ##### forked from `SetProtocol/index-ui`
 
 &nbsp;
 
@@ -138,11 +141,11 @@ Within your own forked version of the master repository, you are able to create 
 
 Below you will find links for some useful resources to utilize as you develop projects for Index:
 
-- [Technical Resources][26]    - A collection of crucial documents, scripts, and repositories.
-- [Contract Addresses][27]     - A list of contract addresses associated with Index.
-- [FLI Documentation][28]      - The parameters and processes involved with the FLI system.
-- [Community Documents][57]    - A shared Google Drive folder containing images used across Index UI.
-- [Complete Press Kit][58]     - A kit that contains useful Index branding assets.
+- [Technical Resources][26] - A collection of crucial documents, scripts, and repositories.
+- [Contract Addresses][27] - A list of contract addresses associated with Index.
+- [FLI Documentation][28] - The parameters and processes involved with the FLI system.
+- [Community Documents][57] - A shared Google Drive folder containing images used across Index UI.
+- [Complete Press Kit][58] - A kit that contains useful Index branding assets.
 
 &nbsp;
 
@@ -186,15 +189,15 @@ At Index, we are a community-driven project, and proper documentation is essenti
 
 &nbsp;
 
-[//]: # (Zoom out or reduce font size to view table)
+[//]: # 'Zoom out or reduce font size to view table'
 
-|Type           |Description|
-|---------------|-----------|
-|**Title**      |Briefly summarize the issue.|
-|**Description**|An adequate explanation of what is needed and/or requested.|
-|**Labels**     |Color-coded labels help to categorize issues according to type or difficulty.|
-|**Assignee**   |Adding an assignee to a particular task helps to avoid miscommunication and prevent multiple people from working on the same issue simultaneously.|
-|**Comments**   |Each issue has a comment thread for claiming an issue and following up for additional information from the original author.|
+| Type            | Description                                                                                                                                        |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Title**       | Briefly summarize the issue.                                                                                                                       |
+| **Description** | An adequate explanation of what is needed and/or requested.                                                                                        |
+| **Labels**      | Color-coded labels help to categorize issues according to type or difficulty.                                                                      |
+| **Assignee**    | Adding an assignee to a particular task helps to avoid miscommunication and prevent multiple people from working on the same issue simultaneously. |
+| **Comments**    | Each issue has a comment thread for claiming an issue and following up for additional information from the original author.                        |
 
 &nbsp;
 
@@ -248,23 +251,23 @@ Once you are ready to proceed, you will need to [commit][46] the changes to your
 
 ### **Step 1: Creating a Pull Request**
 
- [Creating a pull request][32] is extremely simple, but you must first decide whether you need to open a **draft** or a request that is **ready for review**. A [draft][48] simply initiates the pull request process, but draft requests cannot be reviewed or merged with the master. You might consider opening a draft request first and double-checking that the branch you are attempting to merge contains all of the necessary files for your project. When you are certain that you want your project to be merged with the master, then you can [change the stage][49] of your draft and request for it to be [reviewed][54] for a potential merger.
+[Creating a pull request][32] is extremely simple, but you must first decide whether you need to open a **draft** or a request that is **ready for review**. A [draft][48] simply initiates the pull request process, but draft requests cannot be reviewed or merged with the master. You might consider opening a draft request first and double-checking that the branch you are attempting to merge contains all of the necessary files for your project. When you are certain that you want your project to be merged with the master, then you can [change the stage][49] of your draft and request for it to be [reviewed][54] for a potential merger.
 
- You might also consider [linking][52] a PR to a particular issue so that it is automatically resolved once the review process is finalized and your work is merged into the master. GitHub recognizes keywords when initiating PRs, so a common phrase used to link to an issue is simply:
+You might also consider [linking][52] a PR to a particular issue so that it is automatically resolved once the review process is finalized and your work is merged into the master. GitHub recognizes keywords when initiating PRs, so a common phrase used to link to an issue is simply:
 
- >"This should resolve issue #0123"
+> "This should resolve issue #0123"
 
- &nbsp;
+&nbsp;
 
 ### **Step 2: Reviewing a Pull Request**
 
-  The actual merge will not be finalized until the request is [reviewed][50] by one of our developers with administrative write permissions. In the meantime, be sure to check your PR for comments containing suggestions or questions from our admins concerning your project. If one of our admins requests changes to be made, then you will need to edit your files and [upload][53] them within the conversation contained within your submitted PR. Be sure to provide as much specific detail as possible when interacting with admins in order to expedite the process and clarify the reasoning behind the decisions you made.
+The actual merge will not be finalized until the request is [reviewed][50] by one of our developers with administrative write permissions. In the meantime, be sure to check your PR for comments containing suggestions or questions from our admins concerning your project. If one of our admins requests changes to be made, then you will need to edit your files and [upload][53] them within the conversation contained within your submitted PR. Be sure to provide as much specific detail as possible when interacting with admins in order to expedite the process and clarify the reasoning behind the decisions you made.
 
-  &nbsp;
+&nbsp;
 
 ### **Step 3: Merging a Pull Request**
 
-  After you have resolved any discussions concerning your project, our admins will verify that your PR is able to be [merged][55] with the master. This step requires administrative write capabilites to be performed, so you will not have to do anything other than wait for the merge to occur. Beyond this step, the only thing we encourage our contributors to do is put forth a diligent effort to maintain their projects and provide support as needed in the event that bugs appear or enhancements are recommended.
+After you have resolved any discussions concerning your project, our admins will verify that your PR is able to be [merged][55] with the master. This step requires administrative write capabilites to be performed, so you will not have to do anything other than wait for the merge to occur. Beyond this step, the only thing we encourage our contributors to do is put forth a diligent effort to maintain their projects and provide support as needed in the event that bugs appear or enhancements are recommended.
 
 &nbsp;
 
@@ -284,69 +287,68 @@ Some general troubleshooting guidelines to consider:
 
 #
 
- <a href="#top">↑ Back to top</a>
+<a href="#top">↑ Back to top</a>
 
 &nbsp;
 
-[//]: # (Below is a link reference chart for links used in this file)
-[//]: # (Zoom out or decrease font size to view link reference chart)
-
-[1]:    https://docs.google.com/forms/d/e/1FAIpQLSfzG2faWGFkaNuwJMwFaFKHAIgSSRCbtyKGwsmgJhefYoTHbQ/viewform                                                                                 "index welcome form"
-[2]:    https://docs.indexcoop.com/                                                                                                                                                         "index handbook"
-[3]:    https://github.com/SetProtocol/index-ui/blob/master/CODE_OF_CONDUCT.md/                                                                                                             "code of conduct"
-[4]:    https://discord.gg/indexcoop                                                                                                                                                 "index discord"
-[5]:    https://www.indexcoop.com/                                                                                                                                                          "index website"
-[6]:    https://www.indexcoop.com/about                                                                                                                                                     "index about"
-[7]:    https://www.indexcoop.com/news                                                                                                                                                      "index news"
-[8]:    https://www.indexcoop.com/liquidity-mining                                                                                                                                          "index liquidity"
-[9]:    https://www.indexcoop.com/vote                                                                                                                                                      "index vote"
-[10]:   https://gov.indexcoop.com/                                                                                                                                                          "index forum"
-[11]:   https://indexcoop.substack.com/                                                                                                                                                     "index newsletter"
-[12]:   https://open.spotify.com/show/0v5veLRT0acyTpnq7I9YtL?si=hGdPGv9KTaGJJPs8HIbCOQ                                                                                                      "index podcast"
-[13]:   https://www.reddit.com/r/INDEXcoop/                                                                                                                                                 "index reddit"
-[14]:   https://twitter.com/indexcoop                                                                                                                                                       "index twitter"
-[15]:   https://docs.github.com/en/github/getting-started-with-github/quickstart                                                                                                            "github quickstart"
-[16]:   https://docs.github.com/en/github/getting-started-with-github/github-glossary                                                                                                       "github glossary"
-[17]:   https://docs.github.com/en/github/getting-started-with-github/fork-a-repo                                                                                                           "github forks"
-[18]:   https://github.com/SetProtocol/index-ui/blob/master/README.md                                                                                                                          "index readme"
-[19]:   https://prettier.io/                                                                                                                                                                "prettier website"
-[20]:   https://github.com/SetProtocol/index-ui/issues                                                                                                                                      "index issues"
-[21]:   https://github.com/SetProtocol/index-ui/blob/master/.github/ISSUE_TEMPLATE/bug_report.md                                                                                            "bug report"
-[22]:   https://github.com/SetProtocol/index-ui/blob/master/.github/ISSUE_TEMPLATE/feature_request.md                                                                                       "feature request"
-[23]:   https://www.freecodecamp.org/news/code-comments-the-good-the-bad-and-the-ugly-be9cc65fbf83/                                                                                         "code comments"
-[24]:   https://blog.submain.com/code-documentation-the-complete-beginners-guide/                                                                                                           "code documentation"
-[25]:   https://blog.submain.com/simplifying-code-documentation/                                                                                                                            "simple documentation"
-[26]:   https://docs.indexcoop.com/developers/technical-overview                                                                                                                            "index technical resources"
-[27]:   https://docs.indexcoop.com/developers/contract-addresses                                                                                                                            "index contract addresses"
-[28]:   https://docs.indexcoop.com/developers/fli-technical-documentation                                                                                                                   "index FLI system"
-[29]:   https://docs.indexcoop.com/working-groups/working-groups-101                                                                                                                        "working groups"
-[30]:   https://guides.github.com/features/issues/                                                                                                                                          "github issues"
-[31]:   https://github.com/SetProtocol/index-ui/pulls                                                                                                                                       "index pull requests"
-[32]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork                                                                   "create pull request"
-[33]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests#draft-pull-requests                                                               "draft pull request"
-[34]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches                                                                                        "github branches"
-[35]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository                                                 "create branches"
-[36]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork                                                                                        "github sync"
-[37]:   https://ardalis.com/github-fetch-upstream/                                                                                                                                          "github fetch upstream"
-[38]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork                                                                       "github setup git"
-[39]:   https://github.com/                                                                                                                                                                 "github website"
-[40]:   https://desktop.github.com/                                                                                                                                                         "github desktop"
-[41]:   https://docs.github.com/en/github/getting-started-with-github/getting-started-with-git                                                                                              "git started"
-[42]:   https://docs.github.com/en/github/getting-started-with-github/using-git                                                                                                             "using git"
-[43]:   https://code.visualstudio.com/                                                                                                                                                      "visual studio code"
-[44]:   https://github.com/git-guides/install-git                                                                                                                                           "git install"
-[45]:   https://docs.github.com/en/github/managing-files-in-a-repository/adding-a-file-to-a-repository                                                                                      "gitub upload file"
-[46]:   https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project                                             "github commit"
-[47]:   https://docs.github.com/en/github/getting-started-with-github/pushing-commits-to-a-remote-repository                                                                                "github push"
-[48]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests#draft-pull-requests                                                               "github draft request"
-[49]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/changing-the-stage-of-a-pull-request#marking-a-pull-request-as-ready-for-review                       "github change the stage"
-[50]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-reviews                                                                            "github review"
-[51]:   https://medium.com/mindorks/what-is-git-commit-push-pull-log-aliases-fetch-config-clone-56bc52a3601c                                                                                "github comprehensive guide"
-[52]:   https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue                                                                                   "github link PR"
-[53]:   https://docs.github.com/en/github/managing-your-work-on-github/file-attachments-on-issues-and-pull-requests                                                                         "github upload files for review"
-[54]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/requesting-a-pull-request-review                                                                      "github request a review"
-[55]:   https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/merging-a-pull-request                                                                                "github merging a PR"
-[56]:   https://docs.indexcoop.com/learn-more/20+-ways-to-get-involved                                                                                                                      "index get involved"
-[57]:   https://docs.indexcoop.com/resources-beta/shared-docs                                                                                                                               "index community docs"
-[58]:   https://docs.indexcoop.com/resources-beta/press-kit                                                                                                                                 "index press kit"
-[59]:   https://nodejs.org/en/download/                                                                                                                                                     "node.js installation"
+[//]: # 'Below is a link reference chart for links used in this file'
+[//]: # 'Zoom out or decrease font size to view link reference chart'
+[1]: https://docs.google.com/forms/d/e/1FAIpQLSfzG2faWGFkaNuwJMwFaFKHAIgSSRCbtyKGwsmgJhefYoTHbQ/viewform 'index welcome form'
+[2]: https://docs.indexcoop.com/ 'index handbook'
+[3]: https://github.com/SetProtocol/index-ui/blob/master/CODE_OF_CONDUCT.md/ 'code of conduct'
+[4]: https://discord.gg/indexcoop 'index discord'
+[5]: https://www.indexcoop.com/ 'index website'
+[6]: https://www.indexcoop.com/about 'index about'
+[7]: https://www.indexcoop.com/news 'index news'
+[8]: https://www.indexcoop.com/liquidity-mining 'index liquidity'
+[9]: https://www.indexcoop.com/vote 'index vote'
+[10]: https://gov.indexcoop.com/ 'index forum'
+[11]: https://indexcoop.substack.com/ 'index newsletter'
+[12]: https://open.spotify.com/show/0v5veLRT0acyTpnq7I9YtL?si=hGdPGv9KTaGJJPs8HIbCOQ 'index podcast'
+[13]: https://www.reddit.com/r/INDEXcoop/ 'index reddit'
+[14]: https://twitter.com/indexcoop 'index twitter'
+[15]: https://docs.github.com/en/github/getting-started-with-github/quickstart 'github quickstart'
+[16]: https://docs.github.com/en/github/getting-started-with-github/github-glossary 'github glossary'
+[17]: https://docs.github.com/en/github/getting-started-with-github/fork-a-repo 'github forks'
+[18]: https://github.com/SetProtocol/index-ui/blob/master/README.md 'index readme'
+[19]: https://prettier.io/ 'prettier website'
+[20]: https://github.com/SetProtocol/index-ui/issues 'index issues'
+[21]: https://github.com/SetProtocol/index-ui/blob/master/.github/ISSUE_TEMPLATE/bug_report.md 'bug report'
+[22]: https://github.com/SetProtocol/index-ui/blob/master/.github/ISSUE_TEMPLATE/feature_request.md 'feature request'
+[23]: https://www.freecodecamp.org/news/code-comments-the-good-the-bad-and-the-ugly-be9cc65fbf83/ 'code comments'
+[24]: https://blog.submain.com/code-documentation-the-complete-beginners-guide/ 'code documentation'
+[25]: https://blog.submain.com/simplifying-code-documentation/ 'simple documentation'
+[26]: https://docs.indexcoop.com/developers/technical-overview 'index technical resources'
+[27]: https://docs.indexcoop.com/developers/contract-addresses 'index contract addresses'
+[28]: https://docs.indexcoop.com/developers/fli-technical-documentation 'index FLI system'
+[29]: https://docs.indexcoop.com/working-groups/working-groups-101 'working groups'
+[30]: https://guides.github.com/features/issues/ 'github issues'
+[31]: https://github.com/SetProtocol/index-ui/pulls 'index pull requests'
+[32]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork 'create pull request'
+[33]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests#draft-pull-requests 'draft pull request'
+[34]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches 'github branches'
+[35]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository 'create branches'
+[36]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork 'github sync'
+[37]: https://ardalis.com/github-fetch-upstream/ 'github fetch upstream'
+[38]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork 'github setup git'
+[39]: https://github.com/ 'github website'
+[40]: https://desktop.github.com/ 'github desktop'
+[41]: https://docs.github.com/en/github/getting-started-with-github/getting-started-with-git 'git started'
+[42]: https://docs.github.com/en/github/getting-started-with-github/using-git 'using git'
+[43]: https://code.visualstudio.com/ 'visual studio code'
+[44]: https://github.com/git-guides/install-git 'git install'
+[45]: https://docs.github.com/en/github/managing-files-in-a-repository/adding-a-file-to-a-repository 'gitub upload file'
+[46]: https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project 'github commit'
+[47]: https://docs.github.com/en/github/getting-started-with-github/pushing-commits-to-a-remote-repository 'github push'
+[48]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests#draft-pull-requests 'github draft request'
+[49]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/changing-the-stage-of-a-pull-request#marking-a-pull-request-as-ready-for-review 'github change the stage'
+[50]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-reviews 'github review'
+[51]: https://medium.com/mindorks/what-is-git-commit-push-pull-log-aliases-fetch-config-clone-56bc52a3601c 'github comprehensive guide'
+[52]: https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue 'github link PR'
+[53]: https://docs.github.com/en/github/managing-your-work-on-github/file-attachments-on-issues-and-pull-requests 'github upload files for review'
+[54]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/requesting-a-pull-request-review 'github request a review'
+[55]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/merging-a-pull-request 'github merging a PR'
+[56]: https://docs.indexcoop.com/learn-more/20+-ways-to-get-involved 'index get involved'
+[57]: https://docs.indexcoop.com/resources-beta/shared-docs 'index community docs'
+[58]: https://docs.indexcoop.com/resources-beta/press-kit 'index press kit'
+[59]: https://nodejs.org/en/download/ 'node.js installation'

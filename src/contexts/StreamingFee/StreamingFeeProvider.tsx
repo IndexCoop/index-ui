@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { provider } from "web3-core"
+import { provider } from 'web3-core'
 
-import { getStreamingFees } from "utils/setjsApi"
-import useWallet from "hooks/useWallet"
-import { bedTokenAddress, btc2xfliTokenAddress, dpiTokenAddress, eth2xfliTokenAddress, mviTokenAddress } from "constants/ethContractAddresses"
-import { convertToPercentage } from "utils/ethersBigNumber"
-import StreamingFeeContext from "./StreamingFeeContext"
+import { getStreamingFees } from 'utils/setjsApi'
+import useWallet from 'hooks/useWallet'
+import {
+  bedTokenAddress,
+  btc2xfliTokenAddress,
+  dpiTokenAddress,
+  eth2xfliTokenAddress,
+  mviTokenAddress,
+} from 'constants/ethContractAddresses'
+import { convertToPercentage } from 'utils/ethersBigNumber'
+import StreamingFeeContext from './StreamingFeeContext'
 
 const StreamingFeeProvider: React.FC = ({ children }) => {
   const { ethereum }: { ethereum: provider } = useWallet()
@@ -16,15 +22,44 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
   const [btc2xFliStreamingFee, setBtc2xFliStreamingFee] = useState<string>()
 
   useEffect(() => {
-    if (ethereum && dpiTokenAddress && mviTokenAddress && bedTokenAddress && eth2xfliTokenAddress && btc2xfliTokenAddress) {
-      getStreamingFees(ethereum, [dpiTokenAddress, mviTokenAddress, bedTokenAddress, eth2xfliTokenAddress, btc2xfliTokenAddress])
-        .then(result => {
-          const [dpiResult, mviResult, bedResult, eth2xFliResult, btc2xFliResult] = result
-          setDpiStreamingFee(convertToPercentage(dpiResult.streamingFeePercentage))
-          setMviStreamingFee(convertToPercentage(mviResult.streamingFeePercentage))
-          setBedStreamingFee(convertToPercentage(bedResult.streamingFeePercentage))
-          setEth2xFliStreamingFee(convertToPercentage(eth2xFliResult.streamingFeePercentage))
-          setBtc2xFliStreamingFee(convertToPercentage(btc2xFliResult.streamingFeePercentage))
+    if (
+      ethereum &&
+      dpiTokenAddress &&
+      mviTokenAddress &&
+      bedTokenAddress &&
+      eth2xfliTokenAddress &&
+      btc2xfliTokenAddress
+    ) {
+      getStreamingFees(ethereum, [
+        dpiTokenAddress,
+        mviTokenAddress,
+        bedTokenAddress,
+        eth2xfliTokenAddress,
+        btc2xfliTokenAddress,
+      ])
+        .then((result) => {
+          const [
+            dpiResult,
+            mviResult,
+            bedResult,
+            eth2xFliResult,
+            btc2xFliResult,
+          ] = result
+          setDpiStreamingFee(
+            convertToPercentage(dpiResult.streamingFeePercentage)
+          )
+          setMviStreamingFee(
+            convertToPercentage(mviResult.streamingFeePercentage)
+          )
+          setBedStreamingFee(
+            convertToPercentage(bedResult.streamingFeePercentage)
+          )
+          setEth2xFliStreamingFee(
+            convertToPercentage(eth2xFliResult.streamingFeePercentage)
+          )
+          setBtc2xFliStreamingFee(
+            convertToPercentage(btc2xFliResult.streamingFeePercentage)
+          )
         })
         .catch((error: any) => console.error(error))
     }
@@ -38,7 +73,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
         bedStreamingFee: bedStreamingFee,
         eth2xFliStreamingFee: eth2xFliStreamingFee,
         btc2xFliStreamingFee: btc2xFliStreamingFee,
-       }}
+      }}
     >
       {children}
     </StreamingFeeContext.Provider>

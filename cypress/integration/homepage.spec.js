@@ -96,7 +96,6 @@ describe('Homepage', () => {
       })
     )
 
-
     context('Footer Links', () => {
       it('should contain all links', () => {
         cy.get('[data-cy=footer-links]').children().should('have.length', 4)

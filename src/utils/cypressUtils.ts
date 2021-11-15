@@ -3,6 +3,6 @@
  * selector (e.g. data-cy)
  */
 export function formatCypressId(input: string): string {
-    // TODO: add unit tests when this package enables Jest
-    return input.toLowerCase().replace(' ', '-') // hyphenate the input
+  // TODO: add unit tests when this package enables Jest
+  return input.toLowerCase().replace(' ', '-') // hyphenate the input
 }

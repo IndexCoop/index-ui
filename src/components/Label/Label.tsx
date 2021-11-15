@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface LabelProps {
-  text?: string,
+  text?: string
 }
 
 const Label: React.FC<LabelProps> = ({ text }) => (
@@ -10,7 +10,7 @@ const Label: React.FC<LabelProps> = ({ text }) => (
 )
 
 const StyledLabel = styled.div`
-  color: ${props => props.theme.colors.grey[500]};
+  color: ${(props) => props.theme.colors.grey[500]};
 `
 
 export default Label

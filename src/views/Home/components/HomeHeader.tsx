@@ -5,11 +5,11 @@ import { NavLink } from 'react-router-dom'
 import useCombinedTokenMarketCapData from 'hooks/useCombinedTokenMarketCapData'
 
 const Home: React.FC = () => {
-  const latestTotalMarketCap  = useCombinedTokenMarketCapData()
+  const latestTotalMarketCap = useCombinedTokenMarketCapData()
 
   return (
     <div>
-      <HomeTitle data-cy="home-header">
+      <HomeTitle data-cy='home-header'>
         The Index Coop currently has{' '}
         <AuvText>
           {latestTotalMarketCap?.toLocaleString(undefined, {
@@ -20,7 +20,9 @@ const Home: React.FC = () => {
         diversified in crypto index products.
       </HomeTitle>
 
-      <HomeHeaderCTA data-cy="view-dpi-link" to='/dpi'>View the DeFi Pulse Index</HomeHeaderCTA>
+      <HomeHeaderCTA data-cy='view-dpi-link' to='/dpi'>
+        View the DeFi Pulse Index
+      </HomeHeaderCTA>
     </div>
   )
 }

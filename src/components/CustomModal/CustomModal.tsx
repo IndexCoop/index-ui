@@ -3,15 +3,11 @@ import styled, { keyframes } from 'styled-components'
 import { Surface } from 'react-neu'
 
 export interface ModalProps {
-  isOpen?: boolean,
+  isOpen?: boolean
   onDismiss?: () => void
 }
 
-const Modal: React.FC<ModalProps> = ({
-  children,
-  isOpen,
-  onDismiss,
-}) => {
+const Modal: React.FC<ModalProps> = ({ children, isOpen, onDismiss }) => {
   if (isOpen) {
     return (
       <StyledModalWrapper>
@@ -51,10 +47,13 @@ const StyledModalWrapper = styled.div`
 `
 
 const StyledModalBackdrop = styled.div`
-  background: ${props => props.theme.baseColor};
+  background: ${(props) => props.theme.baseColor};
   opacity: 0.65;
   position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 `
 
 const StyledResponsiveWrapper = styled.div`
@@ -65,9 +64,9 @@ const StyledResponsiveWrapper = styled.div`
   max-width: 600px;
   position: relative;
   width: 100%;
-  box-shadow: 0 0 24px 0 ${props => props.theme.shadowColor};
-  border-radius: ${props => props.theme.borderRadius}px;
-  background-color: ${props => props.theme.baseColor};
+  box-shadow: 0 0 24px 0 ${(props) => props.theme.shadowColor};
+  border-radius: ${(props) => props.theme.borderRadius}px;
+  background-color: ${(props) => props.theme.baseColor};
   opacity: 0.975;
   @media (max-width: 600px) {
     flex: 1;
@@ -75,9 +74,9 @@ const StyledResponsiveWrapper = styled.div`
     top: 100%;
     right: 0;
     left: 0;
-    max-height: calc(100% - ${props => props.theme.spacing[4]}px);
-    animation: ${mobileKeyframes} .3s forwards ease-out;
+    max-height: calc(100% - ${(props) => props.theme.spacing[4]}px);
+    animation: ${mobileKeyframes} 0.3s forwards ease-out;
   }
 `
 
-export default Modal;
+export default Modal

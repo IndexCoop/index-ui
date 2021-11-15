@@ -8,9 +8,7 @@ const Split: React.FC = ({ children }) => {
     <StyledSplit>
       {React.Children.map(children, (child, i) => (
         <>
-          <StyledSplitColumn>
-            {child}
-          </StyledSplitColumn>
+          <StyledSplitColumn>{child}</StyledSplitColumn>
           {i < l - 1 && <Spacer />}
         </>
       ))}
