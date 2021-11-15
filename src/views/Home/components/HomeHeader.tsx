@@ -19,10 +19,6 @@ const Home: React.FC = () => {
         </AuvText>
         diversified in crypto index products.
       </HomeTitle>
-
-      <HomeHeaderCTA data-cy='view-dpi-link' to='/dpi'>
-        View the DeFi Pulse Index
-      </HomeHeaderCTA>
     </div>
   )
 }

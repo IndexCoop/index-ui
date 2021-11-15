@@ -16,9 +16,6 @@ const Home = (props: { title: string }) => {
     <Page>
       <Container size='lg'>
         <HomeHeader />
-        <Spacer size='lg' />
-        <Explanation />
-        <Spacer size='lg' />
         <MarketData />
         <Integrations />
       </Container>

@@ -77,9 +77,6 @@ const App: React.FC = () => {
             visible={mobileMenu}
           />
           <Switch>
-            <Route exact path='/'>
-              <Home title={'Index - Home'} />
-            </Route>
             <Route exact path='/dpi'>
               <DPI title={'Index - DPI'} />
             </Route>
@@ -101,25 +98,8 @@ const App: React.FC = () => {
             <Route exact path='/index'>
               <INDEX title={'Index - Index'} />
             </Route>
-            <Route
-              exact
-              path='/vote'
-              render={() => (window.location.href = voteLink)}
-            />
-            <Route exact path='/about'>
-              <About title={'Index - About'} />
-            </Route>
             <Route exact path='/liquidity-mining'>
               <Farm title={'Index - Liquidity Mining'} />
-            </Route>
-            <Route exact path='/rewards'>
-              <ContributorRewards title={'Index - Rewards'} />
-            </Route>
-            <Route exact path='/news'>
-              <News title={'Index - News'} />
-            </Route>
-            <Route path='/how-to-buy'>
-              <HowToBuy title={'Index - How to Buy'} />
             </Route>
             <Route
               exact
