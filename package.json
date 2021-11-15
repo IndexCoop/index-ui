@@ -46,7 +46,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "e2e": "yarn run cypress run --headless",
-    "cypress:open": "yarn run cypress open"
+    "cypress:open": "yarn run cypress open",
+    "lint:fix": "yarn prettier --write ."
   },
   "husky": {
     "hooks": {
