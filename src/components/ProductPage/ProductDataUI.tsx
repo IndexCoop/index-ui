@@ -21,7 +21,7 @@ import {
   ProductToken,
 } from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
-import { SetComponent } from "../../contexts/SetComponents/SetComponent"
+import { SetComponent } from 'contexts/SetComponents/SetComponent'
 
 export interface TokenDataProps {
   prices: number[][] | undefined
