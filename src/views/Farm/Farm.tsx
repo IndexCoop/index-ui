@@ -10,6 +10,7 @@ import MviFarmCard from './components/Stake/MviFarm'
 import RewardsCard from './components/Rewards'
 import Treasury from './components/Treasury'
 import V3FarmCard from './components/Stake/V3Farm'
+import { DpiEthRewards, MviEthRewards } from 'constants/v3Farms'
 
 const Farm = (props: { title: string }) => {
   useEffect(() => {
@@ -19,17 +20,19 @@ const Farm = (props: { title: string }) => {
   return (
     <Page>
       <Container>
-        <StyledPageHeader data-cy='liquidity-mining-title'>Liquidity Mining Programs</StyledPageHeader>
+        <StyledPageHeader data-cy='liquidity-mining-title'>
+          Liquidity Mining Programs
+        </StyledPageHeader>
         <Spacer size='sm' />
         <StyledPageSubheader data-cy='liquidity-mining-subtitle'>
           Earn rewards for supplying liquidity for Index Coop products
         </StyledPageSubheader>
         <Spacer />
       </Container>
-      <Treasury data-cy="treasury"/>
+      <Treasury data-cy='treasury' />
       <Spacer />
       <Container>
-        <V3FarmCard />
+        <V3FarmCard farm={DpiEthRewards} />
         <Spacer />
         <DpiFarmCard />
         <Spacer />

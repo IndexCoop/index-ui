@@ -7,7 +7,7 @@ import Web3 from 'web3'
 import Split from 'components/Split'
 
 import { indexTokenAddress } from 'constants/ethContractAddresses'
-import { DpiEthRewards, V3Farm } from 'constants/v3Farms'
+import { V3Farm } from 'constants/v3Farms'
 
 import V3StakeModal from './components/V3StakeModal'
 
@@ -16,7 +16,7 @@ import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import useV3Farming from 'hooks/useV3Farming'
 import useWallet from 'hooks/useWallet'
 
-const Stake: React.FC = () => {
+const Stake = (props: { farm: V3Farm }) => {
   const { isMobile } = useMediaQuery()
   const { status, account, ethereum } = useWallet()
   const {
@@ -51,9 +51,9 @@ const Stake: React.FC = () => {
 
   const handleOnUnstake = useCallback(
     (nftId: number) => {
-      onWithdraw(nftId, DpiEthRewards)
+      onWithdraw(nftId, props.farm)
     },
-    [onWithdraw]
+    [onWithdraw, props.farm]
   )
 
   const handleStakeClick = useCallback(() => {
@@ -74,32 +74,33 @@ const Stake: React.FC = () => {
         parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(5)
       )
     })
-  }, [
-    account,
-    status,
-    transactionStatus,
-    getAccruedRewardsAmount,
-  ])
+  }, [account, status, transactionStatus, getAccruedRewardsAmount])
 
   useEffect(() => {
-    getAllPendingRewardsAmount(DpiEthRewards).then((amount) => {
+    getAllPendingRewardsAmount(props.farm).then((amount) => {
       setAllPendingRewards(
         parseFloat(Web3.utils.fromWei(amount?.toString() || '0')).toFixed(5)
       )
     })
-  }, [account, status, transactionStatus, getAllPendingRewardsAmount])
+  }, [
+    account,
+    status,
+    transactionStatus,
+    getAllPendingRewardsAmount,
+    props.farm,
+  ])
 
   useEffect(() => {
-    getValidIds(DpiEthRewards).then((idList) => {
+    getValidIds(props.farm).then((idList) => {
       setValidNfts(idList || [])
     })
-  }, [account, status, transactionStatus, getValidIds])
+  }, [account, status, transactionStatus, getValidIds, props.farm])
 
   useEffect(() => {
-    getAllDepositedTokens(DpiEthRewards).then((idList) => {
+    getAllDepositedTokens(props.farm).then((idList) => {
       setDepositedNfts(idList || [])
     })
-  }, [account, status, transactionStatus, getAllDepositedTokens])
+  }, [account, status, transactionStatus, getAllDepositedTokens, props.farm])
 
   const StakeButton = useMemo(() => {
     if (status !== 'connected') {
@@ -143,34 +144,34 @@ const Stake: React.FC = () => {
     )
   }, [status, handleClaimAccruedClick, accruedRewards])
 
-  const ethDpiTokenIcon = (
+  const lpTokenIcons = (
     <StyledLpTokenWrapper>
       <StyledLpTokenImage
         alt='ETH Icon'
         src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
       />
-      <StyledLpTokenImage
-        alt='DPI Icon'
-        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
-      />
+      <StyledLpTokenImage alt={props.farm.img.alt} src={props.farm.img.src} />
     </StyledLpTokenWrapper>
   )
+
+  const activeFarmDates = () => {
+    const latestFarmIndex = props.farm.farms.length - 1
+    return 'Active ' + props.farm.farms[latestFarmIndex].dateText
+  }
 
   return (
     <>
       <Card>
         <CardContent>
           <StyledCardTitleWrapper>
-            {ethDpiTokenIcon}
+            {lpTokenIcons}
             <Spacer size='md' />
             <StyledLmTitle>
               <StyledCardTitle>
-                Uniswap V3 DPI-ETH Liquidity Program
+                Uniswap V3 {props.farm.poolLabel} Liquidity Program
               </StyledCardTitle>
               <Spacer size='sm' />
-              <StyledCardSubtitle>
-                Active August 20th, 2021 - September 4th, 2021
-              </StyledCardSubtitle>
+              <StyledCardSubtitle>{activeFarmDates()}</StyledCardSubtitle>
             </StyledLmTitle>
           </StyledCardTitleWrapper>
           <Spacer />
@@ -215,7 +216,7 @@ const Stake: React.FC = () => {
         isOpen={stakeModalIsOpen}
         availableNftIds={validNfts}
         depositedNftIds={depositedNfts}
-        farm={DpiEthRewards}
+        farm={props.farm}
         provider={ethereum}
         accruedRewards={accruedRewards}
         onDismiss={handleDismissStakeModal}

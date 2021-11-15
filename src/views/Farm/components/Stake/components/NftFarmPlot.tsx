@@ -21,22 +21,19 @@ const NftFarmPlot: React.FC<NftFarmPlotProps> = ({ farmName, farmPlot }) => {
   const farmEndTime = new Date((endTime || 0) * 1000).toString()
   const formattedEndTime = dateformat(farmEndTime, 'mmm dd h:MM TT')
 
-  const ethDpiTokenIcon = (
+  const lpTokenIcon = (
     <StyledLpTokenWrapper>
       <StyledLpTokenImage
         alt='ETH Icon'
         src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
       />
-      <StyledLpTokenImage
-        alt='DPI Icon'
-        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
-      />
+      <StyledLpTokenImage alt={farmPlot?.img.alt} src={farmPlot?.img.src} />
     </StyledLpTokenWrapper>
   )
 
   return (
     <StyledCard href={makeEtherscanAddressLink(pool || '')} target='_blank'>
-      {ethDpiTokenIcon}
+      {lpTokenIcon}
       <StyledCardBody>
         <StyledFarmTitle>{farmName}</StyledFarmTitle>
         <StyledFarmText>

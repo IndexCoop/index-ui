@@ -35,8 +35,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
   onStake,
   onUnstake,
 }) => {
-  const [selectedNftId, setSelectedNftId] =
-    useState<number | undefined>(undefined)
+  const [selectedNftId, setSelectedNftId] = useState<number | undefined>(
+    undefined
+  )
 
   const [pendingRewardsForSelectedNft, setPendingRewardsForSelectedNft] =
     useState<number>(0)
@@ -103,16 +104,13 @@ const StakeModal: React.FC<StakeModalProps> = ({
     setIsShowingUnstakingDetailScreen(false)
   }
 
-  const ethDpiTokenIcon = (
+  const lpTokenIcons = (
     <StyledLpTokenWrapper>
       <StyledLpTokenImage
         alt='ETH Icon'
         src='https://s3.amazonaws.com/set-core/img/coin-icons/eth.svg'
       />
-      <StyledLpTokenImage
-        alt='DPI Icon'
-        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
-      />
+      <StyledLpTokenImage alt={farm.img.alt} src={farm.img.src} />
     </StyledLpTokenWrapper>
   )
 
@@ -169,7 +167,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
           </div>
         ) : (
           <StyledList>
-            You do not have any unstaked DPI-ETH Uniswap V3 tokens.
+            You do not have any unstaked {farm.poolLabel} Uniswap V3 tokens.
           </StyledList>
         )}
 
@@ -194,7 +192,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
           </div>
         ) : (
           <StyledList>
-            You do not have any staked DPI-ETH Uniswap V3 tokens.
+            You do not have any staked {farm.poolLabel} Uniswap V3 tokens.
           </StyledList>
         )}
       </>
@@ -205,7 +203,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
       <ModalContent>
         <div>
           <StyledNftCardTitle>
-            {ethDpiTokenIcon}
+            {lpTokenIcons}
             Uniswap V3 Staking
           </StyledNftCardTitle>
           <p>
