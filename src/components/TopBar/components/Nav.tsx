@@ -6,9 +6,6 @@ import ProductsDropdown from './ProductsDropdown'
 const Nav: React.FC = () => {
   return (
     <StyledNav>
-      <StyledLink exact activeClassName='active' to='/'>
-        Home
-      </StyledLink>
       <ProductsDropdown />
       <StyledLink exact activeClassName='active' to='/index'>
         $INDEX
