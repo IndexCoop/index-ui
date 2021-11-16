@@ -40,7 +40,7 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
   if (components === undefined || components.length === 0) {
     return (
       <ProductPageSection title='Allocations'>
-        Unlock wallet to view allocations
+        Connect wallet to view allocations
       </ProductPageSection>
     )
   }
