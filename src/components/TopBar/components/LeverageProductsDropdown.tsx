@@ -3,57 +3,39 @@ import styled from 'styled-components'
 import { NavLink, useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import { useTheme } from 'react-neu'
-import { careersLink } from 'constants/externalLinks'
 
-const CustomOption = (props: any) => {
-  const { innerProps, value, label, data } = props
-
-  if (data?.link) {
-    return (
-      <CustomDropdownOption {...innerProps}>
-        <StyledOutboundLink href={data.link} target='_blank' rel='noopener'>
-          {label}
-        </StyledOutboundLink>
-      </CustomDropdownOption>
-    )
-  }
-
-  return (
-    <CustomDropdownOption {...innerProps}>
-      <StyledLink exact activeClassName='active' to={`/${value}`}>
-        {label}
-      </StyledLink>
-    </CustomDropdownOption>
-  )
-}
+const CustomOption = ({ innerProps, value, label }: any) => (
+  <CustomDropdownOption {...innerProps}>
+    <StyledLink exact activeClassName='active' to={`/${value}`}>
+      {label}
+    </StyledLink>
+  </CustomDropdownOption>
+)
 
 const ProductsDropdown: React.FC = () => {
   const theme = useTheme()
   const { pathname } = useLocation()
 
   const dropdownSelectStyles = useMemo(() => {
-    const isResourcesRouteActive =
-      pathname === '/about' ||
-      pathname === '/how-to-buy' ||
-      pathname === '/news' ||
-      pathname === '/liquidity-mining'
+    const isProductRouteActive =
+      pathname === '/ethfli' || pathname === '/btcfli'
 
     return {
       control: (styles: any) => ({
         ...styles,
-        width: 130,
+        width: 190,
         background: 'none',
         border: 'none',
       }),
       singleValue: (styles: any) => ({
         ...styles,
-        'color': isResourcesRouteActive
+        'color': isProductRouteActive
           ? theme.colors.primary.light
           : theme.colors.grey[500],
         'fontWeight': 600,
         'cursor': 'pointer',
         '&:hover': {
-          color: isResourcesRouteActive
+          color: isProductRouteActive
             ? theme.colors.primary.light
             : theme.colors.grey[600],
         },
@@ -61,17 +43,18 @@ const ProductsDropdown: React.FC = () => {
       }),
       menu: (styles: any) => ({
         ...styles,
-        width: 200,
         color: 'black',
+        width: 310,
+        overflow: 'hidden',
       }),
       dropdownIndicator: (styles: any) => ({
         ...styles,
-        'color': isResourcesRouteActive
+        'color': isProductRouteActive
           ? theme.colors.primary.light
           : theme.colors.grey[500],
         'cursor': 'pointer',
         '&:hover': {
-          color: isResourcesRouteActive
+          color: isProductRouteActive
             ? theme.colors.primary.light
             : theme.colors.grey[500],
         },
@@ -88,28 +71,15 @@ const ProductsDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'Resources' } as any}
+      value={{ label: 'Leverage Products' } as any}
       options={[
         {
-          value: 'about',
-          label: 'About',
+          value: 'ethfli',
+          label: 'ETH 2x Flexible Leverage Index',
         },
         {
-          value: 'how-to-buy',
-          label: 'How to Buy',
-        },
-        {
-          value: 'news',
-          label: 'News',
-        },
-        {
-          value: 'liquidity-mining',
-          label: 'Liquidity Mining',
-        },
-        {
-          value: 'careers',
-          label: 'Careers',
-          link: careersLink,
+          value: 'btcfli',
+          label: 'BTC 2x Flexible Leverage Index',
         },
       ]}
       components={{
@@ -121,25 +91,12 @@ const ProductsDropdown: React.FC = () => {
 }
 
 const CustomDropdownOption = styled.div`
-  width: 190px;
+  width: 400px;
   margin: 10px;
+  overflow: hidden;
 `
 
 const StyledLink = styled(NavLink)`
-  color: ${(props) => props.theme.colors.grey[500]};
-  font-weight: 700;
-  padding-left: ${(props) => props.theme.spacing[3]}px;
-  padding-right: ${(props) => props.theme.spacing[3]}px;
-  text-decoration: none;
-  &:hover {
-    color: ${(props) => props.theme.colors.grey[600]};
-  }
-  &.active {
-    color: ${(props) => props.theme.colors.primary.light};
-  }
-`
-
-const StyledOutboundLink = styled.a`
   color: ${(props) => props.theme.colors.grey[500]};
   font-weight: 700;
   padding-left: ${(props) => props.theme.spacing[3]}px;

@@ -20,15 +20,13 @@ const ProductsDropdown: React.FC = () => {
     const isProductRouteActive =
       pathname === '/dpi' ||
       pathname === '/mvi' ||
-      pathname === '/ethfli' ||
-      pathname === '/btcfli' ||
       pathname === '/bed' ||
       pathname === '/data'
 
     return {
       control: (styles: any) => ({
         ...styles,
-        width: 120,
+        width: 160,
         background: 'none',
         border: 'none',
       }),
@@ -76,7 +74,7 @@ const ProductsDropdown: React.FC = () => {
   return (
     <Select
       isSearchable={false}
-      value={{ label: 'Products' } as any}
+      value={{ label: 'Index Products' } as any}
       options={[
         {
           value: 'dpi',
@@ -85,14 +83,6 @@ const ProductsDropdown: React.FC = () => {
         {
           value: 'mvi',
           label: 'Metaverse Index',
-        },
-        {
-          value: 'ethfli',
-          label: 'ETH 2x Flexible Leverage Index',
-        },
-        {
-          value: 'btcfli',
-          label: 'BTC 2x Flexible Leverage Index',
         },
         {
           value: 'bed',
@@ -112,7 +102,7 @@ const ProductsDropdown: React.FC = () => {
 }
 
 const CustomDropdownOption = styled.div`
-  width: 300px;
+  width: 400px;
   margin: 10px;
   overflow: hidden;
 `

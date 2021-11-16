@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import { useTheme } from 'react-neu'
 
 import indexLogoFullBlack from 'assets/index-logo-full-black.png'
@@ -15,16 +14,14 @@ const Logo: React.FC = () => {
     logo = darkMode ? indexLogoFullWhite : indexLogoFullBlack
   else logo = darkMode ? indexLogoWhite : indexLogoBlack
 
-  console.log(window.innerWidth)
-
   return (
-    <StyledLogo to='/'>
+    <StyledLogo>
       <StyledImage src={logo} alt='index-logo' />
     </StyledLogo>
   )
 }
 
-const StyledLogo = styled(Link)`
+const StyledLogo = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;

@@ -83,10 +83,4 @@ describe('Liquidity Mining', () => {
       cy.get(selector).should('contain', 'Claim Externally')
     })
   })
-
-  context('Footer Links', () => {
-    it('should contain all links', () => {
-      cy.get('[data-cy=footer-links]').children().should('have.length', 4)
-    })
-  })
 })

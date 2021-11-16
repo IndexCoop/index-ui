@@ -2,18 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import ProductsDropdown from './ProductsDropdown'
-import GovernanceDropdown from './GovernanceDropdown'
-import ResourcesDropdown from './ResourcesDropdown'
+import LeverageProductsDropdown from './LeverageProductsDropdown'
 
 const Nav: React.FC = () => {
   return (
     <StyledNav>
-      <StyledLink exact activeClassName='active' to='/'>
-        Home
-      </StyledLink>
       <ProductsDropdown />
-      <GovernanceDropdown />
-      <ResourcesDropdown />
+      <LeverageProductsDropdown />
+      <StyledLink exact activeClassName='active' to='/index'>
+        $INDEX
+      </StyledLink>
+      <StyledLink exact activeClassName='active' to='/liquidity-mining'>
+        Liquidity Mining
+      </StyledLink>
     </StyledNav>
   )
 }
