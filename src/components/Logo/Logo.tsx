@@ -15,8 +15,6 @@ const Logo: React.FC = () => {
     logo = darkMode ? indexLogoFullWhite : indexLogoFullBlack
   else logo = darkMode ? indexLogoWhite : indexLogoBlack
 
-  console.log(window.innerWidth)
-
   return (
     <StyledLogo to='/'>
       <StyledImage src={logo} alt='index-logo' />
