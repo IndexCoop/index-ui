@@ -5,6 +5,8 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   return false
 })
 
+const testRunnerShortAddress = '0xf39F...2266'
+
 describe('Wallet Connection', () => {
   context('Metamask', () => {
     before(() => {
@@ -16,14 +18,14 @@ describe('Wallet Connection', () => {
       })
     })
     it('should be able to connect', () => {
-      cy.contains('Unlock Wallet').click()
+      cy.contains('Connect Wallet').click()
       cy.contains('Metamask').parent().parent().contains('Select').click()
-      cy.contains('View Balances')
+      cy.contains(testRunnerShortAddress)
     })
     it('should be able to disconnect', () => {
-      cy.contains('View Balances').parent().click()
+      cy.contains(testRunnerShortAddress).parent().click()
       cy.contains('Sign Out').click()
-      cy.contains('Unlock Wallet')
+      cy.contains('Connect Wallet')
     })
   })
 
@@ -33,16 +35,16 @@ describe('Wallet Connection', () => {
       cy.reload(true)
     })
     it('should connect directly', () => {
-      cy.contains('View Balances').should('be.visible')
+      cy.contains(testRunnerShortAddress).should('be.visible')
     })
     it('should be able to disconnect', () => {
-      cy.contains('View Balances').parent().click()
+      cy.contains(testRunnerShortAddress).parent().click()
       cy.contains('Sign Out').click()
-      cy.contains('Unlock Wallet').should('be.visible')
+      cy.contains('Connect Wallet').should('be.visible')
     })
-    it('should reconnect directly when clicking Unlock wallet button', () => {
-      cy.contains('Unlock Wallet').click()
-      cy.contains('View Balances').should('be.visible')
+    it('should reconnect directly when clicking Connect Wallet button', () => {
+      cy.contains('Connect Wallet').click()
+      cy.contains(testRunnerShortAddress).should('be.visible')
     })
   })
 })

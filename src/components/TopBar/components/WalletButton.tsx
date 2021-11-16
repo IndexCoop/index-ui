@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
-
 import { Button } from 'react-neu'
-import useWallet from 'hooks/useWallet'
+import { shortenAddress, useLookupAddress } from '@usedapp/core'
 
+import useWallet from 'hooks/useWallet'
 import UnlockWalletModal from 'components/UnlockWalletModal'
 import WalletModal from 'components/WalletModal'
 
@@ -16,6 +16,7 @@ const WalletButton: React.FC = () => {
     status,
     connect,
   } = useWallet()
+  const ens = useLookupAddress()
 
   const onClick = useCallback(() => {
     // If the user comes from the onto app it should directly connect without opening the web3 modal
@@ -26,7 +27,7 @@ const WalletButton: React.FC = () => {
     }
   }, [status, connect, onOpenWalletModal])
 
-  const openWalletText = !!account ? 'View Balances' : 'Unlock Wallet'
+  const openWalletText = getOpenWalletText(account, ens)
   const variant = !!account ? 'tertiary' : 'default'
 
   return (
@@ -49,6 +50,16 @@ const WalletButton: React.FC = () => {
       />
     </>
   )
+}
+
+function getOpenWalletText(account: string | null | undefined, ens: string | null | undefined) {
+  if (account && ens) {
+    return ens
+  } else if (account) {
+    return shortenAddress(account)
+  } else {
+    return 'Connect Wallet'
+  }
 }
 
 const StyledWalletButton = styled.div``
