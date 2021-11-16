@@ -2,7 +2,6 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import { NavLink } from 'react-router-dom'
-import { voteLink } from 'constants/externalLinks'
 
 interface MobileMenuProps {
   onDismiss: () => void
