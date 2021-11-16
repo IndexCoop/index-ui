@@ -45,7 +45,7 @@ import MVI from 'views/MVI'
 import BED from 'views/BED'
 import DATA from 'views/DATA'
 import INDEX from 'views/INDEX'
-import { discordLink, voteLink } from 'constants/externalLinks'
+import { discordLink } from 'constants/externalLinks'
 
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
