@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import ExternalLink from 'components/ExternalLink'
 import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
-import useDpiIndexComponents from 'hooks/useDpiIndexComponents'
 import useBalances from 'hooks/useBalances'
 import DpiIndexCalculationImage from 'assets/dpi-index-calculation.png'
 import useLocalStorage from 'hooks/useLocalStorage'
@@ -13,6 +12,7 @@ import ProductDataUI, {
 } from 'components/ProductPage/ProductDataUI'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
+import useSetComponents from 'hooks/useSetComponents'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -21,10 +21,10 @@ const DpiProductPage = (props: { title: string }) => {
 
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
     useDpiTokenMarketData()
-  const { components } = useDpiIndexComponents()
   const { dpiBalance } = useBalances()
   const { dpiStreamingFee } = useStreamingFee()
   const { dpiTotalSupply } = useTokenSupply()
+  const { dpiComponents: components } = useSetComponents()
 
   const token: ProductToken = {
     ...DefiPulseIndex,

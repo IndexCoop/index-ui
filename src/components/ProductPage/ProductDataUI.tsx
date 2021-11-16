@@ -13,7 +13,6 @@ import {
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
 import MarketData from 'components/MarketData'
-import IndexComponent from 'components/IndexComponent'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 import {
@@ -22,6 +21,7 @@ import {
   ProductToken,
 } from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
+import { SetComponent } from 'contexts/SetComponents/SetComponent'
 
 export interface TokenDataProps {
   prices: number[][] | undefined
@@ -30,7 +30,7 @@ export interface TokenDataProps {
   latestMarketCap: number | undefined
   latestVolume: number | undefined
   token: ProductToken
-  components: IndexComponent[] | undefined
+  components: SetComponent[] | undefined
   balance: BigNumber | undefined
   supplyCap?: BigNumber | undefined
   currentSupply?: BigNumber | undefined
@@ -57,7 +57,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
 
   const netAssetValueReducer = (
     netAssetValue: number,
-    component: IndexComponent
+    component: SetComponent
   ): number => {
     return netAssetValue + (parseFloat(component.totalPriceUsd) || 0)
   }

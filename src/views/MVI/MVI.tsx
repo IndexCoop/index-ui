@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import useMviTokenMarketData from 'hooks/useMviTokenMarketData'
-import useMviComponents from 'hooks/useMviComponents'
 import useBalances from 'hooks/useBalances'
 import { MetaverseIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
@@ -8,6 +7,7 @@ import ProductDataUI, {
 } from 'components/ProductPage/ProductDataUI'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
+import useSetComponents from 'hooks/useSetComponents'
 
 const MviProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -16,7 +16,7 @@ const MviProductPage = (props: { title: string }) => {
 
   const { latestPrice, prices, hourlyPrices, latestMarketCap, latestVolume } =
     useMviTokenMarketData()
-  const { components } = useMviComponents()
+  const { mviComponents: components } = useSetComponents()
   const { mviBalance } = useBalances()
   const { mviStreamingFee } = useStreamingFee()
   const { mviTotalSupply } = useTokenSupply()

@@ -4,7 +4,6 @@ import ExternalLink from 'components/ExternalLink'
 
 import useBtc2xFliTokenSupplyCap from 'hooks/useBtc2xFliTokenSupplyCap'
 import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
-import useBtc2xFliIndexPortfolioData from 'hooks/useBtc2xFliIndexPortfolioData'
 import useBalances from 'hooks/useBalances'
 import {
   Bitcoin2xFlexibleLeverageIndex,
@@ -17,6 +16,7 @@ import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
+import useSetComponents from 'hooks/useSetComponents'
 
 const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -25,7 +25,7 @@ const Btc2xFliProductPage = (props: { title: string }) => {
 
   const { prices, hourlyPrices, latestPrice, latestVolume, latestMarketCap } =
     useBtc2xFliTokenMarketData()
-  const { components } = useBtc2xFliIndexPortfolioData()
+  const { btc2xfliComponents: components } = useSetComponents()
   const { btcfliBalance } = useBalances()
   const { btcfliSupplyCap } = useBtc2xFliTokenSupplyCap()
   const { btc2xFliStreamingFee } = useStreamingFee()

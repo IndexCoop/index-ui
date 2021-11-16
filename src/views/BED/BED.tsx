@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import useBedTokenMarketData from 'hooks/useBedTokenMarketData'
-import useBedIndexComponents from 'hooks/useBedIndexComponents'
 import useBalances from 'hooks/useBalances'
 import { BedIndex, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
@@ -9,6 +8,7 @@ import ProductDataUI, {
 } from 'components/ProductPage/ProductDataUI'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
+import useSetComponents from 'hooks/useSetComponents'
 
 const BedProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -17,7 +17,7 @@ const BedProductPage = (props: { title: string }) => {
 
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
     useBedTokenMarketData()
-  const { components } = useBedIndexComponents()
+  const { bedComponents: components } = useSetComponents()
   const { bedBalance } = useBalances()
   const { bedStreamingFee } = useStreamingFee()
   const { bedTotalSupply } = useTokenSupply()

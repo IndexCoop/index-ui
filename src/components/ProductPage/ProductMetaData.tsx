@@ -4,12 +4,12 @@ import numeral from 'numeral'
 import { InputProps } from 'react-neu'
 
 import { TokenDataProps } from './ProductDataUI'
-import IndexComponent from 'components/IndexComponent'
 import BigNumber from 'utils/bignumber'
 import {
   Bitcoin2xFlexibleLeverageIndex,
   Ethereum2xFlexibleLeverageIndex,
 } from 'constants/productTokens'
+import { SetComponent } from 'contexts/SetComponents/SetComponent'
 
 interface ProductMetaDataProps extends InputProps {
   tokenData: TokenDataProps
@@ -36,7 +36,7 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
 
   const netAssetValueReducer = (
     netAssetValue: number,
-    component: IndexComponent
+    component: SetComponent
   ): number => {
     return netAssetValue + (parseFloat(component.totalPriceUsd) || 0)
   }
