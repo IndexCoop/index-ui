@@ -72,7 +72,7 @@ const App: React.FC = () => {
           />
           <Switch>
             <Route exact path='/'>
-              <INDEX title={'Index - Index'} />
+              <DPI title={'Index - DPI'} />
             </Route>
             <Route exact path='/dpi'>
               <DPI title={'Index - DPI'} />
