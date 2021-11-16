@@ -77,6 +77,9 @@ const App: React.FC = () => {
             visible={mobileMenu}
           />
           <Switch>
+            <Route exact path='/'>
+              <INDEX title={'Index - Index'} />
+            </Route>
             <Route exact path='/dpi'>
               <DPI title={'Index - DPI'} />
             </Route>
