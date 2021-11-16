@@ -36,10 +36,10 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
 
   const formattedMarketCap = () => {
     if (latestMarketCap) {
-      return "$" + formatMetric(latestMarketCap)
+      return '$' + formatMetric(latestMarketCap)
     } else if (currentSupply) {
       const approxMarketCap = Number(currentSupply) * netAssetValue
-      return "$" + formatMetric(approxMarketCap)
+      return '$' + formatMetric(approxMarketCap)
     } else {
       return '--'
     }
@@ -68,9 +68,7 @@ const ProductTokenStats: React.FC<ProductTokenStatsProps> = ({
       <PriceStatsContainer>
         <StyledStat>
           <StyledStatTitle>Market Cap</StyledStatTitle>
-          <StyledStatMetric>
-            {formattedMarketCap()}
-          </StyledStatMetric>
+          <StyledStatMetric>{formattedMarketCap()}</StyledStatMetric>
         </StyledStat>
         <StyledStat>
           <StyledStatTitle>Volume</StyledStatTitle>

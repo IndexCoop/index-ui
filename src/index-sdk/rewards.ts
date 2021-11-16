@@ -9,10 +9,7 @@ export const getMerkleContract = (
   rewardsAddress: string
 ) => {
   const web3 = new Web3(provider)
-  return new web3.eth.Contract(
-    (MerkleABI as unknown) as AbiItem,
-    rewardsAddress
-  )
+  return new web3.eth.Contract(MerkleABI as unknown as AbiItem, rewardsAddress)
 }
 
 const getMerkleAccount = (account: string, merkleData: any) => {

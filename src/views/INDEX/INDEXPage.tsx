@@ -13,13 +13,8 @@ const DpiProductPage = (props: { title: string }) => {
     document.title = props.title
   }, [props.title])
 
-  const {
-    prices,
-    hourlyPrices,
-    latestPrice,
-    latestMarketCap,
-    latestVolume,
-  } = useIndexTokenMarketData()
+  const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
+    useIndexTokenMarketData()
   const { indexBalance } = useBalances()
   const tokenDataProps: TokenDataProps = {
     prices: prices,

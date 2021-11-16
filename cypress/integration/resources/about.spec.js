@@ -7,7 +7,10 @@ describe('About', () => {
 
   context('Page Header', () => {
     it('should show header text', () => {
-      cy.get('[data-cy=about-title]').should('contain', 'Creating The Next Generation Of')
+      cy.get('[data-cy=about-title]').should(
+        'contain',
+        'Creating The Next Generation Of'
+      )
       cy.get('[data-cy=about-title]').should('contain', 'Indexes')
     })
     it('should show header image', () => {
@@ -20,20 +23,14 @@ describe('About', () => {
       cy.get('[data-cy=100-bill-zoomed-in-img]').should('be.visible')
     })
     it('should have a header', () => {
-      cy.get('[data-cy=vision-section]').should(
-        'contain',
-        'The Vision'
-      )
+      cy.get('[data-cy=vision-section]').should('contain', 'The Vision')
       cy.get('[data-cy=vision-section]').should(
         'contain',
         'The Potential Of Next-gen Asset Management'
       )
     })
     it('should have content', () => {
-      cy.get('[data-cy=vision-section]').should(
-        'contain',
-        'Within 27 years,'
-      )
+      cy.get('[data-cy=vision-section]').should('contain', 'Within 27 years,')
     })
   })
 
@@ -58,10 +55,7 @@ describe('About', () => {
 
   context('Who We Are', () => {
     it('should have a header', () => {
-      cy.get('[data-cy=who-we-are-section]').should(
-        'contain',
-        'Who We Are'
-      )
+      cy.get('[data-cy=who-we-are-section]').should('contain', 'Who We Are')
       cy.get('[data-cy=who-we-are-section]').should(
         'contain',
         'Thinkers, Writers, Builders, and Do-ers.'
@@ -93,14 +87,8 @@ describe('About', () => {
       )
     })
     it('should show buttons', () => {
-      cy.get('[data-cy=join-us-buttons').should(
-        'contain',
-        'Discord'
-      )
-      cy.get('[data-cy=join-us-buttons').should(
-        'contain',
-        'Forum'
-      )
+      cy.get('[data-cy=join-us-buttons').should('contain', 'Discord')
+      cy.get('[data-cy=join-us-buttons').should('contain', 'Forum')
     })
   })
 

@@ -8,16 +8,16 @@ describe('How To Buy', () => {
   context('Page Header', () => {
     it('should show header text', () => {
       cy.get('[data-cy=how-to-buy-header]').should('contain', 'How To Buy The')
-      cy.get('[data-cy=how-to-buy-header]').should('contain', 'DeFi Pulse Index')
+      cy.get('[data-cy=how-to-buy-header]').should(
+        'contain',
+        'DeFi Pulse Index'
+      )
     })
   })
 
   context('Introduction', () => {
     it('should have header', () => {
-      cy.get('[data-cy=how-to-buy-intro]').should(
-        'contain',
-        'Introduction'
-      )
+      cy.get('[data-cy=how-to-buy-intro]').should('contain', 'Introduction')
     })
     it('should have content', () => {
       cy.get('[data-cy=how-to-buy-intro]').should(

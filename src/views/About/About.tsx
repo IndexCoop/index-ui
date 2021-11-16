@@ -127,11 +127,7 @@ const About = (props: { title: string }) => {
                 <ButtonText>Discord</ButtonText>
               </Button>
             </ButtonLink>
-            <ButtonLink
-              href={forumLink}
-              target='_blank'
-              rel='noopener'
-            >
+            <ButtonLink href={forumLink} target='_blank' rel='noopener'>
               <Button>
                 <ButtonImg
                   src={

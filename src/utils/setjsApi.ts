@@ -1,30 +1,54 @@
 import { provider } from 'web3-core'
-import Set from "set.js"
-import { SetDetails, StreamingFeeInfo } from "set.js/dist/types/src/types";
+import Set from 'set.js'
+import { SetDetails, StreamingFeeInfo } from 'set.js/dist/types/src/types'
 
-import { basicIssuanceModuleAddress, controllerAddress, debtIssuanceModuleAddress, navIssuanceModuleAddress, protocolViewerAddress, streamingFeeModuleAddress, setTokenCreatorAddress, tradeModuleAddress, masterOracleAddress, governanceModuleAddress } from "constants/ethContractAddresses";
+import {
+  basicIssuanceModuleAddress,
+  controllerAddress,
+  debtIssuanceModuleAddress,
+  navIssuanceModuleAddress,
+  protocolViewerAddress,
+  streamingFeeModuleAddress,
+  setTokenCreatorAddress,
+  tradeModuleAddress,
+  masterOracleAddress,
+  governanceModuleAddress,
+} from 'constants/ethContractAddresses'
 
-export async function getTokenSupply(web3Provider: provider, productAddresses: string[]): Promise<SetDetails[]> {
-  if (basicIssuanceModuleAddress === undefined ||
+export async function getTokenSupply(
+  web3Provider: provider,
+  productAddresses: string[]
+): Promise<SetDetails[]> {
+  if (
+    basicIssuanceModuleAddress === undefined ||
     streamingFeeModuleAddress === undefined ||
     tradeModuleAddress === undefined ||
-    debtIssuanceModuleAddress === undefined) {
-    throw new Error("A set JS module address is not defined. Please check your .env file")
+    debtIssuanceModuleAddress === undefined
+  ) {
+    throw new Error(
+      'A set JS module address is not defined. Please check your .env file'
+    )
   }
 
-  const set = getSet(web3Provider);
+  const set = getSet(web3Provider)
   const moduleAddresses = [
     basicIssuanceModuleAddress,
     streamingFeeModuleAddress,
     tradeModuleAddress,
     debtIssuanceModuleAddress,
-  ];
-  return await set.setToken.batchFetchSetDetailsAsync(productAddresses, moduleAddresses);
+  ]
+  return await set.setToken.batchFetchSetDetailsAsync(
+    productAddresses,
+    moduleAddresses
+  )
 }
 
-export async function getStreamingFees(web3Provider: provider, productAddresses: string[]): Promise<StreamingFeeInfo[]> {
-  const set = getSet(web3Provider);
-  return set.fees.batchFetchStreamingFeeInfoAsync(productAddresses);
+export async function getStreamingFees(
+  web3Provider: provider,
+  productAddresses: string[]
+): Promise<StreamingFeeInfo[]> {
+  const set = getSet(web3Provider)
+  return set.fees.batchFetchStreamingFeeInfoAsync(productAddresses)
 }
 
 export async function getSetDetails(web3Provider: provider, productAddresses: string[]): Promise<SetDetails[]> {
@@ -47,7 +71,8 @@ export async function getSetDetails(web3Provider: provider, productAddresses: st
 }
 
 function getSet(web3Provider: provider): Set {
-  if (basicIssuanceModuleAddress === undefined ||
+  if (
+    basicIssuanceModuleAddress === undefined ||
     controllerAddress === undefined ||
     masterOracleAddress === undefined ||
     navIssuanceModuleAddress === undefined ||
@@ -56,8 +81,11 @@ function getSet(web3Provider: provider): Set {
     streamingFeeModuleAddress === undefined ||
     tradeModuleAddress === undefined ||
     governanceModuleAddress === undefined ||
-    debtIssuanceModuleAddress === undefined) {
-    throw new Error("A set JS address is not defined. Please check your .env file")
+    debtIssuanceModuleAddress === undefined
+  ) {
+    throw new Error(
+      'A set JS address is not defined. Please check your .env file'
+    )
   }
 
   return new Set({
@@ -72,5 +100,5 @@ function getSet(web3Provider: provider): Set {
     tradeModuleAddress: tradeModuleAddress,
     governanceModuleAddress: governanceModuleAddress,
     debtIssuanceModuleAddress: debtIssuanceModuleAddress,
-  });
+  })
 }

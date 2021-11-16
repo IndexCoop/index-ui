@@ -4,7 +4,7 @@ import { provider } from 'web3-core'
 
 import Context from './Context'
 import useWallet from 'hooks/useWallet'
-import { getBalance, getEthBalance } from 'utils/index'
+import { getBalance, getBigNumBalance, getEthBalance } from 'utils/index'
 import { getEarnedIndexTokenQuantity } from 'index-sdk/stake'
 import { getEarnedIndexTokenQuantity as getEarnedFarmTwoBalance } from 'index-sdk/farmTwo'
 import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/mviStaking'
@@ -72,7 +72,8 @@ const Provider: React.FC = ({ children }) => {
 
   const fetchBalances = useCallback(
     async (userAddress: string, provider: provider) => {
-      if (!indexTokenAddress ||
+      if (
+        !indexTokenAddress ||
         !dpiTokenAddress ||
         !eth2xfliTokenAddress ||
         !btc2xfliTokenAddress ||
@@ -85,8 +86,11 @@ const Provider: React.FC = ({ children }) => {
         !uniswapEthMviLpTokenAddress ||
         !stakingRewardsAddress ||
         !farmTwoAddress ||
-        !mviStakingRewardsAddress) {
-        throw new Error("A token address is not defined. Please check your .env to confirm all token addresses are defined.")
+        !mviStakingRewardsAddress
+      ) {
+        throw new Error(
+          'A token address is not defined. Please check your .env to confirm all token addresses are defined.'
+        )
       }
       const balances = await Promise.all([
         getEthBalance(provider, userAddress),
@@ -101,16 +105,8 @@ const Provider: React.FC = ({ children }) => {
         getBalance(provider, dataTokenAddress, userAddress),
 
         // LP Token Balances
-        getBalance(
-          provider,
-          uniswapEthDpiLpTokenAddress,
-          userAddress
-        ),
-        getBalance(
-          provider,
-          uniswapEthMviLpTokenAddress,
-          userAddress
-        ),
+        getBalance(provider, uniswapEthDpiLpTokenAddress, userAddress),
+        getBalance(provider, uniswapEthMviLpTokenAddress, userAddress),
 
         // Legacy DPI LM Program Balances
         getBalance(provider, stakingRewardsAddress, userAddress),
@@ -119,9 +115,10 @@ const Provider: React.FC = ({ children }) => {
         // Current DPI LM Program Balances
         getBalance(provider, farmTwoAddress, userAddress),
         getEarnedFarmTwoBalance(provider, userAddress),
-
-        // Current MVI LM Program Balances
-        getBalance(provider, mviStakingRewardsAddress, userAddress),
+      ])
+      // Current MVI LM Program Balances
+      const balances2 = await Promise.all([
+        getBigNumBalance(provider, mviStakingRewardsAddress, userAddress),
         getMviRewardsBalance(provider, userAddress),
       ])
 
@@ -141,8 +138,8 @@ const Provider: React.FC = ({ children }) => {
       setUnharvestedIndexBalance(new BigNumber(balances[13]))
       setStakedFarmTwoBalance(new BigNumber(balances[14]))
       setUnharvestedFarmTwoBalance(new BigNumber(balances[15]))
-      setStakedUniswapEthMviLpBalance(new BigNumber(balances[16]))
-      setUnharvestedMviRewardsBalance(new BigNumber(balances[17]))
+      setStakedUniswapEthMviLpBalance(balances2[0])
+      setUnharvestedMviRewardsBalance(balances2[1])
     },
     [
       setEthBalance,

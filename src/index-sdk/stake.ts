@@ -9,7 +9,7 @@ import BigNumber from 'utils/bignumber'
 export const getStakingRewardsContract = (provider: provider) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
-    (StakeABI as unknown) as AbiItem,
+    StakeABI as unknown as AbiItem,
     stakingRewardsAddress
   )
   return contract
@@ -130,7 +130,7 @@ export const getAmountOfStakedTokens = async (
 ) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
-    (StakeABI as unknown) as AbiItem,
+    StakeABI as unknown as AbiItem,
     contractAddress
   )
   return await contract.methods.totalSupply().call()

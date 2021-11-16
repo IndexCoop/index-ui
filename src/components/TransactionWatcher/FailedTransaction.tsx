@@ -9,11 +9,8 @@ import { makeEtherscanLink } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWatcherContext'
 
 const FailedTransaction: React.FC = () => {
-  const {
-    transactionId,
-    onSetTransactionId,
-    onSetTransactionStatus,
-  } = useTransactionWatcher()
+  const { transactionId, onSetTransactionId, onSetTransactionStatus } =
+    useTransactionWatcher()
 
   const etherscanLink = transactionId && makeEtherscanLink(transactionId)
 

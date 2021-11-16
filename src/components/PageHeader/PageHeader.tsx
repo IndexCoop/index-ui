@@ -5,22 +5,22 @@ import styled from 'styled-components'
 
 interface PageHeaderProps {
   icon: {
-    src: string;
-    alt: string;
-  },
-  subtitle?: string,
-  title?: string,
+    src: string
+    alt: string
+  }
+  subtitle?: string
+  title?: string
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
   return (
     <Container>
-    <StyledPageHeader>
-      <StyledIcon src={icon.src} alt={icon.alt} />
-      <Spacer size="sm" />
-      <StyledTitle>{title}</StyledTitle>
-      <StyledSubtitle>{subtitle}</StyledSubtitle>
-    </StyledPageHeader>
+      <StyledPageHeader>
+        <StyledIcon src={icon.src} alt={icon.alt} />
+        <Spacer size='sm' />
+        <StyledTitle>{title}</StyledTitle>
+        <StyledSubtitle>{subtitle}</StyledSubtitle>
+      </StyledPageHeader>
     </Container>
   )
 }
@@ -30,7 +30,7 @@ const StyledPageHeader = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding-bottom: ${props => props.theme.spacing[4]}px;
+  padding-bottom: ${(props) => props.theme.spacing[4]}px;
   margin: 0 auto;
 `
 
@@ -41,7 +41,7 @@ const StyledIcon = styled.img`
 `
 
 const StyledTitle = styled.h1`
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   font-size: 120px;
   line-height: 108px;
   font-weight: 700;
@@ -51,7 +51,7 @@ const StyledTitle = styled.h1`
 `
 
 const StyledSubtitle = styled.h3`
-  color: ${props => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
   font-size: 18px;
   font-weight: 400;
   margin: 0;
