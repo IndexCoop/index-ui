@@ -73,10 +73,10 @@ export const fetchSetComponentsBeta = (set: string) => {
           name,
           symbol,
           address,
-          image
+          image,
         },
       } = response
-      return { 
+      return {
         components: formatComponents(components),
         marketCap,
         id,

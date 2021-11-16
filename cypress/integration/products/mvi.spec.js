@@ -26,7 +26,10 @@ describe('MVI', () => {
       cy.get('[data-cy=market-cap-value]').should('not.be.empty')
     })
     it('should show NAV', () => {
-      cy.get('[data-cy=net-asset-value-label]').should('contain', 'Net Asset Value')
+      cy.get('[data-cy=net-asset-value-label]').should(
+        'contain',
+        'Net Asset Value'
+      )
       cy.get('[data-cy=net-asset-value-value]').should('not.be.empty')
     })
     it('should show prem/discount', () => {
@@ -41,7 +44,9 @@ describe('MVI', () => {
     })
     it('should have all date range selectors', () => {
       // 5 date range selectors and 4 spacers between. 5 + 4 = 9
-      cy.get('[data-cy=date-range-selector]').children().should('have.length', 9)
+      cy.get('[data-cy=date-range-selector]')
+        .children()
+        .should('have.length', 9)
     })
   })
 

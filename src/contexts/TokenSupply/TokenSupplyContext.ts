@@ -1,13 +1,13 @@
-import BigNumber from "bignumber.js"
+import BigNumber from 'bignumber.js'
 import { createContext } from 'react'
 
 interface TokenSupplyProps {
-  dpiTotalSupply?: BigNumber;
-  mviTotalSupply?: BigNumber;
-  bedTotalSupply?: BigNumber;
-  eth2xfliTotalSupply?: BigNumber;
-  btc2xfliTotalSupply?: BigNumber;
-  dataTotalSupply?: BigNumber;
+  dpiTotalSupply?: BigNumber
+  mviTotalSupply?: BigNumber
+  bedTotalSupply?: BigNumber
+  eth2xfliTotalSupply?: BigNumber
+  btc2xfliTotalSupply?: BigNumber
+  dataTotalSupply?: BigNumber
 }
 
 const TokenSupply = createContext<TokenSupplyProps>({

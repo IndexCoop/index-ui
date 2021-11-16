@@ -27,7 +27,9 @@ describe('INDEX', () => {
     })
     it('should have all date range selectors', () => {
       // 5 date range selectors and 4 spacers between. 5 + 4 = 9
-      cy.get('[data-cy=date-range-selector]').children().should('have.length', 9)
+      cy.get('[data-cy=date-range-selector]')
+        .children()
+        .should('have.length', 9)
     })
   })
 

@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface ValueProps {
-  value: string,
+  value: string
 }
 
 const Value: React.FC<ValueProps> = ({ value }) => {

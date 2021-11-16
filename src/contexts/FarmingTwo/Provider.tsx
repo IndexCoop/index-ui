@@ -33,12 +33,10 @@ const Provider: React.FC = ({ children }) => {
   } = useTransactionWatcher()
   const { account, ethereum } = useWallet()
 
-  const {
-    isApproved,
-    isApproving,
-    onApprove,
-  } = useApproval(uniswapEthDpiLpTokenAddress, farmTwoAddress, () =>
-    setConfirmTxModalIsOpen(false)
+  const { isApproved, isApproving, onApprove } = useApproval(
+    uniswapEthDpiLpTokenAddress,
+    farmTwoAddress,
+    () => setConfirmTxModalIsOpen(false)
   )
 
   const handleApprove = useCallback(() => {

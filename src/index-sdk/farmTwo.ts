@@ -9,7 +9,7 @@ import BigNumber from 'utils/bignumber'
 export const getStakingRewardsContract = (provider: provider) => {
   const web3 = new Web3(provider)
   const contract = new web3.eth.Contract(
-    (StakeABI as unknown) as AbiItem,
+    StakeABI as unknown as AbiItem,
     farmTwoAddress
   )
   return contract
