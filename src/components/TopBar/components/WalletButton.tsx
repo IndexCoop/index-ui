@@ -58,7 +58,7 @@ function getOpenWalletText(account: string | null | undefined, ens: string | nul
   } else if (account) {
     return shortenAddress(account)
   } else {
-    return 'Connect wallet'
+    return 'Connect Wallet'
   }
 }
 
