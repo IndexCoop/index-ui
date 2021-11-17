@@ -10,7 +10,7 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "@usedapp/core": "^0.5.5",
+    "@usedapp/core": "^0.5.6",
     "apollo-client": "^2.6.10",
     "axios": "^0.24.0",
     "bignumber.js": "^9.0.1",
