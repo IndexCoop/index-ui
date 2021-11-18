@@ -102,7 +102,7 @@ const ProductsDropdown: React.FC = () => {
 }
 
 const CustomDropdownOption = styled.div`
-  width: 400px;
+  width: 200px;
   margin: 10px;
   overflow: hidden;
 `
