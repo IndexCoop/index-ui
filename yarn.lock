@@ -3643,12 +3643,18 @@
     "@typescript-eslint/types" "4.31.0"
     eslint-visitor-keys "^2.0.0"
 
-"@usedapp/core@^0.5.6":
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/@usedapp/core/-/core-0.5.6.tgz#ece3ef3a9c6252c691cf051ed1650c390742929c"
-  integrity sha512-xUY7rzhXAMDJoY5ZkkxwDaOrEgefMeG7BqZ1imePenEogkv/JzP1tZVTb31sCSfJLOZIBRJbXZ2/+yyAOTlqSA==
+"@uniswap/token-lists@^1.0.0-beta.27":
+  version "1.0.0-beta.27"
+  resolved "https://registry.yarnpkg.com/@uniswap/token-lists/-/token-lists-1.0.0-beta.27.tgz#8b02a979b0b0024cc96f60e694a3f6db6b2ccab2"
+  integrity sha512-x5hmIniQ9TGqOBCRqfWcmZi/U5kB0qrHMDQ9igs3nMbK0wwmYLraL4owbIwXFGR/co6/lJYJC4K/Gjn4wZY5mQ==
+
+"@usedapp/core@^0.6.3":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@usedapp/core/-/core-0.6.3.tgz#8e3f4d6a65d604a0276d22e83f124a0d8c2dc224"
+  integrity sha512-AhF5B398vXi9uLpYnI14YUc7xdvJmoEduQO2/KO0jefvX/95Rl5Z7H0nQczzWMJPgIPkNrx/bWJ62kGje6NgQg==
   dependencies:
     "@types/react" "17.0.1"
+    "@uniswap/token-lists" "^1.0.0-beta.27"
     "@web3-react/core" "6.1.1"
     "@web3-react/injected-connector" "6.0.7"
     "@web3-react/network-connector" "6.1.5"
