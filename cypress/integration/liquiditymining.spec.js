@@ -72,21 +72,4 @@ describe('Liquidity Mining', () => {
       cy.get(selector).should('contain', 'Unstake & Claim')
     })
   })
-
-  context('Index Airdrop', () => {
-    it('should show header', () => {
-      const selector = '[data-cy=rewards-card]'
-      cy.contains('Index Airdrop')
-      cy.contains('See if you qualified for the Index Airdrop')
-      cy.get(selector).should('contain', 'Claim Your INDEX Rewards')
-      cy.get(selector).should('contain', 'Claim INDEX')
-      cy.get(selector).should('contain', 'Claim Externally')
-    })
-  })
-
-  context('Footer Links', () => {
-    it('should contain all links', () => {
-      cy.get('[data-cy=footer-links]').children().should('have.length', 4)
-    })
-  })
 })

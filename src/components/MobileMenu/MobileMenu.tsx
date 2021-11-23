@@ -2,7 +2,6 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import { NavLink } from 'react-router-dom'
-import { voteLink } from 'constants/externalLinks'
 
 interface MobileMenuProps {
   onDismiss: () => void
@@ -15,9 +14,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
       <StyledMobileMenuWrapper>
         <StyledBackdrop onClick={onDismiss} />
         <StyledMobileMenu>
-          <StyledLink exact activeClassName='active' to='/' onClick={onDismiss}>
-            Home
-          </StyledLink>
           <StyledLink
             exact
             activeClassName='active'
@@ -77,56 +73,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink
             exact
             activeClassName='active'
-            to='/about'
-            onClick={onDismiss}
-          >
-            About
-          </StyledLink>
-          <StyledOutboundLink href={voteLink} target='_blank'>
-            Vote
-          </StyledOutboundLink>
-          <StyledLink
-            exact
-            activeClassName='active'
             to='/liquidity-mining'
             onClick={onDismiss}
           >
             Liquidity Mining
           </StyledLink>
-          <StyledLink
-            exact
-            activeClassName='active'
-            to='/how-to-buy'
-            onClick={onDismiss}
-          >
-            How to Buy
-          </StyledLink>
-          <StyledLink
-            exact
-            activeClassName='active'
-            to='/rewards'
-            onClick={onDismiss}
-          >
-            Rewards
-          </StyledLink>
-          <StyledOutboundLink
-            href='https://docs.indexcoop.com/'
-            target='_blank'
-          >
-            Docs
-          </StyledOutboundLink>
-          <StyledOutboundLink
-            href='https://institutions.indexcoop.com/'
-            target='_blank'
-          >
-            Institutions
-          </StyledOutboundLink>
-          <StyledOutboundLink
-            href='https://apply.workable.com/index-coop/'
-            target='_blank'
-          >
-            Careers
-          </StyledOutboundLink>
         </StyledMobileMenu>
       </StyledMobileMenuWrapper>
     )

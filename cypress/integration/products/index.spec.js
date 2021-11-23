@@ -79,10 +79,4 @@ describe('INDEX', () => {
       cy.get('.sc-gVtoEh > :nth-child(5)').should('not.be.empty')
     })
   })
-
-  context('Footer Links', () => {
-    it('should contain all links', () => {
-      cy.get('[data-cy=footer-links]').children().should('have.length', 4)
-    })
-  })
 })
