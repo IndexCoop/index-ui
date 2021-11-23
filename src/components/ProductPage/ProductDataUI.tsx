@@ -8,7 +8,6 @@ import {
   TokenStats,
   PriceChanges,
   WalletBalance,
-  Description,
   IndexComponentsTable,
 } from 'components/ProductPage'
 import { BuySellWrapper } from 'components/BuySell'
@@ -100,7 +99,6 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
           {tokenData.components && (
             <IndexComponentsTable components={tokenData.components} />
           )}
-          <Description>{children}</Description>
         </ProductPageContent>
       </Container>
     </Page>

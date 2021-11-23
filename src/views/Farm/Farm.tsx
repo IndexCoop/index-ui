@@ -7,7 +7,6 @@ import Page from 'components/Page'
 import LegacyFarmCard from './components/Stake/LegacyFarm'
 import DpiFarmCard from './components/Stake/DpiFarm'
 import MviFarmCard from './components/Stake/MviFarm'
-import RewardsCard from './components/Rewards'
 import Treasury from './components/Treasury'
 import V3FarmCard from './components/Stake/V3Farm'
 import { DpiEthRewards, MviEthRewards } from 'constants/v3Farms'
@@ -39,18 +38,6 @@ const Farm = (props: { title: string }) => {
         <MviFarmCard />
         <Spacer />
         <LegacyFarmCard />
-        <Spacer />
-        <Separator />
-        <Spacer size='lg' />
-        <StyledPageHeader>Index Airdrop</StyledPageHeader>
-        <Spacer size='sm' />
-        <StyledPageSubheader>
-          See if you qualified for the Index Airdrop
-        </StyledPageSubheader>
-        <Spacer />
-        <Box row justifyContent='center'>
-          <RewardsCard />
-        </Box>
         <Spacer size='lg' />
       </Container>
     </Page>
