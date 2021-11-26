@@ -15,6 +15,17 @@ interface ProductMetaDataProps extends InputProps {
   tokenData: TokenDataProps
 }
 
+export const calcNetAssetValueDivergence = ({
+  price,
+  nav,
+}: {
+  price: number
+  nav: number
+}): number => {
+  if (price <= 0 || nav <= 0) return 0
+  return ((price - nav) * 100) / nav
+}
+
 const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
   const formatMetric = (metricValue: number) =>
     numeral(metricValue).format('0.00a').toString().toUpperCase()
@@ -47,9 +58,10 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
       : 0
   }
 
-  const netAssetValueDivergence =
-    ((tokenData.latestPrice || 0) - getNetAssetValue()) /
-    (tokenData.latestPrice || 0)
+  const netAssetValueDivergence = calcNetAssetValueDivergence({
+    nav: getNetAssetValue(),
+    price: tokenData.latestPrice ?? 0,
+  })
 
   const divergenceLabel = netAssetValueDivergence > 1 ? 'Premium' : 'Discount'
   const divergenceLabelColor = netAssetValueDivergence > 1 ? 'red' : 'green'
