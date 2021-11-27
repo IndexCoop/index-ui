@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { dpiTokenImage } from 'constants/productTokens'
 
 interface ToastProps {
   closeToast?: () => void
@@ -10,7 +11,7 @@ const DpiZerionPromo: React.FC<ToastProps> = ({ closeToast }) => {
     <StyledToastContainer>
       <StyledToastImage
         alt='Defi Pulse Icon'
-        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
+        src={dpiTokenImage}
       />
       <StyledToastText
         href='https://app.zerion.io/invest/asset/DPI-0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'

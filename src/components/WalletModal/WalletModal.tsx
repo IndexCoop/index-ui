@@ -27,6 +27,7 @@ import useBalances from 'hooks/useBalances'
 
 import * as tokenAddresses from 'constants/ethContractAddresses'
 import { displayFromWei, getBigNumber } from 'utils'
+import { dpiTokenImage } from 'constants/productTokens'
 
 const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const { reset } = useWallet()
@@ -76,7 +77,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
       />
       <StyledLpTokenImage
         alt='DPI Icon'
-        src='https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg'
+        src={dpiTokenImage}
       />
     </StyledLpTokenWrapper>
   )
@@ -102,7 +103,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               <FancyValue
                 icon={{
                   alt: 'Defi Pulse Icon',
-                  src: 'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
+                  src: dpiTokenImage,
                 }}
                 label='DPI balance'
                 link={`https://etherscan.io/address/${tokenAddresses.dpiTokenAddress}`}
