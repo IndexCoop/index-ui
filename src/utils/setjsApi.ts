@@ -51,23 +51,33 @@ export async function getStreamingFees(
   return set.fees.batchFetchStreamingFeeInfoAsync(productAddresses)
 }
 
-export async function getSetDetails(web3Provider: provider, productAddresses: string[]): Promise<SetDetails[]> {
-  if (basicIssuanceModuleAddress === undefined ||
+export async function getSetDetails(
+  web3Provider: provider,
+  productAddresses: string[]
+): Promise<SetDetails[]> {
+  if (
+    basicIssuanceModuleAddress === undefined ||
     streamingFeeModuleAddress === undefined ||
     tradeModuleAddress === undefined ||
-    debtIssuanceModuleAddress === undefined) {
-    throw new Error("A set JS module address is not defined. Please check your .env file")
+    debtIssuanceModuleAddress === undefined
+  ) {
+    throw new Error(
+      'A set JS module address is not defined. Please check your .env file'
+    )
   }
 
-  const set = getSet(web3Provider);
+  const set = getSet(web3Provider)
   const moduleAddresses = [
     basicIssuanceModuleAddress,
     streamingFeeModuleAddress,
     tradeModuleAddress,
     debtIssuanceModuleAddress,
-  ];
+  ]
 
-  return set.setToken.batchFetchSetDetailsAsync(productAddresses, moduleAddresses);
+  return set.setToken.batchFetchSetDetailsAsync(
+    productAddresses,
+    moduleAddresses
+  )
 }
 
 function getSet(web3Provider: provider): Set {

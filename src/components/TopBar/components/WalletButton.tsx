@@ -52,7 +52,10 @@ const WalletButton: React.FC = () => {
   )
 }
 
-function getOpenWalletText(account: string | null | undefined, ens: string | null | undefined) {
+function getOpenWalletText(
+  account: string | null | undefined,
+  ens: string | null | undefined
+) {
   if (account && ens) {
     return ens
   } else if (account) {

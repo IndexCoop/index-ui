@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { SetComponentsContext } from "../contexts/SetComponents";
+import { useContext } from 'react'
+import { SetComponentsContext } from '../contexts/SetComponents'
 
 function useSetComponents() {
-    return {...useContext(SetComponentsContext)}
+  return { ...useContext(SetComponentsContext) }
 }
 
-export default useSetComponents;
+export default useSetComponents

@@ -91,9 +91,9 @@
     "@types/styled-components": "^5.1.15",
     "@types/web3": "^1.2.2",
     "cypress": "^9.1.0",
-    "husky": "^4.3.0",
+    "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
-    "prettier": "2.5.0",
+    "prettier": "^2.5.0",
     "react-circular-progressbar": "^2.0.4",
     "typescript": "^4.4.4"
   },
