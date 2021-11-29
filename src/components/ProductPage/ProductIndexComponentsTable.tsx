@@ -10,7 +10,7 @@ interface ProductIndexComponentsProps {
 }
 
 const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
-  components
+  components,
 }) => {
   const [amountToDisplay, setAmountToDisplay] = useState<number>(5)
   const showAllComponents = () =>
@@ -76,14 +76,8 @@ interface ComponentRowProps {
 }
 
 const ComponentRow: React.FC<ComponentRowProps> = ({ component }) => {
-  const {
-    symbol,
-    quantity,
-    percentOfSet,
-    totalPriceUsd,
-    image,
-    name,
-  } = component
+  const { symbol, quantity, percentOfSet, totalPriceUsd, image, name } =
+    component
   const formattedPriceUSD = numeral(totalPriceUsd).format('$0,0.00')
 
   return (

@@ -1,6 +1,5 @@
 import { createContext } from 'react'
-import { SetComponent } from "./SetComponent"
-
+import { SetComponent } from './SetComponent'
 
 interface SetComponentsProps {
   dpiComponents?: SetComponent[]
