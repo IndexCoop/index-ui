@@ -1,3 +1,5 @@
+import { dpiTokenImage } from './productTokens'
+
 export interface V3Farm {
   tokenPair: string
   pool: string
@@ -28,7 +30,7 @@ export const DpiEthRewards: V3Farm = {
   poolLabel: 'DPI-ETH',
   img: {
     alt: 'DPI Icon',
-    src: 'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
+    src: dpiTokenImage,
   },
   farms: [
     // August 20th - September 4th
@@ -41,7 +43,7 @@ export const DpiEthRewards: V3Farm = {
       dateText: 'August 20th, 2021 - September 4th, 2021',
       img: {
         alt: 'DPI Icon',
-        src: 'https://set-core.s3.amazonaws.com/img/social_trader_set_icons/defi_pulse_index_set.svg',
+        src: dpiTokenImage,
       },
     },
   ],
