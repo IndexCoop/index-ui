@@ -6,15 +6,18 @@ import { LedgerConnector } from './ledgerConnector'
 const WS_URL = process.env.REACT_APP_ETHEREUM_WS_URL
 
 export type ChainData = {
+  name: string
   chainId: number
   rpcUrl: string
 }
 
 export const MAINNET_CHAIN_DATA: ChainData = {
+  name: 'Ethereum',
   chainId: 1,
   rpcUrl: 'https://mainnet.eth.aragon.network/',
 }
 export const POLYGON_CHAIN_DATA: ChainData = {
+  name: 'Polygon',
   chainId: 137,
   rpcUrl: 'https://rpc-mainnet.maticvigil.com/',
 }
@@ -26,7 +29,7 @@ if (!WS_URL) {
 }
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42],
+  supportedChainIds: [1, 3, 4, 5, 42, 137],
 })
 
 export const walletconnect = (chainData: ChainData) => {

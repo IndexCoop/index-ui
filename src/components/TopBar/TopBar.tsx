@@ -9,6 +9,7 @@ import MenuIcon from 'components/icons/Menu'
 import DarkModeSwitch from './components/DarkModeSwitch'
 import Nav from './components/Nav'
 import WalletButton from './components/WalletButton'
+import ChainSelector from './components/ChainSelector'
 
 interface TopBarProps {
   onPresentMobileMenu: () => void
@@ -27,6 +28,8 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
           </StyledNavWrapper>
           <StyledAccountButtonWrapper>
             <DarkModeSwitch />
+            <Spacer />
+            <ChainSelector />
             <Spacer />
             <WalletButton />
             <StyledMenuButton onClick={onPresentMobileMenu}>
