@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import BigNumber from 'utils/bignumber'
 import { useQuery } from '@apollo/react-hooks'
+import {
+  dpiTokenAddress,
+  mviTokenAddress,
+  bedTokenAddress,
+  eth2xfliTokenAddress,
+  btc2xfliTokenAddress,
+  dataTokenAddress,
+} from 'constants/ethContractAddresses'
 
 import PricesContext from './PricesContext'
 
@@ -16,6 +24,13 @@ import useWallet from 'hooks/useWallet'
 const PricesProvider: React.FC = ({ children }) => {
   const [indexPrice, setIndexPrice] = useState<string>('0')
   const [ethereumPrice, setEthereumPrice] = useState<string>('0')
+  const [dpiPrice, setDpiPrice] = useState<number>(0)
+  const [mviPrice, setMviPrice] = useState<number>(0)
+  const [bedPrice, setBedPrice] = useState<number>(0)
+  const [eth2xfliPrice, setEth2xfliPrice] = useState<number>(0)
+  const [btc2xfliPrice, setBtc2xfliPrice] = useState<number>(0)
+  const [dataPrice, setDataPrice] = useState<number>(0)
+
   const [usdInEthDpiPool, setUsdInEthDpiPool] = useState<number>()
   const [totalSupplyInEthDpiPool, setTotalSupplyInEthDpiPool] =
     useState<number>()
@@ -78,6 +93,34 @@ const PricesProvider: React.FC = ({ children }) => {
         setIndexPrice(indexUsdPrice)
       })
       .catch((error) => console.log(error))
+  }, [])
+
+  useEffect(() => {
+    const productAddresses = [
+      dpiTokenAddress,
+      mviTokenAddress,
+      bedTokenAddress,
+      eth2xfliTokenAddress,
+      btc2xfliTokenAddress,
+      dataTokenAddress,
+    ]
+    const coinGeckoPriceUrl = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${productAddresses}&vs_currencies=usd`
+
+    fetch(coinGeckoPriceUrl)
+      .then((response) => response.json())
+      .then((response) => {
+        setDpiPrice(response[dpiTokenAddress?.toLowerCase() as string].usd)
+        setMviPrice(response[mviTokenAddress?.toLowerCase() as string].usd)
+        setBedPrice(response[bedTokenAddress?.toLowerCase() as string].usd)
+        setEth2xfliPrice(
+          response[eth2xfliTokenAddress?.toLowerCase() as string].usd
+        )
+        setBtc2xfliPrice(
+          response[btc2xfliTokenAddress?.toLowerCase() as string].usd
+        )
+        setDataPrice(response[dataTokenAddress?.toLowerCase() as string].usd)
+      })
+      .catch((error) => console.error(error))
   }, [])
 
   // DPI LM Emissions
@@ -166,6 +209,12 @@ const PricesProvider: React.FC = ({ children }) => {
       value={{
         indexPrice,
         ethereumPrice,
+        dpiPrice,
+        mviPrice,
+        bedPrice,
+        eth2xfliPrice,
+        btc2xfliPrice,
+        dataPrice,
         totalUSDInFarms,
         apy,
         farmTwoApy,

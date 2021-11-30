@@ -9,11 +9,8 @@ import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWa
 import { RoundedButton } from 'components/RoundedButton'
 
 const LongTransaction: React.FC = () => {
-  const {
-    transactionId,
-    onSetTransactionId,
-    onSetTransactionStatus,
-  } = useTransactionWatcher()
+  const { transactionId, onSetTransactionId, onSetTransactionStatus } =
+    useTransactionWatcher()
 
   const etherscanLink = transactionId && makeEtherscanLink(transactionId)
 

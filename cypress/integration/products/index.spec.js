@@ -27,7 +27,9 @@ describe('INDEX', () => {
     })
     it('should have all date range selectors', () => {
       // 5 date range selectors and 4 spacers between. 5 + 4 = 9
-      cy.get('[data-cy=date-range-selector]').children().should('have.length', 9)
+      cy.get('[data-cy=date-range-selector]')
+        .children()
+        .should('have.length', 9)
     })
   })
 
@@ -75,12 +77,6 @@ describe('INDEX', () => {
   context('Product Content', () => {
     it('should not be empty', () => {
       cy.get('.sc-gVtoEh > :nth-child(5)').should('not.be.empty')
-    })
-  })
-
-  context('Footer Links', () => {
-    it('should contain all links', () => {
-      cy.get('[data-cy=footer-links]').children().should('have.length', 4)
     })
   })
 })

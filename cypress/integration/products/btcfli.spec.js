@@ -29,15 +29,24 @@ describe('BTC2x-FLI', () => {
       cy.get('[data-cy=real-leverage-value]').should('contain', 'x')
     })
     it('should show target leverage', () => {
-      cy.get('[data-cy=target-leverage-label]').should('contain', 'Target Leverage')
+      cy.get('[data-cy=target-leverage-label]').should(
+        'contain',
+        'Target Leverage'
+      )
       cy.get('[data-cy=target-leverage-value]').should('contain', '2x')
     })
     it('should show current supply', () => {
-      cy.get('[data-cy=current-supply-label]').should('contain', 'Current Supply')
+      cy.get('[data-cy=current-supply-label]').should(
+        'contain',
+        'Current Supply'
+      )
       cy.get('[data-cy=current-supply-value]').should('not.be.empty')
     })
     it('should show NAV', () => {
-      cy.get('[data-cy=net-asset-value-label]').should('contain', 'Net Asset Value')
+      cy.get('[data-cy=net-asset-value-label]').should(
+        'contain',
+        'Net Asset Value'
+      )
       cy.get('[data-cy=net-asset-value-value]').should('not.be.empty')
     })
     it('should show prem/discount', () => {
@@ -52,7 +61,9 @@ describe('BTC2x-FLI', () => {
     })
     it('should have all date range selectors', () => {
       // 5 date range selectors and 4 spacers between. 5 + 4 = 9
-      cy.get('[data-cy=date-range-selector]').children().should('have.length', 9)
+      cy.get('[data-cy=date-range-selector]')
+        .children()
+        .should('have.length', 9)
     })
   })
 
@@ -132,12 +143,6 @@ describe('BTC2x-FLI', () => {
   context('Product Content', () => {
     it('should not be empty', () => {
       cy.get('.sc-gVtoEh > :nth-child(5)').should('not.be.empty')
-    })
-  })
-
-  context('Footer Links', () => {
-    it('should contain all links', () => {
-      cy.get('[data-cy=footer-links]').children().should('have.length', 4)
     })
   })
 })

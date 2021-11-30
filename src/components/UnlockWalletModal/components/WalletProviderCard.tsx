@@ -1,18 +1,12 @@
 import React from 'react'
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardIcon,
-} from 'react-neu'
+import { Button, Card, CardActions, CardContent, CardIcon } from 'react-neu'
 import styled from 'styled-components'
 
 interface WalletProviderCardProps {
-  icon: React.ReactNode,
-  name: string,
-  isDisabled?: boolean,
-  buttonText?: string,
+  icon: React.ReactNode
+  name: string
+  isDisabled?: boolean
+  buttonText?: string
   onSelect: () => void
 }
 const WalletProviderCard: React.FC<WalletProviderCardProps> = ({
@@ -29,11 +23,7 @@ const WalletProviderCard: React.FC<WalletProviderCardProps> = ({
         <StyledName>{name}</StyledName>
       </CardContent>
       <CardActions>
-        <Button
-          full
-          disabled={isDisabled}
-          text={buttonText || 'Select'}
-        />
+        <Button full disabled={isDisabled} text={buttonText || 'Select'} />
       </CardActions>
     </Card>
   </ProviderContainer>

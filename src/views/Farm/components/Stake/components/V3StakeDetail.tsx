@@ -42,8 +42,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
     setActiveFarmPlot(farm.farms[getMostRecentFarmNumber(farm)])
   }, [farm])
 
-  const hasUpcomingFarm = getUpcomingFarms().length > 0
-  const hasActiveFarm = getActiveFarms().length > 0
+  const hasUpcomingFarm = getUpcomingFarms(farm).length > 0
+  const hasActiveFarm = getActiveFarms(farm).length > 0
 
   if (!hasUpcomingFarm && !hasActiveFarm) {
     return (
@@ -93,7 +93,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
             <h3>Upcoming Farm</h3>
             <NftFarmPlot
-              farmName={'Uniswap V3 DPI-ETH LM #1'}
+              farmName={'Uniswap V3 ' + farm.poolLabel + ' LM #1'}
               farmPlot={activeFarmPlot}
             />
           </div>
@@ -127,7 +127,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
           <h3>Active Farm</h3>
           <NftFarmPlot
-            farmName={'Uniswap V3 DPI-ETH LM #1'}
+            farmName={'Uniswap V3 ' + farm.poolLabel + ' LM #1'}
             farmPlot={activeFarmPlot}
           />
         </div>

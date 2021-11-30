@@ -3,7 +3,7 @@ import { Surface, Spacer } from 'react-neu'
 import styled from 'styled-components'
 
 const Explanation: React.FC = () => (
-  <div data-cy="explanation">
+  <div data-cy='explanation'>
     <StyledExplanationTitle>What is the Index Coop?</StyledExplanationTitle>
     <StyledExplanationContainer>
       <StyledCardContainer>

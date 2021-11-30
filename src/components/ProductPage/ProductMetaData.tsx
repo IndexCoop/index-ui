@@ -4,15 +4,26 @@ import numeral from 'numeral'
 import { InputProps } from 'react-neu'
 
 import { TokenDataProps } from './ProductDataUI'
-import IndexComponent from 'components/IndexComponent'
 import BigNumber from 'utils/bignumber'
 import {
   Bitcoin2xFlexibleLeverageIndex,
   Ethereum2xFlexibleLeverageIndex,
 } from 'constants/productTokens'
+import { SetComponent } from 'contexts/SetComponents/SetComponent'
 
 interface ProductMetaDataProps extends InputProps {
   tokenData: TokenDataProps
+}
+
+export const calcNetAssetValueDivergence = ({
+  price,
+  nav,
+}: {
+  price: number
+  nav: number
+}): number => {
+  if (price <= 0 || nav <= 0) return 0
+  return ((price - nav) * 100) / nav
 }
 
 const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
@@ -36,7 +47,7 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
 
   const netAssetValueReducer = (
     netAssetValue: number,
-    component: IndexComponent
+    component: SetComponent
   ): number => {
     return netAssetValue + (parseFloat(component.totalPriceUsd) || 0)
   }
@@ -47,9 +58,10 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
       : 0
   }
 
-  const netAssetValueDivergence =
-    ((tokenData.latestPrice || 0) - getNetAssetValue()) /
-    (tokenData.latestPrice || 0)
+  const netAssetValueDivergence = calcNetAssetValueDivergence({
+    nav: getNetAssetValue(),
+    price: tokenData.latestPrice ?? 0,
+  })
 
   const divergenceLabel = netAssetValueDivergence > 1 ? 'Premium' : 'Discount'
   const divergenceLabelColor = netAssetValueDivergence > 1 ? 'red' : 'green'
@@ -58,23 +70,33 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
     return (
       <PriceStatsContainer>
         <StyledStat>
-          <StyledStatTitle data-cy='real-leverage-label'>Real Leverage</StyledStatTitle>
+          <StyledStatTitle data-cy='real-leverage-label'>
+            Real Leverage
+          </StyledStatTitle>
           <StyledStatMetric data-cy='real-leverage-value'>
             {formatLeverageMetric(realLeverage)}x
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>
-          <StyledStatTitle data-cy='target-leverage-label'>Target Leverage</StyledStatTitle>
-          <StyledStatMetric data-cy='target-leverage-value'>2x</StyledStatMetric>
+          <StyledStatTitle data-cy='target-leverage-label'>
+            Target Leverage
+          </StyledStatTitle>
+          <StyledStatMetric data-cy='target-leverage-value'>
+            2x
+          </StyledStatMetric>
         </StyledStat>
         <StyledStat>
-          <StyledStatTitle data-cy='current-supply-label'>Current Supply</StyledStatTitle>
+          <StyledStatTitle data-cy='current-supply-label'>
+            Current Supply
+          </StyledStatTitle>
           <StyledStatMetric data-cy='current-supply-value'>
             {formatCurrentSupply(tokenData.currentSupply)}
           </StyledStatMetric>
         </StyledStat>
         <StyledStat>
-          <StyledStatTitle data-cy='net-asset-value-label'>Net Asset Value</StyledStatTitle>
+          <StyledStatTitle data-cy='net-asset-value-label'>
+            Net Asset Value
+          </StyledStatTitle>
           <StyledStatMetric data-cy='net-asset-value-value'>
             ${formatMetric(getNetAssetValue())}
           </StyledStatMetric>
@@ -90,14 +112,18 @@ const ProductMetaData: React.FC<ProductMetaDataProps> = ({ tokenData }) => {
   return (
     <PriceStatsContainer>
       <StyledStat>
-        <StyledStatTitle data-cy="market-cap-label">Market Cap</StyledStatTitle>
-        <StyledStatMetric data-cy="market-cap-value">
+        <StyledStatTitle data-cy='market-cap-label'>Market Cap</StyledStatTitle>
+        <StyledStatMetric data-cy='market-cap-value'>
           ${formatMetric(tokenData.latestMarketCap || 0)}
         </StyledStatMetric>
       </StyledStat>
       <StyledStat>
-        <StyledStatTitle data-cy="net-asset-value-label">Net Asset Value</StyledStatTitle>
-        <StyledStatMetric data-cy="net-asset-value-value">${formatMetric(getNetAssetValue())}</StyledStatMetric>
+        <StyledStatTitle data-cy='net-asset-value-label'>
+          Net Asset Value
+        </StyledStatTitle>
+        <StyledStatMetric data-cy='net-asset-value-value'>
+          ${formatMetric(getNetAssetValue())}
+        </StyledStatMetric>
       </StyledStat>
       <StyledStat>
         <StyledStatTitle>{divergenceLabel}</StyledStatTitle>

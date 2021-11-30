@@ -3,6 +3,7 @@ import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
 import indexLogo from 'assets/index-token.png'
 
+export const dpiTokenImage = 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'
 export interface ProductToken {
   name: string
   symbol: string
@@ -17,7 +18,7 @@ export const DefiPulseIndex: ProductToken = {
   name: 'DeFi Pulse Index',
   symbol: 'DPI',
   address: tokenAddresses.dpiTokenAddress,
-  image: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
+  image: dpiTokenImage,
   coingeckoId: 'defipulse-index',
   tokensetsId: 'dpi',
   fees: {
