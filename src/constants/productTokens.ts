@@ -3,11 +3,13 @@ import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
 import indexLogo from 'assets/index-token.png'
 
-export const dpiTokenImage = 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'
+export const dpiTokenImage =
+  'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'
 export interface ProductToken {
   name: string
   symbol: string
   address: string | undefined
+  polygonAddress: string | undefined
   image: string
   coingeckoId: string
   tokensetsId: string
@@ -19,6 +21,7 @@ export const DefiPulseIndex: ProductToken = {
   symbol: 'DPI',
   address: tokenAddresses.dpiTokenAddress,
   image: dpiTokenImage,
+  polygonAddress: tokenAddresses.dpiTokenPolygonAddress,
   coingeckoId: 'defipulse-index',
   tokensetsId: 'dpi',
   fees: {
@@ -30,6 +33,7 @@ export const IndexToken: ProductToken = {
   name: 'Index Token',
   symbol: 'INDEX',
   address: tokenAddresses.indexTokenAddress,
+  polygonAddress: tokenAddresses.indexTokenPolygonAddress,
   image: indexLogo,
   coingeckoId: 'index-cooperative',
   tokensetsId: 'index',
@@ -40,6 +44,7 @@ export const Ethereum2xFlexibleLeverageIndex: ProductToken = {
   name: 'Ethereum 2x Flexible Leverage Index',
   symbol: 'ETH2x-FLI',
   address: tokenAddresses.eth2xfliTokenAddress,
+  polygonAddress: undefined,
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
   coingeckoId: 'eth-2x-flexible-leverage-index',
   tokensetsId: 'ethfli',
@@ -52,6 +57,7 @@ export const MetaverseIndex: ProductToken = {
   name: 'Metaverse Index',
   symbol: 'MVI',
   address: tokenAddresses.mviTokenAddress,
+  polygonAddress: tokenAddresses.mviTokenPolygonAddress,
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
   coingeckoId: 'metaverse-index',
   tokensetsId: 'mvi',
@@ -64,6 +70,7 @@ export const Bitcoin2xFlexibleLeverageIndex: ProductToken = {
   name: 'Bitcoin 2x Flexible Leverage Index',
   symbol: 'BTC2x-FLI',
   address: tokenAddresses.btc2xfliTokenAddress,
+  polygonAddress: undefined,
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/fli_btc.svg',
   coingeckoId: 'btc-2x-flexible-leverage-index',
   tokensetsId: 'btcfli',
@@ -76,6 +83,7 @@ export const BedIndex: ProductToken = {
   name: 'Bankless BED Index',
   symbol: 'BED',
   address: tokenAddresses.bedTokenAddress,
+  polygonAddress: undefined,
   image: bedBorderLogo,
   coingeckoId: 'bankless-bed-index',
   tokensetsId: 'bed',
@@ -88,6 +96,7 @@ export const DataIndex: ProductToken = {
   name: 'Data Economy Index',
   symbol: 'DATA',
   address: tokenAddresses.dataTokenAddress,
+  polygonAddress: undefined,
   image: dataLogo,
   coingeckoId: 'data-economy-index',
   tokensetsId: 'data',

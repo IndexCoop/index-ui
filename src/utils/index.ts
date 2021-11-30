@@ -6,6 +6,9 @@ import { AbiItem } from 'web3-utils'
 
 import ERC20ABI from 'index-sdk/abi/ERC20.json'
 import SupplyCapIssuanceABI from 'index-sdk/abi/SupplyCapIssuanceHook.json'
+import { ProductToken } from 'constants/productTokens'
+import { POLYGON_CHAIN_DATA } from './connectors'
+import { ethTokenAddress, wethTokenPolygonAddress } from 'constants/ethContractAddresses'
 
 const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -180,4 +183,20 @@ export const fromWei = (number: BigNumber | undefined, power: number = 18) => {
  */
 export const displayFromWei = (number: BigNumber | undefined) => {
   return fromWei(number).toFormat(2)
+}
+
+/**
+ * retrieves appropriate addresses for tokens
+ * @param token
+ * @param chainId
+ * @returns
+ */
+export const getTokenAddress = (chainId: number, token?: ProductToken ) => {
+  if (token) {
+    if (chainId === POLYGON_CHAIN_DATA.chainId) return token.polygonAddress
+    return token.address
+  } else {
+    if (chainId === POLYGON_CHAIN_DATA.chainId) return ethTokenAddress
+    return wethTokenPolygonAddress
+  }
 }

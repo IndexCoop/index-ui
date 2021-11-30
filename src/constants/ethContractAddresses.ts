@@ -55,9 +55,19 @@ export const daiTokenAddress = process.env.REACT_APP_DAI_TOKEN_ADDRESS
 export const usdcTokenAddress = process.env.REACT_APP_USDC_TOKEN_ADDRESS
 export const btc2xfliTokenAddress =
   process.env.REACT_APP_BTC2X_FLI_TOKEN_ADDRESS
-export const ethTokenAddress = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+export const ethTokenAddress = process.env.REACT_APP_ETH_TOKEN_ADDRESS
 export const bedTokenAddress = process.env.REACT_APP_BED_TOKEN_ADDRESS
 export const dataTokenAddress = process.env.REACT_APP_DATA_TOKEN_ADDRESS
+
+// Polygon Token Addresses
+export const indexTokenPolygonAddress =
+  process.env.REACT_APP_INDEX_TOKEN_POLYGON_ADDRESS
+export const dpiTokenPolygonAddress =
+  process.env.REACT_APP_DPI_TOKEN_POLYGON_ADDRESS
+export const mviTokenPolygonAddress = process.env.REACT_APP_MVI_TOKEN_ADDRESS
+export const daiTokenPolygonAddress = process.env.REACT_APP_DAI_TOKEN_ADDRESS
+export const usdcTokenPolygonAddress = process.env.REACT_APP_USDC_TOKEN_ADDRESS
+export const wethTokenPolygonAddress = process.env.REACT_APP_WETH_TOKEN_ADDRESS
 
 // Uniswap V2 Addresses
 export const uniswapEthDpiLpTokenAddress =

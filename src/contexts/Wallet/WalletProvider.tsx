@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
-import useEagerConnect from '../../hooks/useEagerConnect'
+import useEagerConnect from 'hooks/useEagerConnect'
 import {
   injected,
   walletconnect,
@@ -9,6 +9,7 @@ import {
 } from 'utils/connectors'
 
 import WalletContext from './WalletContext'
+import useChainData from 'hooks/useChainData'
 
 const WalletProvider: React.FC = ({ children }) => {
   const [connector, setConnector] = useState<string>('')
@@ -23,6 +24,7 @@ const WalletProvider: React.FC = ({ children }) => {
     deactivate,
     library: ethereum,
   } = useWeb3React()
+  const { chain } = useChainData()
 
   const reset = useCallback(() => {
     if (active) deactivate()
@@ -45,15 +47,15 @@ const WalletProvider: React.FC = ({ children }) => {
             setIsMetamaskConnected(true)
             break
           case 'walletconnect':
-            await activate(walletconnect, undefined, true)
+            await activate(walletconnect(chain), undefined, true)
             setStatus('connected')
             break
           case 'walletlink':
-            await activate(walletlink, undefined, true)
+            await activate(walletlink(chain), undefined, true)
             setStatus('connected')
             break
           case 'ledgerwallet':
-            await activate(ledgerwallet, undefined, true)
+            await activate(ledgerwallet(chain), undefined, true)
             setStatus('connected')
             break
           default:
@@ -63,7 +65,7 @@ const WalletProvider: React.FC = ({ children }) => {
         console.log(err)
       }
     },
-    [activate, reset]
+    [activate, chain, reset]
   )
 
   const triedEagerConnect = useEagerConnect(connect)
