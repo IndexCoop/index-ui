@@ -44,8 +44,8 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     []
   )
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
-  //const provider = getProvider()
-  const provider = getWeb3ReactProvider().currentProvider
+  const provider = getProvider()
+  //const provider = getWeb3ReactProvider().currentProvider
 
   useEffect(() => {
     if (

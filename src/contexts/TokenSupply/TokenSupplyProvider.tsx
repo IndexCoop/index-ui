@@ -24,8 +24,8 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
   const [eth2xfliTotalSupply, setEth2xfliTotalSupply] = useState<BigNumber>()
   const [btc2xfliTotalSupply, setBtc2xfliTotalSupply] = useState<BigNumber>()
   const [dataTotalSupply, setDataTotalSupply] = useState<BigNumber>()
-  //const provider = getProvider()
-  const provider = getWeb3ReactProvider().currentProvider
+  const provider = getProvider()
+  //const provider = getWeb3ReactProvider().currentProvider
 
   useEffect(() => {
     if (

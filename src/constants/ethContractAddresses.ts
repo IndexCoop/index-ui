@@ -18,6 +18,8 @@ export const basicIssuanceModuleAddress =
   process.env.REACT_APP_SETJS_BASIC_ISSUANCE_MODULE
 export const debtIssuanceModuleAddress =
   process.env.REACT_APP_SETJS_DEBT_ISSUANCE_MODULE
+export const debtIssuanceModuleV2Address =
+  process.env.REACT_APP_SETJS_DEBT_ISSUANCE_MODULE_V2
 export const streamingFeeModuleAddress =
   process.env.REACT_APP_SETJS_STREAMING_FEE_MODULE
 export const tradeModuleAddress = process.env.REACT_APP_SETJS_TRADE_MODULE

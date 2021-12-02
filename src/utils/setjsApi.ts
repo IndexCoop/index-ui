@@ -6,6 +6,7 @@ import {
   basicIssuanceModuleAddress,
   controllerAddress,
   debtIssuanceModuleAddress,
+  debtIssuanceModuleV2Address,
   navIssuanceModuleAddress,
   protocolViewerAddress,
   streamingFeeModuleAddress,
@@ -25,7 +26,8 @@ export async function getTokenSupply(
     basicIssuanceModuleAddress === undefined ||
     streamingFeeModuleAddress === undefined ||
     tradeModuleAddress === undefined ||
-    debtIssuanceModuleAddress === undefined
+    debtIssuanceModuleAddress === undefined ||
+    debtIssuanceModuleV2Address === undefined
   ) {
     throw new Error(
       'A set JS module address is not defined. Please check your .env file'
@@ -63,7 +65,8 @@ export async function getSetDetails(
     basicIssuanceModuleAddress === undefined ||
     streamingFeeModuleAddress === undefined ||
     tradeModuleAddress === undefined ||
-    debtIssuanceModuleAddress === undefined
+    debtIssuanceModuleAddress === undefined ||
+    debtIssuanceModuleV2Address === undefined
   ) {
     throw new Error(
       'A set JS module address is not defined. Please check your .env file'
@@ -76,6 +79,7 @@ export async function getSetDetails(
     streamingFeeModuleAddress,
     tradeModuleAddress,
     debtIssuanceModuleAddress,
+    debtIssuanceModuleV2Address,
   ]
 
   return set.setToken.batchFetchSetDetailsAsync(
@@ -84,7 +88,7 @@ export async function getSetDetails(
   )
 }
 
-function getSet(ethersProvider: provider): Set {
+function getSet(ethersProvider: any): Set {
   if (
     basicIssuanceModuleAddress === undefined ||
     controllerAddress === undefined ||
@@ -95,7 +99,8 @@ function getSet(ethersProvider: provider): Set {
     streamingFeeModuleAddress === undefined ||
     tradeModuleAddress === undefined ||
     governanceModuleAddress === undefined ||
-    debtIssuanceModuleAddress === undefined
+    debtIssuanceModuleAddress === undefined ||
+    debtIssuanceModuleV2Address === undefined
   ) {
     throw new Error(
       'A set JS address is not defined. Please check your .env file'
@@ -103,7 +108,7 @@ function getSet(ethersProvider: provider): Set {
   }
 
   return new Set({
-    web3Provider: ethersProvider,
+    ethersProvider: ethersProvider,
     basicIssuanceModuleAddress: basicIssuanceModuleAddress,
     controllerAddress: controllerAddress,
     masterOracleAddress: masterOracleAddress,
@@ -114,5 +119,6 @@ function getSet(ethersProvider: provider): Set {
     tradeModuleAddress: tradeModuleAddress,
     governanceModuleAddress: governanceModuleAddress,
     debtIssuanceModuleAddress: debtIssuanceModuleAddress,
+    debtIssuanceModuleV2Address: debtIssuanceModuleAddress,
   })
 }

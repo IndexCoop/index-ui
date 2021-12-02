@@ -19,8 +19,8 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
   const [bedStreamingFee, setBedStreamingFee] = useState<string>()
   const [eth2xFliStreamingFee, setEth2xFliStreamingFee] = useState<string>()
   const [btc2xFliStreamingFee, setBtc2xFliStreamingFee] = useState<string>()
-  //const provider = getProvider()
-  const provider = getWeb3ReactProvider().currentProvider
+  const provider = getProvider()
+  //const provider = getWeb3ReactProvider().currentProvider
 
   useEffect(() => {
     if (
