@@ -23,8 +23,8 @@ const WalletProvider: React.FC = ({ children }) => {
     active,
     deactivate,
     library: ethereum,
+    chainId,
   } = useWeb3React()
-  const { chain } = useChainData()
 
   const reset = useCallback(() => {
     if (active) deactivate()
@@ -42,20 +42,20 @@ const WalletProvider: React.FC = ({ children }) => {
         setStatus('connecting')
         switch (walletType) {
           case 'injected':
-            await activate(injected, undefined, true)
+            activate(injected, undefined, true)
             setStatus('connected')
             setIsMetamaskConnected(true)
             break
           case 'walletconnect':
-            await activate(walletconnect(chain), undefined, true)
+            await activate(walletconnect, undefined, true)
             setStatus('connected')
             break
           case 'walletlink':
-            await activate(walletlink(chain), undefined, true)
+            await activate(walletlink, undefined, true)
             setStatus('connected')
             break
           case 'ledgerwallet':
-            await activate(ledgerwallet(chain), undefined, true)
+            await activate(ledgerwallet, undefined, true)
             setStatus('connected')
             break
           default:
@@ -65,7 +65,7 @@ const WalletProvider: React.FC = ({ children }) => {
         console.log(err)
       }
     },
-    [activate, chain, reset]
+    [activate, reset]
   )
 
   const triedEagerConnect = useEagerConnect(connect)
@@ -92,6 +92,7 @@ const WalletProvider: React.FC = ({ children }) => {
         reset,
         onOpenWalletModal,
         onCloseWalletModal,
+        chainId,
       }}
     >
       {children}
