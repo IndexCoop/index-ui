@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { provider } from 'web3-core'
 
 import { getStreamingFees } from 'utils/setjsApi'
-import useWallet from 'hooks/useWallet'
 import {
   bedTokenAddress,
   btc2xfliTokenAddress,
@@ -12,25 +10,28 @@ import {
 } from 'constants/ethContractAddresses'
 import { convertToPercentage } from 'utils/ethersBigNumber'
 import StreamingFeeContext from './StreamingFeeContext'
+import { getProvider, getWeb3ReactProvider } from 'constants/provider'
+import Web3 from 'web3'
 
 const StreamingFeeProvider: React.FC = ({ children }) => {
-  const { ethereum }: { ethereum: provider } = useWallet()
   const [dpiStreamingFee, setDpiStreamingFee] = useState<string>()
   const [mviStreamingFee, setMviStreamingFee] = useState<string>()
   const [bedStreamingFee, setBedStreamingFee] = useState<string>()
   const [eth2xFliStreamingFee, setEth2xFliStreamingFee] = useState<string>()
   const [btc2xFliStreamingFee, setBtc2xFliStreamingFee] = useState<string>()
+  //const provider = getProvider()
+  const provider = getWeb3ReactProvider().currentProvider
 
   useEffect(() => {
     if (
-      ethereum &&
+      provider &&
       dpiTokenAddress &&
       mviTokenAddress &&
       bedTokenAddress &&
       eth2xfliTokenAddress &&
       btc2xfliTokenAddress
     ) {
-      getStreamingFees(ethereum, [
+      getStreamingFees(provider, [
         dpiTokenAddress,
         mviTokenAddress,
         bedTokenAddress,
@@ -63,7 +64,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
         })
         .catch((error: any) => console.error(error))
     }
-  }, [ethereum])
+  }, [provider])
 
   return (
     <StreamingFeeContext.Provider

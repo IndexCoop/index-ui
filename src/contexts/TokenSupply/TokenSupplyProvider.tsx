@@ -13,19 +13,23 @@ import {
   mviTokenAddress,
 } from 'constants/ethContractAddresses'
 import TokenSupplyContext from './TokenSupplyContext'
+import { getProvider, getWeb3ReactProvider } from 'constants/provider'
+import Web3 from 'web3'
 
 const TokenSupplyProvider: React.FC = ({ children }) => {
-  const { ethereum }: { ethereum: provider } = useWallet()
+  //const { ethereum }: { ethereum: provider } = useWallet()
   const [dpiTotalSupply, setDpiTotalSupply] = useState<BigNumber>()
   const [mviTotalSupply, setMviTotalSupply] = useState<BigNumber>()
   const [bedTotalSupply, setBedTotalSupply] = useState<BigNumber>()
   const [eth2xfliTotalSupply, setEth2xfliTotalSupply] = useState<BigNumber>()
   const [btc2xfliTotalSupply, setBtc2xfliTotalSupply] = useState<BigNumber>()
   const [dataTotalSupply, setDataTotalSupply] = useState<BigNumber>()
+  //const provider = getProvider()
+  const provider = getWeb3ReactProvider().currentProvider
 
   useEffect(() => {
     if (
-      ethereum &&
+      provider &&
       dpiTokenAddress &&
       mviTokenAddress &&
       bedTokenAddress &&
@@ -33,7 +37,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
       btc2xfliTokenAddress &&
       dataTokenAddress
     ) {
-      getTokenSupply(ethereum, [
+      getTokenSupply(provider, [
         dpiTokenAddress,
         mviTokenAddress,
         bedTokenAddress,
@@ -42,6 +46,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
         dataTokenAddress,
       ])
         .then((result) => {
+          console.log('getTokenSupply.then', result)
           const [
             dpiResult,
             mviResult,
@@ -83,7 +88,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
         })
         .catch((error: any) => console.error(error))
     }
-  }, [ethereum])
+  }, [provider])
 
   return (
     <TokenSupplyContext.Provider

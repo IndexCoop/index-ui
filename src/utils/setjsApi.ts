@@ -1,6 +1,6 @@
-import { provider } from 'web3-core'
 import Set from 'set.js'
 import { SetDetails, StreamingFeeInfo } from 'set.js/dist/types/src/types'
+import { JsonRpcProvider } from '@ethersproject/providers'
 
 import {
   basicIssuanceModuleAddress,
@@ -14,11 +14,13 @@ import {
   masterOracleAddress,
   governanceModuleAddress,
 } from 'constants/ethContractAddresses'
+import { provider } from 'web3-core'
 
 export async function getTokenSupply(
-  web3Provider: provider,
+  ethersProvider: any,
   productAddresses: string[]
 ): Promise<SetDetails[]> {
+  console.log('getTotalSupply', ethersProvider, productAddresses)
   if (
     basicIssuanceModuleAddress === undefined ||
     streamingFeeModuleAddress === undefined ||
@@ -30,13 +32,15 @@ export async function getTokenSupply(
     )
   }
 
-  const set = getSet(web3Provider)
+  const set = getSet(ethersProvider)
+  console.log(set.setToken, ethersProvider)
   const moduleAddresses = [
     basicIssuanceModuleAddress,
     streamingFeeModuleAddress,
     tradeModuleAddress,
     debtIssuanceModuleAddress,
   ]
+  console.log('does it make it here?')
   return await set.setToken.batchFetchSetDetailsAsync(
     productAddresses,
     moduleAddresses
@@ -44,15 +48,15 @@ export async function getTokenSupply(
 }
 
 export async function getStreamingFees(
-  web3Provider: provider,
+  ethersProvider: any,
   productAddresses: string[]
 ): Promise<StreamingFeeInfo[]> {
-  const set = getSet(web3Provider)
+  const set = getSet(ethersProvider)
   return set.fees.batchFetchStreamingFeeInfoAsync(productAddresses)
 }
 
 export async function getSetDetails(
-  web3Provider: provider,
+  ethersProvider: any,
   productAddresses: string[]
 ): Promise<SetDetails[]> {
   if (
@@ -66,7 +70,7 @@ export async function getSetDetails(
     )
   }
 
-  const set = getSet(web3Provider)
+  const set = getSet(ethersProvider)
   const moduleAddresses = [
     basicIssuanceModuleAddress,
     streamingFeeModuleAddress,
@@ -80,7 +84,7 @@ export async function getSetDetails(
   )
 }
 
-function getSet(web3Provider: provider): Set {
+function getSet(ethersProvider: provider): Set {
   if (
     basicIssuanceModuleAddress === undefined ||
     controllerAddress === undefined ||
@@ -99,7 +103,7 @@ function getSet(web3Provider: provider): Set {
   }
 
   return new Set({
-    web3Provider: web3Provider,
+    web3Provider: ethersProvider,
     basicIssuanceModuleAddress: basicIssuanceModuleAddress,
     controllerAddress: controllerAddress,
     masterOracleAddress: masterOracleAddress,

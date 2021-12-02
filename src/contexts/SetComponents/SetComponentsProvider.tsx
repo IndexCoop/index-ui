@@ -17,12 +17,14 @@ import {
 import usePrices from 'hooks/usePrices'
 import { Token, useTokenList } from 'hooks/useTokenList'
 import useWallet from 'hooks/useWallet'
+import { getProvider, getWeb3ReactProvider } from 'constants/provider'
+import Web3 from 'web3'
 
 const ASSET_PLATFORM = 'ethereum'
 const VS_CURRENCY = 'usd'
 
 const SetComponentsProvider: React.FC = ({ children }) => {
-  const { ethereum }: { ethereum: provider } = useWallet()
+  //const { ethereum }: { ethereum: provider } = useWallet()
   const { tokenList } = useTokenList()
   const {
     dpiPrice,
@@ -42,10 +44,12 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     []
   )
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
+  //const provider = getProvider()
+  const provider = getWeb3ReactProvider().currentProvider
 
   useEffect(() => {
     if (
-      ethereum &&
+      provider &&
       dpiTokenAddress &&
       mviTokenAddress &&
       bedTokenAddress &&
@@ -55,7 +59,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
       tokenList &&
       dpiPrice
     ) {
-      getSetDetails(ethereum, [
+      getSetDetails(provider, [
         dpiTokenAddress,
         mviTokenAddress,
         bedTokenAddress,
@@ -145,7 +149,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
       })
     }
   }, [
-    ethereum,
+    provider,
     tokenList,
     dpiPrice,
     mviPrice,
