@@ -54,23 +54,24 @@ const StyledTopBarInner = styled.div`
   align-items: center;
   display: flex;
   height: 72px;
-  justify-content: space-between;
+  justify-content: flex-start;
   max-width: ${(props) => props.theme.siteWidth}px;
   width: 100%;
 `
 const StyledNavWrapper = styled.div`
   display: flex;
-  flex: 1;
   justify-content: center;
   @media (max-width: 768px) {
     display: none;
   }
+  padding: 0 20px;
 `
 
 const StyledAccountButtonWrapper = styled.div`
   align-items: center;
   display: flex;
   justify-content: flex-end;
+  flex: 1;
   width: 200px;
   @media (max-width: 400px) {
     justify-content: center;

@@ -14,13 +14,11 @@ import { BuySellWrapper } from 'components/BuySell'
 import MarketData from 'components/MarketData'
 
 import useLocalStorage from 'hooks/useLocalStorage'
-import {
-  DefiPulseIndex,
-  IndexToken,
-  ProductToken,
-} from 'constants/productTokens'
+import { IndexToken, ProductToken } from 'constants/productTokens'
 import BigNumber from 'utils/bignumber'
 import { SetComponent } from 'contexts/SetComponents/SetComponent'
+import useChainData from 'hooks/useChainData'
+import BuySellDisabled from 'components/BuySell/BuySellDisabled'
 
 export interface TokenDataProps {
   prices: number[][] | undefined
@@ -44,12 +42,12 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
   children,
 }) => {
   const tokenData = tokenDataProps
-
   const [, setReferral] = useLocalStorage('referral', '')
-
   const history = useHistory()
   const params = new URLSearchParams(history.location.search)
   const value = params.get('referral')
+  const { chain } = useChainData()
+
   useEffect(() => {
     if (value) setReferral(value)
   }, [value, setReferral])
@@ -67,14 +65,40 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
       : 0
   }
 
+  /**
+   * determines if the token is available on the current chain
+   */
+  const isAvailableOnCurrentChain = () => {
+    return (
+      (chain.chainId === 137 &&
+        tokenData.token.polygonAddress &&
+        tokenData.token.polygonAddress.length > 0) ||
+      (chain.chainId === 1 &&
+        tokenData.token.address &&
+        tokenData.token.address.length > 0)
+    )
+  }
+
+  /**
+   * determines whether or not to show BuySellWrapper for current token/chain combo
+   * @returns
+   */
+  const getBuySellWrapper = () => {
+    if (isAvailableOnCurrentChain())
+      return (
+        <div>
+          <BuySellWrapper tokenId={tokenData.token.tokensetsId} />
+        </div>
+      )
+    return <BuySellDisabled tokenData={tokenData} />
+  }
+
   return (
     <Page>
       <Container size='lg'>
         <ProductPageHeader>
           <MarketData tokenData={tokenData} />
-          <div>
-            <BuySellWrapper tokenId={tokenData.token.tokensetsId} />
-          </div>
+          {getBuySellWrapper()}
         </ProductPageHeader>
         <ProductPageContent>
           {tokenData.token.symbol !== IndexToken.symbol && (
