@@ -60,6 +60,7 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
         </DisplayOnDesktopOnly>
 
         <StyledTableHeader>Allocation</StyledTableHeader>
+        <StyledTableHeader>24hr Change</StyledTableHeader>
 
         {components?.slice(0, amountToDisplay).map((data) => (
           <ComponentRow key={data.name} component={data} />
@@ -76,9 +77,20 @@ interface ComponentRowProps {
 }
 
 const ComponentRow: React.FC<ComponentRowProps> = ({ component }) => {
-  const { symbol, quantity, percentOfSet, totalPriceUsd, image, name } =
-    component
+  const {
+    symbol,
+    quantity,
+    percentOfSet,
+    totalPriceUsd,
+    dailyPercentChange,
+    image,
+    name,
+  } = component
   const formattedPriceUSD = numeral(totalPriceUsd).format('$0,0.00')
+
+  const absPercentChange = numeral(
+    Math.abs(parseFloat(dailyPercentChange))
+  ).format('0.00')
 
   return (
     <>
@@ -97,18 +109,23 @@ const ComponentRow: React.FC<ComponentRowProps> = ({ component }) => {
       </DisplayOnDesktopOnly>
 
       <StyledTableData>{percentOfSet}%</StyledTableData>
+      {parseFloat(dailyPercentChange) < 0 ? (
+        <NegativeChange>{absPercentChange}%</NegativeChange>
+      ) : (
+        <PositiveChange>{absPercentChange}%</PositiveChange>
+      )}
     </>
   )
 }
 
 const IndexComponentsTable = styled.div`
   display: grid;
-  grid-template-columns: [logo] 25px repeat(2, 1fr);
+  grid-template-columns: [logo] 25px repeat(3, 1fr);
   grid-column-gap: ${({ theme }) => theme.spacing[3]}px;
   grid-row-gap: ${({ theme }) => theme.spacing[4]}px;
 
   @media (min-width: 768px) {
-    grid-template-columns: [logo] 25px repeat(2, 1.5fr) repeat(2, 1fr);
+    grid-template-columns: [logo] 25px repeat(2, 1.5fr) repeat(3, 1fr);
   }
 `
 
@@ -130,6 +147,13 @@ const StyledTokenLogo = styled.img`
 const StyledTableData = styled(StyledTableHeader)`
   font-size: 16px;
   line-height: 24px;
+`
+
+const PositiveChange = styled(StyledTableData)`
+  color: ${({ theme }) => theme.colors.green};
+`
+const NegativeChange = styled(StyledTableData)`
+  color: ${({ theme }) => theme.colors.red};
 `
 
 const DisplayOnDesktopOnly = styled.span`

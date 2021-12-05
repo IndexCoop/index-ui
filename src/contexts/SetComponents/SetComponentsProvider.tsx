@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { provider } from 'web3-core'
 import BigNumber from 'bignumber.js'
-import { Position, SetDetails } from 'set.js/dist/types/src/types'
+import {
+  Position,
+  SetDetails,
+  CoinGeckoCoinPrices,
+} from 'set.js/dist/types/src/types'
 
 import SetComponentsContext from './SetComponentsContext'
 import { SetComponent } from './SetComponent'
@@ -70,7 +74,10 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           return await convertPositionToSetComponent(
             position,
             tokenList,
-            dpiComponentPrices[position.component.toLowerCase()]?.usd,
+            dpiComponentPrices[position.component.toLowerCase()]?.[VS_CURRENCY],
+            dpiComponentPrices[position.component.toLowerCase()]?.[
+              `${VS_CURRENCY}_24h_change`
+            ],
             dpiPrice
           )
         })
@@ -83,7 +90,10 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           return await convertPositionToSetComponent(
             position,
             tokenList,
-            mviComponentPrices[position.component.toLowerCase()]?.usd,
+            mviComponentPrices[position.component.toLowerCase()]?.[VS_CURRENCY],
+            mviComponentPrices[position.component.toLowerCase()]?.[
+              `${VS_CURRENCY}_24h_change`
+            ],
             mviPrice
           )
         })
@@ -96,7 +106,10 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           return await convertPositionToSetComponent(
             position,
             tokenList,
-            bedComponentPrices[position.component.toLowerCase()]?.usd,
+            bedComponentPrices[position.component.toLowerCase()]?.[VS_CURRENCY],
+            bedComponentPrices[position.component.toLowerCase()]?.[
+              `${VS_CURRENCY}_24h_change`
+            ],
             bedPrice
           )
         })
@@ -109,7 +122,12 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           return await convertPositionToSetComponent(
             position,
             tokenList,
-            eth2xfliComponentPrices[position.component.toLowerCase()]?.usd,
+            eth2xfliComponentPrices[position.component.toLowerCase()]?.[
+              VS_CURRENCY
+            ],
+            eth2xfliComponentPrices[position.component.toLowerCase()]?.[
+              `${VS_CURRENCY}_24h_change`
+            ],
             eth2xfliPrice
           )
         })
@@ -122,7 +140,12 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           return await convertPositionToSetComponent(
             position,
             tokenList,
-            btc2xfliComponentPrices[position.component.toLowerCase()]?.usd,
+            btc2xfliComponentPrices[position.component.toLowerCase()]?.[
+              VS_CURRENCY
+            ],
+            btc2xfliComponentPrices[position.component.toLowerCase()]?.[
+              `${VS_CURRENCY}_24h_change`
+            ],
             btc2xfliPrice
           )
         })
@@ -135,7 +158,12 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           return await convertPositionToSetComponent(
             position,
             tokenList,
-            dataComponentPrices[position.component.toLowerCase()]?.usd,
+            dataComponentPrices[position.component.toLowerCase()]?.[
+              VS_CURRENCY
+            ],
+            dataComponentPrices[position.component.toLowerCase()]?.[
+              `${VS_CURRENCY}_24h_change`
+            ],
             dataPrice
           )
         })
@@ -175,6 +203,7 @@ async function convertPositionToSetComponent(
   position: Position,
   tokenList: Token[],
   componentPriceUsd: number,
+  componentPriceChangeUsd: number,
   setPriceUsd: number
 ): Promise<SetComponent> {
   const token = getTokenForPosition(tokenList, position)
@@ -192,6 +221,7 @@ async function convertPositionToSetComponent(
     name: token.name,
     image: token.logoURI,
     totalPriceUsd: totalPriceUsd.toString(),
+    dailyPercentChange: componentPriceChangeUsd.toString(),
     percentOfSet: percentOfSet.toPrecision(3).toString(),
     percentOfSetNumber: percentOfSet,
   }
@@ -221,10 +251,12 @@ function sortPositionsByPercentOfSet(
   )
 }
 
-function getPositionPrices(setDetails: SetDetails): Promise<any> {
+function getPositionPrices(
+  setDetails: SetDetails
+): Promise<CoinGeckoCoinPrices> {
   const componentAddresses = setDetails.positions.map((p) => p.component)
   return fetch(
-    `https://api.coingecko.com/api/v3/simple/token_price/${ASSET_PLATFORM}?vs_currencies=${VS_CURRENCY}&contract_addresses=${componentAddresses}`
+    `https://api.coingecko.com/api/v3/simple/token_price/${ASSET_PLATFORM}?vs_currencies=${VS_CURRENCY}&contract_addresses=${componentAddresses}&include_24hr_change=true`
   )
     .then((response) => response.json())
     .catch((e) => console.error(e))
