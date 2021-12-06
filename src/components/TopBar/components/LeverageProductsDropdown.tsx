@@ -18,7 +18,9 @@ const ProductsDropdown: React.FC = () => {
 
   const dropdownSelectStyles = useMemo(() => {
     const isProductRouteActive =
-      pathname === '/ethfli' || pathname === '/btcfli'
+      pathname === '/ethfli' ||
+      pathname === '/btcfli' ||
+      pathname === '/ethflip'
 
     return {
       control: (styles: any) => ({
@@ -80,6 +82,10 @@ const ProductsDropdown: React.FC = () => {
         {
           value: 'btcfli',
           label: 'BTC 2x Flexible Leverage Index',
+        },
+        {
+          value: 'ethflip',
+          label: 'ETH 2x FLI - Polygon',
         },
       ]}
       components={{

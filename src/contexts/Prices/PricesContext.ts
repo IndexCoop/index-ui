@@ -7,6 +7,7 @@ interface PricesContextValues {
   mviPrice: number
   bedPrice: number
   eth2xfliPrice: number
+  eth2xflipPrice: number
   btc2xfliPrice: number
   dataPrice: number
   totalUSDInFarms?: number
@@ -20,6 +21,7 @@ const PricesContext = createContext<PricesContextValues>({
   mviPrice: 0,
   bedPrice: 0,
   eth2xfliPrice: 0,
+  eth2xflipPrice: 0,
   btc2xfliPrice: 0,
   dataPrice: 0,
 })

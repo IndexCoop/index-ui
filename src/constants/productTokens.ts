@@ -53,6 +53,19 @@ export const Ethereum2xFlexibleLeverageIndex: ProductToken = {
   },
 }
 
+export const Ethereum2xFLIP: ProductToken = {
+  name: 'Ethereum 2x FLI-P',
+  symbol: 'ETH2x-FLI-P',
+  address: undefined,
+  polygonAddress: tokenAddresses.eth2xflipTokenAddress,
+  image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+  coingeckoId: 'eth-2x-flexible-leverage-index-p',
+  tokensetsId: 'ethflip',
+  fees: {
+    streamingFee: '1.95%',
+  },
+}
+
 export const MetaverseIndex: ProductToken = {
   name: 'Metaverse Index',
   symbol: 'MVI',
@@ -109,6 +122,7 @@ export const productTokensBySymbol = {
   'DPI': DefiPulseIndex,
   'MVI': MetaverseIndex,
   'ETH2x-FLI': Ethereum2xFlexibleLeverageIndex,
+  'ETH2x-FLI-P': Ethereum2xFLIP,
   'INDEX': IndexToken,
   'BTC2x-FLI': Bitcoin2xFlexibleLeverageIndex,
   'BED': BedIndex,
@@ -119,6 +133,7 @@ const indexNames = [
   DefiPulseIndex,
   MetaverseIndex,
   Ethereum2xFlexibleLeverageIndex,
+  Ethereum2xFLIP,
   IndexToken,
   Bitcoin2xFlexibleLeverageIndex,
   BedIndex,

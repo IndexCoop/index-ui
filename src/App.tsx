@@ -48,6 +48,7 @@ import { discordLink } from 'constants/externalLinks'
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
 import ChainIdProvider from 'contexts/ChainData/ChainDataProvider'
+import ETH2XFLIP from 'views/ETH2XFLIP'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -81,6 +82,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path='/ethfli'>
               <ETH2XFLI title={'Index - ETH2xFLI'} />
+            </Route>
+            <Route exact path='/ethflip'>
+              <ETH2XFLIP title={'Index - ETH2xFLI-P'} />
             </Route>
             <Route exact path='/btcfli'>
               <BTC2XFLI title={'Index - BTC2xFLI'} />

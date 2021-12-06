@@ -13,6 +13,7 @@ import useTokenSupply from 'hooks/useTokenSupply'
 import useSetComponents from 'hooks/useSetComponents'
 import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -34,8 +35,8 @@ const DpiProductPage = (props: { title: string }) => {
 
   const getTokenBalance = () => {
     if (chainId) {
-      if (chainId === 1) return dpiBalance
-      else if (chainId === 137) return dpiBalancePolygon
+      if (chainId === MAINNET_CHAIN_DATA.chainId) return dpiBalance
+      else if (chainId === POLYGON_CHAIN_DATA.chainId) return dpiBalancePolygon
     }
     return new BigNumber(0)
   }

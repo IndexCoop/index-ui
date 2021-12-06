@@ -28,6 +28,7 @@ import useBalances from 'hooks/useBalances'
 import * as tokenAddresses from 'constants/ethContractAddresses'
 import { displayFromWei, getBigNumber } from 'utils'
 import { dpiTokenImage } from 'constants/productTokens'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   const { reset, chainId } = useWallet()
@@ -81,6 +82,14 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
       <StyledLpTokenImage alt='DPI Icon' src={dpiTokenImage} />
     </StyledLpTokenWrapper>
   )
+
+  const getChainName = () => {
+    if (chainId === MAINNET_CHAIN_DATA.chainId)
+      return MAINNET_CHAIN_DATA.name + ' Wallet'
+    if (chainId === POLYGON_CHAIN_DATA.chainId)
+      return POLYGON_CHAIN_DATA.name + ' Wallet'
+    return 'My Wallet'
+  }
 
   const mainnetModalContent = () => {
     return (
@@ -235,7 +244,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 alt: 'Defi Pulse Icon',
                 src: dpiTokenImage,
               }}
-              label='DPI balance'
+              label='DPI balance (Polygon)'
               link={`https://polygonscan.com/address/${tokenAddresses.dpiTokenAddress}`}
               value={displayFromWei(dpiBalancePolygon)}
             />
@@ -246,7 +255,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 alt: 'MVI Icon',
                 src: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
               }}
-              label='Metaverse Index Balance'
+              label='Metaverse Index Balance (Polygon)'
               link={`https://polygonscan.com/address/${tokenAddresses.mviTokenAddress}`}
               value={displayFromWei(mviBalancePolygon)}
             />
@@ -275,9 +284,9 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <StyledModalBody>
-        <ModalTitle text='My Wallet' />
+        <ModalTitle text={getChainName()} />
         <ModalContent>
-          {chainId && chainId === 1
+          {chainId && chainId === MAINNET_CHAIN_DATA.chainId
             ? mainnetModalContent()
             : polygonModalContent()}
         </ModalContent>

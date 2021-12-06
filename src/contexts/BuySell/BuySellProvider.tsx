@@ -13,6 +13,7 @@ import { fromWei, waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
 import { ZeroExData } from './types'
+import { MAINNET_CHAIN_DATA } from 'utils/connectors'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
@@ -63,7 +64,7 @@ const BuySellProvider: React.FC = ({ children }) => {
       mainnetBalance.toString(),
       polygonBalance.toString()
     )
-    return chainId && chainId === 1
+    return chainId && chainId === MAINNET_CHAIN_DATA.chainId
       ? fromWei(mainnetBalance, decimals)
       : fromWei(polygonBalance)
   }

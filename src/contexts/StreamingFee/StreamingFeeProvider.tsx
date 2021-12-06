@@ -13,6 +13,7 @@ import {
 import { convertToPercentage } from 'utils/ethersBigNumber'
 import StreamingFeeContext from './StreamingFeeContext'
 import useWallet from 'hooks/useWallet'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const StreamingFeeProvider: React.FC = ({ children }) => {
   const [dpiStreamingFee, setDpiStreamingFee] = useState<string>()
@@ -25,7 +26,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (
       chainId &&
-      chainId === 1 &&
+      chainId === MAINNET_CHAIN_DATA.chainId &&
       provider &&
       dpiTokenAddress &&
       mviTokenAddress &&
@@ -71,7 +72,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
         .catch((error: any) => console.error(error))
     } else if (
       chainId &&
-      chainId === 137 &&
+      chainId === POLYGON_CHAIN_DATA.chainId &&
       provider &&
       dpiTokenPolygonAddress &&
       mviTokenPolygonAddress

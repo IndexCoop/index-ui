@@ -11,6 +11,7 @@ import useSetComponents from 'hooks/useSetComponents'
 import useWallet from 'hooks/useWallet'
 import { mviTokenPolygonAddress } from 'constants/ethContractAddresses'
 import BigNumber from 'utils/bignumber'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const MviProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -32,8 +33,8 @@ const MviProductPage = (props: { title: string }) => {
 
   const getTokenBalance = () => {
     if (chainId) {
-      if (chainId === 1) return mviBalance
-      else if (chainId === 137) return mviBalancePolygon
+      if (chainId === MAINNET_CHAIN_DATA.chainId) return mviBalance
+      else if (chainId === POLYGON_CHAIN_DATA.chainId) return mviBalancePolygon
     }
     return new BigNumber(0)
   }

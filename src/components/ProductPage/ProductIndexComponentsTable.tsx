@@ -5,6 +5,7 @@ import numeral from 'numeral'
 import { ProductPageSection } from './ProductPageLayouts'
 import { SetComponent } from 'contexts/SetComponents/SetComponent'
 import useWallet from 'hooks/useWallet'
+import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 interface ProductIndexComponentsProps {
   components?: SetComponent[]
@@ -39,7 +40,7 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
     )
   }
 
-  if (chainId && chainId === 137) {
+  if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) {
     return (
       <ProductPageSection title='Allocations'>
         Connect wallet to Mainnet to view allocations

@@ -7,7 +7,7 @@ import { AbiItem } from 'web3-utils'
 import ERC20ABI from 'index-sdk/abi/ERC20.json'
 import SupplyCapIssuanceABI from 'index-sdk/abi/SupplyCapIssuanceHook.json'
 import { ProductToken } from 'constants/productTokens'
-import { POLYGON_CHAIN_DATA } from './connectors'
+import { POLYGON_CHAIN_DATA, MAINNET_CHAIN_DATA } from './connectors'
 import {
   ethTokenAddress,
   wethTokenPolygonAddress,
@@ -198,7 +198,7 @@ export const getTokenAddress = (chainId: number, token?: ProductToken) => {
     if (chainId === POLYGON_CHAIN_DATA.chainId) return token.polygonAddress
     return token.address
   } else {
-    if (chainId === POLYGON_CHAIN_DATA.chainId) return ethTokenAddress
+    if (chainId === MAINNET_CHAIN_DATA.chainId) return ethTokenAddress
     return wethTokenPolygonAddress
   }
 }

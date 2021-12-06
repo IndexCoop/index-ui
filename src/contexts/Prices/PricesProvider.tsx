@@ -8,6 +8,7 @@ import {
   eth2xfliTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
+  eth2xflipTokenAddress,
 } from 'constants/ethContractAddresses'
 
 import PricesContext from './PricesContext'
@@ -28,6 +29,7 @@ const PricesProvider: React.FC = ({ children }) => {
   const [mviPrice, setMviPrice] = useState<number>(0)
   const [bedPrice, setBedPrice] = useState<number>(0)
   const [eth2xfliPrice, setEth2xfliPrice] = useState<number>(0)
+  const [eth2xflipPrice, setEth2xflipPrice] = useState<number>(0)
   const [btc2xfliPrice, setBtc2xfliPrice] = useState<number>(0)
   const [dataPrice, setDataPrice] = useState<number>(0)
 
@@ -101,6 +103,7 @@ const PricesProvider: React.FC = ({ children }) => {
       mviTokenAddress,
       bedTokenAddress,
       eth2xfliTokenAddress,
+      eth2xflipTokenAddress,
       btc2xfliTokenAddress,
       dataTokenAddress,
     ]
@@ -114,6 +117,9 @@ const PricesProvider: React.FC = ({ children }) => {
         setBedPrice(response[bedTokenAddress?.toLowerCase() as string].usd)
         setEth2xfliPrice(
           response[eth2xfliTokenAddress?.toLowerCase() as string].usd
+        )
+        setEth2xflipPrice(
+          response[eth2xflipTokenAddress?.toLowerCase() as string].usd
         )
         setBtc2xfliPrice(
           response[btc2xfliTokenAddress?.toLowerCase() as string].usd
@@ -213,6 +219,7 @@ const PricesProvider: React.FC = ({ children }) => {
         mviPrice,
         bedPrice,
         eth2xfliPrice,
+        eth2xflipPrice,
         btc2xfliPrice,
         dataPrice,
         totalUSDInFarms,

@@ -5,6 +5,7 @@ import BigNumber from 'utils/bignumber'
 import { polygonTokenInfo, tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
 import { fetchCoingeckoTokenPrice } from './coingeckoApi'
+import { MAINNET_CHAIN_DATA } from './connectors'
 
 export const getZeroExTradeData = async (
   isExactInput: boolean,
@@ -33,7 +34,7 @@ export const getZeroExTradeData = async (
     chainId
   )
   let resp
-  if (chainId === 1)
+  if (chainId === MAINNET_CHAIN_DATA.chainId)
     resp = await axios.get(
       `https://api.0x.org/swap/v1/quote?${querystring.stringify(params)}`
     )
@@ -62,7 +63,7 @@ const getApiParams = (
   chainId: number
 ): any => {
   let params: any
-  if (chainId === 1) {
+  if (chainId === MAINNET_CHAIN_DATA.chainId) {
     params = {
       sellToken: tokenInfo[sellToken].address,
       buyToken: tokenInfo[buyToken].address,
