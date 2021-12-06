@@ -14,18 +14,34 @@ export const btc2xfliSuppyCapAddress =
 export const controllerAddress = process.env.REACT_APP_SETJS_CONTROLLER
 export const setTokenCreatorAddress =
   process.env.REACT_APP_SETJS_SET_TOKEN_CREATOR_ADDRESS
+
 export const basicIssuanceModuleAddress =
   process.env.REACT_APP_SETJS_BASIC_ISSUANCE_MODULE
+export const basicIssuanceModulePolygonAddress =
+  process.env.REACT_APP_SETJS_BASIC_ISSUANCE_MODULE_POLYGON
+
 export const debtIssuanceModuleAddress =
   process.env.REACT_APP_SETJS_DEBT_ISSUANCE_MODULE
 export const debtIssuanceModuleV2Address =
   process.env.REACT_APP_SETJS_DEBT_ISSUANCE_MODULE_V2
+export const debtIssuanceModuleV2PolygonAddress =
+  process.env.REACT_APP_SETJS_DEBT_ISSUANCE_MODULE_V2_POLYGON
+
 export const streamingFeeModuleAddress =
   process.env.REACT_APP_SETJS_STREAMING_FEE_MODULE
+export const streamingFeeModulePolygonAddress =
+  process.env.REACT_APP_SETJS_STREAMING_FEE_MODULE_POLYGON
+
 export const tradeModuleAddress = process.env.REACT_APP_SETJS_TRADE_MODULE
+export const tradeModulePolygonAddress =
+  process.env.REACT_APP_SETJS_TRADE_MODULE_POLYGON
+
+export const protocolViewerAddress = process.env.REACT_APP_SETJS_PROTOCOL_VIEWER
+export const protocolViewerPolygonAddress =
+  process.env.REACT_APP_SETJS_PROTOCOL_VIEWER_POLYGON
+
 export const navIssuanceModuleAddress =
   process.env.REACT_APP_SETJS_NAV_ISSUANCE_MODULE
-export const protocolViewerAddress = process.env.REACT_APP_SETJS_PROTOCOL_VIEWER
 export const masterOracleAddress =
   process.env.REACT_APP_SETJS_MASTER_ORACLE_ADDRESS
 export const governanceModuleAddress =
