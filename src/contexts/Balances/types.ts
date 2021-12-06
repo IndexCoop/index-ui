@@ -7,6 +7,7 @@ export interface ContextValues {
   dpiBalance?: BigNumber
   dpiBalancePolygon?: BigNumber
   ethfliBalance?: BigNumber
+  ethflipBalance?: BigNumber
   btcfliBalance?: BigNumber
   mviBalance?: BigNumber
   mviBalancePolygon?: BigNumber

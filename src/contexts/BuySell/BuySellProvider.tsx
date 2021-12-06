@@ -28,15 +28,21 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   const {
     ethBalance,
+    wethBalancePolygon,
     dpiBalance,
+    dpiBalancePolygon,
     mviBalance,
+    mviBalancePolygon,
     bedBalance,
     dataBalance,
     ethfliBalance,
+    ethflipBalance,
     btcfliBalance,
     indexBalance,
     daiBalance,
+    daiBalancePolygon,
     usdcBalance,
+    usdcBalancePolygon,
   } = useBalances()
 
   const { account, ethereum, chainId } = useWallet()
@@ -46,28 +52,48 @@ const BuySellProvider: React.FC = ({ children }) => {
     setSelectedCurrency(currencyTokens[0])
   }, [])
 
+  const getNetworkedBalance = (
+    mainnetBalance: any,
+    polygonBalance: any,
+    decimals: number = 18
+  ) => {
+    console.log(
+      'balance',
+      chainId,
+      mainnetBalance.toString(),
+      polygonBalance.toString()
+    )
+    return chainId && chainId === 1
+      ? fromWei(mainnetBalance, decimals)
+      : fromWei(polygonBalance)
+  }
+
   // eslint-disable-next-line
   let spendingTokenBalance = new BigNumber(0)
   if (!isUserBuying && buySellToken === 'index') {
     spendingTokenBalance = fromWei(indexBalance)
   } else if (!isUserBuying && buySellToken === 'dpi') {
-    spendingTokenBalance = fromWei(dpiBalance)
+    spendingTokenBalance = getNetworkedBalance(dpiBalance, dpiBalancePolygon)
   } else if (!isUserBuying && buySellToken === 'ethfli') {
-    spendingTokenBalance = fromWei(ethfliBalance)
+    spendingTokenBalance = getNetworkedBalance(ethfliBalance, ethflipBalance)
   } else if (!isUserBuying && buySellToken === 'btcfli') {
     spendingTokenBalance = fromWei(btcfliBalance)
   } else if (!isUserBuying && buySellToken === 'mvi') {
-    spendingTokenBalance = fromWei(mviBalance)
+    spendingTokenBalance = getNetworkedBalance(mviBalance, mviBalancePolygon)
   } else if (!isUserBuying && buySellToken === 'bed') {
     spendingTokenBalance = fromWei(bedBalance)
   } else if (!isUserBuying && buySellToken === 'data') {
     spendingTokenBalance = fromWei(dataBalance)
   } else if (selectedCurrency?.label === 'ETH') {
-    spendingTokenBalance = fromWei(ethBalance)
+    spendingTokenBalance = getNetworkedBalance(ethBalance, wethBalancePolygon)
   } else if (selectedCurrency?.label === 'DAI') {
-    spendingTokenBalance = fromWei(daiBalance)
+    spendingTokenBalance = getNetworkedBalance(daiBalance, daiBalancePolygon)
   } else if (selectedCurrency?.label === 'USDC') {
-    spendingTokenBalance = fromWei(usdcBalance, 6)
+    spendingTokenBalance = getNetworkedBalance(
+      usdcBalance,
+      usdcBalancePolygon,
+      6
+    )
   }
 
   useEffect(() => {
@@ -88,7 +114,14 @@ const BuySellProvider: React.FC = ({ children }) => {
       setZeroExTradeData(data)
       setIsFetchingOrderData(false)
     })
-  }, [isUserBuying, selectedCurrency, activeField, buySellToken, buySellQuantity, chainId])
+  }, [
+    isUserBuying,
+    selectedCurrency,
+    activeField,
+    buySellToken,
+    buySellQuantity,
+    chainId,
+  ])
 
   const onExecuteBuySell = useCallback(async () => {
     if (!account || !zeroExTradeData?.sellAmount || !selectedCurrency) return

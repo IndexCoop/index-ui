@@ -11,6 +11,7 @@ import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/m
 import {
   dpiTokenAddress,
   eth2xfliTokenAddress,
+  eth2xflipTokenAddress,
   btc2xfliTokenAddress,
   mviTokenAddress,
   indexTokenAddress,
@@ -37,6 +38,7 @@ const Provider: React.FC = ({ children }) => {
   const [dpiBalance, setDpiBalance] = useState<BigNumber>()
   const [dpiBalancePolygon, setDpiBalancePolygon] = useState<BigNumber>()
   const [ethfliBalance, setEthFliBalance] = useState<BigNumber>()
+  const [ethflipBalance, setEthFlipBalance] = useState<BigNumber>()
   const [btcfliBalance, setBtcFliBalance] = useState<BigNumber>()
   const [mviBalance, setMviBalance] = useState<BigNumber>()
   const [mviBalancePolygon, setMviBalancePolygon] = useState<BigNumber>()
@@ -87,6 +89,7 @@ const Provider: React.FC = ({ children }) => {
         !dpiTokenAddress ||
         !dpiTokenPolygonAddress ||
         !eth2xfliTokenAddress ||
+        !eth2xflipTokenAddress ||
         !btc2xfliTokenAddress ||
         !mviTokenAddress ||
         !mviTokenPolygonAddress ||
@@ -114,6 +117,7 @@ const Provider: React.FC = ({ children }) => {
         getBalance(provider, dpiTokenAddress, userAddress),
         getBalance(provider, dpiTokenPolygonAddress, userAddress),
         getBalance(provider, eth2xfliTokenAddress, userAddress),
+        getBalance(provider, eth2xflipTokenAddress, userAddress),
         getBalance(provider, btc2xfliTokenAddress, userAddress),
         getBalance(provider, mviTokenAddress, userAddress),
         getBalance(provider, mviTokenPolygonAddress, userAddress),
@@ -148,21 +152,22 @@ const Provider: React.FC = ({ children }) => {
       setDpiBalance(new BigNumber(balances[3]))
       setDpiBalancePolygon(new BigNumber(balances[4]))
       setEthFliBalance(new BigNumber(balances[5]))
-      setBtcFliBalance(new BigNumber(balances[6]))
-      setMviBalance(new BigNumber(balances[7]))
-      setMviBalancePolygon(new BigNumber(balances[8]))
-      setDaiBalance(new BigNumber(balances[9]))
-      setDaiBalancePolygon(new BigNumber(balances[10]))
-      setUsdcBalance(new BigNumber(balances[11])) // .dividedBy(10).pow(6))
-      setUsdcBalancePolygon(new BigNumber(balances[12])) // .dividedBy(10).pow(6))
-      setBedBalance(new BigNumber(balances[13]))
-      setDataBalance(new BigNumber(balances[14]))
-      setUniswapEthDpiLpBalance(new BigNumber(balances[15]))
-      setUniswapEthMviLpBalance(new BigNumber(balances[16]))
-      setStakedUniswapEthDpiLpBalance(new BigNumber(balances[17]))
-      setUnharvestedIndexBalance(new BigNumber(balances[18]))
-      setStakedFarmTwoBalance(new BigNumber(balances[19]))
-      setUnharvestedFarmTwoBalance(new BigNumber(balances[20]))
+      setEthFlipBalance(new BigNumber(balances[6]))
+      setBtcFliBalance(new BigNumber(balances[7]))
+      setMviBalance(new BigNumber(balances[8]))
+      setMviBalancePolygon(new BigNumber(balances[9]))
+      setDaiBalance(new BigNumber(balances[10]))
+      setDaiBalancePolygon(new BigNumber(balances[11]))
+      setUsdcBalance(new BigNumber(balances[12])) // .dividedBy(10).pow(6))
+      setUsdcBalancePolygon(new BigNumber(balances[13])) // .dividedBy(10).pow(6))
+      setBedBalance(new BigNumber(balances[14]))
+      setDataBalance(new BigNumber(balances[15]))
+      setUniswapEthDpiLpBalance(new BigNumber(balances[16]))
+      setUniswapEthMviLpBalance(new BigNumber(balances[17]))
+      setStakedUniswapEthDpiLpBalance(new BigNumber(balances[18]))
+      setUnharvestedIndexBalance(new BigNumber(balances[19]))
+      setStakedFarmTwoBalance(new BigNumber(balances[20]))
+      setUnharvestedFarmTwoBalance(new BigNumber(balances[21]))
       setStakedUniswapEthMviLpBalance(balances2[0])
       setUnharvestedMviRewardsBalance(balances2[1])
     },
@@ -172,6 +177,7 @@ const Provider: React.FC = ({ children }) => {
       setIndexBalance,
       setDpiBalance,
       setEthFliBalance,
+      setEthFlipBalance,
       setBtcFliBalance,
       setMviBalance,
       setBedBalance,
@@ -195,6 +201,7 @@ const Provider: React.FC = ({ children }) => {
       setDpiBalance(new BigNumber(0))
       setDpiBalancePolygon(new BigNumber(0))
       setEthFliBalance(new BigNumber(0))
+      setEthFlipBalance(new BigNumber(0))
       setBtcFliBalance(new BigNumber(0))
       setMviBalance(new BigNumber(0))
       setMviBalancePolygon(new BigNumber(0))
@@ -234,6 +241,7 @@ const Provider: React.FC = ({ children }) => {
         dpiBalance,
         dpiBalancePolygon,
         ethfliBalance,
+        ethflipBalance,
         btcfliBalance,
         mviBalance,
         mviBalancePolygon,
