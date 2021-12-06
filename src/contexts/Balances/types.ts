@@ -2,13 +2,18 @@ import BigNumber from 'utils/bignumber'
 
 export interface ContextValues {
   ethBalance?: BigNumber
+  wethBalancePolygon?: BigNumber
   indexBalance?: BigNumber
   dpiBalance?: BigNumber
+  dpiBalancePolygon?: BigNumber
   ethfliBalance?: BigNumber
   btcfliBalance?: BigNumber
   mviBalance?: BigNumber
+  mviBalancePolygon?: BigNumber
   daiBalance?: BigNumber
+  daiBalancePolygon?: BigNumber
   usdcBalance?: BigNumber
+  usdcBalancePolygon?: BigNumber
   bedBalance?: BigNumber
   dataBalance?: BigNumber
 

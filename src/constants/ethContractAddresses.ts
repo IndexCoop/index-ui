@@ -85,7 +85,8 @@ export const dpiTokenPolygonAddress =
 export const mviTokenPolygonAddress = process.env.REACT_APP_MVI_TOKEN_ADDRESS
 export const daiTokenPolygonAddress = process.env.REACT_APP_DAI_TOKEN_ADDRESS
 export const usdcTokenPolygonAddress = process.env.REACT_APP_USDC_TOKEN_ADDRESS
-export const wethTokenPolygonAddress = process.env.REACT_APP_WETH_TOKEN_ADDRESS
+export const wethTokenPolygonAddress =
+  process.env.REACT_APP_WETH_TOKEN_POLYGON_ADDRESS
 
 // Uniswap V2 Addresses
 export const uniswapEthDpiLpTokenAddress =

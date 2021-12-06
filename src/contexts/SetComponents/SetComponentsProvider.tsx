@@ -13,18 +13,17 @@ import {
   eth2xfliTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
+  dpiTokenPolygonAddress,
+  mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
 import usePrices from 'hooks/usePrices'
 import { Token, useTokenList } from 'hooks/useTokenList'
 import useWallet from 'hooks/useWallet'
-import { getProvider, getWeb3ReactProvider } from 'constants/provider'
-import Web3 from 'web3'
 
 const ASSET_PLATFORM = 'ethereum'
 const VS_CURRENCY = 'usd'
 
 const SetComponentsProvider: React.FC = ({ children }) => {
-  //const { ethereum }: { ethereum: provider } = useWallet()
   const { tokenList } = useTokenList()
   const {
     dpiPrice,
@@ -44,11 +43,12 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     []
   )
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
-  const provider = getProvider()
-  //const provider = getWeb3ReactProvider().currentProvider
+  const { ethereum: provider, chainId } = useWallet()
 
   useEffect(() => {
     if (
+      chainId &&
+      chainId === 1 &&
       provider &&
       dpiTokenAddress &&
       mviTokenAddress &&
@@ -59,14 +59,18 @@ const SetComponentsProvider: React.FC = ({ children }) => {
       tokenList &&
       dpiPrice
     ) {
-      getSetDetails(provider, [
-        dpiTokenAddress,
-        mviTokenAddress,
-        bedTokenAddress,
-        eth2xfliTokenAddress,
-        btc2xfliTokenAddress,
-        dataTokenAddress,
-      ]).then(async (result) => {
+      getSetDetails(
+        provider,
+        [
+          dpiTokenAddress,
+          mviTokenAddress,
+          bedTokenAddress,
+          eth2xfliTokenAddress,
+          btc2xfliTokenAddress,
+          dataTokenAddress,
+        ],
+        chainId
+      ).then(async (result) => {
         const [dpi, mvi, bed, eth2xfli, btc2xfli, data] = result
 
         const dpiComponentPrices = await getPositionPrices(dpi)
@@ -147,12 +151,55 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           .then(sortPositionsByPercentOfSet)
           .then(setDataComponents)
       })
+    } else if (
+      chainId &&
+      chainId === 137 &&
+      provider &&
+      dpiTokenPolygonAddress &&
+      mviTokenPolygonAddress &&
+      tokenList &&
+      dpiPrice
+    ) {
+      getSetDetails(
+        provider,
+        [dpiTokenPolygonAddress, mviTokenPolygonAddress],
+        chainId
+      ).then(async (result) => {
+        const [dpi, mvi] = result
+
+        const dpiComponentPrices = await getPositionPrices(dpi)
+        const dpiPositions = dpi.positions.map(async (position) => {
+          return await convertPositionToSetComponent(
+            position,
+            tokenList,
+            dpiComponentPrices[position.component.toLowerCase()]?.usd,
+            dpiPrice
+          )
+        })
+        Promise.all(dpiPositions)
+          .then(sortPositionsByPercentOfSet)
+          .then(setDpiComponents)
+
+        const mviComponentPrices = await getPositionPrices(mvi)
+        const mviPositions = mvi.positions.map(async (position) => {
+          return await convertPositionToSetComponent(
+            position,
+            tokenList,
+            mviComponentPrices[position.component.toLowerCase()]?.usd,
+            mviPrice
+          )
+        })
+        Promise.all(mviPositions)
+          .then(sortPositionsByPercentOfSet)
+          .then(setMviComponents)
+      })
     }
   }, [
     provider,
     tokenList,
     dpiPrice,
     mviPrice,
+    chainId,
     bedPrice,
     eth2xfliPrice,
     btc2xfliPrice,

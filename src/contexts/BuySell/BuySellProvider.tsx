@@ -39,10 +39,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     usdcBalance,
   } = useBalances()
 
-  const {
-    account,
-    ethereum,
-  }: { account: string | null | undefined; ethereum: provider } = useWallet()
+  const { account, ethereum, chainId } = useWallet()
 
   useEffect(() => {
     setCurrencyOptions(currencyTokens)
@@ -85,18 +82,13 @@ const BuySellProvider: React.FC = ({ children }) => {
       isUserBuying,
       selectedCurrency.label || '',
       buySellToken || '',
-      buySellQuantity || ''
+      buySellQuantity || '',
+      chainId || 1
     ).then((data) => {
       setZeroExTradeData(data)
       setIsFetchingOrderData(false)
     })
-  }, [
-    isUserBuying,
-    selectedCurrency,
-    activeField,
-    buySellToken,
-    buySellQuantity,
-  ])
+  }, [isUserBuying, selectedCurrency, activeField, buySellToken, buySellQuantity, chainId])
 
   const onExecuteBuySell = useCallback(async () => {
     if (!account || !zeroExTradeData?.sellAmount || !selectedCurrency) return
