@@ -53,4 +53,9 @@ export interface SetComponent {
    * component * price of component.
    */
   totalPriceUsd: string
+
+  /**
+   * Daily percent price change of this component
+   */
+  dailyPercentChange: string
 }
