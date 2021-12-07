@@ -109,7 +109,7 @@ export const DataIndex: ProductToken = {
   name: 'Data Economy Index',
   symbol: 'DATA',
   address: tokenAddresses.dataTokenAddress,
-  polygonAddress: undefined,
+  polygonAddress: tokenAddresses.dataTokenPolygonAddress,
   image: dataLogo,
   coingeckoId: 'data-economy-index',
   tokensetsId: 'data',

@@ -204,7 +204,10 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           return await convertPositionToSetComponent(
             position,
             tokenList,
-            dpiComponentPrices[position.component.toLowerCase()]?.usd,
+            dpiComponentPrices[position.component.toLowerCase()]?.[VS_CURRENCY],
+            dpiComponentPrices[position.component.toLowerCase()]?.[
+              `${VS_CURRENCY}_24h_change`
+            ],
             dpiPrice
           )
         })
@@ -217,7 +220,10 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           return await convertPositionToSetComponent(
             position,
             tokenList,
-            mviComponentPrices[position.component.toLowerCase()]?.usd,
+            mviComponentPrices[position.component.toLowerCase()]?.[VS_CURRENCY],
+            mviComponentPrices[position.component.toLowerCase()]?.[
+              `${VS_CURRENCY}_24h_change`
+            ],
             mviPrice
           )
         })
@@ -230,7 +236,12 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           return await convertPositionToSetComponent(
             position,
             tokenList,
-            ethFlipComponentPrices[position.component.toLowerCase()]?.usd,
+            ethFlipComponentPrices[position.component.toLowerCase()]?.[
+              VS_CURRENCY
+            ],
+            ethFlipComponentPrices[position.component.toLowerCase()]?.[
+              `${VS_CURRENCY}_24h_change`
+            ],
             eth2xflipPrice
           )
         })

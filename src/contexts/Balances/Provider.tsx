@@ -30,6 +30,7 @@ import {
   usdcTokenPolygonAddress,
   wethTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const Provider: React.FC = ({ children }) => {
   const [ethBalance, setEthBalance] = useState<BigNumber>()
@@ -74,15 +75,7 @@ const Provider: React.FC = ({ children }) => {
   const [unharvestedMviRewardsBalance, setUnharvestedMviRewardsBalance] =
     useState<BigNumber>()
 
-  const {
-    account,
-    ethereum,
-    status,
-  }: {
-    account: string | null | undefined
-    ethereum: provider
-    status: string
-  } = useWallet()
+  const { account, ethereum, status, chainId } = useWallet()
 
   const fetchBalances = useCallback(
     async (userAddress: string, provider: provider) => {
@@ -112,75 +105,80 @@ const Provider: React.FC = ({ children }) => {
           'A token address is not defined. Please check your .env to confirm all token addresses are defined.'
         )
       }
-      const balances = await Promise.all([
-        getEthBalance(provider, userAddress),
-        getBalance(provider, indexTokenAddress, userAddress),
-        getBalance(provider, dpiTokenAddress, userAddress),
-        getBalance(provider, eth2xfliTokenAddress, userAddress),
-        getBalance(provider, btc2xfliTokenAddress, userAddress),
-        getBalance(provider, mviTokenAddress, userAddress),
-        getBalance(provider, daiTokenAddress, userAddress),
-        getBalance(provider, usdcTokenAddress, userAddress),
-        getBalance(provider, bedTokenAddress, userAddress),
-        getBalance(provider, dataTokenAddress, userAddress),
+      if (chainId && chainId === MAINNET_CHAIN_DATA.chainId) {
+        const balances = await Promise.all([
+          getEthBalance(provider, userAddress),
+          getBalance(provider, indexTokenAddress, userAddress),
+          getBalance(provider, dpiTokenAddress, userAddress),
+          getBalance(provider, eth2xfliTokenAddress, userAddress),
+          getBalance(provider, btc2xfliTokenAddress, userAddress),
+          getBalance(provider, mviTokenAddress, userAddress),
+          getBalance(provider, daiTokenAddress, userAddress),
+          getBalance(provider, usdcTokenAddress, userAddress),
+          getBalance(provider, bedTokenAddress, userAddress),
+          getBalance(provider, dataTokenAddress, userAddress),
 
-        // LP Token Balances
-        getBalance(provider, uniswapEthDpiLpTokenAddress, userAddress),
-        getBalance(provider, uniswapEthMviLpTokenAddress, userAddress),
+          // LP Token Balances
+          getBalance(provider, uniswapEthDpiLpTokenAddress, userAddress),
+          getBalance(provider, uniswapEthMviLpTokenAddress, userAddress),
 
-        // Legacy DPI LM Program Balances
-        getBalance(provider, stakingRewardsAddress, userAddress),
-        getEarnedIndexTokenQuantity(provider, userAddress),
+          // Legacy DPI LM Program Balances
+          getBalance(provider, stakingRewardsAddress, userAddress),
+          getEarnedIndexTokenQuantity(provider, userAddress),
 
-        // Current DPI LM Program Balances
-        getBalance(provider, farmTwoAddress, userAddress),
-        getEarnedFarmTwoBalance(provider, userAddress),
+          // Current DPI LM Program Balances
+          getBalance(provider, farmTwoAddress, userAddress),
+          getEarnedFarmTwoBalance(provider, userAddress),
+        ])
+        // Current MVI LM Program Balances
+        const balances2 = await Promise.all([
+          getBigNumBalance(provider, mviStakingRewardsAddress, userAddress),
+          getMviRewardsBalance(provider, userAddress),
+        ])
 
-        //polygon
-        getBalance(provider, wethTokenPolygonAddress, userAddress),
-        getBalance(provider, dpiTokenPolygonAddress, userAddress),
-        getBalance(provider, eth2xflipTokenAddress, userAddress),
-        getBalance(provider, mviTokenPolygonAddress, userAddress),
-        getBalance(provider, daiTokenPolygonAddress, userAddress),
-        getBalance(provider, usdcTokenPolygonAddress, userAddress),
-      ])
-      // Current MVI LM Program Balances
-      const balances2 = await Promise.all([
-        getBigNumBalance(provider, mviStakingRewardsAddress, userAddress),
-        getMviRewardsBalance(provider, userAddress),
-      ])
+        // mainnet
+        setEthBalance(new BigNumber(balances[0]))
+        setIndexBalance(new BigNumber(balances[1]))
+        setDpiBalance(new BigNumber(balances[2]))
+        setEthFliBalance(new BigNumber(balances[3]))
+        setBtcFliBalance(new BigNumber(balances[4]))
+        setMviBalance(new BigNumber(balances[5]))
+        setDaiBalance(new BigNumber(balances[6]))
+        setUsdcBalance(new BigNumber(balances[7]))
+        setBedBalance(new BigNumber(balances[8]))
+        setDataBalance(new BigNumber(balances[9]))
+        setUniswapEthDpiLpBalance(new BigNumber(balances[10]))
+        setUniswapEthMviLpBalance(new BigNumber(balances[11]))
+        setStakedUniswapEthDpiLpBalance(new BigNumber(balances[12]))
+        setUnharvestedIndexBalance(new BigNumber(balances[13]))
+        setStakedFarmTwoBalance(new BigNumber(balances[14]))
+        setUnharvestedFarmTwoBalance(new BigNumber(balances[15]))
 
-      // mainnet
-      setEthBalance(new BigNumber(balances[0]))
-      setIndexBalance(new BigNumber(balances[1]))
-      setDpiBalance(new BigNumber(balances[2]))
-      setEthFliBalance(new BigNumber(balances[3]))
-      setBtcFliBalance(new BigNumber(balances[4]))
-      setMviBalance(new BigNumber(balances[5]))
-      setDaiBalance(new BigNumber(balances[6]))
-      setUsdcBalance(new BigNumber(balances[7]))
-      setBedBalance(new BigNumber(balances[8]))
-      setDataBalance(new BigNumber(balances[9]))
-      setUniswapEthDpiLpBalance(new BigNumber(balances[10]))
-      setUniswapEthMviLpBalance(new BigNumber(balances[11]))
-      setStakedUniswapEthDpiLpBalance(new BigNumber(balances[12]))
-      setUnharvestedIndexBalance(new BigNumber(balances[13]))
-      setStakedFarmTwoBalance(new BigNumber(balances[14]))
-      setUnharvestedFarmTwoBalance(new BigNumber(balances[15]))
+        // BN Balances
+        setStakedUniswapEthMviLpBalance(balances2[0])
+        setUnharvestedMviRewardsBalance(balances2[1])
+      } else if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) {
+        const balances = await Promise.all([
+          //polygon
+          getBalance(provider, wethTokenPolygonAddress, userAddress),
+          getBalance(provider, dpiTokenPolygonAddress, userAddress),
+          getBalance(provider, eth2xflipTokenAddress, userAddress),
+          getBalance(provider, mviTokenPolygonAddress, userAddress),
+          getBalance(provider, daiTokenPolygonAddress, userAddress),
+          getBalance(provider, usdcTokenPolygonAddress, userAddress),
+        ])
 
-      // polygon
-      setWethBalancePolygon(new BigNumber(balances[16]))
-      setDpiBalancePolygon(new BigNumber(balances[17]))
-      setEthFlipBalance(new BigNumber(balances[18]))
-      setMviBalancePolygon(new BigNumber(balances[19]))
-      setDaiBalancePolygon(new BigNumber(balances[20]))
-      setUsdcBalancePolygon(new BigNumber(balances[21]))
-
-      // BN Balances
-      setStakedUniswapEthMviLpBalance(balances2[0])
-      setUnharvestedMviRewardsBalance(balances2[1])
+        // polygon
+        setWethBalancePolygon(new BigNumber(balances[0]))
+        setDpiBalancePolygon(new BigNumber(balances[1]))
+        setEthFlipBalance(new BigNumber(balances[2]))
+        setMviBalancePolygon(new BigNumber(balances[3]))
+        setDaiBalancePolygon(new BigNumber(balances[4]))
+        setUsdcBalancePolygon(new BigNumber(balances[5]))
+      }
     },
     [
+      chainId,
       setEthBalance,
       setWethBalancePolygon,
       setIndexBalance,

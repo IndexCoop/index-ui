@@ -41,7 +41,6 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
       btc2xfliTokenAddress &&
       dataTokenAddress
     ) {
-      console.log('is mainnet')
       getTokenSupply(
         provider,
         [
@@ -55,7 +54,6 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
         chainId
       )
         .then((result) => {
-          console.log('getTokenSupply.then', result)
           const [
             dpiResult,
             mviResult,
@@ -105,14 +103,12 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
       mviTokenPolygonAddress &&
       eth2xflipTokenAddress
     ) {
-      console.log('is polygon')
       getTokenSupply(
         provider,
         [dpiTokenPolygonAddress, mviTokenPolygonAddress, eth2xflipTokenAddress],
         chainId
       )
         .then((result) => {
-          console.log('getTokenSupply.then', result)
           const [dpiResult, mviResult, eth2xFLIPResult] = result
           setDpiTotalSupply(
             new BigNumber(dpiResult.totalSupply.toString()).dividedBy(
