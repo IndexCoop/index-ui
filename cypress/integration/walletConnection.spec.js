@@ -7,7 +7,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 const testRunnerShortAddress = '0xf39F...2266'
 
-describe('Wallet Connection', () => {
+xdescribe('Wallet Connection', () => {
   context('Metamask', () => {
     before(() => {
       cy.injectWeb3Provider()
