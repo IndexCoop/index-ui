@@ -60,7 +60,6 @@ export async function getTokenSupply(
       debtIssuanceModuleV2PolygonAddress,
     ]
   }
-  console.log('does it make it here?')
   return await set.setToken.batchFetchSetDetailsAsync(
     productAddresses,
     moduleAddresses

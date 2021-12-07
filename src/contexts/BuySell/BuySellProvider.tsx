@@ -58,15 +58,9 @@ const BuySellProvider: React.FC = ({ children }) => {
     polygonBalance: any,
     decimals: number = 18
   ) => {
-    console.log(
-      'balance',
-      chainId,
-      mainnetBalance.toString(),
-      polygonBalance.toString()
-    )
     return chainId && chainId === MAINNET_CHAIN_DATA.chainId
       ? fromWei(mainnetBalance, decimals)
-      : fromWei(polygonBalance)
+      : fromWei(polygonBalance, decimals)
   }
 
   // eslint-disable-next-line
