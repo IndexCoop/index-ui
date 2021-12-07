@@ -8,6 +8,11 @@ import {
   usdcTokenAddress,
   bedTokenAddress,
   dataTokenAddress,
+  dpiTokenPolygonAddress,
+  mviTokenPolygonAddress,
+  daiTokenPolygonAddress,
+  usdcTokenPolygonAddress,
+  wethTokenPolygonAddress,
 } from './ethContractAddresses'
 
 export const tokenInfo: any = {
@@ -49,6 +54,28 @@ export const tokenInfo: any = {
   },
   ETH: {
     address: 'ETH',
+    decimals: 18,
+  },
+}
+export const polygonTokenInfo: any = {
+  dpi: {
+    address: dpiTokenPolygonAddress,
+    decimals: 18,
+  },
+  mvi: {
+    address: mviTokenPolygonAddress,
+    decimals: 18,
+  },
+  DAI: {
+    address: daiTokenPolygonAddress,
+    decimals: 18,
+  },
+  USDC: {
+    address: usdcTokenPolygonAddress,
+    decimals: 6,
+  },
+  ETH: {
+    address: wethTokenPolygonAddress,
     decimals: 18,
   },
 }

@@ -13,7 +13,7 @@ const createTheme = (): {
   const baseGreyColorDark = { h: 250, s: 49, l: 10 }
 
   const borderRadius = 14
-  const siteWidth = 1200
+  const siteWidth = 1400
 
   const { h, s } = baseColor
   const { h: hDark, s: sDark } = baseColorDark || baseColor

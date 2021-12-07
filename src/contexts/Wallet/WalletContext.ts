@@ -14,6 +14,7 @@ interface WalletContextValues {
   reset: any
   onOpenWalletModal: (...args: any[]) => any
   onCloseWalletModal: (...args: any[]) => any
+  chainId: number | undefined
 }
 
 const WalletContext = createContext<WalletContextValues>({
@@ -28,6 +29,7 @@ const WalletContext = createContext<WalletContextValues>({
   reset: () => {},
   onOpenWalletModal: () => {},
   onCloseWalletModal: () => {},
+  chainId: 1,
 })
 
 export default WalletContext

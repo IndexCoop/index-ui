@@ -1,19 +1,29 @@
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
+import { NetworkConnector } from '@web3-react/network-connector'
 import { LedgerConnector } from './ledgerConnector'
 
-const RPC_URL = process.env.REACT_APP_ETHEREUM_RPC_URL
 const WS_URL = process.env.REACT_APP_ETHEREUM_WS_URL
 
-export const NETWORK_CHAIN_ID: number = parseInt(
-  process.env.REACT_APP_ETHEREUM_NETWORK_ID ?? '1'
-)
+export type ChainData = {
+  name: string
+  chainId: number
+  rpcUrl: string
+  icon: string
+}
 
-if (!RPC_URL) {
-  throw new Error(
-    `REACT_APP_ETHEREUM_RPC_URL must be a defined environment variable`
-  )
+export const MAINNET_CHAIN_DATA: ChainData = {
+  name: 'Ethereum',
+  chainId: 1,
+  rpcUrl: 'https://mainnet.eth.aragon.network/',
+  icon: 'https://raw.githubusercontent.com/sushiswap/icons/master/network/mainnet.jpg',
+}
+export const POLYGON_CHAIN_DATA: ChainData = {
+  name: 'Polygon',
+  chainId: 137,
+  rpcUrl: 'https://rpc-mainnet.maticvigil.com/',
+  icon: 'https://raw.githubusercontent.com/sushiswap/icons/master/network/polygon.jpg',
 }
 
 if (!WS_URL) {
@@ -23,24 +33,34 @@ if (!WS_URL) {
 }
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42],
+  supportedChainIds: [1, 3, 4, 5, 42, 137],
 })
 
 export const walletconnect = new WalletConnectConnector({
-  rpc: { 1: RPC_URL },
+  rpc: {
+    [MAINNET_CHAIN_DATA.chainId]: MAINNET_CHAIN_DATA.rpcUrl,
+    [POLYGON_CHAIN_DATA.chainId]: POLYGON_CHAIN_DATA.rpcUrl,
+  },
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000,
+  supportedChainIds: [1, 137],
 })
 
 export const walletlink = new WalletLinkConnector({
-  url: RPC_URL,
+  url: MAINNET_CHAIN_DATA.rpcUrl,
   appName: 'Index',
   appLogoUrl: 'https://index-dao.s3.amazonaws.com/index_owl.png',
+  supportedChainIds: [1, 137],
 })
 
 export const ledgerwallet = new LedgerConnector(
-  NETWORK_CHAIN_ID,
-  RPC_URL,
+  MAINNET_CHAIN_DATA.chainId,
+  MAINNET_CHAIN_DATA.rpcUrl,
   WS_URL
 )
+
+export const networkConnector = new NetworkConnector({
+  urls: { 1: process.env.REACT_APP_ALCHEMY_API || MAINNET_CHAIN_DATA.rpcUrl },
+  defaultChainId: 1,
+})

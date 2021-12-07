@@ -15,18 +15,21 @@ import {
   mviTokenAddress,
   bedTokenAddress,
   eth2xfliTokenAddress,
+  eth2xflipTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
+  dpiTokenPolygonAddress,
+  mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
 import usePrices from 'hooks/usePrices'
 import { Token, useTokenList } from 'hooks/useTokenList'
 import useWallet from 'hooks/useWallet'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const ASSET_PLATFORM = 'ethereum'
 const VS_CURRENCY = 'usd'
 
 const SetComponentsProvider: React.FC = ({ children }) => {
-  const { ethereum }: { ethereum: provider } = useWallet()
   const { tokenList } = useTokenList()
   const {
     dpiPrice,
@@ -35,6 +38,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     eth2xfliPrice,
     btc2xfliPrice,
     dataPrice,
+    eth2xflipPrice,
   } = usePrices()
   const [dpiComponents, setDpiComponents] = useState<SetComponent[]>([])
   const [mviComponents, setMviComponents] = useState<SetComponent[]>([])
@@ -46,10 +50,13 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     []
   )
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
+  const { ethereum: provider, chainId } = useWallet()
 
   useEffect(() => {
     if (
-      ethereum &&
+      chainId &&
+      chainId === MAINNET_CHAIN_DATA.chainId &&
+      provider &&
       dpiTokenAddress &&
       mviTokenAddress &&
       bedTokenAddress &&
@@ -59,14 +66,18 @@ const SetComponentsProvider: React.FC = ({ children }) => {
       tokenList &&
       dpiPrice
     ) {
-      getSetDetails(ethereum, [
-        dpiTokenAddress,
-        mviTokenAddress,
-        bedTokenAddress,
-        eth2xfliTokenAddress,
-        btc2xfliTokenAddress,
-        dataTokenAddress,
-      ]).then(async (result) => {
+      getSetDetails(
+        provider,
+        [
+          dpiTokenAddress,
+          mviTokenAddress,
+          bedTokenAddress,
+          eth2xfliTokenAddress,
+          btc2xfliTokenAddress,
+          dataTokenAddress,
+        ],
+        chainId
+      ).then(async (result) => {
         const [dpi, mvi, bed, eth2xfli, btc2xfli, data] = result
 
         const dpiComponentPrices = await getPositionPrices(dpi)
@@ -171,16 +182,74 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           .then(sortPositionsByPercentOfSet)
           .then(setDataComponents)
       })
+    } else if (
+      chainId &&
+      chainId === POLYGON_CHAIN_DATA.chainId &&
+      provider &&
+      dpiTokenPolygonAddress &&
+      mviTokenPolygonAddress &&
+      eth2xflipTokenAddress &&
+      tokenList &&
+      dpiPrice
+    ) {
+      getSetDetails(
+        provider,
+        [dpiTokenPolygonAddress, mviTokenPolygonAddress, eth2xflipTokenAddress],
+        chainId
+      ).then(async (result) => {
+        const [dpi, mvi, ethflip] = result
+
+        const dpiComponentPrices = await getPositionPrices(dpi)
+        const dpiPositions = dpi.positions.map(async (position) => {
+          return await convertPositionToSetComponent(
+            position,
+            tokenList,
+            dpiComponentPrices[position.component.toLowerCase()]?.usd,
+            dpiPrice
+          )
+        })
+        Promise.all(dpiPositions)
+          .then(sortPositionsByPercentOfSet)
+          .then(setDpiComponents)
+
+        const mviComponentPrices = await getPositionPrices(mvi)
+        const mviPositions = mvi.positions.map(async (position) => {
+          return await convertPositionToSetComponent(
+            position,
+            tokenList,
+            mviComponentPrices[position.component.toLowerCase()]?.usd,
+            mviPrice
+          )
+        })
+        Promise.all(mviPositions)
+          .then(sortPositionsByPercentOfSet)
+          .then(setMviComponents)
+
+        const ethFlipComponentPrices = await getPositionPrices(ethflip)
+        const ethFlipPositions = ethflip.positions.map(async (position) => {
+          return await convertPositionToSetComponent(
+            position,
+            tokenList,
+            ethFlipComponentPrices[position.component.toLowerCase()]?.usd,
+            eth2xflipPrice
+          )
+        })
+        Promise.all(ethFlipPositions)
+          .then(sortPositionsByPercentOfSet)
+          .then(setMviComponents)
+      })
     }
   }, [
-    ethereum,
+    provider,
     tokenList,
     dpiPrice,
     mviPrice,
+    chainId,
     bedPrice,
     eth2xfliPrice,
     btc2xfliPrice,
     dataPrice,
+    eth2xflipPrice,
   ])
 
   return (

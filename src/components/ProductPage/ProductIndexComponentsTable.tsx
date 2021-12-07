@@ -4,6 +4,8 @@ import numeral from 'numeral'
 
 import { ProductPageSection } from './ProductPageLayouts'
 import { SetComponent } from 'contexts/SetComponents/SetComponent'
+import useWallet from 'hooks/useWallet'
+import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 interface ProductIndexComponentsProps {
   components?: SetComponent[]
@@ -16,6 +18,7 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
   const showAllComponents = () =>
     setAmountToDisplay(components?.length || amountToDisplay)
   const showDefaultComponents = () => setAmountToDisplay(5)
+  const { chainId } = useWallet()
 
   const renderTableDisplayControls = () => {
     if (!components) return null
@@ -37,7 +40,13 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
     )
   }
 
-  if (components === undefined || components.length === 0) {
+  if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) {
+    return (
+      <ProductPageSection title='Allocations'>
+        Connect wallet to Mainnet to view allocations
+      </ProductPageSection>
+    )
+  } else if (components === undefined || components.length === 0) {
     return (
       <ProductPageSection title='Allocations'>
         Connect wallet to view allocations

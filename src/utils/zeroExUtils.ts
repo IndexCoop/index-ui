@@ -2,16 +2,18 @@ import axios from 'axios'
 import querystring from 'querystring'
 import BigNumber from 'utils/bignumber'
 
-import { tokenInfo } from 'constants/tokenInfo'
+import { polygonTokenInfo, tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
 import { fetchCoingeckoTokenPrice } from './coingeckoApi'
+import { MAINNET_CHAIN_DATA } from './connectors'
 
 export const getZeroExTradeData = async (
   isExactInput: boolean,
   isUserBuying: boolean,
   currencyToken: string,
   buySellToken: string,
-  buySellAmount: string
+  buySellAmount: string,
+  chainId: number
 ): Promise<ZeroExData> => {
   let sellToken
   let buyToken
@@ -24,10 +26,24 @@ export const getZeroExTradeData = async (
     sellToken = buySellToken
   }
 
-  const params = getApiParams(isExactInput, sellToken, buyToken, buySellAmount)
-  const resp = await axios.get(
-    `https://api.0x.org/swap/v1/quote?${querystring.stringify(params)}`
+  const params = getApiParams(
+    isExactInput,
+    sellToken,
+    buyToken,
+    buySellAmount,
+    chainId
   )
+  let resp
+  if (chainId === MAINNET_CHAIN_DATA.chainId)
+    resp = await axios.get(
+      `https://api.0x.org/swap/v1/quote?${querystring.stringify(params)}`
+    )
+  else
+    resp = await axios.get(
+      `https://polygon.api.0x.org/swap/v1/quote?${querystring.stringify(
+        params
+      )}`
+    )
 
   const zeroExData: ZeroExData = resp.data
   return await processApiResult(
@@ -43,23 +59,42 @@ const getApiParams = (
   isExactInput: boolean,
   sellToken: string,
   buyToken: string,
-  buySellAmount: string
+  buySellAmount: string,
+  chainId: number
 ): any => {
-  const params: any = {
-    sellToken: tokenInfo[sellToken].address,
-    buyToken: tokenInfo[buyToken].address,
-  }
-
-  if (isExactInput) {
-    params.sellAmount = getDecimalAdjustedAmount(
-      buySellAmount,
-      tokenInfo[sellToken].decimals
-    )
+  let params: any
+  if (chainId === MAINNET_CHAIN_DATA.chainId) {
+    params = {
+      sellToken: tokenInfo[sellToken].address,
+      buyToken: tokenInfo[buyToken].address,
+    }
+    if (isExactInput) {
+      params.sellAmount = getDecimalAdjustedAmount(
+        buySellAmount,
+        tokenInfo[sellToken].decimals
+      )
+    } else {
+      params.buyAmount = getDecimalAdjustedAmount(
+        buySellAmount,
+        tokenInfo[buyToken].decimals
+      )
+    }
   } else {
-    params.buyAmount = getDecimalAdjustedAmount(
-      buySellAmount,
-      tokenInfo[buyToken].decimals
-    )
+    params = {
+      sellToken: polygonTokenInfo[sellToken].address,
+      buyToken: polygonTokenInfo[buyToken].address,
+    }
+    if (isExactInput) {
+      params.sellAmount = getDecimalAdjustedAmount(
+        buySellAmount,
+        polygonTokenInfo[sellToken].decimals
+      )
+    } else {
+      params.buyAmount = getDecimalAdjustedAmount(
+        buySellAmount,
+        polygonTokenInfo[buyToken].decimals
+      )
+    }
   }
 
   return params

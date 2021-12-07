@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import BigNumber from 'utils/bignumber'
 
-import TotalSupplyContext from './Eth2xFliTokenSupplyCapContext'
+import TotalSupplyContext from './Eth2xFLIPTokenSupplyCapContext'
 import { getSupplyCap } from 'utils'
-import { eth2xfliSuppyCapAddress } from 'constants/ethContractAddresses'
+import { eth2xFLIPSuppyCapAddress } from 'constants/ethContractAddresses'
 
 const Eth2xFliTokenSupplyCapProvider: React.FC = ({ children }) => {
-  const [ethFliSupplyCap, setEthFliSupplyCap] = useState<BigNumber>()
+  const [ethFLIPSupplyCap, setEthFLIPSupplyCap] = useState<BigNumber>()
 
   useEffect(() => {
-    getSupplyCap(eth2xfliSuppyCapAddress as string).then((val) => {
-      setEthFliSupplyCap(
+    getSupplyCap(eth2xFLIPSuppyCapAddress as string).then((val) => {
+      setEthFLIPSupplyCap(
         new BigNumber(val).dividedBy(new BigNumber(10).pow(18))
       )
     })
@@ -19,7 +19,7 @@ const Eth2xFliTokenSupplyCapProvider: React.FC = ({ children }) => {
   return (
     <TotalSupplyContext.Provider
       value={{
-        ethfliSupplyCap: ethFliSupplyCap,
+        ethflipSupplyCap: ethFLIPSupplyCap,
       }}
     >
       {children}

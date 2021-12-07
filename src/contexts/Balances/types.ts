@@ -12,6 +12,14 @@ export interface ContextValues {
   bedBalance?: BigNumber
   dataBalance?: BigNumber
 
+  // polygon
+  wethBalancePolygon?: BigNumber
+  dpiBalancePolygon?: BigNumber
+  mviBalancePolygon?: BigNumber
+  ethflipBalance?: BigNumber
+  daiBalancePolygon?: BigNumber
+  usdcBalancePolygon?: BigNumber
+
   // LP Tokens
   uniswapEthDpiLpBalance?: BigNumber
   uniswapEthMviLpBalance?: BigNumber

@@ -11,6 +11,7 @@ import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/m
 import {
   dpiTokenAddress,
   eth2xfliTokenAddress,
+  eth2xflipTokenAddress,
   btc2xfliTokenAddress,
   mviTokenAddress,
   indexTokenAddress,
@@ -23,6 +24,11 @@ import {
   mviStakingRewardsAddress,
   bedTokenAddress,
   dataTokenAddress,
+  dpiTokenPolygonAddress,
+  mviTokenPolygonAddress,
+  daiTokenPolygonAddress,
+  usdcTokenPolygonAddress,
+  wethTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
 
 const Provider: React.FC = ({ children }) => {
@@ -36,6 +42,14 @@ const Provider: React.FC = ({ children }) => {
   const [usdcBalance, setUsdcBalance] = useState<BigNumber>()
   const [bedBalance, setBedBalance] = useState<BigNumber>()
   const [dataBalance, setDataBalance] = useState<BigNumber>()
+
+  // polygon balances
+  const [wethBalancePolygon, setWethBalancePolygon] = useState<BigNumber>()
+  const [dpiBalancePolygon, setDpiBalancePolygon] = useState<BigNumber>()
+  const [ethflipBalance, setEthFlipBalance] = useState<BigNumber>()
+  const [mviBalancePolygon, setMviBalancePolygon] = useState<BigNumber>()
+  const [daiBalancePolygon, setDaiBalancePolygon] = useState<BigNumber>()
+  const [usdcBalancePolygon, setUsdcBalancePolygon] = useState<BigNumber>()
 
   // LP Tokens Balances
   const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] =
@@ -75,18 +89,24 @@ const Provider: React.FC = ({ children }) => {
       if (
         !indexTokenAddress ||
         !dpiTokenAddress ||
+        !dpiTokenPolygonAddress ||
         !eth2xfliTokenAddress ||
+        !eth2xflipTokenAddress ||
         !btc2xfliTokenAddress ||
         !mviTokenAddress ||
+        !mviTokenPolygonAddress ||
         !daiTokenAddress ||
+        !daiTokenPolygonAddress ||
         !usdcTokenAddress ||
+        !usdcTokenPolygonAddress ||
         !bedTokenAddress ||
         !dataTokenAddress ||
         !uniswapEthDpiLpTokenAddress ||
         !uniswapEthMviLpTokenAddress ||
         !stakingRewardsAddress ||
         !farmTwoAddress ||
-        !mviStakingRewardsAddress
+        !mviStakingRewardsAddress ||
+        !wethTokenPolygonAddress
       ) {
         throw new Error(
           'A token address is not defined. Please check your .env to confirm all token addresses are defined.'
@@ -115,6 +135,14 @@ const Provider: React.FC = ({ children }) => {
         // Current DPI LM Program Balances
         getBalance(provider, farmTwoAddress, userAddress),
         getEarnedFarmTwoBalance(provider, userAddress),
+
+        //polygon
+        getBalance(provider, wethTokenPolygonAddress, userAddress),
+        getBalance(provider, dpiTokenPolygonAddress, userAddress),
+        getBalance(provider, eth2xflipTokenAddress, userAddress),
+        getBalance(provider, mviTokenPolygonAddress, userAddress),
+        getBalance(provider, daiTokenPolygonAddress, userAddress),
+        getBalance(provider, usdcTokenPolygonAddress, userAddress),
       ])
       // Current MVI LM Program Balances
       const balances2 = await Promise.all([
@@ -122,6 +150,7 @@ const Provider: React.FC = ({ children }) => {
         getMviRewardsBalance(provider, userAddress),
       ])
 
+      // mainnet
       setEthBalance(new BigNumber(balances[0]))
       setIndexBalance(new BigNumber(balances[1]))
       setDpiBalance(new BigNumber(balances[2]))
@@ -129,7 +158,7 @@ const Provider: React.FC = ({ children }) => {
       setBtcFliBalance(new BigNumber(balances[4]))
       setMviBalance(new BigNumber(balances[5]))
       setDaiBalance(new BigNumber(balances[6]))
-      setUsdcBalance(new BigNumber(balances[7])) // .dividedBy(10).pow(6))
+      setUsdcBalance(new BigNumber(balances[7]))
       setBedBalance(new BigNumber(balances[8]))
       setDataBalance(new BigNumber(balances[9]))
       setUniswapEthDpiLpBalance(new BigNumber(balances[10]))
@@ -138,14 +167,26 @@ const Provider: React.FC = ({ children }) => {
       setUnharvestedIndexBalance(new BigNumber(balances[13]))
       setStakedFarmTwoBalance(new BigNumber(balances[14]))
       setUnharvestedFarmTwoBalance(new BigNumber(balances[15]))
+
+      // polygon
+      setWethBalancePolygon(new BigNumber(balances[16]))
+      setDpiBalancePolygon(new BigNumber(balances[17]))
+      setEthFlipBalance(new BigNumber(balances[18]))
+      setMviBalancePolygon(new BigNumber(balances[19]))
+      setDaiBalancePolygon(new BigNumber(balances[20]))
+      setUsdcBalancePolygon(new BigNumber(balances[21]))
+
+      // BN Balances
       setStakedUniswapEthMviLpBalance(balances2[0])
       setUnharvestedMviRewardsBalance(balances2[1])
     },
     [
       setEthBalance,
+      setWethBalancePolygon,
       setIndexBalance,
       setDpiBalance,
       setEthFliBalance,
+      setEthFlipBalance,
       setBtcFliBalance,
       setMviBalance,
       setBedBalance,
@@ -164,14 +205,20 @@ const Provider: React.FC = ({ children }) => {
   useEffect(() => {
     if (status !== 'connected') {
       setEthBalance(new BigNumber(0))
+      setWethBalancePolygon(new BigNumber(0))
       setIndexBalance(new BigNumber(0))
       setDpiBalance(new BigNumber(0))
+      setDpiBalancePolygon(new BigNumber(0))
       setEthFliBalance(new BigNumber(0))
+      setEthFlipBalance(new BigNumber(0))
       setBtcFliBalance(new BigNumber(0))
       setMviBalance(new BigNumber(0))
+      setMviBalancePolygon(new BigNumber(0))
       setBedBalance(new BigNumber(0))
       setDaiBalance(new BigNumber(0))
+      setDaiBalancePolygon(new BigNumber(0))
       setUsdcBalance(new BigNumber(0))
+      setUsdcBalancePolygon(new BigNumber(0))
       setUniswapEthDpiLpBalance(new BigNumber(0))
       setUniswapEthMviLpBalance(new BigNumber(0))
       setStakedUniswapEthDpiLpBalance(new BigNumber(0))
@@ -198,13 +245,19 @@ const Provider: React.FC = ({ children }) => {
     <Context.Provider
       value={{
         ethBalance,
+        wethBalancePolygon,
         indexBalance,
         dpiBalance,
+        dpiBalancePolygon,
         ethfliBalance,
+        ethflipBalance,
         btcfliBalance,
         mviBalance,
+        mviBalancePolygon,
         daiBalance,
+        daiBalancePolygon,
         usdcBalance,
+        usdcBalancePolygon,
         bedBalance,
         dataBalance,
         uniswapEthDpiLpBalance,
