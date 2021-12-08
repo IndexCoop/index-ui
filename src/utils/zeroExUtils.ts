@@ -51,7 +51,8 @@ export const getZeroExTradeData = async (
     isExactInput,
     sellToken,
     buyToken,
-    buySellAmount
+    buySellAmount,
+    chainId
   )
 }
 
@@ -107,7 +108,8 @@ const processApiResult = async (
   isExactInput: boolean,
   sellToken: string,
   buyToken: string,
-  buySellAmount: string
+  buySellAmount: string,
+  chainId: number
 ): Promise<ZeroExData> => {
   zeroExData.displaySellAmount = getDisplayAdjustedAmount(
     zeroExData.sellAmount,
@@ -132,16 +134,17 @@ const processApiResult = async (
 
   zeroExData.formattedSources = formatSources(zeroExData.sources)
 
-  //TODO: decouple getting proper price for zeroExUtils
   const buyTokenPrice = await fetchCoingeckoTokenPrice(
-    zeroExData.buyTokenAddress
+    zeroExData.buyTokenAddress,
+    chainId
   )
   zeroExData.buyTokenCost = (
     buyTokenPrice * zeroExData.displayBuyAmount
   ).toFixed(2)
 
   const sellTokenPrice: number = await fetchCoingeckoTokenPrice(
-    zeroExData.sellTokenAddress
+    zeroExData.sellTokenAddress,
+    chainId
   )
   zeroExData.sellTokenCost = (
     sellTokenPrice * zeroExData.displaySellAmount

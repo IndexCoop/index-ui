@@ -1,4 +1,5 @@
 import { ethTokenAddress } from 'constants/ethContractAddresses'
+import { POLYGON_CHAIN_DATA } from './connectors'
 
 const baseURL = 'https://api.coingecko.com/api/v3'
 
@@ -30,8 +31,14 @@ export const fetchHistoricalTokenMarketData = (
     .catch((error) => console.log(error))
 }
 
+const getAssetPlatform = (chainId: number) => {
+  if (chainId === POLYGON_CHAIN_DATA.chainId) return 'polygon-pos'
+  return 'ethereum'
+}
+
 export const fetchCoingeckoTokenPrice = async (
   address: string,
+  chainId: number,
   baseCurrency = 'usd'
 ): Promise<number> => {
   if (address === ethTokenAddress) {
@@ -51,7 +58,9 @@ export const fetchCoingeckoTokenPrice = async (
 
   const getPriceUrl =
     baseURL +
-    `/simple/token_price/ethereum/?contract_addresses=${address}&vs_currencies=${baseCurrency}`
+    `/simple/token_price/${getAssetPlatform(
+      chainId
+    )}/?contract_addresses=${address}&vs_currencies=${baseCurrency}`
 
   const resp = await fetch(getPriceUrl)
 
