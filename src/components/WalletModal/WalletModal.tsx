@@ -48,6 +48,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     stakedUniswapEthDpiLpBalance,
     stakedFarmTwoBalance,
     stakedUniswapEthMviLpBalance,
+    dataBalancePolygon,
   } = useBalances()
 
   const totalStakedEthDpiLpBalance = getBigNumber(
@@ -85,9 +86,9 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
 
   const getChainName = () => {
     if (chainId === MAINNET_CHAIN_DATA.chainId)
-      return MAINNET_CHAIN_DATA.name + ' Wallet'
+      return `My ${MAINNET_CHAIN_DATA.name} Wallet`
     if (chainId === POLYGON_CHAIN_DATA.chainId)
-      return POLYGON_CHAIN_DATA.name + ' Wallet'
+      return `My ${POLYGON_CHAIN_DATA.name} Wallet`
     return 'My Wallet'
   }
 
@@ -274,6 +275,17 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               label='ETH 2x FLI-P Balance'
               link={`https://polygonscan.com/address/${tokenAddresses.eth2xfliTokenAddress}`}
               value={displayFromWei(ethflipBalance)}
+            />
+          </Box>
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'DATA Icon',
+                src: dataLogo,
+              }}
+              label='DATA Economy Index Balance (Polygon)'
+              link={`https://polygonscan.io/address/${tokenAddresses.dataTokenPolygonAddress}`}
+              value={displayFromWei(dataBalancePolygon)}
             />
           </Box>
         </Split>

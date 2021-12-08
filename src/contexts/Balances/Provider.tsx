@@ -29,6 +29,7 @@ import {
   daiTokenPolygonAddress,
   usdcTokenPolygonAddress,
   wethTokenPolygonAddress,
+  dataTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
@@ -51,6 +52,7 @@ const Provider: React.FC = ({ children }) => {
   const [mviBalancePolygon, setMviBalancePolygon] = useState<BigNumber>()
   const [daiBalancePolygon, setDaiBalancePolygon] = useState<BigNumber>()
   const [usdcBalancePolygon, setUsdcBalancePolygon] = useState<BigNumber>()
+  const [dataBalancePolygon, setDataBalancePolygon] = useState<BigNumber>()
 
   // LP Tokens Balances
   const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] =
@@ -94,6 +96,7 @@ const Provider: React.FC = ({ children }) => {
         !usdcTokenPolygonAddress ||
         !bedTokenAddress ||
         !dataTokenAddress ||
+        !dataTokenPolygonAddress ||
         !uniswapEthDpiLpTokenAddress ||
         !uniswapEthMviLpTokenAddress ||
         !stakingRewardsAddress ||
@@ -166,6 +169,7 @@ const Provider: React.FC = ({ children }) => {
           getBalance(provider, mviTokenPolygonAddress, userAddress),
           getBalance(provider, daiTokenPolygonAddress, userAddress),
           getBalance(provider, usdcTokenPolygonAddress, userAddress),
+          getBalance(provider, dataTokenPolygonAddress, userAddress),
         ])
 
         // polygon
@@ -175,6 +179,7 @@ const Provider: React.FC = ({ children }) => {
         setMviBalancePolygon(new BigNumber(balances[3]))
         setDaiBalancePolygon(new BigNumber(balances[4]))
         setUsdcBalancePolygon(new BigNumber(balances[5]))
+        setDataBalancePolygon(new BigNumber(balances[6]))
       }
     },
     [
@@ -189,6 +194,7 @@ const Provider: React.FC = ({ children }) => {
       setMviBalance,
       setBedBalance,
       setDataBalance,
+      setDataBalancePolygon,
       setUniswapEthDpiLpBalance,
       setUniswapEthMviLpBalance,
       setStakedUniswapEthDpiLpBalance,
@@ -225,6 +231,8 @@ const Provider: React.FC = ({ children }) => {
       setUnharvestedFarmTwoBalance(new BigNumber(0))
       setStakedUniswapEthMviLpBalance(new BigNumber(0))
       setUnharvestedMviRewardsBalance(new BigNumber(0))
+      setDataBalance(new BigNumber(0))
+      setDataBalancePolygon(new BigNumber(0))
     }
   }, [status])
 
@@ -258,6 +266,7 @@ const Provider: React.FC = ({ children }) => {
         usdcBalancePolygon,
         bedBalance,
         dataBalance,
+        dataBalancePolygon,
         uniswapEthDpiLpBalance,
         uniswapEthMviLpBalance,
         stakedUniswapEthDpiLpBalance,
