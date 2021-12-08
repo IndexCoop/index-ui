@@ -13,7 +13,7 @@ export interface ProductToken {
   image: string
   coingeckoId: string
   tokensetsId: string
-  fees: { streamingFee: string } | undefined
+  fees: { streamingFee: string; mintRedeemFee?: string } | undefined
 }
 
 export const DefiPulseIndex: ProductToken = {
@@ -54,15 +54,16 @@ export const Ethereum2xFlexibleLeverageIndex: ProductToken = {
 }
 
 export const Ethereum2xFLIP: ProductToken = {
-  name: 'Ethereum 2x FLI-P',
-  symbol: 'ETH2x-FLI-P',
+  name: 'Ethereum 2x FLI Polygon',
+  symbol: 'ETH2X-FLI-P',
   address: undefined,
   polygonAddress: tokenAddresses.eth2xflipTokenAddress,
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
-  coingeckoId: 'eth-2x-flexible-leverage-index-p',
-  tokensetsId: 'ethflip',
+  coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
+  tokensetsId: 'eth2x-fli-p',
   fees: {
     streamingFee: '1.95%',
+    mintRedeemFee: '0.1%',
   },
 }
 
