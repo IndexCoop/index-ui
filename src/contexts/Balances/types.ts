@@ -19,6 +19,7 @@ export interface ContextValues {
   ethflipBalance?: BigNumber
   daiBalancePolygon?: BigNumber
   usdcBalancePolygon?: BigNumber
+  dataBalancePolygon?: BigNumber
 
   // LP Tokens
   uniswapEthDpiLpBalance?: BigNumber

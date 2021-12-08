@@ -2,12 +2,32 @@ import React from 'react'
 import styled from 'styled-components'
 
 import useBuySell from 'hooks/useBuySell'
+import useWallet from 'hooks/useWallet'
+import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 
-const OrderSummary: React.FC = () => {
+const OrderSummary = () => {
   const { isFetchingOrderData, zeroExTradeData } = useBuySell()
+  const { chainId } = useWallet()
 
   const isOrderDataReady =
     Number(zeroExTradeData?.buyAmount) > 0 && !isFetchingOrderData
+
+  const getNetworkFee = () => {
+    if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) {
+      return (
+        (parseFloat(zeroExTradeData?.gasPrice || '0') *
+          parseFloat(zeroExTradeData?.gas || '0')) /
+          1e18 +
+        ' MATIC'
+      )
+    }
+    return (
+      (parseFloat(zeroExTradeData?.gasPrice || '0') *
+        parseFloat(zeroExTradeData?.gas || '0')) /
+        1e18 +
+      ' ETH'
+    )
+  }
 
   if (isOrderDataReady) {
     return (
@@ -18,12 +38,7 @@ const OrderSummary: React.FC = () => {
         </StyledOrderSummaryValue>
 
         <StyledOrderSummaryLabel>Network Fee</StyledOrderSummaryLabel>
-        <StyledOrderSummaryValue>
-          {(parseFloat(zeroExTradeData?.gasPrice || '0') *
-            parseFloat(zeroExTradeData?.gas || '0')) /
-            1e18 +
-            ' ETH'}
-        </StyledOrderSummaryValue>
+        <StyledOrderSummaryValue>{getNetworkFee()}</StyledOrderSummaryValue>
 
         <StyledOrderSummaryLabel>Offered From</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>

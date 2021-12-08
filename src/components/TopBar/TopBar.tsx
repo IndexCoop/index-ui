@@ -28,10 +28,17 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
           </StyledNavWrapper>
           <StyledAccountButtonWrapper>
             <DarkModeSwitch />
-            <Spacer />
-            <ChainSelector />
-            <Spacer />
-            <WalletButton />
+            <SmallSpacer />
+            <StyledWalletWrapper>
+              <ChainSelector />
+              <Spacer />
+              <WalletButton />
+            </StyledWalletWrapper>
+            <StyledMobileWalletWrapper>
+              <WalletButton />
+              <SmallSpacer />
+              <ChainSelector />
+            </StyledMobileWalletWrapper>
             <StyledMenuButton onClick={onPresentMobileMenu}>
               <MenuIcon />
             </StyledMenuButton>
@@ -94,6 +101,31 @@ const StyledMenuButton = styled.button`
     width: 44px;
     margin-left: 10px;
   }
+`
+
+const StyledWalletWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  @media (max-width: 1180px) {
+    display: none;
+  }
+`
+
+const StyledMobileWalletWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 50px;
+  @media (min-width: 1180px) {
+    display: none;
+  }
+`
+
+const SmallSpacer = styled.div`
+  height: 10px;
+  width: 10px;
+  min-height: 10px;
+  min-width: 10px;
 `
 
 export default TopBar
