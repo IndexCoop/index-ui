@@ -5,8 +5,10 @@ import { useTheme } from 'react-neu'
 
 import useBuySell from 'hooks/useBuySell'
 import MaxButton from './MaxButton'
+import useWallet from 'hooks/useWallet'
+import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 
-const TokenInputs: React.FC = () => {
+const TokenInputs = () => {
   const {
     buySellToken,
     buySellQuantity,
@@ -19,11 +21,10 @@ const TokenInputs: React.FC = () => {
     onSetSelectedCurrency,
     onSetBuySellQuantity,
   } = useBuySell()
-
   const currencyInputRef = useRef<any>()
   const setTokenInputRef = useRef<any>()
-
   const theme = useTheme()
+  const { chainId } = useWallet()
 
   const dropdownSelectStyles = useMemo(
     () => ({
@@ -81,6 +82,16 @@ const TokenInputs: React.FC = () => {
 
   const isExactInput = activeField === 'currency'
 
+  const getSellTokenCost = () => {
+    if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) return ''
+    else return '$' + zeroExTradeData?.sellTokenCost
+  }
+
+  const getBuyTokenCost = () => {
+    if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) return ''
+    else return '$' + zeroExTradeData?.buyTokenCost
+  }
+
   if (isUserBuying) {
     return (
       <>
@@ -90,9 +101,7 @@ const TokenInputs: React.FC = () => {
         >
           <StyledCurrencyLabelWrapper>
             <StyledCurrencyLabel>Pay with</StyledCurrencyLabel>
-            <StyledCurrencyLabel>
-              ${zeroExTradeData?.sellTokenCost}
-            </StyledCurrencyLabel>
+            <StyledCurrencyLabel>{getSellTokenCost()}</StyledCurrencyLabel>
           </StyledCurrencyLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
@@ -126,9 +135,7 @@ const TokenInputs: React.FC = () => {
         >
           <StyledTokenLabelWrapper>
             <StyledCurrencyLabel>Buy (estimated)</StyledCurrencyLabel>
-            <StyledCurrencyLabel>
-              ${zeroExTradeData?.buyTokenCost}
-            </StyledCurrencyLabel>
+            <StyledCurrencyLabel>{getBuyTokenCost()}</StyledCurrencyLabel>
           </StyledTokenLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
@@ -162,9 +169,7 @@ const TokenInputs: React.FC = () => {
       >
         <StyledTokenLabelWrapper>
           <StyledCurrencyLabel>Sell</StyledCurrencyLabel>
-          <StyledCurrencyLabel>
-            ${zeroExTradeData?.sellTokenCost}
-          </StyledCurrencyLabel>
+          <StyledCurrencyLabel>{getSellTokenCost()}</StyledCurrencyLabel>
         </StyledTokenLabelWrapper>
         <StyledCurrencySelectWrapper>
           <StyledInputField
@@ -188,9 +193,7 @@ const TokenInputs: React.FC = () => {
       <StyledCurrencyContainer>
         <StyledCurrencyLabelWrapper>
           <StyledCurrencyLabel>Receive (estimated)</StyledCurrencyLabel>
-          <StyledCurrencyLabel>
-            ${zeroExTradeData?.buyTokenCost}
-          </StyledCurrencyLabel>
+          <StyledCurrencyLabel>{getBuyTokenCost()}</StyledCurrencyLabel>
         </StyledCurrencyLabelWrapper>
 
         <StyledCurrencySelectWrapper>
