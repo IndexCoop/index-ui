@@ -25,6 +25,8 @@ import usePrices from 'hooks/usePrices'
 import { Token, useTokenList } from 'hooks/useTokenList'
 import useWallet from 'hooks/useWallet'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
+import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
+import { productTokensBySymbol } from 'constants/productTokens'
 
 const ASSET_PLATFORM = 'ethereum'
 const VS_CURRENCY = 'usd'
@@ -46,6 +48,9 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   const [eth2xfliComponents, setEth2xfliComponents] = useState<SetComponent[]>(
     []
   )
+  const [eth2xflipComponents, setEth2xflipComponents] = useState<
+    SetComponent[]
+  >([])
   const [btc2xfliComponents, setBtc2xfliComponents] = useState<SetComponent[]>(
     []
   )
@@ -192,67 +197,32 @@ const SetComponentsProvider: React.FC = ({ children }) => {
       tokenList &&
       dpiPrice
     ) {
-      getSetDetails(
-        provider,
-        [dpiTokenPolygonAddress, mviTokenPolygonAddress, eth2xflipTokenAddress],
-        chainId
-      ).then(async (result) => {
-        const [dpi, mvi, ethflip] = result
-
-        const dpiComponentPrices = await getPositionPrices(dpi)
-        const dpiPositions = dpi.positions.map(async (position) => {
-          return await convertPositionToSetComponent(
-            position,
-            tokenList,
-            dpiComponentPrices[position.component.toLowerCase()]?.[
-              VS_CURRENCY
-            ],
-            dpiComponentPrices[position.component.toLowerCase()]?.[
-              `${VS_CURRENCY}_24h_change`
-            ],
-            dpiPrice
-          )
+      fetchSetComponentsBeta(productTokensBySymbol['ETH2x-FLI-P'].tokensetsId)
+        .then((data) => {
+          const setComponents = (data && data.components) || []
+          setEth2xflipComponents(setComponents)
         })
-        Promise.all(dpiPositions)
-          .then(sortPositionsByPercentOfSet)
-          .then(setDpiComponents)
+        .catch((err) => console.log(err))
 
-        const mviComponentPrices = await getPositionPrices(mvi)
-        const mviPositions = mvi.positions.map(async (position) => {
-          return await convertPositionToSetComponent(
-            position,
-            tokenList,
-            mviComponentPrices[position.component.toLowerCase()]?.[
-              VS_CURRENCY
-            ],
-            mviComponentPrices[position.component.toLowerCase()]?.[
-              `${VS_CURRENCY}_24h_change`
-            ],
-            mviPrice
-          )
-        })
-        Promise.all(mviPositions)
-          .then(sortPositionsByPercentOfSet)
-          .then(setMviComponents)
-
-        const ethFlipComponentPrices = await getPositionPrices(ethflip)
-        const ethFlipPositions = ethflip.positions.map(async (position) => {
-          return await convertPositionToSetComponent(
-            position,
-            tokenList,
-            ethFlipComponentPrices[position.component.toLowerCase()]?.[
-              VS_CURRENCY
-            ],
-            ethFlipComponentPrices[position.component.toLowerCase()]?.[
-              `${VS_CURRENCY}_24h_change`
-            ],
-            eth2xflipPrice
-          )
-        })
-        Promise.all(ethFlipPositions)
-          .then(sortPositionsByPercentOfSet)
-          .then(setMviComponents)
-      })
+      // TODO: Replace Tokensets API (above) with SetJS call directly (below)
+      //   const ethFlipComponentPrices = await getPositionPrices(ethflip)
+      //   const ethFlipPositions = ethflip.positions.map(async (position) => {
+      //     return await convertPositionToSetComponent(
+      //       position,
+      //       tokenList,
+      //       ethFlipComponentPrices[position.component.toLowerCase()]?.[
+      //         VS_CURRENCY
+      //       ],
+      //       ethFlipComponentPrices[position.component.toLowerCase()]?.[
+      //         `${VS_CURRENCY}_24h_change`
+      //       ],
+      //       eth2xflipPrice
+      //     )
+      //   })
+      //   Promise.all(ethFlipPositions)
+      //     .then(sortPositionsByPercentOfSet)
+      //     .then(setMviComponents)
+      // })
     }
   }, [
     provider,
@@ -274,6 +244,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         mviComponents: mviComponents,
         bedComponents: bedComponents,
         eth2xfliComponents: eth2xfliComponents,
+        eth2xflipComponents: eth2xflipComponents,
         btc2xfliComponents: btc2xfliComponents,
         dataComponents: dataComponents,
       }}

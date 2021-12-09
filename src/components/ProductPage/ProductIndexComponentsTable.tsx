@@ -40,7 +40,11 @@ const ProductIndexComponentsTable: React.FC<ProductIndexComponentsProps> = ({
     )
   }
 
-  if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) {
+  if (
+    chainId &&
+    chainId === POLYGON_CHAIN_DATA.chainId &&
+    (components === undefined || components.length === 0)
+  ) {
     return (
       <ProductPageSection title='Allocations'>
         Connect wallet to Mainnet to view allocations
