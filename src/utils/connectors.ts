@@ -11,6 +11,7 @@ export type ChainData = {
   chainId: number
   rpcUrl: string
   icon: string
+  coingeckoId: string
 }
 
 export const MAINNET_CHAIN_DATA: ChainData = {
@@ -18,12 +19,14 @@ export const MAINNET_CHAIN_DATA: ChainData = {
   chainId: 1,
   rpcUrl: 'https://mainnet.eth.aragon.network/',
   icon: 'https://raw.githubusercontent.com/sushiswap/icons/master/network/mainnet.jpg',
+  coingeckoId: 'ethereum',
 }
 export const POLYGON_CHAIN_DATA: ChainData = {
   name: 'Polygon',
   chainId: 137,
   rpcUrl: 'https://rpc-mainnet.maticvigil.com/',
   icon: 'https://raw.githubusercontent.com/sushiswap/icons/master/network/polygon.jpg',
+  coingeckoId: 'polygon-pos',
 }
 
 if (!WS_URL) {

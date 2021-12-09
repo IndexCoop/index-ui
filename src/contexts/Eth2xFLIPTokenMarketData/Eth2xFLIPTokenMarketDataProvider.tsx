@@ -1,27 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import MarketDataContext from './Eth2xFLIPTokenMarketDataContext'
+import { fetchHistoricalTokenMarketDataOnPolygon } from 'utils/coingeckoApi'
 import { Ethereum2xFLIP } from 'constants/productTokens'
-import {
-  fetchHistoricalTokenMarketData,
-  fetchSetComponentsBeta,
-} from 'utils/tokensetsApi'
 
 const Eth2xFLIPMarketDataProvider: React.FC = ({ children }) => {
   const [fliMarketData, setFliMarketData] = useState<any>([[]])
-  const [fliMarketCapData, setFliMarketCapData] = useState<any>({})
 
   useEffect(() => {
-    fetchHistoricalTokenMarketData(Ethereum2xFLIP.tokensetsId)
+    fetchHistoricalTokenMarketDataOnPolygon(Ethereum2xFLIP.polygonAddress)
       .then((response: any) => {
-        setFliMarketData(response?.prices)
-      })
-      .catch((error: any) => console.log(error))
-  }, [])
-
-  useEffect(() => {
-    fetchSetComponentsBeta(Ethereum2xFLIP.tokensetsId)
-      .then((response: any) => {
-        setFliMarketCapData(response?.marketCap)
+        setFliMarketData(response)
       })
       .catch((error: any) => console.log(error))
   }, [])
@@ -29,17 +17,13 @@ const Eth2xFLIPMarketDataProvider: React.FC = ({ children }) => {
   const selectLatestMarketData = (marketData?: number[][]) =>
     marketData?.[marketData.length - 1]?.[1] || 0
 
-  // TODO: Replace this data with Coingecko data once available
-  // TOOD: correctly format prices and hourly prices via TokenSets API until Coingecko data is available
   return (
     <MarketDataContext.Provider
       value={{
         ...fliMarketData,
-        prices: fliMarketData,
-        hourlyPrices: fliMarketData,
-        latestMarketCap: fliMarketCapData,
-        latestPrice: selectLatestMarketData(fliMarketData),
-        latestVolume: 0,
+        latestMarketCap: selectLatestMarketData(fliMarketData?.marketcaps),
+        latestPrice: selectLatestMarketData(fliMarketData?.hourlyPrices),
+        latestVolume: selectLatestMarketData(fliMarketData?.volumes),
       }}
     >
       {children}
