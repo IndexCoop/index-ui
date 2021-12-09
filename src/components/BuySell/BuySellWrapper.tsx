@@ -5,17 +5,13 @@ import { BuySellWidget } from 'components/BuySell'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import useBuySell from 'hooks/useBuySell'
 
-interface BuySellWrapperProps {
-  tokenId: string
-}
-
-const BuySellWrapper: React.FC<BuySellWrapperProps> = ({ tokenId }) => {
+const BuySellWrapper = (props: { tokenId: string }) => {
   const { transactionStatus } = useTransactionWatcher()
   const { onSetBuySellToken } = useBuySell()
 
   useEffect(() => {
-    onSetBuySellToken(tokenId)
-  }, [onSetBuySellToken, tokenId])
+    onSetBuySellToken(props.tokenId)
+  }, [onSetBuySellToken, props.tokenId])
 
   return (
     <TransactionWatcher

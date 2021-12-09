@@ -28,6 +28,7 @@ const PricesProvider: React.FC = ({ children }) => {
   const [mviPrice, setMviPrice] = useState<number>(0)
   const [bedPrice, setBedPrice] = useState<number>(0)
   const [eth2xfliPrice, setEth2xfliPrice] = useState<number>(0)
+  const [eth2xflipPrice, setEth2xflipPrice] = useState<number>(0)
   const [btc2xfliPrice, setBtc2xfliPrice] = useState<number>(0)
   const [dataPrice, setDataPrice] = useState<number>(0)
 
@@ -81,16 +82,12 @@ const PricesProvider: React.FC = ({ children }) => {
       .catch((error) => console.log(error))
   }, [])
 
+  // TODO: Remove this logic. Replace it with coingecko sourced data once available.
   useEffect(() => {
-    const coingeckoIndexPriceUrl = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${indexTokenAddress}&vs_currencies=usd`
-
-    fetch(coingeckoIndexPriceUrl)
+    fetch('https://api.tokensets.com/public/v2/portfolios/eth2x-fli-p')
       .then((response) => response.json())
       .then((response) => {
-        const formattedIndexTokenAddress = indexTokenAddress?.toLowerCase()
-        const indexPrices = response[formattedIndexTokenAddress as string]
-        const indexUsdPrice = indexPrices.usd
-        setIndexPrice(indexUsdPrice)
+        setEth2xflipPrice(response?.portfolio.price_usd || 0)
       })
       .catch((error) => console.log(error))
   }, [])
@@ -103,6 +100,7 @@ const PricesProvider: React.FC = ({ children }) => {
       eth2xfliTokenAddress,
       btc2xfliTokenAddress,
       dataTokenAddress,
+      indexTokenAddress,
     ]
     const coinGeckoPriceUrl = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${productAddresses}&vs_currencies=usd`
 
@@ -119,6 +117,7 @@ const PricesProvider: React.FC = ({ children }) => {
           response[btc2xfliTokenAddress?.toLowerCase() as string].usd
         )
         setDataPrice(response[dataTokenAddress?.toLowerCase() as string].usd)
+        setIndexPrice(response[indexTokenAddress?.toLowerCase() as string].usd)
       })
       .catch((error) => console.error(error))
   }, [])
@@ -213,6 +212,7 @@ const PricesProvider: React.FC = ({ children }) => {
         mviPrice,
         bedPrice,
         eth2xfliPrice,
+        eth2xflipPrice,
         btc2xfliPrice,
         dataPrice,
         totalUSDInFarms,

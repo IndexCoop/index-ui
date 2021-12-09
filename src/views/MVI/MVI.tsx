@@ -8,6 +8,10 @@ import ProductDataUI, {
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
 import useSetComponents from 'hooks/useSetComponents'
+import useWallet from 'hooks/useWallet'
+import { mviTokenPolygonAddress } from 'constants/ethContractAddresses'
+import BigNumber from 'utils/bignumber'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const MviProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -16,8 +20,9 @@ const MviProductPage = (props: { title: string }) => {
 
   const { latestPrice, prices, hourlyPrices, latestMarketCap, latestVolume } =
     useMviTokenMarketData()
+  const { chainId } = useWallet()
   const { mviComponents: components } = useSetComponents()
-  const { mviBalance } = useBalances()
+  const { mviBalance, mviBalancePolygon } = useBalances()
   const { mviStreamingFee } = useStreamingFee()
   const { mviTotalSupply } = useTokenSupply()
 
@@ -25,6 +30,15 @@ const MviProductPage = (props: { title: string }) => {
     ...MetaverseIndex,
     fees: mviStreamingFee ? { streamingFee: mviStreamingFee } : undefined,
   }
+
+  const getTokenBalance = () => {
+    if (chainId) {
+      if (chainId === MAINNET_CHAIN_DATA.chainId) return mviBalance
+      else if (chainId === POLYGON_CHAIN_DATA.chainId) return mviBalancePolygon
+    }
+    return new BigNumber(0)
+  }
+
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -33,7 +47,7 @@ const MviProductPage = (props: { title: string }) => {
     latestVolume: latestVolume,
     token: token,
     components: components,
-    balance: mviBalance,
+    balance: getTokenBalance(),
     currentSupply: mviTotalSupply,
   }
 

@@ -1,11 +1,18 @@
 import BigNumber from 'utils/bignumber'
-import { ethers } from 'ethers'
+import { Contract, ethers } from 'ethers'
 import Web3 from 'web3'
 import { provider, TransactionReceipt } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
 import ERC20ABI from 'index-sdk/abi/ERC20.json'
 import SupplyCapIssuanceABI from 'index-sdk/abi/SupplyCapIssuanceHook.json'
+import { ProductToken } from 'constants/productTokens'
+import { POLYGON_CHAIN_DATA, MAINNET_CHAIN_DATA } from './connectors'
+import {
+  ethTokenAddress,
+  wethTokenPolygonAddress,
+} from 'constants/ethContractAddresses'
+import { getProvider } from 'constants/provider'
 
 const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -129,7 +136,12 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
   return balance.dividedBy(new BigNumber(10).pow(decimals)).toFixed()
 }
 
-export const makeEtherscanLink = (transactionHash: string) => {
+export const makeEtherscanLink = (
+  transactionHash: string,
+  chainId: number | undefined
+) => {
+  if (chainId && chainId === POLYGON_CHAIN_DATA.chainId)
+    return `https://polygonscan.com/tx/${transactionHash}`
   return `https://etherscan.io/tx/${transactionHash}`
 }
 
@@ -137,18 +149,16 @@ export const makeEtherscanAddressLink = (transactionHash: string) => {
   return `https://etherscan.io/address/${transactionHash}`
 }
 
-export const getSupplyCap = async (
-  tokenAddress: string,
-  provider: provider
-): Promise<string> => {
-  const web3 = new Web3(provider)
-  const tokenContract = new web3.eth.Contract(
-    SupplyCapIssuanceABI as unknown as AbiItem,
-    tokenAddress
+export const getSupplyCap = async (tokenAddress: string): Promise<string> => {
+  const provider = getProvider()
+  const tokenContract = await new Contract(
+    tokenAddress,
+    SupplyCapIssuanceABI,
+    provider
   )
   try {
-    const cap: string = await tokenContract.methods.supplyCap().call()
-    return cap
+    const cap = await tokenContract.supplyCap()
+    return cap.toString()
   } catch (e) {
     return '1'
   }
@@ -180,4 +190,20 @@ export const fromWei = (number: BigNumber | undefined, power: number = 18) => {
  */
 export const displayFromWei = (number: BigNumber | undefined) => {
   return fromWei(number).toFormat(2)
+}
+
+/**
+ * retrieves appropriate addresses for tokens
+ * @param token
+ * @param chainId
+ * @returns
+ */
+export const getTokenAddress = (chainId: number, token?: ProductToken) => {
+  if (token) {
+    if (chainId === POLYGON_CHAIN_DATA.chainId) return token.polygonAddress
+    return token.address
+  } else {
+    if (chainId === MAINNET_CHAIN_DATA.chainId) return ethTokenAddress
+    return wethTokenPolygonAddress
+  }
 }

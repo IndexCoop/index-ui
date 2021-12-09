@@ -67,7 +67,7 @@ If you are looking for more information or need help getting answers, we have mu
 
 - [Discord][4] - Join our Discord for community discussions, questions, ideas, or involvement in the Index Coop.
 
-  - The `#bronze_owl_quest` channel exists to get new joiners plugged in and familiarized with how we do things as a community.
+  - The `#copper_owl_quest` channel exists to get new joiners plugged in and familiarized with how we do things as a community.
   - The `#wizardry` channel is a great place for experienced newcomers to continue learning while they complete bounties.
   - The `#dev` channel is home to the Engineering Working Group. The majority of development discussions take place here.
 
@@ -75,8 +75,10 @@ If you are looking for more information or need help getting answers, we have mu
 
 - [Index Website][5] - Visit our homepage to browse the products we offer and [learn more][6] about who we are. You can also:
 
-  - [Read][7] about new and exciting developments at Index.
-  - [Participate][8] in liquidity mining.
+  - [Read][60] about all things within the Index Coop community.
+  - [Discover][61] how you can contribute.
+  - [Become][62] one of our methodologists.
+  - [Invest][63] in our products.
   - [Vote][9] on proposals.
 
 ###### &nbsp;
@@ -95,9 +97,9 @@ Plus, don't forget to subscribe to us on [Reddit][13] and follow us on [Twitter]
 
 ### **Your Contribution to the Index Coop**
 
-The primary purpose of these guidelines is aimed at providing our developers with an overview of how work on the Index UI is processed. If you are a developer, then welcome! We need your experience and expertise to help us refine and enhance our products for all of our users around the world. Go ahead and join our [Discord][4] and navigate to the `#bronze_owl_quests` channel to introduce yourself.
+The primary purpose of these guidelines is aimed at providing our developers with an overview of how work on the Index UI is processed. If you are a developer, then welcome! We need your experience and expertise to help us refine and enhance our products for all of our users around the world. Go ahead and read up on our [New Joiner Quest][56], then join our [Discord][4] and navigate to the `#copper_owl_quest` channel to introduce yourself.
 
-If you are not a developer, then **we still need you!** The Index Coop is a massive project containing a multitude of developmetal sectors. Whether you are a coding expert, an analytics guru, a talented artist, a creative visionary, an intelligent designer, an exceptional influencer, or a glorified memelord, we can guarantee that you have a part to play in our communitee. For more information on how to [get involved][56], check out the crash course on our [working groups][29] and say hello to everyone in the `#introductions` channel on our [Discord][4].
+If you are not a developer, then **we still need you!** The Index Coop is a massive project containing a multitude of developmetal sectors. Whether you are a coding expert, an analytics guru, a talented artist, a creative visionary, an intelligent designer, an exceptional influencer, or a glorified memelord, we can guarantee that you have a part to play in our communitee. For more information on how to get involved, check out the crash course on our [working groups][29] and say hello to everyone in the `#introductions` channel on our [Discord][4].
 
 &nbsp;
 
@@ -298,10 +300,10 @@ Some general troubleshooting guidelines to consider:
 [3]: https://github.com/SetProtocol/index-ui/blob/master/CODE_OF_CONDUCT.md/ 'code of conduct'
 [4]: https://discord.gg/indexcoop 'index discord'
 [5]: https://www.indexcoop.com/ 'index website'
-[6]: https://www.indexcoop.com/about 'index about'
+[6]: https://www.indexcoop.com/about-index-coop.html 'index about'
 [7]: https://www.indexcoop.com/news 'index news'
 [8]: https://www.indexcoop.com/liquidity-mining 'index liquidity'
-[9]: https://www.indexcoop.com/vote 'index vote'
+[9]: https://snapshot.org/#/index-coop.eth 'index vote'
 [10]: https://gov.indexcoop.com/ 'index forum'
 [11]: https://indexcoop.substack.com/ 'index newsletter'
 [12]: https://open.spotify.com/show/0v5veLRT0acyTpnq7I9YtL?si=hGdPGv9KTaGJJPs8HIbCOQ 'index podcast'
@@ -348,7 +350,11 @@ Some general troubleshooting guidelines to consider:
 [53]: https://docs.github.com/en/github/managing-your-work-on-github/file-attachments-on-issues-and-pull-requests 'github upload files for review'
 [54]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/requesting-a-pull-request-review 'github request a review'
 [55]: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/merging-a-pull-request 'github merging a PR'
-[56]: https://docs.indexcoop.com/learn-more/20+-ways-to-get-involved 'index get involved'
+[56]: https://docs.indexcoop.com/new-joiners 'index new joiner'
 [57]: https://docs.indexcoop.com/resources-beta/shared-docs 'index community docs'
-[58]: https://docs.indexcoop.com/resources-beta/press-kit 'index press kit'
+[58]: https://docs.indexcoop.com/resources/press-kit 'index press kit'
 [59]: https://nodejs.org/en/download/ 'node.js installation'
+[60]: https://docs.indexcoop.com/essential-resources/written-articles 'index learn'
+[61]: https://www.indexcoop.com/contributor.html 'index contribute'
+[62]: https://www.indexcoop.com/methodologist.html 'index methodologist'
+[63]: https://app.indexcoop.com/ 'index invest'

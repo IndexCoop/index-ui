@@ -7,12 +7,15 @@ import ExternalLink from 'components/ExternalLink'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { makeEtherscanLink } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWatcherContext'
+import useWallet from 'hooks/useWallet'
 
 const FailedTransaction: React.FC = () => {
   const { transactionId, onSetTransactionId, onSetTransactionStatus } =
     useTransactionWatcher()
+  const { chainId } = useWallet()
 
-  const etherscanLink = transactionId && makeEtherscanLink(transactionId)
+  const etherscanLink =
+    transactionId && makeEtherscanLink(transactionId, chainId)
 
   const onFinishTransaction = () => {
     onSetTransactionId()

@@ -6,6 +6,7 @@ interface SetComponentsProps {
   mviComponents?: SetComponent[]
   bedComponents?: SetComponent[]
   eth2xfliComponents?: SetComponent[]
+  eth2xflipComponents?: SetComponent[]
   btc2xfliComponents?: SetComponent[]
   dataComponents?: SetComponent[]
 }

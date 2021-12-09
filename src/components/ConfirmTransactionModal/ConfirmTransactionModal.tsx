@@ -28,7 +28,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
   transactionMiningStatus,
   onDismiss,
 }) => {
-  const { connector } = useWallet()
+  const { connector, chainId } = useWallet()
 
   const WalletLogo = useMemo(() => {
     if (connector === 'injected') {
@@ -41,7 +41,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
   const etherscanLink = useMemo(() => {
     if (!transactionId) return
 
-    const etherscanUrl = makeEtherscanLink(transactionId)
+    const etherscanUrl = makeEtherscanLink(transactionId, chainId)
 
     return (
       <>
@@ -55,7 +55,7 @@ const ConfirmTransactionModal: React.FC<ConfirmationModalProps> = ({
         </ExternalLink>
       </>
     )
-  }, [transactionId])
+  }, [chainId, transactionId])
 
   switch (transactionMiningStatus) {
     case TransactionStatusType.IS_UNSTARTED:
