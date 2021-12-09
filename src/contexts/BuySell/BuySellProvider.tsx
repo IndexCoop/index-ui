@@ -36,6 +36,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     mviBalancePolygon,
     bedBalance,
     dataBalance,
+    dataBalancePolygon,
     ethfliBalance,
     ethflipBalance,
     btcfliBalance,
@@ -70,7 +71,9 @@ const BuySellProvider: React.FC = ({ children }) => {
   } else if (!isUserBuying && buySellToken === 'dpi') {
     spendingTokenBalance = getNetworkedBalance(dpiBalance, dpiBalancePolygon)
   } else if (!isUserBuying && buySellToken === 'ethfli') {
-    spendingTokenBalance = getNetworkedBalance(ethfliBalance, ethflipBalance)
+    spendingTokenBalance = fromWei(ethfliBalance)
+  } else if (!isUserBuying && buySellToken === 'eth2x-fli-p') {
+    spendingTokenBalance = fromWei(ethflipBalance)
   } else if (!isUserBuying && buySellToken === 'btcfli') {
     spendingTokenBalance = fromWei(btcfliBalance)
   } else if (!isUserBuying && buySellToken === 'mvi') {
@@ -78,7 +81,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   } else if (!isUserBuying && buySellToken === 'bed') {
     spendingTokenBalance = fromWei(bedBalance)
   } else if (!isUserBuying && buySellToken === 'data') {
-    spendingTokenBalance = fromWei(dataBalance)
+    spendingTokenBalance = getNetworkedBalance(dataBalance, dataBalancePolygon)
   } else if (selectedCurrency?.label === 'ETH') {
     spendingTokenBalance = getNetworkedBalance(ethBalance, wethBalancePolygon)
   } else if (selectedCurrency?.label === 'DAI') {
