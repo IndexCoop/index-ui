@@ -83,19 +83,19 @@ const PricesProvider: React.FC = ({ children }) => {
       .catch((error) => console.log(error))
   }, [])
 
-  useEffect(() => {
-    const coingeckoIndexPriceUrl = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${indexTokenAddress}&vs_currencies=usd`
+  // useEffect(() => {
+  //   const coingeckoIndexPriceUrl = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${indexTokenAddress}&vs_currencies=usd`
 
-    fetch(coingeckoIndexPriceUrl)
-      .then((response) => response.json())
-      .then((response) => {
-        const formattedIndexTokenAddress = indexTokenAddress?.toLowerCase()
-        const indexPrices = response[formattedIndexTokenAddress as string]
-        const indexUsdPrice = indexPrices.usd
-        setIndexPrice(indexUsdPrice)
-      })
-      .catch((error) => console.log(error))
-  }, [])
+  //   fetch(coingeckoIndexPriceUrl)
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       const formattedIndexTokenAddress = indexTokenAddress?.toLowerCase()
+  //       const indexPrices = response[formattedIndexTokenAddress as string]
+  //       const indexUsdPrice = indexPrices.usd
+  //       setIndexPrice(indexUsdPrice)
+  //     })
+  //     .catch((error) => console.log(error))
+  // }, [])
 
   useEffect(() => {
     const productAddresses = [
@@ -106,6 +106,7 @@ const PricesProvider: React.FC = ({ children }) => {
       eth2xflipTokenAddress,
       btc2xfliTokenAddress,
       dataTokenAddress,
+      indexTokenAddress,
     ]
     const coinGeckoPriceUrl = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${productAddresses}&vs_currencies=usd`
 
@@ -125,6 +126,7 @@ const PricesProvider: React.FC = ({ children }) => {
           response[btc2xfliTokenAddress?.toLowerCase() as string].usd
         )
         setDataPrice(response[dataTokenAddress?.toLowerCase() as string].usd)
+        setIndexPrice(response[indexTokenAddress?.toLowerCase() as string].usd)
       })
       .catch((error) => console.error(error))
   }, [])
