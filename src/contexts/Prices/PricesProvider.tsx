@@ -83,14 +83,10 @@ const PricesProvider: React.FC = ({ children }) => {
   }, [])
 
   // TODO: Remove this logic. Replace it with coingecko sourced data once available.
-  // Author: @controtie
-
   useEffect(() => {
     fetch('https://api.tokensets.com/public/v2/portfolios/eth2x-fli-p')
       .then((response) => response.json())
       .then((response) => {
-        console.log('response', response)
-        console.log('price', response?.portfolio.price_usd)
         setEth2xflipPrice(response?.portfolio.price_usd || 0)
       })
       .catch((error) => console.log(error))
