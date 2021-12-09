@@ -187,6 +187,13 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           .then(sortPositionsByPercentOfSet)
           .then(setDataComponents)
       })
+
+      fetchSetComponentsBeta(productTokensBySymbol['ETH2x-FLI-P'].tokensetsId)
+        .then((data) => {
+          const setComponents = (data && data.components) || []
+          setEth2xflipComponents(setComponents)
+        })
+        .catch((err) => console.log(err))
     } else if (
       chainId &&
       chainId === POLYGON_CHAIN_DATA.chainId &&
