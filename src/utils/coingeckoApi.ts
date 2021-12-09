@@ -32,7 +32,7 @@ export const fetchHistoricalTokenMarketData = (
 }
 
 export const fetchHistoricalTokenMarketDataOnPolygon = (
-  polygonAddress?: string
+  polygonTokenAddress?: string
 ) => {
   const coingeckoTokenIdentifier = `${POLYGON_CHAIN_DATA.coingeckoId}/contract/${polygonAddress}`
 
