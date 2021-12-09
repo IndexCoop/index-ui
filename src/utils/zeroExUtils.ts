@@ -5,7 +5,7 @@ import BigNumber from 'utils/bignumber'
 import { polygonTokenInfo, tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
 import { fetchCoingeckoTokenPrice } from './coingeckoApi'
-import { MAINNET_CHAIN_DATA } from './connectors'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors';
 
 export const getZeroExTradeData = async (
   isExactInput: boolean,
@@ -64,6 +64,8 @@ const getApiParams = (
   chainId: number
 ): any => {
   let params: any
+  console.log('buy token', buyToken)
+  console.log('sell token', sellToken)
   if (chainId === MAINNET_CHAIN_DATA.chainId) {
     params = {
       sellToken: tokenInfo[sellToken].address,
@@ -81,6 +83,9 @@ const getApiParams = (
       )
     }
   } else {
+    console.log('polygon token info', polygonTokenInfo)
+    console.log('buy token', polygonTokenInfo[buyToken])
+    console.log('sell token', polygonTokenInfo[sellToken])
     params = {
       sellToken: polygonTokenInfo[sellToken].address,
       buyToken: polygonTokenInfo[buyToken].address,
@@ -111,26 +116,28 @@ const processApiResult = async (
   buySellAmount: string,
   chainId: number
 ): Promise<ZeroExData> => {
+  const tokenInfoByChain = chainId === POLYGON_CHAIN_DATA.chainId ? polygonTokenInfo : tokenInfo;
+
   zeroExData.displaySellAmount = getDisplayAdjustedAmount(
     zeroExData.sellAmount,
-    tokenInfo[sellToken].decimals
+    tokenInfoByChain[sellToken].decimals
   )
   zeroExData.displayBuyAmount = getDisplayAdjustedAmount(
     zeroExData.buyAmount,
-    tokenInfo[buyToken].decimals
+    tokenInfoByChain[buyToken].decimals
   )
 
   const guaranteedPrice = new BigNumber(zeroExData.guaranteedPrice)
   zeroExData.minOutput = isExactInput
     ? guaranteedPrice
         .multipliedBy(new BigNumber(zeroExData.sellAmount))
-        .dividedBy(new BigNumber('1e' + tokenInfo[sellToken].decimals))
+        .dividedBy(new BigNumber('1e' + tokenInfoByChain[sellToken].decimals))
     : new BigNumber(buySellAmount)
   zeroExData.maxInput = isExactInput
     ? new BigNumber(buySellAmount)
     : guaranteedPrice
         .multipliedBy(new BigNumber(zeroExData.buyAmount))
-        .dividedBy(new BigNumber('1e' + tokenInfo[buyToken].decimals))
+        .dividedBy(new BigNumber('1e' + tokenInfoByChain[buyToken].decimals))
 
   zeroExData.formattedSources = formatSources(zeroExData.sources)
 

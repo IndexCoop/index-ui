@@ -3,6 +3,7 @@ import {
   daiTokenAddress,
   dpiTokenAddress,
   eth2xfliTokenAddress,
+  eth2xflipTokenAddress,
   indexTokenAddress,
   mviTokenAddress,
   usdcTokenAddress,
@@ -76,6 +77,10 @@ export const polygonTokenInfo: any = {
   },
   ETH: {
     address: wethTokenPolygonAddress,
+    decimals: 18,
+  },
+  'eth2x-fli-p': {
+    address: eth2xflipTokenAddress,
     decimals: 18,
   },
 }
