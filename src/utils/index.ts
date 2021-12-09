@@ -136,7 +136,12 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
   return balance.dividedBy(new BigNumber(10).pow(decimals)).toFixed()
 }
 
-export const makeEtherscanLink = (transactionHash: string) => {
+export const makeEtherscanLink = (
+  transactionHash: string,
+  chainId: number | undefined
+) => {
+  if (chainId && chainId === POLYGON_CHAIN_DATA.chainId)
+    return `https://polygonscan.com/tx/${transactionHash}`
   return `https://etherscan.io/tx/${transactionHash}`
 }
 
