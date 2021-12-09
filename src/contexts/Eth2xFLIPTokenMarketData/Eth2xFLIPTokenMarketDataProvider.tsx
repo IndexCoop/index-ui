@@ -29,10 +29,14 @@ const Eth2xFLIPMarketDataProvider: React.FC = ({ children }) => {
   const selectLatestMarketData = (marketData?: number[][]) =>
     marketData?.[marketData.length - 1]?.[1] || 0
 
+  // TODO: Replace this data with Coingecko data once available
+  // TOOD: correctly format prices and hourly prices via TokenSets API until Coingecko data is available
   return (
     <MarketDataContext.Provider
       value={{
         ...fliMarketData,
+        prices: fliMarketData,
+        hourlyPrices: fliMarketData,
         latestMarketCap: fliMarketCapData,
         latestPrice: selectLatestMarketData(fliMarketData),
         latestVolume: 0,
