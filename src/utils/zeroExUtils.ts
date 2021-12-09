@@ -5,7 +5,7 @@ import BigNumber from 'utils/bignumber'
 import { polygonTokenInfo, tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
 import { fetchCoingeckoTokenPrice } from './coingeckoApi'
-import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors';
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors'
 
 export const getZeroExTradeData = async (
   isExactInput: boolean,
@@ -64,8 +64,6 @@ const getApiParams = (
   chainId: number
 ): any => {
   let params: any
-  console.log('buy token', buyToken)
-  console.log('sell token', sellToken)
   if (chainId === MAINNET_CHAIN_DATA.chainId) {
     params = {
       sellToken: tokenInfo[sellToken].address,
@@ -83,9 +81,6 @@ const getApiParams = (
       )
     }
   } else {
-    console.log('polygon token info', polygonTokenInfo)
-    console.log('buy token', polygonTokenInfo[buyToken])
-    console.log('sell token', polygonTokenInfo[sellToken])
     params = {
       sellToken: polygonTokenInfo[sellToken].address,
       buyToken: polygonTokenInfo[buyToken].address,
@@ -116,7 +111,8 @@ const processApiResult = async (
   buySellAmount: string,
   chainId: number
 ): Promise<ZeroExData> => {
-  const tokenInfoByChain = chainId === POLYGON_CHAIN_DATA.chainId ? polygonTokenInfo : tokenInfo;
+  const tokenInfoByChain =
+    chainId === POLYGON_CHAIN_DATA.chainId ? polygonTokenInfo : tokenInfo
 
   zeroExData.displaySellAmount = getDisplayAdjustedAmount(
     zeroExData.sellAmount,
