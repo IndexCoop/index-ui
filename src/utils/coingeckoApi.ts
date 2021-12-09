@@ -31,6 +31,14 @@ export const fetchHistoricalTokenMarketData = (
     .catch((error) => console.log(error))
 }
 
+export const fetchHistoricalTokenMarketDataOnPolygon = (
+  polygonAddress?: string
+) => {
+  const coingeckoTokenIdentifier = `${POLYGON_CHAIN_DATA.coingeckoId}/contract/${polygonAddress}`
+
+  return fetchHistoricalTokenMarketData(coingeckoTokenIdentifier)
+}
+
 const getAssetPlatform = (chainId: number) => {
   if (chainId === POLYGON_CHAIN_DATA.chainId) return 'polygon-pos'
   return 'ethereum'
