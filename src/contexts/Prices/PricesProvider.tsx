@@ -8,7 +8,6 @@ import {
   eth2xfliTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
-  eth2xflipTokenAddress,
 } from 'constants/ethContractAddresses'
 
 import PricesContext from './PricesContext'
@@ -83,13 +82,26 @@ const PricesProvider: React.FC = ({ children }) => {
       .catch((error) => console.log(error))
   }, [])
 
+  // TODO: Remove this logic. Replace it with coingecko sourced data once available.
+  // Author: @controtie
+
+  useEffect(() => {
+    fetch('https://api.tokensets.com/public/v2/portfolios/eth2x-fli-p')
+      .then((response) => response.json())
+      .then((response) => {
+        console.log('response', response)
+        console.log('price', response?.portfolio.price_usd)
+        setEth2xflipPrice(response?.portfolio.price_usd || 0)
+      })
+      .catch((error) => console.log(error))
+  }, [])
+
   useEffect(() => {
     const productAddresses = [
       dpiTokenAddress,
       mviTokenAddress,
       bedTokenAddress,
       eth2xfliTokenAddress,
-      eth2xflipTokenAddress,
       btc2xfliTokenAddress,
       dataTokenAddress,
       indexTokenAddress,
@@ -104,9 +116,6 @@ const PricesProvider: React.FC = ({ children }) => {
         setBedPrice(response[bedTokenAddress?.toLowerCase() as string].usd)
         setEth2xfliPrice(
           response[eth2xfliTokenAddress?.toLowerCase() as string].usd
-        )
-        setEth2xflipPrice(
-          response[eth2xflipTokenAddress?.toLowerCase() as string].usd
         )
         setBtc2xfliPrice(
           response[btc2xfliTokenAddress?.toLowerCase() as string].usd
