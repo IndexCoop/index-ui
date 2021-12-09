@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import MarketDataContext from './Eth2xFLIPTokenMarketDataContext'
 import { fetchHistoricalTokenMarketDataOnPolygon } from 'utils/coingeckoApi'
+import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
 import { Ethereum2xFLIP } from 'constants/productTokens'
 
 const Eth2xFLIPMarketDataProvider: React.FC = ({ children }) => {
   const [fliMarketData, setFliMarketData] = useState<any>([[]])
+  const [fliMarketCap, setFliMarketCap] = useState<any>(0)
 
   useEffect(() => {
     fetchHistoricalTokenMarketDataOnPolygon(Ethereum2xFLIP.polygonAddress)
       .then((response: any) => {
         setFliMarketData(response)
+      })
+      .catch((error: any) => console.log(error))
+  }, [])
+
+  // TODO: Replace this with coingecko data once available.
+  useEffect(() => {
+    fetchSetComponentsBeta(Ethereum2xFLIP.tokensetsId)
+      .then((response: any) => {
+        setFliMarketCap(response?.marketCap)
       })
       .catch((error: any) => console.log(error))
   }, [])
@@ -21,7 +32,7 @@ const Eth2xFLIPMarketDataProvider: React.FC = ({ children }) => {
     <MarketDataContext.Provider
       value={{
         ...fliMarketData,
-        latestMarketCap: selectLatestMarketData(fliMarketData?.marketcaps),
+        latestMarketCap: fliMarketCap,
         latestPrice: selectLatestMarketData(fliMarketData?.hourlyPrices),
         latestVolume: selectLatestMarketData(fliMarketData?.volumes),
       }}
