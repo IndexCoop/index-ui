@@ -13,7 +13,7 @@ const Eth2xFLIPMarketDataProvider: React.FC = ({ children }) => {
   useEffect(() => {
     fetchHistoricalTokenMarketData(Ethereum2xFLIP.tokensetsId)
       .then((response: any) => {
-        setFliMarketData(response)
+        setFliMarketData(response?.prices)
       })
       .catch((error: any) => console.log(error))
   }, [])
@@ -34,8 +34,8 @@ const Eth2xFLIPMarketDataProvider: React.FC = ({ children }) => {
       value={{
         ...fliMarketData,
         latestMarketCap: fliMarketCapData,
-        latestPrice: selectLatestMarketData(fliMarketData?.hourlyPrices),
-        latestVolume: selectLatestMarketData(fliMarketData?.volumes),
+        latestPrice: selectLatestMarketData(fliMarketData),
+        latestVolume: 0,
       }}
     >
       {children}
