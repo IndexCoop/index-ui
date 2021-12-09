@@ -15,18 +15,23 @@ import {
   mviTokenAddress,
   bedTokenAddress,
   eth2xfliTokenAddress,
+  eth2xflipTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
+  dpiTokenPolygonAddress,
+  mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
 import usePrices from 'hooks/usePrices'
 import { Token, useTokenList } from 'hooks/useTokenList'
 import useWallet from 'hooks/useWallet'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
+import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
+import { productTokensBySymbol } from 'constants/productTokens'
 
 const ASSET_PLATFORM = 'ethereum'
 const VS_CURRENCY = 'usd'
 
 const SetComponentsProvider: React.FC = ({ children }) => {
-  const { ethereum }: { ethereum: provider } = useWallet()
   const { tokenList } = useTokenList()
   const {
     dpiPrice,
@@ -35,6 +40,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     eth2xfliPrice,
     btc2xfliPrice,
     dataPrice,
+    eth2xflipPrice,
   } = usePrices()
   const [dpiComponents, setDpiComponents] = useState<SetComponent[]>([])
   const [mviComponents, setMviComponents] = useState<SetComponent[]>([])
@@ -42,14 +48,20 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   const [eth2xfliComponents, setEth2xfliComponents] = useState<SetComponent[]>(
     []
   )
+  const [eth2xflipComponents, setEth2xflipComponents] = useState<
+    SetComponent[]
+  >([])
   const [btc2xfliComponents, setBtc2xfliComponents] = useState<SetComponent[]>(
     []
   )
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
+  const { ethereum: provider, chainId } = useWallet()
 
   useEffect(() => {
     if (
-      ethereum &&
+      chainId &&
+      chainId === MAINNET_CHAIN_DATA.chainId &&
+      provider &&
       dpiTokenAddress &&
       mviTokenAddress &&
       bedTokenAddress &&
@@ -59,14 +71,18 @@ const SetComponentsProvider: React.FC = ({ children }) => {
       tokenList &&
       dpiPrice
     ) {
-      getSetDetails(ethereum, [
-        dpiTokenAddress,
-        mviTokenAddress,
-        bedTokenAddress,
-        eth2xfliTokenAddress,
-        btc2xfliTokenAddress,
-        dataTokenAddress,
-      ]).then(async (result) => {
+      getSetDetails(
+        provider,
+        [
+          dpiTokenAddress,
+          mviTokenAddress,
+          bedTokenAddress,
+          eth2xfliTokenAddress,
+          btc2xfliTokenAddress,
+          dataTokenAddress,
+        ],
+        chainId
+      ).then(async (result) => {
         const [dpi, mvi, bed, eth2xfli, btc2xfli, data] = result
 
         const dpiComponentPrices = await getPositionPrices(dpi)
@@ -171,16 +187,61 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           .then(sortPositionsByPercentOfSet)
           .then(setDataComponents)
       })
+
+      fetchSetComponentsBeta(productTokensBySymbol['ETH2x-FLI-P'].tokensetsId)
+        .then((data) => {
+          const setComponents = (data && data.components) || []
+          setEth2xflipComponents(setComponents)
+        })
+        .catch((err) => console.log(err))
+    } else if (
+      chainId &&
+      chainId === POLYGON_CHAIN_DATA.chainId &&
+      provider &&
+      dpiTokenPolygonAddress &&
+      mviTokenPolygonAddress &&
+      eth2xflipTokenAddress &&
+      tokenList &&
+      dpiPrice
+    ) {
+      fetchSetComponentsBeta(productTokensBySymbol['ETH2x-FLI-P'].tokensetsId)
+        .then((data) => {
+          const setComponents = (data && data.components) || []
+          setEth2xflipComponents(setComponents)
+        })
+        .catch((err) => console.log(err))
+
+      // TODO: Replace Tokensets API (above) with SetJS call directly (below)
+      //   const ethFlipComponentPrices = await getPositionPrices(ethflip)
+      //   const ethFlipPositions = ethflip.positions.map(async (position) => {
+      //     return await convertPositionToSetComponent(
+      //       position,
+      //       tokenList,
+      //       ethFlipComponentPrices[position.component.toLowerCase()]?.[
+      //         VS_CURRENCY
+      //       ],
+      //       ethFlipComponentPrices[position.component.toLowerCase()]?.[
+      //         `${VS_CURRENCY}_24h_change`
+      //       ],
+      //       eth2xflipPrice
+      //     )
+      //   })
+      //   Promise.all(ethFlipPositions)
+      //     .then(sortPositionsByPercentOfSet)
+      //     .then(setMviComponents)
+      // })
     }
   }, [
-    ethereum,
+    provider,
     tokenList,
     dpiPrice,
     mviPrice,
+    chainId,
     bedPrice,
     eth2xfliPrice,
     btc2xfliPrice,
     dataPrice,
+    eth2xflipPrice,
   ])
 
   return (
@@ -190,6 +251,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         mviComponents: mviComponents,
         bedComponents: bedComponents,
         eth2xfliComponents: eth2xfliComponents,
+        eth2xflipComponents: eth2xflipComponents,
         btc2xfliComponents: btc2xfliComponents,
         dataComponents: dataComponents,
       }}

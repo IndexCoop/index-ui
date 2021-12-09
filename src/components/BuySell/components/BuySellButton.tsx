@@ -4,10 +4,9 @@ import { RoundedButton } from 'components/RoundedButton'
 import useBuySell from 'hooks/useBuySell'
 import useWallet from 'hooks/useWallet'
 import useApproval from 'hooks/useApproval'
-import {
-  ethTokenAddress,
-  zeroExRouterAddress,
-} from 'constants/ethContractAddresses'
+import { zeroExRouterAddress } from 'constants/ethContractAddresses'
+import { getTokenAddress } from 'utils'
+import { MAINNET_CHAIN_DATA } from 'utils/connectors'
 
 /**
  * BuySellButton - Displays a button used in the buy sell flow.
@@ -37,7 +36,8 @@ const BuySellButton: React.FC = () => {
   const tokenApprovalRequired = !tokenApproval.isApproved
   const tokenApproving = tokenApproval.isApproving
   const ignoreApproval =
-    zeroExTradeData?.sellTokenAddress === ethTokenAddress ||
+    zeroExTradeData?.sellTokenAddress ===
+      getTokenAddress(MAINNET_CHAIN_DATA.chainId) ||
     zeroExTradeData?.sellTokenAddress === undefined
 
   let buttonText: string

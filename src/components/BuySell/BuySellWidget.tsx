@@ -6,7 +6,7 @@ import TokenInputs from './components/TokenInputs'
 import OrderSummary from './components/OrderSummary'
 import BuySellButton from './components/BuySellButton'
 
-const BuySellWidget: React.FC = () => {
+const BuySellWidget = () => {
   return (
     <StyledBuySellCard data-cy='buy-sell-selector'>
       <StyledBuySellCardContent>

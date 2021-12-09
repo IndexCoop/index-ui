@@ -11,6 +11,7 @@ import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/m
 import {
   dpiTokenAddress,
   eth2xfliTokenAddress,
+  eth2xflipTokenAddress,
   btc2xfliTokenAddress,
   mviTokenAddress,
   indexTokenAddress,
@@ -23,7 +24,14 @@ import {
   mviStakingRewardsAddress,
   bedTokenAddress,
   dataTokenAddress,
+  dpiTokenPolygonAddress,
+  mviTokenPolygonAddress,
+  daiTokenPolygonAddress,
+  usdcTokenPolygonAddress,
+  wethTokenPolygonAddress,
+  dataTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const Provider: React.FC = ({ children }) => {
   const [ethBalance, setEthBalance] = useState<BigNumber>()
@@ -36,6 +44,15 @@ const Provider: React.FC = ({ children }) => {
   const [usdcBalance, setUsdcBalance] = useState<BigNumber>()
   const [bedBalance, setBedBalance] = useState<BigNumber>()
   const [dataBalance, setDataBalance] = useState<BigNumber>()
+
+  // polygon balances
+  const [wethBalancePolygon, setWethBalancePolygon] = useState<BigNumber>()
+  const [dpiBalancePolygon, setDpiBalancePolygon] = useState<BigNumber>()
+  const [ethflipBalance, setEthFlipBalance] = useState<BigNumber>()
+  const [mviBalancePolygon, setMviBalancePolygon] = useState<BigNumber>()
+  const [daiBalancePolygon, setDaiBalancePolygon] = useState<BigNumber>()
+  const [usdcBalancePolygon, setUsdcBalancePolygon] = useState<BigNumber>()
+  const [dataBalancePolygon, setDataBalancePolygon] = useState<BigNumber>()
 
   // LP Tokens Balances
   const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] =
@@ -60,96 +77,124 @@ const Provider: React.FC = ({ children }) => {
   const [unharvestedMviRewardsBalance, setUnharvestedMviRewardsBalance] =
     useState<BigNumber>()
 
-  const {
-    account,
-    ethereum,
-    status,
-  }: {
-    account: string | null | undefined
-    ethereum: provider
-    status: string
-  } = useWallet()
+  const { account, ethereum, status, chainId } = useWallet()
 
   const fetchBalances = useCallback(
     async (userAddress: string, provider: provider) => {
       if (
         !indexTokenAddress ||
         !dpiTokenAddress ||
+        !dpiTokenPolygonAddress ||
         !eth2xfliTokenAddress ||
+        !eth2xflipTokenAddress ||
         !btc2xfliTokenAddress ||
         !mviTokenAddress ||
+        !mviTokenPolygonAddress ||
         !daiTokenAddress ||
+        !daiTokenPolygonAddress ||
         !usdcTokenAddress ||
+        !usdcTokenPolygonAddress ||
         !bedTokenAddress ||
         !dataTokenAddress ||
+        !dataTokenPolygonAddress ||
         !uniswapEthDpiLpTokenAddress ||
         !uniswapEthMviLpTokenAddress ||
         !stakingRewardsAddress ||
         !farmTwoAddress ||
-        !mviStakingRewardsAddress
+        !mviStakingRewardsAddress ||
+        !wethTokenPolygonAddress
       ) {
         throw new Error(
           'A token address is not defined. Please check your .env to confirm all token addresses are defined.'
         )
       }
-      const balances = await Promise.all([
-        getEthBalance(provider, userAddress),
-        getBalance(provider, indexTokenAddress, userAddress),
-        getBalance(provider, dpiTokenAddress, userAddress),
-        getBalance(provider, eth2xfliTokenAddress, userAddress),
-        getBalance(provider, btc2xfliTokenAddress, userAddress),
-        getBalance(provider, mviTokenAddress, userAddress),
-        getBalance(provider, daiTokenAddress, userAddress),
-        getBalance(provider, usdcTokenAddress, userAddress),
-        getBalance(provider, bedTokenAddress, userAddress),
-        getBalance(provider, dataTokenAddress, userAddress),
+      if (chainId && chainId === MAINNET_CHAIN_DATA.chainId) {
+        const balances = await Promise.all([
+          getEthBalance(provider, userAddress),
+          getBalance(provider, indexTokenAddress, userAddress),
+          getBalance(provider, dpiTokenAddress, userAddress),
+          getBalance(provider, eth2xfliTokenAddress, userAddress),
+          getBalance(provider, btc2xfliTokenAddress, userAddress),
+          getBalance(provider, mviTokenAddress, userAddress),
+          getBalance(provider, daiTokenAddress, userAddress),
+          getBalance(provider, usdcTokenAddress, userAddress),
+          getBalance(provider, bedTokenAddress, userAddress),
+          getBalance(provider, dataTokenAddress, userAddress),
 
-        // LP Token Balances
-        getBalance(provider, uniswapEthDpiLpTokenAddress, userAddress),
-        getBalance(provider, uniswapEthMviLpTokenAddress, userAddress),
+          // LP Token Balances
+          getBalance(provider, uniswapEthDpiLpTokenAddress, userAddress),
+          getBalance(provider, uniswapEthMviLpTokenAddress, userAddress),
 
-        // Legacy DPI LM Program Balances
-        getBalance(provider, stakingRewardsAddress, userAddress),
-        getEarnedIndexTokenQuantity(provider, userAddress),
+          // Legacy DPI LM Program Balances
+          getBalance(provider, stakingRewardsAddress, userAddress),
+          getEarnedIndexTokenQuantity(provider, userAddress),
 
-        // Current DPI LM Program Balances
-        getBalance(provider, farmTwoAddress, userAddress),
-        getEarnedFarmTwoBalance(provider, userAddress),
-      ])
-      // Current MVI LM Program Balances
-      const balances2 = await Promise.all([
-        getBigNumBalance(provider, mviStakingRewardsAddress, userAddress),
-        getMviRewardsBalance(provider, userAddress),
-      ])
+          // Current DPI LM Program Balances
+          getBalance(provider, farmTwoAddress, userAddress),
+          getEarnedFarmTwoBalance(provider, userAddress),
+        ])
+        // Current MVI LM Program Balances
+        const balances2 = await Promise.all([
+          getBigNumBalance(provider, mviStakingRewardsAddress, userAddress),
+          getMviRewardsBalance(provider, userAddress),
+        ])
 
-      setEthBalance(new BigNumber(balances[0]))
-      setIndexBalance(new BigNumber(balances[1]))
-      setDpiBalance(new BigNumber(balances[2]))
-      setEthFliBalance(new BigNumber(balances[3]))
-      setBtcFliBalance(new BigNumber(balances[4]))
-      setMviBalance(new BigNumber(balances[5]))
-      setDaiBalance(new BigNumber(balances[6]))
-      setUsdcBalance(new BigNumber(balances[7])) // .dividedBy(10).pow(6))
-      setBedBalance(new BigNumber(balances[8]))
-      setDataBalance(new BigNumber(balances[9]))
-      setUniswapEthDpiLpBalance(new BigNumber(balances[10]))
-      setUniswapEthMviLpBalance(new BigNumber(balances[11]))
-      setStakedUniswapEthDpiLpBalance(new BigNumber(balances[12]))
-      setUnharvestedIndexBalance(new BigNumber(balances[13]))
-      setStakedFarmTwoBalance(new BigNumber(balances[14]))
-      setUnharvestedFarmTwoBalance(new BigNumber(balances[15]))
-      setStakedUniswapEthMviLpBalance(balances2[0])
-      setUnharvestedMviRewardsBalance(balances2[1])
+        // mainnet
+        setEthBalance(new BigNumber(balances[0]))
+        setIndexBalance(new BigNumber(balances[1]))
+        setDpiBalance(new BigNumber(balances[2]))
+        setEthFliBalance(new BigNumber(balances[3]))
+        setBtcFliBalance(new BigNumber(balances[4]))
+        setMviBalance(new BigNumber(balances[5]))
+        setDaiBalance(new BigNumber(balances[6]))
+        setUsdcBalance(new BigNumber(balances[7]))
+        setBedBalance(new BigNumber(balances[8]))
+        setDataBalance(new BigNumber(balances[9]))
+        setUniswapEthDpiLpBalance(new BigNumber(balances[10]))
+        setUniswapEthMviLpBalance(new BigNumber(balances[11]))
+        setStakedUniswapEthDpiLpBalance(new BigNumber(balances[12]))
+        setUnharvestedIndexBalance(new BigNumber(balances[13]))
+        setStakedFarmTwoBalance(new BigNumber(balances[14]))
+        setUnharvestedFarmTwoBalance(new BigNumber(balances[15]))
+
+        // BN Balances
+        setStakedUniswapEthMviLpBalance(balances2[0])
+        setUnharvestedMviRewardsBalance(balances2[1])
+      } else if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) {
+        const balances = await Promise.all([
+          //polygon
+          getBalance(provider, wethTokenPolygonAddress, userAddress),
+          getBalance(provider, dpiTokenPolygonAddress, userAddress),
+          getBalance(provider, eth2xflipTokenAddress, userAddress),
+          getBalance(provider, mviTokenPolygonAddress, userAddress),
+          getBalance(provider, daiTokenPolygonAddress, userAddress),
+          getBalance(provider, usdcTokenPolygonAddress, userAddress),
+          getBalance(provider, dataTokenPolygonAddress, userAddress),
+        ])
+
+        // polygon
+        setWethBalancePolygon(new BigNumber(balances[0]))
+        setDpiBalancePolygon(new BigNumber(balances[1]))
+        setEthFlipBalance(new BigNumber(balances[2]))
+        setMviBalancePolygon(new BigNumber(balances[3]))
+        setDaiBalancePolygon(new BigNumber(balances[4]))
+        setUsdcBalancePolygon(new BigNumber(balances[5]))
+        setDataBalancePolygon(new BigNumber(balances[6]))
+      }
     },
     [
+      chainId,
       setEthBalance,
+      setWethBalancePolygon,
       setIndexBalance,
       setDpiBalance,
       setEthFliBalance,
+      setEthFlipBalance,
       setBtcFliBalance,
       setMviBalance,
       setBedBalance,
       setDataBalance,
+      setDataBalancePolygon,
       setUniswapEthDpiLpBalance,
       setUniswapEthMviLpBalance,
       setStakedUniswapEthDpiLpBalance,
@@ -164,14 +209,20 @@ const Provider: React.FC = ({ children }) => {
   useEffect(() => {
     if (status !== 'connected') {
       setEthBalance(new BigNumber(0))
+      setWethBalancePolygon(new BigNumber(0))
       setIndexBalance(new BigNumber(0))
       setDpiBalance(new BigNumber(0))
+      setDpiBalancePolygon(new BigNumber(0))
       setEthFliBalance(new BigNumber(0))
+      setEthFlipBalance(new BigNumber(0))
       setBtcFliBalance(new BigNumber(0))
       setMviBalance(new BigNumber(0))
+      setMviBalancePolygon(new BigNumber(0))
       setBedBalance(new BigNumber(0))
       setDaiBalance(new BigNumber(0))
+      setDaiBalancePolygon(new BigNumber(0))
       setUsdcBalance(new BigNumber(0))
+      setUsdcBalancePolygon(new BigNumber(0))
       setUniswapEthDpiLpBalance(new BigNumber(0))
       setUniswapEthMviLpBalance(new BigNumber(0))
       setStakedUniswapEthDpiLpBalance(new BigNumber(0))
@@ -180,6 +231,8 @@ const Provider: React.FC = ({ children }) => {
       setUnharvestedFarmTwoBalance(new BigNumber(0))
       setStakedUniswapEthMviLpBalance(new BigNumber(0))
       setUnharvestedMviRewardsBalance(new BigNumber(0))
+      setDataBalance(new BigNumber(0))
+      setDataBalancePolygon(new BigNumber(0))
     }
   }, [status])
 
@@ -198,15 +251,22 @@ const Provider: React.FC = ({ children }) => {
     <Context.Provider
       value={{
         ethBalance,
+        wethBalancePolygon,
         indexBalance,
         dpiBalance,
+        dpiBalancePolygon,
         ethfliBalance,
+        ethflipBalance,
         btcfliBalance,
         mviBalance,
+        mviBalancePolygon,
         daiBalance,
+        daiBalancePolygon,
         usdcBalance,
+        usdcBalancePolygon,
         bedBalance,
         dataBalance,
+        dataBalancePolygon,
         uniswapEthDpiLpBalance,
         uniswapEthMviLpBalance,
         stakedUniswapEthDpiLpBalance,

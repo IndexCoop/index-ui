@@ -7,12 +7,15 @@ import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { makeEtherscanLink } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWatcherContext'
 import { RoundedButton } from 'components/RoundedButton'
+import useWallet from 'hooks/useWallet'
 
 const LongTransaction: React.FC = () => {
   const { transactionId, onSetTransactionId, onSetTransactionStatus } =
     useTransactionWatcher()
+  const { chainId } = useWallet()
 
-  const etherscanLink = transactionId && makeEtherscanLink(transactionId)
+  const etherscanLink =
+    transactionId && makeEtherscanLink(transactionId, chainId)
 
   const onFinishTransaction = () => {
     onSetTransactionId()

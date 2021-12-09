@@ -11,6 +11,9 @@ import ProductDataUI, {
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
 import useSetComponents from 'hooks/useSetComponents'
+import useWallet from 'hooks/useWallet'
+import BigNumber from 'utils/bignumber'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {
@@ -19,7 +22,8 @@ const DpiProductPage = (props: { title: string }) => {
 
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
     useDpiTokenMarketData()
-  const { dpiBalance } = useBalances()
+  const { chainId } = useWallet()
+  const { dpiBalance, dpiBalancePolygon } = useBalances()
   const { dpiStreamingFee } = useStreamingFee()
   const { dpiTotalSupply } = useTokenSupply()
   const { dpiComponents: components } = useSetComponents()
@@ -28,6 +32,15 @@ const DpiProductPage = (props: { title: string }) => {
     ...DefiPulseIndex,
     fees: dpiStreamingFee ? { streamingFee: dpiStreamingFee } : undefined,
   }
+
+  const getTokenBalance = () => {
+    if (chainId) {
+      if (chainId === MAINNET_CHAIN_DATA.chainId) return dpiBalance
+      else if (chainId === POLYGON_CHAIN_DATA.chainId) return dpiBalancePolygon
+    }
+    return new BigNumber(0)
+  }
+
   const tokenDataProps: TokenDataProps = {
     prices: prices,
     hourlyPrices: hourlyPrices,
@@ -36,7 +49,7 @@ const DpiProductPage = (props: { title: string }) => {
     latestVolume: latestVolume,
     token: token,
     components: components,
-    balance: dpiBalance,
+    balance: getTokenBalance(),
     currentSupply: dpiTotalSupply,
   }
 

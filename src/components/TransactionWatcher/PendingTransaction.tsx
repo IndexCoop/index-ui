@@ -6,12 +6,15 @@ import MoonLoader from 'react-spinners/MoonLoader'
 import ExternalLink from 'components/ExternalLink'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import { makeEtherscanLink } from 'utils/index'
+import useWallet from 'hooks/useWallet'
 
 const PendingTransaction: React.FC = () => {
   const theme = useTheme()
   const { transactionId } = useTransactionWatcher()
+  const { chainId } = useWallet()
 
-  const etherscanLink = transactionId && makeEtherscanLink(transactionId)
+  const etherscanLink =
+    transactionId && makeEtherscanLink(transactionId, chainId)
 
   return (
     <StyledCard>

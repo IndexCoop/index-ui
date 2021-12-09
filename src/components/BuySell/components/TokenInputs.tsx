@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo } from 'react'
+import { useEffect, useRef, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import Select from 'react-select'
 import { useTheme } from 'react-neu'
@@ -6,7 +6,7 @@ import { useTheme } from 'react-neu'
 import useBuySell from 'hooks/useBuySell'
 import MaxButton from './MaxButton'
 
-const TokenInputs: React.FC = () => {
+const TokenInputs = () => {
   const {
     buySellToken,
     buySellQuantity,
@@ -19,10 +19,8 @@ const TokenInputs: React.FC = () => {
     onSetSelectedCurrency,
     onSetBuySellQuantity,
   } = useBuySell()
-
   const currencyInputRef = useRef<any>()
   const setTokenInputRef = useRef<any>()
-
   const theme = useTheme()
 
   const dropdownSelectStyles = useMemo(

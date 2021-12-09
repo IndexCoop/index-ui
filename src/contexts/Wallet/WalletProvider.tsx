@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
-import useEagerConnect from '../../hooks/useEagerConnect'
+import useEagerConnect from 'hooks/useEagerConnect'
 import {
   injected,
   walletconnect,
@@ -9,6 +9,7 @@ import {
 } from 'utils/connectors'
 
 import WalletContext from './WalletContext'
+import useChainData from 'hooks/useChainData'
 
 const WalletProvider: React.FC = ({ children }) => {
   const [connector, setConnector] = useState<string>('')
@@ -22,6 +23,7 @@ const WalletProvider: React.FC = ({ children }) => {
     active,
     deactivate,
     library: ethereum,
+    chainId,
   } = useWeb3React()
 
   const reset = useCallback(() => {
@@ -40,7 +42,7 @@ const WalletProvider: React.FC = ({ children }) => {
         setStatus('connecting')
         switch (walletType) {
           case 'injected':
-            await activate(injected, undefined, true)
+            activate(injected, undefined, true)
             setStatus('connected')
             setIsMetamaskConnected(true)
             break
@@ -90,6 +92,7 @@ const WalletProvider: React.FC = ({ children }) => {
         reset,
         onOpenWalletModal,
         onCloseWalletModal,
+        chainId,
       }}
     >
       {children}

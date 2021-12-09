@@ -9,6 +9,7 @@ import MenuIcon from 'components/icons/Menu'
 import DarkModeSwitch from './components/DarkModeSwitch'
 import Nav from './components/Nav'
 import WalletButton from './components/WalletButton'
+import ChainSelector from './components/ChainSelector'
 
 interface TopBarProps {
   onPresentMobileMenu: () => void
@@ -27,8 +28,17 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
           </StyledNavWrapper>
           <StyledAccountButtonWrapper>
             <DarkModeSwitch />
-            <Spacer />
-            <WalletButton />
+            <SmallSpacer />
+            <StyledWalletWrapper>
+              <ChainSelector />
+              <Spacer />
+              <WalletButton />
+            </StyledWalletWrapper>
+            <StyledMobileWalletWrapper>
+              <WalletButton />
+              <SmallSpacer />
+              <ChainSelector />
+            </StyledMobileWalletWrapper>
             <StyledMenuButton onClick={onPresentMobileMenu}>
               <MenuIcon />
             </StyledMenuButton>
@@ -51,23 +61,24 @@ const StyledTopBarInner = styled.div`
   align-items: center;
   display: flex;
   height: 72px;
-  justify-content: space-between;
+  justify-content: flex-start;
   max-width: ${(props) => props.theme.siteWidth}px;
   width: 100%;
 `
 const StyledNavWrapper = styled.div`
   display: flex;
-  flex: 1;
   justify-content: center;
   @media (max-width: 768px) {
     display: none;
   }
+  padding: 0 20px;
 `
 
 const StyledAccountButtonWrapper = styled.div`
   align-items: center;
   display: flex;
   justify-content: flex-end;
+  flex: 1;
   width: 200px;
   @media (max-width: 400px) {
     justify-content: center;
@@ -90,6 +101,31 @@ const StyledMenuButton = styled.button`
     width: 44px;
     margin-left: 10px;
   }
+`
+
+const StyledWalletWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  @media (max-width: 1180px) {
+    display: none;
+  }
+`
+
+const StyledMobileWalletWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 50px;
+  @media (min-width: 1180px) {
+    display: none;
+  }
+`
+
+const SmallSpacer = styled.div`
+  height: 10px;
+  width: 10px;
+  min-height: 10px;
+  min-width: 10px;
 `
 
 export default TopBar

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import useBuySell from 'hooks/useBuySell'
 
 const BuySellSelector: React.FC = () => {
-  const { isUserBuying, onToggleIsUserBuying, buySellToken } = useBuySell()
+  const { isUserBuying, onToggleIsUserBuying } = useBuySell()
 
   if (isUserBuying) {
     return (

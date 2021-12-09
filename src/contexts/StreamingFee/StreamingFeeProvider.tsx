@@ -1,42 +1,50 @@
 import React, { useState, useEffect } from 'react'
-import { provider } from 'web3-core'
 
 import { getStreamingFees } from 'utils/setjsApi'
-import useWallet from 'hooks/useWallet'
 import {
   bedTokenAddress,
   btc2xfliTokenAddress,
   dpiTokenAddress,
+  dpiTokenPolygonAddress,
   eth2xfliTokenAddress,
   mviTokenAddress,
+  mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
 import { convertToPercentage } from 'utils/ethersBigNumber'
 import StreamingFeeContext from './StreamingFeeContext'
+import useWallet from 'hooks/useWallet'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const StreamingFeeProvider: React.FC = ({ children }) => {
-  const { ethereum }: { ethereum: provider } = useWallet()
   const [dpiStreamingFee, setDpiStreamingFee] = useState<string>()
   const [mviStreamingFee, setMviStreamingFee] = useState<string>()
   const [bedStreamingFee, setBedStreamingFee] = useState<string>()
   const [eth2xFliStreamingFee, setEth2xFliStreamingFee] = useState<string>()
   const [btc2xFliStreamingFee, setBtc2xFliStreamingFee] = useState<string>()
+  const { ethereum: provider, chainId } = useWallet()
 
   useEffect(() => {
     if (
-      ethereum &&
+      chainId &&
+      chainId === MAINNET_CHAIN_DATA.chainId &&
+      provider &&
       dpiTokenAddress &&
       mviTokenAddress &&
       bedTokenAddress &&
       eth2xfliTokenAddress &&
       btc2xfliTokenAddress
     ) {
-      getStreamingFees(ethereum, [
-        dpiTokenAddress,
-        mviTokenAddress,
-        bedTokenAddress,
-        eth2xfliTokenAddress,
-        btc2xfliTokenAddress,
-      ])
+      getStreamingFees(
+        provider,
+        [
+          dpiTokenAddress,
+          mviTokenAddress,
+          bedTokenAddress,
+          eth2xfliTokenAddress,
+          btc2xfliTokenAddress,
+        ],
+        chainId
+      )
         .then((result) => {
           const [
             dpiResult,
@@ -62,8 +70,39 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
           )
         })
         .catch((error: any) => console.error(error))
+    } else if (
+      chainId &&
+      chainId === POLYGON_CHAIN_DATA.chainId &&
+      provider &&
+      dpiTokenPolygonAddress &&
+      mviTokenPolygonAddress
+    ) {
+      getStreamingFees(
+        provider,
+        [dpiTokenPolygonAddress, mviTokenPolygonAddress],
+        chainId
+      )
+        .then((result) => {
+          const [
+            dpiResult,
+            mviResult,
+            bedResult,
+            eth2xFliResult,
+            btc2xFliResult,
+          ] = result
+          setDpiStreamingFee(
+            convertToPercentage(dpiResult.streamingFeePercentage)
+          )
+          setMviStreamingFee(
+            convertToPercentage(mviResult.streamingFeePercentage)
+          )
+          setBedStreamingFee(undefined)
+          setEth2xFliStreamingFee(undefined)
+          setBtc2xFliStreamingFee(undefined)
+        })
+        .catch((error: any) => console.error(error))
     }
-  }, [ethereum])
+  }, [chainId, provider])
 
   return (
     <StreamingFeeContext.Provider
