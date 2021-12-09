@@ -7,7 +7,7 @@ import {
 } from 'utils/tokensetsApi'
 
 const Eth2xFLIPMarketDataProvider: React.FC = ({ children }) => {
-  const [fliMarketData, setFliMarketData] = useState<any>({})
+  const [fliMarketData, setFliMarketData] = useState<any>([[]])
   const [fliMarketCapData, setFliMarketCapData] = useState<any>({})
 
   useEffect(() => {
