@@ -22,6 +22,8 @@ import { Eth2xFliTokenMarketDataProvider } from 'contexts/Eth2xFliTokenMarketDat
 import { Eth2xFliTokenSupplyCapProvider } from 'contexts/Eth2xFliTokenSupplyCap'
 import { Btc2xFliTokenMarketDataProvider } from 'contexts/Btc2xFliTokenMarketData'
 import { Btc2xFliTokenSupplyCapProvider } from 'contexts/Btc2xFliTokenSupplyCap'
+import { Eth2xFLIPTokenMarketDataProvider } from 'contexts/Eth2xFLIPTokenMarketData'
+import { Eth2xFLIPTokenSupplyCapProvider } from 'contexts/Eth2xFLIPTokenSupplyCap'
 import { DpiTokenMarketDataProvider } from 'contexts/DpiTokenMarketData'
 import { MviTokenMarketDataProvider } from 'contexts/MviTokenMarketData'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
@@ -146,33 +148,37 @@ const Providers: React.FC = ({ children }) => {
                         <MviStakingRewardsProvider>
                           <PricesProvider>
                             <BuySellProvider>
-                              <Eth2xFliTokenMarketDataProvider>
-                                <Eth2xFliTokenSupplyCapProvider>
-                                  <Btc2xFliTokenMarketDataProvider>
-                                    <Btc2xFliTokenSupplyCapProvider>
-                                      <DpiTokenMarketDataProvider>
-                                        <MviTokenMarketDataProvider>
-                                          <BedTokenMarketDataProvider>
-                                            <DataTokenMarketDataProvider>
-                                              <IndexTokenMarketDataProvider>
-                                                <V3FarmingProvider>
-                                                  <StreamingFeeProvider>
-                                                    <TokenSupplyProvider>
-                                                      <SetComponentsProvider>
-                                                        {children}
-                                                      </SetComponentsProvider>
-                                                    </TokenSupplyProvider>
-                                                  </StreamingFeeProvider>
-                                                </V3FarmingProvider>
-                                              </IndexTokenMarketDataProvider>
-                                            </DataTokenMarketDataProvider>
-                                          </BedTokenMarketDataProvider>
-                                        </MviTokenMarketDataProvider>
-                                      </DpiTokenMarketDataProvider>
-                                    </Btc2xFliTokenSupplyCapProvider>
-                                  </Btc2xFliTokenMarketDataProvider>
-                                </Eth2xFliTokenSupplyCapProvider>
-                              </Eth2xFliTokenMarketDataProvider>
+                              <Eth2xFLIPTokenMarketDataProvider>
+                                <Eth2xFLIPTokenSupplyCapProvider>
+                                  <Eth2xFliTokenMarketDataProvider>
+                                    <Eth2xFliTokenSupplyCapProvider>
+                                      <Btc2xFliTokenMarketDataProvider>
+                                        <Btc2xFliTokenSupplyCapProvider>
+                                          <DpiTokenMarketDataProvider>
+                                            <MviTokenMarketDataProvider>
+                                              <BedTokenMarketDataProvider>
+                                                <DataTokenMarketDataProvider>
+                                                  <IndexTokenMarketDataProvider>
+                                                    <V3FarmingProvider>
+                                                      <StreamingFeeProvider>
+                                                        <TokenSupplyProvider>
+                                                          <SetComponentsProvider>
+                                                            {children}
+                                                          </SetComponentsProvider>
+                                                        </TokenSupplyProvider>
+                                                      </StreamingFeeProvider>
+                                                    </V3FarmingProvider>
+                                                  </IndexTokenMarketDataProvider>
+                                                </DataTokenMarketDataProvider>
+                                              </BedTokenMarketDataProvider>
+                                            </MviTokenMarketDataProvider>
+                                          </DpiTokenMarketDataProvider>
+                                        </Btc2xFliTokenSupplyCapProvider>
+                                      </Btc2xFliTokenMarketDataProvider>
+                                    </Eth2xFliTokenSupplyCapProvider>
+                                  </Eth2xFliTokenMarketDataProvider>
+                                </Eth2xFLIPTokenSupplyCapProvider>
+                              </Eth2xFLIPTokenMarketDataProvider>
                             </BuySellProvider>
                           </PricesProvider>
                         </MviStakingRewardsProvider>
