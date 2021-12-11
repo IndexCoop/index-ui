@@ -19,6 +19,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
+  const [isUsingExchangeIssuance, setIsUsingExchangeIssuance] =
+    useState<boolean>(false)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [buySellQuantity, setBuySellQuantity] = useState<string>('')
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
@@ -198,6 +200,11 @@ const BuySellProvider: React.FC = ({ children }) => {
     setIsUserBuying(!isUserBuying)
   }
 
+  const onToggleIsUsingExchangeIssuance = () => {
+    // If the user is switching to sell, ensure `set` field can only be selected.
+    setIsUsingExchangeIssuance(!isUsingExchangeIssuance)
+  }
+
   const onSetActiveField = (field: 'currency' | 'set') => {
     setActiveField(field)
 
@@ -225,6 +232,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         buySellToken,
         isFetchingOrderData,
         isUserBuying,
+        isUsingExchangeIssuance,
         activeField,
         selectedCurrency,
         spendingTokenBalance,
@@ -233,6 +241,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         buySellQuantity,
         onSetBuySellToken: setBuySellToken,
         onToggleIsUserBuying,
+        onToggleIsUsingExchangeIssuance,
         onSetActiveField,
         onSetSelectedCurrency,
         onSetBuySellQuantity,

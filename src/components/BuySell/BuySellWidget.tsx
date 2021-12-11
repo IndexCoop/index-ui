@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import BuySellSelector from './components/BuySellSelector'
+import ExchangeIssuanceSelector from './components/ExchangeIssuanceSelector'
 import TokenInputs from './components/TokenInputs'
 import OrderSummary from './components/OrderSummary'
 import BuySellButton from './components/BuySellButton'
@@ -11,6 +12,7 @@ const BuySellWidget = () => {
     <StyledBuySellCard data-cy='buy-sell-selector'>
       <StyledBuySellCardContent>
         <BuySellSelector />
+        <ExchangeIssuanceSelector />
         <TokenInputs />
         <OrderSummary />
         <BuySellButton />
