@@ -7,18 +7,15 @@ const BuySellSelector: React.FC = () => {
   const {
     isUsingExchangeIssuance,
     onToggleIsUsingExchangeIssuance,
-    isUserBuying,
   } = useBuySell()
-
-  const exchangeIssuanceLabel = isUserBuying ? 'Issue' : 'Redeem'
 
   if (isUsingExchangeIssuance) {
     return (
       <StyledCardHeader>
-        <StyledBuySellButton onClick={onToggleIsUsingExchangeIssuance}>
+        <StyledExchangeIssuanceButton onClick={onToggleIsUsingExchangeIssuance}>
           Swap
-        </StyledBuySellButton>
-        <StyledActiveButton>{exchangeIssuanceLabel}</StyledActiveButton>
+        </StyledExchangeIssuanceButton>
+        <StyledActiveButton>Exchange Issuance</StyledActiveButton>
       </StyledCardHeader>
     )
   }
@@ -26,9 +23,9 @@ const BuySellSelector: React.FC = () => {
   return (
     <StyledCardHeader>
       <StyledActiveButton>Swap</StyledActiveButton>
-      <StyledBuySellButton onClick={onToggleIsUsingExchangeIssuance}>
-        {exchangeIssuanceLabel}
-      </StyledBuySellButton>
+      <StyledExchangeIssuanceButton onClick={onToggleIsUsingExchangeIssuance}>
+        Exchange Issuance
+      </StyledExchangeIssuanceButton>
     </StyledCardHeader>
   )
 }
@@ -39,10 +36,10 @@ const StyledCardHeader = styled.div`
   width: 100%;
 `
 
-const StyledBuySellButton = styled.button`
+const StyledExchangeIssuanceButton = styled.button`
   width: 50%;
   background: none;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 600;
   border: none;
   border-bottom: 2px solid ${(props) => props.theme.colors.grey[400]};
@@ -60,7 +57,7 @@ const StyledBuySellButton = styled.button`
 const StyledActiveButton = styled.button`
   width: 50%;
   background: none;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 600;
   border: none;
   border-bottom: 2px solid ${(props) => props.theme.colors.primary.light};

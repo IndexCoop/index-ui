@@ -11,8 +11,8 @@ const BuySellWidget = () => {
   return (
     <StyledBuySellCard data-cy='buy-sell-selector'>
       <StyledBuySellCardContent>
-        <BuySellSelector />
         <ExchangeIssuanceSelector />
+        <BuySellSelector />
         <TokenInputs />
         <OrderSummary />
         <BuySellButton />

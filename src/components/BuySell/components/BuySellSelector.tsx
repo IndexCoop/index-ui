@@ -4,14 +4,18 @@ import styled from 'styled-components'
 import useBuySell from 'hooks/useBuySell'
 
 const BuySellSelector: React.FC = () => {
-  const { isUserBuying, onToggleIsUserBuying } = useBuySell()
+  const { isUserBuying, onToggleIsUserBuying, isUsingExchangeIssuance } =
+    useBuySell()
+
+  const buyLabel = isUsingExchangeIssuance ? 'Issue' : 'Buy'
+  const sellLabel = isUsingExchangeIssuance ? 'Redeem' : 'Sell'
 
   if (isUserBuying) {
     return (
       <StyledCardHeader>
-        <StyledActiveButton>Buy</StyledActiveButton>
+        <StyledActiveButton>{buyLabel}</StyledActiveButton>
         <StyledBuySellButton onClick={onToggleIsUserBuying}>
-          Sell
+          {sellLabel}
         </StyledBuySellButton>
       </StyledCardHeader>
     )
@@ -20,9 +24,9 @@ const BuySellSelector: React.FC = () => {
   return (
     <StyledCardHeader>
       <StyledBuySellButton onClick={onToggleIsUserBuying}>
-        Buy
+        {buyLabel}
       </StyledBuySellButton>
-      <StyledActiveButton>Sell</StyledActiveButton>
+      <StyledActiveButton>{sellLabel}</StyledActiveButton>
     </StyledCardHeader>
   )
 }
