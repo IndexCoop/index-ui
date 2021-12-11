@@ -6,11 +6,24 @@ import useWallet from 'hooks/useWallet'
 import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const OrderSummary = () => {
-  const { isFetchingOrderData, zeroExTradeData } = useBuySell()
+  const {
+    isFetchingOrderData,
+    zeroExTradeData,
+    isUsingExchangeIssuance,
+    isUserBuying,
+  } = useBuySell()
   const { chainId } = useWallet()
 
   const isOrderDataReady =
     Number(zeroExTradeData?.buyAmount) > 0 && !isFetchingOrderData
+
+  const limitLabel =
+    isUsingExchangeIssuance && isUserBuying ? 'Maximum Paid' : 'Minimum Receive'
+
+  const limitValue =
+    limitLabel === 'Minimum Receive'
+      ? zeroExTradeData?.minOutput
+      : zeroExTradeData?.maxInput
 
   const getNetworkFee = () => {
     if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) {
@@ -32,9 +45,9 @@ const OrderSummary = () => {
   if (isOrderDataReady) {
     return (
       <StyledOrderSummaryContainer>
-        <StyledOrderSummaryLabel>Minimum Receive</StyledOrderSummaryLabel>
+        <StyledOrderSummaryLabel>{limitLabel}</StyledOrderSummaryLabel>
         <StyledOrderSummaryValue>
-          {zeroExTradeData?.minOutput.toFixed(6)}
+          {limitValue?.toFixed(6)}
         </StyledOrderSummaryValue>
 
         <StyledOrderSummaryLabel>Network Fee</StyledOrderSummaryLabel>

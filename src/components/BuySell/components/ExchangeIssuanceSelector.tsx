@@ -44,8 +44,8 @@ const StyledExchangeIssuanceButton = styled.button`
   border: none;
   border-bottom: 2px solid ${(props) => props.theme.colors.grey[400]};
   color: ${(props) => props.theme.colors.grey[400]};
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
   cursor: pointer;
   outline: none;
   &:hover {
@@ -62,8 +62,8 @@ const StyledActiveButton = styled.button`
   border: none;
   border-bottom: 2px solid ${(props) => props.theme.colors.primary.light};
   color: ${(props) => props.theme.colors.primary.light};
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
   cursor: pointer;
   outline: none;
 `
