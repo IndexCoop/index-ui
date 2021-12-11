@@ -194,7 +194,7 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   const onToggleIsUserBuying = () => {
     // If the user is switching to sell, ensure `set` field can only be selected.
-    if (isUserBuying) {
+    if (isUserBuying && !isUsingExchangeIssuance) {
       onSetActiveField('set')
     }
     setIsUserBuying(!isUserBuying)

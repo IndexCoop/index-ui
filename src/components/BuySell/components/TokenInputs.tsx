@@ -11,6 +11,7 @@ const TokenInputs = () => {
     buySellToken,
     buySellQuantity,
     isUserBuying,
+    isUsingExchangeIssuance,
     activeField,
     selectedCurrency,
     currencyOptions,
@@ -94,6 +95,7 @@ const TokenInputs = () => {
           </StyledCurrencyLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
+              readOnly={isUsingExchangeIssuance}
               ref={currencyInputRef}
               value={
                 isExactInput
