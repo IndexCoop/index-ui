@@ -4,10 +4,8 @@ import styled from 'styled-components'
 import useBuySell from 'hooks/useBuySell'
 
 const BuySellSelector: React.FC = () => {
-  const {
-    isUsingExchangeIssuance,
-    onToggleIsUsingExchangeIssuance,
-  } = useBuySell()
+  const { isUsingExchangeIssuance, onToggleIsUsingExchangeIssuance } =
+    useBuySell()
 
   if (isUsingExchangeIssuance) {
     return (
