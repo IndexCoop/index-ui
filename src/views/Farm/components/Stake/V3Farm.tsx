@@ -15,6 +15,7 @@ import useMediaQuery from 'hooks/useMediaQuery'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import useV3Farming from 'hooks/useV3Farming'
 import useWallet from 'hooks/useWallet'
+import indexToken from 'assets/index-token.png'
 
 const Stake = (props: { farm: V3Farm }) => {
   const { isMobile } = useMediaQuery()
@@ -186,8 +187,8 @@ const Stake = (props: { farm: V3Farm }) => {
                 <StyledFarmText>
                   {allPendingRewards}
                   <StyledTokenIcon
-                    alt='owl icon'
-                    src='https://index-dao.s3.amazonaws.com/owl.png'
+                    src={indexToken}
+                    alt='Index token'
                   />
                 </StyledFarmText>
                 <StyledSectionLabel>Pending Rewards</StyledSectionLabel>
@@ -197,8 +198,8 @@ const Stake = (props: { farm: V3Farm }) => {
                 <StyledFarmText>
                   {accruedRewards}
                   <StyledTokenIcon
-                    alt='owl icon'
-                    src='https://index-dao.s3.amazonaws.com/owl.png'
+                    src={indexToken}
+                    alt='Index token'
                   />
                 </StyledFarmText>
                 <StyledSectionLabel>Accrued Rewards</StyledSectionLabel>

@@ -7,6 +7,7 @@ import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
 
 import usePrices from 'hooks/usePrices'
+import indexToken from 'assets/index-token.png'
 
 const Treasury: React.FC = () => {
   const { totalUSDInFarms, indexPrice } = usePrices()
@@ -42,8 +43,8 @@ const Treasury: React.FC = () => {
           <CardContent data-cy='treasury-index-price'>
             <FancyValue
               icon={{
-                src: 'https://index-dao.s3.amazonaws.com/owl.png',
-                alt: 'Owl',
+                src: indexToken,
+                alt: 'Index token',
               }}
               label='$INDEX Price'
               value={indexPriceValue}
