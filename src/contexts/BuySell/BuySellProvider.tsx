@@ -14,13 +14,16 @@ import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
 import { ZeroExData } from './types'
 import { MAINNET_CHAIN_DATA } from 'utils/connectors'
+import {exchangeIssuanceTokens} from 'constants/exchangeIssuanceTokens'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
-  const [isUsingExchangeIssuance, setIsUsingExchangeIssuance] =
+  const [isUsingExchangeIssuanceSelection, setIsUsingExchangeIssuance] =
     useState<boolean>(false)
+  const isTokenSupportingExchangeIssuance = exchangeIssuanceTokens.includes(buySellToken);
+  const isUsingExchangeIssuance = isUsingExchangeIssuanceSelection && isTokenSupportingExchangeIssuance;
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [buySellQuantity, setBuySellQuantity] = useState<string>('')
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
@@ -233,6 +236,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         isFetchingOrderData,
         isUserBuying,
         isUsingExchangeIssuance,
+        isTokenSupportingExchangeIssuance,
         activeField,
         selectedCurrency,
         spendingTokenBalance,
