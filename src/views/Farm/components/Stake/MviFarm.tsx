@@ -13,6 +13,7 @@ import useWallet from 'hooks/useWallet'
 import Split from 'components/Split'
 
 import MviStakeModal from './components/MviStakeModal'
+import indexToken from 'assets/index-token.png'
 
 import { fromWei } from 'utils'
 
@@ -165,8 +166,8 @@ const Stake: React.FC = () => {
                     {formattedEarnedBalance}
                     <StyledTokenIconWrapper>
                       <StyledTokenIcon
-                        alt='owl icon'
-                        src='https://index-dao.s3.amazonaws.com/owl.png'
+                        src={indexToken}
+                        alt='Index token'
                       />
                     </StyledTokenIconWrapper>
                   </StyledFarmText>
