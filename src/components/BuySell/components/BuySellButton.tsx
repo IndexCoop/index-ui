@@ -20,6 +20,7 @@ const BuySellButton: React.FC = () => {
     buySellToken,
     isFetchingOrderData,
     isUserBuying,
+    isUsingExchangeIssuance,
     onExecuteBuySell,
     zeroExTradeData,
   } = useBuySell()
@@ -48,12 +49,22 @@ const BuySellButton: React.FC = () => {
   } else if (tokenApprovalRequired && !ignoreApproval) {
     buttonText = 'Approve Tokens'
     buttonAction = tokenApproval.onApprove
-  } else if (isUserBuying) {
-    buttonText = 'Buy'
-    buttonAction = onExecuteBuySell
+  } else if (isUsingExchangeIssuance) {
+    if (isUserBuying) {
+      buttonText = 'Issue'
+      buttonAction = onExecuteBuySell
+    } else {
+      buttonText = 'Redeem'
+      buttonAction = onExecuteBuySell
+    }
   } else {
-    buttonText = 'Sell'
-    buttonAction = onExecuteBuySell
+    if (isUserBuying) {
+      buttonText = 'Buy'
+      buttonAction = onExecuteBuySell
+    } else {
+      buttonText = 'Sell'
+      buttonAction = onExecuteBuySell
+    }
   }
 
   if (loginRequired) {

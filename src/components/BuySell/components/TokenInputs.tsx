@@ -24,6 +24,10 @@ const TokenInputs = () => {
   const setTokenInputRef = useRef<any>()
   const theme = useTheme()
 
+  const buyAmountLabel = isUsingExchangeIssuance
+    ? 'Issue (exact)'
+    : 'Buy (estimated)'
+
   const dropdownSelectStyles = useMemo(
     () => ({
       control: (styles: any) => ({
@@ -125,7 +129,7 @@ const TokenInputs = () => {
           onClick={() => onSetActiveField('set')}
         >
           <StyledTokenLabelWrapper>
-            <StyledCurrencyLabel>Buy (estimated)</StyledCurrencyLabel>
+            <StyledCurrencyLabel>{buyAmountLabel}</StyledCurrencyLabel>
             <StyledCurrencyLabel>
               ${zeroExTradeData?.buyTokenCost}
             </StyledCurrencyLabel>
