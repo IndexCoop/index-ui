@@ -5,7 +5,23 @@ import BigNumber from 'utils/bignumber'
 import { polygonTokenInfo, tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
 import { fetchCoingeckoTokenPrice } from './coingeckoApi'
+import {fetchSetComponents} from './tokensetsApi'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors'
+
+export async function getExchangeIssuanceZeroExTradeData(
+  isUserBuying: boolean,
+  currencyToken: string,
+  buySellToken: string,
+  buySellAmount: string,
+  chainId: number,
+  setComponents: any
+) {
+  // const componentKey = buySellToken + 'Components'
+  // const components = setComponents[componentKey]
+  console.log("Fetching set components");
+  const data = await fetchSetComponents(buySellToken);
+  console.log("Response", data);
+}
 
 export const getZeroExTradeData = async (
   isExactInput: boolean,

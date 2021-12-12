@@ -6,8 +6,12 @@ import BigNumber from 'utils/bignumber'
 import BuySellContext from './BuySellContext'
 import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances'
+import useSetComponents from 'hooks/useSetComponents'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { getZeroExTradeData } from 'utils/zeroExUtils'
+import {
+  getZeroExTradeData,
+  getExchangeIssuanceZeroExTradeData,
+} from 'utils/zeroExUtils'
 import trackReferral from 'utils/referralApi'
 import { fromWei, waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
@@ -28,6 +32,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
+
+  const setComponents = useSetComponents()
 
   const {
     ethBalance,
@@ -103,17 +109,29 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     const isExactInputTrade = !isUserBuying || activeField === 'currency'
 
-    getZeroExTradeData(
-      isExactInputTrade,
-      isUserBuying,
-      selectedCurrency.label || '',
-      buySellToken || '',
-      buySellQuantity || '',
-      chainId || 1
-    ).then((data) => {
-      setZeroExTradeData(data)
-      setIsFetchingOrderData(false)
-    })
+    if (isUsingExchangeIssuance) {
+      console.log('Using Exchange Issuance Zero Ex')
+      getExchangeIssuanceZeroExTradeData(
+        isUserBuying,
+        selectedCurrency.label || '',
+        buySellToken || '',
+        buySellQuantity || '',
+        chainId || 1,
+        setComponents
+      )
+    } else {
+      getZeroExTradeData(
+        isExactInputTrade,
+        isUserBuying,
+        selectedCurrency.label || '',
+        buySellToken || '',
+        buySellQuantity || '',
+        chainId || 1
+      ).then((data) => {
+        setZeroExTradeData(data)
+        setIsFetchingOrderData(false)
+      })
+    }
   }, [
     isUserBuying,
     selectedCurrency,
