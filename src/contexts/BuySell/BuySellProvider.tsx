@@ -7,6 +7,7 @@ import BuySellContext from './BuySellContext'
 import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
+import useChainData from 'hooks/useChainData'
 import { getZeroExTradeData } from 'utils/zeroExUtils'
 import trackReferral from 'utils/referralApi'
 import { fromWei, waitTransaction } from 'utils/index'
@@ -19,6 +20,7 @@ import {exchangeIssuanceTokens, exchangeIssuanceChainIds} from 'constants/exchan
 
 const BuySellProvider: React.FC = ({ children }) => {
   const { account, ethereum, chainId } = useWallet()
+  const {chain} = useChainData();
 
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
@@ -26,7 +28,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [isUsingExchangeIssuanceSelection, setIsUsingExchangeIssuance] =
     useState<boolean>(false)
   const isTokenSupportingExchangeIssuance = exchangeIssuanceTokens.includes(buySellToken);
-  const isChainSupportingExchangeIssuance = exchangeIssuanceChainIds.includes(chainId || 0);
+  const isChainSupportingExchangeIssuance = exchangeIssuanceChainIds.includes(chain.chainId || 0);
   const isExchangeIssuanceSupported = isTokenSupportingExchangeIssuance && isChainSupportingExchangeIssuance
   const isUsingExchangeIssuance = isUsingExchangeIssuanceSelection && isExchangeIssuanceSupported;
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
