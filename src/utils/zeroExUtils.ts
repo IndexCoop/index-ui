@@ -29,10 +29,6 @@ export type ZeroExQuote = {
   decimals: number
 }
 
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
 async function getQuote(
   params: any,
   retryCount: number = 0
@@ -42,17 +38,8 @@ async function getQuote(
     `RETRY: ${retryCount} - Getting quote from ${params.sellToken} to ${params.buyToken}`
   )
   console.log('Sending quote request to:', url)
-  try {
-    const response = await axios(url)
-    return response.data
-  } catch (e) {
-    if (retryCount < MAX_RETRIES) {
-      await sleep(MS_BETWEEN_RETRIES)
-      return await getQuote(params, retryCount + 1)
-    } else {
-      throw e
-    }
-  }
+  const response = await axios(url)
+  return response.data
 }
 
 async function getQuotes(
@@ -65,53 +52,40 @@ async function getQuotes(
   console.log('Fetching set components')
   const components = await fetchSetComponents(buySellToken)
   console.log('Response', components)
+  const quotes: ZeroExQuote[] = []
   const parsedCurrencyToken = currencyToken === 'ETH' ? 'WETH' : currencyToken
-  const promises = components.map(
-    ({
-      symbol,
-      address,
-      decimals,
-      quantity,
-    }: {
-      symbol: string
-      address: string
-      decimals: number
-      quantity: string
-    }): Promise<ZeroExQuote> => {
-      console.log(address)
-      const componentAmount = utils
-        .parseEther(buySellAmount)
-        .div(10 ** 9)
-        .mul(utils.parseUnits(quantity, decimals))
-        .div(10 ** 9)
-      const buyToken = isUserBuying ? address : parsedCurrencyToken
-      const sellToken = isUserBuying ? parsedCurrencyToken : address
-      if (symbol === parsedCurrencyToken) {
-        // If the currency token is one of the components we don't have to swap at all
-        return Promise.resolve({
-          buyToken: address,
-          sellToken: address,
-          buyAmount: componentAmount.toString(),
-          sellAmount: componentAmount.toString(),
-          swapCallData: utils.formatBytes32String('FOOBAR'),
-          gas: '0',
-          gasPrice: '0',
-          sources: [],
-          to: '',
-          from: '',
-          decimals,
-        })
-      } else {
-        const params: any = { buyToken, sellToken, chainId }
-        if (isUserBuying) params.buyAmount = componentAmount.toString()
-        else params.sellAmount = componentAmount.toString()
-        return getQuote(params).then((result) => {
-          return { ...result, decimals }
-        })
-      }
+  for (const { symbol, address, decimals, quantity } of components) {
+    console.log(address)
+    const componentAmount = utils
+      .parseEther(buySellAmount)
+      .div(10 ** 9)
+      .mul(utils.parseUnits(quantity, decimals))
+      .div(10 ** 9)
+    const buyToken = isUserBuying ? address : parsedCurrencyToken
+    const sellToken = isUserBuying ? parsedCurrencyToken : address
+    if (symbol === parsedCurrencyToken) {
+      // If the currency token is one of the components we don't have to swap at all
+      quotes.push({
+        buyToken: address,
+        sellToken: address,
+        buyAmount: componentAmount.toString(),
+        sellAmount: componentAmount.toString(),
+        swapCallData: utils.formatBytes32String('FOOBAR'),
+        gas: '0',
+        gasPrice: '0',
+        sources: [],
+        to: '',
+        from: '',
+        decimals,
+      })
+    } else {
+      const params: any = { buyToken, sellToken, chainId }
+      if (isUserBuying) params.buyAmount = componentAmount.toString()
+      else params.sellAmount = componentAmount.toString()
+      const quote = await getQuote(params)
+      quotes.push({ ...quote, decimals })
     }
-  )
-  const quotes: ZeroExQuote[] = await Promise.all(promises)
+  }
   return quotes
 }
 
