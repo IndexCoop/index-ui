@@ -14,30 +14,37 @@ import {
   getExchangeIssuanceZeroExTradeData,
   ZeroExQuote,
 } from 'utils/zeroExUtils'
+import useChainData from 'hooks/useChainData'
 import trackReferral from 'utils/referralApi'
 import { fromWei, waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
 import { ZeroExData } from './types'
 import { MAINNET_CHAIN_DATA } from 'utils/connectors'
-import { exchangeIssuanceTokens } from 'constants/exchangeIssuanceTokens'
+import {exchangeIssuanceTokens, exchangeIssuanceChainIds} from 'constants/exchangeIssuance'
+
 
 const BuySellProvider: React.FC = ({ children }) => {
+  const { account, ethereum, chainId } = useWallet()
+  const {chain} = useChainData();
+
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
-  const isTokenSupportingExchangeIssuance =
-    exchangeIssuanceTokens.includes(buySellToken)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [buySellQuantity, setBuySellQuantity] = useState<string>('')
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
   const [zeroExTradeData, setZeroExTradeData] = useState<ZeroExData>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
 
+  const isTokenSupportingExchangeIssuance = exchangeIssuanceTokens.includes(buySellToken);
+  const isChainSupportingExchangeIssuance = exchangeIssuanceChainIds.includes(chain.chainId || 0);
+  const isExchangeIssuanceSupported = isTokenSupportingExchangeIssuance && isChainSupportingExchangeIssuance
+
   const [isUsingExchangeIssuanceSelection, setIsUsingExchangeIssuance] =
     useState<boolean>(false)
   const isUsingExchangeIssuance =
-    isUsingExchangeIssuanceSelection && isTokenSupportingExchangeIssuance
+    isUsingExchangeIssuanceSelection && isExchangeIssuanceSupported
   const [exchangeIssuanceQuotes, setExchangeIssuanceQuotes] = useState<
     ZeroExQuote[]
   >([])
@@ -64,7 +71,6 @@ const BuySellProvider: React.FC = ({ children }) => {
     usdcBalancePolygon,
   } = useBalances()
 
-  const { account, ethereum, chainId } = useWallet()
 
   useEffect(() => {
     setCurrencyOptions(currencyTokens)
@@ -272,7 +278,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         isFetchingOrderData,
         isUserBuying,
         isUsingExchangeIssuance,
-        isTokenSupportingExchangeIssuance,
+        isExchangeIssuanceSupported,
         activeField,
         selectedCurrency,
         spendingTokenBalance,

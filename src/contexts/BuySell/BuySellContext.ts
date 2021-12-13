@@ -8,7 +8,7 @@ interface BuySellContextValues {
   isFetchingOrderData: boolean
   isUserBuying: boolean
   isUsingExchangeIssuance: boolean
-  isTokenSupportingExchangeIssuance: boolean
+  isExchangeIssuanceSupported: boolean
   activeField: 'currency' | 'set'
   selectedCurrency: any
   spendingTokenBalance: BigNumber
@@ -30,7 +30,7 @@ const BuySellContext = createContext<BuySellContextValues>({
   isFetchingOrderData: false,
   isUserBuying: true,
   isUsingExchangeIssuance: false,
-  isTokenSupportingExchangeIssuance: false,
+  isExchangeIssuanceSupported: false,
   activeField: 'currency',
   selectedCurrency: undefined,
   spendingTokenBalance: new BigNumber(0),

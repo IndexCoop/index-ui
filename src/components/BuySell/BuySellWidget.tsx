@@ -9,11 +9,11 @@ import BuySellButton from './components/BuySellButton'
 
 import useBuySell from 'hooks/useBuySell'
 const BuySellWidget = () => {
-  const { isTokenSupportingExchangeIssuance } = useBuySell()
+  const { isExchangeIssuanceSupported } = useBuySell()
   return (
     <StyledBuySellCard data-cy='buy-sell-selector'>
       <StyledBuySellCardContent>
-        {isTokenSupportingExchangeIssuance ? <ExchangeIssuanceSelector /> : ''}
+        {isExchangeIssuanceSupported ? <ExchangeIssuanceSelector /> : ''}
         <BuySellSelector />
         <TokenInputs />
         <OrderSummary />
