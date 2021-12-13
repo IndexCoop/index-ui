@@ -5,8 +5,20 @@ import BigNumber from 'utils/bignumber'
 import { polygonTokenInfo, tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
 import { fetchCoingeckoTokenPrice } from './coingeckoApi'
-import {fetchSetComponents} from './tokensetsApi'
+import { fetchSetComponents } from './tokensetsApi'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors'
+import { utils } from 'ethers'
+//@ts-ignore
+import qs from 'qs'
+
+const API_QUOTE_URL = 'https://api.0x.org/swap/v1/quote'
+async function getQuote(params: any) {
+  const url = `${API_QUOTE_URL}?${qs.stringify(params)}`
+  console.log(`Getting quote from ${params.sellToken} to ${params.buyToken}`)
+  console.log('Sending quote request to:', url)
+  const response = await axios(url)
+  return response.data
+}
 
 export async function getExchangeIssuanceZeroExTradeData(
   isUserBuying: boolean,
@@ -18,9 +30,50 @@ export async function getExchangeIssuanceZeroExTradeData(
 ) {
   // const componentKey = buySellToken + 'Components'
   // const components = setComponents[componentKey]
-  console.log("Fetching set components");
-  const data = await fetchSetComponents(buySellToken);
-  console.log("Response", data);
+  console.log('Fetching set components')
+  const components = await fetchSetComponents(buySellToken)
+  console.log('Response', components)
+  const parsedCurrencyToken = currencyToken === 'ETH' ? 'WETH' : currencyToken
+  const promises = components.map(
+    ({
+      symbol,
+      address,
+      decimals,
+      quantity,
+    }: {
+      symbol: string
+      address: string
+      decimals: number
+      quantity: string
+    }) => {
+      console.log(address)
+      console.log('Quantity: ', quantity)
+      console.log('Decimals: ', decimals)
+      console.log('buySellAmount: ', buySellAmount)
+      const componentAmount = utils
+        .parseEther(buySellAmount)
+        .div(10 ** 9)
+        .mul(utils.parseUnits(quantity, decimals))
+        .div(10 ** 9)
+      const buyToken = isUserBuying ? address : parsedCurrencyToken
+      const sellToken = isUserBuying ? parsedCurrencyToken : address
+      const params: any = { buyToken, sellToken }
+      if (isUserBuying) params.buyAmount = componentAmount.toString()
+      else params.sellAmount = componentAmount.toString()
+      console.log('Params', params)
+      console.log('Sumbol and currency token', symbol, currencyToken)
+      if (symbol === parsedCurrencyToken) {
+        return Promise.resolve({
+          ...params,
+          swapCallData: utils.formatBytes32String('FOOBAR'),
+        })
+      } else {
+          return getQuote(params).then((result)  => result)
+      }
+    }
+  )
+  const quotes = await Promise.all(promises)
+  console.log('Quotes', quotes)
 }
 
 export const getZeroExTradeData = async (
