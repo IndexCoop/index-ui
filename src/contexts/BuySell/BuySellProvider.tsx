@@ -9,8 +9,10 @@ import useBalances from 'hooks/useBalances'
 import useSetComponents from 'hooks/useSetComponents'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import {
+  convertQuotesToZeroExData,
   getZeroExTradeData,
   getExchangeIssuanceZeroExTradeData,
+  ZeroExQuote,
 } from 'utils/zeroExUtils'
 import trackReferral from 'utils/referralApi'
 import { fromWei, waitTransaction } from 'utils/index'
@@ -18,25 +20,29 @@ import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
 import { ZeroExData } from './types'
 import { MAINNET_CHAIN_DATA } from 'utils/connectors'
-import {exchangeIssuanceTokens} from 'constants/exchangeIssuanceTokens'
+import { exchangeIssuanceTokens } from 'constants/exchangeIssuanceTokens'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
-  const [isUsingExchangeIssuanceSelection, setIsUsingExchangeIssuance] =
-    useState<boolean>(false)
-  const isTokenSupportingExchangeIssuance = exchangeIssuanceTokens.includes(buySellToken);
-  const isUsingExchangeIssuance = isUsingExchangeIssuanceSelection && isTokenSupportingExchangeIssuance;
+  const isTokenSupportingExchangeIssuance =
+    exchangeIssuanceTokens.includes(buySellToken)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [buySellQuantity, setBuySellQuantity] = useState<string>('')
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
   const [zeroExTradeData, setZeroExTradeData] = useState<ZeroExData>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
 
-  const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
+  const [isUsingExchangeIssuanceSelection, setIsUsingExchangeIssuance] =
+    useState<boolean>(false)
+  const isUsingExchangeIssuance =
+    isUsingExchangeIssuanceSelection && isTokenSupportingExchangeIssuance
+  const [exchangeIssuanceQuotes, setExchangeIssuanceQuotes] = useState<
+    ZeroExQuote[]
+  >([])
 
-  const setComponents = useSetComponents()
+  const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
 
   const {
     ethBalance,
@@ -119,9 +125,20 @@ const BuySellProvider: React.FC = ({ children }) => {
         selectedCurrency.label || '',
         buySellToken || '',
         buySellQuantity || '',
-        chainId || 1,
-        setComponents
-      )
+        chainId || 1
+      ).then((quotes) => {
+        console.log('Retrieved zero ex quotes for exchange issuance')
+        setExchangeIssuanceQuotes(quotes)
+        console.log('Setting fetching data to false')
+        const data = convertQuotesToZeroExData(
+          buySellQuantity,
+          isUserBuying,
+          quotes
+        )
+        console.log('Aggregated data from ei', data)
+        setZeroExTradeData(data)
+        setIsFetchingOrderData(false)
+      })
     } else {
       getZeroExTradeData(
         isExactInputTrade,
@@ -131,6 +148,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         buySellQuantity || '',
         chainId || 1
       ).then((data) => {
+        console.log('Data from buy', data)
         setZeroExTradeData(data)
         setIsFetchingOrderData(false)
       })
@@ -268,6 +286,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         onSetSelectedCurrency,
         onSetBuySellQuantity,
         onExecuteBuySell,
+        exchangeIssuanceQuotes,
       }}
     >
       {children}

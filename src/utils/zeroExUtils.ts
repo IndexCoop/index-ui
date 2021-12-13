@@ -7,29 +7,61 @@ import { ZeroExData } from '../contexts/BuySell/types'
 import { fetchCoingeckoTokenPrice } from './coingeckoApi'
 import { fetchSetComponents } from './tokensetsApi'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors'
-import { utils } from 'ethers'
+import { ethers, utils } from 'ethers'
 //@ts-ignore
 import qs from 'qs'
 
 const API_QUOTE_URL = 'https://api.0x.org/swap/v1/quote'
-async function getQuote(params: any) {
-  const url = `${API_QUOTE_URL}?${qs.stringify(params)}`
-  console.log(`Getting quote from ${params.sellToken} to ${params.buyToken}`)
-  console.log('Sending quote request to:', url)
-  const response = await axios(url)
-  return response.data
+const MAX_RETRIES = 20
+const MS_BETWEEN_RETRIES = 1000
+
+export type ZeroExQuote = {
+  buyToken: string
+  sellToken: string
+  swapCallData: string
+  buyAmount?: string
+  sellAmount?: string
+  gas: string
+  gasPrice: string
+  sources: { name: string; proportion: string }[]
+  to: string
+  from: string
+  decimals: number
 }
 
-export async function getExchangeIssuanceZeroExTradeData(
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+async function getQuote(
+  params: any,
+  retryCount: number = 0
+): Promise<ZeroExQuote> {
+  const url = `${API_QUOTE_URL}?${qs.stringify(params)}`
+  console.log(
+    `RETRY: ${retryCount} - Getting quote from ${params.sellToken} to ${params.buyToken}`
+  )
+  console.log('Sending quote request to:', url)
+  try {
+    const response = await axios(url)
+    return response.data
+  } catch (e) {
+    if (retryCount < MAX_RETRIES) {
+      await sleep(MS_BETWEEN_RETRIES)
+      return await getQuote(params, retryCount + 1)
+    } else {
+      throw e
+    }
+  }
+}
+
+async function getQuotes(
   isUserBuying: boolean,
   currencyToken: string,
   buySellToken: string,
   buySellAmount: string,
-  chainId: number,
-  setComponents: any
-) {
-  // const componentKey = buySellToken + 'Components'
-  // const components = setComponents[componentKey]
+  chainId: number
+): Promise<ZeroExQuote[]> {
   console.log('Fetching set components')
   const components = await fetchSetComponents(buySellToken)
   console.log('Response', components)
@@ -45,11 +77,8 @@ export async function getExchangeIssuanceZeroExTradeData(
       address: string
       decimals: number
       quantity: string
-    }) => {
+    }): Promise<ZeroExQuote> => {
       console.log(address)
-      console.log('Quantity: ', quantity)
-      console.log('Decimals: ', decimals)
-      console.log('buySellAmount: ', buySellAmount)
       const componentAmount = utils
         .parseEther(buySellAmount)
         .div(10 ** 9)
@@ -57,23 +86,170 @@ export async function getExchangeIssuanceZeroExTradeData(
         .div(10 ** 9)
       const buyToken = isUserBuying ? address : parsedCurrencyToken
       const sellToken = isUserBuying ? parsedCurrencyToken : address
-      const params: any = { buyToken, sellToken }
-      if (isUserBuying) params.buyAmount = componentAmount.toString()
-      else params.sellAmount = componentAmount.toString()
-      console.log('Params', params)
-      console.log('Sumbol and currency token', symbol, currencyToken)
       if (symbol === parsedCurrencyToken) {
+        // If the currency token is one of the components we don't have to swap at all
         return Promise.resolve({
-          ...params,
+          buyToken: address,
+          sellToken: address,
+          buyAmount: componentAmount.toString(),
+          sellAmount: componentAmount.toString(),
           swapCallData: utils.formatBytes32String('FOOBAR'),
+          gas: '0',
+          gasPrice: '0',
+          sources: [],
+          to: '',
+          from: '',
+          decimals,
         })
       } else {
-          return getQuote(params).then((result)  => result)
+        const params: any = { buyToken, sellToken, chainId }
+        if (isUserBuying) params.buyAmount = componentAmount.toString()
+        else params.sellAmount = componentAmount.toString()
+        return getQuote(params).then((result) => {
+          return { ...result, decimals }
+        })
       }
     }
   )
-  const quotes = await Promise.all(promises)
+  const quotes: ZeroExQuote[] = await Promise.all(promises)
+  return quotes
+}
+
+export function convertQuotesToZeroExData(
+  buySellAmount: string,
+  isUserBuying: boolean,
+  quotes: ZeroExQuote[]
+): ZeroExData {
+  const buySellAmountParsed = utils.parseEther(buySellAmount)
+  let buyAmount = isUserBuying ? buySellAmountParsed : ethers.BigNumber.from(0)
+  let buyTokenDecimals = isUserBuying ? 18 : 0
+  let sellAmount = isUserBuying ? ethers.BigNumber.from(0) : buySellAmountParsed
+  let sellTokenDecimals = isUserBuying ? 0 : 18
+
+  let gas = 0
+  let gasCostTotal = ethers.BigNumber.from(0)
+  const sourcesAmounts: Record<string, ethers.BigNumber> = {}
+  const result: ZeroExData = {
+    price: '',
+    guaranteedPrice: '',
+    buyTokenAddress: '',
+    sellTokenAddress: '',
+    buyAmount: '',
+    sellAmount: '',
+    to: '',
+    from: '',
+    sources: [{ name: '', proportion: '' }],
+    displayBuyAmount: 0,
+    displaySellAmount: 0,
+    minOutput: new BigNumber(0),
+    maxInput: new BigNumber(0),
+    gas: '',
+    gasPrice: '',
+    formattedSources: '',
+    buyTokenCost: '',
+    sellTokenCost: '',
+  }
+  for (const quote of quotes) {
+    const additionalSellAmount = ethers.BigNumber.from(quote.sellAmount)
+    const additionalBuyAmount = ethers.BigNumber.from(quote.buyAmount)
+    if (isUserBuying) {
+      sellAmount = sellAmount.add(additionalSellAmount)
+      if (quote.decimals !== 0 && sellTokenDecimals === 0)
+        console.log('Setting sell token decimals to', quote.decimals)
+      sellTokenDecimals = quote.decimals
+    } else {
+      buyAmount = buyAmount.add(additionalBuyAmount)
+      if (quote.decimals !== 0 && buyTokenDecimals === 0)
+        console.log('Setting buy token decimals to', quote.decimals)
+      buyTokenDecimals = quote.decimals
+    }
+
+    gas = gas + parseInt(quote.gas)
+    const newGasCost = ethers.BigNumber.from(quote.gasPrice).mul(quote.gas)
+    gasCostTotal = gasCostTotal.add(newGasCost)
+
+    if (result.to === '' && quote.to !== '') result.to = quote.to
+    if (result.from === '' && quote.to !== '') result.from = quote.from
+
+    const additionalBuySellAmount = isUserBuying
+      ? additionalSellAmount
+      : additionalBuyAmount
+    for (const source of quote.sources) {
+      if (source.proportion === '0') continue
+      const proportionPercent = Math.round(parseFloat(source.proportion) * 100)
+      const additionalAmount = ethers.BigNumber.from(additionalBuySellAmount)
+        .mul(proportionPercent)
+        .div(100)
+
+      if (source.name in sourcesAmounts)
+        sourcesAmounts[source.name] = additionalAmount.add(
+          sourcesAmounts[source.name]
+        )
+      else sourcesAmounts[source.name] = additionalAmount
+    }
+
+    result.gas = gas.toString()
+    result.gasPrice = gasCostTotal.gt(0)
+      ? gasCostTotal.div(gas).toString()
+      : '0'
+    result.buyAmount = buyAmount.toString()
+    result.sellAmount = sellAmount.toString()
+
+    const sourceProportionTotal = isUserBuying ? sellAmount : buyAmount
+    result.sources = Object.entries(sourcesAmounts).map(([key, value]) => {
+      return {
+        name: key,
+        proportion: (
+          value.mul(100).div(sourceProportionTotal).toNumber() / 100
+        ).toString(),
+      }
+    })
+    console.log('Aggregated data before processing', result)
+
+    // TODO: Adjust
+    const pricePrecision = 10 ** 6
+    result.guaranteedPrice = buyAmount
+      .mul(pricePrecision)
+      .div(sellAmount)
+      .div(pricePrecision)
+      .toString()
+  }
+  console.log('Aggregated data before processing', result)
+
+  result.displaySellAmount = getDisplayAdjustedAmount(
+    result.sellAmount,
+    sellTokenDecimals
+  )
+  result.displayBuyAmount = getDisplayAdjustedAmount(
+    result.buyAmount,
+    buyTokenDecimals
+  )
+
+  result.formattedSources = formatSources(result.sources)
+  console.log('Aggregated data after processing', result)
+  return result
+}
+
+export async function getExchangeIssuanceZeroExTradeData(
+  isUserBuying: boolean,
+  currencyToken: string,
+  buySellToken: string,
+  buySellAmount: string,
+  chainId: number
+) {
+  // const componentKey = buySellToken + 'Components'
+  // const components = setComponents[componentKey]
+
+  const quotes = await getQuotes(
+    isUserBuying,
+    currencyToken,
+    buySellToken,
+    buySellAmount,
+    chainId
+  )
+
   console.log('Quotes', quotes)
+  return quotes
 }
 
 export const getZeroExTradeData = async (

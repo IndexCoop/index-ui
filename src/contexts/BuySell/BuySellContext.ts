@@ -1,6 +1,7 @@
 import { createContext } from 'react'
 import BigNumber from 'utils/bignumber'
 import { ZeroExData } from './types'
+import { ZeroExQuote } from 'utils/zeroExUtils'
 
 interface BuySellContextValues {
   buySellToken: string
@@ -21,6 +22,7 @@ interface BuySellContextValues {
   onSetSelectedCurrency: (selectedCurrency: any) => void
   onSetBuySellQuantity: (amount: string) => void
   onExecuteBuySell: () => void
+  exchangeIssuanceQuotes: ZeroExQuote[]
 }
 
 const BuySellContext = createContext<BuySellContextValues>({
@@ -42,6 +44,7 @@ const BuySellContext = createContext<BuySellContextValues>({
   onSetSelectedCurrency: () => {},
   onSetBuySellQuantity: () => {},
   onExecuteBuySell: () => {},
+  exchangeIssuanceQuotes: [],
 })
 
 export default BuySellContext
