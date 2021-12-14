@@ -47,7 +47,8 @@ async function getQuotes(
   currencyToken: string,
   buySellToken: string,
   buySellAmount: string,
-  chainId: number
+  chainId: number,
+  isCurrentUpdate: () => boolean
 ): Promise<ZeroExQuote[]> {
   console.log('Fetching set components')
   const components = await fetchSetComponents(buySellToken)
@@ -55,6 +56,7 @@ async function getQuotes(
   const quotes: ZeroExQuote[] = []
   const parsedCurrencyToken = currencyToken === 'ETH' ? 'WETH' : currencyToken
   for (const { symbol, address, decimals, quantity } of components) {
+    if (!isCurrentUpdate()) return []
     console.log(address)
     const componentAmount = utils
       .parseEther(buySellAmount)
@@ -209,7 +211,8 @@ export async function getExchangeIssuanceZeroExTradeData(
   currencyToken: string,
   buySellToken: string,
   buySellAmount: string,
-  chainId: number
+  chainId: number,
+  isCurrentUpdate: () => boolean
 ) {
   // const componentKey = buySellToken + 'Components'
   // const components = setComponents[componentKey]
@@ -219,7 +222,8 @@ export async function getExchangeIssuanceZeroExTradeData(
     currencyToken,
     buySellToken,
     buySellAmount,
-    chainId
+    chainId,
+    isCurrentUpdate
   )
 
   console.log('Quotes', quotes)

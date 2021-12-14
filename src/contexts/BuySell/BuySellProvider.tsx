@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { provider } from 'web3-core'
 
 import BigNumber from 'utils/bignumber'
@@ -21,12 +21,14 @@ import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
 import { ZeroExData } from './types'
 import { MAINNET_CHAIN_DATA } from 'utils/connectors'
-import {exchangeIssuanceTokens, exchangeIssuanceChainIds} from 'constants/exchangeIssuance'
-
+import {
+  exchangeIssuanceTokens,
+  exchangeIssuanceChainIds,
+} from 'constants/exchangeIssuance'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const { account, ethereum, chainId } = useWallet()
-  const {chain} = useChainData();
+  const { chain } = useChainData()
 
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
   const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
@@ -37,9 +39,13 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [zeroExTradeData, setZeroExTradeData] = useState<ZeroExData>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
 
-  const isTokenSupportingExchangeIssuance = exchangeIssuanceTokens.includes(buySellToken);
-  const isChainSupportingExchangeIssuance = exchangeIssuanceChainIds.includes(chain.chainId || 0);
-  const isExchangeIssuanceSupported = isTokenSupportingExchangeIssuance && isChainSupportingExchangeIssuance
+  const isTokenSupportingExchangeIssuance =
+    exchangeIssuanceTokens.includes(buySellToken)
+  const isChainSupportingExchangeIssuance = exchangeIssuanceChainIds.includes(
+    chain.chainId || 0
+  )
+  const isExchangeIssuanceSupported =
+    isTokenSupportingExchangeIssuance && isChainSupportingExchangeIssuance
 
   const [isUsingExchangeIssuanceSelection, setIsUsingExchangeIssuance] =
     useState<boolean>(false)
@@ -50,6 +56,22 @@ const BuySellProvider: React.FC = ({ children }) => {
   >([])
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
+
+  // This index is used to stop ongoing useEffect runs that are already replaced by a newer one
+  const updateIndex = useRef<number>(0)
+  function getUpdateChecker(): () => boolean {
+    const currentUpdateIndex = updateIndex.current + 1
+    updateIndex.current = currentUpdateIndex
+    return () => {
+      if (currentUpdateIndex === updateIndex.current) {
+        return true
+      }
+      console.log(
+        `UpdateIndex ${currentUpdateIndex} is behind index ${updateIndex.current}`
+      )
+      return false
+    }
+  }
 
   const {
     ethBalance,
@@ -70,7 +92,6 @@ const BuySellProvider: React.FC = ({ children }) => {
     usdcBalance,
     usdcBalancePolygon,
   } = useBalances()
-
 
   useEffect(() => {
     setCurrencyOptions(currencyTokens)
@@ -119,6 +140,7 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (!buySellQuantity) return
+    const isCurrentUpdate = getUpdateChecker()
 
     setIsFetchingOrderData(true)
 
@@ -131,19 +153,22 @@ const BuySellProvider: React.FC = ({ children }) => {
         selectedCurrency.label || '',
         buySellToken || '',
         buySellQuantity || '',
-        chainId || 1
+        chainId || 1,
+        isCurrentUpdate
       ).then((quotes) => {
-        console.log('Retrieved zero ex quotes for exchange issuance')
-        setExchangeIssuanceQuotes(quotes)
-        console.log('Setting fetching data to false')
-        const data = convertQuotesToZeroExData(
-          buySellQuantity,
-          isUserBuying,
-          quotes
-        )
-        console.log('Aggregated data from ei', data)
-        setZeroExTradeData(data)
-        setIsFetchingOrderData(false)
+        if (isCurrentUpdate()) {
+          console.log('Retrieved zero ex quotes for exchange issuance')
+          setExchangeIssuanceQuotes(quotes)
+          console.log('Setting fetching data to false')
+          const data = convertQuotesToZeroExData(
+            buySellQuantity,
+            isUserBuying,
+            quotes
+          )
+          console.log('Aggregated data from ei', data)
+          setZeroExTradeData(data)
+          setIsFetchingOrderData(false)
+        }
       })
     } else {
       getZeroExTradeData(
@@ -154,13 +179,16 @@ const BuySellProvider: React.FC = ({ children }) => {
         buySellQuantity || '',
         chainId || 1
       ).then((data) => {
-        console.log('Data from buy', data)
-        setZeroExTradeData(data)
-        setIsFetchingOrderData(false)
+        if (isCurrentUpdate()) {
+          console.log('Data from buy', data)
+          setZeroExTradeData(data)
+          setIsFetchingOrderData(false)
+        }
       })
     }
   }, [
     isUserBuying,
+    isUsingExchangeIssuance,
     selectedCurrency,
     activeField,
     buySellToken,
