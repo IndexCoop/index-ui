@@ -138,6 +138,47 @@ const BuySellProvider: React.FC = ({ children }) => {
     )
   }
 
+  async function getUpdatedZeroExData(
+    isUsingExchangeIssuance: boolean,
+    isUserBuying: boolean,
+    isExactInputTrade: boolean,
+    isCurrentUpdate: () => boolean,
+    selectedCurrencyLabel: string,
+    buySellToken: string,
+    buySellQuantity: string,
+    chainId: number
+  ) {
+    if (isUsingExchangeIssuance) {
+      console.log('Using Exchange Issuance Zero Ex')
+      const quotes = await getExchangeIssuanceZeroExTradeData(
+        isUserBuying,
+        selectedCurrencyLabel,
+        buySellToken,
+        buySellQuantity,
+        chainId,
+        isCurrentUpdate
+      )
+      if (isCurrentUpdate()) {
+        setExchangeIssuanceQuotes(quotes)
+        const data = convertQuotesToZeroExData(
+          buySellQuantity,
+          isUserBuying,
+          quotes
+        )
+        return data
+      }
+    } else {
+      return await getZeroExTradeData(
+        isExactInputTrade,
+        isUserBuying,
+        selectedCurrencyLabel,
+        buySellToken,
+        buySellQuantity,
+        chainId
+      )
+    }
+  }
+
   useEffect(() => {
     if (!buySellQuantity) return
     const isCurrentUpdate = getUpdateChecker()
@@ -146,46 +187,21 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     const isExactInputTrade = !isUserBuying || activeField === 'currency'
 
-    if (isUsingExchangeIssuance) {
-      console.log('Using Exchange Issuance Zero Ex')
-      getExchangeIssuanceZeroExTradeData(
-        isUserBuying,
-        selectedCurrency.label || '',
-        buySellToken || '',
-        buySellQuantity || '',
-        chainId || 1,
-        isCurrentUpdate
-      ).then((quotes) => {
-        if (isCurrentUpdate()) {
-          console.log('Retrieved zero ex quotes for exchange issuance')
-          setExchangeIssuanceQuotes(quotes)
-          console.log('Setting fetching data to false')
-          const data = convertQuotesToZeroExData(
-            buySellQuantity,
-            isUserBuying,
-            quotes
-          )
-          console.log('Aggregated data from ei', data)
-          setZeroExTradeData(data)
-          setIsFetchingOrderData(false)
-        }
-      })
-    } else {
-      getZeroExTradeData(
-        isExactInputTrade,
-        isUserBuying,
-        selectedCurrency.label || '',
-        buySellToken || '',
-        buySellQuantity || '',
-        chainId || 1
-      ).then((data) => {
-        if (isCurrentUpdate()) {
-          console.log('Data from buy', data)
-          setZeroExTradeData(data)
-          setIsFetchingOrderData(false)
-        }
-      })
-    }
+    getUpdatedZeroExData(
+      isUsingExchangeIssuance,
+      isUserBuying,
+      isExactInputTrade,
+      isCurrentUpdate,
+      selectedCurrency.label || '',
+      buySellToken || '',
+      buySellQuantity || '',
+      chainId || 1
+    ).then((data) => {
+      if (isCurrentUpdate()) {
+        setZeroExTradeData(data)
+        setIsFetchingOrderData(false)
+      }
+    })
   }, [
     isUserBuying,
     isUsingExchangeIssuance,
