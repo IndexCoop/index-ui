@@ -48,7 +48,7 @@
     "eject": "react-scripts eject",
     "e2e": "yarn run cypress run --headless",
     "cypress:open": "yarn run cypress open",
-    "lint:fix": "yarn prettier --write ."
+    "lint:fix": "yarn prettier --write . && yarn eslint ./src --fix"
   },
   "husky": {
     "hooks": {
