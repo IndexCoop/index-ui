@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { Switch, SwitchButton, useTheme } from 'react-neu'
+
 import styled from 'styled-components'
 
 import useLocalStorage from 'hooks/useLocalStorage'

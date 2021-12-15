@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import useWallet from 'hooks/useWallet'
 import {
   ChainData,
   MAINNET_CHAIN_DATA,
@@ -7,7 +8,6 @@ import {
 } from 'utils/connectors'
 
 import { ChainDataContext } from '.'
-import useWallet from 'hooks/useWallet'
 
 const ChainIdProvider: React.FC = ({ children }) => {
   const [chain, setChain] = useState<ChainData>(MAINNET_CHAIN_DATA)

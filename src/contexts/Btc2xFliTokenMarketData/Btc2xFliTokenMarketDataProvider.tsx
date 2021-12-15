@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import MarketDataContext from './Btc2xFliTokenMarketDataContext'
-import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
+import React, { useEffect,useState } from 'react'
+
 import { Bitcoin2xFlexibleLeverageIndex } from 'constants/productTokens'
+import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
+
+import MarketDataContext from './Btc2xFliTokenMarketDataContext'
 
 const Btc2xFliTokenMarketDataProvider: React.FC = ({ children }) => {
   const [fliMarketData, setFliMarketData] = useState<any>({})

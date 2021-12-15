@@ -1,5 +1,7 @@
 import React from 'react'
+
 import styled from 'styled-components'
+
 import { formatCypressId } from '../../utils/cypressUtils'
 
 export const ProductPageHeader = styled.div`

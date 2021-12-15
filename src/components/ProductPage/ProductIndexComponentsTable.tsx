@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
-import numeral from 'numeral'
 
-import { ProductPageSection } from './ProductPageLayouts'
+import numeral from 'numeral'
+import styled from 'styled-components'
+
 import { SetComponent } from 'contexts/SetComponents/SetComponent'
 import useWallet from 'hooks/useWallet'
 import { POLYGON_CHAIN_DATA } from 'utils/connectors'
+
+import { ProductPageSection } from './ProductPageLayouts'
 
 interface ProductIndexComponentsProps {
   components?: SetComponent[]

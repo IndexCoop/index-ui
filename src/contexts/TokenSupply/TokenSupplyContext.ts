@@ -1,5 +1,6 @@
-import BigNumber from 'bignumber.js'
 import { createContext } from 'react'
+
+import BigNumber from 'bignumber.js'
 
 interface TokenSupplyProps {
   dpiTotalSupply?: BigNumber

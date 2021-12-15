@@ -1,10 +1,11 @@
 import React from 'react'
+
 import styled from 'styled-components'
 
-import BuySellSelector from './components/BuySellSelector'
-import TokenInputs from './components/TokenInputs'
-import OrderSummary from './components/OrderSummary'
 import BuySellButton from './components/BuySellButton'
+import BuySellSelector from './components/BuySellSelector'
+import OrderSummary from './components/OrderSummary'
+import TokenInputs from './components/TokenInputs'
 
 const BuySellWidget = () => {
   return (

@@ -1,18 +1,19 @@
-import BigNumber from 'utils/bignumber'
 import { Contract, ethers } from 'ethers'
 import Web3 from 'web3'
 import { provider, TransactionReceipt } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
-import ERC20ABI from 'index-sdk/abi/ERC20.json'
-import SupplyCapIssuanceABI from 'index-sdk/abi/SupplyCapIssuanceHook.json'
-import { ProductToken } from 'constants/productTokens'
-import { POLYGON_CHAIN_DATA, MAINNET_CHAIN_DATA } from './connectors'
 import {
   ethTokenAddress,
   wethTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
+import { ProductToken } from 'constants/productTokens'
 import { getProvider } from 'constants/provider'
+import ERC20ABI from 'index-sdk/abi/ERC20.json'
+import SupplyCapIssuanceABI from 'index-sdk/abi/SupplyCapIssuanceHook.json'
+import BigNumber from 'utils/bignumber'
+
+import { MAINNET_CHAIN_DATA,POLYGON_CHAIN_DATA } from './connectors'
 
 const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms))

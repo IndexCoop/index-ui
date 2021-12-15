@@ -2,8 +2,9 @@ import Web3 from 'web3'
 import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
-import AirdropABI from 'index-sdk/abi/Airdrop.json'
 import { airdropAddress } from 'constants/ethContractAddresses'
+import AirdropABI from 'index-sdk/abi/Airdrop.json'
+
 import rewardsMerkleRoot from './rewardsMerkleRoot.json'
 
 export const getAirdropContract = (provider: provider, address: string) => {

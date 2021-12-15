@@ -1,11 +1,14 @@
 import React, { useCallback } from 'react'
-import styled from 'styled-components'
+
 import { Button } from 'react-neu'
+
+import styled from 'styled-components'
+
 import { shortenAddress, useLookupAddress } from '@usedapp/core'
 
-import useWallet from 'hooks/useWallet'
 import UnlockWalletModal from 'components/UnlockWalletModal'
 import WalletModal from 'components/WalletModal'
+import useWallet from 'hooks/useWallet'
 
 const WalletButton: React.FC = () => {
   const {

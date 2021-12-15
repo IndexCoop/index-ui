@@ -1,10 +1,13 @@
 import React from 'react'
+
 import ReactDOM from 'react-dom'
-import './index.css'
+import TagManager from 'react-gtm-module'
+
+import gtmConfig from './utils/googleTagManager'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import TagManager from 'react-gtm-module'
-import gtmConfig from './utils/googleTagManager'
+
+import './index.css'
 
 TagManager.initialize(gtmConfig)
 

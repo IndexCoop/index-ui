@@ -1,19 +1,21 @@
+import React, { useCallback,useEffect, useState } from 'react'
+
 import Web3 from 'web3'
-import React, { useState, useEffect, useCallback } from 'react'
 import { provider } from 'web3-core'
 
-import BigNumber from 'utils/bignumber'
-import BuySellContext from './BuySellContext'
-import useWallet from 'hooks/useWallet'
+import { currencyTokens } from 'constants/currencyTokens'
+import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { getZeroExTradeData } from 'utils/zeroExUtils'
-import trackReferral from 'utils/referralApi'
-import { fromWei, waitTransaction } from 'utils/index'
-import { TransactionStatusType } from 'contexts/TransactionWatcher'
-import { currencyTokens } from 'constants/currencyTokens'
-import { ZeroExData } from './types'
+import useWallet from 'hooks/useWallet'
+import BigNumber from 'utils/bignumber'
 import { MAINNET_CHAIN_DATA } from 'utils/connectors'
+import { fromWei, waitTransaction } from 'utils/index'
+import trackReferral from 'utils/referralApi'
+import { getZeroExTradeData } from 'utils/zeroExUtils'
+
+import BuySellContext from './BuySellContext'
+import { ZeroExData } from './types'
 
 const BuySellProvider: React.FC = ({ children }) => {
   const [buySellToken, setBuySellToken] = useState<string>('dpi')

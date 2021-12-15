@@ -1,15 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react'
+
 import { Button, ModalActions, ModalContent, ModalProps } from 'react-neu'
+
 import styled from 'styled-components'
 
-import NftFarmPlot from './NftFarmPlot'
+import { FarmData, V3Farm } from 'constants/v3Farms'
 import {
+  getActiveFarms,
   getMostRecentFarmNumber,
   getUpcomingFarms,
-  getActiveFarms,
 } from 'index-sdk/uniV3Farm'
 import { deriveRGBColorFromString } from 'utils/colorUtils'
-import { FarmData, V3Farm } from 'constants/v3Farms'
+
+import NftFarmPlot from './NftFarmPlot'
 
 interface StakeModalProps extends ModalProps {
   farm: V3Farm

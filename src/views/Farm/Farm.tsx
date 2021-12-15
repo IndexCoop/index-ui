@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
-import styled from 'styled-components'
+
 import { Box, Container, Separator, Spacer } from 'react-neu'
 
-import Page from 'components/Page'
+import styled from 'styled-components'
 
-import LegacyFarmCard from './components/Stake/LegacyFarm'
-import DpiFarmCard from './components/Stake/DpiFarm'
-import MviFarmCard from './components/Stake/MviFarm'
-import Treasury from './components/Treasury'
-import V3FarmCard from './components/Stake/V3Farm'
+import Page from 'components/Page'
 import { DpiEthRewards, MviEthRewards } from 'constants/v3Farms'
+
+import DpiFarmCard from './components/Stake/DpiFarm'
+import LegacyFarmCard from './components/Stake/LegacyFarm'
+import MviFarmCard from './components/Stake/MviFarm'
+import V3FarmCard from './components/Stake/V3Farm'
+import Treasury from './components/Treasury'
 
 const Farm = (props: { title: string }) => {
   useEffect(() => {

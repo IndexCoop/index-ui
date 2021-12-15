@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react'
+
 import { toast } from 'react-toastify'
 
-import useBtc2xFliTokenSupplyCap from 'hooks/useBtc2xFliTokenSupplyCap'
-import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
-import useBalances from 'hooks/useBalances'
+import ProductDataUI, {
+  TokenDataProps,
+} from 'components/ProductPage/ProductDataUI'
 import {
   Bitcoin2xFlexibleLeverageIndex,
   ProductToken,
 } from 'constants/productTokens'
-import ProductDataUI, {
-  TokenDataProps,
-} from 'components/ProductPage/ProductDataUI'
-import useWallet from 'hooks/useWallet'
-import BigNumber from 'utils/bignumber'
+import useBalances from 'hooks/useBalances'
+import useBtc2xFliTokenMarketData from 'hooks/useBtc2xFliTokenMarketData'
+import useBtc2xFliTokenSupplyCap from 'hooks/useBtc2xFliTokenSupplyCap'
+import useSetComponents from 'hooks/useSetComponents'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
-import useSetComponents from 'hooks/useSetComponents'
+import useWallet from 'hooks/useWallet'
+import BigNumber from 'utils/bignumber'
 
 const Btc2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {

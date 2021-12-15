@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+
 import {
   Button,
   ModalActions,
@@ -6,15 +7,17 @@ import {
   ModalProps,
   Spacer,
 } from 'react-neu'
-import styled from 'styled-components'
 
-import V3StakeDetail from './V3StakeDetail'
-import V3UnstakeDetail from './V3UnstakeDetail'
+import styled from 'styled-components'
+import Web3 from 'web3'
+
 import Modal from 'components/CustomModal'
 import { V3Farm } from 'constants/v3Farms'
 import useV3Farming from 'hooks/useV3Farming'
-import Web3 from 'web3'
 import { deriveRGBColorFromString } from 'utils/colorUtils'
+
+import V3StakeDetail from './V3StakeDetail'
+import V3UnstakeDetail from './V3UnstakeDetail'
 
 interface StakeModalProps extends ModalProps {
   onStake: (nftId: number, farm: V3Farm) => void

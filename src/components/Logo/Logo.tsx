@@ -1,10 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
+
 import { useTheme } from 'react-neu'
 
+import styled from 'styled-components'
+
+import indexLogoBlack from 'assets/index-logo-black.png'
 import indexLogoFullBlack from 'assets/index-logo-full-black.png'
 import indexLogoFullWhite from 'assets/index-logo-full-white.png'
-import indexLogoBlack from 'assets/index-logo-black.png'
 import indexLogoWhite from 'assets/index-logo-white.png'
 
 const Logo: React.FC = () => {

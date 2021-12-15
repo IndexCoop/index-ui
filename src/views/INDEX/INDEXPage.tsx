@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
-import useBalances from 'hooks/useBalances'
-import { IndexToken } from 'constants/productTokens'
+
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
+import { IndexToken } from 'constants/productTokens'
+import useBalances from 'hooks/useBalances'
+import useIndexTokenMarketData from 'hooks/useIndexTokenMarketData'
 
 const DpiProductPage = (props: { title: string }) => {
   useEffect(() => {

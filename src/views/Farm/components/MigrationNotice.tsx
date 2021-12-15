@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { Notice, NoticeContent, NoticeIcon, Spacer } from 'react-neu'
+
 import styled from 'styled-components'
 
 const MigrationNotice: React.FC = () => (

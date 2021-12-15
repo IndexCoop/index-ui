@@ -1,11 +1,12 @@
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useEffect,useState } from 'react'
+
 import { provider } from 'web3-core'
 
-import useWallet from 'hooks/useWallet'
-import useAllowance from './useAllowance'
-
-import { approve } from 'utils'
 import { minimumRequiredApprovalQuantity } from 'constants/approvals'
+import useWallet from 'hooks/useWallet'
+import { approve } from 'utils'
+
+import useAllowance from './useAllowance'
 
 const useApproval = (
   tokenAddress?: string,

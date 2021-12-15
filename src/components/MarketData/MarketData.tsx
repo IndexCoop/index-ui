@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import numeral from 'numeral'
+import React, { useEffect,useState } from 'react'
 
-import SimplePriceChart from 'components/SimplePriceChart'
-import { TokenDataProps } from 'components/ProductPage/ProductDataUI'
-
-import { PriceChartRangeOption } from 'constants/priceChartEnums'
 import { InputProps } from 'react-neu'
-import { IndexToken } from 'constants/productTokens'
+
+import numeral from 'numeral'
+import styled from 'styled-components'
+
 import { MetaData } from 'components/ProductPage'
+import { TokenDataProps } from 'components/ProductPage/ProductDataUI'
+import SimplePriceChart from 'components/SimplePriceChart'
+import { PriceChartRangeOption } from 'constants/priceChartEnums'
+import { IndexToken } from 'constants/productTokens'
 
 interface MarketDataProps extends InputProps {
   tokenData: TokenDataProps

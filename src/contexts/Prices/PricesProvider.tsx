@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react'
-import BigNumber from 'utils/bignumber'
+import React, { useEffect,useState } from 'react'
+
 import { useQuery } from '@apollo/react-hooks'
+
 import {
-  dpiTokenAddress,
-  mviTokenAddress,
   bedTokenAddress,
-  eth2xfliTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
-} from 'constants/ethContractAddresses'
-
-import PricesContext from './PricesContext'
-
-import { DPI_ETH_UNISWAP_QUERY, ETH_MVI_UNISWAP_QUERY } from 'utils/graphql'
-import {
+  dpiTokenAddress,
+  eth2xfliTokenAddress,
   farmTwoAddress,
   indexTokenAddress,
   mviStakingRewardsAddress,
+  mviTokenAddress,
 } from 'constants/ethContractAddresses'
-import { getAmountOfStakedTokens } from 'index-sdk/stake'
 import useWallet from 'hooks/useWallet'
+import { getAmountOfStakedTokens } from 'index-sdk/stake'
+import BigNumber from 'utils/bignumber'
+import { DPI_ETH_UNISWAP_QUERY, ETH_MVI_UNISWAP_QUERY } from 'utils/graphql'
+
+import PricesContext from './PricesContext'
 
 const PricesProvider: React.FC = ({ children }) => {
   const [indexPrice, setIndexPrice] = useState<string>('0')

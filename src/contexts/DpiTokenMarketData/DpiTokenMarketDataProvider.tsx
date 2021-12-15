@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import MarketDataContext from './DpiTokenMarketDataContext'
+import React, { useEffect,useState } from 'react'
+
 import { DefiPulseIndex } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
+
+import MarketDataContext from './DpiTokenMarketDataContext'
 
 const DpiMarketDataProvider: React.FC = ({ children }) => {
   const [dpiMarketData, setDpiMarketData] = useState<any>({})

@@ -1,21 +1,22 @@
 import React, { useMemo } from 'react'
+
 import {
+  Button,
+  ModalActions,
   ModalContent,
   ModalProps,
   Spacer,
-  Button,
-  ModalActions,
 } from 'react-neu'
-import styled from 'styled-components'
-import useWallet from 'hooks/useWallet'
 
-import Modal from 'components/CustomModal'
-import ExternalLink from 'components/ExternalLink'
-import { TransactionStatusType } from 'components/TransactionWatcher'
-import { makeEtherscanLink } from 'utils/index'
+import styled from 'styled-components'
 
 import metamaskLogo from 'assets/metamask-fox.svg'
 import walletConnectLogo from 'assets/wallet-connect.svg'
+import Modal from 'components/CustomModal'
+import ExternalLink from 'components/ExternalLink'
+import { TransactionStatusType } from 'components/TransactionWatcher'
+import useWallet from 'hooks/useWallet'
+import { makeEtherscanLink } from 'utils/index'
 
 interface ConfirmationModalProps extends ModalProps {
   transactionId?: string

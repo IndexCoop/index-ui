@@ -1,7 +1,8 @@
+import { Transaction as EthereumTx } from 'ethereumjs-tx'
+import HookedWalletSubprovider from 'web3-provider-engine/subproviders/hooked-wallet'
+
 import AppEth from '@ledgerhq/hw-app-eth'
 import Transport from '@ledgerhq/hw-transport'
-import HookedWalletSubprovider from 'web3-provider-engine/subproviders/hooked-wallet'
-import { Transaction as EthereumTx } from 'ethereumjs-tx'
 
 const stripHexPrefix = (str: string) =>
   str.slice(0, 2) === '0x' ? str.slice(2) : str
