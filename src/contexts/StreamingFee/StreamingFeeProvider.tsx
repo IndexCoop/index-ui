@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 
-import { getStreamingFees } from 'utils/setjsApi'
 import {
   bedTokenAddress,
   btc2xfliTokenAddress,
@@ -10,10 +9,12 @@ import {
   mviTokenAddress,
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
-import { convertToPercentage } from 'utils/ethersBigNumber'
-import StreamingFeeContext from './StreamingFeeContext'
 import useWallet from 'hooks/useWallet'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
+import { convertToPercentage } from 'utils/ethersBigNumber'
+import { getStreamingFees } from 'utils/setjsApi'
+
+import StreamingFeeContext from './StreamingFeeContext'
 
 const StreamingFeeProvider: React.FC = ({ children }) => {
   const [dpiStreamingFee, setDpiStreamingFee] = useState<string>()

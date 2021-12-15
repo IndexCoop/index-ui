@@ -1,15 +1,17 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useEffect,useState } from 'react'
+
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core'
+
+import useChainData from 'hooks/useChainData'
 import useEagerConnect from 'hooks/useEagerConnect'
 import {
   injected,
+  ledgerwallet,
   walletconnect,
   walletlink,
-  ledgerwallet,
 } from 'utils/connectors'
 
 import WalletContext from './WalletContext'
-import useChainData from 'hooks/useChainData'
 
 const WalletProvider: React.FC = ({ children }) => {
   const [connector, setConnector] = useState<string>('')

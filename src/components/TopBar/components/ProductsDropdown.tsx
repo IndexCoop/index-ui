@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react'
-import styled from 'styled-components'
+
+import { useTheme } from 'react-neu'
 import { NavLink, useLocation } from 'react-router-dom'
 import Select from 'react-select'
-import { useTheme } from 'react-neu'
+
+import styled from 'styled-components'
 
 const CustomOption = ({ innerProps, value, label }: any) => (
   <CustomDropdownOption {...innerProps}>

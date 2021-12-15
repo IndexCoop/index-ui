@@ -1,11 +1,12 @@
 import { createContext } from 'react'
+
 import {
   BedIndex,
   Bitcoin2xFlexibleLeverageIndex,
   DefiPulseIndex,
   Ethereum2xFlexibleLeverageIndex,
-  MetaverseIndex,
   Ethereum2xFLIP,
+  MetaverseIndex,
 } from 'constants/productTokens'
 
 interface StreamingFeeProps {

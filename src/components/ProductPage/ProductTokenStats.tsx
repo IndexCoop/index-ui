@@ -1,9 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
+
 import numeral from 'numeral'
+import styled from 'styled-components'
+
+import BigNumber from 'utils/bignumber'
 
 import { ProductPageSection } from './ProductPageLayouts'
-import BigNumber from 'utils/bignumber'
 
 interface ProductTokenStatsProps {
   latestMarketCap?: number

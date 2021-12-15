@@ -1,8 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
+
 import { NavLink } from 'react-router-dom'
-import ProductsDropdown from './ProductsDropdown'
+
+import styled from 'styled-components'
+
 import LeverageProductsDropdown from './LeverageProductsDropdown'
+import ProductsDropdown from './ProductsDropdown'
 
 const Nav: React.FC = () => {
   return (

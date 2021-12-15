@@ -1,6 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
+
 import PulseLoader from 'react-spinners/PulseLoader'
+
+import styled from 'styled-components'
 
 interface RoundedButtonProps {
   text: string

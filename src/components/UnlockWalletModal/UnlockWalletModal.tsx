@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
+
 import {
   Box,
   Button,
@@ -8,20 +9,21 @@ import {
   ModalTitle,
   Spacer,
 } from 'react-neu'
-import styled from 'styled-components'
-import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify'
 
+import styled from 'styled-components'
+
 import argentLogo from 'assets/argent-wallet.svg'
-import ontoLogo from 'assets/onto-wallet.png'
-import metamaskLogo from 'assets/metamask-fox.svg'
-import walletConnectLogo from 'assets/wallet-connect.svg'
 import coinbaseWalletLogo from 'assets/coinbase-wallet.svg'
+import ledgerWalletLogo from 'assets/ledger-wallet.png'
+import metamaskLogo from 'assets/metamask-fox.svg'
+import ontoLogo from 'assets/onto-wallet.png'
 import rainbowWalletLogo from 'assets/rainbow-logo.png'
 import trustWalletLogo from 'assets/trust-wallet.svg'
-import ledgerWalletLogo from 'assets/ledger-wallet.png'
-
+import walletConnectLogo from 'assets/wallet-connect.svg'
 import Modal from 'components/CustomModal'
+import useWallet from 'hooks/useWallet'
+
 import WalletProviderCard from './components/WalletProviderCard'
 
 const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {

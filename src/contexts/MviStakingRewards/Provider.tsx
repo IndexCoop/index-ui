@@ -1,26 +1,28 @@
 import React, { useCallback, useState } from 'react'
-import { provider } from 'web3-core'
-import BigNumber from 'utils/bignumber'
 
-import Context from './Context'
+import { provider } from 'web3-core'
+
 import ConfirmTransactionModal, {
   TransactionStatusType,
 } from 'components/ConfirmTransactionModal'
-import useApproval from 'hooks/useApproval'
-import useWallet from 'hooks/useWallet'
-import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import {
-  stakeUniswapEthMviLpTokens,
-  unstakeUniswapEthMviLpTokens,
-  claimEarnedIndexLpReward,
-  unstakeAndClaimEarnedIndexLpReward,
-  mviStakingRewardsStartTime,
-} from 'index-sdk/mviStaking'
-import { waitTransaction } from 'utils/index'
 import {
   mviStakingRewardsAddress,
   uniswapEthMviLpTokenAddress,
 } from 'constants/ethContractAddresses'
+import useApproval from 'hooks/useApproval'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
+import useWallet from 'hooks/useWallet'
+import {
+  claimEarnedIndexLpReward,
+  mviStakingRewardsStartTime,
+  stakeUniswapEthMviLpTokens,
+  unstakeAndClaimEarnedIndexLpReward,
+  unstakeUniswapEthMviLpTokens,
+} from 'index-sdk/mviStaking'
+import BigNumber from 'utils/bignumber'
+import { waitTransaction } from 'utils/index'
+
+import Context from './Context'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)

@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import BigNumber from 'utils/bignumber'
 import { provider } from 'web3-core'
 
 import useWallet from 'hooks/useWallet'
 import { getAllowance } from 'utils'
+import BigNumber from 'utils/bignumber'
 
 const useAllowance = (tokenAddress?: string, spenderAddress?: string) => {
   const [allowance, setAllowance] = useState<BigNumber>()

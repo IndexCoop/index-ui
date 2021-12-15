@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react'
+
 import { toast } from 'react-toastify'
 
-import useEth2xFLIPTokenMarketData from 'hooks/useEth2xFLIPTokenMarketData'
-import useEth2xFLIPTokenSupplyCap from 'hooks/useEth2xFLIPTokenSupplyCap'
-import useBalances from 'hooks/useBalances'
-import { Ethereum2xFLIP, ProductToken } from 'constants/productTokens'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
-import useWallet from 'hooks/useWallet'
-import BigNumber from 'utils/bignumber'
+import { Ethereum2xFLIP, ProductToken } from 'constants/productTokens'
+import useBalances from 'hooks/useBalances'
+import useEth2xFLIPTokenMarketData from 'hooks/useEth2xFLIPTokenMarketData'
+import useEth2xFLIPTokenSupplyCap from 'hooks/useEth2xFLIPTokenSupplyCap'
+import useSetComponents from 'hooks/useSetComponents'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
-import useSetComponents from 'hooks/useSetComponents'
+import useWallet from 'hooks/useWallet'
+import BigNumber from 'utils/bignumber'
 
 const Eth2xFLIPProductPage = (props: { title: string }) => {
   useEffect(() => {

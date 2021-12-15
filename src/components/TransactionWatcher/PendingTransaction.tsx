@@ -1,12 +1,14 @@
 import React from 'react'
+
 import { useTheme } from 'react-neu'
-import styled from 'styled-components'
 import MoonLoader from 'react-spinners/MoonLoader'
+
+import styled from 'styled-components'
 
 import ExternalLink from 'components/ExternalLink'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { makeEtherscanLink } from 'utils/index'
 import useWallet from 'hooks/useWallet'
+import { makeEtherscanLink } from 'utils/index'
 
 const PendingTransaction: React.FC = () => {
   const theme = useTheme()

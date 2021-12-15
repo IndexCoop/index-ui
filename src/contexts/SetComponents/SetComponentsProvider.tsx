@@ -1,32 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import { provider } from 'web3-core'
+import React, { useEffect,useState } from 'react'
+
 import BigNumber from 'bignumber.js'
 import {
+  CoinGeckoCoinPrices,
   Position,
   SetDetails,
-  CoinGeckoCoinPrices,
 } from 'set.js/dist/types/src/types'
+import { provider } from 'web3-core'
 
-import SetComponentsContext from './SetComponentsContext'
-import { SetComponent } from './SetComponent'
-import { getSetDetails } from 'utils/setjsApi'
 import {
-  dpiTokenAddress,
-  mviTokenAddress,
   bedTokenAddress,
-  eth2xfliTokenAddress,
-  eth2xflipTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
+  dpiTokenAddress,
   dpiTokenPolygonAddress,
+  eth2xflipTokenAddress,
+  eth2xfliTokenAddress,
+  mviTokenAddress,
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
+import { productTokensBySymbol } from 'constants/productTokens'
 import usePrices from 'hooks/usePrices'
 import { Token, useTokenList } from 'hooks/useTokenList'
 import useWallet from 'hooks/useWallet'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
+import { getSetDetails } from 'utils/setjsApi'
 import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
-import { productTokensBySymbol } from 'constants/productTokens'
+
+import { SetComponent } from './SetComponent'
+import SetComponentsContext from './SetComponentsContext'
 
 const ASSET_PLATFORM = 'ethereum'
 const VS_CURRENCY = 'usd'

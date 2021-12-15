@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
 
-import BigNumber from 'utils/bignumber'
 import {
   Button,
   ModalActions,
@@ -13,6 +12,7 @@ import Modal from 'components/CustomModal'
 import TokenInput from 'components/TokenInput'
 import useBalances from 'hooks/useBalances'
 import { fromWei, getFullDisplayBalance } from 'utils'
+import BigNumber from 'utils/bignumber'
 
 interface MviStakeModalProps extends ModalProps {
   onStake: (amount: string) => void

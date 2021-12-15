@@ -1,9 +1,12 @@
-import { useEffect, useRef, useMemo } from 'react'
-import styled, { css } from 'styled-components'
-import Select from 'react-select'
+import { useEffect, useMemo,useRef } from 'react'
+
 import { useTheme } from 'react-neu'
+import Select from 'react-select'
+
+import styled, { css } from 'styled-components'
 
 import useBuySell from 'hooks/useBuySell'
+
 import MaxButton from './MaxButton'
 
 const TokenInputs = () => {

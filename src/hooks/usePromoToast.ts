@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
+
 import { toast } from 'react-toastify'
+
 import useLocalStorage from './useLocalStorage'
 
 const usePromoToast = (component: React.ReactElement, toastId: string) => {

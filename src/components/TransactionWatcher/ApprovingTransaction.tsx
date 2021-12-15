@@ -1,8 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
-import MoonLoader from 'react-spinners/MoonLoader'
 
 import { useTheme } from 'react-neu'
+import MoonLoader from 'react-spinners/MoonLoader'
+
+import styled from 'styled-components'
 
 interface ApprovingTransactionProps {
   onDismiss?: (...args: any[]) => any

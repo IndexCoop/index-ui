@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
-import styled from 'styled-components'
+
 import numeral from 'numeral'
+import styled from 'styled-components'
 
 import { ProductPageSection } from './ProductPageLayouts'
 
