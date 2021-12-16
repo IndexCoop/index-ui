@@ -8,6 +8,7 @@ import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 const OrderSummary = () => {
   const {
     isFetchingOrderData,
+    requestStatus,
     zeroExTradeData,
     isUsingExchangeIssuance,
     isUserBuying,
@@ -15,7 +16,7 @@ const OrderSummary = () => {
   const { chainId } = useWallet()
 
   const isOrderDataReady =
-    Number(zeroExTradeData?.buyAmount) > 0 && !isFetchingOrderData
+    Number(zeroExTradeData?.buyAmount) > 0 && (requestStatus === "success")
 
   const limitLabel =
     isUsingExchangeIssuance && isUserBuying ? 'Maximum Paid' : 'Minimum Receive'

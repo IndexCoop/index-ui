@@ -1,12 +1,13 @@
 import { createContext } from 'react'
 import BigNumber from 'utils/bignumber'
-import { ZeroExData } from './types'
+import { ZeroExData, RequestStatus } from './types'
 import { ZeroExQuote } from 'utils/zeroExUtils'
 
 interface BuySellContextValues {
   buySellToken: string
   isFetchingOrderData: boolean
   isUserBuying: boolean
+  requestStatus: RequestStatus
   isUsingExchangeIssuance: boolean
   isExchangeIssuanceSupported: boolean
   activeField: 'currency' | 'set'
@@ -29,6 +30,7 @@ const BuySellContext = createContext<BuySellContextValues>({
   buySellToken: 'dpi',
   isFetchingOrderData: false,
   isUserBuying: true,
+  requestStatus: 'none',
   isUsingExchangeIssuance: false,
   isExchangeIssuanceSupported: false,
   activeField: 'currency',

@@ -1,12 +1,11 @@
 import Web3 from 'web3'
 import React, { useRef, useState, useEffect, useCallback } from 'react'
-import { provider } from 'web3-core'
 
 import BigNumber from 'utils/bignumber'
 import BuySellContext from './BuySellContext'
+import { RequestStatus } from './types'
 import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances'
-import useSetComponents from 'hooks/useSetComponents'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import {
   convertQuotesToZeroExData,
@@ -31,7 +30,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   const { chain } = useChainData()
 
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
-  const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
+  const [requestStatus, setRequestStatus] = useState<RequestStatus>('none')
+  const isFetchingOrderData = requestStatus === 'loading'
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [buySellQuantity, setBuySellQuantity] = useState<string>('')
@@ -150,7 +150,6 @@ const BuySellProvider: React.FC = ({ children }) => {
     chainId: number
   ) {
     if (isUsingExchangeIssuance) {
-      console.log('Using Exchange Issuance Zero Ex')
       const quotes = await getExchangeIssuanceZeroExTradeData(
         isUserBuying,
         selectedCurrencyLabel,
@@ -185,7 +184,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     if (!(parsedBuySellQuantity > 0)) return
     const isCurrentUpdate = getUpdateChecker()
 
-    setIsFetchingOrderData(true)
+    setRequestStatus('loading')
     console.log('parsedBuySellQuantity', parsedBuySellQuantity)
 
     const isExactInputTrade = !isUserBuying || activeField === 'currency'
@@ -199,12 +198,17 @@ const BuySellProvider: React.FC = ({ children }) => {
       buySellToken || '',
       parsedBuySellQuantity.toString() || '',
       chainId || 1
-    ).then((data) => {
-      if (isCurrentUpdate()) {
-        setZeroExTradeData(data)
-        setIsFetchingOrderData(false)
-      }
-    })
+    )
+      .then((data) => {
+        if (isCurrentUpdate()) {
+          setZeroExTradeData(data)
+          setRequestStatus('success')
+        }
+      })
+      .catch((error) => {
+        console.error('Caught error', error)
+        setRequestStatus('failure')
+      })
   }, [
     isUserBuying,
     isUsingExchangeIssuance,
@@ -325,6 +329,7 @@ const BuySellProvider: React.FC = ({ children }) => {
       value={{
         buySellToken,
         isFetchingOrderData,
+        requestStatus,
         isUserBuying,
         isUsingExchangeIssuance,
         isExchangeIssuanceSupported,
