@@ -164,7 +164,8 @@ const BuySellProvider: React.FC = ({ children }) => {
         const data = convertQuotesToZeroExData(
           buySellQuantity,
           isUserBuying,
-          quotes
+          quotes,
+          selectedCurrencyLabel
         )
         return data
       }

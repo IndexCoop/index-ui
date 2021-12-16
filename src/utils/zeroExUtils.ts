@@ -94,13 +94,16 @@ async function getQuotes(
 export function convertQuotesToZeroExData(
   buySellAmount: string,
   isUserBuying: boolean,
-  quotes: ZeroExQuote[]
+  quotes: ZeroExQuote[],
+  currencyToken: string
 ): ZeroExData {
   const buySellAmountParsed = utils.parseEther(buySellAmount)
   let buyAmount = isUserBuying ? buySellAmountParsed : ethers.BigNumber.from(0)
-  let buyTokenDecimals = isUserBuying ? 18 : 0
+  const currencyTokenDecimals = tokenInfo[currencyToken].decimals
+
+  let buyTokenDecimals = isUserBuying ? 18 : currencyTokenDecimals
   let sellAmount = isUserBuying ? ethers.BigNumber.from(0) : buySellAmountParsed
-  let sellTokenDecimals = isUserBuying ? 0 : 18
+  let sellTokenDecimals = isUserBuying ? currencyTokenDecimals : 18
 
   let gas = 0
   let gasCostTotal = ethers.BigNumber.from(0)
@@ -130,14 +133,8 @@ export function convertQuotesToZeroExData(
     const additionalBuyAmount = ethers.BigNumber.from(quote.buyAmount)
     if (isUserBuying) {
       sellAmount = sellAmount.add(additionalSellAmount)
-      if (quote.decimals !== 0 && sellTokenDecimals === 0)
-        console.log('Setting sell token decimals to', quote.decimals)
-      sellTokenDecimals = quote.decimals
     } else {
       buyAmount = buyAmount.add(additionalBuyAmount)
-      if (quote.decimals !== 0 && buyTokenDecimals === 0)
-        console.log('Setting buy token decimals to', quote.decimals)
-      buyTokenDecimals = quote.decimals
     }
 
     gas = gas + parseInt(quote.gas)
