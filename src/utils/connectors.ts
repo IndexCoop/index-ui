@@ -18,7 +18,7 @@ export type ChainData = {
 export const MAINNET_CHAIN_DATA: ChainData = {
   name: 'Ethereum',
   chainId: 1,
-  rpcUrl: 'https://mainnet.eth.aragon.network/',
+  rpcUrl: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
   icon: 'https://raw.githubusercontent.com/sushiswap/icons/master/network/mainnet.jpg',
   coingeckoId: 'ethereum',
 }
