@@ -12,8 +12,9 @@ import { ethers, utils } from 'ethers'
 import qs from 'qs'
 
 const API_QUOTE_URL = 'https://api.0x.org/swap/v1/quote'
-const MAX_RETRIES = 20
-const MS_BETWEEN_RETRIES = 1000
+
+const SLIPPAGE_PERCENTS = 1
+const slippagePercentage = SLIPPAGE_PERCENTS / 100
 
 export type ZeroExQuote = {
   buyToken: string
@@ -37,7 +38,6 @@ async function getQuote(
   console.log(
     `RETRY: ${retryCount} - Getting quote from ${params.sellToken} to ${params.buyToken}`
   )
-  console.log('Sending quote request to:', url)
   const response = await axios(url)
   return response.data
 }
@@ -81,7 +81,7 @@ async function getQuotes(
         decimals,
       })
     } else {
-      const params: any = { buyToken, sellToken, chainId }
+      const params: any = { buyToken, sellToken, chainId, slippagePercentage }
       if (isUserBuying) params.buyAmount = componentAmount.toString()
       else params.sellAmount = componentAmount.toString()
       const quote = await getQuote(params)
@@ -128,6 +128,7 @@ export function convertQuotesToZeroExData(
     buyTokenCost: '',
     sellTokenCost: '',
   }
+
   for (const quote of quotes) {
     const additionalSellAmount = ethers.BigNumber.from(quote.sellAmount)
     const additionalBuyAmount = ethers.BigNumber.from(quote.buyAmount)
@@ -197,6 +198,22 @@ export function convertQuotesToZeroExData(
     result.buyAmount,
     buyTokenDecimals
   )
+
+  if (isUserBuying) {
+    result.maxInput = new BigNumber(
+      sellAmount
+        .mul(100)
+        .div(100 - SLIPPAGE_PERCENTS)
+        .toString()
+    ).dividedBy(10 ** sellTokenDecimals)
+  } else {
+    result.minOutput = new BigNumber(
+      buyAmount
+        .mul(100 - SLIPPAGE_PERCENTS)
+        .div(100)
+        .toString()
+    ).dividedBy(10 ** buyTokenDecimals)
+  }
 
   result.formattedSources = formatSources(result.sources)
   console.log('Aggregated data after processing', result)

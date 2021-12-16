@@ -183,11 +183,20 @@ const BuySellProvider: React.FC = ({ children }) => {
     }
   }
 
+  function isInsufficientLiquidity(response: any): boolean {
+    return (
+      response?.data?.validationErrors?.find(
+        (validationError: any) =>
+          validationError?.reason ===  'INSUFFICIENT_ASSET_LIQUIDITY'
+      ) !== undefined
+    )
+  }
+
   useEffect(() => {
     if (!(parsedBuySellQuantity > 0)) return
     const isCurrentUpdate = getUpdateChecker()
     setRequestStatus('loading')
-    setZeroExTradeData(undefined);
+    setZeroExTradeData(undefined)
     sleep(REQUEST_DELAY)
     if (!isCurrentUpdate()) return
 
@@ -212,8 +221,11 @@ const BuySellProvider: React.FC = ({ children }) => {
         }
       })
       .catch((error) => {
-        console.error('Caught error', error)
+        console.error('Caught error', error.response)
         setRequestStatus('failure')
+        if (isInsufficientLiquidity(error?.response)) {
+          setRequestStatus('insufficientLiquidity')
+        }
       })
   }, [
     isUserBuying,

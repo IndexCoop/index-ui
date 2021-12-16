@@ -7,7 +7,6 @@ import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const OrderSummary = () => {
   const {
-    isFetchingOrderData,
     requestStatus,
     zeroExTradeData,
     isUsingExchangeIssuance,

@@ -28,7 +28,9 @@ const BuySellButton: React.FC = () => {
   const { account, onOpenWalletModal } = useWallet()
 
   const loginRequired = !account
-  const requestFailed = requestStatus === 'failure'
+  const requestFailed = ['failure', 'insufficientLiquidity'].includes(
+    requestStatus
+  )
 
   const tokenApproval = useApproval(
     zeroExTradeData?.sellTokenAddress,
@@ -46,7 +48,11 @@ const BuySellButton: React.FC = () => {
   let buttonAction: (...args: any[]) => any
 
   if (requestFailed) {
-    buttonText = 'Request Failed'
+    if (requestStatus === 'insufficientLiquidity') {
+      buttonText = 'Insufficient Liquidity'
+    } else {
+      buttonText = 'Request Failed'
+    }
     buttonAction = () => console.warn('Ignore click since request failed')
   } else if (tokenApproving && !ignoreApproval) {
     buttonText = 'Approving'
