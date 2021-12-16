@@ -4,29 +4,26 @@ import styled from 'styled-components'
 import useBuySell from 'hooks/useBuySell'
 
 const BuySellSelector: React.FC = () => {
-  const { isUserBuying, onToggleIsUserBuying, isUsingExchangeIssuance } =
+  const { isUsingExchangeIssuance, onToggleIsUsingExchangeIssuance } =
     useBuySell()
 
-  const buyLabel = isUsingExchangeIssuance ? 'Issue' : 'Buy'
-  const sellLabel = isUsingExchangeIssuance ? 'Redeem' : 'Sell'
-
-  if (isUserBuying) {
+  if (isUsingExchangeIssuance) {
     return (
       <StyledCardHeader>
-        <StyledActiveButton>{buyLabel}</StyledActiveButton>
-        <StyledBuySellButton onClick={onToggleIsUserBuying}>
-          {sellLabel}
-        </StyledBuySellButton>
+        <StyledExchangeIssuanceButton onClick={onToggleIsUsingExchangeIssuance}>
+          Swap
+        </StyledExchangeIssuanceButton>
+        <StyledActiveButton>Exchange Issuance</StyledActiveButton>
       </StyledCardHeader>
     )
   }
 
   return (
     <StyledCardHeader>
-      <StyledBuySellButton onClick={onToggleIsUserBuying}>
-        {buyLabel}
-      </StyledBuySellButton>
-      <StyledActiveButton>{sellLabel}</StyledActiveButton>
+      <StyledActiveButton>Swap</StyledActiveButton>
+      <StyledExchangeIssuanceButton onClick={onToggleIsUsingExchangeIssuance}>
+        Exchange Issuance
+      </StyledExchangeIssuanceButton>
     </StyledCardHeader>
   )
 }
@@ -37,16 +34,16 @@ const StyledCardHeader = styled.div`
   width: 100%;
 `
 
-const StyledBuySellButton = styled.button`
+const StyledExchangeIssuanceButton = styled.button`
   width: 50%;
   background: none;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 600;
   border: none;
   border-bottom: 2px solid ${(props) => props.theme.colors.grey[400]};
   color: ${(props) => props.theme.colors.grey[400]};
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
   cursor: pointer;
   outline: none;
   &:hover {
@@ -58,13 +55,13 @@ const StyledBuySellButton = styled.button`
 const StyledActiveButton = styled.button`
   width: 50%;
   background: none;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 600;
   border: none;
   border-bottom: 2px solid ${(props) => props.theme.colors.primary.light};
   color: ${(props) => props.theme.colors.primary.light};
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
   cursor: pointer;
   outline: none;
 `

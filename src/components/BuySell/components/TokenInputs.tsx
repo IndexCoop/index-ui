@@ -11,6 +11,7 @@ const TokenInputs = () => {
     buySellToken,
     buySellQuantity,
     isUserBuying,
+    isUsingExchangeIssuance,
     activeField,
     selectedCurrency,
     currencyOptions,
@@ -22,6 +23,10 @@ const TokenInputs = () => {
   const currencyInputRef = useRef<any>()
   const setTokenInputRef = useRef<any>()
   const theme = useTheme()
+
+  const buyAmountLabel = isUsingExchangeIssuance
+    ? 'Issue (exact)'
+    : 'Buy (estimated)'
 
   const dropdownSelectStyles = useMemo(
     () => ({
@@ -83,7 +88,7 @@ const TokenInputs = () => {
     return (
       <>
         <StyledCurrencyContainer
-          isActive={activeField === 'currency'}
+          isActive={!isUsingExchangeIssuance && activeField === 'currency'}
           onClick={() => onSetActiveField('currency')}
         >
           <StyledCurrencyLabelWrapper>
@@ -94,6 +99,7 @@ const TokenInputs = () => {
           </StyledCurrencyLabelWrapper>
           <StyledCurrencySelectWrapper>
             <StyledInputField
+              readOnly={isUsingExchangeIssuance}
               ref={currencyInputRef}
               value={
                 isExactInput
@@ -123,7 +129,7 @@ const TokenInputs = () => {
           onClick={() => onSetActiveField('set')}
         >
           <StyledTokenLabelWrapper>
-            <StyledCurrencyLabel>Buy (estimated)</StyledCurrencyLabel>
+            <StyledCurrencyLabel>{buyAmountLabel}</StyledCurrencyLabel>
             <StyledCurrencyLabel>
               ${zeroExTradeData?.buyTokenCost}
             </StyledCurrencyLabel>

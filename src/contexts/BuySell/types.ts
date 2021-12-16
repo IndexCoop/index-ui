@@ -20,3 +20,10 @@ export type ZeroExData = {
   buyTokenCost: string
   sellTokenCost: string
 }
+
+export type RequestStatus =
+  | 'none'
+  | 'loading'
+  | 'success'
+  | 'failure'
+  | 'insufficientLiquidity'

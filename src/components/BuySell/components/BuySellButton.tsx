@@ -20,6 +20,7 @@ const BuySellButton: React.FC = () => {
     buySellToken,
     isFetchingOrderData,
     isUserBuying,
+    requestStatus,
     onExecuteBuySell,
     zeroExTradeData,
   } = useBuySell()
@@ -27,6 +28,9 @@ const BuySellButton: React.FC = () => {
   const { account, onOpenWalletModal } = useWallet()
 
   const loginRequired = !account
+  const requestFailed = ['failure', 'insufficientLiquidity'].includes(
+    requestStatus
+  )
 
   const tokenApproval = useApproval(
     zeroExTradeData?.sellTokenAddress,
@@ -42,29 +46,35 @@ const BuySellButton: React.FC = () => {
 
   let buttonText: string
   let buttonAction: (...args: any[]) => any
-  if (tokenApproving && !ignoreApproval) {
+
+  if (requestFailed) {
+    if (requestStatus === 'insufficientLiquidity') {
+      buttonText = 'Insufficient Liquidity'
+    } else {
+      buttonText = 'Request Failed'
+    }
+    buttonAction = () => console.warn('Ignore click since request failed')
+  } else if (tokenApproving && !ignoreApproval) {
     buttonText = 'Approving'
     buttonAction = () => {}
   } else if (tokenApprovalRequired && !ignoreApproval) {
     buttonText = 'Approve Tokens'
     buttonAction = tokenApproval.onApprove
-  } else if (isUserBuying) {
-    buttonText = 'Buy'
-    buttonAction = onExecuteBuySell
-  } else {
-    buttonText = 'Sell'
-    buttonAction = onExecuteBuySell
-  }
-
-  if (loginRequired) {
+  } else if (requestFailed) {
+    buttonText = 'Request Failed'
+    buttonAction = () => console.warn('Ignore click since request failed')
+  } else if (loginRequired) {
     buttonText = 'Login'
     buttonAction = onOpenWalletModal
+  } else {
+    buttonAction = onExecuteBuySell
+    buttonText = isUserBuying ? 'Buy' : 'Sell'
   }
 
   return (
     <RoundedButton
       buttonClassName={buySellToken}
-      isDisabled={!zeroExTradeData && !loginRequired}
+      isDisabled={requestFailed}
       isPending={isFetchingOrderData}
       text={buttonText}
       onClick={buttonAction}

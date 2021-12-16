@@ -1,31 +1,81 @@
 import Web3 from 'web3'
-import React, { useState, useEffect, useCallback } from 'react'
-import { provider } from 'web3-core'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 
 import BigNumber from 'utils/bignumber'
 import BuySellContext from './BuySellContext'
+import { RequestStatus } from './types'
 import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { getZeroExTradeData } from 'utils/zeroExUtils'
+import { sleep } from 'utils'
+import {
+  convertQuotesToZeroExData,
+  getZeroExTradeData,
+  getExchangeIssuanceZeroExTradeData,
+  ZeroExQuote,
+} from 'utils/zeroExUtils'
+import useChainData from 'hooks/useChainData'
 import trackReferral from 'utils/referralApi'
 import { fromWei, waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
 import { ZeroExData } from './types'
 import { MAINNET_CHAIN_DATA } from 'utils/connectors'
+import {
+  exchangeIssuanceTokens,
+  exchangeIssuanceChainIds,
+} from 'constants/exchangeIssuance'
+
+const REQUEST_DELAY = 500
 
 const BuySellProvider: React.FC = ({ children }) => {
+  const { account, ethereum, chainId } = useWallet()
+  const { chain } = useChainData()
+
   const [buySellToken, setBuySellToken] = useState<string>('dpi')
-  const [isFetchingOrderData, setIsFetchingOrderData] = useState<boolean>(false)
+  const [requestStatus, setRequestStatus] = useState<RequestStatus>('none')
+  const isFetchingOrderData = requestStatus === 'loading'
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [buySellQuantity, setBuySellQuantity] = useState<string>('')
+  const parsedBuySellQuantity = parseFloat(buySellQuantity)
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
   const [zeroExTradeData, setZeroExTradeData] = useState<ZeroExData>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
 
+  const isTokenSupportingExchangeIssuance =
+    exchangeIssuanceTokens.includes(buySellToken)
+  const isChainSupportingExchangeIssuance = exchangeIssuanceChainIds.includes(
+    chain.chainId || 0
+  )
+  const isExchangeIssuanceSupported =
+    isTokenSupportingExchangeIssuance && isChainSupportingExchangeIssuance
+
+  const [isUsingExchangeIssuanceSelection, setIsUsingExchangeIssuance] =
+    useState<boolean>(false)
+  const isUsingExchangeIssuance =
+    isUsingExchangeIssuanceSelection && isExchangeIssuanceSupported
+  const [exchangeIssuanceQuotes, setExchangeIssuanceQuotes] = useState<
+    ZeroExQuote[]
+  >([])
+
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
+
+  // This index is used to stop ongoing useEffect runs that are already replaced by a newer one
+  const updateIndex = useRef<number>(0)
+  function getUpdateChecker(): () => boolean {
+    const currentUpdateIndex = updateIndex.current + 1
+    updateIndex.current = currentUpdateIndex
+    return () => {
+      if (currentUpdateIndex === updateIndex.current) {
+        return true
+      }
+      console.log(
+        `UpdateIndex ${currentUpdateIndex} is behind index ${updateIndex.current}`
+      )
+      return false
+    }
+  }
 
   const {
     ethBalance,
@@ -46,8 +96,6 @@ const BuySellProvider: React.FC = ({ children }) => {
     usdcBalance,
     usdcBalancePolygon,
   } = useBalances()
-
-  const { account, ethereum, chainId } = useWallet()
 
   useEffect(() => {
     setCurrencyOptions(currencyTokens)
@@ -94,30 +142,98 @@ const BuySellProvider: React.FC = ({ children }) => {
     )
   }
 
-  useEffect(() => {
-    if (!buySellQuantity) return
+  async function getUpdatedZeroExData(
+    isUsingExchangeIssuance: boolean,
+    isUserBuying: boolean,
+    isExactInputTrade: boolean,
+    isCurrentUpdate: () => boolean,
+    selectedCurrencyLabel: string,
+    buySellToken: string,
+    buySellQuantity: string,
+    chainId: number
+  ) {
+    if (isUsingExchangeIssuance) {
+      const quotes = await getExchangeIssuanceZeroExTradeData(
+        isUserBuying,
+        selectedCurrencyLabel,
+        buySellToken,
+        buySellQuantity,
+        chainId,
+        isCurrentUpdate
+      )
+      if (isCurrentUpdate()) {
+        setExchangeIssuanceQuotes(quotes)
+        const data = convertQuotesToZeroExData(
+          buySellQuantity,
+          isUserBuying,
+          quotes,
+          selectedCurrencyLabel
+        )
+        return data
+      }
+    } else {
+      return await getZeroExTradeData(
+        isExactInputTrade,
+        isUserBuying,
+        selectedCurrencyLabel,
+        buySellToken,
+        buySellQuantity,
+        chainId
+      )
+    }
+  }
 
-    setIsFetchingOrderData(true)
+  function isInsufficientLiquidity(response: any): boolean {
+    return (
+      response?.data?.validationErrors?.find(
+        (validationError: any) =>
+          validationError?.reason ===  'INSUFFICIENT_ASSET_LIQUIDITY'
+      ) !== undefined
+    )
+  }
+
+  useEffect(() => {
+    if (!(parsedBuySellQuantity > 0)) return
+    const isCurrentUpdate = getUpdateChecker()
+    setRequestStatus('loading')
+    setZeroExTradeData(undefined)
+    sleep(REQUEST_DELAY)
+    if (!isCurrentUpdate()) return
+
+    console.log('parsedBuySellQuantity', parsedBuySellQuantity)
 
     const isExactInputTrade = !isUserBuying || activeField === 'currency'
 
-    getZeroExTradeData(
-      isExactInputTrade,
+    getUpdatedZeroExData(
+      isUsingExchangeIssuance,
       isUserBuying,
+      isExactInputTrade,
+      isCurrentUpdate,
       selectedCurrency.label || '',
       buySellToken || '',
-      buySellQuantity || '',
+      parsedBuySellQuantity.toString() || '',
       chainId || 1
-    ).then((data) => {
-      setZeroExTradeData(data)
-      setIsFetchingOrderData(false)
-    })
+    )
+      .then((data) => {
+        if (isCurrentUpdate()) {
+          setZeroExTradeData(data)
+          setRequestStatus('success')
+        }
+      })
+      .catch((error) => {
+        console.error('Caught error', error.response)
+        setRequestStatus('failure')
+        if (isInsufficientLiquidity(error?.response)) {
+          setRequestStatus('insufficientLiquidity')
+        }
+      })
   }, [
     isUserBuying,
+    isUsingExchangeIssuance,
     selectedCurrency,
     activeField,
     buySellToken,
-    buySellQuantity,
+    parsedBuySellQuantity,
     chainId,
   ])
 
@@ -192,13 +308,20 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   const onToggleIsUserBuying = () => {
     // If the user is switching to sell, ensure `set` field can only be selected.
-    if (isUserBuying) {
+    if (isUserBuying && !isUsingExchangeIssuance) {
       onSetActiveField('set')
     }
     setIsUserBuying(!isUserBuying)
   }
 
+  const onToggleIsUsingExchangeIssuance = () => {
+    // If the user is switching to sell, ensure `set` field can only be selected.
+    setIsUsingExchangeIssuance(!isUsingExchangeIssuance)
+  }
+
   const onSetActiveField = (field: 'currency' | 'set') => {
+    if (isUsingExchangeIssuance) return
+
     setActiveField(field)
 
     if (!isUserBuying) return
@@ -224,7 +347,10 @@ const BuySellProvider: React.FC = ({ children }) => {
       value={{
         buySellToken,
         isFetchingOrderData,
+        requestStatus,
         isUserBuying,
+        isUsingExchangeIssuance,
+        isExchangeIssuanceSupported,
         activeField,
         selectedCurrency,
         spendingTokenBalance,
@@ -233,10 +359,12 @@ const BuySellProvider: React.FC = ({ children }) => {
         buySellQuantity,
         onSetBuySellToken: setBuySellToken,
         onToggleIsUserBuying,
+        onToggleIsUsingExchangeIssuance,
         onSetActiveField,
         onSetSelectedCurrency,
         onSetBuySellQuantity,
         onExecuteBuySell,
+        exchangeIssuanceQuotes,
       }}
     >
       {children}
