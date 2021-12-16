@@ -35,6 +35,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [buySellQuantity, setBuySellQuantity] = useState<string>('')
+  const parsedBuySellQuantity = parseFloat(buySellQuantity);
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
   const [zeroExTradeData, setZeroExTradeData] = useState<ZeroExData>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
@@ -180,7 +181,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   }
 
   useEffect(() => {
-    if (!buySellQuantity) return
+    if (!parsedBuySellQuantity) return
     const isCurrentUpdate = getUpdateChecker()
 
     setIsFetchingOrderData(true)
@@ -194,7 +195,7 @@ const BuySellProvider: React.FC = ({ children }) => {
       isCurrentUpdate,
       selectedCurrency.label || '',
       buySellToken || '',
-      buySellQuantity || '',
+      parsedBuySellQuantity.toString() || '',
       chainId || 1
     ).then((data) => {
       if (isCurrentUpdate()) {
@@ -208,7 +209,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     selectedCurrency,
     activeField,
     buySellToken,
-    buySellQuantity,
+    parsedBuySellQuantity,
     chainId,
   ])
 
