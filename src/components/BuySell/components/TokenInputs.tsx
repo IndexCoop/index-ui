@@ -88,7 +88,7 @@ const TokenInputs = () => {
     return (
       <>
         <StyledCurrencyContainer
-          isActive={activeField === 'currency'}
+          isActive={!isUsingExchangeIssuance && activeField === 'currency'}
           onClick={() => onSetActiveField('currency')}
         >
           <StyledCurrencyLabelWrapper>

@@ -35,7 +35,7 @@ const BuySellProvider: React.FC = ({ children }) => {
   const [isUserBuying, setIsUserBuying] = useState<boolean>(true)
   const [activeField, setActiveField] = useState<'currency' | 'set'>('currency')
   const [buySellQuantity, setBuySellQuantity] = useState<string>('')
-  const parsedBuySellQuantity = parseFloat(buySellQuantity);
+  const parsedBuySellQuantity = parseFloat(buySellQuantity)
   const [selectedCurrency, setSelectedCurrency] = useState<any>()
   const [zeroExTradeData, setZeroExTradeData] = useState<ZeroExData>()
   const [currencyOptions, setCurrencyOptions] = useState<any[]>([])
@@ -181,10 +181,11 @@ const BuySellProvider: React.FC = ({ children }) => {
   }
 
   useEffect(() => {
-    if (!parsedBuySellQuantity) return
+    if (!(parsedBuySellQuantity > 0)) return
     const isCurrentUpdate = getUpdateChecker()
 
     setIsFetchingOrderData(true)
+    console.log('parsedBuySellQuantity', parsedBuySellQuantity)
 
     const isExactInputTrade = !isUserBuying || activeField === 'currency'
 
@@ -296,6 +297,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   }
 
   const onSetActiveField = (field: 'currency' | 'set') => {
+    if (isUsingExchangeIssuance) return
+
     setActiveField(field)
 
     if (!isUserBuying) return
