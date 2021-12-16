@@ -11,6 +11,7 @@ export interface ContextValues {
   usdcBalance?: BigNumber
   bedBalance?: BigNumber
   dataBalance?: BigNumber
+  gmiBalance?: BigNumber
 
   // polygon
   wethBalancePolygon?: BigNumber

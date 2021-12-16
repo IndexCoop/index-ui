@@ -6,6 +6,7 @@ import { getTokenSupply } from 'utils/setjsApi'
 import useWallet from 'hooks/useWallet'
 import {
   bedTokenAddress,
+  gmiTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
   dpiTokenAddress,
@@ -22,6 +23,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
   const [dpiTotalSupply, setDpiTotalSupply] = useState<BigNumber>()
   const [mviTotalSupply, setMviTotalSupply] = useState<BigNumber>()
   const [bedTotalSupply, setBedTotalSupply] = useState<BigNumber>()
+  const [gmiTotalSupply, setGmiTotalSupply] = useState<BigNumber>()
   const [eth2xfliTotalSupply, setEth2xfliTotalSupply] = useState<BigNumber>()
   const [eth2xflipTotalSupply, setEth2xflipTotalSupply] = useState<BigNumber>()
   const [btc2xfliTotalSupply, setBtc2xfliTotalSupply] = useState<BigNumber>()
@@ -37,6 +39,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
       dpiTokenAddress &&
       mviTokenAddress &&
       bedTokenAddress &&
+      gmiTokenAddress &&
       eth2xfliTokenAddress &&
       btc2xfliTokenAddress &&
       dataTokenAddress
@@ -47,6 +50,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
           dpiTokenAddress,
           mviTokenAddress,
           bedTokenAddress,
+          gmiTokenAddress,
           eth2xfliTokenAddress,
           btc2xfliTokenAddress,
           dataTokenAddress,
@@ -58,6 +62,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
             dpiResult,
             mviResult,
             bedResult,
+            gmiResult,
             eth2xFliResult,
             btc2xFliResult,
             dataResult,
@@ -74,6 +79,11 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
           )
           setBedTotalSupply(
             new BigNumber(bedResult.totalSupply.toString()).dividedBy(
+              new BigNumber(10).pow(18)
+            )
+          )
+          setGmiTotalSupply(
+            new BigNumber(gmiResult.totalSupply.toString()).dividedBy(
               new BigNumber(10).pow(18)
             )
           )
@@ -126,6 +136,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
             )
           )
           setBedTotalSupply(undefined)
+          setGmiTotalSupply(undefined)
           setEth2xfliTotalSupply(undefined)
           setBtc2xfliTotalSupply(undefined)
           setDataTotalSupply(undefined)
@@ -140,6 +151,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
         dpiTotalSupply: dpiTotalSupply,
         mviTotalSupply: mviTotalSupply,
         bedTotalSupply: bedTotalSupply,
+        gmiTotalSupply: gmiTotalSupply,
         eth2xfliTotalSupply: eth2xfliTotalSupply,
         eth2xflipTotalSupply: eth2xflipTotalSupply,
         btc2xfliTotalSupply: btc2xfliTotalSupply,

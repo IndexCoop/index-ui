@@ -119,6 +119,19 @@ export const DataIndex: ProductToken = {
   },
 }
 
+export const GmiIndex: ProductToken = {
+  name: 'Bankless DeFi Innovation Index',
+  symbol: 'GMI',
+  address: tokenAddresses.gmiTokenAddress,
+  polygonAddress: undefined,
+  image: bedBorderLogo,
+  coingeckoId: 'bankless-gmi-index',
+  tokensetsId: 'gmi',
+  fees: {
+    streamingFee: '0.25%',
+  },
+}
+
 export const productTokensBySymbol = {
   'DPI': DefiPulseIndex,
   'MVI': MetaverseIndex,
@@ -128,6 +141,7 @@ export const productTokensBySymbol = {
   'BTC2x-FLI': Bitcoin2xFlexibleLeverageIndex,
   'BED': BedIndex,
   'DATA': DataIndex,
+  'GMI': GmiIndex,
 }
 
 const indexNames = [
@@ -139,6 +153,7 @@ const indexNames = [
   Bitcoin2xFlexibleLeverageIndex,
   BedIndex,
   DataIndex,
+  GmiIndex,
 ]
 
 export default indexNames

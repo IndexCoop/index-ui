@@ -71,6 +71,7 @@ export const btc2xfliTokenAddress =
   process.env.REACT_APP_BTC2X_FLI_TOKEN_ADDRESS
 export const ethTokenAddress = process.env.REACT_APP_ETH_TOKEN_ADDRESS
 export const bedTokenAddress = process.env.REACT_APP_BED_TOKEN_ADDRESS
+export const gmiTokenAddress = process.env.REACT_APP_GMI_TOKEN_ADDRESS
 export const dataTokenAddress = process.env.REACT_APP_DATA_TOKEN_ADDRESS
 
 export const navIssuanceModuleAddress =

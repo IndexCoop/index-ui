@@ -8,6 +8,7 @@ import {
   mviTokenAddress,
   usdcTokenAddress,
   bedTokenAddress,
+  gmiTokenAddress,
   dataTokenAddress,
   dpiTokenPolygonAddress,
   mviTokenPolygonAddress,
@@ -35,6 +36,10 @@ export const tokenInfo: any = {
   },
   bed: {
     address: bedTokenAddress,
+    decimals: 18,
+  },
+  gmi: {
+    address: gmiTokenAddress,
     decimals: 18,
   },
   data: {
