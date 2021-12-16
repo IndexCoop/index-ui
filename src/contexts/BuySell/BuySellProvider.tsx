@@ -7,6 +7,7 @@ import { RequestStatus } from './types'
 import useWallet from 'hooks/useWallet'
 import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
+import { sleep } from 'utils'
 import {
   convertQuotesToZeroExData,
   getZeroExTradeData,
@@ -24,6 +25,8 @@ import {
   exchangeIssuanceTokens,
   exchangeIssuanceChainIds,
 } from 'constants/exchangeIssuance'
+
+const REQUEST_DELAY = 500
 
 const BuySellProvider: React.FC = ({ children }) => {
   const { account, ethereum, chainId } = useWallet()
@@ -183,8 +186,11 @@ const BuySellProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (!(parsedBuySellQuantity > 0)) return
     const isCurrentUpdate = getUpdateChecker()
-
     setRequestStatus('loading')
+    setZeroExTradeData(undefined);
+    sleep(REQUEST_DELAY)
+    if (!isCurrentUpdate()) return
+
     console.log('parsedBuySellQuantity', parsedBuySellQuantity)
 
     const isExactInputTrade = !isUserBuying || activeField === 'currency'

@@ -21,7 +21,6 @@ const BuySellButton: React.FC = () => {
     isFetchingOrderData,
     isUserBuying,
     requestStatus,
-    isUsingExchangeIssuance,
     onExecuteBuySell,
     zeroExTradeData,
   } = useBuySell()
