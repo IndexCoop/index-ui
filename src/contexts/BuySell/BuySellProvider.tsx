@@ -19,6 +19,7 @@ import trackReferral from 'utils/referralApi'
 import { fromWei, waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
+import { tokenInfo, polygonTokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from './types'
 import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 import {
@@ -60,6 +61,11 @@ const BuySellProvider: React.FC = ({ children }) => {
   >([])
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
+
+  const tokenMapping =
+    chain.chainId === POLYGON_CHAIN_DATA.chainId ? polygonTokenInfo : tokenInfo
+  const sellTokenName = isUserBuying ? selectedCurrency?.label : buySellToken
+  const sellTokenAddress = tokenMapping[sellTokenName]?.address
 
   // This index is used to stop ongoing useEffect runs that are already replaced by a newer one
   const updateIndex = useRef<number>(0)
@@ -167,7 +173,8 @@ const BuySellProvider: React.FC = ({ children }) => {
           buySellQuantity,
           isUserBuying,
           quotes,
-          selectedCurrencyLabel
+          selectedCurrencyLabel,
+          selectedCurrency.address
         )
         return data
       }
@@ -366,6 +373,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         onSetBuySellQuantity,
         onExecuteBuySell,
         exchangeIssuanceQuotes,
+        sellTokenAddress,
       }}
     >
       {children}

@@ -23,6 +23,8 @@ const useApproval = (
 
   const handleApprove = useCallback(async () => {
     if (!ethereum || !account || !spenderAddress || !tokenAddress) {
+      console.log(ethereum, account, spenderAddress, tokenAddress);
+      console.log("Not approving");
       return
     }
     try {

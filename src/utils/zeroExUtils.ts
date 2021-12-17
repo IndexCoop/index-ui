@@ -6,7 +6,7 @@ import { polygonTokenInfo, tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
 import { fetchCoingeckoTokenPrice } from './coingeckoApi'
 import { fetchSetComponents } from './tokensetsApi'
-import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors'
+import { POLYGON_CHAIN_DATA } from './connectors'
 import { ethers, utils } from 'ethers'
 //@ts-ignore
 import qs from 'qs'
@@ -95,7 +95,8 @@ export function convertQuotesToZeroExData(
   buySellAmount: string,
   isUserBuying: boolean,
   quotes: ZeroExQuote[],
-  currencyToken: string
+  currencyToken: string,
+  buySellToken: string
 ): ZeroExData {
   const buySellAmountParsed = utils.parseEther(buySellAmount)
   let buyAmount = isUserBuying ? buySellAmountParsed : ethers.BigNumber.from(0)
@@ -216,6 +217,9 @@ export function convertQuotesToZeroExData(
   }
 
   result.formattedSources = formatSources(result.sources)
+
+  result.sellTokenAddress = isUserBuying ? currencyToken : buySellToken
+
   console.log('Aggregated data after processing', result)
   return result
 }

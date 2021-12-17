@@ -4,7 +4,10 @@ import { RoundedButton } from 'components/RoundedButton'
 import useBuySell from 'hooks/useBuySell'
 import useWallet from 'hooks/useWallet'
 import useApproval from 'hooks/useApproval'
-import { zeroExRouterAddress } from 'constants/ethContractAddresses'
+import {
+  exchangeIssuanceZeroExAddress,
+  zeroExRouterAddress,
+} from 'constants/ethContractAddresses'
 import { getTokenAddress } from 'utils'
 import { MAINNET_CHAIN_DATA } from 'utils/connectors'
 
@@ -20,9 +23,11 @@ const BuySellButton: React.FC = () => {
     buySellToken,
     isFetchingOrderData,
     isUserBuying,
+    sellTokenAddress,
     requestStatus,
+    isUsingExchangeIssuance,
     onExecuteBuySell,
-    zeroExTradeData,
+    selectedCurrency,
   } = useBuySell()
 
   const { account, onOpenWalletModal } = useWallet()
@@ -32,17 +37,15 @@ const BuySellButton: React.FC = () => {
     requestStatus
   )
 
-  const tokenApproval = useApproval(
-    zeroExTradeData?.sellTokenAddress,
-    zeroExRouterAddress
-  )
+  console.log("Exchange issuance address", exchangeIssuanceZeroExAddress);
+  const approvalTarget = isUsingExchangeIssuance
+    ? exchangeIssuanceZeroExAddress
+    : zeroExRouterAddress
+  const tokenApproval = useApproval(sellTokenAddress, approvalTarget)
 
   const tokenApprovalRequired = !tokenApproval.isApproved
   const tokenApproving = tokenApproval.isApproving
-  const ignoreApproval =
-    zeroExTradeData?.sellTokenAddress ===
-      getTokenAddress(MAINNET_CHAIN_DATA.chainId) ||
-    zeroExTradeData?.sellTokenAddress === undefined
+  const ignoreApproval = isUserBuying && selectedCurrency?.label === 'ETH'
 
   let buttonText: string
   let buttonAction: (...args: any[]) => any
