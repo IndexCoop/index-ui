@@ -85,11 +85,12 @@ const TokenInputs = () => {
 
   const isExactInput = activeField === 'currency'
 
-  const buyCurrencyAmount = isFetchingOrderData
-    ? 0
-    : !isUsingExchangeIssuance && isExactInput
-    ? buySellQuantity
-    : zeroExTradeData?.displaySellAmount.toFixed(6)
+  const buyCurrencyAmount =
+    !isUsingExchangeIssuance && isExactInput
+      ? buySellQuantity
+      : isUsingExchangeIssuance && isFetchingOrderData
+      ? 0
+      : zeroExTradeData?.displaySellAmount.toFixed(6)
 
   const sellCurrencyAmount = isFetchingOrderData
     ? 0

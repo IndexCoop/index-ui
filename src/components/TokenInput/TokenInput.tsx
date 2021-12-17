@@ -9,6 +9,7 @@ interface TokenInputProps extends InputProps {
   onSelectMax?: () => void
 }
 
+
 const TokenInput: React.FC<TokenInputProps> = ({
   max,
   symbol,
