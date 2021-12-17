@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import {
   ChainData,
+  LOCALHOST_CHAIN_DATA,
   MAINNET_CHAIN_DATA,
   POLYGON_CHAIN_DATA,
 } from 'utils/connectors'
@@ -15,11 +16,10 @@ const ChainIdProvider: React.FC = ({ children }) => {
 
   const setMainnet = () => {
     setChain(MAINNET_CHAIN_DATA)
-    if (isMetamaskConnected)
-      ethereum?.send('wallet_switchEthereumChain', [
-        { chainId: '0x1' },
-        account,
-      ])
+  }
+
+  const setLocalhost = () => {
+    setChain(LOCALHOST_CHAIN_DATA)
   }
 
   const setPolygon = () => {
@@ -45,6 +45,7 @@ const ChainIdProvider: React.FC = ({ children }) => {
     <ChainDataContext.Provider
       value={{
         chain,
+        setLocalhost,
         setMainnet,
         setPolygon,
       }}

@@ -271,15 +271,15 @@ export const getZeroExTradeData = async (
     chainId
   )
   let resp
-  if (chainId === MAINNET_CHAIN_DATA.chainId)
-    resp = await axios.get(
-      `https://api.0x.org/swap/v1/quote?${querystring.stringify(params)}`
-    )
-  else
+  if (chainId === POLYGON_CHAIN_DATA.chainId)
     resp = await axios.get(
       `https://polygon.api.0x.org/swap/v1/quote?${querystring.stringify(
         params
       )}`
+    )
+  else
+    resp = await axios.get(
+      `https://api.0x.org/swap/v1/quote?${querystring.stringify(params)}`
     )
 
   const zeroExData: ZeroExData = resp.data
@@ -301,23 +301,7 @@ const getApiParams = (
   chainId: number
 ): any => {
   let params: any
-  if (chainId === MAINNET_CHAIN_DATA.chainId) {
-    params = {
-      sellToken: tokenInfo[sellToken].address,
-      buyToken: tokenInfo[buyToken].address,
-    }
-    if (isExactInput) {
-      params.sellAmount = getDecimalAdjustedAmount(
-        buySellAmount,
-        tokenInfo[sellToken].decimals
-      )
-    } else {
-      params.buyAmount = getDecimalAdjustedAmount(
-        buySellAmount,
-        tokenInfo[buyToken].decimals
-      )
-    }
-  } else {
+  if (chainId === POLYGON_CHAIN_DATA.chainId) {
     params = {
       sellToken: polygonTokenInfo[sellToken].address,
       buyToken: polygonTokenInfo[buyToken].address,
@@ -331,6 +315,22 @@ const getApiParams = (
       params.buyAmount = getDecimalAdjustedAmount(
         buySellAmount,
         polygonTokenInfo[buyToken].decimals
+      )
+    }
+  } else {
+    params = {
+      sellToken: tokenInfo[sellToken].address,
+      buyToken: tokenInfo[buyToken].address,
+    }
+    if (isExactInput) {
+      params.sellAmount = getDecimalAdjustedAmount(
+        buySellAmount,
+        tokenInfo[sellToken].decimals
+      )
+    } else {
+      params.buyAmount = getDecimalAdjustedAmount(
+        buySellAmount,
+        tokenInfo[buyToken].decimals
       )
     }
   }

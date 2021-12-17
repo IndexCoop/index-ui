@@ -19,7 +19,7 @@ import BigNumber from 'utils/bignumber'
 import { SetComponent } from 'contexts/SetComponents/SetComponent'
 import useChainData from 'hooks/useChainData'
 import BuySellDisabled from 'components/BuySell/BuySellDisabled'
-import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
+import { LOCALHOST_CHAIN_DATA, MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 export interface TokenDataProps {
   prices: number[][] | undefined
@@ -71,6 +71,9 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
    */
   const isAvailableOnCurrentChain = () => {
     return (
+      (chain.chainId === LOCALHOST_CHAIN_DATA.chainId &&
+        tokenData.token.polygonAddress &&
+        tokenData.token.polygonAddress.length > 0) ||
       (chain.chainId === POLYGON_CHAIN_DATA.chainId &&
         tokenData.token.polygonAddress &&
         tokenData.token.polygonAddress.length > 0) ||

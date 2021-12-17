@@ -20,7 +20,7 @@ import { fromWei, waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
 import { ZeroExData } from './types'
-import { MAINNET_CHAIN_DATA } from 'utils/connectors'
+import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 import {
   exchangeIssuanceTokens,
   exchangeIssuanceChainIds,
@@ -107,9 +107,9 @@ const BuySellProvider: React.FC = ({ children }) => {
     polygonBalance: any,
     decimals: number = 18
   ) => {
-    return chainId && chainId === MAINNET_CHAIN_DATA.chainId
-      ? fromWei(mainnetBalance, decimals)
-      : fromWei(polygonBalance, decimals)
+    return chainId && chainId === POLYGON_CHAIN_DATA.chainId
+      ? fromWei(polygonBalance, decimals)
+      : fromWei(mainnetBalance, decimals)
   }
 
   // eslint-disable-next-line
@@ -187,7 +187,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     return (
       response?.data?.validationErrors?.find(
         (validationError: any) =>
-          validationError?.reason ===  'INSUFFICIENT_ASSET_LIQUIDITY'
+          validationError?.reason === 'INSUFFICIENT_ASSET_LIQUIDITY'
       ) !== undefined
     )
   }
@@ -245,6 +245,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         ? fromWei(new BigNumber(zeroExTradeData.sellAmount), 6)
         : fromWei(new BigNumber(zeroExTradeData?.sellAmount))
 
+    console.log('Spending Balance', spendingTokenBalance.toString())
     if (spendingTokenBalance.lt(requiredBalance)) return
 
     const web3 = new Web3(ethereum)
