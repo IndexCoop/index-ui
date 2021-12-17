@@ -10,6 +10,7 @@ const TokenInputs = () => {
   const {
     buySellToken,
     buySellQuantity,
+    isFetchingOrderData,
     isUserBuying,
     isUsingExchangeIssuance,
     activeField,
@@ -84,6 +85,16 @@ const TokenInputs = () => {
 
   const isExactInput = activeField === 'currency'
 
+  const buyCurrencyAmount = isFetchingOrderData
+    ? 0
+    : !isUsingExchangeIssuance && isExactInput
+    ? buySellQuantity
+    : zeroExTradeData?.displaySellAmount.toFixed(6)
+
+  const sellCurrencyAmount = isFetchingOrderData
+    ? 0
+    : zeroExTradeData?.displayBuyAmount.toFixed(6)
+
   if (isUserBuying) {
     return (
       <>
@@ -100,12 +111,7 @@ const TokenInputs = () => {
           <StyledCurrencySelectWrapper>
             <StyledInputField
               readOnly={isUsingExchangeIssuance}
-              ref={currencyInputRef}
-              value={
-                isExactInput
-                  ? buySellQuantity
-                  : zeroExTradeData?.displaySellAmount.toFixed(6)
-              }
+              value={buyCurrencyAmount}
               type='number'
               min='0'
               step='0.01'
@@ -138,7 +144,7 @@ const TokenInputs = () => {
             <StyledInputField
               ref={setTokenInputRef}
               value={
-                isExactInput
+                !isUsingExchangeIssuance && isExactInput
                   ? zeroExTradeData?.displayBuyAmount.toFixed(6)
                   : buySellQuantity
               }
@@ -201,7 +207,7 @@ const TokenInputs = () => {
           <StyledInputField
             readOnly
             ref={currencyInputRef}
-            value={zeroExTradeData?.displayBuyAmount.toFixed(6)}
+            value={sellCurrencyAmount}
             type='number'
             min='0'
             step='0.01'
