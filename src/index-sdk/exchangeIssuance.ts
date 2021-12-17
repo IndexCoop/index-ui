@@ -15,7 +15,7 @@ export const getExchangeIssuanceZeroEx = (provider: provider) => {
   return contract
 }
 
-export const issueExactSetFromToken = (
+export function issueExactSetFromToken(
   provider: provider,
   account: string,
   setToken: string,
@@ -23,28 +23,23 @@ export const issueExactSetFromToken = (
   amountSetToken: BigNumber,
   maxAmountInputToken: BigNumber,
   componentQuotes: Array<any>
-): Promise<string | null> => {
+) {
   const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
 
-  return new Promise((resolve) => {
-    exchangeIssuanceContract.methods
-      .issueExactSetFromToken(
-        setToken,
-        inputToken,
-        amountSetToken,
-        maxAmountInputToken,
-        componentQuotes
-      )
-      .send({ from: account, gas: 200000 })
-      .on('transactionHash', (txId: string) => {
-        if (!txId) resolve(null)
-
-        resolve(txId)
-      })
-      .on('error', (error: any) => {
-        console.log(error)
-        resolve(null)
-      })
+  console.log('args', {
+    setToken,
+    inputToken,
+    amountSetToken,
+    maxAmountInputToken,
+    componentQuotes,
   })
+  return exchangeIssuanceContract.methods
+    .issueExactSetFromToken(
+      setToken,
+      inputToken,
+      amountSetToken,
+      maxAmountInputToken,
+      componentQuotes
+    )
+    .send({ from: account})
 }
-

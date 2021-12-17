@@ -26,6 +26,8 @@ import {
   exchangeIssuanceTokens,
   exchangeIssuanceChainIds,
 } from 'constants/exchangeIssuance'
+import { issueExactSetFromToken } from 'index-sdk/exchangeIssuance'
+import { ethers } from 'ethers'
 
 const REQUEST_DELAY = 500
 
@@ -64,8 +66,13 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   const tokenMapping =
     chain.chainId === POLYGON_CHAIN_DATA.chainId ? polygonTokenInfo : tokenInfo
+
   const sellTokenName = isUserBuying ? selectedCurrency?.label : buySellToken
   const sellTokenAddress = tokenMapping[sellTokenName]?.address
+  const sellTokenDecimals = tokenInfo[sellTokenName]?.decimals
+
+  const buyTokenName = isUserBuying ? buySellToken : selectedCurrency?.label
+  const buyTokenAddress = tokenMapping[buyTokenName]?.address
 
   // This index is used to stop ongoing useEffect runs that are already replaced by a newer one
   const updateIndex = useRef<number>(0)
@@ -244,6 +251,97 @@ const BuySellProvider: React.FC = ({ children }) => {
     chainId,
   ])
 
+  async function executeTokenSwap(web3: Web3) {
+    if (!zeroExTradeData) return
+    zeroExTradeData.from = account || ''
+    zeroExTradeData.gas = undefined // use metamask estimated gas limit
+    return web3.eth.sendTransaction(zeroExTradeData)
+  }
+
+  async function executeExchangeIssuance(web3: Web3) {
+    console.log(
+      'Enter exchange Issuance',
+      exchangeIssuanceQuotes,
+      zeroExTradeData,
+      selectedCurrency
+    )
+    if (!zeroExTradeData || !(exchangeIssuanceQuotes.length > 0)) return
+    const exchangeIssuanceQuotesParsed = exchangeIssuanceQuotes.map(
+      ({ sellTokenAddress, buyTokenAddress, data }) => {
+        return {
+          sellToken: sellTokenAddress,
+          buyToken: buyTokenAddress,
+          swapCallData: data,
+        }
+      }
+    )
+    if (isUserBuying) {
+      if (selectedCurrency.label !== 'ETH') {
+        console.log('addresses', buyTokenAddress, sellTokenAddress)
+        return issueExactSetFromToken(
+          web3.currentProvider,
+          account || '',
+          buyTokenAddress,
+          sellTokenAddress,
+          new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
+          zeroExTradeData.maxInput.multipliedBy(10 ** sellTokenDecimals),
+          exchangeIssuanceQuotesParsed
+        )
+      }
+    }
+    console.log('Not executing exchange issuance')
+    return undefined
+  }
+
+  async function executeTrade(web3: Web3) {
+    let tx
+    if (isUsingExchangeIssuance) {
+      tx = executeExchangeIssuance(web3)
+    } else {
+      tx = executeTokenSwap(web3)
+    }
+
+    onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
+
+    const response = await tx
+
+    if (!response) {
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
+      return
+    }
+
+    onSetTransactionId(response.transactionHash)
+    onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+
+    const isSuccessful = await waitTransaction(
+      ethereum,
+      response.transactionHash
+    )
+    const referralCode = window?.localStorage?.getItem('referral') || ''
+
+    if (isSuccessful) {
+      onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
+      trackReferral(
+        referralCode,
+        response.transactionHash,
+        'COMPLETED',
+        selectedCurrency,
+        buySellToken,
+        isUserBuying
+      )
+    } else {
+      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
+      trackReferral(
+        referralCode,
+        response.transactionHash,
+        'PENDING OR FAILED',
+        selectedCurrency,
+        buySellToken,
+        isUserBuying
+      )
+    }
+  }
+
   const onExecuteBuySell = useCallback(async () => {
     if (!account || !zeroExTradeData?.sellAmount || !selectedCurrency) return
 
@@ -257,49 +355,14 @@ const BuySellProvider: React.FC = ({ children }) => {
 
     const web3 = new Web3(ethereum)
 
-    zeroExTradeData.from = account
-    zeroExTradeData.gas = undefined // use metamask estimated gas limit
     try {
-      const tx = web3.eth.sendTransaction(zeroExTradeData)
-      onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
-
-      const response = await tx
-
-      onSetTransactionId(response.transactionHash)
-      onSetTransactionStatus(TransactionStatusType.IS_PENDING)
-
-      const isSuccessful = await waitTransaction(
-        ethereum,
-        response.transactionHash
-      )
-      const referralCode = window?.localStorage?.getItem('referral') || ''
-
-      if (isSuccessful) {
-        onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
-        trackReferral(
-          referralCode,
-          response.transactionHash,
-          'COMPLETED',
-          selectedCurrency,
-          buySellToken,
-          isUserBuying
-        )
-      } else {
-        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
-        trackReferral(
-          referralCode,
-          response.transactionHash,
-          'PENDING OR FAILED',
-          selectedCurrency,
-          buySellToken,
-          isUserBuying
-        )
-      }
+      await executeTrade(web3)
     } catch (e) {
       // There is a problem here where any error that gets triggered will make it seem like
       // the transaction failed. For example, the wallet continually polls the chain but fails
       // to make the network request. The transaction may not have failed, but it would have
       // triggered this error state.
+      console.error('Caught error', e)
       onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
   }, [

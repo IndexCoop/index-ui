@@ -19,7 +19,6 @@ const slippagePercentage = SLIPPAGE_PERCENTS / 100
 export type ZeroExQuote = {
   buyToken: string
   sellToken: string
-  swapCallData: string
   buyAmount?: string
   sellAmount?: string
   gas: string
@@ -28,6 +27,9 @@ export type ZeroExQuote = {
   to: string
   from: string
   decimals: number
+  data: string
+  sellTokenAddress: string
+  buyTokenAddress: string
 }
 
 async function getQuote(
@@ -69,10 +71,12 @@ async function getQuotes(
       // If the currency token is one of the components we don't have to swap at all
       quotes.push({
         buyToken: address,
+        buyTokenAddress: address,
         sellToken: address,
+        sellTokenAddress: address,
         buyAmount: componentAmount.toString(),
         sellAmount: componentAmount.toString(),
-        swapCallData: utils.formatBytes32String('FOOBAR'),
+        data: utils.formatBytes32String('FOOBAR'),
         gas: '0',
         gasPrice: '0',
         sources: [],
