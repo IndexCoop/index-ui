@@ -34,9 +34,7 @@ export async function parseQuotes(
   provider: provider
 ) {
   const setToken = getSetTokenContract(tokenAddress, provider)
-  console.log('Set token contract', setToken)
   const components = await setToken.getComponents()
-  console.log('Components: ', components)
   const parsedQuotes = components.map((component: string) => {
     const quote = quotes[component]
     return {
@@ -57,17 +55,15 @@ export function issueExactSetFromToken(
   maxAmountInputToken: BigNumber,
   componentQuotes: Array<any>
 ) {
-  console.log('Issuing exact set from token', {
-    amountSetToken,
-    maxAmountInputToken,
-  })
+  const amountSetTokenParsed = ethers.BigNumber.from(amountSetToken.toString())
+  const maxAmountInputTokenParsed = ethers.BigNumber.from(maxAmountInputToken.toString())
   const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
   return exchangeIssuanceContract.methods
     .issueExactSetFromToken(
       setToken,
       inputToken,
-      amountSetToken,
-      maxAmountInputToken,
+      amountSetTokenParsed,
+      maxAmountInputTokenParsed,
       componentQuotes
     )
     .send({ from: account })
@@ -82,13 +78,15 @@ export function redeemExactSetForToken(
   minAmountOutputToken: BigNumber,
   componentQuotes: Array<any>
 ) {
+  const amountSetTokenParsed = ethers.BigNumber.from(amountSetToken.toString())
+  const minAmountOutputTokenParsed = ethers.BigNumber.from(minAmountOutputToken.toString())
   const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
   return exchangeIssuanceContract.methods
     .redeemExactSetForToken(
       setToken,
       outputToken,
-      amountSetToken,
-      minAmountOutputToken,
+      amountSetTokenParsed,
+      minAmountOutputTokenParsed,
       componentQuotes
     )
     .send({ from: account })
@@ -102,16 +100,8 @@ export function issueExactSetFromETH(
   maxAmountInputToken: BigNumber,
   componentQuotes: Array<any>
 ) {
-  console.log('Issuing exact set from eth', {
-    amountSetToken,
-    maxAmountInputToken,
-  })
   const amountSetTokenParsed = ethers.BigNumber.from(amountSetToken.toString())
   const maxAmountInputTokenParsed = ethers.BigNumber.from(maxAmountInputToken.toString())
-  console.log('Parsed amounts', {
-    amountSetTokenParsed,
-    maxAmountInputTokenParsed,
-  })
   const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
   return exchangeIssuanceContract.methods
     .issueExactSetFromETH(setToken, amountSetTokenParsed, componentQuotes)
@@ -126,12 +116,14 @@ export function redeemExactSetForETH(
   minEthReceive: BigNumber,
   componentQuotes: Array<any>
 ) {
+  const amountSetTokenParsed = ethers.BigNumber.from(amountSetToken.toString())
+  const minEthReceiveParsed = ethers.BigNumber.from(minEthReceive.toString())
   const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
   return exchangeIssuanceContract.methods
     .redeemExactSetForETH(
       setToken,
-      amountSetToken,
-      minEthReceive,
+      amountSetTokenParsed,
+      minEthReceiveParsed,
       componentQuotes
     )
     .send({ from: account })
