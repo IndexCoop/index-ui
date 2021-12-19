@@ -42,14 +42,10 @@ async function getQuote(
 ): Promise<ZeroExQuote> {
   try {
     const url = `${API_QUOTE_URL}?${qs.stringify(params)}`
-    console.log(
-      `RETRY: ${retryCount} - Getting quote from ${params.sellToken} to ${params.buyToken}`
-    )
     const response = await axios(url)
     return response.data
   } catch (error: any) {
     if (RETRY_STATUSES.includes(error.response?.status) && retryCount < MAX_RETRIES) {
-      console.log(error.response)
       await sleep(1000)
       return await getQuote(params, retryCount + 1)
     } else {
@@ -66,16 +62,13 @@ async function getQuotes(
   chainId: number,
   isCurrentUpdate: () => boolean
 ): Promise<Record<string, ZeroExQuote>> {
-  console.log('Fetching set components')
   const components = await fetchSetComponents(buySellToken)
-  console.log('Response', components)
   const quotes: Record<string, ZeroExQuote> = {}
   const parsedCurrencyToken = currencyToken === 'ETH' ? 'WETH' : currencyToken
 
   const promises = components.map(
     ({ symbol, address, decimals, quantity }: any) => {
       if (!isCurrentUpdate()) return {}
-      console.log(address)
       const componentAmount = utils
         .parseEther(buySellAmount)
         .div(10 ** 9)
@@ -203,7 +196,6 @@ export function convertQuotesToZeroExData(
         ).toString(),
       }
     })
-    console.log('Aggregated data before processing', result)
 
     // TODO: Adjust
     const pricePrecision = 10 ** 6
@@ -213,7 +205,6 @@ export function convertQuotesToZeroExData(
       .div(pricePrecision)
       .toString()
   }
-  console.log('Aggregated data before processing', result)
 
   result.displaySellAmount = getDisplayAdjustedAmount(
     result.sellAmount,
@@ -244,7 +235,6 @@ export function convertQuotesToZeroExData(
 
   result.sellTokenAddress = isUserBuying ? currencyToken : buySellToken
 
-  console.log('Aggregated data after processing', result)
   return result
 }
 
@@ -268,7 +258,6 @@ export async function getExchangeIssuanceZeroExTradeData(
     isCurrentUpdate
   )
 
-  console.log('Quotes', quotes)
   return quotes
 }
 
