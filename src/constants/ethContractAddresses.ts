@@ -111,4 +111,4 @@ export const dataTokenPolygonAddress =
   process.env.REACT_APP_POLYGON_DATA_TOKEN_ADDRESS
 
 // Exchange Issuance
-export const exchangeIssuanceZeroExAddress="0xa448E57d8bACf7DD5393D310354318aFeDD7D3F6"
+export const exchangeIssuanceZeroExAddress=process.env.REACT_APP_EXCHANGE_ISSUANCE_ADDRESS
