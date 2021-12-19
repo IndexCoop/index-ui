@@ -58,13 +58,33 @@ export function issueExactSetFromToken(
   componentQuotes: Array<any>
 ) {
   const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
-
   return exchangeIssuanceContract.methods
     .issueExactSetFromToken(
       setToken,
       inputToken,
       amountSetToken,
       maxAmountInputToken,
+      componentQuotes
+    )
+    .send({ from: account })
+}
+
+export function redeemExactSetForToken(
+  provider: provider,
+  account: string,
+  setToken: string,
+  outputToken: string,
+  amountSetToken: BigNumber,
+  minAmountOutputToken: BigNumber,
+  componentQuotes: Array<any>
+) {
+  const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
+  return exchangeIssuanceContract.methods
+    .redeemExactSetForToken(
+      setToken,
+      outputToken,
+      amountSetToken,
+      minAmountOutputToken,
       componentQuotes
     )
     .send({ from: account })
@@ -80,10 +100,25 @@ export function issueExactSetFromETH(
 ) {
   const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
   return exchangeIssuanceContract.methods
-    .issueExactSetFromETH(
+    .issueExactSetFromETH(setToken, amountSetToken, componentQuotes)
+    .send({ from: account, value: maxAmountInputToken })
+}
+
+export function redeemExactSetForETH(
+  provider: provider,
+  account: string,
+  setToken: string,
+  amountSetToken: BigNumber,
+  minEthReceive: BigNumber,
+  componentQuotes: Array<any>
+) {
+  const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
+  return exchangeIssuanceContract.methods
+    .redeemExactSetForETH(
       setToken,
       amountSetToken,
+      minEthReceive,
       componentQuotes
     )
-    .send({ from: account, value: maxAmountInputToken })
+    .send({ from: account })
 }

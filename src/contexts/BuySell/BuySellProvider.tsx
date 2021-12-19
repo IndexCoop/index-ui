@@ -26,7 +26,13 @@ import {
   exchangeIssuanceTokens,
   exchangeIssuanceChainIds,
 } from 'constants/exchangeIssuance'
-import { issueExactSetFromETH, issueExactSetFromToken, parseQuotes } from 'index-sdk/exchangeIssuance'
+import {
+  issueExactSetFromETH,
+  issueExactSetFromToken,
+  redeemExactSetForETH,
+  redeemExactSetForToken,
+  parseQuotes,
+} from 'index-sdk/exchangeIssuance'
 import { ethers } from 'ethers'
 
 const REQUEST_DELAY = 500
@@ -281,14 +287,12 @@ const BuySellProvider: React.FC = ({ children }) => {
         setTokenAddress,
         web3.currentProvider
       )
-      console.log('addresses', buyTokenAddress, sellTokenAddress)
-        console.log('isUserBuying', isUserBuying);
       if (isUserBuying) {
         if (selectedCurrency.label !== 'ETH') {
           return issueExactSetFromToken(
             web3.currentProvider,
             account || '',
-            buyTokenAddress,
+            setTokenAddress,
             sellTokenAddress,
             new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
             zeroExTradeData.maxInput.multipliedBy(10 ** sellTokenDecimals),
@@ -298,15 +302,35 @@ const BuySellProvider: React.FC = ({ children }) => {
           return issueExactSetFromETH(
             web3.currentProvider,
             account || '',
-            buyTokenAddress,
+            setTokenAddress,
             new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
             zeroExTradeData.maxInput.multipliedBy(10 ** sellTokenDecimals),
             exchangeIssuanceQuotesParsed
           )
         }
       }
-      console.log('Not executing exchange issuance')
-      return undefined
+      else {
+        if (selectedCurrency.label !== 'ETH') {
+          return redeemExactSetForToken(
+            web3.currentProvider,
+            account || '',
+            setTokenAddress,
+            buyTokenAddress,
+            new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
+            zeroExTradeData.minOutput.multipliedBy(10 ** sellTokenDecimals),
+            exchangeIssuanceQuotesParsed
+          )
+        } else {
+          return redeemExactSetForETH(
+            web3.currentProvider,
+            account || '',
+            setTokenAddress,
+            new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
+            zeroExTradeData.minOutput.multipliedBy(10 ** sellTokenDecimals),
+            exchangeIssuanceQuotesParsed
+          )
+        }
+      }
     },
     [
       buySellQuantity,
