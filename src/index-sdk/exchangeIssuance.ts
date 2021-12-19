@@ -102,6 +102,10 @@ export function issueExactSetFromETH(
   maxAmountInputToken: BigNumber,
   componentQuotes: Array<any>
 ) {
+  console.log('Issuing exact set from eth', {
+    amountSetToken,
+    maxAmountInputToken,
+  })
   const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
   return exchangeIssuanceContract.methods
     .issueExactSetFromETH(setToken, amountSetToken, componentQuotes)
