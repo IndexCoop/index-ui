@@ -61,9 +61,6 @@ const BuySellButton: React.FC = () => {
   } else if (tokenApprovalRequired && !ignoreApproval) {
     buttonText = 'Approve Tokens'
     buttonAction = tokenApproval.onApprove
-  } else if (requestFailed) {
-    buttonText = 'Request Failed'
-    buttonAction = () => console.warn('Ignore click since request failed')
   } else if (loginRequired) {
     buttonText = 'Login'
     buttonAction = onOpenWalletModal
