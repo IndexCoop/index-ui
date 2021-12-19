@@ -4,19 +4,20 @@ import { useTheme } from 'react-neu'
 
 import useChainData from 'hooks/useChainData'
 import useWallet from 'hooks/useWallet'
-import { POLYGON_CHAIN_DATA } from 'utils/connectors'
+import { POLYGON_CHAIN_DATA, LOCALHOST_CHAIN_DATA } from 'utils/connectors'
 
 export const ChainSelector = () => {
-  const { chain, setMainnet, setPolygon } = useChainData()
+  const { chain, setLocalhost, setMainnet, setPolygon } = useChainData()
   const theme = useTheme()
   const { chainId } = useWallet()
 
   useEffect(() => {
     if (chainId) {
       if (chainId === POLYGON_CHAIN_DATA.chainId) setPolygon()
+      else if (chainId === LOCALHOST_CHAIN_DATA.chainId) setLocalhost()
       else setMainnet()
     }
-  }, [chainId, setMainnet, setPolygon])
+  }, [chainId, setLocalhost, setMainnet, setPolygon])
 
   const styles = useMemo(
     () => ({
@@ -64,6 +65,7 @@ export const ChainSelector = () => {
       value={{ label: chain.name } as any}
       onChange={(chain) => {
         if (chain.value === 'polygon') setPolygon()
+        else if (chain.value === 'localhost') setLocalhost()
         else setMainnet()
       }}
       options={[
@@ -74,6 +76,10 @@ export const ChainSelector = () => {
         {
           value: 'polygon',
           label: 'Polygon',
+        },
+        {
+          value: 'localhost',
+          label: 'Localhost',
         },
       ]}
       styles={styles}

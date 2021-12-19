@@ -28,6 +28,13 @@ export const POLYGON_CHAIN_DATA: ChainData = {
   icon: 'https://raw.githubusercontent.com/sushiswap/icons/master/network/polygon.jpg',
   coingeckoId: 'polygon-pos',
 }
+export const LOCALHOST_CHAIN_DATA: ChainData = {
+  name: 'Localhost',
+  chainId: 1337,
+  rpcUrl: 'http://localhost:8545/',
+  icon: 'https://raw.githubusercontent.com/sushiswap/icons/master/network/mainnet.jpg',
+  coingeckoId: 'ethereum',
+}
 
 if (!WS_URL) {
   throw new Error(
@@ -36,7 +43,7 @@ if (!WS_URL) {
 }
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42, 137],
+  supportedChainIds: [1, 3, 4, 5, 42, 137, 31337],
 })
 
 export const walletconnect = new WalletConnectConnector({

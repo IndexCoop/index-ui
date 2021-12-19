@@ -1,2 +1,2 @@
 export const exchangeIssuanceTokens = ['dpi', 'mvi', 'data', 'bed']
-export const exchangeIssuanceChainIds = [1]
+export const exchangeIssuanceChainIds = [1, 1337]

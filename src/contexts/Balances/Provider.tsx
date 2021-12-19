@@ -108,7 +108,27 @@ const Provider: React.FC = ({ children }) => {
           'A token address is not defined. Please check your .env to confirm all token addresses are defined.'
         )
       }
-      if (chainId && chainId === MAINNET_CHAIN_DATA.chainId) {
+      if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) {
+        const balances = await Promise.all([
+          //polygon
+          getBalance(provider, wethTokenPolygonAddress, userAddress),
+          getBalance(provider, dpiTokenPolygonAddress, userAddress),
+          getBalance(provider, eth2xflipTokenAddress, userAddress),
+          getBalance(provider, mviTokenPolygonAddress, userAddress),
+          getBalance(provider, daiTokenPolygonAddress, userAddress),
+          getBalance(provider, usdcTokenPolygonAddress, userAddress),
+          getBalance(provider, dataTokenPolygonAddress, userAddress),
+        ])
+
+        // polygon
+        setWethBalancePolygon(new BigNumber(balances[0]))
+        setDpiBalancePolygon(new BigNumber(balances[1]))
+        setEthFlipBalance(new BigNumber(balances[2]))
+        setMviBalancePolygon(new BigNumber(balances[3]))
+        setDaiBalancePolygon(new BigNumber(balances[4]))
+        setUsdcBalancePolygon(new BigNumber(balances[5]))
+        setDataBalancePolygon(new BigNumber(balances[6]))
+      } else {
         const balances = await Promise.all([
           getEthBalance(provider, userAddress),
           getBalance(provider, indexTokenAddress, userAddress),
@@ -160,26 +180,6 @@ const Provider: React.FC = ({ children }) => {
         // BN Balances
         setStakedUniswapEthMviLpBalance(balances2[0])
         setUnharvestedMviRewardsBalance(balances2[1])
-      } else if (chainId && chainId === POLYGON_CHAIN_DATA.chainId) {
-        const balances = await Promise.all([
-          //polygon
-          getBalance(provider, wethTokenPolygonAddress, userAddress),
-          getBalance(provider, dpiTokenPolygonAddress, userAddress),
-          getBalance(provider, eth2xflipTokenAddress, userAddress),
-          getBalance(provider, mviTokenPolygonAddress, userAddress),
-          getBalance(provider, daiTokenPolygonAddress, userAddress),
-          getBalance(provider, usdcTokenPolygonAddress, userAddress),
-          getBalance(provider, dataTokenPolygonAddress, userAddress),
-        ])
-
-        // polygon
-        setWethBalancePolygon(new BigNumber(balances[0]))
-        setDpiBalancePolygon(new BigNumber(balances[1]))
-        setEthFlipBalance(new BigNumber(balances[2]))
-        setMviBalancePolygon(new BigNumber(balances[3]))
-        setDaiBalancePolygon(new BigNumber(balances[4]))
-        setUsdcBalancePolygon(new BigNumber(balances[5]))
-        setDataBalancePolygon(new BigNumber(balances[6]))
       }
     },
     [

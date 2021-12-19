@@ -19,12 +19,21 @@ import trackReferral from 'utils/referralApi'
 import { fromWei, waitTransaction } from 'utils/index'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
+import { tokenInfo, polygonTokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from './types'
-import { MAINNET_CHAIN_DATA } from 'utils/connectors'
+import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 import {
   exchangeIssuanceTokens,
   exchangeIssuanceChainIds,
 } from 'constants/exchangeIssuance'
+import {
+  issueExactSetFromETH,
+  issueExactSetFromToken,
+  redeemExactSetForETH,
+  redeemExactSetForToken,
+  parseQuotes,
+} from 'index-sdk/exchangeIssuance'
+import { ethers } from 'ethers'
 
 const REQUEST_DELAY = 500
 
@@ -56,10 +65,20 @@ const BuySellProvider: React.FC = ({ children }) => {
   const isUsingExchangeIssuance =
     isUsingExchangeIssuanceSelection && isExchangeIssuanceSupported
   const [exchangeIssuanceQuotes, setExchangeIssuanceQuotes] = useState<
-    ZeroExQuote[]
-  >([])
+    Record<string, ZeroExQuote>
+  >({})
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
+
+  const tokenMapping =
+    chain.chainId === POLYGON_CHAIN_DATA.chainId ? polygonTokenInfo : tokenInfo
+
+  const sellTokenName = isUserBuying ? selectedCurrency?.label : buySellToken
+  const sellTokenAddress = tokenMapping[sellTokenName]?.address
+  const sellTokenDecimals = tokenInfo[sellTokenName]?.decimals
+
+  const buyTokenName = isUserBuying ? buySellToken : selectedCurrency?.label
+  const buyTokenAddress = tokenMapping[buyTokenName]?.address
 
   // This index is used to stop ongoing useEffect runs that are already replaced by a newer one
   const updateIndex = useRef<number>(0)
@@ -107,9 +126,9 @@ const BuySellProvider: React.FC = ({ children }) => {
     polygonBalance: any,
     decimals: number = 18
   ) => {
-    return chainId && chainId === MAINNET_CHAIN_DATA.chainId
-      ? fromWei(mainnetBalance, decimals)
-      : fromWei(polygonBalance, decimals)
+    return chainId && chainId === POLYGON_CHAIN_DATA.chainId
+      ? fromWei(polygonBalance, decimals)
+      : fromWei(mainnetBalance, decimals)
   }
 
   // eslint-disable-next-line
@@ -142,52 +161,56 @@ const BuySellProvider: React.FC = ({ children }) => {
     )
   }
 
-  async function getUpdatedZeroExData(
-    isUsingExchangeIssuance: boolean,
-    isUserBuying: boolean,
-    isExactInputTrade: boolean,
-    isCurrentUpdate: () => boolean,
-    selectedCurrencyLabel: string,
-    buySellToken: string,
-    buySellQuantity: string,
-    chainId: number
-  ) {
-    if (isUsingExchangeIssuance) {
-      const quotes = await getExchangeIssuanceZeroExTradeData(
-        isUserBuying,
-        selectedCurrencyLabel,
-        buySellToken,
-        buySellQuantity,
-        chainId,
-        isCurrentUpdate
-      )
-      if (isCurrentUpdate()) {
-        setExchangeIssuanceQuotes(quotes)
-        const data = convertQuotesToZeroExData(
-          buySellQuantity,
+  const getUpdatedZeroExData = useCallback(
+    async function (
+      isUsingExchangeIssuance: boolean,
+      isUserBuying: boolean,
+      isExactInputTrade: boolean,
+      isCurrentUpdate: () => boolean,
+      selectedCurrencyLabel: string,
+      buySellToken: string,
+      buySellQuantity: string,
+      chainId: number
+    ) {
+      if (isUsingExchangeIssuance) {
+        const quotes = await getExchangeIssuanceZeroExTradeData(
           isUserBuying,
-          quotes,
-          selectedCurrencyLabel
+          selectedCurrencyLabel,
+          buySellToken,
+          buySellQuantity,
+          chainId,
+          isCurrentUpdate
         )
-        return data
+        if (isCurrentUpdate()) {
+          setExchangeIssuanceQuotes(quotes)
+          const data = convertQuotesToZeroExData(
+            buySellQuantity,
+            isUserBuying,
+            quotes,
+            selectedCurrencyLabel,
+            selectedCurrency.address
+          )
+          return data
+        }
+      } else {
+        return await getZeroExTradeData(
+          isExactInputTrade,
+          isUserBuying,
+          selectedCurrencyLabel,
+          buySellToken,
+          buySellQuantity,
+          chainId
+        )
       }
-    } else {
-      return await getZeroExTradeData(
-        isExactInputTrade,
-        isUserBuying,
-        selectedCurrencyLabel,
-        buySellToken,
-        buySellQuantity,
-        chainId
-      )
-    }
-  }
+    },
+    [selectedCurrency]
+  )
 
   function isInsufficientLiquidity(response: any): boolean {
     return (
       response?.data?.validationErrors?.find(
         (validationError: any) =>
-          validationError?.reason ===  'INSUFFICIENT_ASSET_LIQUIDITY'
+          validationError?.reason === 'INSUFFICIENT_ASSET_LIQUIDITY'
       ) !== undefined
     )
   }
@@ -228,6 +251,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         }
       })
   }, [
+    getUpdatedZeroExData,
     isUserBuying,
     isUsingExchangeIssuance,
     selectedCurrency,
@@ -237,25 +261,107 @@ const BuySellProvider: React.FC = ({ children }) => {
     chainId,
   ])
 
-  const onExecuteBuySell = useCallback(async () => {
-    if (!account || !zeroExTradeData?.sellAmount || !selectedCurrency) return
+  const executeTokenSwap = useCallback(
+    async function (web3: Web3) {
+      if (!zeroExTradeData) return
+      zeroExTradeData.from = account || ''
+      zeroExTradeData.gas = undefined // use metamask estimated gas limit
+      return web3.eth.sendTransaction(zeroExTradeData)
+    },
+    [zeroExTradeData, account]
+  )
 
-    let requiredBalance =
-      selectedCurrency === 'usdc'
-        ? fromWei(new BigNumber(zeroExTradeData.sellAmount), 6)
-        : fromWei(new BigNumber(zeroExTradeData?.sellAmount))
+  const executeExchangeIssuance = useCallback(
+    async function (web3: Web3) {
+      console.log(
+        'Enter exchange Issuance',
+        exchangeIssuanceQuotes,
+        zeroExTradeData,
+        selectedCurrency
+      )
+      if (!zeroExTradeData || !(Object.keys(exchangeIssuanceQuotes).length > 0))
+        return
+      const setTokenAddress = isUserBuying ? buyTokenAddress : sellTokenAddress
+      const exchangeIssuanceQuotesParsed = await parseQuotes(
+        exchangeIssuanceQuotes,
+        setTokenAddress,
+        web3.currentProvider
+      )
+      if (isUserBuying) {
+        if (selectedCurrency.label !== 'ETH') {
+          return issueExactSetFromToken(
+            web3.currentProvider,
+            account || '',
+            setTokenAddress,
+            sellTokenAddress,
+            new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
+            zeroExTradeData.maxInput.multipliedBy(10 ** sellTokenDecimals),
+            exchangeIssuanceQuotesParsed
+          )
+        } else {
+          return issueExactSetFromETH(
+            web3.currentProvider,
+            account || '',
+            setTokenAddress,
+            new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
+            zeroExTradeData.maxInput.multipliedBy(10 ** sellTokenDecimals),
+            exchangeIssuanceQuotesParsed
+          )
+        }
+      }
+      else {
+        if (selectedCurrency.label !== 'ETH') {
+          return redeemExactSetForToken(
+            web3.currentProvider,
+            account || '',
+            setTokenAddress,
+            buyTokenAddress,
+            new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
+            zeroExTradeData.minOutput.multipliedBy(10 ** sellTokenDecimals),
+            exchangeIssuanceQuotesParsed
+          )
+        } else {
+          return redeemExactSetForETH(
+            web3.currentProvider,
+            account || '',
+            setTokenAddress,
+            new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
+            zeroExTradeData.minOutput.multipliedBy(10 ** sellTokenDecimals),
+            exchangeIssuanceQuotesParsed
+          )
+        }
+      }
+    },
+    [
+      buySellQuantity,
+      exchangeIssuanceQuotes,
+      selectedCurrency,
+      sellTokenDecimals,
+      zeroExTradeData,
+      account,
+      buyTokenAddress,
+      sellTokenAddress,
+      isUserBuying,
+    ]
+  )
 
-    if (spendingTokenBalance.lt(requiredBalance)) return
+  const executeTrade = useCallback(
+    async (web3: Web3) => {
+      let tx
+      if (isUsingExchangeIssuance) {
+        tx = executeExchangeIssuance(web3)
+      } else {
+        tx = executeTokenSwap(web3)
+      }
 
-    const web3 = new Web3(ethereum)
-
-    zeroExTradeData.from = account
-    zeroExTradeData.gas = undefined // use metamask estimated gas limit
-    try {
-      const tx = web3.eth.sendTransaction(zeroExTradeData)
       onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
 
       const response = await tx
+
+      if (!response) {
+        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
+        return
+      }
 
       onSetTransactionId(response.transactionHash)
       onSetTransactionStatus(TransactionStatusType.IS_PENDING)
@@ -287,23 +393,51 @@ const BuySellProvider: React.FC = ({ children }) => {
           isUserBuying
         )
       }
+    },
+    [
+      buySellToken,
+      ethereum,
+      onSetTransactionId,
+      onSetTransactionStatus,
+      isUserBuying,
+      executeTokenSwap,
+      executeExchangeIssuance,
+      isUsingExchangeIssuance,
+      selectedCurrency,
+    ]
+  )
+
+  const onExecuteBuySell = useCallback(async () => {
+    if (!account || !zeroExTradeData?.sellAmount || !selectedCurrency) return
+
+    let requiredBalance =
+      selectedCurrency === 'usdc'
+        ? fromWei(new BigNumber(zeroExTradeData.sellAmount), 6)
+        : fromWei(new BigNumber(zeroExTradeData?.sellAmount))
+
+    console.log('Spending Balance', spendingTokenBalance.toString())
+    if (spendingTokenBalance.lt(requiredBalance)) return
+
+    const web3 = new Web3(ethereum)
+
+    try {
+      await executeTrade(web3)
     } catch (e) {
       // There is a problem here where any error that gets triggered will make it seem like
       // the transaction failed. For example, the wallet continually polls the chain but fails
       // to make the network request. The transaction may not have failed, but it would have
       // triggered this error state.
+      console.error('Caught error', e)
       onSetTransactionStatus(TransactionStatusType.IS_FAILED)
     }
   }, [
     account,
-    isUserBuying,
     selectedCurrency,
-    buySellToken,
     ethereum,
-    onSetTransactionId,
     onSetTransactionStatus,
     spendingTokenBalance,
     zeroExTradeData,
+    executeTrade,
   ])
 
   const onToggleIsUserBuying = () => {
@@ -365,6 +499,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         onSetBuySellQuantity,
         onExecuteBuySell,
         exchangeIssuanceQuotes,
+        sellTokenAddress,
       }}
     >
       {children}

@@ -6,7 +6,7 @@ import { polygonTokenInfo, tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
 import { fetchCoingeckoTokenPrice } from './coingeckoApi'
 import { fetchSetComponents } from './tokensetsApi'
-import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors'
+import { POLYGON_CHAIN_DATA } from './connectors'
 import { ethers, utils } from 'ethers'
 //@ts-ignore
 import qs from 'qs'
@@ -19,7 +19,6 @@ const slippagePercentage = SLIPPAGE_PERCENTS / 100
 export type ZeroExQuote = {
   buyToken: string
   sellToken: string
-  swapCallData: string
   buyAmount?: string
   sellAmount?: string
   gas: string
@@ -28,6 +27,9 @@ export type ZeroExQuote = {
   to: string
   from: string
   decimals: number
+  data: string
+  sellTokenAddress: string
+  buyTokenAddress: string
 }
 
 async function getQuote(
@@ -49,14 +51,14 @@ async function getQuotes(
   buySellAmount: string,
   chainId: number,
   isCurrentUpdate: () => boolean
-): Promise<ZeroExQuote[]> {
+): Promise<Record<string, ZeroExQuote>> {
   console.log('Fetching set components')
   const components = await fetchSetComponents(buySellToken)
   console.log('Response', components)
-  const quotes: ZeroExQuote[] = []
+  const quotes: Record<string, ZeroExQuote> = {}
   const parsedCurrencyToken = currencyToken === 'ETH' ? 'WETH' : currencyToken
   for (const { symbol, address, decimals, quantity } of components) {
-    if (!isCurrentUpdate()) return []
+    if (!isCurrentUpdate()) return {}
     console.log(address)
     const componentAmount = utils
       .parseEther(buySellAmount)
@@ -67,25 +69,27 @@ async function getQuotes(
     const sellToken = isUserBuying ? parsedCurrencyToken : address
     if (symbol === parsedCurrencyToken) {
       // If the currency token is one of the components we don't have to swap at all
-      quotes.push({
+      quotes[utils.getAddress(address)] = {
         buyToken: address,
+        buyTokenAddress: address,
         sellToken: address,
+        sellTokenAddress: address,
         buyAmount: componentAmount.toString(),
         sellAmount: componentAmount.toString(),
-        swapCallData: utils.formatBytes32String('FOOBAR'),
+        data: utils.formatBytes32String('FOOBAR'),
         gas: '0',
         gasPrice: '0',
         sources: [],
         to: '',
         from: '',
         decimals,
-      })
+      }
     } else {
       const params: any = { buyToken, sellToken, chainId, slippagePercentage }
       if (isUserBuying) params.buyAmount = componentAmount.toString()
       else params.sellAmount = componentAmount.toString()
       const quote = await getQuote(params)
-      quotes.push({ ...quote, decimals })
+      quotes[utils.getAddress(address)] = { ...quote, decimals }
     }
   }
   return quotes
@@ -94,8 +98,9 @@ async function getQuotes(
 export function convertQuotesToZeroExData(
   buySellAmount: string,
   isUserBuying: boolean,
-  quotes: ZeroExQuote[],
-  currencyToken: string
+  quotes: Record<string, ZeroExQuote>,
+  currencyToken: string,
+  buySellToken: string
 ): ZeroExData {
   const buySellAmountParsed = utils.parseEther(buySellAmount)
   let buyAmount = isUserBuying ? buySellAmountParsed : ethers.BigNumber.from(0)
@@ -129,7 +134,7 @@ export function convertQuotesToZeroExData(
     sellTokenCost: '',
   }
 
-  for (const quote of quotes) {
+  for (const quote of Object.values(quotes)) {
     const additionalSellAmount = ethers.BigNumber.from(quote.sellAmount)
     const additionalBuyAmount = ethers.BigNumber.from(quote.buyAmount)
     if (isUserBuying) {
@@ -216,6 +221,9 @@ export function convertQuotesToZeroExData(
   }
 
   result.formattedSources = formatSources(result.sources)
+
+  result.sellTokenAddress = isUserBuying ? currencyToken : buySellToken
+
   console.log('Aggregated data after processing', result)
   return result
 }
@@ -271,15 +279,15 @@ export const getZeroExTradeData = async (
     chainId
   )
   let resp
-  if (chainId === MAINNET_CHAIN_DATA.chainId)
-    resp = await axios.get(
-      `https://api.0x.org/swap/v1/quote?${querystring.stringify(params)}`
-    )
-  else
+  if (chainId === POLYGON_CHAIN_DATA.chainId)
     resp = await axios.get(
       `https://polygon.api.0x.org/swap/v1/quote?${querystring.stringify(
         params
       )}`
+    )
+  else
+    resp = await axios.get(
+      `https://api.0x.org/swap/v1/quote?${querystring.stringify(params)}`
     )
 
   const zeroExData: ZeroExData = resp.data
@@ -301,23 +309,7 @@ const getApiParams = (
   chainId: number
 ): any => {
   let params: any
-  if (chainId === MAINNET_CHAIN_DATA.chainId) {
-    params = {
-      sellToken: tokenInfo[sellToken].address,
-      buyToken: tokenInfo[buyToken].address,
-    }
-    if (isExactInput) {
-      params.sellAmount = getDecimalAdjustedAmount(
-        buySellAmount,
-        tokenInfo[sellToken].decimals
-      )
-    } else {
-      params.buyAmount = getDecimalAdjustedAmount(
-        buySellAmount,
-        tokenInfo[buyToken].decimals
-      )
-    }
-  } else {
+  if (chainId === POLYGON_CHAIN_DATA.chainId) {
     params = {
       sellToken: polygonTokenInfo[sellToken].address,
       buyToken: polygonTokenInfo[buyToken].address,
@@ -331,6 +323,22 @@ const getApiParams = (
       params.buyAmount = getDecimalAdjustedAmount(
         buySellAmount,
         polygonTokenInfo[buyToken].decimals
+      )
+    }
+  } else {
+    params = {
+      sellToken: tokenInfo[sellToken].address,
+      buyToken: tokenInfo[buyToken].address,
+    }
+    if (isExactInput) {
+      params.sellAmount = getDecimalAdjustedAmount(
+        buySellAmount,
+        tokenInfo[sellToken].decimals
+      )
+    } else {
+      params.buyAmount = getDecimalAdjustedAmount(
+        buySellAmount,
+        tokenInfo[buyToken].decimals
       )
     }
   }
