@@ -107,7 +107,7 @@ export function issueExactSetFromETH(
     maxAmountInputToken,
   })
   const amountSetTokenParsed = ethers.BigNumber.from(amountSetToken.toString())
-  const maxAmountInputTokenParsed = ethers.BigNumber.from(amountSetToken.toString())
+  const maxAmountInputTokenParsed = ethers.BigNumber.from(maxAmountInputToken.toString())
   console.log('Parsed amounts', {
     amountSetTokenParsed,
     maxAmountInputTokenParsed,
