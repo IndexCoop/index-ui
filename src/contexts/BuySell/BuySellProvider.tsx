@@ -155,47 +155,50 @@ const BuySellProvider: React.FC = ({ children }) => {
     )
   }
 
-  async function getUpdatedZeroExData(
-    isUsingExchangeIssuance: boolean,
-    isUserBuying: boolean,
-    isExactInputTrade: boolean,
-    isCurrentUpdate: () => boolean,
-    selectedCurrencyLabel: string,
-    buySellToken: string,
-    buySellQuantity: string,
-    chainId: number
-  ) {
-    if (isUsingExchangeIssuance) {
-      const quotes = await getExchangeIssuanceZeroExTradeData(
-        isUserBuying,
-        selectedCurrencyLabel,
-        buySellToken,
-        buySellQuantity,
-        chainId,
-        isCurrentUpdate
-      )
-      if (isCurrentUpdate()) {
-        setExchangeIssuanceQuotes(quotes)
-        const data = convertQuotesToZeroExData(
-          buySellQuantity,
+  const getUpdatedZeroExData = useCallback(
+    async function (
+      isUsingExchangeIssuance: boolean,
+      isUserBuying: boolean,
+      isExactInputTrade: boolean,
+      isCurrentUpdate: () => boolean,
+      selectedCurrencyLabel: string,
+      buySellToken: string,
+      buySellQuantity: string,
+      chainId: number
+    ) {
+      if (isUsingExchangeIssuance) {
+        const quotes = await getExchangeIssuanceZeroExTradeData(
           isUserBuying,
-          quotes,
           selectedCurrencyLabel,
-          selectedCurrency.address
+          buySellToken,
+          buySellQuantity,
+          chainId,
+          isCurrentUpdate
         )
-        return data
+        if (isCurrentUpdate()) {
+          setExchangeIssuanceQuotes(quotes)
+          const data = convertQuotesToZeroExData(
+            buySellQuantity,
+            isUserBuying,
+            quotes,
+            selectedCurrencyLabel,
+            selectedCurrency.address
+          )
+          return data
+        }
+      } else {
+        return await getZeroExTradeData(
+          isExactInputTrade,
+          isUserBuying,
+          selectedCurrencyLabel,
+          buySellToken,
+          buySellQuantity,
+          chainId
+        )
       }
-    } else {
-      return await getZeroExTradeData(
-        isExactInputTrade,
-        isUserBuying,
-        selectedCurrencyLabel,
-        buySellToken,
-        buySellQuantity,
-        chainId
-      )
-    }
-  }
+    },
+    [selectedCurrency]
+  )
 
   function isInsufficientLiquidity(response: any): boolean {
     return (
@@ -242,6 +245,7 @@ const BuySellProvider: React.FC = ({ children }) => {
         }
       })
   }, [
+    getUpdatedZeroExData,
     isUserBuying,
     isUsingExchangeIssuance,
     selectedCurrency,
@@ -251,96 +255,125 @@ const BuySellProvider: React.FC = ({ children }) => {
     chainId,
   ])
 
-  async function executeTokenSwap(web3: Web3) {
-    if (!zeroExTradeData) return
-    zeroExTradeData.from = account || ''
-    zeroExTradeData.gas = undefined // use metamask estimated gas limit
-    return web3.eth.sendTransaction(zeroExTradeData)
-  }
+  const executeTokenSwap = useCallback(
+    async function (web3: Web3) {
+      if (!zeroExTradeData) return
+      zeroExTradeData.from = account || ''
+      zeroExTradeData.gas = undefined // use metamask estimated gas limit
+      return web3.eth.sendTransaction(zeroExTradeData)
+    },
+    [zeroExTradeData, account]
+  )
 
-  async function executeExchangeIssuance(web3: Web3) {
-    console.log(
-      'Enter exchange Issuance',
-      exchangeIssuanceQuotes,
-      zeroExTradeData,
-      selectedCurrency
-    )
-    if (!zeroExTradeData || !(exchangeIssuanceQuotes.length > 0)) return
-    const exchangeIssuanceQuotesParsed = exchangeIssuanceQuotes.map(
-      ({ sellTokenAddress, buyTokenAddress, data }) => {
-        return {
-          sellToken: sellTokenAddress,
-          buyToken: buyTokenAddress,
-          swapCallData: data,
+  const executeExchangeIssuance = useCallback(
+    async function (web3: Web3) {
+      console.log(
+        'Enter exchange Issuance',
+        exchangeIssuanceQuotes,
+        zeroExTradeData,
+        selectedCurrency
+      )
+      if (!zeroExTradeData || !(exchangeIssuanceQuotes.length > 0)) return
+      const exchangeIssuanceQuotesParsed = exchangeIssuanceQuotes.map(
+        ({ sellTokenAddress, buyTokenAddress, data }) => {
+          return {
+            sellToken: sellTokenAddress,
+            buyToken: buyTokenAddress,
+            swapCallData: data,
+          }
+        }
+      )
+      if (isUserBuying) {
+        if (selectedCurrency.label !== 'ETH') {
+          console.log('addresses', buyTokenAddress, sellTokenAddress)
+          return issueExactSetFromToken(
+            web3.currentProvider,
+            account || '',
+            buyTokenAddress,
+            sellTokenAddress,
+            new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
+            zeroExTradeData.maxInput.multipliedBy(10 ** sellTokenDecimals),
+            exchangeIssuanceQuotesParsed
+          )
         }
       }
-    )
-    if (isUserBuying) {
-      if (selectedCurrency.label !== 'ETH') {
-        console.log('addresses', buyTokenAddress, sellTokenAddress)
-        return issueExactSetFromToken(
-          web3.currentProvider,
-          account || '',
-          buyTokenAddress,
-          sellTokenAddress,
-          new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
-          zeroExTradeData.maxInput.multipliedBy(10 ** sellTokenDecimals),
-          exchangeIssuanceQuotesParsed
+      console.log('Not executing exchange issuance')
+      return undefined
+    },
+    [
+      buySellQuantity,
+      exchangeIssuanceQuotes,
+      selectedCurrency,
+      sellTokenDecimals,
+      zeroExTradeData,
+      account,
+      buyTokenAddress,
+      sellTokenAddress,
+      isUserBuying,
+    ]
+  )
+
+  const executeTrade = useCallback(
+    async (web3: Web3) => {
+      let tx
+      if (isUsingExchangeIssuance) {
+        tx = executeExchangeIssuance(web3)
+      } else {
+        tx = executeTokenSwap(web3)
+      }
+
+      onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
+
+      const response = await tx
+
+      if (!response) {
+        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
+        return
+      }
+
+      onSetTransactionId(response.transactionHash)
+      onSetTransactionStatus(TransactionStatusType.IS_PENDING)
+
+      const isSuccessful = await waitTransaction(
+        ethereum,
+        response.transactionHash
+      )
+      const referralCode = window?.localStorage?.getItem('referral') || ''
+
+      if (isSuccessful) {
+        onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
+        trackReferral(
+          referralCode,
+          response.transactionHash,
+          'COMPLETED',
+          selectedCurrency,
+          buySellToken,
+          isUserBuying
+        )
+      } else {
+        onSetTransactionStatus(TransactionStatusType.IS_FAILED)
+        trackReferral(
+          referralCode,
+          response.transactionHash,
+          'PENDING OR FAILED',
+          selectedCurrency,
+          buySellToken,
+          isUserBuying
         )
       }
-    }
-    console.log('Not executing exchange issuance')
-    return undefined
-  }
-
-  async function executeTrade(web3: Web3) {
-    let tx
-    if (isUsingExchangeIssuance) {
-      tx = executeExchangeIssuance(web3)
-    } else {
-      tx = executeTokenSwap(web3)
-    }
-
-    onSetTransactionStatus(TransactionStatusType.IS_APPROVING)
-
-    const response = await tx
-
-    if (!response) {
-      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
-      return
-    }
-
-    onSetTransactionId(response.transactionHash)
-    onSetTransactionStatus(TransactionStatusType.IS_PENDING)
-
-    const isSuccessful = await waitTransaction(
+    },
+    [
+      buySellToken,
       ethereum,
-      response.transactionHash
-    )
-    const referralCode = window?.localStorage?.getItem('referral') || ''
-
-    if (isSuccessful) {
-      onSetTransactionStatus(TransactionStatusType.IS_COMPLETED)
-      trackReferral(
-        referralCode,
-        response.transactionHash,
-        'COMPLETED',
-        selectedCurrency,
-        buySellToken,
-        isUserBuying
-      )
-    } else {
-      onSetTransactionStatus(TransactionStatusType.IS_FAILED)
-      trackReferral(
-        referralCode,
-        response.transactionHash,
-        'PENDING OR FAILED',
-        selectedCurrency,
-        buySellToken,
-        isUserBuying
-      )
-    }
-  }
+      onSetTransactionId,
+      onSetTransactionStatus,
+      isUserBuying,
+      executeTokenSwap,
+      executeExchangeIssuance,
+      isUsingExchangeIssuance,
+      selectedCurrency,
+    ]
+  )
 
   const onExecuteBuySell = useCallback(async () => {
     if (!account || !zeroExTradeData?.sellAmount || !selectedCurrency) return
@@ -367,14 +400,12 @@ const BuySellProvider: React.FC = ({ children }) => {
     }
   }, [
     account,
-    isUserBuying,
     selectedCurrency,
-    buySellToken,
     ethereum,
-    onSetTransactionId,
     onSetTransactionStatus,
     spendingTokenBalance,
     zeroExTradeData,
+    executeTrade,
   ])
 
   const onToggleIsUserBuying = () => {
