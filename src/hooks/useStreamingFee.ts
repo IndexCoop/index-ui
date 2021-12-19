@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+
 import { StreamingFeeContext } from 'contexts/StreamingFee'
 
 const useStreamingFee = () => {

@@ -1,11 +1,12 @@
 import React from 'react'
 
-import numeral from 'numeral'
-import { Container, Card, CardContent } from 'react-neu'
+import { Card, CardContent,Container } from 'react-neu'
 
+import numeral from 'numeral'
+
+import indexToken from 'assets/index-token.png'
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
-
 import usePrices from 'hooks/usePrices'
 
 const Treasury: React.FC = () => {
@@ -42,8 +43,8 @@ const Treasury: React.FC = () => {
           <CardContent data-cy='treasury-index-price'>
             <FancyValue
               icon={{
-                src: 'https://index-dao.s3.amazonaws.com/owl.png',
-                alt: 'Owl',
+                src: indexToken,
+                alt: 'Index token',
               }}
               label='$INDEX Price'
               value={indexPriceValue}

@@ -1,11 +1,12 @@
 import React from 'react'
-import PendingTransaction from './PendingTransaction'
+
+import { TransactionStatusType } from 'contexts/TransactionWatcher'
+
 import ApprovingTransaction from './ApprovingTransaction'
 import CompletedTransaction from './CompletedTransaction'
 import FailedTransaction from './FailedTransaction'
-
-import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import LongTransaction from './LongTransaction'
+import PendingTransaction from './PendingTransaction'
 
 interface TransactionWatcherProps {
   transactionStatus?: TransactionStatusType

@@ -1,7 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
 
 import { Button, Input, InputProps } from 'react-neu'
+
+import styled from 'styled-components'
 
 interface TokenInputProps extends InputProps {
   max: number | string

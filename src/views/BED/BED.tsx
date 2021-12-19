@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react'
+
 import styled from 'styled-components'
-import useBedTokenMarketData from 'hooks/useBedTokenMarketData'
-import useBalances from 'hooks/useBalances'
-import { BedIndex, ProductToken } from 'constants/productTokens'
+
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
+import { BedIndex, ProductToken } from 'constants/productTokens'
+import useBalances from 'hooks/useBalances'
+import useBedTokenMarketData from 'hooks/useBedTokenMarketData'
+import useSetComponents from 'hooks/useSetComponents'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
-import useSetComponents from 'hooks/useSetComponents'
 
 const BedProductPage = (props: { title: string }) => {
   useEffect(() => {

@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react'
+
 import { toast } from 'react-toastify'
 
-import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
-import useEth2xFliTokenSupplyCap from 'hooks/useEth2xFliTokenSupplyCap'
-import useBalances from 'hooks/useBalances'
+import ProductDataUI, {
+  TokenDataProps,
+} from 'components/ProductPage/ProductDataUI'
 import {
   Ethereum2xFlexibleLeverageIndex,
   ProductToken,
 } from 'constants/productTokens'
-import ProductDataUI, {
-  TokenDataProps,
-} from 'components/ProductPage/ProductDataUI'
-import useWallet from 'hooks/useWallet'
-import BigNumber from 'utils/bignumber'
+import useBalances from 'hooks/useBalances'
+import useEth2xFliTokenMarketData from 'hooks/useEth2xFliTokenMarketData'
+import useEth2xFliTokenSupplyCap from 'hooks/useEth2xFliTokenSupplyCap'
+import useSetComponents from 'hooks/useSetComponents'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
-import useSetComponents from 'hooks/useSetComponents'
+import useWallet from 'hooks/useWallet'
+import BigNumber from 'utils/bignumber'
 
 const Eth2xFliProductPage = (props: { title: string }) => {
   useEffect(() => {

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
-import useDataTokenMarketData from 'hooks/useDataTokenMarketData'
-import useBalances from 'hooks/useBalances'
-import useTokenSupply from 'hooks/useTokenSupply'
-import { DataIndex } from 'constants/productTokens'
+
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
-
+import { DataIndex } from 'constants/productTokens'
+import useBalances from 'hooks/useBalances'
+import useDataTokenMarketData from 'hooks/useDataTokenMarketData'
 import useSetComponents from 'hooks/useSetComponents'
+import useTokenSupply from 'hooks/useTokenSupply'
 
 const DataProductPage = (props: { title: string }) => {
   useEffect(() => {

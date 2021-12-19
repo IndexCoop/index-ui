@@ -48,7 +48,7 @@
     "eject": "react-scripts eject",
     "e2e": "yarn run cypress run --headless",
     "cypress:open": "yarn run cypress open",
-    "lint:fix": "yarn prettier --write ."
+    "lint:fix": "yarn prettier --write . && yarn eslint ./src --fix"
   },
   "husky": {
     "hooks": {
@@ -90,7 +90,17 @@
     "@types/recharts": "^1.8.16",
     "@types/styled-components": "^5.1.15",
     "@types/web3": "^1.2.2",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^4.33.0",
     "cypress": "^9.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^19.0.2",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
     "prettier": "^2.5.0",

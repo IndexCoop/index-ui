@@ -1,5 +1,7 @@
 import React from 'react'
-import { Surface, Spacer } from 'react-neu'
+
+import { Spacer,Surface } from 'react-neu'
+
 import styled from 'styled-components'
 
 const Explanation: React.FC = () => (

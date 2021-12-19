@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
+
+import { Spacer } from 'react-neu'
+
 import styled from 'styled-components'
 
 import { TokenDataProps } from 'components/ProductPage/ProductDataUI'
+import { RoundedButton } from 'components/RoundedButton'
 import useChainData from 'hooks/useChainData'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
-import { RoundedButton } from 'components/RoundedButton'
-import { Spacer } from 'react-neu'
 
 const BuySellDisabled = (props: { tokenData: TokenDataProps }) => {
   const [buttonText, setButtonText] = useState<string>('Switch to Polygon')

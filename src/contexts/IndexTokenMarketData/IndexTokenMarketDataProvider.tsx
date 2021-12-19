@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import MarketDataContext from './IndexTokenMarketDataContext'
+import React, { useEffect,useState } from 'react'
+
 import { IndexToken } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
+
+import MarketDataContext from './IndexTokenMarketDataContext'
 
 const IndexMarketDataProvider: React.FC = ({ children }) => {
   const [indexMarketData, setIndexMarketData] = useState<any>({})

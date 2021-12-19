@@ -1,25 +1,26 @@
 import React, { useEffect } from 'react'
+
 import { Container, InputProps } from 'react-neu'
 import { useHistory } from 'react-router-dom'
+
+import { BuySellWrapper } from 'components/BuySell'
+import BuySellDisabled from 'components/BuySell/BuySellDisabled'
+import MarketData from 'components/MarketData'
 import Page from 'components/Page'
 import {
-  ProductPageHeader,
-  ProductPageContent,
-  TokenStats,
-  PriceChanges,
-  WalletBalance,
   IndexComponentsTable,
+  PriceChanges,
+  ProductPageContent,
+  ProductPageHeader,
+  TokenStats,
+  WalletBalance,
 } from 'components/ProductPage'
-import { BuySellWrapper } from 'components/BuySell'
-import MarketData from 'components/MarketData'
-
-import useLocalStorage from 'hooks/useLocalStorage'
 import { IndexToken, ProductToken } from 'constants/productTokens'
-import BigNumber from 'utils/bignumber'
 import { SetComponent } from 'contexts/SetComponents/SetComponent'
 import useChainData from 'hooks/useChainData'
-import BuySellDisabled from 'components/BuySell/BuySellDisabled'
 import { LOCALHOST_CHAIN_DATA, MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
+import useLocalStorage from 'hooks/useLocalStorage'
+import BigNumber from 'utils/bignumber'
 
 export interface TokenDataProps {
   prices: number[][] | undefined

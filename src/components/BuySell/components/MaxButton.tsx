@@ -1,9 +1,10 @@
 import React from 'react'
+
 import styled from 'styled-components'
 
-import BigNumber from 'utils/bignumber'
 import useBuySell from 'hooks/useBuySell'
 import useWallet from 'hooks/useWallet'
+import BigNumber from 'utils/bignumber'
 
 const MaxButton: React.FC = () => {
   const {

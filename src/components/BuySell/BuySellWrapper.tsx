@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 
-import TransactionWatcher from 'components/TransactionWatcher'
 import { BuySellWidget } from 'components/BuySell'
-import useTransactionWatcher from 'hooks/useTransactionWatcher'
+import TransactionWatcher from 'components/TransactionWatcher'
 import useBuySell from 'hooks/useBuySell'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 
 const BuySellWrapper = (props: { tokenId: string }) => {
   const { transactionStatus } = useTransactionWatcher()

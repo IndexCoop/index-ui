@@ -1,7 +1,7 @@
-import * as tokenAddresses from 'constants/ethContractAddresses'
 import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
 import indexLogo from 'assets/index-token.png'
+import * as tokenAddresses from 'constants/ethContractAddresses'
 
 export const dpiTokenImage =
   'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'

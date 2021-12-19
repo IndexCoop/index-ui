@@ -1,6 +1,7 @@
-import Select from 'react-select'
 import { useEffect, useMemo } from 'react'
+
 import { useTheme } from 'react-neu'
+import Select from 'react-select'
 
 import useChainData from 'hooks/useChainData'
 import useWallet from 'hooks/useWallet'

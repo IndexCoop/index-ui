@@ -1,15 +1,13 @@
 import React from 'react'
 
 import { RoundedButton } from 'components/RoundedButton'
-import useBuySell from 'hooks/useBuySell'
-import useWallet from 'hooks/useWallet'
-import useApproval from 'hooks/useApproval'
 import {
   exchangeIssuanceZeroExAddress,
   zeroExRouterAddress,
 } from 'constants/ethContractAddresses'
-import { getTokenAddress } from 'utils'
-import { MAINNET_CHAIN_DATA } from 'utils/connectors'
+import useApproval from 'hooks/useApproval'
+import useBuySell from 'hooks/useBuySell'
+import useWallet from 'hooks/useWallet'
 
 /**
  * BuySellButton - Displays a button used in the buy sell flow.

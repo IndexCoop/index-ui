@@ -1,31 +1,17 @@
+import { ethers } from 'ethers'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Web3 from 'web3'
-import React, { useRef, useState, useEffect, useCallback } from 'react'
 
-import BigNumber from 'utils/bignumber'
-import BuySellContext from './BuySellContext'
-import { RequestStatus } from './types'
-import useWallet from 'hooks/useWallet'
-import useBalances from 'hooks/useBalances'
-import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { sleep } from 'utils'
-import {
-  convertQuotesToZeroExData,
-  getZeroExTradeData,
-  getExchangeIssuanceZeroExTradeData,
-  ZeroExQuote,
-} from 'utils/zeroExUtils'
-import useChainData from 'hooks/useChainData'
-import trackReferral from 'utils/referralApi'
-import { fromWei, waitTransaction } from 'utils/index'
-import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import { currencyTokens } from 'constants/currencyTokens'
-import { tokenInfo, polygonTokenInfo } from 'constants/tokenInfo'
-import { ZeroExData } from './types'
-import { POLYGON_CHAIN_DATA } from 'utils/connectors'
 import {
   exchangeIssuanceTokens,
   exchangeIssuanceChainIds,
 } from 'constants/exchangeIssuance'
+import { tokenInfo, polygonTokenInfo } from 'constants/tokenInfo'
+import useBalances from 'hooks/useBalances'
+import useChainData from 'hooks/useChainData'
+import useWallet from 'hooks/useWallet'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import {
   issueExactSetFromETH,
   issueExactSetFromToken,
@@ -33,7 +19,21 @@ import {
   redeemExactSetForToken,
   parseQuotes,
 } from 'index-sdk/exchangeIssuance'
-import { ethers } from 'ethers'
+import { sleep } from 'utils'
+import BigNumber from 'utils/bignumber'
+import { POLYGON_CHAIN_DATA } from 'utils/connectors'
+import { fromWei, waitTransaction } from 'utils/index'
+import trackReferral from 'utils/referralApi'
+import { TransactionStatusType } from 'contexts/TransactionWatcher'
+import {
+  convertQuotesToZeroExData,
+  getZeroExTradeData,
+  getExchangeIssuanceZeroExTradeData,
+  ZeroExQuote,
+} from 'utils/zeroExUtils'
+
+import BuySellContext from './BuySellContext'
+import { RequestStatus, ZeroExData } from './types'
 
 const REQUEST_DELAY = 500
 
@@ -220,7 +220,6 @@ const BuySellProvider: React.FC = ({ children }) => {
     sleep(REQUEST_DELAY)
     if (!isCurrentUpdate()) return
 
-
     const isExactInputTrade = !isUserBuying || activeField === 'currency'
 
     getUpdatedZeroExData(
@@ -298,8 +297,7 @@ const BuySellProvider: React.FC = ({ children }) => {
             exchangeIssuanceQuotesParsed
           )
         }
-      }
-      else {
+      } else {
         if (selectedCurrency.label !== 'ETH') {
           return redeemExactSetForToken(
             web3.currentProvider,

@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react'
-import useMviTokenMarketData from 'hooks/useMviTokenMarketData'
-import useBalances from 'hooks/useBalances'
-import { MetaverseIndex, ProductToken } from 'constants/productTokens'
+
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
+import { mviTokenPolygonAddress } from 'constants/ethContractAddresses'
+import { MetaverseIndex, ProductToken } from 'constants/productTokens'
+import useBalances from 'hooks/useBalances'
+import useMviTokenMarketData from 'hooks/useMviTokenMarketData'
+import useSetComponents from 'hooks/useSetComponents'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
-import useSetComponents from 'hooks/useSetComponents'
 import useWallet from 'hooks/useWallet'
-import { mviTokenPolygonAddress } from 'constants/ethContractAddresses'
 import BigNumber from 'utils/bignumber'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 

@@ -1,7 +1,8 @@
 import { InjectedConnector } from '@web3-react/injected-connector'
+import { NetworkConnector } from '@web3-react/network-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
-import { NetworkConnector } from '@web3-react/network-connector'
+
 import { LedgerConnector } from './ledgerConnector'
 
 const WS_URL = process.env.REACT_APP_ETHEREUM_WS_URL
@@ -17,7 +18,7 @@ export type ChainData = {
 export const MAINNET_CHAIN_DATA: ChainData = {
   name: 'Ethereum',
   chainId: 1,
-  rpcUrl: 'https://mainnet.eth.aragon.network/',
+  rpcUrl: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
   icon: 'https://raw.githubusercontent.com/sushiswap/icons/master/network/mainnet.jpg',
   coingeckoId: 'ethereum',
 }

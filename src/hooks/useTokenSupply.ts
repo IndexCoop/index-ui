@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+
 import { TokenSupplyContext } from '../contexts/TokenSupply'
 
 const useTokenSupply = () => {

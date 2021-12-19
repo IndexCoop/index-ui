@@ -1,13 +1,15 @@
 import React from 'react'
+
 import { Spacer } from 'react-neu'
+
 import styled from 'styled-components'
 
 import ExternalLink from 'components/ExternalLink'
-import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import { makeEtherscanLink } from 'utils/index'
-import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWatcherContext'
 import { RoundedButton } from 'components/RoundedButton'
+import { TransactionStatusType } from 'contexts/TransactionWatcher/TransactionWatcherContext'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import useWallet from 'hooks/useWallet'
+import { makeEtherscanLink } from 'utils/index'
 
 const LongTransaction: React.FC = () => {
   const { transactionId, onSetTransactionId, onSetTransactionStatus } =

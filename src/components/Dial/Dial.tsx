@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
+import { buildStyles,CircularProgressbar } from 'react-circular-progressbar'
 import { useTheme } from 'react-neu'
+
 import styled from 'styled-components'
 
 interface DialProps {

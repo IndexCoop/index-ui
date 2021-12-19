@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+
 import { ChainData, MAINNET_CHAIN_DATA } from 'utils/connectors'
 
 interface ChainIdContextValues {
