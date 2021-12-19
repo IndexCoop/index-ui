@@ -106,10 +106,16 @@ export function issueExactSetFromETH(
     amountSetToken,
     maxAmountInputToken,
   })
+  const amountSetTokenParsed = ethers.BigNumber.from(amountSetToken.toString())
+  const maxAmountInputTokenParsed = ethers.BigNumber.from(amountSetToken.toString())
+  console.log('Parsed amounts', {
+    amountSetTokenParsed,
+    maxAmountInputTokenParsed,
+  })
   const exchangeIssuanceContract = getExchangeIssuanceZeroEx(provider)
   return exchangeIssuanceContract.methods
-    .issueExactSetFromETH(setToken, amountSetToken, componentQuotes)
-    .send({ from: account, value: maxAmountInputToken })
+    .issueExactSetFromETH(setToken, amountSetTokenParsed, componentQuotes)
+    .send({ from: account, value: maxAmountInputTokenParsed })
 }
 
 export function redeemExactSetForETH(
