@@ -26,7 +26,7 @@ import {
   exchangeIssuanceTokens,
   exchangeIssuanceChainIds,
 } from 'constants/exchangeIssuance'
-import { issueExactSetFromToken } from 'index-sdk/exchangeIssuance'
+import { issueExactSetFromETH, issueExactSetFromToken, parseQuotes } from 'index-sdk/exchangeIssuance'
 import { ethers } from 'ethers'
 
 const REQUEST_DELAY = 500
@@ -59,8 +59,8 @@ const BuySellProvider: React.FC = ({ children }) => {
   const isUsingExchangeIssuance =
     isUsingExchangeIssuanceSelection && isExchangeIssuanceSupported
   const [exchangeIssuanceQuotes, setExchangeIssuanceQuotes] = useState<
-    ZeroExQuote[]
-  >([])
+    Record<string, ZeroExQuote>
+  >({})
 
   const { onSetTransactionId, onSetTransactionStatus } = useTransactionWatcher()
 
@@ -273,24 +273,32 @@ const BuySellProvider: React.FC = ({ children }) => {
         zeroExTradeData,
         selectedCurrency
       )
-      if (!zeroExTradeData || !(exchangeIssuanceQuotes.length > 0)) return
-      const exchangeIssuanceQuotesParsed = exchangeIssuanceQuotes.map(
-        ({ sellTokenAddress, buyTokenAddress, data }) => {
-          return {
-            sellToken: sellTokenAddress,
-            buyToken: buyTokenAddress,
-            swapCallData: data,
-          }
-        }
+      if (!zeroExTradeData || !(Object.keys(exchangeIssuanceQuotes).length > 0))
+        return
+      const setTokenAddress = isUserBuying ? buyTokenAddress : sellTokenAddress
+      const exchangeIssuanceQuotesParsed = await parseQuotes(
+        exchangeIssuanceQuotes,
+        setTokenAddress,
+        web3.currentProvider
       )
+      console.log('addresses', buyTokenAddress, sellTokenAddress)
+        console.log('isUserBuying', isUserBuying);
       if (isUserBuying) {
         if (selectedCurrency.label !== 'ETH') {
-          console.log('addresses', buyTokenAddress, sellTokenAddress)
           return issueExactSetFromToken(
             web3.currentProvider,
             account || '',
             buyTokenAddress,
             sellTokenAddress,
+            new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
+            zeroExTradeData.maxInput.multipliedBy(10 ** sellTokenDecimals),
+            exchangeIssuanceQuotesParsed
+          )
+        } else {
+          return issueExactSetFromETH(
+            web3.currentProvider,
+            account || '',
+            buyTokenAddress,
             new BigNumber(ethers.utils.parseEther(buySellQuantity).toString()),
             zeroExTradeData.maxInput.multipliedBy(10 ** sellTokenDecimals),
             exchangeIssuanceQuotesParsed

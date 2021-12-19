@@ -51,14 +51,14 @@ async function getQuotes(
   buySellAmount: string,
   chainId: number,
   isCurrentUpdate: () => boolean
-): Promise<ZeroExQuote[]> {
+): Promise<Record<string, ZeroExQuote>> {
   console.log('Fetching set components')
   const components = await fetchSetComponents(buySellToken)
   console.log('Response', components)
-  const quotes: ZeroExQuote[] = []
+  const quotes: Record<string, ZeroExQuote> = {}
   const parsedCurrencyToken = currencyToken === 'ETH' ? 'WETH' : currencyToken
   for (const { symbol, address, decimals, quantity } of components) {
-    if (!isCurrentUpdate()) return []
+    if (!isCurrentUpdate()) return {}
     console.log(address)
     const componentAmount = utils
       .parseEther(buySellAmount)
@@ -69,7 +69,7 @@ async function getQuotes(
     const sellToken = isUserBuying ? parsedCurrencyToken : address
     if (symbol === parsedCurrencyToken) {
       // If the currency token is one of the components we don't have to swap at all
-      quotes.push({
+      quotes[utils.getAddress(address)] = {
         buyToken: address,
         buyTokenAddress: address,
         sellToken: address,
@@ -83,13 +83,13 @@ async function getQuotes(
         to: '',
         from: '',
         decimals,
-      })
+      }
     } else {
       const params: any = { buyToken, sellToken, chainId, slippagePercentage }
       if (isUserBuying) params.buyAmount = componentAmount.toString()
       else params.sellAmount = componentAmount.toString()
       const quote = await getQuote(params)
-      quotes.push({ ...quote, decimals })
+      quotes[utils.getAddress(address)] = { ...quote, decimals }
     }
   }
   return quotes
@@ -98,7 +98,7 @@ async function getQuotes(
 export function convertQuotesToZeroExData(
   buySellAmount: string,
   isUserBuying: boolean,
-  quotes: ZeroExQuote[],
+  quotes: Record<string, ZeroExQuote>,
   currencyToken: string,
   buySellToken: string
 ): ZeroExData {
@@ -134,7 +134,7 @@ export function convertQuotesToZeroExData(
     sellTokenCost: '',
   }
 
-  for (const quote of quotes) {
+  for (const quote of Object.values(quotes)) {
     const additionalSellAmount = ethers.BigNumber.from(quote.sellAmount)
     const additionalBuyAmount = ethers.BigNumber.from(quote.buyAmount)
     if (isUserBuying) {

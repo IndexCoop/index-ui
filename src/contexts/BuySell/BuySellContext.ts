@@ -23,7 +23,7 @@ interface BuySellContextValues {
   onSetSelectedCurrency: (selectedCurrency: any) => void
   onSetBuySellQuantity: (amount: string) => void
   onExecuteBuySell: () => void
-  exchangeIssuanceQuotes: ZeroExQuote[]
+  exchangeIssuanceQuotes: Record<string, ZeroExQuote>
   sellTokenAddress: string
 }
 
@@ -47,7 +47,7 @@ const BuySellContext = createContext<BuySellContextValues>({
   onSetSelectedCurrency: () => {},
   onSetBuySellQuantity: () => {},
   onExecuteBuySell: () => {},
-  exchangeIssuanceQuotes: [],
+  exchangeIssuanceQuotes: {},
   sellTokenAddress: '',
 })
 
