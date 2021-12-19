@@ -4,11 +4,10 @@ import styled from 'styled-components'
 import useBuySell from 'hooks/useBuySell'
 
 const BuySellSelector: React.FC = () => {
-  const { isUserBuying, onToggleIsUserBuying, isUsingExchangeIssuance } =
-    useBuySell()
+  const { isUserBuying, onToggleIsUserBuying } = useBuySell()
 
-  const buyLabel = isUsingExchangeIssuance ? 'Issue' : 'Buy'
-  const sellLabel = isUsingExchangeIssuance ? 'Redeem' : 'Sell'
+  const buyLabel = 'Buy'
+  const sellLabel = 'Sell'
 
   if (isUserBuying) {
     return (

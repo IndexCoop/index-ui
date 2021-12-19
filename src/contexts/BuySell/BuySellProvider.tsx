@@ -89,9 +89,6 @@ const BuySellProvider: React.FC = ({ children }) => {
       if (currentUpdateIndex === updateIndex.current) {
         return true
       }
-      console.log(
-        `UpdateIndex ${currentUpdateIndex} is behind index ${updateIndex.current}`
-      )
       return false
     }
   }
@@ -223,7 +220,6 @@ const BuySellProvider: React.FC = ({ children }) => {
     sleep(REQUEST_DELAY)
     if (!isCurrentUpdate()) return
 
-    console.log('parsedBuySellQuantity', parsedBuySellQuantity)
 
     const isExactInputTrade = !isUserBuying || activeField === 'currency'
 
@@ -273,12 +269,6 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   const executeExchangeIssuance = useCallback(
     async function (web3: Web3) {
-      console.log(
-        'Enter exchange Issuance',
-        exchangeIssuanceQuotes,
-        zeroExTradeData,
-        selectedCurrency
-      )
       if (!zeroExTradeData || !(Object.keys(exchangeIssuanceQuotes).length > 0))
         return
       const setTokenAddress = isUserBuying ? buyTokenAddress : sellTokenAddress
@@ -415,7 +405,6 @@ const BuySellProvider: React.FC = ({ children }) => {
         ? fromWei(new BigNumber(zeroExTradeData.sellAmount), 6)
         : fromWei(new BigNumber(zeroExTradeData?.sellAmount))
 
-    console.log('Spending Balance', spendingTokenBalance.toString())
     if (spendingTokenBalance.lt(requiredBalance)) return
 
     const web3 = new Web3(ethereum)

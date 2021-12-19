@@ -1,6 +1,7 @@
 import axios from 'axios'
 import querystring from 'querystring'
 import BigNumber from 'utils/bignumber'
+import { sleep } from 'utils'
 
 import { polygonTokenInfo, tokenInfo } from 'constants/tokenInfo'
 import { ZeroExData } from '../contexts/BuySell/types'
@@ -15,6 +16,9 @@ const API_QUOTE_URL = 'https://api.0x.org/swap/v1/quote'
 
 const SLIPPAGE_PERCENTS = 1
 const slippagePercentage = SLIPPAGE_PERCENTS / 100
+const MAX_RETRIES = 40
+// Response status codes which trigger retry 
+const RETRY_STATUSES = [503, 429]
 
 export type ZeroExQuote = {
   buyToken: string
@@ -36,12 +40,18 @@ async function getQuote(
   params: any,
   retryCount: number = 0
 ): Promise<ZeroExQuote> {
-  const url = `${API_QUOTE_URL}?${qs.stringify(params)}`
-  console.log(
-    `RETRY: ${retryCount} - Getting quote from ${params.sellToken} to ${params.buyToken}`
-  )
-  const response = await axios(url)
-  return response.data
+  try {
+    const url = `${API_QUOTE_URL}?${qs.stringify(params)}`
+    const response = await axios(url)
+    return response.data
+  } catch (error: any) {
+    if (RETRY_STATUSES.includes(error.response?.status) && retryCount < MAX_RETRIES) {
+      await sleep(1000)
+      return await getQuote(params, retryCount + 1)
+    } else {
+      throw error
+    }
+  }
 }
 
 async function getQuotes(
@@ -52,46 +62,49 @@ async function getQuotes(
   chainId: number,
   isCurrentUpdate: () => boolean
 ): Promise<Record<string, ZeroExQuote>> {
-  console.log('Fetching set components')
   const components = await fetchSetComponents(buySellToken)
-  console.log('Response', components)
   const quotes: Record<string, ZeroExQuote> = {}
   const parsedCurrencyToken = currencyToken === 'ETH' ? 'WETH' : currencyToken
-  for (const { symbol, address, decimals, quantity } of components) {
-    if (!isCurrentUpdate()) return {}
-    console.log(address)
-    const componentAmount = utils
-      .parseEther(buySellAmount)
-      .div(10 ** 9)
-      .mul(utils.parseUnits(quantity, decimals))
-      .div(10 ** 9)
-    const buyToken = isUserBuying ? address : parsedCurrencyToken
-    const sellToken = isUserBuying ? parsedCurrencyToken : address
-    if (symbol === parsedCurrencyToken) {
-      // If the currency token is one of the components we don't have to swap at all
-      quotes[utils.getAddress(address)] = {
-        buyToken: address,
-        buyTokenAddress: address,
-        sellToken: address,
-        sellTokenAddress: address,
-        buyAmount: componentAmount.toString(),
-        sellAmount: componentAmount.toString(),
-        data: utils.formatBytes32String('FOOBAR'),
-        gas: '0',
-        gasPrice: '0',
-        sources: [],
-        to: '',
-        from: '',
-        decimals,
+
+  const promises = components.map(
+    ({ symbol, address, decimals, quantity }: any) => {
+      if (!isCurrentUpdate()) return {}
+      const componentAmount = utils
+        .parseEther(buySellAmount)
+        .div(10 ** 9)
+        .mul(utils.parseUnits(quantity, decimals))
+        .div(10 ** 9)
+      const buyToken = isUserBuying ? address : parsedCurrencyToken
+      const sellToken = isUserBuying ? parsedCurrencyToken : address
+      if (symbol === parsedCurrencyToken) {
+        // If the currency token is one of the components we don't have to swap at all
+        quotes[utils.getAddress(address)] = {
+          buyToken: address,
+          buyTokenAddress: address,
+          sellToken: address,
+          sellTokenAddress: address,
+          buyAmount: componentAmount.toString(),
+          sellAmount: componentAmount.toString(),
+          data: utils.formatBytes32String('FOOBAR'),
+          gas: '0',
+          gasPrice: '0',
+          sources: [],
+          to: '',
+          from: '',
+          decimals,
+        }
+        return Promise.resolve()
+      } else {
+        const params: any = { buyToken, sellToken, chainId, slippagePercentage }
+        if (isUserBuying) params.buyAmount = componentAmount.toString()
+        else params.sellAmount = componentAmount.toString()
+        return getQuote(params).then((quote) => {
+          quotes[utils.getAddress(address)] = { ...quote, decimals }
+        })
       }
-    } else {
-      const params: any = { buyToken, sellToken, chainId, slippagePercentage }
-      if (isUserBuying) params.buyAmount = componentAmount.toString()
-      else params.sellAmount = componentAmount.toString()
-      const quote = await getQuote(params)
-      quotes[utils.getAddress(address)] = { ...quote, decimals }
     }
-  }
+  )
+  await Promise.all(promises)
   return quotes
 }
 
@@ -183,7 +196,6 @@ export function convertQuotesToZeroExData(
         ).toString(),
       }
     })
-    console.log('Aggregated data before processing', result)
 
     // TODO: Adjust
     const pricePrecision = 10 ** 6
@@ -193,7 +205,6 @@ export function convertQuotesToZeroExData(
       .div(pricePrecision)
       .toString()
   }
-  console.log('Aggregated data before processing', result)
 
   result.displaySellAmount = getDisplayAdjustedAmount(
     result.sellAmount,
@@ -224,7 +235,6 @@ export function convertQuotesToZeroExData(
 
   result.sellTokenAddress = isUserBuying ? currencyToken : buySellToken
 
-  console.log('Aggregated data after processing', result)
   return result
 }
 
@@ -248,7 +258,6 @@ export async function getExchangeIssuanceZeroExTradeData(
     isCurrentUpdate
   )
 
-  console.log('Quotes', quotes)
   return quotes
 }
 
