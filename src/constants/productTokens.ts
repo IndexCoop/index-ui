@@ -2,6 +2,7 @@ import * as tokenAddresses from 'constants/ethContractAddresses'
 import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
 import indexLogo from 'assets/index-token.png'
+import gmiLogo from 'assets/gmilogo.png'
 
 export const dpiTokenImage =
   'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg'
@@ -124,7 +125,7 @@ export const GmiIndex: ProductToken = {
   symbol: 'GMI',
   address: tokenAddresses.gmiTokenAddress,
   polygonAddress: undefined,
-  image: bedBorderLogo,
+  image: gmiLogo,
   coingeckoId: 'bankless-gmi-index',
   tokensetsId: 'gmi',
   fees: {
