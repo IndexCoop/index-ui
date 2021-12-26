@@ -1,17 +1,17 @@
 import Web3 from 'web3'
 import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
-import BigNumber from 'utils/bignumber'
 
-import nftPositionManagerAbi from 'index-sdk/abi/NftPositionManager.json'
-import uniswapV3FactoryAbi from 'index-sdk/abi/uniswapV3Factory.json'
-import uniswapV3StakerAbi from 'index-sdk/abi/uniswapV3Staker.json'
 import {
   nftPositionManagerAddress,
   uniswapV3FactoryAddress,
   uniswapV3StakerAddress,
 } from 'constants/ethContractAddresses'
 import { FarmData, V3Farm } from 'constants/v3Farms'
+import nftPositionManagerAbi from 'index-sdk/abi/NftPositionManager.json'
+import uniswapV3FactoryAbi from 'index-sdk/abi/uniswapV3Factory.json'
+import uniswapV3StakerAbi from 'index-sdk/abi/uniswapV3Staker.json'
+import BigNumber from 'utils/bignumber'
 
 /**
  * Returns all NFTs eligible for the target farm for the target user account.

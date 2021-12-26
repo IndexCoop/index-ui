@@ -1,9 +1,11 @@
 import axios from 'axios'
 import querystring from 'querystring'
-import BigNumber from 'utils/bignumber'
 
 import { polygonTokenInfo, tokenInfo } from 'constants/tokenInfo'
+import BigNumber from 'utils/bignumber'
+
 import { ZeroExData } from '../contexts/BuySell/types'
+
 import { fetchCoingeckoTokenPrice } from './coingeckoApi'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors'
 

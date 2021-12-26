@@ -1,15 +1,16 @@
 import React from 'react'
 
 import { Container, Spacer } from 'react-neu'
+
 import styled from 'styled-components'
 
-import Logo from 'components/Logo'
 import MenuIcon from 'components/icons/Menu'
+import Logo from 'components/Logo'
 
+import ChainSelector from './components/ChainSelector'
 import DarkModeSwitch from './components/DarkModeSwitch'
 import Nav from './components/Nav'
 import WalletButton from './components/WalletButton'
-import ChainSelector from './components/ChainSelector'
 
 interface TopBarProps {
   onPresentMobileMenu: () => void

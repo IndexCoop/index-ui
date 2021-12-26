@@ -1,14 +1,5 @@
 import React, { useCallback } from 'react'
-import styled from 'styled-components'
 
-import BigNumber from 'utils/bignumber'
-import useWallet from 'hooks/useWallet'
-import { toast } from 'react-toastify'
-import bedBorderLogo from 'assets/bed-border.png'
-import dataLogo from 'assets/data-logo.png'
-import gmiLogo from 'assets/gmilogo.png'
-
-import numeral from 'numeral'
 import {
   Box,
   Button,
@@ -19,16 +10,23 @@ import {
   Separator,
   Spacer,
 } from 'react-neu'
+import { toast } from 'react-toastify'
+
+import styled from 'styled-components'
+
+import indexToken from 'assets/index-token.png'
+import bedBorderLogo from 'assets/bed-border.png'
+import dataLogo from 'assets/data-logo.png'
+import gmiLogo from 'assets/gmilogo.png'
 
 import Modal from 'components/CustomModal'
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
-
-import useBalances from 'hooks/useBalances'
-
 import * as tokenAddresses from 'constants/ethContractAddresses'
-import { displayFromWei, getBigNumber } from 'utils'
 import { dpiTokenImage } from 'constants/productTokens'
+import useBalances from 'hooks/useBalances'
+import useWallet from 'hooks/useWallet'
+import { displayFromWei, getBigNumber } from 'utils'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 
 const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
@@ -101,8 +99,8 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           <Box row>
             <FancyValue
               icon={{
-                alt: 'Owl',
-                src: 'https://index-dao.s3.amazonaws.com/owl.png',
+                src: indexToken,
+                alt: 'Index token',
               }}
               link={`https://etherscan.io/address/${tokenAddresses.indexTokenAddress}`}
               label='INDEX balance'

@@ -1,19 +1,19 @@
 import React, { useCallback, useMemo, useState } from 'react'
 
-import numeral from 'numeral'
 import { Button, Card, CardActions, CardContent, Spacer } from 'react-neu'
+
+import numeral from 'numeral'
 import styled from 'styled-components'
 
+import indexToken from 'assets/index-token.png'
+import Split from 'components/Split'
 import useBalances from 'hooks/useBalances'
 import useFarming from 'hooks/useFarming'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
-
-import Split from 'components/Split'
+import { fromWei } from 'utils'
 
 import DpiStakeModal from './components/DpiStakeModal'
-
-import { fromWei } from 'utils'
 
 const Stake: React.FC = () => {
   const [stakeModalIsOpen, setStakeModalIsOpen] = useState(false)
@@ -143,8 +143,8 @@ const Stake: React.FC = () => {
                   <StyledFarmText>
                     {formattedEarnedBalance}
                     <StyledTokenIcon
-                      alt='owl icon'
-                      src='https://index-dao.s3.amazonaws.com/owl.png'
+                      src={indexToken}
+                      alt='Index token'
                     />
                   </StyledFarmText>
                   <StyledSectionLabel>

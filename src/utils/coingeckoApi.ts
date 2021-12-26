@@ -1,4 +1,5 @@
 import { ethTokenAddress } from 'constants/ethContractAddresses'
+
 import { POLYGON_CHAIN_DATA } from './connectors'
 
 const baseURL = 'https://api.coingecko.com/api/v3'

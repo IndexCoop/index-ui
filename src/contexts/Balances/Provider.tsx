@@ -1,38 +1,40 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import BigNumber from 'utils/bignumber'
+
 import { provider } from 'web3-core'
 
-import Context from './Context'
-import useWallet from 'hooks/useWallet'
-import { getBalance, getBigNumBalance, getEthBalance } from 'utils/index'
-import { getEarnedIndexTokenQuantity } from 'index-sdk/stake'
-import { getEarnedIndexTokenQuantity as getEarnedFarmTwoBalance } from 'index-sdk/farmTwo'
-import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/mviStaking'
 import {
-  dpiTokenAddress,
-  eth2xfliTokenAddress,
-  eth2xflipTokenAddress,
+  bedTokenAddress,
   btc2xfliTokenAddress,
-  mviTokenAddress,
-  indexTokenAddress,
   daiTokenAddress,
-  usdcTokenAddress,
+  gmiTokenAddress,
+  daiTokenPolygonAddress,
+  dataTokenAddress,
+  dataTokenPolygonAddress,
+  dpiTokenAddress,
+  dpiTokenPolygonAddress,
+  eth2xflipTokenAddress,
+  eth2xfliTokenAddress,
+  farmTwoAddress,
+  indexTokenAddress,
+  mviStakingRewardsAddress,
+  mviTokenAddress,
+  mviTokenPolygonAddress,
+  stakingRewardsAddress,
   uniswapEthDpiLpTokenAddress,
   uniswapEthMviLpTokenAddress,
-  stakingRewardsAddress,
-  farmTwoAddress,
-  mviStakingRewardsAddress,
-  bedTokenAddress,
-  gmiTokenAddress,
-  dataTokenAddress,
-  dpiTokenPolygonAddress,
-  mviTokenPolygonAddress,
-  daiTokenPolygonAddress,
+  usdcTokenAddress,
   usdcTokenPolygonAddress,
   wethTokenPolygonAddress,
-  dataTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
+import useWallet from 'hooks/useWallet'
+import { getEarnedIndexTokenQuantity as getEarnedFarmTwoBalance } from 'index-sdk/farmTwo'
+import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/mviStaking'
+import { getEarnedIndexTokenQuantity } from 'index-sdk/stake'
+import BigNumber from 'utils/bignumber'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
+import { getBalance, getBigNumBalance, getEthBalance } from 'utils/index'
+
+import Context from './Context'
 
 const Provider: React.FC = ({ children }) => {
   const [ethBalance, setEthBalance] = useState<BigNumber>()

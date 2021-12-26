@@ -2,8 +2,8 @@ import Web3 from 'web3'
 import { provider } from 'web3-core'
 import { AbiItem } from 'web3-utils'
 
-import StakeABI from 'index-sdk/abi/Stake.json'
 import { stakingRewardsAddress } from 'constants/ethContractAddresses'
+import StakeABI from 'index-sdk/abi/Stake.json'
 import BigNumber from 'utils/bignumber'
 
 export const getStakingRewardsContract = (provider: provider) => {

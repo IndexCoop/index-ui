@@ -1,18 +1,18 @@
 import {
+  bedTokenAddress,
   btc2xfliTokenAddress,
   daiTokenAddress,
+  daiTokenPolygonAddress,
+  dataTokenAddress,
   dpiTokenAddress,
-  eth2xfliTokenAddress,
+  dpiTokenPolygonAddress,
   eth2xflipTokenAddress,
+  eth2xfliTokenAddress,
   indexTokenAddress,
   mviTokenAddress,
-  usdcTokenAddress,
-  bedTokenAddress,
   gmiTokenAddress,
-  dataTokenAddress,
-  dpiTokenPolygonAddress,
   mviTokenPolygonAddress,
-  daiTokenPolygonAddress,
+  usdcTokenAddress,
   usdcTokenPolygonAddress,
   wethTokenPolygonAddress,
 } from './ethContractAddresses'
@@ -64,23 +64,23 @@ export const tokenInfo: any = {
   },
 }
 export const polygonTokenInfo: any = {
-  dpi: {
+  'dpi': {
     address: dpiTokenPolygonAddress,
     decimals: 18,
   },
-  mvi: {
+  'mvi': {
     address: mviTokenPolygonAddress,
     decimals: 18,
   },
-  DAI: {
+  'DAI': {
     address: daiTokenPolygonAddress,
     decimals: 18,
   },
-  USDC: {
+  'USDC': {
     address: usdcTokenPolygonAddress,
     decimals: 6,
   },
-  ETH: {
+  'ETH': {
     address: wethTokenPolygonAddress,
     decimals: 18,
   },

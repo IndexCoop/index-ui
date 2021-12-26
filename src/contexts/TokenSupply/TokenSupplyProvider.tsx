@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { provider } from 'web3-core'
-import BigNumber from 'bignumber.js'
+import React, { useEffect,useState } from 'react'
 
-import { getTokenSupply } from 'utils/setjsApi'
-import useWallet from 'hooks/useWallet'
+import BigNumber from 'bignumber.js'
+import { provider } from 'web3-core'
+
 import {
   bedTokenAddress,
   gmiTokenAddress,
@@ -16,8 +15,11 @@ import {
   mviTokenAddress,
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
-import TokenSupplyContext from './TokenSupplyContext'
+import useWallet from 'hooks/useWallet'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
+import { getTokenSupply } from 'utils/setjsApi'
+
+import TokenSupplyContext from './TokenSupplyContext'
 
 const TokenSupplyProvider: React.FC = ({ children }) => {
   const [dpiTotalSupply, setDpiTotalSupply] = useState<BigNumber>()

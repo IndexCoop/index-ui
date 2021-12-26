@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
+
+import { btc2xfliSuppyCapAddress } from 'constants/ethContractAddresses'
+import { getSupplyCap } from 'utils'
 import BigNumber from 'utils/bignumber'
 
 import TotalSupplyContext from './Btc2xFliTokenSupplyCapContext'
-import { getSupplyCap } from 'utils'
-import { btc2xfliSuppyCapAddress } from 'constants/ethContractAddresses'
 
 const Btc2xFliTokenSupplyCapProvider: React.FC = ({ children }) => {
   const [btcFliSupplyCap, setBtcFliSupplyCap] = useState<BigNumber>()

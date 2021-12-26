@@ -1,15 +1,18 @@
 import React from 'react'
-import styled from 'styled-components'
-import numeral from 'numeral'
+
 import { InputProps } from 'react-neu'
 
-import { TokenDataProps } from './ProductDataUI'
-import BigNumber from 'utils/bignumber'
+import numeral from 'numeral'
+import styled from 'styled-components'
+
 import {
   Bitcoin2xFlexibleLeverageIndex,
   Ethereum2xFlexibleLeverageIndex,
 } from 'constants/productTokens'
 import { SetComponent } from 'contexts/SetComponents/SetComponent'
+import BigNumber from 'utils/bignumber'
+
+import { TokenDataProps } from './ProductDataUI'
 
 interface ProductMetaDataProps extends InputProps {
   tokenData: TokenDataProps

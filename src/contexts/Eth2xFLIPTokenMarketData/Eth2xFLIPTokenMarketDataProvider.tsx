@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import MarketDataContext from './Eth2xFLIPTokenMarketDataContext'
+import React, { useEffect,useState } from 'react'
+
+import { Ethereum2xFLIP } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketDataOnPolygon } from 'utils/coingeckoApi'
 import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
-import { Ethereum2xFLIP } from 'constants/productTokens'
+
+import MarketDataContext from './Eth2xFLIPTokenMarketDataContext'
 
 const Eth2xFLIPMarketDataProvider: React.FC = ({ children }) => {
   const [fliMarketData, setFliMarketData] = useState<any>([[]])

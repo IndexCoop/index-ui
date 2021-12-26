@@ -1,0 +1,114 @@
+{
+
+    "env": {
+        "browser": true, // // Browser global variables.
+        "es2021": true, // // Adds all ECMAScript 2021 globals and automatically sets the ecmaVersion parser option to 12.
+        "node": true // // Node.js global variables and Node.js scoping.
+    },
+
+    "extends": [
+        "eslint:recommended", // // Typical rules recommended for ESLint.
+        "react-app", // // Create React App configs.
+        "plugin:react/recommended", // // Typical rules recommended for React projects.
+        "plugin:@typescript-eslint/recommended" // // Typical rules recommended for Typescript.
+    ],
+
+    "parser": "@typescript-eslint/parser", // // Typescript parser for ESLint compatibility.
+
+    "parserOptions": {
+        "ecmaVersion": "latest", // // Set to current version.
+        "sourceType": "module", // // Module-based parser.
+        "ecmaFeatures": {
+            "jsx": true // // Allows Javascript parsing.
+        }
+    },
+
+    "settings": {
+        "react": {
+            "version": "detect" // // Specifies the current version of React being used.
+        },
+        "import/extensions": [".js", ".jsx", ".ts", ".tsx"], // // Specifies the extensions to parse.
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"] // // Specifies Typescript extentions for the parser.
+        },
+        "import/resolver": { // // Node-style module resolution for linting imports.
+            "node": {
+                "alwaysTryTypes": true,
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    },
+
+    "plugins": [
+        "simple-import-sort", // // Preffered import sorter based on rules and customization. --> https://github.com/lydell/eslint-plugin-simple-import-sort
+        "react" // // Adds support for React rule modifications (if needed).
+    ],
+
+    "rules": {
+        // // Activates normal rules for sorting imports with simple-import-sort.
+        "simple-import-sort/imports": "warn",
+
+        // // Rules for sorting imports first and managing blank lines between each import.
+        "import/first": "warn",
+        "import/newline-after-import": "warn",
+        "import/no-duplicates": "warn",
+        "no-multiple-empty-lines": [2, {"max": 1, "maxBOF": 0, "maxEOF": 1}],
+
+        // // These two methods of sorting imports conflict with one another AND the custom grouping ovveride below.
+        // // Recommended solution: Keep them disabled.
+        "sort-imports": "off",
+        "import/order": "off",
+
+        // // **UNIQUE TO INDEX-UI**
+        // // Rules that have currently been disabled for producing warnings or errors that weren't present before adding these ESLint configs.
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/no-loss-of-precision": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-redeclare": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "no-extra-boolean-cast": "off",
+        "no-var": "off",
+        "prefer-const": "off",
+        "react-hooks/exhaustive-deps": "off",
+        "react/no-unescaped-entities": "off",
+        "react/prop-types": "off",
+        "react/react-in-jsx-scope": "off"
+    },
+
+    "overrides": [
+        {
+            "files": ["*.tsx", "*.ts"],
+            "rules": {
+                // // An override that adds custom grouping support for personalization. Uses a regex pattern for grouping. --> https://github.com/lydell/eslint-plugin-simple-import-sort#custom-grouping
+                "simple-import-sort/imports": [
+                    "warn", {
+                        "groups": [
+                            // // `React` always comes first.
+                            // // Additional `react` related packages follow.
+                            ["^react"],
+                            ["^react-"],
+                            // // All absolute imports are sorted next, but /src are filtered below.
+                            ["^"],
+                            ["@"],
+                            // // Imports from the /src folder are specified to occur after all others.
+                            ["^(assets|components|constants|contexts|fonts|hooks|index-sdk|utils|views)"],
+                            // // Parent imports. Put `..` last.
+                            ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+                            // // Other relative imports. Put same-folder imports and `.` last.
+                            ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+                            // // Style imports.
+                            ["^.+\\.s?css$"]
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+  }

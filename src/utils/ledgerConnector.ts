@@ -1,15 +1,18 @@
+import Web3ProviderEngine from 'web3-provider-engine'
+import HookedWalletSubprovider from 'web3-provider-engine/subproviders/hooked-wallet'
+
+import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
-import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
-import Web3ProviderEngine from 'web3-provider-engine'
+
 import { createLedgerSubprovider } from './ledgerSubprovider'
-import HookedWalletSubprovider from 'web3-provider-engine/subproviders/hooked-wallet'
 
 const RpcSubprovider = require('web3-provider-engine/subproviders/rpc.js')
 const CacheSubprovider = require('web3-provider-engine/subproviders/cache')
 const FiltersSubprovider = require('web3-provider-engine/subproviders/filters.js')
 const NonceSubprovider = require('web3-provider-engine/subproviders/nonce-tracker.js')
 const WsSubprovider = require('web3-provider-engine/subproviders/websocket')
+
 export class LedgerConnector extends AbstractConnector {
   private readonly provider: Web3ProviderEngine
   private readonly ledger: HookedWalletSubprovider

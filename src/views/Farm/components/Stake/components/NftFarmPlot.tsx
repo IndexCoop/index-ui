@@ -1,9 +1,10 @@
 import React from 'react'
+
 import dateformat from 'dateformat'
 import styled from 'styled-components'
 
-import { makeEtherscanAddressLink } from 'utils/index'
 import { FarmData } from 'constants/v3Farms'
+import { makeEtherscanAddressLink } from 'utils/index'
 
 interface NftFarmPlotProps {
   farmName: string

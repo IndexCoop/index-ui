@@ -1,15 +1,20 @@
 import React, { useCallback } from 'react'
-import styled from 'styled-components'
+
 import { Button } from 'react-neu'
+
+import styled from 'styled-components'
+
+import Davatar from '@davatar/react'
 import { shortenAddress, useLookupAddress } from '@usedapp/core'
 
-import useWallet from 'hooks/useWallet'
 import UnlockWalletModal from 'components/UnlockWalletModal'
 import WalletModal from 'components/WalletModal'
+import useWallet from 'hooks/useWallet'
 
 const WalletButton: React.FC = () => {
   const {
     account,
+    ethereum,
     isShowingWalletModal,
     onCloseWalletModal,
     onOpenWalletModal,
@@ -32,14 +37,23 @@ const WalletButton: React.FC = () => {
 
   return (
     <>
-      <StyledWalletButton>
-        <Button
-          onClick={onClick}
-          size='sm'
-          text={openWalletText}
-          variant={variant}
-        />
-      </StyledWalletButton>
+      <Button
+        onClick={onClick}
+        size='md'
+        text={openWalletText}
+        variant={variant}
+      >
+        {account && (
+          <StyledDavatar>
+            <Davatar
+              size={24}
+              address={account}
+              provider={ethereum}
+              generatedAvatarType='jazzicon' // optional, 'jazzicon' or 'blockies'
+            />
+          </StyledDavatar>
+        )}
+      </Button>
       <WalletModal
         isOpen={!!account && isShowingWalletModal}
         onDismiss={onCloseWalletModal}
@@ -65,6 +79,8 @@ function getOpenWalletText(
   }
 }
 
-const StyledWalletButton = styled.div``
+const StyledDavatar = styled.div`
+  margin-right: 6px;
+`
 
 export default WalletButton

@@ -1,24 +1,25 @@
 import React, { useCallback, useState } from 'react'
 
-import Context from './Context'
 import ConfirmTransactionModal, {
   TransactionStatusType,
 } from 'components/ConfirmTransactionModal'
-import useWallet from 'hooks/useWallet'
+import { V3Farm } from 'constants/v3Farms'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
+import useWallet from 'hooks/useWallet'
 import {
-  getValidIds,
+  claimAccruedRewards,
   depositAndStake,
   getAccruedRewardsAmount,
   getAllDepositedTokens,
-  withdraw,
-  claimAccruedRewards,
   getAllPendingRewardsAmount,
   getIndividualPendingRewardsAmount,
+  getValidIds,
+  withdraw,
 } from 'index-sdk/uniV3Farm'
-import { waitTransaction } from 'utils/index'
-import { V3Farm } from 'constants/v3Farms'
 import BigNumber from 'utils/bignumber'
+import { waitTransaction } from 'utils/index'
+
+import Context from './Context'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)

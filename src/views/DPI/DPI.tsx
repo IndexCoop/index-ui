@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react'
-import styled from 'styled-components'
+
 import { useHistory } from 'react-router-dom'
-import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
-import useBalances from 'hooks/useBalances'
-import useLocalStorage from 'hooks/useLocalStorage'
-import { DefiPulseIndex, ProductToken } from 'constants/productTokens'
+
+import styled from 'styled-components'
+
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
+import { DefiPulseIndex, ProductToken } from 'constants/productTokens'
+import useBalances from 'hooks/useBalances'
+import useDpiTokenMarketData from 'hooks/useDpiTokenMarketData'
+import useLocalStorage from 'hooks/useLocalStorage'
+import useSetComponents from 'hooks/useSetComponents'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
-import useSetComponents from 'hooks/useSetComponents'
 import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'

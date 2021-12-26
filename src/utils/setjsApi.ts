@@ -1,25 +1,27 @@
 import Set from 'set.js'
 import { SetDetails, StreamingFeeInfo } from 'set.js/dist/types/src/types'
+
 import { JsonRpcProvider } from '@ethersproject/providers'
 
 import {
   basicIssuanceModuleAddress,
+  basicIssuanceModulePolygonAddress,
   controllerAddress,
   debtIssuanceModuleAddress,
   debtIssuanceModuleV2Address,
+  debtIssuanceModuleV2PolygonAddress,
+  governanceModuleAddress,
+  masterOracleAddress,
   navIssuanceModuleAddress,
   protocolViewerAddress,
-  streamingFeeModuleAddress,
-  setTokenCreatorAddress,
-  tradeModuleAddress,
-  masterOracleAddress,
-  governanceModuleAddress,
-  basicIssuanceModulePolygonAddress,
-  streamingFeeModulePolygonAddress,
-  tradeModulePolygonAddress,
-  debtIssuanceModuleV2PolygonAddress,
   protocolViewerPolygonAddress,
+  setTokenCreatorAddress,
+  streamingFeeModuleAddress,
+  streamingFeeModulePolygonAddress,
+  tradeModuleAddress,
+  tradeModulePolygonAddress,
 } from 'constants/ethContractAddresses'
+
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors'
 
 export async function getTokenSupply(

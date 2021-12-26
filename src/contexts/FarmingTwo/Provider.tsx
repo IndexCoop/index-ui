@@ -1,26 +1,26 @@
 import React, { useCallback, useState } from 'react'
-import { provider } from 'web3-core'
-import BigNumber from 'utils/bignumber'
 
-import Context from './Context'
+import { provider } from 'web3-core'
+
 import ConfirmTransactionModal, {
   TransactionStatusType,
 } from 'components/ConfirmTransactionModal'
-import useApproval from 'hooks/useApproval'
-import useWallet from 'hooks/useWallet'
-import useTransactionWatcher from 'hooks/useTransactionWatcher'
-import {
-  stakeUniswapEthDpiLpTokens,
-  unstakeUniswapEthDpiLpTokens,
-  claimEarnedIndexLpReward,
-  unstakeAndClaimEarnedIndexLpReward,
-} from 'index-sdk/farmTwo'
-import { waitTransaction } from 'utils/index'
 import {
   farmTwoAddress,
   uniswapEthDpiLpTokenAddress,
 } from 'constants/ethContractAddresses'
-import { farmTwoStartTime } from 'index-sdk/farmTwo'
+import useApproval from 'hooks/useApproval'
+import useTransactionWatcher from 'hooks/useTransactionWatcher'
+import useWallet from 'hooks/useWallet'
+import {
+  claimEarnedIndexLpReward,
+ farmTwoStartTime,  stakeUniswapEthDpiLpTokens,
+  unstakeAndClaimEarnedIndexLpReward,
+  unstakeUniswapEthDpiLpTokens } from 'index-sdk/farmTwo'
+import BigNumber from 'utils/bignumber'
+import { waitTransaction } from 'utils/index'
+
+import Context from './Context'
 
 const Provider: React.FC = ({ children }) => {
   const [confirmTxModalIsOpen, setConfirmTxModalIsOpen] = useState(false)

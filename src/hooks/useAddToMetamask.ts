@@ -1,5 +1,5 @@
-import useWallet from 'hooks/useWallet'
 import { ProductToken } from 'constants/productTokens'
+import useWallet from 'hooks/useWallet'
 import { MAINNET_CHAIN_DATA } from 'utils/connectors'
 
 export const useAddToMetamask = () => {

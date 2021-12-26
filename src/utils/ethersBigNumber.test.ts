@@ -1,4 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
+
 import { convertToPercentage } from './ethersBigNumber'
 
 describe('convertBigNumberToPercentage', () => {

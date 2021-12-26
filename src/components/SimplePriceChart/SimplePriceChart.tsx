@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Container, useTheme, Button, Spacer } from 'react-neu'
+
+import { Button, Container, Spacer,useTheme } from 'react-neu'
+
 import numeral from 'numeral'
+import { Line, LineChart, ResponsiveContainer, Tooltip,YAxis } from 'recharts'
 import styled from 'styled-components'
 
 import FancyValue from 'components/FancyValue'
-import { ResponsiveContainer, LineChart, Line, YAxis, Tooltip } from 'recharts'
 import { Durations, PriceChartRangeOption } from 'constants/priceChartEnums'
 // docs - http://recharts.org/en-US/guide/
 

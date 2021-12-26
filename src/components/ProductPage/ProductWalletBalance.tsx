@@ -1,15 +1,16 @@
 import React from 'react'
-import styled from 'styled-components'
-import numeral from 'numeral'
+
 import BigNumber from 'bignumber.js'
+import numeral from 'numeral'
+import styled from 'styled-components'
+
+import SimpleButton from 'components/SimpleButton'
+import { ProductToken } from 'constants/productTokens'
+import { useAddToMetamask } from 'hooks/useAddToMetamask'
+import useWallet from 'hooks/useWallet'
+import { displayFromWei } from 'utils'
 
 import { ProductPageSection } from './ProductPageLayouts'
-import SimpleButton from 'components/SimpleButton'
-
-import useWallet from 'hooks/useWallet'
-import { useAddToMetamask } from 'hooks/useAddToMetamask'
-import { ProductToken } from 'constants/productTokens'
-import { displayFromWei } from 'utils'
 
 interface ProductWalletBalanceProps {
   token: ProductToken
