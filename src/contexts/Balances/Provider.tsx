@@ -23,6 +23,7 @@ import {
   farmTwoAddress,
   mviStakingRewardsAddress,
   bedTokenAddress,
+  gmiTokenAddress,
   dataTokenAddress,
   dpiTokenPolygonAddress,
   mviTokenPolygonAddress,
@@ -44,6 +45,7 @@ const Provider: React.FC = ({ children }) => {
   const [usdcBalance, setUsdcBalance] = useState<BigNumber>()
   const [bedBalance, setBedBalance] = useState<BigNumber>()
   const [dataBalance, setDataBalance] = useState<BigNumber>()
+  const [gmiBalance, setGmiBalance] = useState<BigNumber>()
 
   // polygon balances
   const [wethBalancePolygon, setWethBalancePolygon] = useState<BigNumber>()
@@ -95,6 +97,7 @@ const Provider: React.FC = ({ children }) => {
         !usdcTokenAddress ||
         !usdcTokenPolygonAddress ||
         !bedTokenAddress ||
+        !gmiTokenAddress ||
         !dataTokenAddress ||
         !dataTokenPolygonAddress ||
         !uniswapEthDpiLpTokenAddress ||
@@ -120,6 +123,7 @@ const Provider: React.FC = ({ children }) => {
           getBalance(provider, usdcTokenAddress, userAddress),
           getBalance(provider, bedTokenAddress, userAddress),
           getBalance(provider, dataTokenAddress, userAddress),
+          getBalance(provider, gmiTokenAddress, userAddress),
 
           // LP Token Balances
           getBalance(provider, uniswapEthDpiLpTokenAddress, userAddress),
@@ -150,12 +154,13 @@ const Provider: React.FC = ({ children }) => {
         setUsdcBalance(new BigNumber(balances[7]))
         setBedBalance(new BigNumber(balances[8]))
         setDataBalance(new BigNumber(balances[9]))
-        setUniswapEthDpiLpBalance(new BigNumber(balances[10]))
-        setUniswapEthMviLpBalance(new BigNumber(balances[11]))
-        setStakedUniswapEthDpiLpBalance(new BigNumber(balances[12]))
-        setUnharvestedIndexBalance(new BigNumber(balances[13]))
-        setStakedFarmTwoBalance(new BigNumber(balances[14]))
-        setUnharvestedFarmTwoBalance(new BigNumber(balances[15]))
+        setGmiBalance(new BigNumber(balances[10]))
+        setUniswapEthDpiLpBalance(new BigNumber(balances[11]))
+        setUniswapEthMviLpBalance(new BigNumber(balances[12]))
+        setStakedUniswapEthDpiLpBalance(new BigNumber(balances[13]))
+        setUnharvestedIndexBalance(new BigNumber(balances[14]))
+        setStakedFarmTwoBalance(new BigNumber(balances[15]))
+        setUnharvestedFarmTwoBalance(new BigNumber(balances[16]))
 
         // BN Balances
         setStakedUniswapEthMviLpBalance(balances2[0])
@@ -193,6 +198,7 @@ const Provider: React.FC = ({ children }) => {
       setBtcFliBalance,
       setMviBalance,
       setBedBalance,
+      setGmiBalance,
       setDataBalance,
       setDataBalancePolygon,
       setUniswapEthDpiLpBalance,
@@ -219,6 +225,7 @@ const Provider: React.FC = ({ children }) => {
       setMviBalance(new BigNumber(0))
       setMviBalancePolygon(new BigNumber(0))
       setBedBalance(new BigNumber(0))
+      setGmiBalance(new BigNumber(0))
       setDaiBalance(new BigNumber(0))
       setDaiBalancePolygon(new BigNumber(0))
       setUsdcBalance(new BigNumber(0))
@@ -265,6 +272,7 @@ const Provider: React.FC = ({ children }) => {
         usdcBalance,
         usdcBalancePolygon,
         bedBalance,
+        gmiBalance,
         dataBalance,
         dataBalancePolygon,
         uniswapEthDpiLpBalance,

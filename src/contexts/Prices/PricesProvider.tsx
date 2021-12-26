@@ -5,6 +5,7 @@ import {
   dpiTokenAddress,
   mviTokenAddress,
   bedTokenAddress,
+  gmiTokenAddress,
   eth2xfliTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
@@ -27,6 +28,7 @@ const PricesProvider: React.FC = ({ children }) => {
   const [dpiPrice, setDpiPrice] = useState<number>(0)
   const [mviPrice, setMviPrice] = useState<number>(0)
   const [bedPrice, setBedPrice] = useState<number>(0)
+  const [gmiPrice, setGmiPrice] = useState<number>(0)
   const [eth2xfliPrice, setEth2xfliPrice] = useState<number>(0)
   const [eth2xflipPrice, setEth2xflipPrice] = useState<number>(0)
   const [btc2xfliPrice, setBtc2xfliPrice] = useState<number>(0)
@@ -97,6 +99,7 @@ const PricesProvider: React.FC = ({ children }) => {
       dpiTokenAddress,
       mviTokenAddress,
       bedTokenAddress,
+      gmiTokenAddress,
       eth2xfliTokenAddress,
       btc2xfliTokenAddress,
       dataTokenAddress,
@@ -110,6 +113,7 @@ const PricesProvider: React.FC = ({ children }) => {
         setDpiPrice(response[dpiTokenAddress?.toLowerCase() as string].usd)
         setMviPrice(response[mviTokenAddress?.toLowerCase() as string].usd)
         setBedPrice(response[bedTokenAddress?.toLowerCase() as string].usd)
+        setGmiPrice(response[gmiTokenAddress?.toLowerCase() as string].usd)
         setEth2xfliPrice(
           response[eth2xfliTokenAddress?.toLowerCase() as string].usd
         )
@@ -211,6 +215,7 @@ const PricesProvider: React.FC = ({ children }) => {
         dpiPrice,
         mviPrice,
         bedPrice,
+        gmiPrice,
         eth2xfliPrice,
         eth2xflipPrice,
         btc2xfliPrice,

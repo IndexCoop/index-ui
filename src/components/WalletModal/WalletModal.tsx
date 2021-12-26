@@ -6,6 +6,7 @@ import useWallet from 'hooks/useWallet'
 import { toast } from 'react-toastify'
 import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
+import gmiLogo from 'assets/gmilogo.png'
 
 import numeral from 'numeral'
 import {
@@ -43,6 +44,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     btcfliBalance,
     bedBalance,
     dataBalance,
+    gmiBalance,
     uniswapEthDpiLpBalance,
     uniswapEthMviLpBalance,
     stakedUniswapEthDpiLpBalance,
@@ -155,6 +157,17 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               label='DATA Economy Index Balance'
               link={`https://etherscan.io/address/${tokenAddresses.dataTokenAddress}`}
               value={displayFromWei(dataBalance)}
+            />
+          </Box>
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'GMI Icon',
+                src: gmiLogo,
+              }}
+              label='Bankless DeFi Innovation Index Balance'
+              link={`https://etherscan.io/address/${tokenAddresses.gmiTokenAddress}`}
+              value={displayFromWei(gmiBalance)}
             />
           </Box>
         </Split>

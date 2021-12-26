@@ -35,6 +35,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     mviBalance,
     mviBalancePolygon,
     bedBalance,
+    gmiBalance,
     dataBalance,
     dataBalancePolygon,
     ethfliBalance,
@@ -80,6 +81,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = getNetworkedBalance(mviBalance, mviBalancePolygon)
   } else if (!isUserBuying && buySellToken === 'bed') {
     spendingTokenBalance = fromWei(bedBalance)
+  } else if (!isUserBuying && buySellToken === 'gmi') {
+    spendingTokenBalance = fromWei(gmiBalance)
   } else if (!isUserBuying && buySellToken === 'data') {
     spendingTokenBalance = getNetworkedBalance(dataBalance, dataBalancePolygon)
   } else if (selectedCurrency?.label === 'ETH') {
