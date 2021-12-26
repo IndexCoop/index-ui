@@ -13,7 +13,7 @@ import ERC20ABI from 'index-sdk/abi/ERC20.json'
 import SupplyCapIssuanceABI from 'index-sdk/abi/SupplyCapIssuanceHook.json'
 import BigNumber from 'utils/bignumber'
 
-import { MAINNET_CHAIN_DATA,POLYGON_CHAIN_DATA } from './connectors'
+import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from './connectors'
 
 const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms))

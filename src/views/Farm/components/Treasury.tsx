@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Card, CardContent,Container } from 'react-neu'
+import { Card, CardContent, Container } from 'react-neu'
 
 import numeral from 'numeral'
 

@@ -1,12 +1,12 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   bedTokenAddress,
-  gmiTokenAddress,
   btc2xfliTokenAddress,
   dpiTokenAddress,
   dpiTokenPolygonAddress,
   eth2xfliTokenAddress,
+  gmiTokenAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'

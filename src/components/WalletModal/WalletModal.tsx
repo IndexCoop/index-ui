@@ -14,11 +14,10 @@ import { toast } from 'react-toastify'
 
 import styled from 'styled-components'
 
-import indexToken from 'assets/index-token.png'
 import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
 import gmiLogo from 'assets/gmilogo.png'
-
+import indexToken from 'assets/index-token.png'
 import Modal from 'components/CustomModal'
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'

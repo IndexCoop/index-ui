@@ -164,10 +164,7 @@ const Stake: React.FC = () => {
                   <StyledFarmText>
                     {formattedEarnedBalance}
                     <StyledTokenIconWrapper>
-                      <StyledTokenIcon
-                        src={indexToken}
-                        alt='Index token'
-                      />
+                      <StyledTokenIcon src={indexToken} alt='Index token' />
                     </StyledTokenIconWrapper>
                   </StyledFarmText>
                   <StyledSectionLabel>

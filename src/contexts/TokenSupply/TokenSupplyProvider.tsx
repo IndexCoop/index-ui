@@ -1,17 +1,17 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import BigNumber from 'bignumber.js'
 import { provider } from 'web3-core'
 
 import {
   bedTokenAddress,
-  gmiTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
   dpiTokenAddress,
   dpiTokenPolygonAddress,
   eth2xflipTokenAddress,
   eth2xfliTokenAddress,
+  gmiTokenAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'

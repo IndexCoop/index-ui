@@ -4,12 +4,12 @@ import { useQuery } from '@apollo/react-hooks'
 
 import {
   bedTokenAddress,
-  gmiTokenAddress,
   btc2xfliTokenAddress,
   dataTokenAddress,
   dpiTokenAddress,
   eth2xfliTokenAddress,
   farmTwoAddress,
+  gmiTokenAddress,
   indexTokenAddress,
   mviStakingRewardsAddress,
   mviTokenAddress,

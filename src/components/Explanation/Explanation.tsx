@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Spacer,Surface } from 'react-neu'
+import { Spacer, Surface } from 'react-neu'
 
 import styled from 'styled-components'
 

@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import MarketDataContext from './GmiTokenMarketDataContext'
+import React, { useEffect,useState } from 'react'
+
 import { GmiIndex } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'
+
+import MarketDataContext from './GmiTokenMarketDataContext'
 
 const GmiMarketDataProvider: React.FC = ({ children }) => {
   const [gmiMarketData, setGmiMarketData] = useState<any>({})

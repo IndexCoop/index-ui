@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Ethereum2xFLIP } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketDataOnPolygon } from 'utils/coingeckoApi'

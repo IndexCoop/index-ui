@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
-import useGmiTokenMarketData from 'hooks/useGmiTokenMarketData'
-import useBalances from 'hooks/useBalances'
-import { GmiIndex, ProductToken } from 'constants/productTokens'
+
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
+import { GmiIndex, ProductToken } from 'constants/productTokens'
+import useBalances from 'hooks/useBalances'
+import useGmiTokenMarketData from 'hooks/useGmiTokenMarketData'
+import useSetComponents from 'hooks/useSetComponents'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
-import useSetComponents from 'hooks/useSetComponents'
 
 const GMIProductPage = (props: { title: string }) => {
   useEffect(() => {
