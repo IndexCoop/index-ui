@@ -20,6 +20,7 @@ import {
   mviTokenAddress,
   mviTokenPolygonAddress,
   stakingRewardsAddress,
+  gmiStakingRewardsAddress,
   uniswapEthDpiLpTokenAddress,
   uniswapEthMviLpTokenAddress,
   usdcTokenAddress,
@@ -29,6 +30,7 @@ import {
 import useWallet from 'hooks/useWallet'
 import { getEarnedIndexTokenQuantity as getEarnedFarmTwoBalance } from 'index-sdk/farmTwo'
 import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/mviStaking'
+import { getEarnedIndexTokenQuantity as getGmiRewardsBalance } from 'index-sdk/gmiStaking'
 import { getEarnedIndexTokenQuantity } from 'index-sdk/stake'
 import BigNumber from 'utils/bignumber'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
@@ -81,6 +83,11 @@ const Provider: React.FC = ({ children }) => {
   const [unharvestedMviRewardsBalance, setUnharvestedMviRewardsBalance] =
     useState<BigNumber>()
 
+  // GMI Staking Program
+  const [stakedGmiBalance, setStakedGmiBalance] = useState<BigNumber>()
+  const [unharvestedIndexFromGmiBalance, setUnharvestedIndexFromGmiBalance] =
+    useState<BigNumber>()
+
   const { account, ethereum, status, chainId } = useWallet()
 
   const fetchBalances = useCallback(
@@ -105,6 +112,7 @@ const Provider: React.FC = ({ children }) => {
         !uniswapEthDpiLpTokenAddress ||
         !uniswapEthMviLpTokenAddress ||
         !stakingRewardsAddress ||
+        !gmiStakingRewardsAddress ||
         !farmTwoAddress ||
         !mviStakingRewardsAddress ||
         !wethTokenPolygonAddress
@@ -138,6 +146,10 @@ const Provider: React.FC = ({ children }) => {
           // Current DPI LM Program Balances
           getBalance(provider, farmTwoAddress, userAddress),
           getEarnedFarmTwoBalance(provider, userAddress),
+
+          // GMI staking Balances
+          getBalance(provider, gmiStakingRewardsAddress, userAddress),
+          getGmiRewardsBalance(provider, userAddress),
         ])
         // Current MVI LM Program Balances
         const balances2 = await Promise.all([
@@ -163,6 +175,9 @@ const Provider: React.FC = ({ children }) => {
         setUnharvestedIndexBalance(new BigNumber(balances[14]))
         setStakedFarmTwoBalance(new BigNumber(balances[15]))
         setUnharvestedFarmTwoBalance(new BigNumber(balances[16]))
+
+        setStakedGmiBalance(new BigNumber(balances[17]))
+        setUnharvestedIndexFromGmiBalance(new BigNumber(balances[18]))
 
         // BN Balances
         setStakedUniswapEthMviLpBalance(balances2[0])
@@ -211,6 +226,8 @@ const Provider: React.FC = ({ children }) => {
       setUnharvestedFarmTwoBalance,
       setStakedUniswapEthMviLpBalance,
       setUnharvestedMviRewardsBalance,
+      setStakedGmiBalance,
+      setUnharvestedIndexFromGmiBalance,
     ]
   )
 
@@ -242,6 +259,8 @@ const Provider: React.FC = ({ children }) => {
       setUnharvestedMviRewardsBalance(new BigNumber(0))
       setDataBalance(new BigNumber(0))
       setDataBalancePolygon(new BigNumber(0))
+      setStakedGmiBalance(new BigNumber(0))
+      setUnharvestedIndexFromGmiBalance(new BigNumber(0))
     }
   }, [status])
 
@@ -285,6 +304,8 @@ const Provider: React.FC = ({ children }) => {
         unharvestedFarmTwoBalance,
         stakedUniswapEthMviLpBalance,
         unharvestedMviRewardsBalance,
+        stakedGmiBalance,
+        unharvestedIndexFromGmiBalance,
       }}
     >
       {children}

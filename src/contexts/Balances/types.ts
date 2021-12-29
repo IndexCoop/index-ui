@@ -37,4 +37,8 @@ export interface ContextValues {
   // For Current MVI LM Program
   stakedUniswapEthMviLpBalance?: BigNumber
   unharvestedMviRewardsBalance?: BigNumber
+
+  // For Legacy DPI LM Program
+  stakedGmiBalance?: BigNumber
+  unharvestedIndexFromGmiBalance?: BigNumber
 }

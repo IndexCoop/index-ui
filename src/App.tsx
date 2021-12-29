@@ -53,6 +53,7 @@ import INDEX from 'views/INDEX'
 import MVI from 'views/MVI'
 
 import 'react-toastify/dist/ReactToastify.css'
+import { GmiFarmingProvider } from 'contexts/GmiFarming'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -166,13 +167,15 @@ const Providers: React.FC = ({ children }) => {
                                                   <DataTokenMarketDataProvider>
                                                     <IndexTokenMarketDataProvider>
                                                       <V3FarmingProvider>
-                                                        <StreamingFeeProvider>
-                                                          <TokenSupplyProvider>
-                                                            <SetComponentsProvider>
-                                                              {children}
-                                                            </SetComponentsProvider>
-                                                          </TokenSupplyProvider>
-                                                        </StreamingFeeProvider>
+                                                        <GmiFarmingProvider>
+                                                          <StreamingFeeProvider>
+                                                            <TokenSupplyProvider>
+                                                              <SetComponentsProvider>
+                                                                {children}
+                                                              </SetComponentsProvider>
+                                                            </TokenSupplyProvider>
+                                                          </StreamingFeeProvider>
+                                                        </GmiFarmingProvider>
                                                       </V3FarmingProvider>
                                                     </IndexTokenMarketDataProvider>
                                                   </DataTokenMarketDataProvider>

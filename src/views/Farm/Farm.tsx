@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
-import { Box, Container, Separator, Spacer } from 'react-neu'
+import { Container, Spacer } from 'react-neu'
 
 import styled from 'styled-components'
 
 import Page from 'components/Page'
-import { DpiEthRewards, MviEthRewards } from 'constants/v3Farms'
+import { DpiEthRewards } from 'constants/v3Farms'
 
 import DpiFarmCard from './components/Stake/DpiFarm'
+import GmiFarmCard from './components/Stake/GmiFarm'
 import LegacyFarmCard from './components/Stake/LegacyFarm'
 import MviFarmCard from './components/Stake/MviFarm'
 import V3FarmCard from './components/Stake/V3Farm'
@@ -33,6 +34,8 @@ const Farm = (props: { title: string }) => {
       <Treasury data-cy='treasury' />
       <Spacer />
       <Container>
+        <GmiFarmCard />
+        <Spacer />
         <V3FarmCard farm={DpiEthRewards} />
         <Spacer />
         <DpiFarmCard />
