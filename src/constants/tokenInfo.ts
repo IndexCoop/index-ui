@@ -4,6 +4,7 @@ import {
   daiTokenAddress,
   daiTokenPolygonAddress,
   dataTokenAddress,
+  dataTokenPolygonAddress,
   dpiTokenAddress,
   dpiTokenPolygonAddress,
   eth2xflipTokenAddress,
@@ -59,6 +60,10 @@ export const tokenInfo: any = {
   },
 }
 export const polygonTokenInfo: any = {
+  data: {
+    address: dataTokenPolygonAddress,
+    decimals: 18,
+  },
   dpi: {
     address: dpiTokenPolygonAddress,
     decimals: 18,
