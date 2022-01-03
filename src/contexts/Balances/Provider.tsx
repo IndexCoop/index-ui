@@ -14,13 +14,13 @@ import {
   eth2xflipTokenAddress,
   eth2xfliTokenAddress,
   farmTwoAddress,
+  gmiStakingRewardsAddress,
   gmiTokenAddress,
   indexTokenAddress,
   mviStakingRewardsAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
   stakingRewardsAddress,
-  gmiStakingRewardsAddress,
   uniswapEthDpiLpTokenAddress,
   uniswapEthMviLpTokenAddress,
   usdcTokenAddress,
@@ -29,8 +29,8 @@ import {
 } from 'constants/ethContractAddresses'
 import useWallet from 'hooks/useWallet'
 import { getEarnedIndexTokenQuantity as getEarnedFarmTwoBalance } from 'index-sdk/farmTwo'
-import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/mviStaking'
 import { getEarnedIndexTokenQuantity as getGmiRewardsBalance } from 'index-sdk/gmiStaking'
+import { getEarnedIndexTokenQuantity as getMviRewardsBalance } from 'index-sdk/mviStaking'
 import { getEarnedIndexTokenQuantity } from 'index-sdk/stake'
 import BigNumber from 'utils/bignumber'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
