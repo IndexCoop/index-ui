@@ -111,7 +111,7 @@ const Stake: React.FC = () => {
                 <StyledCardTitle>GMI Staking</StyledCardTitle>
                 <Spacer size='sm' />
                 <StyledCardSubtitle>
-                  Active Oct. 7th, 2020 - Dec. 6th, 2020
+                  Active Jan. 5th, 2022 - Mar. 5th, 2022
                 </StyledCardSubtitle>
               </StyledLmTitle>
             </StyledCardTitleWrapper>
