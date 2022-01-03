@@ -26,6 +26,7 @@ import { Eth2xFliTokenMarketDataProvider } from 'contexts/Eth2xFliTokenMarketDat
 import { Eth2xFliTokenSupplyCapProvider } from 'contexts/Eth2xFliTokenSupplyCap'
 import { FarmingProvider } from 'contexts/Farming'
 import { FarmingTwoProvider } from 'contexts/FarmingTwo'
+import { GmiFarmingProvider } from 'contexts/GmiFarming'
 import { GmiTokenMarketDataProvider } from 'contexts/GmiTokenMarketData'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { MediaQueryProvider } from 'contexts/MediaQuery'
@@ -53,7 +54,6 @@ import INDEX from 'views/INDEX'
 import MVI from 'views/MVI'
 
 import 'react-toastify/dist/ReactToastify.css'
-import { GmiFarmingProvider } from 'contexts/GmiFarming'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
