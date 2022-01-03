@@ -26,6 +26,7 @@ import { Eth2xFliTokenMarketDataProvider } from 'contexts/Eth2xFliTokenMarketDat
 import { Eth2xFliTokenSupplyCapProvider } from 'contexts/Eth2xFliTokenSupplyCap'
 import { FarmingProvider } from 'contexts/Farming'
 import { FarmingTwoProvider } from 'contexts/FarmingTwo'
+import { GmiFarmingProvider } from 'contexts/GmiFarming'
 import { GmiTokenMarketDataProvider } from 'contexts/GmiTokenMarketData'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { MediaQueryProvider } from 'contexts/MediaQuery'
@@ -166,13 +167,15 @@ const Providers: React.FC = ({ children }) => {
                                                   <DataTokenMarketDataProvider>
                                                     <IndexTokenMarketDataProvider>
                                                       <V3FarmingProvider>
-                                                        <StreamingFeeProvider>
-                                                          <TokenSupplyProvider>
-                                                            <SetComponentsProvider>
-                                                              {children}
-                                                            </SetComponentsProvider>
-                                                          </TokenSupplyProvider>
-                                                        </StreamingFeeProvider>
+                                                        <GmiFarmingProvider>
+                                                          <StreamingFeeProvider>
+                                                            <TokenSupplyProvider>
+                                                              <SetComponentsProvider>
+                                                                {children}
+                                                              </SetComponentsProvider>
+                                                            </TokenSupplyProvider>
+                                                          </StreamingFeeProvider>
+                                                        </GmiFarmingProvider>
                                                       </V3FarmingProvider>
                                                     </IndexTokenMarketDataProvider>
                                                   </DataTokenMarketDataProvider>
