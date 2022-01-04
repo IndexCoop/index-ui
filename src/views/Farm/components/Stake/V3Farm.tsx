@@ -201,6 +201,8 @@ const Stake = (props: { farm: V3Farm }) => {
           </StyledFarmTokensAndApyWrapper>
         </CardContent>
         <StyledCardActions isMobile={isMobile}>
+          {StakeButton}
+          <Spacer />
           {ClaimAccruedButton}
         </StyledCardActions>
       </Card>
