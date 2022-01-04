@@ -5,7 +5,7 @@
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
     "@davatar/react": "^1.8.1",
-    "@ledgerhq/hw-app-eth": "^6.17.0",
+    "@ledgerhq/hw-app-eth": "^6.22.0",
     "@ledgerhq/hw-transport": "^6.10.0",
     "@ledgerhq/hw-transport-webusb": "^6.11.2",
     "@testing-library/jest-dom": "^5.15.1",
