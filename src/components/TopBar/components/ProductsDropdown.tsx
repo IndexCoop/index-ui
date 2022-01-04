@@ -97,7 +97,7 @@ const ProductsDropdown: React.FC = () => {
         },
         {
           value: 'gmi',
-          label: 'Bankless DeFi Innovation Index',
+          label: 'Bankless GMI Index',
         },
       ]}
       components={{
