@@ -124,12 +124,12 @@ export const GmiIndex: ProductToken = {
   name: 'Bankless DeFi Innovation Index',
   symbol: 'GMI',
   address: tokenAddresses.gmiTokenAddress,
-  polygonAddress: undefined,
+  polygonAddress: tokenAddresses.gmiTokenPolygonAddress,
   image: gmiLogo,
   coingeckoId: 'bankless-defi-innovation-index',
   tokensetsId: 'gmi',
   fees: {
-    streamingFee: '0.25%',
+    streamingFee: '1.95%',
   },
 }
 

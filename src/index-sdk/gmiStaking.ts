@@ -137,4 +137,4 @@ export const getAmountOfStakedTokens = async (
 }
 
 // Currently set for 12pm PST Dec. 6th
-export const farmEndTime = '1607284800000'
+export const farmEndTime = '1646542800'

@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 
-import { FarmingContext } from 'contexts/Farming'
+import { GmiFarmingContext } from 'contexts/GmiFarming'
 
 const useGmiFarming = () => {
-  return { ...useContext(FarmingContext) }
+  return { ...useContext(GmiFarmingContext) }
 }
 
 export default useGmiFarming

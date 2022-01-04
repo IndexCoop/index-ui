@@ -112,3 +112,5 @@ export const basicIssuanceModulePolygonAddress =
   process.env.REACT_APP_POLYGON_SETJS_BASIC_ISSUANCE_MODULE
 export const dataTokenPolygonAddress =
   process.env.REACT_APP_POLYGON_DATA_TOKEN_ADDRESS
+export const gmiTokenPolygonAddress =
+  process.env.REACT_APP_POLYGON_GMI_TOKEN_ADDRESS
