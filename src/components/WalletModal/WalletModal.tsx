@@ -48,6 +48,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     stakedFarmTwoBalance,
     stakedUniswapEthMviLpBalance,
     dataBalancePolygon,
+    stakedGmiBalance,
   } = useBalances()
 
   const totalStakedEthDpiLpBalance = getBigNumber(
@@ -238,6 +239,21 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               label='Staked Uniswap ETH/MVI LP'
               link={`https://etherscan.io/address/${tokenAddresses.mviStakingRewardsAddress}`}
               value={displayFromWei(stakedUniswapEthMviLpBalance)}
+            />
+          </Box>
+        </Split>
+        <Spacer />
+        <Split>
+          <Spacer />
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'Staked GMI Icon',
+                src: gmiLogo,
+              }}
+              label='Staked GMI'
+              link={`https://etherscan.io/address/${tokenAddresses.gmiTokenAddress}`}
+              value={displayFromWei(stakedGmiBalance)}
             />
           </Box>
         </Split>
