@@ -77,7 +77,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
             to='/gmi'
             onClick={onDismiss}
           >
-            Bankless DeFi Innovation Index
+            Bankless GMI Index
           </StyledLink>
           <StyledLink
             exact
