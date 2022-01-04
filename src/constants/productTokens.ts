@@ -126,7 +126,7 @@ export const GmiIndex: ProductToken = {
   address: tokenAddresses.gmiTokenAddress,
   polygonAddress: undefined,
   image: gmiLogo,
-  coingeckoId: 'bankless-gmi-index',
+  coingeckoId: 'bankless-defi-innovation-index',
   tokensetsId: 'gmi',
   fees: {
     streamingFee: '0.25%',
