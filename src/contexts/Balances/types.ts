@@ -21,6 +21,7 @@ export interface ContextValues {
   daiBalancePolygon?: BigNumber
   usdcBalancePolygon?: BigNumber
   dataBalancePolygon?: BigNumber
+  gmiBalancePolygon?: BigNumber
 
   // LP Tokens
   uniswapEthDpiLpBalance?: BigNumber
