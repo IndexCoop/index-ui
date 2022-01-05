@@ -9,6 +9,8 @@ export const eth2xfliSuppyCapAddress =
   process.env.REACT_APP_ETH2X_FLI_SUPPLY_CAP_ADDRESS
 export const btc2xfliSuppyCapAddress =
   process.env.REACT_APP_BTC2X_FLI_SUPPLY_CAP_ADDRESS
+export const gmiStakingRewardsAddress =
+  process.env.REACT_APP_GMI_STAKING_ADDRESS
 
 // Uniswap V2 Addresses
 export const uniswapEthDpiLpTokenAddress =
@@ -71,6 +73,7 @@ export const btc2xfliTokenAddress =
   process.env.REACT_APP_BTC2X_FLI_TOKEN_ADDRESS
 export const ethTokenAddress = process.env.REACT_APP_ETH_TOKEN_ADDRESS
 export const bedTokenAddress = process.env.REACT_APP_BED_TOKEN_ADDRESS
+export const gmiTokenAddress = process.env.REACT_APP_GMI_TOKEN_ADDRESS
 export const dataTokenAddress = process.env.REACT_APP_DATA_TOKEN_ADDRESS
 
 export const navIssuanceModuleAddress =
@@ -109,3 +112,5 @@ export const basicIssuanceModulePolygonAddress =
   process.env.REACT_APP_POLYGON_SETJS_BASIC_ISSUANCE_MODULE
 export const dataTokenPolygonAddress =
   process.env.REACT_APP_POLYGON_DATA_TOKEN_ADDRESS
+export const gmiTokenPolygonAddress =
+  process.env.REACT_APP_POLYGON_GMI_TOKEN_ADDRESS

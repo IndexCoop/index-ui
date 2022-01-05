@@ -142,10 +142,7 @@ const Stake: React.FC = () => {
                 <div>
                   <StyledFarmText>
                     {formattedEarnedBalance}
-                    <StyledTokenIcon
-                      src={indexToken}
-                      alt='Index token'
-                    />
+                    <StyledTokenIcon src={indexToken} alt='Index token' />
                   </StyledFarmText>
                   <StyledSectionLabel>
                     Unclaimed INDEX in pool

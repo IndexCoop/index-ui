@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   bedTokenAddress,
@@ -6,6 +6,7 @@ import {
   dpiTokenAddress,
   dpiTokenPolygonAddress,
   eth2xfliTokenAddress,
+  gmiTokenAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
@@ -20,6 +21,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
   const [dpiStreamingFee, setDpiStreamingFee] = useState<string>()
   const [mviStreamingFee, setMviStreamingFee] = useState<string>()
   const [bedStreamingFee, setBedStreamingFee] = useState<string>()
+  const [gmiStreamingFee, setGmiStreamingFee] = useState<string>()
   const [eth2xFliStreamingFee, setEth2xFliStreamingFee] = useState<string>()
   const [btc2xFliStreamingFee, setBtc2xFliStreamingFee] = useState<string>()
   const { ethereum: provider, chainId } = useWallet()
@@ -32,6 +34,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
       dpiTokenAddress &&
       mviTokenAddress &&
       bedTokenAddress &&
+      gmiTokenAddress &&
       eth2xfliTokenAddress &&
       btc2xfliTokenAddress
     ) {
@@ -41,6 +44,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
           dpiTokenAddress,
           mviTokenAddress,
           bedTokenAddress,
+          gmiTokenAddress,
           eth2xfliTokenAddress,
           btc2xfliTokenAddress,
         ],
@@ -51,6 +55,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
             dpiResult,
             mviResult,
             bedResult,
+            gmiResult,
             eth2xFliResult,
             btc2xFliResult,
           ] = result
@@ -62,6 +67,9 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
           )
           setBedStreamingFee(
             convertToPercentage(bedResult.streamingFeePercentage)
+          )
+          setGmiStreamingFee(
+            convertToPercentage(gmiResult.streamingFeePercentage)
           )
           setEth2xFliStreamingFee(
             convertToPercentage(eth2xFliResult.streamingFeePercentage)
@@ -84,13 +92,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
         chainId
       )
         .then((result) => {
-          const [
-            dpiResult,
-            mviResult,
-            bedResult,
-            eth2xFliResult,
-            btc2xFliResult,
-          ] = result
+          const [dpiResult, mviResult] = result
           setDpiStreamingFee(
             convertToPercentage(dpiResult.streamingFeePercentage)
           )
@@ -98,6 +100,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
             convertToPercentage(mviResult.streamingFeePercentage)
           )
           setBedStreamingFee(undefined)
+          setGmiStreamingFee(undefined)
           setEth2xFliStreamingFee(undefined)
           setBtc2xFliStreamingFee(undefined)
         })
@@ -111,6 +114,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
         dpiStreamingFee: dpiStreamingFee,
         mviStreamingFee: mviStreamingFee,
         bedStreamingFee: bedStreamingFee,
+        gmiStreamingFee: gmiStreamingFee,
         eth2xFliStreamingFee: eth2xFliStreamingFee,
         btc2xFliStreamingFee: btc2xFliStreamingFee,
       }}

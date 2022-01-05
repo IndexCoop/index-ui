@@ -11,10 +11,7 @@ interface ToastProps {
 const DpiZerionPromo: React.FC<ToastProps> = ({ closeToast }) => {
   return (
     <StyledToastContainer>
-      <StyledToastImage
-        alt='Defi Pulse Icon'
-        src={dpiTokenImage}
-      />
+      <StyledToastImage alt='Defi Pulse Icon' src={dpiTokenImage} />
       <StyledToastText
         href='https://app.zerion.io/invest/asset/DPI-0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b'
         target='_blank'

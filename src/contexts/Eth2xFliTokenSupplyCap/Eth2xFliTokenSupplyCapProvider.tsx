@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { eth2xfliSuppyCapAddress } from 'constants/ethContractAddresses'
 import { getSupplyCap } from 'utils'

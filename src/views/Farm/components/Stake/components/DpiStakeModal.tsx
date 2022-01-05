@@ -59,12 +59,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
       </ModalContent>
       <ModalActions>
         <Button onClick={onDismiss} text='Cancel' variant='secondary' />
-        <Button
-          disabled={!val || !Number(val)}
-          onClick={handleStakeClick}
-          text='Stake'
-          variant={!val || !Number(val) ? 'secondary' : 'default'}
-        />
       </ModalActions>
     </Modal>
   )

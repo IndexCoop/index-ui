@@ -1,4 +1,4 @@
-import React, { useCallback,useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import Web3 from 'web3'
 import { provider } from 'web3-core'
@@ -37,6 +37,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     mviBalance,
     mviBalancePolygon,
     bedBalance,
+    gmiBalance,
     dataBalance,
     dataBalancePolygon,
     ethfliBalance,
@@ -82,6 +83,8 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = getNetworkedBalance(mviBalance, mviBalancePolygon)
   } else if (!isUserBuying && buySellToken === 'bed') {
     spendingTokenBalance = fromWei(bedBalance)
+  } else if (!isUserBuying && buySellToken === 'gmi') {
+    spendingTokenBalance = fromWei(gmiBalance)
   } else if (!isUserBuying && buySellToken === 'data') {
     spendingTokenBalance = getNetworkedBalance(dataBalance, dataBalancePolygon)
   } else if (selectedCurrency?.label === 'ETH') {

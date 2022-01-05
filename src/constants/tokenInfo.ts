@@ -9,6 +9,7 @@ import {
   dpiTokenPolygonAddress,
   eth2xflipTokenAddress,
   eth2xfliTokenAddress,
+  gmiTokenAddress,
   indexTokenAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
@@ -38,6 +39,10 @@ export const tokenInfo: any = {
     address: bedTokenAddress,
     decimals: 18,
   },
+  gmi: {
+    address: gmiTokenAddress,
+    decimals: 18,
+  },
   data: {
     address: dataTokenAddress,
     decimals: 18,
@@ -60,27 +65,27 @@ export const tokenInfo: any = {
   },
 }
 export const polygonTokenInfo: any = {
-  data: {
+  'data': {
     address: dataTokenPolygonAddress,
     decimals: 18,
   },
-  dpi: {
+  'dpi': {
     address: dpiTokenPolygonAddress,
     decimals: 18,
   },
-  mvi: {
+  'mvi': {
     address: mviTokenPolygonAddress,
     decimals: 18,
   },
-  DAI: {
+  'DAI': {
     address: daiTokenPolygonAddress,
     decimals: 18,
   },
-  USDC: {
+  'USDC': {
     address: usdcTokenPolygonAddress,
     decimals: 6,
   },
-  ETH: {
+  'ETH': {
     address: wethTokenPolygonAddress,
     decimals: 18,
   },

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-import { ApolloClient, HttpLink,InMemoryCache } from '@apollo/client'
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 
 import {
   uniswapEthDpiLpTokenAddress,

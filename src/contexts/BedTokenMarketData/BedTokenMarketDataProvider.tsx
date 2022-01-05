@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { BedIndex } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketData } from 'utils/coingeckoApi'

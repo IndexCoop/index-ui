@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import BigNumber from 'bignumber.js'
 import {
@@ -16,6 +16,7 @@ import {
   dpiTokenPolygonAddress,
   eth2xflipTokenAddress,
   eth2xfliTokenAddress,
+  gmiTokenAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
@@ -39,6 +40,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     dpiPrice,
     mviPrice,
     bedPrice,
+    gmiPrice,
     eth2xfliPrice,
     btc2xfliPrice,
     dataPrice,
@@ -47,6 +49,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   const [dpiComponents, setDpiComponents] = useState<SetComponent[]>([])
   const [mviComponents, setMviComponents] = useState<SetComponent[]>([])
   const [bedComponents, setBedComponents] = useState<SetComponent[]>([])
+  const [gmiComponents, setGmiComponents] = useState<SetComponent[]>([])
   const [eth2xfliComponents, setEth2xfliComponents] = useState<SetComponent[]>(
     []
   )
@@ -67,6 +70,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
       dpiTokenAddress &&
       mviTokenAddress &&
       bedTokenAddress &&
+      gmiTokenAddress &&
       eth2xfliTokenAddress &&
       btc2xfliTokenAddress &&
       dataTokenAddress &&
@@ -79,13 +83,14 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           dpiTokenAddress,
           mviTokenAddress,
           bedTokenAddress,
+          gmiTokenAddress,
           eth2xfliTokenAddress,
           btc2xfliTokenAddress,
           dataTokenAddress,
         ],
         chainId
       ).then(async (result) => {
-        const [dpi, mvi, bed, eth2xfli, btc2xfli, data] = result
+        const [dpi, mvi, bed, gmi, eth2xfli, btc2xfli, data] = result
 
         const dpiComponentPrices = await getPositionPrices(dpi)
         const dpiPositions = dpi.positions.map(async (position) => {
@@ -134,6 +139,22 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         Promise.all(bedPositions)
           .then(sortPositionsByPercentOfSet)
           .then(setBedComponents)
+
+        const gmiComponentPrices = await getPositionPrices(gmi)
+        const gmiPositions = gmi.positions.map(async (position) => {
+          return await convertPositionToSetComponent(
+            position,
+            tokenList,
+            gmiComponentPrices[position.component.toLowerCase()]?.[VS_CURRENCY],
+            gmiComponentPrices[position.component.toLowerCase()]?.[
+              `${VS_CURRENCY}_24h_change`
+            ],
+            gmiPrice
+          )
+        })
+        Promise.all(gmiPositions)
+          .then(sortPositionsByPercentOfSet)
+          .then(setGmiComponents)
 
         const eth2xfliComponentPrices = await getPositionPrices(eth2xfli)
         const eth2xfliPositions = eth2xfli.positions.map(async (position) => {
@@ -240,6 +261,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     mviPrice,
     chainId,
     bedPrice,
+    gmiPrice,
     eth2xfliPrice,
     btc2xfliPrice,
     dataPrice,
@@ -252,6 +274,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         dpiComponents: dpiComponents,
         mviComponents: mviComponents,
         bedComponents: bedComponents,
+        gmiComponents: gmiComponents,
         eth2xfliComponents: eth2xfliComponents,
         eth2xflipComponents: eth2xflipComponents,
         btc2xfliComponents: btc2xfliComponents,

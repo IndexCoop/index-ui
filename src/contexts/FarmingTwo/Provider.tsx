@@ -14,9 +14,11 @@ import useTransactionWatcher from 'hooks/useTransactionWatcher'
 import useWallet from 'hooks/useWallet'
 import {
   claimEarnedIndexLpReward,
- farmTwoStartTime,  stakeUniswapEthDpiLpTokens,
+  farmTwoStartTime,
+  stakeUniswapEthDpiLpTokens,
   unstakeAndClaimEarnedIndexLpReward,
-  unstakeUniswapEthDpiLpTokens } from 'index-sdk/farmTwo'
+  unstakeUniswapEthDpiLpTokens,
+} from 'index-sdk/farmTwo'
 import BigNumber from 'utils/bignumber'
 import { waitTransaction } from 'utils/index'
 

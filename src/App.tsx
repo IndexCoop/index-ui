@@ -2,12 +2,12 @@ import React, { useCallback, useMemo, useState } from 'react'
 
 import { ThemeProvider } from 'react-neu'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Slide,ToastContainer } from 'react-toastify'
+import { Slide, ToastContainer } from 'react-toastify'
 
 import styled from 'styled-components'
 
 import { ApolloProvider } from '@apollo/client'
-import { ChainId, Config,DAppProvider } from '@usedapp/core'
+import { ChainId, Config, DAppProvider } from '@usedapp/core'
 
 import MobileMenu from 'components/MobileMenu'
 import TopBar from 'components/TopBar'
@@ -26,6 +26,8 @@ import { Eth2xFliTokenMarketDataProvider } from 'contexts/Eth2xFliTokenMarketDat
 import { Eth2xFliTokenSupplyCapProvider } from 'contexts/Eth2xFliTokenSupplyCap'
 import { FarmingProvider } from 'contexts/Farming'
 import { FarmingTwoProvider } from 'contexts/FarmingTwo'
+import { GmiFarmingProvider } from 'contexts/GmiFarming'
+import { GmiTokenMarketDataProvider } from 'contexts/GmiTokenMarketData'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
 import { MediaQueryProvider } from 'contexts/MediaQuery'
 import { MviStakingRewardsProvider } from 'contexts/MviStakingRewards'
@@ -47,6 +49,7 @@ import DPI from 'views/DPI'
 import ETH2XFLI from 'views/ETH2XFLI'
 import ETH2XFLIP from 'views/ETH2XFLIP'
 import Farm from 'views/Farm'
+import GMI from 'views/GMI'
 import INDEX from 'views/INDEX'
 import MVI from 'views/MVI'
 
@@ -93,6 +96,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path='/bed'>
               <BED title={'Index - BED'} />
+            </Route>
+            <Route exact path='/gmi'>
+              <GMI title={'Index - GMI'} />
             </Route>
             <Route exact path='/data'>
               <DATA title={'Index - DATA'} />
@@ -157,19 +163,23 @@ const Providers: React.FC = ({ children }) => {
                                           <DpiTokenMarketDataProvider>
                                             <MviTokenMarketDataProvider>
                                               <BedTokenMarketDataProvider>
-                                                <DataTokenMarketDataProvider>
-                                                  <IndexTokenMarketDataProvider>
-                                                    <V3FarmingProvider>
-                                                      <StreamingFeeProvider>
-                                                        <TokenSupplyProvider>
-                                                          <SetComponentsProvider>
-                                                            {children}
-                                                          </SetComponentsProvider>
-                                                        </TokenSupplyProvider>
-                                                      </StreamingFeeProvider>
-                                                    </V3FarmingProvider>
-                                                  </IndexTokenMarketDataProvider>
-                                                </DataTokenMarketDataProvider>
+                                                <GmiTokenMarketDataProvider>
+                                                  <DataTokenMarketDataProvider>
+                                                    <IndexTokenMarketDataProvider>
+                                                      <V3FarmingProvider>
+                                                        <GmiFarmingProvider>
+                                                          <StreamingFeeProvider>
+                                                            <TokenSupplyProvider>
+                                                              <SetComponentsProvider>
+                                                                {children}
+                                                              </SetComponentsProvider>
+                                                            </TokenSupplyProvider>
+                                                          </StreamingFeeProvider>
+                                                        </GmiFarmingProvider>
+                                                      </V3FarmingProvider>
+                                                    </IndexTokenMarketDataProvider>
+                                                  </DataTokenMarketDataProvider>
+                                                </GmiTokenMarketDataProvider>
                                               </BedTokenMarketDataProvider>
                                             </MviTokenMarketDataProvider>
                                           </DpiTokenMarketDataProvider>

@@ -185,10 +185,7 @@ const Stake = (props: { farm: V3Farm }) => {
               <div>
                 <StyledFarmText>
                   {allPendingRewards}
-                  <StyledTokenIcon
-                    src={indexToken}
-                    alt='Index token'
-                  />
+                  <StyledTokenIcon src={indexToken} alt='Index token' />
                 </StyledFarmText>
                 <StyledSectionLabel>Pending Rewards</StyledSectionLabel>
               </div>
@@ -196,10 +193,7 @@ const Stake = (props: { farm: V3Farm }) => {
               <div>
                 <StyledFarmText>
                   {accruedRewards}
-                  <StyledTokenIcon
-                    src={indexToken}
-                    alt='Index token'
-                  />
+                  <StyledTokenIcon src={indexToken} alt='Index token' />
                 </StyledFarmText>
                 <StyledSectionLabel>Accrued Rewards</StyledSectionLabel>
               </div>

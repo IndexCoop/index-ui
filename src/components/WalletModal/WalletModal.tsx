@@ -14,9 +14,10 @@ import { toast } from 'react-toastify'
 
 import styled from 'styled-components'
 
-import indexToken from 'assets/index-token.png'
 import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
+import gmiLogo from 'assets/gmilogo.png'
+import indexToken from 'assets/index-token.png'
 import Modal from 'components/CustomModal'
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
@@ -40,12 +41,14 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     btcfliBalance,
     bedBalance,
     dataBalance,
+    gmiBalance,
     uniswapEthDpiLpBalance,
     uniswapEthMviLpBalance,
     stakedUniswapEthDpiLpBalance,
     stakedFarmTwoBalance,
     stakedUniswapEthMviLpBalance,
     dataBalancePolygon,
+    stakedGmiBalance,
   } = useBalances()
 
   const totalStakedEthDpiLpBalance = getBigNumber(
@@ -97,7 +100,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
             <FancyValue
               icon={{
                 src: indexToken,
-                alt: 'Index token'
+                alt: 'Index token',
               }}
               link={`https://etherscan.io/address/${tokenAddresses.indexTokenAddress}`}
               label='INDEX balance'
@@ -152,6 +155,17 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               label='DATA Economy Index Balance'
               link={`https://etherscan.io/address/${tokenAddresses.dataTokenAddress}`}
               value={displayFromWei(dataBalance)}
+            />
+          </Box>
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'GMI Icon',
+                src: gmiLogo,
+              }}
+              label='Bankless DeFi Innovation Index Balance'
+              link={`https://etherscan.io/address/${tokenAddresses.gmiTokenAddress}`}
+              value={displayFromWei(gmiBalance)}
             />
           </Box>
         </Split>
@@ -225,6 +239,21 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               label='Staked Uniswap ETH/MVI LP'
               link={`https://etherscan.io/address/${tokenAddresses.mviStakingRewardsAddress}`}
               value={displayFromWei(stakedUniswapEthMviLpBalance)}
+            />
+          </Box>
+        </Split>
+        <Spacer />
+        <Split>
+          <Spacer />
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'Staked GMI Icon',
+                src: gmiLogo,
+              }}
+              label='Staked GMI'
+              link={`https://etherscan.io/address/${tokenAddresses.gmiTokenAddress}`}
+              value={displayFromWei(stakedGmiBalance)}
             />
           </Box>
         </Split>

@@ -61,7 +61,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
             to='/bed'
             onClick={onDismiss}
           >
-            Bankless Index
+            Bankless BED Index
           </StyledLink>
           <StyledLink
             exact
@@ -70,6 +70,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
             onClick={onDismiss}
           >
             Data Economy Index
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/gmi'
+            onClick={onDismiss}
+          >
+            Bankless GMI Index
           </StyledLink>
           <StyledLink
             exact
