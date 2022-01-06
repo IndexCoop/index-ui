@@ -48,8 +48,8 @@ const Farm = (props: { title: string }) => {
 const Farms = () => {
   return (
     <Container>
-      <GmiFarmCard />
-      <Spacer />
+      {/* <GmiFarmCard />
+      <Spacer /> */}
       <V3FarmCard farm={DpiEthRewards} />
       <Spacer />
       <DpiFarmCard />
