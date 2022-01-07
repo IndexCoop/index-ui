@@ -35,7 +35,6 @@ const ASSET_PLATFORM = 'ethereum'
 const VS_CURRENCY = 'usd'
 
 const SetComponentsProvider: React.FC = ({ children }) => {
-  const { tokenList } = useTokenList()
   const {
     dpiPrice,
     mviPrice,
@@ -61,6 +60,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   )
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
   const { ethereum: provider, chainId } = useWallet()
+  const { tokenList } = useTokenList(chainId)
 
   useEffect(() => {
     if (

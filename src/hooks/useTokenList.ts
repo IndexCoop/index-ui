@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { MaticTokens } from '@indexcoop/tokenlists'
+
 // CoinGecko ocassionaly throws 429s. We can temporarily mitigate by using
 // ONE_INCH_LIST instead however that doesn't contain some recent MVI additions
 // (e.g. WHALE)
@@ -35,14 +37,19 @@ export const fetchTokens = async (): Promise<Token[]> => {
   }
 }
 
-export function useTokenList() {
+export function useTokenList(chainId: number = 1) {
   const [tokenList, setTokenList] = useState<Token[]>()
 
   useEffect(() => {
+    if (chainId === 137) {
+      setTokenList(MaticTokens)
+      return
+    }
+
     fetchTokens().then((data) => {
       setTokenList(data)
     })
-  }, [])
+  }, [chainId])
 
   return { tokenList }
 }
