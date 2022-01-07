@@ -6,7 +6,6 @@ import {
   Position,
   SetDetails,
 } from 'set.js/dist/types/src/types'
-import { provider } from 'web3-core'
 
 import {
   bedTokenAddress,
@@ -20,13 +19,11 @@ import {
   mviTokenAddress,
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
-import { productTokensBySymbol } from 'constants/productTokens'
 import usePrices from 'hooks/usePrices'
 import { Token, useTokenList } from 'hooks/useTokenList'
 import useWallet from 'hooks/useWallet'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 import { getSetDetails } from 'utils/setjsApi'
-import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
 
 import { SetComponent } from './SetComponent'
 import SetComponentsContext from './SetComponentsContext'
@@ -210,49 +207,6 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           .then(sortPositionsByPercentOfSet)
           .then(setDataComponents)
       })
-
-      fetchSetComponentsBeta(productTokensBySymbol['ETH2x-FLI-P'].tokensetsId)
-        .then((data) => {
-          const setComponents = (data && data.components) || []
-          setEth2xflipComponents(setComponents)
-        })
-        .catch((err) => console.log(err))
-    } else if (
-      chainId &&
-      chainId === POLYGON_CHAIN_DATA.chainId &&
-      provider &&
-      dpiTokenPolygonAddress &&
-      mviTokenPolygonAddress &&
-      eth2xflipTokenAddress &&
-      tokenList &&
-      dpiPrice
-    ) {
-      fetchSetComponentsBeta(productTokensBySymbol['ETH2x-FLI-P'].tokensetsId)
-        .then((data) => {
-          const setComponents = (data && data.components) || []
-          setEth2xflipComponents(setComponents)
-        })
-        .catch((err) => console.log(err))
-
-      // TODO: Replace Tokensets API (above) with SetJS call directly (below)
-      //   const ethFlipComponentPrices = await getPositionPrices(ethflip)
-      //   const ethFlipPositions = ethflip.positions.map(async (position) => {
-      //     return await convertPositionToSetComponent(
-      //       position,
-      //       tokenList,
-      //       ethFlipComponentPrices[position.component.toLowerCase()]?.[
-      //         VS_CURRENCY
-      //       ],
-      //       ethFlipComponentPrices[position.component.toLowerCase()]?.[
-      //         `${VS_CURRENCY}_24h_change`
-      //       ],
-      //       eth2xflipPrice
-      //     )
-      //   })
-      //   Promise.all(ethFlipPositions)
-      //     .then(sortPositionsByPercentOfSet)
-      //     .then(setMviComponents)
-      // })
     }
   }, [
     provider,
@@ -267,6 +221,44 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     dataPrice,
     eth2xflipPrice,
   ])
+
+  useEffect(() => {
+    if (
+      chainId &&
+      chainId === POLYGON_CHAIN_DATA.chainId &&
+      provider &&
+      dpiTokenPolygonAddress &&
+      mviTokenPolygonAddress &&
+      eth2xflipTokenAddress &&
+      tokenList
+    ) {
+      getSetDetails(provider, [eth2xflipTokenAddress], chainId)
+        .then(async (result) => {
+          const ethflip = result[0]
+          const ethFlipComponentPrices = await getPositionPrices(
+            ethflip,
+            'polygon-pos'
+          )
+          const ethFlipPositions = ethflip.positions.map(async (position) => {
+            return await convertPositionToSetComponent(
+              position,
+              tokenList,
+              ethFlipComponentPrices[position.component.toLowerCase()]?.[
+                VS_CURRENCY
+              ],
+              ethFlipComponentPrices[position.component.toLowerCase()]?.[
+                `${VS_CURRENCY}_24h_change`
+              ],
+              eth2xflipPrice
+            )
+          })
+          Promise.all(ethFlipPositions)
+            .then(sortPositionsByPercentOfSet)
+            .then(setEth2xflipComponents)
+        })
+        .catch((err) => console.log('err', err))
+    }
+  }, [chainId, provider, tokenList, eth2xflipPrice])
 
   return (
     <SetComponentsContext.Provider
@@ -294,6 +286,21 @@ async function convertPositionToSetComponent(
   setPriceUsd: number
 ): Promise<SetComponent> {
   const token = getTokenForPosition(tokenList, position)
+  if (token === undefined) {
+    return {
+      address: position.component,
+      id: position.component,
+      quantity: '',
+      symbol: 'SYM',
+      name: position.component,
+      image: '',
+      totalPriceUsd: '0',
+      dailyPercentChange: '0',
+      percentOfSet: '0',
+      percentOfSetNumber: new BigNumber('0'),
+    }
+  }
+
   const quantity = new BigNumber(position.unit.toString()).div(
     new BigNumber(10).pow(token.decimals)
   )
@@ -338,12 +345,13 @@ function sortPositionsByPercentOfSet(
   )
 }
 
-function getPositionPrices(
-  setDetails: SetDetails
+async function getPositionPrices(
+  setDetails: SetDetails,
+  assetPlatform: string = ASSET_PLATFORM
 ): Promise<CoinGeckoCoinPrices> {
   const componentAddresses = setDetails.positions.map((p) => p.component)
   return fetch(
-    `https://api.coingecko.com/api/v3/simple/token_price/${ASSET_PLATFORM}?vs_currencies=${VS_CURRENCY}&contract_addresses=${componentAddresses}&include_24hr_change=true`
+    `https://api.coingecko.com/api/v3/simple/token_price/${assetPlatform}?vs_currencies=${VS_CURRENCY}&contract_addresses=${componentAddresses}&include_24hr_change=true`
   )
     .then((response) => response.json())
     .catch((e) => console.error(e))
