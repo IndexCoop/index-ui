@@ -48,6 +48,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     stakedFarmTwoBalance,
     stakedUniswapEthMviLpBalance,
     dataBalancePolygon,
+    gmiBalancePolygon,
     stakedGmiBalance,
   } = useBalances()
 
@@ -272,7 +273,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 src: dpiTokenImage,
               }}
               label='DPI balance (Polygon)'
-              link={`https://polygonscan.com/address/${tokenAddresses.dpiTokenAddress}`}
+              link={`https://polygonscan.com/address/${tokenAddresses.dpiTokenPolygonAddress}`}
               value={displayFromWei(dpiBalancePolygon)}
             />
           </Box>
@@ -283,7 +284,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 src: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
               }}
               label='Metaverse Index Balance (Polygon)'
-              link={`https://polygonscan.com/address/${tokenAddresses.mviTokenAddress}`}
+              link={`https://polygonscan.com/address/${tokenAddresses.mviTokenPolygonAddress}`}
               value={displayFromWei(mviBalancePolygon)}
             />
           </Box>
@@ -299,7 +300,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 src: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
               }}
               label='ETH 2x FLI-P Balance'
-              link={`https://polygonscan.com/address/${tokenAddresses.eth2xfliTokenAddress}`}
+              link={`https://polygonscan.com/address/${tokenAddresses.eth2xflipTokenAddress}`}
               value={displayFromWei(ethflipBalance)}
             />
           </Box>
@@ -310,10 +311,25 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 src: dataLogo,
               }}
               label='DATA Economy Index Balance (Polygon)'
-              link={`https://polygonscan.io/address/${tokenAddresses.dataTokenPolygonAddress}`}
+              link={`https://polygonscan.com/address/${tokenAddresses.dataTokenPolygonAddress}`}
               value={displayFromWei(dataBalancePolygon)}
             />
           </Box>
+        </Split>
+        <Spacer />
+        <Split>
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'GMI Icon',
+                src: gmiLogo,
+              }}
+              label='Bankless DeFi Innovation Index Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.gmiTokenPolygonAddress}`}
+              value={displayFromWei(gmiBalancePolygon)}
+            />
+          </Box>
+          <Spacer />
         </Split>
       </>
     )

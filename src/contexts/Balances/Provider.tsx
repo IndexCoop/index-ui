@@ -16,6 +16,7 @@ import {
   farmTwoAddress,
   gmiStakingRewardsAddress,
   gmiTokenAddress,
+  gmiTokenPolygonAddress,
   indexTokenAddress,
   mviStakingRewardsAddress,
   mviTokenAddress,
@@ -59,6 +60,7 @@ const Provider: React.FC = ({ children }) => {
   const [daiBalancePolygon, setDaiBalancePolygon] = useState<BigNumber>()
   const [usdcBalancePolygon, setUsdcBalancePolygon] = useState<BigNumber>()
   const [dataBalancePolygon, setDataBalancePolygon] = useState<BigNumber>()
+  const [gmiBalancePolygon, setGmiBalancePolygon] = useState<BigNumber>()
 
   // LP Tokens Balances
   const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] =
@@ -109,6 +111,7 @@ const Provider: React.FC = ({ children }) => {
         !gmiTokenAddress ||
         !dataTokenAddress ||
         !dataTokenPolygonAddress ||
+        !gmiTokenPolygonAddress ||
         !uniswapEthDpiLpTokenAddress ||
         !uniswapEthMviLpTokenAddress ||
         !stakingRewardsAddress ||
@@ -192,6 +195,7 @@ const Provider: React.FC = ({ children }) => {
           getBalance(provider, daiTokenPolygonAddress, userAddress),
           getBalance(provider, usdcTokenPolygonAddress, userAddress),
           getBalance(provider, dataTokenPolygonAddress, userAddress),
+          getBalance(provider, gmiTokenPolygonAddress, userAddress),
         ])
 
         // polygon
@@ -202,6 +206,7 @@ const Provider: React.FC = ({ children }) => {
         setDaiBalancePolygon(new BigNumber(balances[4]))
         setUsdcBalancePolygon(new BigNumber(balances[5]))
         setDataBalancePolygon(new BigNumber(balances[6]))
+        setGmiBalancePolygon(new BigNumber(balances[7]))
       }
     },
     [
@@ -218,6 +223,7 @@ const Provider: React.FC = ({ children }) => {
       setGmiBalance,
       setDataBalance,
       setDataBalancePolygon,
+      setGmiBalancePolygon,
       setUniswapEthDpiLpBalance,
       setUniswapEthMviLpBalance,
       setStakedUniswapEthDpiLpBalance,
@@ -261,6 +267,7 @@ const Provider: React.FC = ({ children }) => {
       setDataBalancePolygon(new BigNumber(0))
       setStakedGmiBalance(new BigNumber(0))
       setUnharvestedIndexFromGmiBalance(new BigNumber(0))
+      setGmiBalancePolygon(new BigNumber(0))
     }
   }, [status])
 
@@ -306,6 +313,7 @@ const Provider: React.FC = ({ children }) => {
         unharvestedMviRewardsBalance,
         stakedGmiBalance,
         unharvestedIndexFromGmiBalance,
+        gmiBalancePolygon,
       }}
     >
       {children}
