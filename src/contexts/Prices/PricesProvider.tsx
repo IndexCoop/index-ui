@@ -9,12 +9,14 @@ import {
   dpiTokenAddress,
   eth2xfliTokenAddress,
   farmTwoAddress,
+  gmiStakingRewardsAddress,
   gmiTokenAddress,
   indexTokenAddress,
   mviStakingRewardsAddress,
   mviTokenAddress,
 } from 'constants/ethContractAddresses'
 import useWallet from 'hooks/useWallet'
+import { getApy } from 'index-sdk/gmiStaking'
 import { getAmountOfStakedTokens } from 'index-sdk/stake'
 import BigNumber from 'utils/bignumber'
 import { DPI_ETH_UNISWAP_QUERY, ETH_MVI_UNISWAP_QUERY } from 'utils/graphql'
@@ -43,6 +45,7 @@ const PricesProvider: React.FC = ({ children }) => {
   const [apy] = useState<string>('0.00')
   const [farmTwoApy, setFarmTwoApy] = useState<string>('0.00')
   const [mviRewardsApy, setMviRewardsApy] = useState<string>('0.00')
+  const [gmiRewardsApy, setGmiRewardsApy] = useState<string>('0.00')
 
   const {
     loading: ethDpiDataIsLoading,
@@ -55,7 +58,7 @@ const PricesProvider: React.FC = ({ children }) => {
     data: ethMviUniswapData,
   } = useQuery(ETH_MVI_UNISWAP_QUERY)
 
-  const { ethereum } = useWallet()
+  const { account, ethereum } = useWallet()
 
   useEffect(() => {
     if (!ethDpiDataIsLoading && !ethDpiDataError) {
@@ -203,6 +206,13 @@ const PricesProvider: React.FC = ({ children }) => {
       })
   }, [usdInEthMviPool, indexPrice, ethereum, totalSupplyInEthMviPool])
 
+  // GMI staking Emissions
+  useEffect(() => {
+    if (!indexPrice || !ethereum || !gmiStakingRewardsAddress) return
+
+    getApy(ethereum, account).then((res) => setGmiRewardsApy(res))
+  }, [gmiStakingRewardsAddress, indexPrice, ethereum])
+
   const totalUSDInFarms =
     Number(usdInEthMviPool || '0') + Number(usdInEthDpiPool || '0')
 
@@ -223,6 +233,7 @@ const PricesProvider: React.FC = ({ children }) => {
         apy,
         farmTwoApy,
         mviRewardsApy,
+        gmiRewardsApy,
       }}
     >
       {children}

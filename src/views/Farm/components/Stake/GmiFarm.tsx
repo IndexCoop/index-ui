@@ -24,7 +24,7 @@ const Stake: React.FC = () => {
   const { status } = useWallet()
   const { isApproved, isApproving, onApprove, onStake, onUnstakeAndHarvest } =
     useGmiFarming()
-  const { apy } = usePrices()
+  const { gmiRewardsApy } = usePrices()
 
   const handleDismissStakeModal = useCallback(() => {
     setStakeModalIsOpen(false)
@@ -126,7 +126,7 @@ const Stake: React.FC = () => {
                 </div>
 
                 <div>
-                  <StyledFarmText>0.00% APR</StyledFarmText>
+                  <StyledFarmText>{gmiRewardsApy}% APR</StyledFarmText>
                   <StyledSectionLabel>(Volatile)</StyledSectionLabel>
                 </div>
 
