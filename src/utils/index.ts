@@ -189,8 +189,8 @@ export const fromWei = (number: BigNumber | undefined, power: number = 18) => {
  * @param number
  * @returns
  */
-export const displayFromWei = (number: BigNumber | undefined) => {
-  return fromWei(number).toFormat(2)
+export const displayFromWei = (number: BigNumber | undefined, decimals: number = 2) => {
+  return fromWei(number).toFormat(decimals)
 }
 
 /**

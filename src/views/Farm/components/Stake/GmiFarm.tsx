@@ -12,7 +12,7 @@ import useBalances from 'hooks/useBalances'
 import useGmiFarming from 'hooks/useGmiFarming'
 import usePrices from 'hooks/usePrices'
 import useWallet from 'hooks/useWallet'
-import { fromWei } from 'utils'
+import { displayFromWei, fromWei } from 'utils'
 
 import GmiStakeModal from './components/GmiStakeModal'
 
@@ -83,7 +83,7 @@ const Stake: React.FC = () => {
 
   const formattedStakedBalance = useMemo(() => {
     if (stakedBalance) {
-      return numeral(stakedBalance).format('0.00000a')
+      return displayFromWei(stakedBalance, 5)
     } else {
       return '--'
     }
@@ -91,9 +91,7 @@ const Stake: React.FC = () => {
 
   const formattedEarnedBalance = useMemo(() => {
     if (unharvestedIndexFromGmiBalance) {
-      return numeral(unharvestedIndexFromGmiBalance.toString()).format(
-        '0.00000a'
-      )
+      return displayFromWei(unharvestedIndexFromGmiBalance, 5)
     } else {
       return '--'
     }
