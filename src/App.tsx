@@ -1,8 +1,8 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { ThemeProvider } from 'react-neu'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Slide, ToastContainer } from 'react-toastify'
+import { Slide, toast, ToastContainer } from 'react-toastify'
 
 import styled from 'styled-components'
 
@@ -40,6 +40,7 @@ import { TransactionWatcherProvider } from 'contexts/TransactionWatcher'
 import { V3FarmingProvider } from 'contexts/V3Farming'
 import { WalletProvider } from 'contexts/Wallet'
 import useLocalStorage from 'hooks/useLocalStorage'
+import useWallet from 'hooks/useWallet'
 import createTheme from 'utils/createCustomTheme'
 import graphqlClient from 'utils/graphql'
 import BED from 'views/BED'
@@ -65,6 +66,18 @@ const App: React.FC = () => {
   const handlePresentMobileMenu = useCallback(() => {
     setMobileMenu(true)
   }, [setMobileMenu])
+
+  const { account } = useWallet()
+
+  useEffect(() => {
+    if (!account)
+      toast.warn('Connect a wallet for the best experience', {
+        toastId: 'connect-wallet',
+        autoClose: 6000,
+        closeOnClick: true,
+        pauseOnHover: true,
+      })
+  }, [])
 
   return (
     <Router>
