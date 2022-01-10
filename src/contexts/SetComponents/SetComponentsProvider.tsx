@@ -20,10 +20,10 @@ import {
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
 import usePrices from 'hooks/usePrices'
-import { Token, useTokenList } from 'hooks/useTokenList'
 import useWallet from 'hooks/useWallet'
 import { MAINNET_CHAIN_DATA, POLYGON_CHAIN_DATA } from 'utils/connectors'
 import { getSetDetails } from 'utils/setjsApi'
+import { getTokenList, TokenData as Token } from 'utils/tokenlists'
 
 import { SetComponent } from './SetComponent'
 import SetComponentsContext from './SetComponentsContext'
@@ -57,7 +57,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
   )
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
   const { ethereum: provider, chainId } = useWallet()
-  const { tokenList } = useTokenList(chainId)
+  const tokenList = getTokenList(chainId)
 
   useEffect(() => {
     if (
