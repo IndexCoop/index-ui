@@ -2092,9 +2092,9 @@
   integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
 
 "@indexcoop/tokenlists@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@indexcoop/tokenlists/-/tokenlists-1.8.0.tgz#70abcaaf109c71a809daad942620b93269c1d018"
-  integrity sha512-ryoVES6TKNhEezahVehUMsEHoK91vSivir3artkPaKbFtk+qlVmh/ivjdLalU0S/KRUPkMNsxpsY9rjG6ZCyPg==
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@indexcoop/tokenlists/-/tokenlists-1.10.0.tgz#40b70384c8aa971d83f51798491e2ce77bdb6fcb"
+  integrity sha512-BsrSQrTizKaLeIhqDMmmw1qkwZ1YoBFVPGVTClB232l2ju/i6i0spjp8k1WTdhjgt0VonggpDlWHqdUZapVMGg==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
