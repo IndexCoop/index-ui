@@ -136,25 +136,23 @@ export const getAmountOfStakedTokens = async (
   return await contract.methods.totalSupply().call()
 }
 
-export const getApy = async (
-  provider: provider,
-  account: string | null | undefined
-): Promise<string> => {
-  if (!account) return '0.00'
+export const getRewardsForDuration = async (
+  provider: provider
+): Promise<BigNumber> => {
   const stakingContract = getStakingRewardsContract(provider)
-  const totalSupply = await stakingContract.methods.totalSupply().call()
-  const userSupply = await stakingContract.methods.balanceOf(account).call()
   const rewardForDuration = await stakingContract.methods
     .getRewardForDuration()
     .call()
-  const indexPerDurationForUser = new BigNumber(rewardForDuration)
-    .multipliedBy(new BigNumber(userSupply))
-    .dividedBy(new BigNumber(totalSupply))
 
-  return indexPerDurationForUser
-    .dividedBy(new BigNumber(userSupply))
-    .multipliedBy(new BigNumber(100))
-    .toFixed(2)
+  return new BigNumber(rewardForDuration)
+}
+
+export const getTotalSupply = async (
+  provider: provider
+): Promise<BigNumber> => {
+  const stakingContract = getStakingRewardsContract(provider)
+  const totalSupply = await stakingContract.methods.totalSupply().call()
+  return new BigNumber(totalSupply)
 }
 
 // Currently set for 12pm PST Dec. 6th

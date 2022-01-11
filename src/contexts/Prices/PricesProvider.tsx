@@ -16,7 +16,7 @@ import {
   mviTokenAddress,
 } from 'constants/ethContractAddresses'
 import useWallet from 'hooks/useWallet'
-import { getApy } from 'index-sdk/gmiStaking'
+import { getRewardsForDuration, getTotalSupply } from 'index-sdk/gmiStaking'
 import { getAmountOfStakedTokens } from 'index-sdk/stake'
 import BigNumber from 'utils/bignumber'
 import { DPI_ETH_UNISWAP_QUERY, ETH_MVI_UNISWAP_QUERY } from 'utils/graphql'
@@ -47,6 +47,13 @@ const PricesProvider: React.FC = ({ children }) => {
   const [mviRewardsApy, setMviRewardsApy] = useState<string>('0.00')
   const [gmiRewardsApy, setGmiRewardsApy] = useState<string>('0.00')
 
+  const [gmiRewardsForDuration, setGmiRewardsForDuration] = useState<BigNumber>(
+    new BigNumber(0)
+  )
+  const [gmiTotalSupply, setGmiTotalSupply] = useState<BigNumber>(
+    new BigNumber(0)
+  )
+
   const {
     loading: ethDpiDataIsLoading,
     error: ethDpiDataError,
@@ -58,7 +65,7 @@ const PricesProvider: React.FC = ({ children }) => {
     data: ethMviUniswapData,
   } = useQuery(ETH_MVI_UNISWAP_QUERY)
 
-  const { account, ethereum } = useWallet()
+  const { ethereum } = useWallet()
 
   useEffect(() => {
     if (!ethDpiDataIsLoading && !ethDpiDataError) {
@@ -208,10 +215,34 @@ const PricesProvider: React.FC = ({ children }) => {
 
   // GMI staking Emissions
   useEffect(() => {
-    if (!indexPrice || !ethereum || !gmiStakingRewardsAddress) return
-
-    getApy(ethereum, account).then((res) => setGmiRewardsApy(res))
-  }, [gmiStakingRewardsAddress, indexPrice, ethereum])
+    if (
+      !indexPrice ||
+      !gmiPrice ||
+      !ethereum ||
+      !gmiRewardsForDuration ||
+      !gmiTotalSupply
+    )
+      return
+    getRewardsForDuration(ethereum).then((res) =>
+      setGmiRewardsForDuration(res.multipliedBy(new BigNumber(indexPrice)))
+    )
+    getTotalSupply(ethereum).then((res) =>
+      setGmiTotalSupply(res.multipliedBy(new BigNumber(gmiPrice)))
+    )
+    setGmiRewardsApy(
+      gmiRewardsForDuration
+        .dividedBy(gmiTotalSupply)
+        .multipliedBy(new BigNumber(1200))
+        .toFixed(2)
+    )
+  }, [
+    gmiStakingRewardsAddress,
+    indexPrice,
+    ethereum,
+    gmiPrice,
+    gmiTotalSupply,
+    gmiRewardsForDuration,
+  ])
 
   const totalUSDInFarms =
     Number(usdInEthMviPool || '0') + Number(usdInEthDpiPool || '0')
