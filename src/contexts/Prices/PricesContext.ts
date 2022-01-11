@@ -15,6 +15,7 @@ interface PricesContextValues {
   apy?: string
   farmTwoApy?: string
   mviRewardsApy?: string
+  gmiRewardsApy?: string
 }
 
 const PricesContext = createContext<PricesContextValues>({

@@ -136,5 +136,24 @@ export const getAmountOfStakedTokens = async (
   return await contract.methods.totalSupply().call()
 }
 
+export const getRewardsForDuration = async (
+  provider: provider
+): Promise<BigNumber> => {
+  const stakingContract = getStakingRewardsContract(provider)
+  const rewardForDuration = await stakingContract.methods
+    .getRewardForDuration()
+    .call()
+
+  return new BigNumber(rewardForDuration)
+}
+
+export const getTotalSupply = async (
+  provider: provider
+): Promise<BigNumber> => {
+  const stakingContract = getStakingRewardsContract(provider)
+  const totalSupply = await stakingContract.methods.totalSupply().call()
+  return new BigNumber(totalSupply)
+}
+
 // Currently set for 12pm PST Dec. 6th
 export const farmEndTime = '1646542800'

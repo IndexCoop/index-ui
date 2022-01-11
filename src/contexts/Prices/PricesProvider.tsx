@@ -9,12 +9,14 @@ import {
   dpiTokenAddress,
   eth2xfliTokenAddress,
   farmTwoAddress,
+  gmiStakingRewardsAddress,
   gmiTokenAddress,
   indexTokenAddress,
   mviStakingRewardsAddress,
   mviTokenAddress,
 } from 'constants/ethContractAddresses'
 import useWallet from 'hooks/useWallet'
+import { getRewardsForDuration, getTotalSupply } from 'index-sdk/gmiStaking'
 import { getAmountOfStakedTokens } from 'index-sdk/stake'
 import BigNumber from 'utils/bignumber'
 import { DPI_ETH_UNISWAP_QUERY, ETH_MVI_UNISWAP_QUERY } from 'utils/graphql'
@@ -43,6 +45,14 @@ const PricesProvider: React.FC = ({ children }) => {
   const [apy] = useState<string>('0.00')
   const [farmTwoApy, setFarmTwoApy] = useState<string>('0.00')
   const [mviRewardsApy, setMviRewardsApy] = useState<string>('0.00')
+  const [gmiRewardsApy, setGmiRewardsApy] = useState<string>('0.00')
+
+  const [gmiRewardsForDuration, setGmiRewardsForDuration] = useState<BigNumber>(
+    new BigNumber(0)
+  )
+  const [gmiTotalSupply, setGmiTotalSupply] = useState<BigNumber>(
+    new BigNumber(0)
+  )
 
   const {
     loading: ethDpiDataIsLoading,
@@ -203,6 +213,37 @@ const PricesProvider: React.FC = ({ children }) => {
       })
   }, [usdInEthMviPool, indexPrice, ethereum, totalSupplyInEthMviPool])
 
+  // GMI staking Emissions
+  useEffect(() => {
+    if (
+      !indexPrice ||
+      !gmiPrice ||
+      !ethereum ||
+      !gmiRewardsForDuration ||
+      !gmiTotalSupply
+    )
+      return
+    getRewardsForDuration(ethereum).then((res) =>
+      setGmiRewardsForDuration(res.multipliedBy(new BigNumber(indexPrice)))
+    )
+    getTotalSupply(ethereum).then((res) =>
+      setGmiTotalSupply(res.multipliedBy(new BigNumber(gmiPrice)))
+    )
+    setGmiRewardsApy(
+      gmiRewardsForDuration
+        .dividedBy(gmiTotalSupply)
+        .multipliedBy(new BigNumber(1200))
+        .toFixed(2)
+    )
+  }, [
+    gmiStakingRewardsAddress,
+    indexPrice,
+    ethereum,
+    gmiPrice,
+    gmiTotalSupply,
+    gmiRewardsForDuration,
+  ])
+
   const totalUSDInFarms =
     Number(usdInEthMviPool || '0') + Number(usdInEthDpiPool || '0')
 
@@ -223,6 +264,7 @@ const PricesProvider: React.FC = ({ children }) => {
         apy,
         farmTwoApy,
         mviRewardsApy,
+        gmiRewardsApy,
       }}
     >
       {children}
