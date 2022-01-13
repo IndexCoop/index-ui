@@ -45,7 +45,9 @@ const PricesProvider: React.FC = ({ children }) => {
   const [apy] = useState<string>('0.00')
   const [farmTwoApy, setFarmTwoApy] = useState<string>('0.00')
   const [mviRewardsApy, setMviRewardsApy] = useState<string>('0.00')
-  const [gmiRewardsApy, setGmiRewardsApy] = useState<string>('0.00')
+  const [gmiRewardsApy, setGmiRewardsApy] = useState<BigNumber>(
+    new BigNumber(0)
+  )
 
   const [gmiRewardsForDuration, setGmiRewardsForDuration] = useState<BigNumber>(
     new BigNumber(0)
@@ -214,28 +216,37 @@ const PricesProvider: React.FC = ({ children }) => {
   }, [usdInEthMviPool, indexPrice, ethereum, totalSupplyInEthMviPool])
 
   // GMI staking Emissions
-  useMemo(() => {
+  useEffect(() => {
     if (
       !indexPrice ||
       !gmiPrice ||
       !ethereum ||
       !gmiRewardsForDuration ||
-      !gmiTotalSupply
+      !gmiTotalSupply ||
+      (!gmiRewardsApy.eq(new BigNumber(0)) &&
+        !gmiRewardsApy.eq(new BigNumber(Infinity)) &&
+        !gmiRewardsApy.eq(new BigNumber(NaN)))
     )
       return
+
     getRewardsForDuration(ethereum).then((res) =>
       setGmiRewardsForDuration(res.multipliedBy(new BigNumber(indexPrice)))
     )
     getTotalSupply(ethereum).then((res) =>
       setGmiTotalSupply(res.multipliedBy(new BigNumber(gmiPrice)))
     )
-    setGmiRewardsApy(
-      gmiRewardsForDuration
-        .dividedBy(gmiTotalSupply)
-        .multipliedBy(new BigNumber(1200))
-        .toFixed(2)
-    )
-  }, [gmiStakingRewardsAddress, ethereum])
+    const apr = gmiRewardsForDuration
+      .dividedBy(gmiTotalSupply)
+      .multipliedBy(new BigNumber(1200))
+    if (!Number.isNaN(apr) && apr.gt(new BigNumber(0))) setGmiRewardsApy(apr)
+  }, [
+    gmiRewardsForDuration,
+    gmiTotalSupply,
+    gmiRewardsApy,
+    ethereum,
+    gmiPrice,
+    indexPrice,
+  ])
 
   const totalUSDInFarms =
     Number(usdInEthMviPool || '0') + Number(usdInEthDpiPool || '0')
@@ -257,7 +268,7 @@ const PricesProvider: React.FC = ({ children }) => {
         apy,
         farmTwoApy,
         mviRewardsApy,
-        gmiRewardsApy,
+        gmiRewardsApy: gmiRewardsApy.toFixed(2),
       }}
     >
       {children}
