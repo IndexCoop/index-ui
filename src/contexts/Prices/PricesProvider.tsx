@@ -216,7 +216,7 @@ const PricesProvider: React.FC = ({ children }) => {
   }, [usdInEthMviPool, indexPrice, ethereum, totalSupplyInEthMviPool])
 
   // GMI staking Emissions
-  useEffect(() => {
+  useMemo(() => {
     if (
       !indexPrice ||
       !gmiPrice ||

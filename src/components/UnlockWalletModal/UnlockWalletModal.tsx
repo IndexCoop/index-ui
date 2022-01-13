@@ -48,7 +48,7 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
   useEffect(() => {
     if (account) {
       onDismiss && onDismiss()
-      toast.success("Welcome! You've logged in.")
+      toast.success("Welcome! You've logged in.", { toastId: 'success1' })
     }
   }, [account, onDismiss])
 
