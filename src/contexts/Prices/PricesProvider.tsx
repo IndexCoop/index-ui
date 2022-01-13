@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import { useQuery } from '@apollo/react-hooks'
 
@@ -214,7 +214,7 @@ const PricesProvider: React.FC = ({ children }) => {
   }, [usdInEthMviPool, indexPrice, ethereum, totalSupplyInEthMviPool])
 
   // GMI staking Emissions
-  useEffect(() => {
+  useMemo(() => {
     if (
       !indexPrice ||
       !gmiPrice ||
@@ -235,14 +235,7 @@ const PricesProvider: React.FC = ({ children }) => {
         .multipliedBy(new BigNumber(1200))
         .toFixed(2)
     )
-  }, [
-    gmiStakingRewardsAddress,
-    indexPrice,
-    ethereum,
-    gmiPrice,
-    gmiTotalSupply,
-    gmiRewardsForDuration,
-  ])
+  }, [gmiStakingRewardsAddress, ethereum])
 
   const totalUSDInFarms =
     Number(usdInEthMviPool || '0') + Number(usdInEthDpiPool || '0')
