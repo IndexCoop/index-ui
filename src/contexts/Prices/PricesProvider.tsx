@@ -240,7 +240,6 @@ const PricesProvider: React.FC = ({ children }) => {
       .multipliedBy(new BigNumber(1200))
     if (!Number.isNaN(apr) && apr.gt(new BigNumber(0))) setGmiRewardsApy(apr)
   }, [
-    gmiRewardsForDuration,
     gmiTotalSupply,
     gmiRewardsApy,
     ethereum,
