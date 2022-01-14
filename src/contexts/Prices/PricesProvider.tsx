@@ -216,7 +216,7 @@ const PricesProvider: React.FC = ({ children }) => {
   }, [usdInEthMviPool, indexPrice, ethereum, totalSupplyInEthMviPool])
 
   // GMI staking Emissions
-  useMemo(() => {
+  useEffect(() => {
     if (
       !indexPrice ||
       !gmiPrice ||
@@ -239,14 +239,7 @@ const PricesProvider: React.FC = ({ children }) => {
       .dividedBy(gmiTotalSupply)
       .multipliedBy(new BigNumber(1200))
     if (!Number.isNaN(apr) && apr.gt(new BigNumber(0))) setGmiRewardsApy(apr)
-  }, [
-    gmiRewardsForDuration,
-    gmiTotalSupply,
-    gmiRewardsApy,
-    ethereum,
-    gmiPrice,
-    indexPrice,
-  ])
+  }, [gmiRewardsForDuration, gmiTotalSupply, ethereum, gmiPrice, indexPrice])
 
   const totalUSDInFarms =
     Number(usdInEthMviPool || '0') + Number(usdInEthDpiPool || '0')
