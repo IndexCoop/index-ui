@@ -7,7 +7,7 @@
     "@davatar/react": "^1.8.1",
     "@indexcoop/tokenlists": "^1.8.0",
     "@ledgerhq/hw-app-eth": "^6.17.0",
-    "@ledgerhq/hw-transport": "^6.10.0",
+    "@ledgerhq/hw-transport": "^6.20.0",
     "@ledgerhq/hw-transport-webusb": "^6.11.2",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.2",
