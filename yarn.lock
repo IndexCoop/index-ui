@@ -2573,10 +2573,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@setprotocol/set-protocol-v2@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@setprotocol/set-protocol-v2/-/set-protocol-v2-0.1.5.tgz#c6c559f749866b5a95b5871bb1447fa4d8f7a9c2"
-  integrity sha512-UcbIxfFAARcCi9Yt4xde1Gc7xKrhMpCSGMgzpxEVBJFZPEYiYny1tv4W9lFopxQ9o81ZC7/SO6oZvYdMEuUZzQ==
+"@setprotocol/set-protocol-v2@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@setprotocol/set-protocol-v2/-/set-protocol-v2-0.1.9.tgz#1b0eef8667d01405f0b259bc5129986e5db7b53b"
+  integrity sha512-sPbCD6ngw4yIosXyOT+ytFZbFeMyHNOgDA6hdhrXkllsSKoJ2thc9Y6SqzF5kCPkK+bKmVhNF+cMTDMX0lemZg==
   dependencies:
     "@uniswap/v3-sdk" "^3.5.1"
     ethers "^5.5.2"
@@ -9115,19 +9115,7 @@ ethereumjs-util@^5.0.0, ethereumjs-util@^5.0.1, ethereumjs-util@^5.1.1, ethereum
     rlp "^2.0.0"
     safe-buffer "^5.1.1"
 
-ethereumjs-util@^7.0.10, ethereumjs-util@^7.0.2, ethereumjs-util@^7.0.3, ethereumjs-util@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.npmjs.org/ethereumjs-util/-/ethereumjs-util-7.1.0.tgz"
-  integrity sha512-kR+vhu++mUDARrsMMhsjjzPduRVAeundLGXucGRHF3B4oEltOUspfgCVco4kckucj3FMlLaZHUl9n7/kdmr6Tw==
-  dependencies:
-    "@types/bn.js" "^5.1.0"
-    bn.js "^5.1.2"
-    create-hash "^1.1.2"
-    ethereum-cryptography "^0.1.3"
-    ethjs-util "0.1.6"
-    rlp "^2.2.4"
-
-ethereumjs-util@^7.1.3:
+ethereumjs-util@^7.0.10, ethereumjs-util@^7.0.2, ethereumjs-util@^7.0.3, ethereumjs-util@^7.1.0, ethereumjs-util@^7.1.3:
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/ethereumjs-util/-/ethereumjs-util-7.1.3.tgz#b55d7b64dde3e3e45749e4c41288238edec32d23"
   integrity sha512-y+82tEbyASO0K0X1/SRhbJJoAlfcvq8JbrG4a5cjrOks7HS/36efU/0j2flxCPOUM++HFahk33kr/ZxyC4vNuw==
@@ -9207,7 +9195,7 @@ ethers@4.0.0-beta.14:
     uuid "2.0.1"
     xmlhttprequest "1.8.0"
 
-ethers@5.5.1, ethers@^5.4.6, ethers@^5.5.0, ethers@^5.5.1:
+ethers@5.5.1:
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.5.1.tgz#d3259a95a42557844aa543906c537106c0406fbf"
   integrity sha512-RodEvUFZI+EmFcE6bwkuJqpCYHazdzeR1nMzg+YWQSmQEsNtfl1KHGfp/FWZYl48bI/g7cgBeP2IlPthjiVngw==
@@ -9243,7 +9231,7 @@ ethers@5.5.1, ethers@^5.4.6, ethers@^5.5.0, ethers@^5.5.1:
     "@ethersproject/web" "5.5.0"
     "@ethersproject/wordlists" "5.5.0"
 
-ethers@5.5.2, ethers@^5.5.2:
+ethers@5.5.2, ethers@^5.4.6, ethers@^5.5.0, ethers@^5.5.1, ethers@^5.5.2:
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.5.2.tgz#cd2e508c7342c44fa70392f722e8de8f2416489f"
   integrity sha512-EF5W+6Wwcu6BqVwpgmyR5U2+L4c1FQzlM/02dkZOugN3KF0cG9bzHZP+TDJglmPm2/IzCEJDT7KBxzayk7SAHw==
@@ -16855,15 +16843,15 @@ set-value@^3.0.0:
   dependencies:
     is-plain-object "^2.0.4"
 
-set.js@^0.4.1:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/set.js/-/set.js-0.4.2.tgz#9a32fb141c9e814b99e032d8c91786a2335a78cd"
-  integrity sha512-u1I6Oed9WaadWzfhuS2/hmI7RWGwKM7HRaoooC0vbKCoBMHGeDJtHtckJd5Q9KVRxTLWjjxepkwc9eYIn7ffhA==
+set.js@^0.4.10:
+  version "0.4.10"
+  resolved "https://registry.yarnpkg.com/set.js/-/set.js-0.4.10.tgz#543aacd5d6dad302270aca09b868fef2572773ab"
+  integrity sha512-qLrYKLPlNDa1mLthQKVuS68xYsC/JYYHWGZhrr5I8M3kJYHJhbcAupkvJjeurWJddOe/KrvrGYcakt8zSaIZOw==
   dependencies:
     "@0xproject/types" "^1.1.4"
     "@0xproject/typescript-typings" "^3.0.2"
     "@0xproject/utils" "^2.0.2"
-    "@setprotocol/set-protocol-v2" "^0.1.5"
+    "@setprotocol/set-protocol-v2" "^0.1.9"
     "@types/chai-as-promised" "^7.1.3"
     "@types/jest" "^26.0.5"
     "@types/web3" "^1.2.2"
