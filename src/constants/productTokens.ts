@@ -124,7 +124,7 @@ export const GmiIndex: ProductToken = {
   name: 'Bankless DeFi Innovation Index',
   symbol: 'GMI',
   address: tokenAddresses.gmiTokenAddress,
-  polygonAddress: undefined, //tokenAddresses.gmiTokenPolygonAddress,
+  polygonAddress: tokenAddresses.gmiTokenPolygonAddress,
   image: gmiLogo,
   coingeckoId: 'bankless-defi-innovation-index',
   tokensetsId: 'gmi',

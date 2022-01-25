@@ -10,6 +10,7 @@ import {
   eth2xflipTokenAddress,
   eth2xfliTokenAddress,
   gmiTokenAddress,
+  gmiTokenPolygonAddress,
   indexTokenAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
@@ -71,6 +72,10 @@ export const polygonTokenInfo: any = {
   },
   'dpi': {
     address: dpiTokenPolygonAddress,
+    decimals: 18,
+  },
+  'gmi': {
+    address: gmiTokenPolygonAddress,
     decimals: 18,
   },
   'mvi': {
