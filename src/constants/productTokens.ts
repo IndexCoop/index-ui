@@ -133,6 +133,48 @@ export const GmiIndex: ProductToken = {
   },
 }
 
+export const Matic2xFLI: ProductToken = {
+  name: 'Matic 2x FLI',
+  symbol: 'MATIC2X-FLI',
+  address: undefined,
+  polygonAddress: tokenAddresses.matic2xfliTokenAddress,
+  image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+  coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
+  tokensetsId: 'matic2x-fli',
+  fees: {
+    streamingFee: '1.95%',
+    mintRedeemFee: '0.1%',
+  },
+}
+
+export const IMatic2xFLI: ProductToken = {
+  name: 'Inverse Matic 2x FLI',
+  symbol: 'iMATIC2x-FLI',
+  address: undefined,
+  polygonAddress: tokenAddresses.imatic2xfliTokenAddress,
+  image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+  coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
+  tokensetsId: 'imatic-fli',
+  fees: {
+    streamingFee: '1.95%',
+    mintRedeemFee: '0.1%',
+  },
+}
+
+export const IEthereum2xFLIP: ProductToken = {
+  name: 'Inverse Ethereum 2x FLI Polygon',
+  symbol: 'iETH2X-FLI-P',
+  address: undefined,
+  polygonAddress: tokenAddresses.ieth2xflipTokenAddress,
+  image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+  coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
+  tokensetsId: 'ieth2x-fli-p',
+  fees: {
+    streamingFee: '1.95%',
+    mintRedeemFee: '0.1%',
+  },
+}
+
 export const productTokensBySymbol = {
   'DPI': DefiPulseIndex,
   'MVI': MetaverseIndex,

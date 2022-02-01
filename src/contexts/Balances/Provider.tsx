@@ -17,7 +17,10 @@ import {
   gmiStakingRewardsAddress,
   gmiTokenAddress,
   gmiTokenPolygonAddress,
+  ieth2xflipTokenAddress,
+  imatic2xfliTokenAddress,
   indexTokenAddress,
+  matic2xfliTokenAddress,
   mviStakingRewardsAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
@@ -61,6 +64,9 @@ const Provider: React.FC = ({ children }) => {
   const [usdcBalancePolygon, setUsdcBalancePolygon] = useState<BigNumber>()
   const [dataBalancePolygon, setDataBalancePolygon] = useState<BigNumber>()
   const [gmiBalancePolygon, setGmiBalancePolygon] = useState<BigNumber>()
+  const [iethFlipBalance, setIEthFlipBalance] = useState<BigNumber>()
+  const [maticFliBalancePolygon, setMaticFliBalance] = useState<BigNumber>()
+  const [imaticFliBalancePolygon, setIMaticFliBalance] = useState<BigNumber>()
 
   // LP Tokens Balances
   const [uniswapEthDpiLpBalance, setUniswapEthDpiLpBalance] =
@@ -118,7 +124,10 @@ const Provider: React.FC = ({ children }) => {
         !gmiStakingRewardsAddress ||
         !farmTwoAddress ||
         !mviStakingRewardsAddress ||
-        !wethTokenPolygonAddress
+        !wethTokenPolygonAddress ||
+        !ieth2xflipTokenAddress ||
+        !matic2xfliTokenAddress ||
+        !imatic2xfliTokenAddress
       ) {
         throw new Error(
           'A token address is not defined. Please check your .env to confirm all token addresses are defined.'
@@ -196,6 +205,9 @@ const Provider: React.FC = ({ children }) => {
           getBalance(provider, usdcTokenPolygonAddress, userAddress),
           getBalance(provider, dataTokenPolygonAddress, userAddress),
           getBalance(provider, gmiTokenPolygonAddress, userAddress),
+          getBalance(provider, ieth2xflipTokenAddress, userAddress),
+          getBalance(provider, imatic2xfliTokenAddress, userAddress),
+          getBalance(provider, matic2xfliTokenAddress, userAddress),
         ])
 
         // polygon
@@ -207,6 +219,9 @@ const Provider: React.FC = ({ children }) => {
         setUsdcBalancePolygon(new BigNumber(balances[5]))
         setDataBalancePolygon(new BigNumber(balances[6]))
         setGmiBalancePolygon(new BigNumber(balances[7]))
+        setIEthFlipBalance(new BigNumber(balances[8]))
+        setIMaticFliBalance(new BigNumber(balances[9]))
+        setMaticFliBalance(new BigNumber(balances[10]))
       }
     },
     [
@@ -234,6 +249,9 @@ const Provider: React.FC = ({ children }) => {
       setUnharvestedMviRewardsBalance,
       setStakedGmiBalance,
       setUnharvestedIndexFromGmiBalance,
+      setMaticFliBalance,
+      setIMaticFliBalance,
+      setIEthFlipBalance,
     ]
   )
 
@@ -268,6 +286,9 @@ const Provider: React.FC = ({ children }) => {
       setStakedGmiBalance(new BigNumber(0))
       setUnharvestedIndexFromGmiBalance(new BigNumber(0))
       setGmiBalancePolygon(new BigNumber(0))
+      setMaticFliBalance(new BigNumber(0))
+      setIMaticFliBalance(new BigNumber(0))
+      setIEthFlipBalance(new BigNumber(0))
     }
   }, [status])
 
@@ -314,6 +335,9 @@ const Provider: React.FC = ({ children }) => {
         stakedGmiBalance,
         unharvestedIndexFromGmiBalance,
         gmiBalancePolygon,
+        maticFliBalancePolygon,
+        imaticFliBalancePolygon,
+        iethFlipBalance,
       }}
     >
       {children}

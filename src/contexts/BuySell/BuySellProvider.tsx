@@ -48,6 +48,9 @@ const BuySellProvider: React.FC = ({ children }) => {
     daiBalancePolygon,
     usdcBalance,
     usdcBalancePolygon,
+    iethFlipBalance,
+    maticFliBalancePolygon,
+    imaticFliBalancePolygon,
   } = useBalances()
 
   const { account, ethereum, chainId } = useWallet()
@@ -77,6 +80,12 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = fromWei(ethfliBalance)
   } else if (!isUserBuying && buySellToken === 'eth2x-fli-p') {
     spendingTokenBalance = fromWei(ethflipBalance)
+  } else if (!isUserBuying && buySellToken === 'ieth2x-fli-p') {
+    spendingTokenBalance = fromWei(iethFlipBalance)
+  } else if (!isUserBuying && buySellToken === 'matic2x-fli') {
+    spendingTokenBalance = fromWei(maticFliBalancePolygon)
+  } else if (!isUserBuying && buySellToken === 'imatic2x-fli') {
+    spendingTokenBalance = fromWei(imaticFliBalancePolygon)
   } else if (!isUserBuying && buySellToken === 'btcfli') {
     spendingTokenBalance = fromWei(btcfliBalance)
   } else if (!isUserBuying && buySellToken === 'mvi') {
