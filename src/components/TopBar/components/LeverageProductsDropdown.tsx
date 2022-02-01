@@ -89,6 +89,18 @@ const ProductsDropdown: React.FC = () => {
           value: 'ethflip',
           label: 'ETH 2x FLI - Polygon',
         },
+        {
+          value: 'iethflip',
+          label: 'iETH 2x FLI - Polygon',
+        },
+        {
+          value: 'maticfli',
+          label: 'MATIC 2x FLI - Polygon',
+        },
+        {
+          value: 'imaticfli',
+          label: 'iMATIC 2x FLI - Polygon',
+        },
       ]}
       components={{
         Option: CustomOption,
