@@ -11,7 +11,7 @@ import { ChainId, Config, DAppProvider } from '@usedapp/core'
 
 import MobileMenu from 'components/MobileMenu'
 import TopBar from 'components/TopBar'
-import { discordLink } from 'constants/externalLinks'
+import { discordLink, websiteLink } from 'constants/externalLinks'
 import { BalancesProvider } from 'contexts/Balances'
 import { BedTokenMarketDataProvider } from 'contexts/BedTokenMarketData'
 import { Btc2xFliTokenMarketDataProvider } from 'contexts/Btc2xFliTokenMarketData'
@@ -123,14 +123,16 @@ const App: React.FC = () => {
               <Farm title={'Index - Liquidity Mining'} />
             </Route>
             <Route
-              exact
-              path='/join'
+              exact path='/join'
               render={() => (window.location.href = discordLink)}
             />
             <Route
-              exact
-              path='/discord'
+              exact path='/discord'
               render={() => (window.location.href = discordLink)}
+            />
+            <Route
+            exact path='/website'
+            render={() => (window.location.href = websiteLink)}
             />
           </Switch>
         </StyledBackgroundDiv>

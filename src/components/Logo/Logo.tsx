@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useTheme } from 'react-neu'
+import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
@@ -17,13 +18,13 @@ const Logo: React.FC = () => {
   else logo = darkMode ? indexLogoWhite : indexLogoBlack
 
   return (
-    <StyledLogo>
+    <StyledLogo to='/website'>
       <StyledImage src={logo} alt='index-logo' />
     </StyledLogo>
   )
 }
 
-const StyledLogo = styled.div`
+const StyledLogo = styled(Link)`
   align-items: center;
   display: flex;
   justify-content: center;
