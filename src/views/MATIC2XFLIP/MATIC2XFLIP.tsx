@@ -7,8 +7,8 @@ import ProductDataUI, {
 } from 'components/ProductPage/ProductDataUI'
 import { Matic2xFLIP, ProductToken } from 'constants/productTokens'
 import useBalances from 'hooks/useBalances'
-import useMatic2xFLITokenMarketData from 'hooks/useMatic2xFLITokenMarketData'
-import useMatic2xFLITokenSupplyCap from 'hooks/useMatic2xFLITokenSupplyCap'
+import useMatic2xFLIPTokenMarketData from 'hooks/useMatic2xFLIPTokenMarketData'
+import useMatic2xFLIPTokenSupplyCap from 'hooks/useMatic2xFLIPTokenSupplyCap'
 import useSetComponents from 'hooks/useSetComponents'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
@@ -21,17 +21,17 @@ const Matic2xFLIProductPage = (props: { title: string }) => {
   }, [props.title])
 
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
-    useMatic2xFLITokenMarketData()
-  const { matic2xFliComponents: components } = useSetComponents()
-  const { maticFliBalancePolygon } = useBalances()
-  const { maticfliSupplyCap } = useMatic2xFLITokenSupplyCap()
-  const { matic2xFLIStreamingFee } = useStreamingFee()
-  const { matic2xfliTotalSupply } = useTokenSupply()
+    useMatic2xFLIPTokenMarketData()
+  const { matic2xFlipComponents: components } = useSetComponents()
+  const { maticFlipBalancePolygon } = useBalances()
+  const { maticflipSupplyCap } = useMatic2xFLIPTokenSupplyCap()
+  const { matic2xFLIPStreamingFee } = useStreamingFee()
+  const { matic2xflipTotalSupply } = useTokenSupply()
 
   const token: ProductToken = {
     ...Matic2xFLIP,
-    fees: matic2xFLIStreamingFee
-      ? { streamingFee: matic2xFLIStreamingFee }
+    fees: matic2xFLIPStreamingFee
+      ? { streamingFee: matic2xFLIPStreamingFee }
       : undefined,
   }
   const tokenDataProps: TokenDataProps = {
@@ -42,14 +42,14 @@ const Matic2xFLIProductPage = (props: { title: string }) => {
     latestVolume: latestVolume,
     token: token,
     components: components,
-    balance: maticFliBalancePolygon,
-    supplyCap: maticfliSupplyCap,
-    currentSupply: matic2xfliTotalSupply,
+    balance: maticFlipBalancePolygon,
+    supplyCap: maticflipSupplyCap,
+    currentSupply: matic2xflipTotalSupply,
   }
   const { account } = useWallet()
 
-  const isApproachingSupplyCap = matic2xfliTotalSupply
-    ?.div(maticfliSupplyCap as BigNumber)
+  const isApproachingSupplyCap = matic2xflipTotalSupply
+    ?.div(maticflipSupplyCap as BigNumber)
     .isGreaterThan(0.95)
 
   useEffect(() => {

@@ -4,9 +4,9 @@ import { eth2xFLIPSuppyCapAddress } from 'constants/ethContractAddresses'
 import { getSupplyCap } from 'utils'
 import BigNumber from 'utils/bignumber'
 
-import TotalSupplyContext from './Matic2xFLITokenSupplyCapContext'
+import TotalSupplyContext from './Matic2xFLIPTokenSupplyCapContext'
 
-const Matic2xFLITokenSupplyCapProvider: React.FC = ({ children }) => {
+const Matic2xFLIPTokenSupplyCapProvider: React.FC = ({ children }) => {
   const [ethFLIPSupplyCap, setEthFLIPSupplyCap] = useState<BigNumber>(
     new BigNumber(250000)
   )
@@ -27,11 +27,11 @@ const Matic2xFLITokenSupplyCapProvider: React.FC = ({ children }) => {
   return (
     <TotalSupplyContext.Provider
       value={{
-        maticfliSupplyCap: ethFLIPSupplyCap,
+        maticflipSupplyCap: ethFLIPSupplyCap,
       }}
     >
       {children}
     </TotalSupplyContext.Provider>
   )
 }
-export default Matic2xFLITokenSupplyCapProvider
+export default Matic2xFLIPTokenSupplyCapProvider

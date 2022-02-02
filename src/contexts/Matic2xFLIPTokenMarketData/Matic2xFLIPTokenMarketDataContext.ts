@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-interface Matic2xFLITokenMarketDataValues {
+interface Matic2xFLIPTokenMarketDataValues {
   prices?: number[][]
   hourlyPrices?: number[][]
   marketcaps?: number[][]
@@ -10,7 +10,7 @@ interface Matic2xFLITokenMarketDataValues {
   latestVolume?: number
 }
 
-const Matic2xFLITokenMarketData =
-  createContext<Matic2xFLITokenMarketDataValues>({})
+const Matic2xFLIPTokenMarketData =
+  createContext<Matic2xFLIPTokenMarketDataValues>({})
 
-export default Matic2xFLITokenMarketData
+export default Matic2xFLIPTokenMarketData

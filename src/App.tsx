@@ -28,13 +28,13 @@ import { FarmingProvider } from 'contexts/Farming'
 import { FarmingTwoProvider } from 'contexts/FarmingTwo'
 import { GmiFarmingProvider } from 'contexts/GmiFarming'
 import { GmiTokenMarketDataProvider } from 'contexts/GmiTokenMarketData'
-import IEthFLIPMarketDataProvider from 'contexts/IEthFLIPTokenMarketData/IEthFLIPTokenMarketDataProvider'
+import { IEthFLIPTokenMarketDataProvider } from 'contexts/IEthFLIPTokenMarketData'
 import { IEthFLIPTokenSupplyCapProvider } from 'contexts/IEthFLIPTokenSupplyCap'
 import { IMaticFLIPTokenMarketDataProvider } from 'contexts/IMaticFLIPTokenMarketData'
 import { IMaticFLIPTokenSupplyCapProvider } from 'contexts/IMaticFLIPTokenSupplyCap'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
-import Matic2xFLIMarketDataProvider from 'contexts/Matic2xFLIPTokenMarketData/Matic2xFLITokenMarketDataProvider'
-import { Matic2xFLITokenSupplyCapProvider } from 'contexts/Matic2xFLIPTokenSupplyCap'
+import { Matic2xFLIPTokenMarketDataProvider } from 'contexts/Matic2xFLIPTokenMarketData'
+import { Matic2xFLIPTokenSupplyCapProvider } from 'contexts/Matic2xFLIPTokenSupplyCap'
 import { MediaQueryProvider } from 'contexts/MediaQuery'
 import { MviStakingRewardsProvider } from 'contexts/MviStakingRewards'
 import { MviTokenMarketDataProvider } from 'contexts/MviTokenMarketData'
@@ -60,7 +60,7 @@ import GMI from 'views/GMI'
 import IETHFLIP from 'views/IETHFLIP'
 import IMATICFLIP from 'views/IMATICFLIP'
 import INDEX from 'views/INDEX'
-import MATIC2XFLI from 'views/MATIC2XFLI'
+import MATIC2XFLIP from 'views/MATIC2XFLIP'
 import MVI from 'views/MVI'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -129,7 +129,7 @@ const App: React.FC = () => {
               <IETHFLIP title={'Index - iETH-FLI-P'} />
             </Route>
             <Route exact path='/matic2x'>
-              <MATIC2XFLI title={'Index - MATIC2x-FLI-P'} />
+              <MATIC2XFLIP title={'Index - MATIC2x-FLI-P'} />
             </Route>
             <Route exact path='/imatic'>
               <IMATICFLIP title={'Index - iMATIC-FLI-P'} />
@@ -187,10 +187,10 @@ const Providers: React.FC = ({ children }) => {
                             <BuySellProvider>
                               <Eth2xFLIPTokenMarketDataProvider>
                                 <Eth2xFLIPTokenSupplyCapProvider>
-                                  <IEthFLIPMarketDataProvider>
+                                  <IEthFLIPTokenMarketDataProvider>
                                     <IEthFLIPTokenSupplyCapProvider>
-                                      <Matic2xFLIMarketDataProvider>
-                                        <Matic2xFLITokenSupplyCapProvider>
+                                      <Matic2xFLIPTokenMarketDataProvider>
+                                        <Matic2xFLIPTokenSupplyCapProvider>
                                           <IMaticFLIPTokenMarketDataProvider>
                                             <IMaticFLIPTokenSupplyCapProvider>
                                               <Eth2xFliTokenMarketDataProvider>
@@ -228,10 +228,10 @@ const Providers: React.FC = ({ children }) => {
                                               </Eth2xFliTokenMarketDataProvider>
                                             </IMaticFLIPTokenSupplyCapProvider>
                                           </IMaticFLIPTokenMarketDataProvider>
-                                        </Matic2xFLITokenSupplyCapProvider>
-                                      </Matic2xFLIMarketDataProvider>
+                                        </Matic2xFLIPTokenSupplyCapProvider>
+                                      </Matic2xFLIPTokenMarketDataProvider>
                                     </IEthFLIPTokenSupplyCapProvider>
-                                  </IEthFLIPMarketDataProvider>
+                                  </IEthFLIPTokenMarketDataProvider>
                                 </Eth2xFLIPTokenSupplyCapProvider>
                               </Eth2xFLIPTokenMarketDataProvider>
                             </BuySellProvider>

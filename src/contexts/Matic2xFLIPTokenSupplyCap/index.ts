@@ -1,2 +1,2 @@
-export { default as Matic2xFLITokenSupplyCapContext } from './Matic2xFLITokenSupplyCapContext'
-export { default as Matic2xFLITokenSupplyCapProvider } from './Matic2xFLITokenSupplyCapProvider'
+export { default as Matic2xFLIPTokenSupplyCapContext } from './Matic2xFLIPTokenSupplyCapContext'
+export { default as Matic2xFLIPTokenSupplyCapProvider } from './Matic2xFLIPTokenSupplyCapProvider'

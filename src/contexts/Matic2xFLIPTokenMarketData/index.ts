@@ -1,2 +1,2 @@
-export { default as Matic2xFLITokenMarketDataContext } from './Matic2xFLITokenMarketDataContext'
-export { default as Matic2xFLITokenMarketDataProvider } from './Matic2xFLITokenMarketDataProvider'
+export { default as Matic2xFLIPTokenMarketDataContext } from './Matic2xFLIPTokenMarketDataContext'
+export { default as Matic2xFLIPTokenMarketDataProvider } from './Matic2xFLIPTokenMarketDataProvider'

@@ -4,9 +4,9 @@ import { Matic2xFLIP } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketDataOnPolygon } from 'utils/coingeckoApi'
 import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
 
-import MarketDataContext from './Matic2xFLITokenMarketDataContext'
+import MarketDataContext from './Matic2xFLIPTokenMarketDataContext'
 
-const Matic2xFLIMarketDataProvider: React.FC = ({ children }) => {
+const Matic2xFLIPMarketDataProvider: React.FC = ({ children }) => {
   const [fliMarketData, setFliMarketData] = useState<any>([[]])
   const [fliMarketCap, setFliMarketCap] = useState<any>(0)
 
@@ -44,4 +44,4 @@ const Matic2xFLIMarketDataProvider: React.FC = ({ children }) => {
   )
 }
 
-export default Matic2xFLIMarketDataProvider
+export default Matic2xFLIPMarketDataProvider

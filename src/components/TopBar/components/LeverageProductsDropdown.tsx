@@ -90,11 +90,11 @@ const ProductsDropdown: React.FC = () => {
           label: 'ETH 2x FLI - Polygon',
         },
         {
-          value: 'iethflip',
+          value: 'ieth',
           label: 'iETH FLI - Polygon',
         },
         {
-          value: 'maticfli',
+          value: 'matic2x',
           label: 'MATIC 2x FLI - Polygon',
         },
         {
