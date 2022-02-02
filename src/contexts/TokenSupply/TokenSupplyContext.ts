@@ -12,8 +12,8 @@ interface TokenSupplyProps {
   btc2xfliTotalSupply?: BigNumber
   dataTotalSupply?: BigNumber
   iethflipTotalSupply?: BigNumber
-  matic2xfliTotalSupply?: BigNumber
-  imatic2xfliTotalSupply?: BigNumber
+  matic2xflipTotalSupply?: BigNumber
+  imaticflipTotalSupply?: BigNumber
 }
 
 const TokenSupply = createContext<TokenSupplyProps>({
@@ -26,8 +26,8 @@ const TokenSupply = createContext<TokenSupplyProps>({
   btc2xfliTotalSupply: undefined,
   dataTotalSupply: undefined,
   iethflipTotalSupply: undefined,
-  matic2xfliTotalSupply: undefined,
-  imatic2xfliTotalSupply: undefined,
+  matic2xflipTotalSupply: undefined,
+  imaticflipTotalSupply: undefined,
 })
 
 export default TokenSupply

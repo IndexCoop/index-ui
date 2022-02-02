@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { Matic2xFLITokenSupplyCapContext } from 'contexts/Matic2xFLITokenSupplyCap'
+import { Matic2xFLITokenSupplyCapContext } from 'contexts/Matic2xFLIPTokenSupplyCap'
 
 const useMatic2xFLITokenSupplyCap = () => {
   return { ...useContext(Matic2xFLITokenSupplyCapContext) }

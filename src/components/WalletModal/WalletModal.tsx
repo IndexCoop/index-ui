@@ -51,8 +51,8 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     gmiBalancePolygon,
     stakedGmiBalance,
     iethFlipBalance,
-    imaticFliBalancePolygon,
-    maticFliBalancePolygon,
+    imaticFlipBalancePolygon,
+    maticFlipBalancePolygon,
   } = useBalances()
 
   const totalStakedEthDpiLpBalance = getBigNumber(
@@ -335,7 +335,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           <Box row>
             <FancyValue
               icon={{
-                alt: 'iETH FLI Icon',
+                alt: 'iETH-FLI-P Icon',
                 src: gmiLogo,
               }}
               label='iETH-FLI-P Balance (Polygon)'
@@ -349,23 +349,23 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           <Box row>
             <FancyValue
               icon={{
-                alt: 'MATIC2xFLI Icon',
+                alt: 'MATIC2x-FLI-P Icon',
                 src: gmiLogo,
               }}
-              label='MATIC2x-FLI Balance (Polygon)'
-              link={`https://polygonscan.com/address/${tokenAddresses.matic2xfliTokenAddress}`}
-              value={displayFromWei(maticFliBalancePolygon)}
+              label='MATIC2x-FLI-P Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.matic2xflipTokenAddress}`}
+              value={displayFromWei(maticFlipBalancePolygon)}
             />
           </Box>
           <Box row>
             <FancyValue
               icon={{
-                alt: 'iMATIC2xFLI Icon',
+                alt: 'iMATIC-FLI-P Icon',
                 src: gmiLogo,
               }}
-              label='iMATIC2x-FLI Balance (Polygon)'
-              link={`https://polygonscan.com/address/${tokenAddresses.imatic2xfliTokenAddress}`}
-              value={displayFromWei(imaticFliBalancePolygon)}
+              label='iMATIC-FLI-P Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.imaticflipTokenAddress}`}
+              value={displayFromWei(imaticFlipBalancePolygon)}
             />
           </Box>
         </Split>

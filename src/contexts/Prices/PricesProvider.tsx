@@ -35,8 +35,8 @@ const PricesProvider: React.FC = ({ children }) => {
   const [btc2xfliPrice, setBtc2xfliPrice] = useState<number>(0)
   const [dataPrice, setDataPrice] = useState<number>(0)
   const [iethflipPrice, setIEthflipPrice] = useState<number>(0)
-  const [matic2xfliPrice, setMatic2xfliPrice] = useState<number>(0)
-  const [imatic2xfliPrice, setIMatic2xfliPrice] = useState<number>(0)
+  const [matic2xflipPrice, setMatic2xfliPrice] = useState<number>(0)
+  const [imaticflipPrice, setIMaticflipPrice] = useState<number>(0)
 
   const [usdInEthDpiPool, setUsdInEthDpiPool] = useState<number>()
   const [totalSupplyInEthDpiPool, setTotalSupplyInEthDpiPool] =
@@ -112,16 +112,16 @@ const PricesProvider: React.FC = ({ children }) => {
         setIEthflipPrice(response?.portfolio.price_usd || 0)
       })
       .catch((error) => console.log(error))
-    fetch('https://api.tokensets.com/public/v2/portfolios/matic2x-fli')
+    fetch('https://api.tokensets.com/public/v2/portfolios/matic2x-fli-p')
       .then((response) => response.json())
       .then((response) => {
         setMatic2xfliPrice(response?.portfolio.price_usd || 0)
       })
       .catch((error) => console.log(error))
-    fetch('https://api.tokensets.com/public/v2/portfolios/imatic2x-fli')
+    fetch('https://api.tokensets.com/public/v2/portfolios/imatic-fli-p')
       .then((response) => response.json())
       .then((response) => {
-        setIMatic2xfliPrice(response?.portfolio.price_usd || 0)
+        setIMaticflipPrice(response?.portfolio.price_usd || 0)
       })
       .catch((error) => console.log(error))
   }, [])
@@ -284,8 +284,8 @@ const PricesProvider: React.FC = ({ children }) => {
         mviRewardsApy,
         gmiRewardsApy: gmiRewardsApy.toFixed(2),
         iethflipPrice,
-        imatic2xfliPrice,
-        matic2xfliPrice,
+        imaticflipPrice,
+        matic2xflipPrice,
       }}
     >
       {children}

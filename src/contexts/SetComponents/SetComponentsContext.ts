@@ -12,8 +12,8 @@ interface SetComponentsProps {
   btc2xfliComponents?: SetComponent[]
   dataComponents?: SetComponent[]
   iEthFlipComponents?: SetComponent[]
-  matic2xFliComponents?: SetComponent[]
-  iMatic2xFliComponents?: SetComponent[]
+  matic2xFlipComponents?: SetComponent[]
+  iMaticFlipComponents?: SetComponent[]
 }
 
 const SetComponentsContext = createContext<SetComponentsProps>({})

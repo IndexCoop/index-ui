@@ -5,33 +5,33 @@ import { toast } from 'react-toastify'
 import ProductDataUI, {
   TokenDataProps,
 } from 'components/ProductPage/ProductDataUI'
-import { IMatic2xFLI, ProductToken } from 'constants/productTokens'
+import { IMaticFLIP, ProductToken } from 'constants/productTokens'
 import useBalances from 'hooks/useBalances'
-import useIMatic2xFLITokenMarketData from 'hooks/useIMatic2xFLITokenMarketData'
-import useIMatic2xFLITokenSupplyCap from 'hooks/useIMatic2xFLITokenSupplyCap'
+import useIMaticFLIPTokenMarketData from 'hooks/useIMaticFLIPTokenMarketData'
+import useIMaticFLIPTokenSupplyCap from 'hooks/useIMaticFLIPTokenSupplyCap'
 import useSetComponents from 'hooks/useSetComponents'
 import useStreamingFee from 'hooks/useStreamingFee'
 import useTokenSupply from 'hooks/useTokenSupply'
 import useWallet from 'hooks/useWallet'
 import BigNumber from 'utils/bignumber'
 
-const IMatic2xFLIProductPage = (props: { title: string }) => {
+const IMaticFLIProductPage = (props: { title: string }) => {
   useEffect(() => {
     document.title = props.title
   }, [props.title])
 
   const { prices, hourlyPrices, latestPrice, latestMarketCap, latestVolume } =
-    useIMatic2xFLITokenMarketData()
-  const { iMatic2xFliComponents: components } = useSetComponents()
-  const { imaticFliBalancePolygon } = useBalances()
-  const { imaticfliSupplyCap } = useIMatic2xFLITokenSupplyCap()
-  const { imatic2xFLIStreamingFee } = useStreamingFee()
-  const { imatic2xfliTotalSupply } = useTokenSupply()
+    useIMaticFLIPTokenMarketData()
+  const { iMaticFlipComponents: components } = useSetComponents()
+  const { imaticFlipBalancePolygon } = useBalances()
+  const { imaticflipSupplyCap } = useIMaticFLIPTokenSupplyCap()
+  const { imaticFLIPStreamingFee } = useStreamingFee()
+  const { imaticflipTotalSupply } = useTokenSupply()
 
   const token: ProductToken = {
-    ...IMatic2xFLI,
-    fees: imatic2xFLIStreamingFee
-      ? { streamingFee: imatic2xFLIStreamingFee }
+    ...IMaticFLIP,
+    fees: imaticFLIPStreamingFee
+      ? { streamingFee: imaticFLIPStreamingFee }
       : undefined,
   }
   const tokenDataProps: TokenDataProps = {
@@ -42,20 +42,20 @@ const IMatic2xFLIProductPage = (props: { title: string }) => {
     latestVolume: latestVolume,
     token: token,
     components: components,
-    balance: imaticFliBalancePolygon,
-    supplyCap: imaticfliSupplyCap,
-    currentSupply: imatic2xfliTotalSupply,
+    balance: imaticFlipBalancePolygon,
+    supplyCap: imaticflipSupplyCap,
+    currentSupply: imaticflipTotalSupply,
   }
   const { account } = useWallet()
 
-  const isApproachingSupplyCap = imatic2xfliTotalSupply
-    ?.div(imaticfliSupplyCap as BigNumber)
+  const isApproachingSupplyCap = imaticflipTotalSupply
+    ?.div(imaticflipSupplyCap as BigNumber)
     .isGreaterThan(0.95)
 
   useEffect(() => {
     if (account && isApproachingSupplyCap) {
       toast.error(
-        "iMatic2x-FLI has reached it's supply cap. Beware this product may be trading at a significant premium to it's Net Asset Value.",
+        "iMatic-FLI-P has reached it's supply cap. Beware this product may be trading at a significant premium to it's Net Asset Value.",
         {
           toastId: 'ethfli-p-supply-cap-warning',
           position: 'top-right',
@@ -77,4 +77,4 @@ const IMatic2xFLIProductPage = (props: { title: string }) => {
   return <ProductDataUI tokenDataProps={tokenDataProps} />
 }
 
-export default IMatic2xFLIProductPage
+export default IMaticFLIProductPage

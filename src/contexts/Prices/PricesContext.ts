@@ -10,8 +10,8 @@ interface PricesContextValues {
   eth2xfliPrice: number
   eth2xflipPrice: number
   iethflipPrice: number
-  matic2xfliPrice: number
-  imatic2xfliPrice: number
+  matic2xflipPrice: number
+  imaticflipPrice: number
   btc2xfliPrice: number
   dataPrice: number
   totalUSDInFarms?: number
@@ -31,8 +31,8 @@ const PricesContext = createContext<PricesContextValues>({
   btc2xfliPrice: 0,
   dataPrice: 0,
   iethflipPrice: 0,
-  matic2xfliPrice: 0,
-  imatic2xfliPrice: 0,
+  matic2xflipPrice: 0,
+  imaticflipPrice: 0,
 })
 
 export default PricesContext

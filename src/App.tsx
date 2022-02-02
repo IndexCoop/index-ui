@@ -28,13 +28,13 @@ import { FarmingProvider } from 'contexts/Farming'
 import { FarmingTwoProvider } from 'contexts/FarmingTwo'
 import { GmiFarmingProvider } from 'contexts/GmiFarming'
 import { GmiTokenMarketDataProvider } from 'contexts/GmiTokenMarketData'
-import { IEthFLIPTokenSupplyCapProvider } from 'contexts/IEthFLIPTokenSupplyCap'
 import IEthFLIPMarketDataProvider from 'contexts/IEthFLIPTokenMarketData/IEthFLIPTokenMarketDataProvider'
-import { IMatic2xFLITokenMarketDataProvider } from 'contexts/IMatic2xFLITokenMarketData'
-import { IMatic2xFLITokenSupplyCapProvider } from 'contexts/IMatic2xFLITokenSupplyCap'
+import { IEthFLIPTokenSupplyCapProvider } from 'contexts/IEthFLIPTokenSupplyCap'
+import { IMaticFLIPTokenMarketDataProvider } from 'contexts/IMaticFLIPTokenMarketData'
+import { IMaticFLIPTokenSupplyCapProvider } from 'contexts/IMaticFLIPTokenSupplyCap'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
-import Matic2xFLIMarketDataProvider from 'contexts/Matic2xFLITokenMarketData/Matic2xFLITokenMarketDataProvider'
-import { Matic2xFLITokenSupplyCapProvider } from 'contexts/Matic2xFLITokenSupplyCap'
+import Matic2xFLIMarketDataProvider from 'contexts/Matic2xFLIPTokenMarketData/Matic2xFLITokenMarketDataProvider'
+import { Matic2xFLITokenSupplyCapProvider } from 'contexts/Matic2xFLIPTokenSupplyCap'
 import { MediaQueryProvider } from 'contexts/MediaQuery'
 import { MviStakingRewardsProvider } from 'contexts/MviStakingRewards'
 import { MviTokenMarketDataProvider } from 'contexts/MviTokenMarketData'
@@ -58,7 +58,7 @@ import ETH2XFLIP from 'views/ETH2XFLIP'
 import Farm from 'views/Farm'
 import GMI from 'views/GMI'
 import IETHFLIP from 'views/IETHFLIP'
-import IMATIC2XFLIP from 'views/IMATIC2XFLIP'
+import IMATICFLIP from 'views/IMATICFLIP'
 import INDEX from 'views/INDEX'
 import MATIC2XFLI from 'views/MATIC2XFLI'
 import MVI from 'views/MVI'
@@ -128,11 +128,11 @@ const App: React.FC = () => {
             <Route exact path='/ieth'>
               <IETHFLIP title={'Index - iETH-FLI-P'} />
             </Route>
-            <Route exact path='/maticfli'>
-              <MATIC2XFLI title={'Index - MATIC2x-FLI'} />
+            <Route exact path='/matic2x'>
+              <MATIC2XFLI title={'Index - MATIC2x-FLI-P'} />
             </Route>
-            <Route exact path='/imaticfli'>
-              <IMATIC2XFLIP title={'Index - iMATIC2x-FLI'} />
+            <Route exact path='/imatic'>
+              <IMATICFLIP title={'Index - iMATIC-FLI-P'} />
             </Route>
             <Route exact path='/index'>
               <INDEX title={'Index - Index'} />
@@ -191,8 +191,8 @@ const Providers: React.FC = ({ children }) => {
                                     <IEthFLIPTokenSupplyCapProvider>
                                       <Matic2xFLIMarketDataProvider>
                                         <Matic2xFLITokenSupplyCapProvider>
-                                          <IMatic2xFLITokenMarketDataProvider>
-                                            <IMatic2xFLITokenSupplyCapProvider>
+                                          <IMaticFLIPTokenMarketDataProvider>
+                                            <IMaticFLIPTokenSupplyCapProvider>
                                               <Eth2xFliTokenMarketDataProvider>
                                                 <Eth2xFliTokenSupplyCapProvider>
                                                   <Btc2xFliTokenMarketDataProvider>
@@ -226,8 +226,8 @@ const Providers: React.FC = ({ children }) => {
                                                   </Btc2xFliTokenMarketDataProvider>
                                                 </Eth2xFliTokenSupplyCapProvider>
                                               </Eth2xFliTokenMarketDataProvider>
-                                            </IMatic2xFLITokenSupplyCapProvider>
-                                          </IMatic2xFLITokenMarketDataProvider>
+                                            </IMaticFLIPTokenSupplyCapProvider>
+                                          </IMaticFLIPTokenMarketDataProvider>
                                         </Matic2xFLITokenSupplyCapProvider>
                                       </Matic2xFLIMarketDataProvider>
                                     </IEthFLIPTokenSupplyCapProvider>

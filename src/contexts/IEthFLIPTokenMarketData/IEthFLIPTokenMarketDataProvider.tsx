@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
-import { IMatic2xFLI } from 'constants/productTokens'
+import { IEthereumFLIP } from 'constants/productTokens'
 import { fetchHistoricalTokenMarketDataOnPolygon } from 'utils/coingeckoApi'
 import { fetchSetComponentsBeta } from 'utils/tokensetsApi'
 
-import MarketDataContext from './IMatic2xFLITokenMarketDataContext'
+import MarketDataContext from './IEthFLIPTokenMarketDataContext'
 
-const IMatic2xFLITokenMarketDataProvider: React.FC = ({ children }) => {
+const IEthFLIPMarketDataProvider: React.FC = ({ children }) => {
   const [fliMarketData, setFliMarketData] = useState<any>([[]])
   const [fliMarketCap, setFliMarketCap] = useState<any>(0)
 
   useEffect(() => {
-    fetchHistoricalTokenMarketDataOnPolygon(IMatic2xFLI.polygonAddress)
+    fetchHistoricalTokenMarketDataOnPolygon(IEthereumFLIP.polygonAddress)
       .then((response: any) => {
         setFliMarketData(response)
       })
@@ -20,7 +20,7 @@ const IMatic2xFLITokenMarketDataProvider: React.FC = ({ children }) => {
 
   // TODO: Replace this with coingecko data once available.
   useEffect(() => {
-    fetchSetComponentsBeta(IMatic2xFLI.tokensetsId)
+    fetchSetComponentsBeta(IEthereumFLIP.tokensetsId)
       .then((response: any) => {
         setFliMarketCap(response?.marketCap)
       })
@@ -44,4 +44,4 @@ const IMatic2xFLITokenMarketDataProvider: React.FC = ({ children }) => {
   )
 }
 
-export default IMatic2xFLITokenMarketDataProvider
+export default IEthFLIPMarketDataProvider

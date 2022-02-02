@@ -1,8 +1,10 @@
 import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
 import gmiLogo from 'assets/gmilogo.png'
-import indexLogo from 'assets/index-token.png'
 import iethflipLogo from 'assets/iethfliplogo.svg'
+import imaticflipLogo from 'assets/imaticflilogo.svg'
+import indexLogo from 'assets/index-token.png'
+import maticflipLogo from 'assets/maticflilogo.svg'
 import * as tokenAddresses from 'constants/ethContractAddresses'
 
 export const dpiTokenImage =
@@ -134,12 +136,12 @@ export const GmiIndex: ProductToken = {
   },
 }
 
-export const Matic2xFLI: ProductToken = {
-  name: 'Matic 2x FLI',
-  symbol: 'MATIC2X-FLI',
+export const Matic2xFLIP: ProductToken = {
+  name: 'MATIC 2x Flexible Leverage Index',
+  symbol: 'MATIC2x-FLI-P',
   address: undefined,
-  polygonAddress: tokenAddresses.matic2xfliTokenAddress,
-  image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+  polygonAddress: tokenAddresses.matic2xflipTokenAddress,
+  image: maticflipLogo,
   coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
   tokensetsId: 'matic2x-fli',
   fees: {
@@ -148,12 +150,12 @@ export const Matic2xFLI: ProductToken = {
   },
 }
 
-export const IMatic2xFLI: ProductToken = {
-  name: 'Inverse Matic 2x FLI',
-  symbol: 'iMATIC2x-FLI',
+export const IMaticFLIP: ProductToken = {
+  name: 'Inverse MATIC Flexible Leverage Index',
+  symbol: 'iMATIC-FLI-P',
   address: undefined,
-  polygonAddress: tokenAddresses.imatic2xfliTokenAddress,
-  image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+  polygonAddress: tokenAddresses.imaticflipTokenAddress,
+  image: imaticflipLogo,
   coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
   tokensetsId: 'imatic-fli',
   fees: {

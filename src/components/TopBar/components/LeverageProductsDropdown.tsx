@@ -98,8 +98,8 @@ const ProductsDropdown: React.FC = () => {
           label: 'MATIC 2x FLI - Polygon',
         },
         {
-          value: 'imaticfli',
-          label: 'iMATIC 2x FLI - Polygon',
+          value: 'imatic',
+          label: 'iMATIC FLI - Polygon',
         },
       ]}
       components={{

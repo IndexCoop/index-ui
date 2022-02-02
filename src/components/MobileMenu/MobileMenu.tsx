@@ -66,7 +66,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink
             exact
             activeClassName='active'
-            to='/maticfli'
+            to='/matic2x'
             onClick={onDismiss}
           >
             MATIC 2x FLI - Polygon
@@ -74,7 +74,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink
             exact
             activeClassName='active'
-            to='/imaticfli'
+            to='/imatic'
             onClick={onDismiss}
           >
             iMATIC FLI - Polygon
