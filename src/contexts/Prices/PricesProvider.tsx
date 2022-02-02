@@ -34,7 +34,7 @@ const PricesProvider: React.FC = ({ children }) => {
   const [eth2xflipPrice, setEth2xflipPrice] = useState<number>(0)
   const [btc2xfliPrice, setBtc2xfliPrice] = useState<number>(0)
   const [dataPrice, setDataPrice] = useState<number>(0)
-  const [ieth2xflipPrice, setIEth2xflipPrice] = useState<number>(0)
+  const [iethflipPrice, setIEthflipPrice] = useState<number>(0)
   const [matic2xfliPrice, setMatic2xfliPrice] = useState<number>(0)
   const [imatic2xfliPrice, setIMatic2xfliPrice] = useState<number>(0)
 
@@ -106,10 +106,10 @@ const PricesProvider: React.FC = ({ children }) => {
         setEth2xflipPrice(response?.portfolio.price_usd || 0)
       })
       .catch((error) => console.log(error))
-    fetch('https://api.tokensets.com/public/v2/portfolios/ieth2x-fli-p')
+    fetch('https://api.tokensets.com/public/v2/portfolios/ieth-fli-p')
       .then((response) => response.json())
       .then((response) => {
-        setIEth2xflipPrice(response?.portfolio.price_usd || 0)
+        setIEthflipPrice(response?.portfolio.price_usd || 0)
       })
       .catch((error) => console.log(error))
     fetch('https://api.tokensets.com/public/v2/portfolios/matic2x-fli')
@@ -283,7 +283,7 @@ const PricesProvider: React.FC = ({ children }) => {
         farmTwoApy,
         mviRewardsApy,
         gmiRewardsApy: gmiRewardsApy.toFixed(2),
-        ieth2xflipPrice,
+        iethflipPrice,
         imatic2xfliPrice,
         matic2xfliPrice,
       }}

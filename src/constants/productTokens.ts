@@ -2,6 +2,7 @@ import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
 import gmiLogo from 'assets/gmilogo.png'
 import indexLogo from 'assets/index-token.png'
+import iethflipLogo from 'assets/iethfliplogo.svg'
 import * as tokenAddresses from 'constants/ethContractAddresses'
 
 export const dpiTokenImage =
@@ -161,14 +162,14 @@ export const IMatic2xFLI: ProductToken = {
   },
 }
 
-export const IEthereum2xFLIP: ProductToken = {
-  name: 'Inverse Ethereum 2x FLI Polygon',
-  symbol: 'iETH2X-FLI-P',
+export const IEthereumFLIP: ProductToken = {
+  name: 'Inverse ETH Flexible Leverage Index',
+  symbol: 'iETH-FLI-P',
   address: undefined,
-  polygonAddress: tokenAddresses.ieth2xflipTokenAddress,
-  image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+  polygonAddress: tokenAddresses.iethflipTokenAddress,
+  image: iethflipLogo,
   coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
-  tokensetsId: 'ieth2x-fli-p',
+  tokensetsId: 'ieth-fli-p',
   fees: {
     streamingFee: '1.95%',
     mintRedeemFee: '0.1%',

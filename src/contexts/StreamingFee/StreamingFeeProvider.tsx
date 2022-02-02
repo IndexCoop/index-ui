@@ -9,7 +9,7 @@ import {
   eth2xfliTokenAddress,
   gmiTokenAddress,
   gmiTokenPolygonAddress,
-  ieth2xflipTokenAddress,
+  iethflipTokenAddress,
   imatic2xfliTokenAddress,
   matic2xfliTokenAddress,
   mviTokenAddress,
@@ -32,7 +32,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
   const [imatic2xFliStreamingFee, setImatic2xFliStreamingFee] =
     useState<string>()
   const [matic2xFliStreamingFee, setMatic2xFliStreamingFee] = useState<string>()
-  const [ieth2xFliStreamingFee, setiEth2xFliStreamingFee] = useState<string>()
+  const [iethFliStreamingFee, setiEthFliStreamingFee] = useState<string>()
 
   const { ethereum: provider, chainId } = useWallet()
 
@@ -98,7 +98,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
       eth2xflipTokenAddress &&
       matic2xfliTokenAddress &&
       imatic2xfliTokenAddress &&
-      ieth2xflipTokenAddress
+      iethflipTokenAddress
     ) {
       getStreamingFees(
         provider,
@@ -108,7 +108,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
           eth2xflipTokenAddress,
           matic2xfliTokenAddress,
           imatic2xfliTokenAddress,
-          ieth2xflipTokenAddress,
+          iethflipTokenAddress,
         ],
         chainId
       )
@@ -119,7 +119,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
             eth2xFlipResult,
             matic2xFliResult,
             imatic2xFliResult,
-            ieth2xFlipResult,
+            iethFlipResult,
           ] = result
           setDpiStreamingFee(
             convertToPercentage(dpiResult.streamingFeePercentage)
@@ -136,8 +136,8 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
           setImatic2xFliStreamingFee(
             convertToPercentage(imatic2xFliResult.streamingFeePercentage)
           )
-          setiEth2xFliStreamingFee(
-            convertToPercentage(ieth2xFlipResult.streamingFeePercentage)
+          setiEthFliStreamingFee(
+            convertToPercentage(iethFlipResult.streamingFeePercentage)
           )
           setBedStreamingFee(undefined)
           setGmiStreamingFee(undefined)
@@ -159,7 +159,7 @@ const StreamingFeeProvider: React.FC = ({ children }) => {
         btc2xFliStreamingFee: btc2xFliStreamingFee,
         imatic2xFLIStreamingFee: imatic2xFliStreamingFee,
         matic2xFLIStreamingFee: matic2xFliStreamingFee,
-        ieth2xFLIPStreamingFee: ieth2xFliStreamingFee,
+        iethFLIPStreamingFee: iethFliStreamingFee,
       }}
     >
       {children}

@@ -11,7 +11,7 @@ interface SetComponentsProps {
   eth2xflipComponents?: SetComponent[]
   btc2xfliComponents?: SetComponent[]
   dataComponents?: SetComponent[]
-  iEth2xFlipComponents?: SetComponent[]
+  iEthFlipComponents?: SetComponent[]
   matic2xFliComponents?: SetComponent[]
   iMatic2xFliComponents?: SetComponent[]
 }

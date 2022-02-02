@@ -122,7 +122,7 @@ export const imatic2xfliTokenAddress =
   process.env.REACT_APP_POLYGON_IMATIC2X_FLI_TOKEN_ADDRESS
 export const imatic2xFLISuppyCapAddress =
   process.env.REACT_APP_POLYGON_IMATIC2X_FLI_SUPPLY_CAP_ADDRESS
-export const ieth2xflipTokenAddress =
-  process.env.REACT_APP_POLYGON_IETH2X_FLI_P_TOKEN_ADDRESS
-export const ieth2xFLIPSuppyCapAddress =
-  process.env.REACT_APP_POLYGON_IETH2X_FLI_P_SUPPLY_CAP_ADDRESS
+export const iethflipTokenAddress =
+  process.env.REACT_APP_POLYGON_IETH_FLI_P_TOKEN_ADDRESS
+export const iethFLIPSuppyCapAddress =
+  process.env.REACT_APP_POLYGON_IETH_FLI_P_SUPPLY_CAP_ADDRESS

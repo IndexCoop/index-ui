@@ -338,8 +338,8 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
                 alt: 'iETH FLI Icon',
                 src: gmiLogo,
               }}
-              label='iETH2x-FLI-P Balance (Polygon)'
-              link={`https://polygonscan.com/address/${tokenAddresses.ieth2xflipTokenAddress}`}
+              label='iETH-FLI-P Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.iethflipTokenAddress}`}
               value={displayFromWei(iethFlipBalance)}
             />
           </Box>

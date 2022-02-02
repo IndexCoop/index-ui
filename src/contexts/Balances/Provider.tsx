@@ -17,7 +17,7 @@ import {
   gmiStakingRewardsAddress,
   gmiTokenAddress,
   gmiTokenPolygonAddress,
-  ieth2xflipTokenAddress,
+  iethflipTokenAddress,
   imatic2xfliTokenAddress,
   indexTokenAddress,
   matic2xfliTokenAddress,
@@ -125,7 +125,7 @@ const Provider: React.FC = ({ children }) => {
         !farmTwoAddress ||
         !mviStakingRewardsAddress ||
         !wethTokenPolygonAddress ||
-        !ieth2xflipTokenAddress ||
+        !iethflipTokenAddress ||
         !matic2xfliTokenAddress ||
         !imatic2xfliTokenAddress
       ) {
@@ -205,7 +205,7 @@ const Provider: React.FC = ({ children }) => {
           getBalance(provider, usdcTokenPolygonAddress, userAddress),
           getBalance(provider, dataTokenPolygonAddress, userAddress),
           getBalance(provider, gmiTokenPolygonAddress, userAddress),
-          getBalance(provider, ieth2xflipTokenAddress, userAddress),
+          getBalance(provider, iethflipTokenAddress, userAddress),
           getBalance(provider, imatic2xfliTokenAddress, userAddress),
           getBalance(provider, matic2xfliTokenAddress, userAddress),
         ])

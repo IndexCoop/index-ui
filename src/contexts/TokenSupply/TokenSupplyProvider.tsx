@@ -12,7 +12,7 @@ import {
   eth2xflipTokenAddress,
   eth2xfliTokenAddress,
   gmiTokenAddress,
-  ieth2xflipTokenAddress,
+  iethflipTokenAddress,
   imatic2xfliTokenAddress,
   matic2xfliTokenAddress,
   mviTokenAddress,
@@ -35,8 +35,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
   const [dataTotalSupply, setDataTotalSupply] = useState<BigNumber>()
   const [matic2xfliTotalSupply, setMatic2xfliTotalSupply] =
     useState<BigNumber>()
-  const [ieth2xflipTotalSupply, setiEth2xflipTotalSupply] =
-    useState<BigNumber>()
+  const [iethflipTotalSupply, setiEthflipTotalSupply] = useState<BigNumber>()
   const [imatic2xfliTotalSupply, setiMatic2xfliTotalSupply] =
     useState<BigNumber>()
   const { ethereum: provider, chainId } = useWallet()
@@ -123,7 +122,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
       dpiTokenPolygonAddress &&
       mviTokenPolygonAddress &&
       eth2xflipTokenAddress &&
-      ieth2xflipTokenAddress &&
+      iethflipTokenAddress &&
       matic2xfliTokenAddress &&
       imatic2xfliTokenAddress
     ) {
@@ -133,7 +132,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
           dpiTokenPolygonAddress,
           mviTokenPolygonAddress,
           eth2xflipTokenAddress,
-          ieth2xflipTokenAddress,
+          iethflipTokenAddress,
           imatic2xfliTokenAddress,
           matic2xfliTokenAddress,
         ],
@@ -144,7 +143,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
             dpiResult,
             mviResult,
             eth2xFLIPResult,
-            ieth2xFLIPResult,
+            iethFLIPResult,
             imatic2xFLIResult,
             matic2xFLIResult,
           ] = result
@@ -163,8 +162,8 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
               new BigNumber(10).pow(18)
             )
           )
-          setiEth2xflipTotalSupply(
-            new BigNumber(ieth2xFLIPResult.totalSupply.toString()).dividedBy(
+          setiEthflipTotalSupply(
+            new BigNumber(iethFLIPResult.totalSupply.toString()).dividedBy(
               new BigNumber(10).pow(18)
             )
           )
@@ -202,7 +201,7 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
         dataTotalSupply: dataTotalSupply,
         imatic2xfliTotalSupply: imatic2xfliTotalSupply,
         matic2xfliTotalSupply: matic2xfliTotalSupply,
-        ieth2xflipTotalSupply: ieth2xflipTotalSupply,
+        iethflipTotalSupply: iethflipTotalSupply,
       }}
     >
       {children}

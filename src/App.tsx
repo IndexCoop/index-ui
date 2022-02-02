@@ -28,7 +28,13 @@ import { FarmingProvider } from 'contexts/Farming'
 import { FarmingTwoProvider } from 'contexts/FarmingTwo'
 import { GmiFarmingProvider } from 'contexts/GmiFarming'
 import { GmiTokenMarketDataProvider } from 'contexts/GmiTokenMarketData'
+import { IEthFLIPTokenSupplyCapProvider } from 'contexts/IEthFLIPTokenSupplyCap'
+import IEthFLIPMarketDataProvider from 'contexts/IEthFLIPTokenMarketData/IEthFLIPTokenMarketDataProvider'
+import { IMatic2xFLITokenMarketDataProvider } from 'contexts/IMatic2xFLITokenMarketData'
+import { IMatic2xFLITokenSupplyCapProvider } from 'contexts/IMatic2xFLITokenSupplyCap'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
+import Matic2xFLIMarketDataProvider from 'contexts/Matic2xFLITokenMarketData/Matic2xFLITokenMarketDataProvider'
+import { Matic2xFLITokenSupplyCapProvider } from 'contexts/Matic2xFLITokenSupplyCap'
 import { MediaQueryProvider } from 'contexts/MediaQuery'
 import { MviStakingRewardsProvider } from 'contexts/MviStakingRewards'
 import { MviTokenMarketDataProvider } from 'contexts/MviTokenMarketData'
@@ -51,19 +57,13 @@ import ETH2XFLI from 'views/ETH2XFLI'
 import ETH2XFLIP from 'views/ETH2XFLIP'
 import Farm from 'views/Farm'
 import GMI from 'views/GMI'
+import IETHFLIP from 'views/IETHFLIP'
+import IMATIC2XFLIP from 'views/IMATIC2XFLIP'
 import INDEX from 'views/INDEX'
+import MATIC2XFLI from 'views/MATIC2XFLI'
 import MVI from 'views/MVI'
 
 import 'react-toastify/dist/ReactToastify.css'
-import IEth2xFLIPMarketDataProvider from 'contexts/IEth2xFLIPTokenMarketData/IEth2xFLIPTokenMarketDataProvider'
-import { IEth2xFLIPTokenSupplyCapProvider } from 'contexts/IEth2xFLIPTokenSupplyCap'
-import Matic2xFLIMarketDataProvider from 'contexts/Matic2xFLITokenMarketData/Matic2xFLITokenMarketDataProvider'
-import { Matic2xFLITokenSupplyCapProvider } from 'contexts/Matic2xFLITokenSupplyCap'
-import { IMatic2xFLITokenMarketDataProvider } from 'contexts/IMatic2xFLITokenMarketData'
-import { IMatic2xFLITokenSupplyCapProvider } from 'contexts/IMatic2xFLITokenSupplyCap'
-import IETH2XFLIP from 'views/IETH2XFLIP'
-import MATIC2XFLI from 'views/MATIC2XFLI'
-import IMATIC2XFLIP from 'views/IMATIC2XFLIP'
 
 const App: React.FC = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
@@ -125,8 +125,8 @@ const App: React.FC = () => {
             <Route exact path='/data'>
               <DATA title={'Index - DATA'} />
             </Route>
-            <Route exact path='/iethflip'>
-              <IETH2XFLIP title={'Index - iETH2x-FLI-P'} />
+            <Route exact path='/ieth'>
+              <IETHFLIP title={'Index - iETH-FLI-P'} />
             </Route>
             <Route exact path='/maticfli'>
               <MATIC2XFLI title={'Index - MATIC2x-FLI'} />
@@ -187,8 +187,8 @@ const Providers: React.FC = ({ children }) => {
                             <BuySellProvider>
                               <Eth2xFLIPTokenMarketDataProvider>
                                 <Eth2xFLIPTokenSupplyCapProvider>
-                                  <IEth2xFLIPMarketDataProvider>
-                                    <IEth2xFLIPTokenSupplyCapProvider>
+                                  <IEthFLIPMarketDataProvider>
+                                    <IEthFLIPTokenSupplyCapProvider>
                                       <Matic2xFLIMarketDataProvider>
                                         <Matic2xFLITokenSupplyCapProvider>
                                           <IMatic2xFLITokenMarketDataProvider>
@@ -230,8 +230,8 @@ const Providers: React.FC = ({ children }) => {
                                           </IMatic2xFLITokenMarketDataProvider>
                                         </Matic2xFLITokenSupplyCapProvider>
                                       </Matic2xFLIMarketDataProvider>
-                                    </IEth2xFLIPTokenSupplyCapProvider>
-                                  </IEth2xFLIPMarketDataProvider>
+                                    </IEthFLIPTokenSupplyCapProvider>
+                                  </IEthFLIPMarketDataProvider>
                                 </Eth2xFLIPTokenSupplyCapProvider>
                               </Eth2xFLIPTokenMarketDataProvider>
                             </BuySellProvider>

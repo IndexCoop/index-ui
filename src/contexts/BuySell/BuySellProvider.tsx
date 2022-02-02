@@ -80,7 +80,7 @@ const BuySellProvider: React.FC = ({ children }) => {
     spendingTokenBalance = fromWei(ethfliBalance)
   } else if (!isUserBuying && buySellToken === 'eth2x-fli-p') {
     spendingTokenBalance = fromWei(ethflipBalance)
-  } else if (!isUserBuying && buySellToken === 'ieth2x-fli-p') {
+  } else if (!isUserBuying && buySellToken === 'ieth-fli-p') {
     spendingTokenBalance = fromWei(iethFlipBalance)
   } else if (!isUserBuying && buySellToken === 'matic2x-fli') {
     spendingTokenBalance = fromWei(maticFliBalancePolygon)

@@ -16,7 +16,7 @@ import {
   eth2xflipTokenAddress,
   eth2xfliTokenAddress,
   gmiTokenAddress,
-  ieth2xflipTokenAddress,
+  iethflipTokenAddress,
   imatic2xfliTokenAddress,
   matic2xfliTokenAddress,
   mviTokenAddress,
@@ -46,7 +46,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     eth2xflipPrice,
     matic2xfliPrice,
     imatic2xfliPrice,
-    ieth2xflipPrice,
+    iethflipPrice,
   } = usePrices()
   const [dpiComponents, setDpiComponents] = useState<SetComponent[]>([])
   const [mviComponents, setMviComponents] = useState<SetComponent[]>([])
@@ -62,9 +62,9 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     []
   )
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
-  const [ieth2xflipComponents, setIEth2xflipComponents] = useState<
-    SetComponent[]
-  >([])
+  const [iethflipComponents, setIEthflipComponents] = useState<SetComponent[]>(
+    []
+  )
   const [matic2xfliComponents, setMatic2xfliComponents] = useState<
     SetComponent[]
   >([])
@@ -246,7 +246,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
       dpiTokenPolygonAddress &&
       mviTokenPolygonAddress &&
       eth2xflipTokenAddress &&
-      ieth2xflipTokenAddress &&
+      iethflipTokenAddress &&
       matic2xfliTokenAddress &&
       imatic2xfliTokenAddress &&
       tokenList
@@ -255,7 +255,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         provider,
         [
           eth2xflipTokenAddress,
-          ieth2xflipTokenAddress,
+          iethflipTokenAddress,
           matic2xfliTokenAddress,
           imatic2xfliTokenAddress,
         ],
@@ -299,12 +299,12 @@ const SetComponentsProvider: React.FC = ({ children }) => {
               iethFlipComponentPrices[position.component.toLowerCase()]?.[
                 `${VS_CURRENCY}_24h_change`
               ],
-              ieth2xflipPrice
+              iethflipPrice
             )
           })
           Promise.all(iethFlipPositions)
             .then(sortPositionsByPercentOfSet)
-            .then(setIEth2xflipComponents)
+            .then(setIEthflipComponents)
 
           const maticFliComponentPrices = await getPositionPrices(
             maticfli,
@@ -356,7 +356,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     chainId,
     provider,
     tokenList,
-    ieth2xflipPrice,
+    iethflipPrice,
     imatic2xfliPrice,
     matic2xfliPrice,
   ])
@@ -372,7 +372,7 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         eth2xflipComponents: eth2xflipComponents,
         btc2xfliComponents: btc2xfliComponents,
         dataComponents: dataComponents,
-        iEth2xFlipComponents: ieth2xflipComponents,
+        iEthFlipComponents: iethflipComponents,
         iMatic2xFliComponents: imatic2xfliComponents,
         matic2xFliComponents: matic2xfliComponents,
       }}
