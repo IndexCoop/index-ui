@@ -18,13 +18,15 @@ const Logo: React.FC = () => {
   else logo = darkMode ? indexLogoWhite : indexLogoBlack
 
   return (
-    <StyledLogo to='/website'>
-      <StyledImage src={logo} alt='index-logo' />
-    </StyledLogo>
+    <Link to={{pathname: "https://indexcoop.com"}} target={'_top'}>
+      <StyledLogo>
+        <StyledImage src={logo} alt='index-logo' />
+      </StyledLogo>
+    </Link>
   )
 }
 
-const StyledLogo = styled(Link)`
+const StyledLogo = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
