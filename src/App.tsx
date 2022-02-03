@@ -122,16 +122,8 @@ const App: React.FC = () => {
             <Route exact path='/liquidity-mining'>
               <Farm title={'Index - Liquidity Mining'} />
             </Route>
-            <Route
-              exact
-              path='/join'
-              render={() => (window.location.href = discordLink)}
-            />
-            <Route
-              exact
-              path='/discord'
-              render={() => (window.location.href = discordLink)}
-            />
+            <Route exact path='/join' render={() => (window.location.href = discordLink)} />
+            <Route exact path='/discord' render={() => (window.location.href = discordLink)} />
           </Switch>
         </StyledBackgroundDiv>
       </Providers>
