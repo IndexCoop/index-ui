@@ -21,7 +21,7 @@
     "ethereumjs-tx": "^2.1.2",
     "ethers": "^5.4.6",
     "google-spreadsheet": "^3.2.0",
-    "graphql": "^15.7.2",
+    "graphql": "^15.8.0",
     "graphql-tag": "^2.12.6",
     "numeral": "^2.0.6",
     "react": "^16.14.0",
