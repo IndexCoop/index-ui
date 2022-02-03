@@ -38,7 +38,7 @@
     "recharts": "^2.1.6",
     "set.js": "^0.4.1",
     "styled-components": "^5.3.3",
-    "use-wallet": "^0.11.0",
+    "use-wallet": "^0.13.4",
     "web3": "^1.6.1",
     "web3-core": "^1.6.0",
     "web3-provider-engine": "^16.0.3"
