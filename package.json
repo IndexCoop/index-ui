@@ -9,7 +9,7 @@
     "@ledgerhq/hw-app-eth": "^6.17.0",
     "@ledgerhq/hw-transport": "^6.10.0",
     "@ledgerhq/hw-transport-webusb": "^6.11.2",
-    "@testing-library/jest-dom": "^5.15.1",
+    "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@usedapp/core": "^0.6.3",
