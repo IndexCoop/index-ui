@@ -16,6 +16,9 @@ import {
   eth2xflipTokenAddress,
   eth2xfliTokenAddress,
   gmiTokenAddress,
+  iethflipTokenAddress,
+  imaticflipTokenAddress,
+  matic2xflipTokenAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
@@ -41,6 +44,9 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     btc2xfliPrice,
     dataPrice,
     eth2xflipPrice,
+    matic2xflipPrice,
+    imaticflipPrice,
+    iethflipPrice,
   } = usePrices()
   const [dpiComponents, setDpiComponents] = useState<SetComponent[]>([])
   const [mviComponents, setMviComponents] = useState<SetComponent[]>([])
@@ -56,6 +62,16 @@ const SetComponentsProvider: React.FC = ({ children }) => {
     []
   )
   const [dataComponents, setDataComponents] = useState<SetComponent[]>([])
+  const [iethflipComponents, setIEthflipComponents] = useState<SetComponent[]>(
+    []
+  )
+  const [matic2xflipComponents, setMatic2xflipComponents] = useState<
+    SetComponent[]
+  >([])
+  const [imaticflipComponents, setIMaticflipComponents] = useState<
+    SetComponent[]
+  >([])
+
   const { ethereum: provider, chainId } = useWallet()
   const tokenList = getTokenList(chainId)
 
@@ -230,11 +246,24 @@ const SetComponentsProvider: React.FC = ({ children }) => {
       dpiTokenPolygonAddress &&
       mviTokenPolygonAddress &&
       eth2xflipTokenAddress &&
+      iethflipTokenAddress &&
+      matic2xflipTokenAddress &&
+      imaticflipTokenAddress &&
       tokenList
     ) {
-      getSetDetails(provider, [eth2xflipTokenAddress], chainId)
+      getSetDetails(
+        provider,
+        [
+          eth2xflipTokenAddress,
+          iethflipTokenAddress,
+          matic2xflipTokenAddress,
+          imaticflipTokenAddress,
+        ],
+        chainId
+      )
         .then(async (result) => {
-          const ethflip = result[0]
+          const [ethflip, iethflip, maticflip, imaticflip] = result
+
           const ethFlipComponentPrices = await getPositionPrices(
             ethflip,
             'polygon-pos'
@@ -255,10 +284,84 @@ const SetComponentsProvider: React.FC = ({ children }) => {
           Promise.all(ethFlipPositions)
             .then(sortPositionsByPercentOfSet)
             .then(setEth2xflipComponents)
+
+          const iethFlipComponentPrices = await getPositionPrices(
+            iethflip,
+            'polygon-pos'
+          )
+          const iethFlipPositions = iethflip.positions.map(async (position) => {
+            return await convertPositionToSetComponent(
+              position,
+              tokenList,
+              iethFlipComponentPrices[position.component.toLowerCase()]?.[
+                VS_CURRENCY
+              ],
+              iethFlipComponentPrices[position.component.toLowerCase()]?.[
+                `${VS_CURRENCY}_24h_change`
+              ],
+              iethflipPrice
+            )
+          })
+          Promise.all(iethFlipPositions)
+            .then(sortPositionsByPercentOfSet)
+            .then(setIEthflipComponents)
+
+          const maticFlipComponentPrices = await getPositionPrices(
+            maticflip,
+            'polygon-pos'
+          )
+          const maticFliPositions = maticflip.positions.map(
+            async (position) => {
+              return await convertPositionToSetComponent(
+                position,
+                tokenList,
+                maticFlipComponentPrices[position.component.toLowerCase()]?.[
+                  VS_CURRENCY
+                ],
+                maticFlipComponentPrices[position.component.toLowerCase()]?.[
+                  `${VS_CURRENCY}_24h_change`
+                ],
+                matic2xflipPrice
+              )
+            }
+          )
+          Promise.all(maticFliPositions)
+            .then(sortPositionsByPercentOfSet)
+            .then(setMatic2xflipComponents)
+
+          const imaticFlipComponentPrices = await getPositionPrices(
+            imaticflip,
+            'polygon-pos'
+          )
+          const imaticFlipPositions = imaticflip.positions.map(
+            async (position) => {
+              return await convertPositionToSetComponent(
+                position,
+                tokenList,
+                imaticFlipComponentPrices[position.component.toLowerCase()]?.[
+                  VS_CURRENCY
+                ],
+                imaticFlipComponentPrices[position.component.toLowerCase()]?.[
+                  `${VS_CURRENCY}_24h_change`
+                ],
+                imaticflipPrice
+              )
+            }
+          )
+          Promise.all(imaticFlipPositions)
+            .then(sortPositionsByPercentOfSet)
+            .then(setIMaticflipComponents)
         })
         .catch((err) => console.log('err', err))
     }
-  }, [chainId, provider, tokenList, eth2xflipPrice])
+  }, [
+    chainId,
+    provider,
+    tokenList,
+    iethflipPrice,
+    imaticflipPrice,
+    matic2xflipPrice,
+  ])
 
   return (
     <SetComponentsContext.Provider
@@ -271,6 +374,9 @@ const SetComponentsProvider: React.FC = ({ children }) => {
         eth2xflipComponents: eth2xflipComponents,
         btc2xfliComponents: btc2xfliComponents,
         dataComponents: dataComponents,
+        iEthFlipComponents: iethflipComponents,
+        iMaticFlipComponents: imaticflipComponents,
+        matic2xFlipComponents: matic2xflipComponents,
       }}
     >
       {children}

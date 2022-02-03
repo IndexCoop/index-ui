@@ -12,6 +12,9 @@ import {
   eth2xflipTokenAddress,
   eth2xfliTokenAddress,
   gmiTokenAddress,
+  iethflipTokenAddress,
+  imaticflipTokenAddress,
+  matic2xflipTokenAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
 } from 'constants/ethContractAddresses'
@@ -30,6 +33,11 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
   const [eth2xflipTotalSupply, setEth2xflipTotalSupply] = useState<BigNumber>()
   const [btc2xfliTotalSupply, setBtc2xfliTotalSupply] = useState<BigNumber>()
   const [dataTotalSupply, setDataTotalSupply] = useState<BigNumber>()
+  const [matic2xflipTotalSupply, setMatic2xflipTotalSupply] =
+    useState<BigNumber>()
+  const [iethflipTotalSupply, setiEthflipTotalSupply] = useState<BigNumber>()
+  const [imaticflipTotalSupply, setiMaticflipTotalSupply] =
+    useState<BigNumber>()
   const { ethereum: provider, chainId } = useWallet()
 
   useEffect(() => {
@@ -113,15 +121,32 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
       provider &&
       dpiTokenPolygonAddress &&
       mviTokenPolygonAddress &&
-      eth2xflipTokenAddress
+      eth2xflipTokenAddress &&
+      iethflipTokenAddress &&
+      matic2xflipTokenAddress &&
+      imaticflipTokenAddress
     ) {
       getTokenSupply(
         provider,
-        [dpiTokenPolygonAddress, mviTokenPolygonAddress, eth2xflipTokenAddress],
+        [
+          dpiTokenPolygonAddress,
+          mviTokenPolygonAddress,
+          eth2xflipTokenAddress,
+          iethflipTokenAddress,
+          imaticflipTokenAddress,
+          matic2xflipTokenAddress,
+        ],
         chainId
       )
         .then((result) => {
-          const [dpiResult, mviResult, eth2xFLIPResult] = result
+          const [
+            dpiResult,
+            mviResult,
+            eth2xFLIPResult,
+            iethFLIPResult,
+            imaticFLIPResult,
+            matic2xFLIPResult,
+          ] = result
           setDpiTotalSupply(
             new BigNumber(dpiResult.totalSupply.toString()).dividedBy(
               new BigNumber(10).pow(18)
@@ -137,6 +162,22 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
               new BigNumber(10).pow(18)
             )
           )
+          setiEthflipTotalSupply(
+            new BigNumber(iethFLIPResult.totalSupply.toString()).dividedBy(
+              new BigNumber(10).pow(18)
+            )
+          )
+          setMatic2xflipTotalSupply(
+            new BigNumber(matic2xFLIPResult.totalSupply.toString()).dividedBy(
+              new BigNumber(10).pow(18)
+            )
+          )
+          setiMaticflipTotalSupply(
+            new BigNumber(imaticFLIPResult.totalSupply.toString()).dividedBy(
+              new BigNumber(10).pow(18)
+            )
+          )
+
           setBedTotalSupply(undefined)
           setGmiTotalSupply(undefined)
           setEth2xfliTotalSupply(undefined)
@@ -158,6 +199,9 @@ const TokenSupplyProvider: React.FC = ({ children }) => {
         eth2xflipTotalSupply: eth2xflipTotalSupply,
         btc2xfliTotalSupply: btc2xfliTotalSupply,
         dataTotalSupply: dataTotalSupply,
+        imaticflipTotalSupply: imaticflipTotalSupply,
+        matic2xflipTotalSupply: matic2xflipTotalSupply,
+        iethflipTotalSupply: iethflipTotalSupply,
       }}
     >
       {children}

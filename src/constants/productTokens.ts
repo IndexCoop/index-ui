@@ -1,7 +1,10 @@
 import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
 import gmiLogo from 'assets/gmilogo.png'
+import iethflipLogo from 'assets/iethfliplogo.svg'
+import imaticflipLogo from 'assets/imaticflilogo.svg'
 import indexLogo from 'assets/index-token.png'
+import maticflipLogo from 'assets/maticflilogo.svg'
 import * as tokenAddresses from 'constants/ethContractAddresses'
 
 export const dpiTokenImage =
@@ -130,6 +133,48 @@ export const GmiIndex: ProductToken = {
   tokensetsId: 'gmi',
   fees: {
     streamingFee: '1.95%',
+  },
+}
+
+export const Matic2xFLIP: ProductToken = {
+  name: 'MATIC 2x Flexible Leverage Index',
+  symbol: 'MATIC2x-FLI-P',
+  address: undefined,
+  polygonAddress: tokenAddresses.matic2xflipTokenAddress,
+  image: maticflipLogo,
+  coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
+  tokensetsId: 'matic2x-fli',
+  fees: {
+    streamingFee: '1.95%',
+    mintRedeemFee: '0.1%',
+  },
+}
+
+export const IMaticFLIP: ProductToken = {
+  name: 'Inverse MATIC Flexible Leverage Index',
+  symbol: 'iMATIC-FLI-P',
+  address: undefined,
+  polygonAddress: tokenAddresses.imaticflipTokenAddress,
+  image: imaticflipLogo,
+  coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
+  tokensetsId: 'imatic-fli',
+  fees: {
+    streamingFee: '1.95%',
+    mintRedeemFee: '0.1%',
+  },
+}
+
+export const IEthereumFLIP: ProductToken = {
+  name: 'Inverse ETH Flexible Leverage Index',
+  symbol: 'iETH-FLI-P',
+  address: undefined,
+  polygonAddress: tokenAddresses.iethflipTokenAddress,
+  image: iethflipLogo,
+  coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
+  tokensetsId: 'ieth-fli-p',
+  fees: {
+    streamingFee: '1.95%',
+    mintRedeemFee: '0.1%',
   },
 }
 

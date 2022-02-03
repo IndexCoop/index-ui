@@ -50,6 +50,9 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     dataBalancePolygon,
     gmiBalancePolygon,
     stakedGmiBalance,
+    iethFlipBalance,
+    imaticFlipBalancePolygon,
+    maticFlipBalancePolygon,
   } = useBalances()
 
   const totalStakedEthDpiLpBalance = getBigNumber(
@@ -329,7 +332,42 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               value={displayFromWei(gmiBalancePolygon)}
             />
           </Box>
-          <Spacer />
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'iETH-FLI-P Icon',
+                src: gmiLogo,
+              }}
+              label='iETH-FLI-P Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.iethflipTokenAddress}`}
+              value={displayFromWei(iethFlipBalance)}
+            />
+          </Box>
+        </Split>
+        <Spacer />
+        <Split>
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'MATIC2x-FLI-P Icon',
+                src: gmiLogo,
+              }}
+              label='MATIC2x-FLI-P Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.matic2xflipTokenAddress}`}
+              value={displayFromWei(maticFlipBalancePolygon)}
+            />
+          </Box>
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'iMATIC-FLI-P Icon',
+                src: gmiLogo,
+              }}
+              label='iMATIC-FLI-P Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.imaticflipTokenAddress}`}
+              value={displayFromWei(imaticFlipBalancePolygon)}
+            />
+          </Box>
         </Split>
       </>
     )

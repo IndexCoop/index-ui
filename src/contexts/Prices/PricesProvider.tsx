@@ -34,6 +34,9 @@ const PricesProvider: React.FC = ({ children }) => {
   const [eth2xflipPrice, setEth2xflipPrice] = useState<number>(0)
   const [btc2xfliPrice, setBtc2xfliPrice] = useState<number>(0)
   const [dataPrice, setDataPrice] = useState<number>(0)
+  const [iethflipPrice, setIEthflipPrice] = useState<number>(0)
+  const [matic2xflipPrice, setMatic2xfliPrice] = useState<number>(0)
+  const [imaticflipPrice, setIMaticflipPrice] = useState<number>(0)
 
   const [usdInEthDpiPool, setUsdInEthDpiPool] = useState<number>()
   const [totalSupplyInEthDpiPool, setTotalSupplyInEthDpiPool] =
@@ -101,6 +104,24 @@ const PricesProvider: React.FC = ({ children }) => {
       .then((response) => response.json())
       .then((response) => {
         setEth2xflipPrice(response?.portfolio.price_usd || 0)
+      })
+      .catch((error) => console.log(error))
+    fetch('https://api.tokensets.com/public/v2/portfolios/ieth-fli-p')
+      .then((response) => response.json())
+      .then((response) => {
+        setIEthflipPrice(response?.portfolio.price_usd || 0)
+      })
+      .catch((error) => console.log(error))
+    fetch('https://api.tokensets.com/public/v2/portfolios/matic2x-fli-p')
+      .then((response) => response.json())
+      .then((response) => {
+        setMatic2xfliPrice(response?.portfolio.price_usd || 0)
+      })
+      .catch((error) => console.log(error))
+    fetch('https://api.tokensets.com/public/v2/portfolios/imatic-fli-p')
+      .then((response) => response.json())
+      .then((response) => {
+        setIMaticflipPrice(response?.portfolio.price_usd || 0)
       })
       .catch((error) => console.log(error))
   }, [])
@@ -239,13 +260,7 @@ const PricesProvider: React.FC = ({ children }) => {
       .dividedBy(gmiTotalSupply)
       .multipliedBy(new BigNumber(1200))
     if (!Number.isNaN(apr) && apr.gt(new BigNumber(0))) setGmiRewardsApy(apr)
-  }, [
-    gmiTotalSupply,
-    gmiRewardsApy,
-    ethereum,
-    gmiPrice,
-    indexPrice,
-  ])
+  }, [gmiTotalSupply, gmiRewardsApy, ethereum, gmiPrice, indexPrice])
 
   const totalUSDInFarms =
     Number(usdInEthMviPool || '0') + Number(usdInEthDpiPool || '0')
@@ -268,6 +283,9 @@ const PricesProvider: React.FC = ({ children }) => {
         farmTwoApy,
         mviRewardsApy,
         gmiRewardsApy: gmiRewardsApy.toFixed(2),
+        iethflipPrice,
+        imaticflipPrice,
+        matic2xflipPrice,
       }}
     >
       {children}

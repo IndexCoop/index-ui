@@ -58,6 +58,30 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
           <StyledLink
             exact
             activeClassName='active'
+            to='/ieth'
+            onClick={onDismiss}
+          >
+            iETH FLI - Polygon
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/matic2x'
+            onClick={onDismiss}
+          >
+            MATIC 2x FLI - Polygon
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
+            to='/imatic'
+            onClick={onDismiss}
+          >
+            iMATIC FLI - Polygon
+          </StyledLink>
+          <StyledLink
+            exact
+            activeClassName='active'
             to='/bed'
             onClick={onDismiss}
           >

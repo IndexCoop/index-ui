@@ -28,7 +28,13 @@ import { FarmingProvider } from 'contexts/Farming'
 import { FarmingTwoProvider } from 'contexts/FarmingTwo'
 import { GmiFarmingProvider } from 'contexts/GmiFarming'
 import { GmiTokenMarketDataProvider } from 'contexts/GmiTokenMarketData'
+import { IEthFLIPTokenMarketDataProvider } from 'contexts/IEthFLIPTokenMarketData'
+import { IEthFLIPTokenSupplyCapProvider } from 'contexts/IEthFLIPTokenSupplyCap'
+import { IMaticFLIPTokenMarketDataProvider } from 'contexts/IMaticFLIPTokenMarketData'
+import { IMaticFLIPTokenSupplyCapProvider } from 'contexts/IMaticFLIPTokenSupplyCap'
 import { IndexTokenMarketDataProvider } from 'contexts/IndexTokenMarketData'
+import { Matic2xFLIPTokenMarketDataProvider } from 'contexts/Matic2xFLIPTokenMarketData'
+import { Matic2xFLIPTokenSupplyCapProvider } from 'contexts/Matic2xFLIPTokenSupplyCap'
 import { MediaQueryProvider } from 'contexts/MediaQuery'
 import { MviStakingRewardsProvider } from 'contexts/MviStakingRewards'
 import { MviTokenMarketDataProvider } from 'contexts/MviTokenMarketData'
@@ -51,7 +57,10 @@ import ETH2XFLI from 'views/ETH2XFLI'
 import ETH2XFLIP from 'views/ETH2XFLIP'
 import Farm from 'views/Farm'
 import GMI from 'views/GMI'
+import IETHFLIP from 'views/IETHFLIP'
+import IMATICFLIP from 'views/IMATICFLIP'
 import INDEX from 'views/INDEX'
+import MATIC2XFLIP from 'views/MATIC2XFLIP'
 import MVI from 'views/MVI'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -116,6 +125,15 @@ const App: React.FC = () => {
             <Route exact path='/data'>
               <DATA title={'Index - DATA'} />
             </Route>
+            <Route exact path='/ieth'>
+              <IETHFLIP title={'Index - iETH-FLI-P'} />
+            </Route>
+            <Route exact path='/matic2x'>
+              <MATIC2XFLIP title={'Index - MATIC2x-FLI-P'} />
+            </Route>
+            <Route exact path='/imatic'>
+              <IMATICFLIP title={'Index - iMATIC-FLI-P'} />
+            </Route>
             <Route exact path='/index'>
               <INDEX title={'Index - Index'} />
             </Route>
@@ -169,37 +187,51 @@ const Providers: React.FC = ({ children }) => {
                             <BuySellProvider>
                               <Eth2xFLIPTokenMarketDataProvider>
                                 <Eth2xFLIPTokenSupplyCapProvider>
-                                  <Eth2xFliTokenMarketDataProvider>
-                                    <Eth2xFliTokenSupplyCapProvider>
-                                      <Btc2xFliTokenMarketDataProvider>
-                                        <Btc2xFliTokenSupplyCapProvider>
-                                          <DpiTokenMarketDataProvider>
-                                            <MviTokenMarketDataProvider>
-                                              <BedTokenMarketDataProvider>
-                                                <GmiTokenMarketDataProvider>
-                                                  <DataTokenMarketDataProvider>
-                                                    <IndexTokenMarketDataProvider>
-                                                      <V3FarmingProvider>
-                                                        <GmiFarmingProvider>
-                                                          <StreamingFeeProvider>
-                                                            <TokenSupplyProvider>
-                                                              <SetComponentsProvider>
-                                                                {children}
-                                                              </SetComponentsProvider>
-                                                            </TokenSupplyProvider>
-                                                          </StreamingFeeProvider>
-                                                        </GmiFarmingProvider>
-                                                      </V3FarmingProvider>
-                                                    </IndexTokenMarketDataProvider>
-                                                  </DataTokenMarketDataProvider>
-                                                </GmiTokenMarketDataProvider>
-                                              </BedTokenMarketDataProvider>
-                                            </MviTokenMarketDataProvider>
-                                          </DpiTokenMarketDataProvider>
-                                        </Btc2xFliTokenSupplyCapProvider>
-                                      </Btc2xFliTokenMarketDataProvider>
-                                    </Eth2xFliTokenSupplyCapProvider>
-                                  </Eth2xFliTokenMarketDataProvider>
+                                  <IEthFLIPTokenMarketDataProvider>
+                                    <IEthFLIPTokenSupplyCapProvider>
+                                      <Matic2xFLIPTokenMarketDataProvider>
+                                        <Matic2xFLIPTokenSupplyCapProvider>
+                                          <IMaticFLIPTokenMarketDataProvider>
+                                            <IMaticFLIPTokenSupplyCapProvider>
+                                              <Eth2xFliTokenMarketDataProvider>
+                                                <Eth2xFliTokenSupplyCapProvider>
+                                                  <Btc2xFliTokenMarketDataProvider>
+                                                    <Btc2xFliTokenSupplyCapProvider>
+                                                      <DpiTokenMarketDataProvider>
+                                                        <MviTokenMarketDataProvider>
+                                                          <BedTokenMarketDataProvider>
+                                                            <GmiTokenMarketDataProvider>
+                                                              <DataTokenMarketDataProvider>
+                                                                <IndexTokenMarketDataProvider>
+                                                                  <V3FarmingProvider>
+                                                                    <GmiFarmingProvider>
+                                                                      <StreamingFeeProvider>
+                                                                        <TokenSupplyProvider>
+                                                                          <SetComponentsProvider>
+                                                                            {
+                                                                              children
+                                                                            }
+                                                                          </SetComponentsProvider>
+                                                                        </TokenSupplyProvider>
+                                                                      </StreamingFeeProvider>
+                                                                    </GmiFarmingProvider>
+                                                                  </V3FarmingProvider>
+                                                                </IndexTokenMarketDataProvider>
+                                                              </DataTokenMarketDataProvider>
+                                                            </GmiTokenMarketDataProvider>
+                                                          </BedTokenMarketDataProvider>
+                                                        </MviTokenMarketDataProvider>
+                                                      </DpiTokenMarketDataProvider>
+                                                    </Btc2xFliTokenSupplyCapProvider>
+                                                  </Btc2xFliTokenMarketDataProvider>
+                                                </Eth2xFliTokenSupplyCapProvider>
+                                              </Eth2xFliTokenMarketDataProvider>
+                                            </IMaticFLIPTokenSupplyCapProvider>
+                                          </IMaticFLIPTokenMarketDataProvider>
+                                        </Matic2xFLIPTokenSupplyCapProvider>
+                                      </Matic2xFLIPTokenMarketDataProvider>
+                                    </IEthFLIPTokenSupplyCapProvider>
+                                  </IEthFLIPTokenMarketDataProvider>
                                 </Eth2xFLIPTokenSupplyCapProvider>
                               </Eth2xFLIPTokenMarketDataProvider>
                             </BuySellProvider>
