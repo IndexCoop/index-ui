@@ -11,7 +11,10 @@ import {
   eth2xfliTokenAddress,
   gmiTokenAddress,
   gmiTokenPolygonAddress,
+  iethflipTokenAddress,
+  imaticflipTokenAddress,
   indexTokenAddress,
+  matic2xflipTokenAddress,
   mviTokenAddress,
   mviTokenPolygonAddress,
   usdcTokenAddress,
@@ -96,6 +99,18 @@ export const polygonTokenInfo: any = {
   },
   'eth2x-fli-p': {
     address: eth2xflipTokenAddress,
+    decimals: 18,
+  },
+  'ieth-fli-p': {
+    address: iethflipTokenAddress,
+    decimals: 18,
+  },
+  'matic2x-fli-p': {
+    address: matic2xflipTokenAddress,
+    decimals: 18,
+  },
+  'imatic-fli-p': {
+    address: imaticflipTokenAddress,
     decimals: 18,
   },
 }
