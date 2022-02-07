@@ -101,15 +101,15 @@ export const polygonTokenInfo: any = {
     address: eth2xflipTokenAddress,
     decimals: 18,
   },
-  'ieth-fli-p': {
+  'ieth-fli-p-polygon': {
     address: iethflipTokenAddress,
     decimals: 18,
   },
-  'matic2x-fli-p': {
+  'matic2x-fli-p-polygon': {
     address: matic2xflipTokenAddress,
     decimals: 18,
   },
-  'imatic-fli-p': {
+  'imatic-fli-p-polygon': {
     address: imaticflipTokenAddress,
     decimals: 18,
   },
