@@ -57,7 +57,7 @@ const IMaticFLIProductPage = (props: { title: string }) => {
       toast.error(
         "iMatic-FLI-P has reached it's supply cap. Beware this product may be trading at a significant premium to it's Net Asset Value.",
         {
-          toastId: 'ethfli-p-supply-cap-warning',
+          toastId: 'imatic-fli-p-supply-cap-warning',
           position: 'top-right',
           autoClose: false,
           hideProgressBar: true,

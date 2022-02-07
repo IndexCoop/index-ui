@@ -57,7 +57,7 @@ const Matic2xFLIProductPage = (props: { title: string }) => {
       toast.error(
         "Matic2x-FLI has reached it's supply cap. Beware this product may be trading at a significant premium to it's Net Asset Value.",
         {
-          toastId: 'ethfli-p-supply-cap-warning',
+          toastId: 'maticfli-p-supply-cap-warning',
           position: 'top-right',
           autoClose: false,
           hideProgressBar: true,
