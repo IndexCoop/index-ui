@@ -153,7 +153,7 @@ export const Matic2xFLIP: ProductToken = {
   polygonAddress: tokenAddresses.matic2xflipTokenAddress,
   image: maticflipLogo,
   coingeckoId: 'index-coop-matic-2x-flexible-leverage-index',
-  tokensetsId: 'matic2x-fli-p-polygon',
+  tokensetsId: 'matic2x-fli-p',
   tokenSelector: 'matic2x-fli-p',
   fees: {
     streamingFee: '1.95%',
@@ -168,7 +168,7 @@ export const IMaticFLIP: ProductToken = {
   polygonAddress: tokenAddresses.imaticflipTokenAddress,
   image: imaticflipLogo,
   coingeckoId: 'index-coop-inverse-matic-flexible-leverage-index',
-  tokensetsId: 'imatic-fli-p-polygon',
+  tokensetsId: 'imatic-fli-p',
   tokenSelector: 'imatic-fli-p',
   fees: {
     streamingFee: '1.95%',
@@ -183,7 +183,7 @@ export const IEthereumFLIP: ProductToken = {
   polygonAddress: tokenAddresses.iethflipTokenAddress,
   image: iethflipLogo,
   coingeckoId: 'index-coop-inverse-eth-flexible-leverage-index',
-  tokensetsId: 'ieth-fli-p-polygon',
+  tokensetsId: 'ieth-fli-p',
   tokenSelector: 'ieth-fli-p',
   fees: {
     streamingFee: '1.95%',
