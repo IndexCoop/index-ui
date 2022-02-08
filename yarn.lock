@@ -2091,10 +2091,10 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz"
   integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
 
-"@indexcoop/tokenlists@^1.15.0":
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/@indexcoop/tokenlists/-/tokenlists-1.15.0.tgz#4a524f5225140b9a2e252c5f02715d4a9f5868d9"
-  integrity sha512-ejvUFEMynmGBNKXHrY8CxWertpBfzbgwJEyLy3ognjoI6RYLmEHkcKSqcnKU2cbojEYsTM0nmpt3jz1aggcrEA==
+"@indexcoop/tokenlists@^1.16.0":
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/@indexcoop/tokenlists/-/tokenlists-1.16.0.tgz#291554a4ae445e6f517460306b6d416b7b2c375c"
+  integrity sha512-jzn1pvGjG3QlnLjPDiBBLi7pLiXOhdKqmaEkivqvhu0/2+s718Ih0sY+5UnyyVTY5cSLwMSBxB/uaU1sC4nybw==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
