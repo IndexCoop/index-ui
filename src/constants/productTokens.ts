@@ -17,6 +17,7 @@ export interface ProductToken {
   image: string
   coingeckoId: string
   tokensetsId: string
+  tokenSelector: string
   fees: { streamingFee: string; mintRedeemFee?: string } | undefined
 }
 
@@ -28,6 +29,7 @@ export const DefiPulseIndex: ProductToken = {
   polygonAddress: tokenAddresses.dpiTokenPolygonAddress,
   coingeckoId: 'defipulse-index',
   tokensetsId: 'dpi',
+  tokenSelector: 'dpi',
   fees: {
     streamingFee: '0.95%',
   },
@@ -41,6 +43,7 @@ export const IndexToken: ProductToken = {
   image: indexLogo,
   coingeckoId: 'index-cooperative',
   tokensetsId: 'index',
+  tokenSelector: 'index',
   fees: undefined,
 }
 
@@ -52,6 +55,7 @@ export const Ethereum2xFlexibleLeverageIndex: ProductToken = {
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
   coingeckoId: 'eth-2x-flexible-leverage-index',
   tokensetsId: 'ethfli',
+  tokenSelector: 'ethfli',
   fees: {
     streamingFee: '1.95%',
   },
@@ -65,6 +69,7 @@ export const Ethereum2xFLIP: ProductToken = {
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
   coingeckoId: 'index-coop-eth-2x-flexible-leverage-index-polygon',
   tokensetsId: 'eth2x-fli-p',
+  tokenSelector: 'eth2x-fli-p',
   fees: {
     streamingFee: '1.95%',
     mintRedeemFee: '0.1%',
@@ -79,6 +84,7 @@ export const MetaverseIndex: ProductToken = {
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/mvi.svg',
   coingeckoId: 'metaverse-index',
   tokensetsId: 'mvi',
+  tokenSelector: 'mvi',
   fees: {
     streamingFee: '0.95%',
   },
@@ -92,6 +98,7 @@ export const Bitcoin2xFlexibleLeverageIndex: ProductToken = {
   image: 'https://set-core.s3.amazonaws.com/img/portfolios/fli_btc.svg',
   coingeckoId: 'btc-2x-flexible-leverage-index',
   tokensetsId: 'btcfli',
+  tokenSelector: 'btcfli',
   fees: {
     streamingFee: '1.95%',
   },
@@ -105,6 +112,7 @@ export const BedIndex: ProductToken = {
   image: bedBorderLogo,
   coingeckoId: 'bankless-bed-index',
   tokensetsId: 'bed',
+  tokenSelector: 'bed',
   fees: {
     streamingFee: '0.25%',
   },
@@ -118,6 +126,7 @@ export const DataIndex: ProductToken = {
   image: dataLogo,
   coingeckoId: 'data-economy-index',
   tokensetsId: 'data',
+  tokenSelector: 'data',
   fees: {
     streamingFee: '0.95%',
   },
@@ -131,6 +140,7 @@ export const GmiIndex: ProductToken = {
   image: gmiLogo,
   coingeckoId: 'bankless-defi-innovation-index',
   tokensetsId: 'gmi',
+  tokenSelector: 'gmi',
   fees: {
     streamingFee: '1.95%',
   },
@@ -144,6 +154,7 @@ export const Matic2xFLIP: ProductToken = {
   image: maticflipLogo,
   coingeckoId: 'index-coop-matic-2x-flexible-leverage-index',
   tokensetsId: 'matic2x-fli-p-polygon',
+  tokenSelector: 'matic2x-fli-p',
   fees: {
     streamingFee: '1.95%',
     mintRedeemFee: '0.1%',
@@ -158,6 +169,7 @@ export const IMaticFLIP: ProductToken = {
   image: imaticflipLogo,
   coingeckoId: 'index-coop-inverse-matic-flexible-leverage-index',
   tokensetsId: 'imatic-fli-p-polygon',
+  tokenSelector: 'imatic-fli-p',
   fees: {
     streamingFee: '1.95%',
     mintRedeemFee: '0.1%',
@@ -172,6 +184,7 @@ export const IEthereumFLIP: ProductToken = {
   image: iethflipLogo,
   coingeckoId: 'index-coop-inverse-eth-flexible-leverage-index',
   tokensetsId: 'ieth-fli-p-polygon',
+  tokenSelector: 'ieth-fli-p',
   fees: {
     streamingFee: '1.95%',
     mintRedeemFee: '0.1%',

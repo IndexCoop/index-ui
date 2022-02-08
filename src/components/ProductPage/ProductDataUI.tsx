@@ -89,7 +89,7 @@ const ProductDataUI: React.FC<ProductDataUIProps> = ({
     if (isAvailableOnCurrentChain())
       return (
         <div>
-          <BuySellWrapper tokenId={tokenData.token.tokensetsId} />
+          <BuySellWrapper tokenId={tokenData.token.tokenSelector} />
         </div>
       )
     return <BuySellDisabled tokenData={tokenData} />
