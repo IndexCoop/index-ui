@@ -16,7 +16,7 @@ export const useAddToMetamask = () => {
         type: 'ERC20',
         options: {
           address: tokenAddress,
-          symbol: token.symbol,
+          symbol: token.symbol.slice(0, 11),
           decimals: 18,
           image: token.image,
         },

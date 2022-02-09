@@ -125,9 +125,9 @@ const App: React.FC = () => {
             <Route exact path='/data'>
               <DATA title={'Index - DATA'} />
             </Route>
-            <Route exact path='/ieth'>
+            {/* <Route exact path='/ieth'>
               <IETHFLIP title={'Index - iETH-FLI-P'} />
-            </Route>
+            </Route> */}
             <Route exact path='/matic2x'>
               <MATIC2XFLIP title={'Index - MATIC2x-FLI-P'} />
             </Route>
