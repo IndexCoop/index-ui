@@ -114,3 +114,15 @@ export const dataTokenPolygonAddress =
   process.env.REACT_APP_POLYGON_DATA_TOKEN_ADDRESS
 export const gmiTokenPolygonAddress =
   process.env.REACT_APP_POLYGON_GMI_TOKEN_ADDRESS
+export const matic2xflipTokenAddress =
+  process.env.REACT_APP_POLYGON_MATIC2X_FLI_P_TOKEN_ADDRESS
+export const matic2xFLIPSuppyCapAddress =
+  process.env.REACT_APP_POLYGON_MATIC2X_FLI_P_SUPPLY_CAP_ADDRESS
+export const imaticflipTokenAddress =
+  process.env.REACT_APP_POLYGON_IMATIC_FLI_P_TOKEN_ADDRESS
+export const imaticFLIPSuppyCapAddress =
+  process.env.REACT_APP_POLYGON_IMATIC_FLI_P_SUPPLY_CAP_ADDRESS
+export const iethflipTokenAddress =
+  process.env.REACT_APP_POLYGON_IETH_FLI_P_TOKEN_ADDRESS
+export const iethFLIPSuppyCapAddress =
+  process.env.REACT_APP_POLYGON_IETH_FLI_P_SUPPLY_CAP_ADDRESS

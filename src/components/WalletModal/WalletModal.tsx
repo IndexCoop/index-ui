@@ -17,7 +17,10 @@ import styled from 'styled-components'
 import bedBorderLogo from 'assets/bed-border.png'
 import dataLogo from 'assets/data-logo.png'
 import gmiLogo from 'assets/gmilogo.png'
+import iethflipLogo from 'assets/iethfliplogo.svg'
+import imaticflipLogo from 'assets/imaticflilogo.svg'
 import indexToken from 'assets/index-token.png'
+import maticflipLogo from 'assets/maticflilogo.svg'
 import Modal from 'components/CustomModal'
 import FancyValue from 'components/FancyValue'
 import Split from 'components/Split'
@@ -50,6 +53,9 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     dataBalancePolygon,
     gmiBalancePolygon,
     stakedGmiBalance,
+    iethFlipBalance,
+    imaticFlipBalancePolygon,
+    maticFlipBalancePolygon,
   } = useBalances()
 
   const totalStakedEthDpiLpBalance = getBigNumber(
@@ -290,18 +296,16 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           </Box>
         </Split>
         <Spacer />
-        <Separator />
-        <Spacer />
         <Split>
           <Box row>
             <FancyValue
               icon={{
-                alt: 'ETH2x-FLI-P Icon',
-                src: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
+                alt: 'GMI Icon',
+                src: gmiLogo,
               }}
-              label='ETH 2x FLI-P Balance'
-              link={`https://polygonscan.com/address/${tokenAddresses.eth2xflipTokenAddress}`}
-              value={displayFromWei(ethflipBalance)}
+              label='Bankless DeFi Innovation Index Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.gmiTokenPolygonAddress}`}
+              value={displayFromWei(gmiBalancePolygon)}
             />
           </Box>
           <Box row>
@@ -321,15 +325,50 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
           <Box row>
             <FancyValue
               icon={{
-                alt: 'GMI Icon',
-                src: gmiLogo,
+                alt: 'ETH2x-FLI-P Icon',
+                src: 'https://set-core.s3.amazonaws.com/img/portfolios/eth2x_fli.svg',
               }}
-              label='Bankless DeFi Innovation Index Balance (Polygon)'
-              link={`https://polygonscan.com/address/${tokenAddresses.gmiTokenPolygonAddress}`}
-              value={displayFromWei(gmiBalancePolygon)}
+              label='ETH 2x FLI-P Balance'
+              link={`https://polygonscan.com/address/${tokenAddresses.eth2xflipTokenAddress}`}
+              value={displayFromWei(ethflipBalance)}
             />
           </Box>
-          <Spacer />
+          {/* <Box row>
+            <FancyValue
+              icon={{
+                alt: 'iETH-FLI-P Icon',
+                src: iethflipLogo,
+              }}
+              label='iETH-FLI-P Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.iethflipTokenAddress}`}
+              value={displayFromWei(iethFlipBalance)}
+            />
+          </Box> */}
+        </Split>
+        <Spacer />
+        <Split>
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'MATIC2x-FLI-P Icon',
+                src: maticflipLogo,
+              }}
+              label='MATIC2x-FLI-P Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.matic2xflipTokenAddress}`}
+              value={displayFromWei(maticFlipBalancePolygon)}
+            />
+          </Box>
+          <Box row>
+            <FancyValue
+              icon={{
+                alt: 'iMATIC-FLI-P Icon',
+                src: imaticflipLogo,
+              }}
+              label='iMATIC-FLI-P Balance (Polygon)'
+              link={`https://polygonscan.com/address/${tokenAddresses.imaticflipTokenAddress}`}
+              value={displayFromWei(imaticFlipBalancePolygon)}
+            />
+          </Box>
         </Split>
       </>
     )

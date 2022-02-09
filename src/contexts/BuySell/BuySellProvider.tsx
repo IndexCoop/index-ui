@@ -4,6 +4,20 @@ import Web3 from 'web3'
 import { provider } from 'web3-core'
 
 import { currencyTokens } from 'constants/currencyTokens'
+import {
+  BedIndex,
+  Bitcoin2xFlexibleLeverageIndex,
+  DataIndex,
+  DefiPulseIndex,
+  Ethereum2xFlexibleLeverageIndex,
+  Ethereum2xFLIP,
+  GmiIndex,
+  IEthereumFLIP,
+  IMaticFLIP,
+  IndexToken,
+  Matic2xFLIP,
+  MetaverseIndex,
+} from 'constants/productTokens'
 import { TransactionStatusType } from 'contexts/TransactionWatcher'
 import useBalances from 'hooks/useBalances'
 import useTransactionWatcher from 'hooks/useTransactionWatcher'
@@ -48,6 +62,9 @@ const BuySellProvider: React.FC = ({ children }) => {
     daiBalancePolygon,
     usdcBalance,
     usdcBalancePolygon,
+    iethFlipBalance,
+    maticFlipBalancePolygon,
+    imaticFlipBalancePolygon,
   } = useBalances()
 
   const { account, ethereum, chainId } = useWallet()
@@ -69,23 +86,35 @@ const BuySellProvider: React.FC = ({ children }) => {
 
   // eslint-disable-next-line
   let spendingTokenBalance = new BigNumber(0)
-  if (!isUserBuying && buySellToken === 'index') {
+  if (!isUserBuying && buySellToken === IndexToken.tokenSelector) {
     spendingTokenBalance = fromWei(indexBalance)
-  } else if (!isUserBuying && buySellToken === 'dpi') {
+  } else if (!isUserBuying && buySellToken === DefiPulseIndex.tokenSelector) {
     spendingTokenBalance = getNetworkedBalance(dpiBalance, dpiBalancePolygon)
-  } else if (!isUserBuying && buySellToken === 'ethfli') {
+  } else if (
+    !isUserBuying &&
+    buySellToken === Ethereum2xFlexibleLeverageIndex.tokenSelector
+  ) {
     spendingTokenBalance = fromWei(ethfliBalance)
-  } else if (!isUserBuying && buySellToken === 'eth2x-fli-p') {
+  } else if (!isUserBuying && buySellToken === Ethereum2xFLIP.tokenSelector) {
     spendingTokenBalance = fromWei(ethflipBalance)
-  } else if (!isUserBuying && buySellToken === 'btcfli') {
+  } else if (!isUserBuying && buySellToken === IEthereumFLIP.tokenSelector) {
+    spendingTokenBalance = fromWei(iethFlipBalance)
+  } else if (!isUserBuying && buySellToken === Matic2xFLIP.tokenSelector) {
+    spendingTokenBalance = fromWei(maticFlipBalancePolygon)
+  } else if (!isUserBuying && buySellToken === IMaticFLIP.tokenSelector) {
+    spendingTokenBalance = fromWei(imaticFlipBalancePolygon)
+  } else if (
+    !isUserBuying &&
+    buySellToken === Bitcoin2xFlexibleLeverageIndex.tokenSelector
+  ) {
     spendingTokenBalance = fromWei(btcfliBalance)
-  } else if (!isUserBuying && buySellToken === 'mvi') {
+  } else if (!isUserBuying && buySellToken === MetaverseIndex.tokenSelector) {
     spendingTokenBalance = getNetworkedBalance(mviBalance, mviBalancePolygon)
-  } else if (!isUserBuying && buySellToken === 'bed') {
+  } else if (!isUserBuying && buySellToken === BedIndex.tokenSelector) {
     spendingTokenBalance = fromWei(bedBalance)
-  } else if (!isUserBuying && buySellToken === 'gmi') {
+  } else if (!isUserBuying && buySellToken === GmiIndex.tokenSelector) {
     spendingTokenBalance = fromWei(gmiBalance)
-  } else if (!isUserBuying && buySellToken === 'data') {
+  } else if (!isUserBuying && buySellToken === DataIndex.tokenSelector) {
     spendingTokenBalance = getNetworkedBalance(dataBalance, dataBalancePolygon)
   } else if (selectedCurrency?.label === 'ETH') {
     spendingTokenBalance = getNetworkedBalance(ethBalance, wethBalancePolygon)

@@ -7,6 +7,9 @@ import {
   Ethereum2xFlexibleLeverageIndex,
   Ethereum2xFLIP,
   GmiIndex,
+  IEthereumFLIP,
+  IMaticFLIP,
+  Matic2xFLIP,
   MetaverseIndex,
 } from 'constants/productTokens'
 
@@ -18,6 +21,9 @@ interface StreamingFeeProps {
   eth2xFliStreamingFee?: string
   eth2xFLIPStreamingFee?: string
   btc2xFliStreamingFee?: string
+  iethFLIPStreamingFee?: string
+  matic2xFLIPStreamingFee?: string
+  imaticFLIPStreamingFee?: string
 }
 
 const StreamingFee = createContext<StreamingFeeProps>({
@@ -28,6 +34,9 @@ const StreamingFee = createContext<StreamingFeeProps>({
   eth2xFliStreamingFee: Ethereum2xFlexibleLeverageIndex.fees?.streamingFee,
   eth2xFLIPStreamingFee: Ethereum2xFLIP.fees?.streamingFee,
   btc2xFliStreamingFee: Bitcoin2xFlexibleLeverageIndex.fees?.streamingFee,
+  iethFLIPStreamingFee: IEthereumFLIP.fees?.streamingFee,
+  matic2xFLIPStreamingFee: Matic2xFLIP.fees?.streamingFee,
+  imaticFLIPStreamingFee: IMaticFLIP.fees?.streamingFee,
 })
 
 export default StreamingFee

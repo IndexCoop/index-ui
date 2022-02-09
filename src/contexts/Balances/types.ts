@@ -22,6 +22,9 @@ export interface ContextValues {
   usdcBalancePolygon?: BigNumber
   dataBalancePolygon?: BigNumber
   gmiBalancePolygon?: BigNumber
+  maticFlipBalancePolygon?: BigNumber
+  imaticFlipBalancePolygon?: BigNumber
+  iethFlipBalance?: BigNumber
 
   // LP Tokens
   uniswapEthDpiLpBalance?: BigNumber
