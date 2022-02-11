@@ -333,7 +333,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               value={displayFromWei(ethflipBalance)}
             />
           </Box>
-          {/* <Box row>
+          <Box row>
             <FancyValue
               icon={{
                 alt: 'iETH-FLI-P Icon',
@@ -343,7 +343,7 @@ const WalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
               link={`https://polygonscan.com/address/${tokenAddresses.iethflipTokenAddress}`}
               value={displayFromWei(iethFlipBalance)}
             />
-          </Box> */}
+          </Box>
         </Split>
         <Spacer />
         <Split>
