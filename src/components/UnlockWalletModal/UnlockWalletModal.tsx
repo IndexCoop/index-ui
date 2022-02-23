@@ -52,6 +52,14 @@ const UnlockWalletModal: React.FC<ModalProps> = ({ isOpen, onDismiss }) => {
     }
   }, [account, onDismiss])
 
+  if (isOpen) {
+    document.body.style.overflow='hidden';
+  }
+
+  else {
+    document.body.style.overflow='';
+  }
+
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss}>
       <StyledModalBody>
