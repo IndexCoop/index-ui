@@ -11,6 +11,7 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
   if (visible) {
+    document.body.style.overflow='hidden';
     return (
       <StyledMobileMenuWrapper>
         <StyledBackdrop onClick={onDismiss} />
@@ -123,6 +124,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
       </StyledMobileMenuWrapper>
     )
   }
+
+  else {
+    document.body.style.overflow='';
+  }
+
   return null
 }
 
